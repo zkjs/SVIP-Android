@@ -56,6 +56,19 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private LinearLayout msgNotifyLayout;
     private SlidingMenu slidingMenu;
 
+    private boolean isFirstTime = true;
+
+    public void onResume(){
+        super.onResume();
+        LogUtil.getInstance().info(LogLevel.DEBUG, "MainActivity onResume...");
+        if(isFirstTime){
+            isFirstTime = false;
+        }
+        else{
+            MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+        }
+    }
+
 
     private void initView(){
 
@@ -72,13 +85,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void initData(){
         MainUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
-        //MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+
         initAvatar();
         initDBName();
         LocationManager.getInstance().registerLocation(this);
 
-        initSocketService();
-        initIMService();
+        //initSocketService();
+        //initIMService();
     }
 
     private void initAvatar() {
@@ -101,6 +114,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                                     UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
                                     if(null != userInfoVo){
                                         String userPhotoSuffix = userInfoVo.getUserAvatar();
+                                        CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                                         if(!TextUtils.isEmpty(userPhotoSuffix)){
                                             String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
                                             CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);

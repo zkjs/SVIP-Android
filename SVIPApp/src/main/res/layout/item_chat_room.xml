@@ -20,13 +20,14 @@
             android:id="@+id/tv_unread_message_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9"
+            android:text="99"
             android:gravity="center"
             android:textColor="#FFFFFF"
             android:background="@drawable/red_round_select"
             android:textSize="18sp"
             android:layout_alignTop="@+id/iv_shop_icon"
             android:layout_alignRight="@+id/iv_shop_icon"
+            android:visibility="invisible"
             />
 
     </RelativeLayout>

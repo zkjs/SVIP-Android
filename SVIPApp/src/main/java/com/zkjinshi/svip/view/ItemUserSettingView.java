@@ -81,6 +81,17 @@ public class ItemUserSettingView extends RelativeLayout{
     }
 
     /**
+     * 取参数2
+     *
+     */
+    public String getTextContent2(){
+        if(mTextContent2.getText() != null){
+            return mTextContent2.getText().toString();
+        }
+        return "";
+    }
+
+    /**
      * 设置斜线填充
      * @param textSlash
      */

@@ -26,7 +26,7 @@ public class UserInfoFactory {
         userInfoVo.setUserid(userInfoResponse.getUserid());
         userInfoVo.setUsername(userInfoResponse.getUsername());
         userInfoVo.setPassword(userInfoResponse.getPassword());
-        userInfoVo.setCompany(userInfoResponse.getPreference());
+        userInfoVo.setCompany(userInfoResponse.getRemark());
         userInfoVo.setMobilePhoto(userInfoResponse.getPhone());
         userInfoVo.setPosition(userInfoResponse.getRemark());
         userInfoVo.setUserAvatar(userInfoResponse.getUser_avatar());

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainUiController;
@@ -42,9 +44,14 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
         return mView;
     }
 
-    public void onStart()
-    {
+    public void onStart()    {
         super.onStart();
+        LogUtil.getInstance().info(LogLevel.DEBUG, "onStart...");
+
+    }
+    public void onResume(){
+        super.onResume();
+        LogUtil.getInstance().info(LogLevel.DEBUG,"onResume...");
         initData();
     }
 

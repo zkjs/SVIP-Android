@@ -21,8 +21,9 @@ public class ItemTitleView extends RelativeLayout {
     private RelativeLayout  mLeft;
     private RelativeLayout  mRight;
     private TextView        mTextTitle;//标题
+    public  TextView        mRightText;//右侧文字
     private ImageView       mLeftImage;//左侧图片
-    private ImageView       mRightImage;//右侧图片
+    public  ImageView       mRightImage;//右侧图片
 
     public ItemTitleView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -54,6 +55,7 @@ public class ItemTitleView extends RelativeLayout {
         mTextTitle  = (TextView)        findViewById(R.id.tv_item_title);
         mLeftImage  = (ImageView)       findViewById(R.id.iv_left_image);
         mRightImage = (ImageView)       findViewById(R.id.iv_right_image);
+        mRightText  =  (TextView)       findViewById(R.id.iv_right_text);
     }
 
     /**
