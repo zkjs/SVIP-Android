@@ -1,197 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a835431a-0c92-4117-abd8-95cf9975c6f2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIP-Android.iml" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\CCP_REST_SMS_SDK_JAVA_v2_6_3r.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\MapApiLocation_1_3_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_AtFriends.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_Sina.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_UserCenter.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_actionbarview.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_comment.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_evernote.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_facebook_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_facebook_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_flickr.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_foursquare.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_instagram.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_kakao.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_laiwang_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_laiwang_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_like.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_line.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_linkedin.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_pinterest.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_pocket.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_renren_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_renren_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_scrshot.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_shake.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_sms.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tumblr.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_whatsapp.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_yixin_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_yixin_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_ynote.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\alipaySDK_20150610.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\bolts_android_1_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\eventbus_3_0_0_beta1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\httpmime_4_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\libammsdk.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\library_1_0_17.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\library_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\picasso_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\recyclerview_v7_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_13_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\testinagent.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\umeng_social_sdk.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\universal_image_loader_1_9_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\SVIP.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" afterPath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" afterPath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" afterPath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" afterPath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
-    <ignored path="SVIP.iws" />
+    <list default="true" id="953de385-1b42-49fa-a6f4-30354cee9d38" name="Default" comment="" />
+    <ignored path="SVIP-Android.iws" />
     <ignored path=".idea/workspace.xml" />
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/build/classes/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/coverage-instrumented-classes/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/dependency-cache/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/dex/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/dex-cache/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/jacoco/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/javaResources/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/libs/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/lint/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/ndk/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/pre-dexed/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/proguard/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/rs/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/SVIPApp/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/coverage-instrumented-classes/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/dependency-cache/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/dex/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/dex-cache/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/jacoco/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/javaResources/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/libs/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/lint/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/ndk/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/pre-dexed/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/proguard/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/rs/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/SlidingMenu/build/tmp/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/coverage-instrumented-classes/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/dependency-cache/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/dex/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/dex-cache/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/jacoco/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/javaResources/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/libs/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/lint/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/ndk/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/pre-dexed/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/proguard/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/rs/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/ZKJinShiBaseClass/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/coverage-instrumented-classes/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/dependency-cache/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/dex/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/dex-cache/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/jars/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/jacoco/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/javaResources/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/libs/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/lint/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/ndk/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/pre-dexed/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/proguard/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/rs/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/multi-image-selector/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/coverage-instrumented-classes/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/dependency-cache/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/dex/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/dex-cache/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/jacoco/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/javaResources/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/libs/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/lint/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/ndk/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/pre-dexed/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/proguard/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/rs/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/social_sdk_library_project/build/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -204,45 +16,15 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
-    <favorites_list name="SVIP" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/local.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SVIP-Android.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIP-Android.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="76" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <favorites_list name="SVIP-Android" />
   </component>
   <component name="GradleLocalSettings">
     <option name="availableProjects">
@@ -4349,7 +4131,6 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="F:\develop_code\android\studio\SVIP" value="11520953381622" />
         <entry key="F:\develop_code\android\studio\SVIP-Android" value="11520953381622" />
       </map>
     </option>
@@ -5031,6 +4812,117 @@
               <option name="name" value="social_sdk_library_project" />
               <option name="projectBuildClasspath">
                 <list>
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/announce" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/antlr" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/base-services" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/base-services-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/build-comparison" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/build-init" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/cli" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/code-quality" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/dependency-management" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/diagnostics" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/ear" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/ide" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/ide-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/internal-integ-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/internal-testing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/ivy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/jacoco" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/javascript" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/jetty" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/language-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/language-java" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/language-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/language-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/language-scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/launcher" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/maven" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/messaging" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/model-core" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/model-groovy" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/open-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/osgi" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/platform-base" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/platform-jvm" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/platform-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/platform-play" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/plugin-development" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/plugin-use" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/plugins" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/publish" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/reporting" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/resources" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/resources-http" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/resources-s3" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/resources-sftp" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/scala" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/signing" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/sonar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/testing-native" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/tooling-api" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/tooling-api-builders" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/ui" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/src/wrapper" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/ant-1.9.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/ant-launcher-1.9.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-base-services-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-base-services-groovy-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-cli-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-core-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-docs-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-launcher-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-messaging-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-model-core-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-model-groovy-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-native-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-open-api-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-resources-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-tooling-api-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-ui-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/gradle-wrapper-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/groovy-all-2.3.10.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-announce-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-antlr-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-build-comparison-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-build-init-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-code-quality-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-dependency-management-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-diagnostics-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-ear-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-ide-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-ide-native-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-ivy-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-jacoco-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-javascript-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-jetty-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-language-groovy-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-language-java-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-language-jvm-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-language-native-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-language-scala-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-maven-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-osgi-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-platform-base-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-platform-jvm-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-platform-native-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-platform-play-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-plugin-development-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-plugin-use-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-plugins-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-publish-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-reporting-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-resources-http-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-resources-s3-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-resources-sftp-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-scala-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-signing-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-sonar-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-testing-native-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/gradle-tooling-api-builders-2.4.jar" />
+                  <option value="$USER_HOME$/.gradle/wrapper/dists/gradle-2.4-all/6r4uqcc6ovnq6ac6s0txzcpc0/gradle-2.4/lib/plugins/ivy-2.2.0.jar" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/java" />
                   <option value="$PROJECT_DIR$/buildSrc/src/main/groovy" />
                 </list>
@@ -5042,13 +4934,6 @@
     </option>
     <option name="externalProjectsViewState">
       <projects_view />
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Bundled (Maven 3)" />
-      </MavenGeneralSettings>
     </option>
   </component>
   <component name="NamedScopeManager">
@@ -5071,7 +4956,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -5083,44 +4968,30 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP" />
+              <option name="myItemId" value="SVIP-Android" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="android.sdk.path" value="E:/android-soft/adt-bundle-windows-x86_64-20140702/sdk" />
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
   </component>
   <component name="RunManager" selected="Android Application.SVIPApp">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -5272,48 +5143,45 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a835431a-0c92-4117-abd8-95cf9975c6f2" name="Default" comment="" />
-      <created>1440119193763</created>
+      <changelist id="953de385-1b42-49fa-a6f4-30354cee9d38" name="Default" comment="" />
+      <created>1440141327050</created>
       <option name="number" value="Default" />
-      <updated>1440119193763</updated>
+      <updated>1440141327050</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1604" height="876" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -5322,31 +5190,5 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIP-Android.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="76" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>
