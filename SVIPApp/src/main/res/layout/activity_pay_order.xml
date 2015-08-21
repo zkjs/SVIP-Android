@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:scrollbars="none"
+        android:scrollbarStyle="insideInset">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/pay_order_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="258dp"
+                android:background="@mipmap/bg_dingdan">
+
+                <com.zkjinshi.svip.view.ItemTitleView
+                    android:id="@+id/pay_order_title_layout"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    zkjinshi:leftImage="@mipmap/ic_fanhui"
+                    zkjinshi:rightImage="@mipmap/ic_quxiao">
+                </com.zkjinshi.svip.view.ItemTitleView>
+
+            <LinearLayout
+                android:id="@+id/pay_order_round_layout"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_below="@id/pay_order_title_layout"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_yuan">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal|bottom"
+                    android:id="@+id/relativeLayout">
+
+                    <TextView
+                        android:id="@+id/pay_order_rbm_tv"
+                        android:textSize="13sp"
+                        android:padding="2dp"
+                        android:textColor="@color/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥" />
+
+                    <TextView
+                        android:id="@+id/pay_order_price_tv"
+                        android:textSize="20dp"
+                        android:padding="2dp"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/OrangeFB880E"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@null"
+                        android:layout_centerHorizontal="true" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/pay_order_room_type_layout"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/pay_order_room_type_tv"
+                        android:padding="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="豪华大床" />
+
+                    <View
+                        android:id="@+id/pay_order_cut_line_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/pay_order_room_type_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@id/pay_order_room_type_tv"
+                        android:layout_alignRight="@id/pay_order_room_type_tv"
+                        android:background="@color/Gray9E9E9E"
+                        ></View>
+
+                    <TextView
+                        android:id="@+id/pay_order_room_tag"
+                        android:padding="2dp"
+                        android:textSize="13sp"
+                        android:textColor="@color/Gray7C7C7C"
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="wrap_content"
+                        android:text="含早餐/无烟房"
+                        android:layout_below="@id/pay_order_cut_line_view" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/pay_order_ali_pay_ibtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="45dp"
+                android:background="@mipmap/ic_zhifubao"/>
+
+            <ImageButton
+                android:id="@+id/pay_order_we_chat_pay_ibtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="42dp"
+                android:background="@mipmap/ic_weixinzhifu"/>
+
+            <TextView
+                android:id="@+id/pay_order_cc_pay_tv"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:drawablePadding="10dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:clickable="true"
+                android:drawableRight="@drawable/bg_get_into"
+                android:textColor="@color/pay_order_btn_text"
+                android:text="@string/pay_cc"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="left|center_vertical"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="30dp"
+                android:textColor="#0B0B0B"
+                android:text="@string/sweet_prompt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="left|center_vertical"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="12sp"
+                android:textColor="#0B0B0B"
+                android:text="@string/sweet_prompt_one"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="left|center_vertical"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="30dp"
+                android:textColor="#0B0B0B"
+                android:text="@string/sweet_prompt_two"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
+
+
+

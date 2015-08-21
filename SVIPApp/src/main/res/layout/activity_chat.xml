@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:background="@color/White"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.zkjinshi.svip.view.ItemTitleView
+            android:id="@+id/Itv_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            zkjinshi:leftImage="@mipmap/ic_fanhui"
+            zkjinshi:rightImage="@mipmap/ic_quxiao">
+        </com.zkjinshi.svip.view.ItemTitleView>
+
+        <TextView
+            android:id="@+id/push_chat_txt_netset"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffd893"
+            android:drawableLeft="@mipmap/ic_message_send_fail_normal"
+            android:drawableRight="@mipmap/ic_message_arrow_right_normal"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="\t世界上最遥远的距离就是没网。检查设置"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0" >
+
+            <com.zkjinshi.svip.view.MsgListView
+                android:id="@+id/msg_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"
+                android:transcriptMode="normal" />
+
+            <LinearLayout
+                android:id="@+id/speaker_phone_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="7dp"
+                android:background="@drawable/aio_speaker_phone_bg"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/speaker_phone_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/aio_speaker_phone_over" />
+
+                <TextView
+                    android:id="@+id/speaker_phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="免提"
+                    android:textColor="@color/skin_hint_input"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/inputBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/chat_bottom_bg"
+            android:gravity="center_vertical" >
+
+            <ImageButton
+                android:id="@+id/voice_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/aio_voice" />
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp" >
+
+                <EditText
+                    android:id="@+id/et_msg_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toLeftOf="@+id/face_cb"
+                    android:background="@mipmap/chat_et_bg"
+                    android:inputType="textMultiLine"
+                    android:maxHeight="68.0dip"
+                    android:paddingBottom="3.0dip"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="14.0dip"
+                    android:paddingTop="3.0dip"
+                    android:textSize="16.0sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/say_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toLeftOf="@+id/face_cb"
+                    android:background="@drawable/cm_btn_bg"
+                    android:gravity="center"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"
+                    android:text="按住  说话"
+                    android:textColor="@color/cm_btn_textcolor"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <CheckBox
+                    android:id="@+id/face_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:button="@null"
+                    android:drawableLeft="@drawable/aio_favorite" />
+            </RelativeLayout>
+
+            <CheckBox
+                android:id="@+id/more_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:button="@null"
+                android:drawableLeft="@drawable/aio_fold" />
+
+            <Button
+                android:id="@+id/btn_msg_send"
+                android:layout_width="45dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/cm_send_btn_bg"
+                android:enabled="false"
+                android:padding="0dp"
+                android:text="发送"
+                android:textColor="@android:color/white"
+                android:textSize="14.0sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/face_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff0f0f0"
+            android:orientation="vertical"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:visibility="gone" >
+
+            <com.zkjinshi.svip.view.JazzyViewPager
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/face_pager"
+                app:style="standard"
+                android:layout_width="fill_parent"
+                android:layout_height="200.0dip"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="#0000"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation" />
+
+            <com.zkjinshi.svip.view.CirclePageIndicator
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/indicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/more_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff0f0f0"
+            android:orientation="vertical"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:visibility="visible" >
+
+            <com.zkjinshi.svip.view.JazzyViewPager
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/more_pager"
+                app:style="standard"
+                android:layout_width="fill_parent"
+                android:layout_height="200.0dip"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:background="#0000"
+                android:flipInterval="30"
+                android:persistentDrawingCache="animation" />
+
+            <com.zkjinshi.svip.view.CirclePageIndicator
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/more_indicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        layout="@layout/voice_rcd_hint_window" />
+
+</RelativeLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="6.0dip"
+    android:paddingLeft="10.0dip"
+    android:paddingRight="10.0dip"
+    android:paddingTop="6.0dip" >
+
+    <include
+        android:id="@+id/datetime"
+        layout="@layout/dataline_time_item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/datetime"
+        android:orientation="horizontal" >
+
+        <com.zkjinshi.svip.view.CircleImageView
+            android:id="@+id/icon"
+            android:layout_width="40.0dip"
+            android:layout_height="40.0dip"
+            android:layout_marginTop="5.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_img_selfish" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:text="@null"
+                android:textColor="#6C6C6C"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/content_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:addStatesFromChildren="true"
+                    android:background="@drawable/aio_friend_bg"
+                    android:clickable="true"
+                    android:lineSpacingExtra="2.0dip"
+                    android:paddingBottom="10.0dip"
+                    android:paddingLeft="13.0dip"
+                    android:paddingRight="13.0dip"
+                    android:paddingTop="10.0dip"
+                    android:gravity="center_vertical|left" >
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoLink="email|phone|web"
+                        android:gravity="center_vertical|left"
+                        android:lineSpacingExtra="2.0dip"
+                        android:maxWidth="270dp"
+                        android:padding="7.0dip"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="100.0dip"
+                        android:maxWidth="100.0dip"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/voice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/skin_aio_ptt_record_friend_nor"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="10dp"
+                    android:clickable="false"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:lineSpacingExtra="2dp"
+                    android:minHeight="50dp"
+                    android:text=""
+                    android:textColor="#ff000000"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/erricon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:src="@drawable/aio_send_fail"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/datetime"
+        android:layout_marginLeft="10dip"
+        android:background="@null"
+        android:button="@null"
+        android:clickable="false"
+        android:drawableLeft="@drawable/checkbox_selector"
+        android:visibility="gone" />
+
+</RelativeLayout>

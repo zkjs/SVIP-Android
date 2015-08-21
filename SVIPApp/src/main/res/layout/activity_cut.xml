@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@mipmap/bg_svip_mine"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/header_bar_btn_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/header_ibtn_back"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/header_bar_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:text="@string/svip_cut"/>
+
+        <TextView
+            android:id="@+id/header_bar_tv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
+            android:text="@string/mine_finish"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:background="#737373" >
+
+        <view
+            android:id="@+id/gl_modify_avatar_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            class="com.zkjinshi.svip.view.zoomview.CropImageView" />
+    </RelativeLayout>
+
+</LinearLayout>

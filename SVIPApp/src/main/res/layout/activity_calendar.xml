@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    xmlns:calendar="http://schemas.android.com/apk/res-auto"
+    android:background="#EEEEEE"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/calendar_header_bar_btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/header_ibtn_back"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/black"
+                android:text="@string/choose_check_in_and_out_date"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.andexert.calendarlistview.DayPickerView
+            android:id="@+id/date_picker_choose_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            calendar:drawRoundRect="false"
+            calendar:startCurrentMonth="true"
+            calendar:enablePreviousDay="false"
+            calendar:preSetDay="true"
+            calendar:colorPreviousDay="#CFCFCF"
+            calendar:colorNormalDay="#000000"
+            calendar:colorMonthName="#000000"
+            calendar:colorDayName="#000000"
+            calendar:colorCurrentDay="#000000"
+            calendar:colorSelectedDayBackground="#008B8B"
+            calendar:selectedDayRadius="22dp"
+            calendar:textSizeDay="20dp"
+            calendar:textSizeMonth="22dp"
+            calendar:calendarHeight="500dp"
+            />
+        <LinearLayout
+            android:id="@+id/calendar_tips_llyt"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:background="@drawable/corners_shape_bg"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/calendar_tips_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请选择入住日期"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*注：所选日期为目的地日期"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</LinearLayout>

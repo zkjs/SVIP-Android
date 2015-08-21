@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="270dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#252628"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="270dp"
+        android:layout_height="168dp"
+        android:background="@drawable/bg_cebian">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="32dp">
+
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/leftmenu_user_photo_civ"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:scaleType="center"
+                android:clickable="true"
+                android:background="@mipmap/ic_main_user_default_photo_nor" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:id="@+id/leftmenu_user_name"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            style="@style/LeftMenuText"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="首页"
+            android:drawableLeft="@drawable/ic_home"
+            android:id="@+id/leftmenu_home_tv" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            style="@style/LeftMenuText"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="设置"
+            android:drawableLeft="@drawable/ic_shezhi"
+            android:id="@+id/leftmenu_set_tv"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            style="@style/LeftMenuText"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="免前台"
+            android:drawableLeft="@drawable/ic_mianqiantai"
+            android:id="@+id/leftmenu_front_tv"
+            />
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                style="@style/LeftMenuText"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:text="订单"
+                android:drawableLeft="@drawable/ic_dingdan"
+                android:id="@+id/leftmenu_order_tv"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            style="@style/LeftMenuText"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="足迹"
+            android:drawableLeft="@drawable/ic_zuji"
+            android:id="@+id/leftmenu_footprint_tv"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

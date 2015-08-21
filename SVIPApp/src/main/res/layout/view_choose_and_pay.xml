@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/view_choose_and_pay_layout"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:background="#22000000"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/good_list_rg_level"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:checkedButton="@+id/good_list_rb_level_all"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/good_list_rb_level_business"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/business"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_level_type"/>
+
+            <RadioButton
+                android:id="@+id/good_list_rb_level_luxury"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/luxury"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_level_type"/>
+
+            <RadioButton
+                android:id="@+id/good_list_rb_level_low_cost"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/low_cost"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_level_type"/>
+
+            <RadioButton
+                android:id="@id/good_list_rb_level_all"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/all"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_level_type"/>
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/good_list_rg_breakfast"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:layout_marginRight="30dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/good_list_rb_breakfast_double"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="@string/double_breakfast"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_breakfast_type"/>
+
+            <RadioButton
+                android:id="@+id/good_list_rb_breakfast_single"
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:textSize="16sp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/single_breakfast"
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/room_list_rb_breakfast_type"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/room_list_book_right_now_btn"
+        android:layout_width="match_parent"
+        android:background="@drawable/btn_room_list_book_right_now_selector"
+        android:layout_height="wrap_content"
+        android:text="@string/book_right_now"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"/>
+
+</LinearLayout>

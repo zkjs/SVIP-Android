@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Config.CustomEditText" parent="@android:style/Widget.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">@dimen/base_config_input_font_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColorHint">@color/base_config_white_smoke</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingLeft">@dimen/base_config_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/base_config_horizontal_margin</item>
+    </style>
+
+    <style name="customDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+</resources>

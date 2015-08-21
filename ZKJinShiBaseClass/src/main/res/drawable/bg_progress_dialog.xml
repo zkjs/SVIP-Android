@@ -1,0 +1,13 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:oneshot="false">
+
+  <item android:drawable="@mipmap/v1"  android:duration="130"/>
+  <item android:drawable="@mipmap/v2"  android:duration="130"/>
+  <item android:drawable="@mipmap/v3"  android:duration="130"/>
+  <item android:drawable="@mipmap/v4"  android:duration="130"/>
+  <item android:drawable="@mipmap/v5"  android:duration="130"/>
+  <item android:drawable="@mipmap/v6"  android:duration="130"/>
+  <item android:drawable="@mipmap/v7"  android:duration="130"/>
+  <item android:drawable="@mipmap/v8"  android:duration="130"/>
+
+</animation-list>
