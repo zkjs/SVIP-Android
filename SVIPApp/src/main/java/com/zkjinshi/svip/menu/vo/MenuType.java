@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.menu;
+package com.zkjinshi.svip.menu.vo;
 
 /**
  * 开发者：JimmyZhang

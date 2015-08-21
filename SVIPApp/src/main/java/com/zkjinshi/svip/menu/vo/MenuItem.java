@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.menu;
+package com.zkjinshi.svip.menu.vo;
 
 import java.io.Serializable;
 
