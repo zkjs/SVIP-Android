@@ -1,7 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a835431a-0c92-4117-abd8-95cf9975c6f2" name="Default" comment="" />
+    <list default="true" id="a835431a-0c92-4117-abd8-95cf9975c6f2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIP-Android.iml" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\CCP_REST_SMS_SDK_JAVA_v2_6_3r.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\MapApiLocation_1_3_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_AtFriends.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_QQZone_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_Sina.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_UserCenter.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_actionbarview.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_comment.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_email.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_evernote.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_facebook_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_facebook_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_flickr.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_foursquare.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_instagram.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_kakao.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_laiwang_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_laiwang_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_like.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_line.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_linkedin.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_pinterest.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_pocket.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_renren_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_renren_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_scrshot.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_shake.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_sms.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_tumblr.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_whatsapp.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_yixin_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_yixin_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\SocialSDK_ynote.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\alipaySDK_20150610.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_21_0_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_22_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\appcompat_v7_22_2_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\bolts_android_1_1_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\eventbus_3_0_0_beta1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\httpmime_4_1_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\libammsdk.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\library_1_0_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\library_2_4_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\picasso_2_4_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\recyclerview_v7_21_0_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_21_0_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_2_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_annotations_22_2_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_13_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_21_0_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_2_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\support_v4_22_2_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\testinagent.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\umeng_social_sdk.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\.idea\libraries\universal_image_loader_1_9_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\develop_code\android\studio\SVIP-Android\SVIP.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" afterPath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" afterPath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" afterPath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" afterPath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="SVIP.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -129,6 +207,40 @@
   <component name="FavoritesManager">
     <favorites_list name="SVIP" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="local.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/local.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SVIP-Android.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIP-Android.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="76" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -138,7 +250,7 @@
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="SVIP" />
+              <option name="name" value="SVIP-Android" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
@@ -165,12 +277,12 @@
                 <option name="path" value="$PROJECT_DIR$/multi-image-selector" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
-                <option name="name" value=":CalendarListView" />
-                <option name="path" value="$PROJECT_DIR$/CalendarListView" />
+                <option name="name" value="SVIP-Android" />
+                <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
               <ExternalProjectPojo>
-                <option name="name" value="SVIP" />
-                <option name="path" value="$PROJECT_DIR$" />
+                <option name="name" value=":CalendarListView" />
+                <option name="path" value="$PROJECT_DIR$/CalendarListView" />
               </ExternalProjectPojo>
             </list>
           </value>
@@ -183,17 +295,17 @@
           <value>
             <list>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the components produced by root project 'SVIP'. [incubating]" />
+                <option name="description" value="Displays the components produced by root project 'SVIP-Android'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="components" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays all dependencies declared in root project 'SVIP'." />
+                <option name="description" value="Displays all dependencies declared in root project 'SVIP-Android'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the insight into a specific dependency in root project 'SVIP'." />
+                <option name="description" value="Displays the insight into a specific dependency in root project 'SVIP-Android'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependencyInsight" />
               </ExternalTaskPojo>
@@ -208,22 +320,22 @@
                 <option name="name" value="init" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the configuration model of root project 'SVIP'. [incubating]" />
+                <option name="description" value="Displays the configuration model of root project 'SVIP-Android'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="model" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the sub-projects of root project 'SVIP'." />
+                <option name="description" value="Displays the sub-projects of root project 'SVIP-Android'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="projects" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the properties of root project 'SVIP'." />
+                <option name="description" value="Displays the properties of root project 'SVIP-Android'." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="properties" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Displays the tasks runnable from root project 'SVIP' (some of the displayed tasks may belong to subprojects)." />
+                <option name="description" value="Displays the tasks runnable from root project 'SVIP-Android' (some of the displayed tasks may belong to subprojects)." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="tasks" />
               </ExternalTaskPojo>
@@ -809,29 +921,29 @@
                 <option name="name" value="prepareComAndroidSupportSupportV42221Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:CalendarListView:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:CalendarListView:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareSVIPCalendarListViewUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidCalendarListViewUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:multi-image-selector:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:multi-image-selector:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareSVIPMultiImageSelectorUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidMultiImageSelectorUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:SlidingMenu:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:SlidingMenu:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareSVIPSlidingMenuUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidSlidingMenuUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:social_sdk_library_project:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:social_sdk_library_project:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareSVIPSocial_sdk_library_projectUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidSocial_sdk_library_projectUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:ZKJinShiBaseClass:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:ZKJinShiBaseClass:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareSVIPZKJinShiBaseClassUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidZKJinShiBaseClassUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Uninstalls the Debug build." />
@@ -1872,29 +1984,29 @@
                 <option name="name" value="prepareReleaseUnitTestDependencies" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:CalendarListView:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:CalendarListView:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
-                <option name="name" value="prepareSVIPCalendarListViewUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidCalendarListViewUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:multi-image-selector:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:multi-image-selector:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
-                <option name="name" value="prepareSVIPMultiImageSelectorUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidMultiImageSelectorUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:SlidingMenu:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:SlidingMenu:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
-                <option name="name" value="prepareSVIPSlidingMenuUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidSlidingMenuUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:social_sdk_library_project:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:social_sdk_library_project:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
-                <option name="name" value="prepareSVIPSocial_sdk_library_projectUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidSocial_sdk_library_projectUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare SVIP:ZKJinShiBaseClass:unspecified" />
+                <option name="description" value="Prepare SVIP-Android:ZKJinShiBaseClass:unspecified" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
-                <option name="name" value="prepareSVIPZKJinShiBaseClassUnspecifiedLibrary" />
+                <option name="name" value="prepareSVIPAndroidZKJinShiBaseClassUnspecifiedLibrary" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/SVIPApp" />
@@ -4238,6 +4350,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="F:\develop_code\android\studio\SVIP" value="11520953381622" />
+        <entry key="F:\develop_code\android\studio\SVIP-Android" value="11520953381622" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -4970,6 +5083,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -4980,7 +5094,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4995,7 +5108,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP" />
+              <option name="myItemId" value="SVIP-Android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -5173,7 +5286,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1604" height="876" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -5188,7 +5301,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -5209,5 +5322,31 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIP-Android.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="76" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
