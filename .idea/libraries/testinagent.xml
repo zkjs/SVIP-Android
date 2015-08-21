@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="testinagent">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/SVIPApp/libs/testinagent.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
