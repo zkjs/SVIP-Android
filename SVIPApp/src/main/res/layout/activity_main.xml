@@ -1,0 +1,185 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.zkjinshi.svip.view.kenburnsview.KenBurnsView
+        android:id="@+id/main_burns_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_main_burns"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_jianbian"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_main_text_svip"
+            android:id="@+id/main_logo_imageView"/>
+
+    <RelativeLayout
+        android:id="@+id/main_tool_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_below="@id/main_logo_imageView">
+
+        <ImageButton
+            android:id="@+id/main_menu_ibtn"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_caidan"
+            android:background="@android:color/transparent"
+            android:scaleType="center"
+            />
+
+        <ImageButton
+            android:id="@+id/main_msg_list_ibtn"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_xiaoxi"
+            android:background="@android:color/transparent"
+            android:scaleType="center"/>
+    </RelativeLayout>
+     <TextView
+            android:id="@+id/main_msg_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:background="@drawable/ellipse_1"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="55dp"
+            android:visibility="invisible"/>
+
+        <LinearLayout
+            android:id="@+id/main_user_photo_layout"
+            android:background="@mipmap/bg_main_track"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:layout_below="@id/main_logo_imageView"
+            android:orientation="horizontal">
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/main_user_photo_civ"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:clickable="true"
+                android:background="@mipmap/ic_main_user_default_photo_nor"
+                />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/main_menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true">
+
+
+
+            <ImageButton
+                android:id="@+id/main_logo_ibtn"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_logo_btn_selector"/>
+
+        </RelativeLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_below="@id/main_user_photo_layout"
+           android:layout_above="@id/main_menu_layout"
+           android:gravity="center">
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <LinearLayout
+                   android:id="@+id/main_center_notify_msg_layout"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="10dp"
+                   android:clickable="true"
+                   android:layout_gravity="center"
+                   android:orientation="vertical"
+                   android:background="@mipmap/bg_main_center_notify_msg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:drawablePadding="10dp"
+                        android:textColor="#edcf9e"
+                        android:text="@string/no_order_tip_msg"
+                        android:drawableLeft="@mipmap/ic_main_ladle"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="14sp"
+                       android:layout_marginTop="10dp"
+                       android:layout_gravity="center_horizontal"
+                       android:gravity="center_horizontal"
+                       android:textColor="#cacaca"
+                       android:text="@string/ad_push_tip_msg"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="12sp"
+                       android:layout_marginTop="25dp"
+                       android:layout_gravity="center_horizontal"
+                       android:gravity="center_horizontal"
+                       android:drawablePadding="15dp"
+                       android:textColor="#cacaca"
+                       android:text="@string/action_option_tip_msg"
+                       android:drawableLeft="@mipmap/ic_main_mi"/>
+
+
+               </LinearLayout>
+
+               <ImageView
+                   android:id="@+id/main_refresh_ibtn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="5dp"
+                   android:layout_gravity="right"
+                   android:clickable="true"
+                   android:scaleType="centerInside"
+                   android:src="@mipmap/ic_main_refresh"
+                   />
+           </FrameLayout>
+       </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

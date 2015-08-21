@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CalendarListView/CalendarListView.iml" filepath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SVIP.iml" filepath="$PROJECT_DIR$/SVIP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SVIPApp/SVIPApp.iml" filepath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" filepath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" filepath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" filepath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
+    </modules>
+  </component>
+</project>

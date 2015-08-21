@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9E9E9E"
+    android:orientation="vertical">
+
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:itemTitle="设置"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/itv_setting_title">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_user_icon_img"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="15dp"
+                    android:text="头像"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <com.zkjinshi.svip.view.CircleImageView
+                    android:id="@+id/civ_user_icon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_launcher"></com.zkjinshi.svip.view.CircleImageView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_user_icon_img"
+                android:orientation="vertical">
+
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_real_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="姓名" />
+
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="昵称" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_user_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="性别" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="单位" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="邮箱" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="修改手机"
+                    android:layout_marginTop="20dp"/>
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_ticket_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="发票信息" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_fan_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="偏好标签" />
+
+                <com.zkjinshi.svip.view.ItemUserSettingView
+                    android:id="@+id/ius_about_us"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    zkjinshi:itemSettingTitle="关于我们" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <!-- 网络设置页面 -->
+    <string name="base_config_action_settings">服务器设置</string>
+    <string name="base_config_setting_title">配置信息</string>
+    <string name="base_config_setting_server">服务器:</string>
+    <string name="base_config_setting_server_hint">服务器域名或者ip</string>
+    <string name="base_config_setting_port">端口号:</string>
+    <string name="base_config_setting_port_hint">例如：80</string>
+    <string name="base_config_confirm">确定</string>
+
+    <string name="loading_please_waiting">请求数据中，请稍等...</string>
+</resources>
