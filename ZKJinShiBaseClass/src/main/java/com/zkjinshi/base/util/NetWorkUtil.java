@@ -4,6 +4,7 @@ package com.zkjinshi.base.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
 /**
  * 判断网络状态工具类
  * 开发者：JimmyZhang

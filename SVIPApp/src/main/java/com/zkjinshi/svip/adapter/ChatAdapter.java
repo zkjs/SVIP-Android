@@ -20,11 +20,9 @@ import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,7 +34,6 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.mine.MineActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.EmotionType;
@@ -50,9 +47,6 @@ import com.zkjinshi.svip.view.QuickAction;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.SendStatus;
-
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -461,14 +455,14 @@ public class ChatAdapter extends BaseAdapter {
 
             if (!isDelEnabled) {
                 vh.contentLayout
-                    .setOnLongClickListener(new View.OnLongClickListener() {
+                        .setOnLongClickListener(new View.OnLongClickListener() {
 
-                        @Override
-                        public boolean onLongClick(View v) {
-                            showChildQuickActionBar(v, isComMsg, position);
-                            return true;
-                        }
-                    });
+                            @Override
+                            public boolean onLongClick(View v) {
+                                showChildQuickActionBar(v, isComMsg, position);
+                                return true;
+                            }
+                        });
                 vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

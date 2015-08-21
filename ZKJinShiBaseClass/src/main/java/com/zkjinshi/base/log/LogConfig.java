@@ -1,11 +1,11 @@
 package com.zkjinshi.base.log;
 
-import java.text.SimpleDateFormat;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
+
+import java.text.SimpleDateFormat;
 
 /**
  * 日志配置类

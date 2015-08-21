@@ -1,5 +1,13 @@
 package com.zkjinshi.base.log;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.os.Looper;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -13,14 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
-import android.os.Looper;
-import android.util.Log;
 
 /**
  * crash异常处理类
@@ -36,7 +36,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     //系统默认的UncaughtException处理类   
     private UncaughtExceptionHandler mDefaultHandler;
     //CrashHandler实例  
-    private static CrashHandler INSTANCE = new CrashHandler();  
+    private static CrashHandler INSTANCE = new CrashHandler();
     //程序的Context对象  
     private Context mContext;  
     //用来存储设备信息和异常信息  
@@ -50,7 +50,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }  
   
     /** 获取CrashHandler实例 ,单例模式 */  
-    public static CrashHandler getInstance() {  
+    public static CrashHandler getInstance() {
         return INSTANCE;  
     }  
   

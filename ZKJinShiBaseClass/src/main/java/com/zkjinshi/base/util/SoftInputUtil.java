@@ -2,10 +2,10 @@
 package com.zkjinshi.base.util;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
 /**
  * 键盘事件控制类
  * 开发者：JimmyZhang

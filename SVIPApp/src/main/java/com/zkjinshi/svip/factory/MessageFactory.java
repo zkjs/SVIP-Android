@@ -4,14 +4,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.zkjinshi.base.net.status.PacketUtil;
-import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.SendStatus;
@@ -331,7 +329,7 @@ public class MessageFactory {
     public MsgCustomerServiceTextChat buildMsgTextByMessageVo(MessageVo messageVo){
         MsgCustomerServiceTextChat msgText = new MsgCustomerServiceTextChat();
         msgText.setSrvmsgid(0);
-        msgText.setType(PacketUtil.MSG_CustomerServiceTextChat);
+        msgText.setType(ProtocolMSG.MSG_CustomerServiceTextChat);
         msgText.setTimestamp(System.currentTimeMillis());
         msgText.setFromid(CacheUtil.getInstance().getUserId());
         msgText.setFromname(CacheUtil.getInstance().getUserName());
@@ -381,7 +379,7 @@ public class MessageFactory {
     public MsgCustomerServiceMediaChat buildMsgMediaByMessageVo(MessageVo messageVo){
         MsgCustomerServiceMediaChat msgMedia = new MsgCustomerServiceMediaChat();
         msgMedia.setSrvmsgid(0);
-        msgMedia.setType(PacketUtil.MSG_CustomerServiceMediaChat);
+        msgMedia.setType(ProtocolMSG.MSG_CustomerServiceMediaChat);
         msgMedia.setTimestamp(System.currentTimeMillis());
         msgMedia.setShopid(messageVo.getShopId());
         msgMedia.setFromid(CacheUtil.getInstance().getUserId());
@@ -436,7 +434,7 @@ public class MessageFactory {
     public MsgCustomerServiceImgChat buildMsgImgByMessageVo(MessageVo messageVo){
         MsgCustomerServiceImgChat msgImg = new MsgCustomerServiceImgChat();
         msgImg.setSrvmsgid(0);
-        msgImg.setType(PacketUtil.MSG_CustomerServiceImgChat);
+        msgImg.setType(ProtocolMSG.MSG_CustomerServiceImgChat);
         msgImg.setTimestamp(System.currentTimeMillis());
         msgImg.setShopid(messageVo.getShopId());
         msgImg.setFromid(CacheUtil.getInstance().getUserId());

@@ -1,10 +1,7 @@
 package com.zkjinshi.base.config;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +10,7 @@ import com.zkjinshi.base.R;
 import com.zkjinshi.base.util.Constants;
 
 import java.io.IOException;
+
 /**
  * 设置配置信息相关页面
  * 开发者：JimmyZhang
@@ -32,8 +30,8 @@ public class ConfigActivity extends Activity {
     }
 
     private void initData(){
-        imIpEtv.setText(""+ConfigUtil.getInst().getIMHost());
-        imPortEtv.setText(""+ConfigUtil.getInst().getIMPort());
+        imIpEtv.setText(""+ ConfigUtil.getInst().getIMHost());
+        imPortEtv.setText(""+ ConfigUtil.getInst().getIMPort());
     }
 
     private void initListeners(){

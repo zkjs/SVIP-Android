@@ -1,13 +1,8 @@
 package com.zkjinshi.svip;
 
 import android.app.Application;
-import android.bluetooth.BluetoothClass;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Environment;
-import android.text.TextUtils;
 import android.util.Log;
-
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -17,19 +12,12 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogConfig;
 import com.zkjinshi.base.log.LogSwitch;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
-import com.zkjinshi.svip.ibeacon.IBeaconController;
-import com.zkjinshi.svip.ibeacon.IBeaconService;
-import com.zkjinshi.svip.service.IMService;
-import com.zkjinshi.svip.service.SocketService;
-import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
-
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -103,12 +91,13 @@ public class SVIPApplication extends Application {
      */
     private void initCache(){
         CacheUtil.getInstance().init(this);
+        ImCacheUtil.getInstance().init(this);
     }
 
     /**
      * 初始化ImageLoader
      */
-   private void initImageLoader() {
+    private void initImageLoader() {
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
@@ -146,4 +135,5 @@ public class SVIPApplication extends Application {
     private void initChecker() {
         MessageSendFailChecker.getInstance().startCheckMessages();
     }
+
 }

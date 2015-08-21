@@ -293,6 +293,7 @@ public class ChatRoomDBUtil {
         Cursor       cursor = null;
         try{
             db = helper.getWritableDatabase();
+            db.execSQL("update "+ DBOpenHelper.CHAT_ROOM_TBL + " set is_visible = 1 ");
             cursor = db.rawQuery("select * from " + DBOpenHelper.CHAT_ROOM_TBL + " where is_visible = 1 order by end_time desc ", null);
             if (cursor != null && cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
@@ -335,7 +336,7 @@ public class ChatRoomDBUtil {
                 db.close();
 
             if(null != cursor)
-            cursor.close();
+                cursor.close();
         }
         return false;
     }

@@ -1,6 +1,5 @@
 package com.zkjinshi.base.view;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;

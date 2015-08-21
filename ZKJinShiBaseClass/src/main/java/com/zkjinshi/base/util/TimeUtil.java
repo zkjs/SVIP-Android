@@ -1,11 +1,10 @@
 package com.zkjinshi.base.util;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import android.annotation.SuppressLint;
-import android.util.Log;
 
 /**
  * 格式化时间工具类

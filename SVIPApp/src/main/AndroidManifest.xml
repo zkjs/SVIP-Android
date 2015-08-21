@@ -212,8 +212,13 @@
 
         <meta-data android:name="TESTIN_APPKEY" android:value="ced4cd6e19b606a268819bbaced9c339"/>
 
-        <service android:name=".service.SocketService"> </service>
-        <service android:name=".service.IMService"> </service>
+        <service android:name="com.zkjinshi.base.net.core.MessageService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.zkjinshi.svip.im.Message_SERVICE"/>
+            </intent-filter>
+        </service>
+
         <service android:name=".ibeacon.IBeaconService"></service>
     </application>
 

@@ -1,6 +1,5 @@
 package com.zkjinshi.base.util;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;

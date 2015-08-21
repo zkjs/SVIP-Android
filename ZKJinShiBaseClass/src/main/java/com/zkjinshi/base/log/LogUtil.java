@@ -1,13 +1,13 @@
 package com.zkjinshi.base.log;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.zkjinshi.base.util.Constants;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Date;
 
 /**
  * 日志操作管理类

@@ -1,12 +1,7 @@
 
 package com.zkjinshi.base.util;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 /**
  * 分辨率操作工具类

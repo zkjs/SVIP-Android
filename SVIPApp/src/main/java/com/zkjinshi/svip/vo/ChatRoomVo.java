@@ -10,6 +10,7 @@ package com.zkjinshi.svip.vo;
 public class ChatRoomVo {
 
     private String  shopid; //主键 ShopID
+    private String  shopName;  //聊天室商家名称
     private String  sessionid; //聊天室ID
     private String  remark;    //备注
     private long    created;   //创建时间
@@ -25,6 +26,14 @@ public class ChatRoomVo {
 
     public void setShopid(String shopid) {
         this.shopid = shopid;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
     public String getSessionid() {

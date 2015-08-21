@@ -23,9 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
@@ -38,7 +35,6 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
-
 import java.io.File;
 import java.util.ArrayList;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -341,7 +337,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 choosePicName = CacheUtil.getInstance().getPicName();
                 String imageTempPath = FileUtil.getInstance().getImageTempPath();
                 messageListViewManager.sendImageMessage(mShopID, choosePicName,
-                                        imageTempPath + choosePicName, mRuleType);
+                        imageTempPath + choosePicName, mRuleType);
                 Log.i(TAG, "imagePath:" + FileUtil.getInstance().getImageTempPath() + choosePicName);
             }
         }

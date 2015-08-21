@@ -21,6 +21,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
@@ -33,10 +34,9 @@ import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.response.UserInfoResponse;
-import com.zkjinshi.svip.service.IMService;
-import com.zkjinshi.svip.service.SocketService;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -56,19 +56,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private LinearLayout msgNotifyLayout;
     private SlidingMenu slidingMenu;
 
-    private boolean isFirstTime = true;
-
-    public void onResume(){
-        super.onResume();
-        LogUtil.getInstance().info(LogLevel.DEBUG, "MainActivity onResume...");
-        if(isFirstTime){
-            isFirstTime = false;
-        }
-        else{
-            MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
-        }
-    }
-
 
     private void initView(){
 
@@ -85,13 +72,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void initData(){
         MainUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
-
+        //MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
         initAvatar();
         initDBName();
         LocationManager.getInstance().registerLocation(this);
-
-        //initSocketService();
-        //initIMService();
+        initService();
     }
 
     private void initAvatar() {
@@ -114,7 +99,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                                     UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
                                     if(null != userInfoVo){
                                         String userPhotoSuffix = userInfoVo.getUserAvatar();
-                                        CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                                         if(!TextUtils.isEmpty(userPhotoSuffix)){
                                             String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
                                             CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
@@ -137,7 +121,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
-    private void initMenu(){
+    private void initMenu() {
         slidingMenu = new SlidingMenu(this);
         Fragment leftMenuFragment = new MenuLeftFragment();
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
@@ -174,7 +158,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         LocationManager.getInstance().removeLocation();
     }
 
-    private void initListeners(){
+    private void initListeners() {
 
         //动态图片背景
         kbv.setTransitionListener(new KenBurnsView.TransitionListener() {
@@ -188,8 +172,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
             }
         });
-
-
 
         //足迹
         menuIbtn.setOnClickListener(new View.OnClickListener() {
@@ -246,7 +228,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         initView();
         initData();
         initListeners();
-        initIBeaconList();
+//        initIBeaconList();
         IBeaconSubject.getInstance().addObserver(this);
     }
 
@@ -292,21 +274,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         }
     }
 
-
     /**
-     * 初始化SocketService
+     * 初始化socket
      */
-    private void initSocketService() {
-        Intent socketService = new Intent(getApplicationContext(), SocketService.class);
-        startService(socketService);
-    }
-
-    /**
-     * 初始化IMService用于聊天
-     */
-    private void initIMService() {
-        Intent imService = new Intent(getApplicationContext(), IMService.class);
-        startService(imService);
+    private void initService() {
+        WebSocketManager.getInstance().initService(this).setMessageListener(new MessageListener());
     }
 
 }

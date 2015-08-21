@@ -8,6 +8,7 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.vo.ChatRoomVo;
 import com.zkjinshi.svip.vo.MessageVo;
@@ -178,6 +179,7 @@ public class ChatRoomFactory {
      */
     public ContentValues buildAddContentValues(MessageVo messageVo){
         String shopID    = messageVo.getShopId();
+        String shopName  = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopID);
         String sessionID = messageVo.getSessionId();
         long   endTime   = messageVo.getSendTime();
         String contactID = messageVo.getContactId();
@@ -186,6 +188,7 @@ public class ChatRoomFactory {
 
         ContentValues values = new ContentValues();
         values.put("shop_id", shopID);
+        values.put("shop_name", shopName);
         values.put("session_id", sessionID);
         values.put("remark", "");//备注暂时为空
         values.put("created", System.currentTimeMillis());
@@ -204,6 +207,7 @@ public class ChatRoomFactory {
      */
     public ContentValues buildUpdateContentValues(MessageVo messageVo){
         String shopID    = messageVo.getShopId();
+        String shopName  = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopID);
         String sessionID = messageVo.getSessionId();
         long   endTime   = messageVo.getSendTime();
         String contactID = messageVo.getContactId();
@@ -212,6 +216,7 @@ public class ChatRoomFactory {
 
         ContentValues values = new ContentValues();
         values.put("shop_id", shopID);
+        values.put("shop_name", shopName);
         values.put("session_id", sessionID);
         values.put("remark", "");//备注暂时为空
         values.put("end_time", endTime);//更新时
@@ -230,10 +235,11 @@ public class ChatRoomFactory {
     public ContentValues buildUpdateContentValues(ChatRoomVo chatRoomVo){
         ContentValues values = new ContentValues();
         values.put("shop_id", chatRoomVo.getShopid());
+        values.put("shop_name", chatRoomVo.getShopName());
         values.put("session_id", chatRoomVo.getSessionid());
         values.put("remark", chatRoomVo.getRemark());//备注暂时为空
         values.put("end_time", chatRoomVo.getEndtime());//更新时
-        values.put("end_user_id", chatRoomVo.getEnduserid());//
+        values.put("end_user_id", chatRoomVo.getEnduserid());
         values.put("client_id", chatRoomVo.getClientid());//创建人
         values.put("client_name", chatRoomVo.getClientname());//创建者名称
         values.put("is_visible", VisibleStatus.INVISIBLE.getVlaue());

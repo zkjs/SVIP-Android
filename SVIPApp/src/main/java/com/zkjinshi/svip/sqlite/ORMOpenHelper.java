@@ -23,6 +23,7 @@ public class ORMOpenHelper {
         db.execSQL(TableOpenHelper.CHAT_ROOM_TBL_SQL);
         db.execSQL(TableOpenHelper.CHAT_MEMBER_TBL_SQL);
         db.execSQL(TableOpenHelper.USER_INFO_TBL_SQL);
+        db.execSQL(TableOpenHelper.SHOP_INFO_TBL_SQL);
     }
 
     /**
