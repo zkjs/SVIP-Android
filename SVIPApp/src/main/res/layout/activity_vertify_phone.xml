@@ -22,11 +22,11 @@
         android:gravity="center_horizontal">
 
         <ImageView
-            android:id="@+id/iv_icon_lock"
+            android:id="@+id/iv_icon_user"
             android:layout_width="11dp"
             android:layout_height="14dp"
             android:layout_centerVertical="true"
-            android:background="@mipmap/icon_password_lock" />
+            android:background="@mipmap/icon_user_default" />
 
         <EditText
             android:id="@+id/et_input_phone"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_icon_lock"
+            android:layout_toRightOf="@+id/iv_icon_user"
             android:gravity="left"
             android:hint="@string/please_input_phone_number"
             android:inputType="number"
@@ -89,12 +89,14 @@
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal">
 
+
+
         <ImageView
-            android:id="@+id/iv_icon_user"
+            android:id="@+id/iv_icon_lock"
             android:layout_width="11dp"
             android:layout_height="14dp"
             android:layout_centerVertical="true"
-            android:background="@mipmap/icon_user_default" />
+            android:background="@mipmap/icon_password_lock" />
 
         <EditText
             android:id="@+id/et_verify_code"
@@ -102,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_icon_user"
+            android:layout_toRightOf="@+id/iv_icon_lock"
             android:focusable="false"
             android:gravity="left"
             android:inputType="phone"

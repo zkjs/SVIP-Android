@@ -59,7 +59,8 @@ public class Constants {
     public final static String GET_USER_AVATAR    = HTTP_URL + "uploads/users/";
     //商家logo uploads/shops/shopid.png
     public final static String GET_SHOP_LOGO      = HTTP_URL + "uploads/shops/";
-
+    //app客户查询手机是否注册过
+    public final static String POST_GET_PHONE_URL  = HTTP_URL + "user/getphone?";
     //获取商家列表
     public final static String GET_SHOP_LIST = HTTP_URL + "user/selectshop?web=0&page=1";
 
@@ -80,5 +81,17 @@ public class Constants {
 
     //修改完成
     public static final int FLAG_MODIFY_FINISH = 7;
+
+    //修改姓名
+    public static final int FLAG_MODIFY_REAL_NAME = 8;
+
+    //修改昵称
+    public static final int FLAG_MODIFY_USER_NAME = 9;
+
+    //修改公司或单位
+    public static final int FLAG_MODIFY_REMARK = 10;
+
+    //修改邮箱
+    public static final int FLAG_MODIFY_EMAIL = 11;
 
 }

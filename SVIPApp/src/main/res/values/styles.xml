@@ -38,4 +38,31 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
+
+    <style name="sex_radio_item">
+        <item name="android:layout_width">30dip</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/set_radio_textcolor</item>
+    </style>
+
+    <style name="tags_check_item">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:drawableLeft">@null</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/set_check_textcolor</item>
+    </style>
+
+    <style name="tags_toggle" parent="android:Widget">
+        <item name="android:background">@drawable/btn_toggle_bg</item>
+        <item name="android:textOn">@null</item>
+        <item name="android:textOff">@null</item>
+        <item name="android:clickable">true</item>
+        <item name="android:disabledAlpha">?android:attr/disabledAlpha</item>
+    </style>
 </resources>
