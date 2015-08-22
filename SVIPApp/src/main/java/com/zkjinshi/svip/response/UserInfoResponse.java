@@ -59,6 +59,7 @@ public class UserInfoResponse extends BaseResponse {
     private String real_name;
     private String english_name;
     private String idcard;
+    private int tagopen;
 
     public String getEnglishName() {
         return english_name;
@@ -369,5 +370,13 @@ public class UserInfoResponse extends BaseResponse {
 
     public void setTagsid(String tagsid) {
         this.tagsid = tagsid;
+    }
+
+    public int getTagopen() {
+        return tagopen;
+    }
+
+    public void setTagopen(int tagopen) {
+        this.tagopen = tagopen;
     }
 }

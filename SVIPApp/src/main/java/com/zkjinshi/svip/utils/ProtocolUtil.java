@@ -63,4 +63,32 @@ public class ProtocolUtil {
     public static String getAddGpdInfoUrl(){
         return  ConfigUtil.getInst().getHttpDomain()+"user/gpsadd";
     }
+
+    /**
+     * 获取用户已有标签
+     * @param token
+     * @param userId
+     * @return
+     */
+    public static String getUserTagsUrl(String token,String userId){
+        return ConfigUtil.getInst().getHttpDomain()+"tags/user?userid="+userId+"&token="+token;
+    }
+
+    /**
+     * 获取随机标签池 每次请求8条
+     * @return
+     */
+    public static String getRandTagsUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"tags/show";
+    }
+
+    /**
+     * 提交用户选择标签
+     * @return
+     */
+    public static String getPostTagsUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"tags/upload";
+    }
+
+
 }

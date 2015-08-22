@@ -1,1 +1,2 @@
-include ':SlidingMenu', ':CalendarListView', ':SVIPApp', ':ZKJinShiBaseClass', ':multi-image-selector', ':social_sdk_library_project'
+include ':SlidingMenu', ':CalendarListView', ':SVIPApp', ':ZKJinShiBaseClass', ':multi-image-selector', ':social_sdk_library_project', ':Cloud_TagView'
+

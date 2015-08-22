@@ -33,6 +33,7 @@ public class UserInfoFactory {
         userInfoVo.setSex(userInfoResponse.getSex() == 1 ? Sex.BOY : Sex.GIRL);
         userInfoVo.setEmail(userInfoResponse.getEmail());
         userInfoVo.setRealName(userInfoResponse.getRealName());
+        userInfoVo.setTagopen(userInfoResponse.getTagopen() == 1 ? true : false);
         return  userInfoVo;
     }
 }

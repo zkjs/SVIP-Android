@@ -21,6 +21,7 @@ public class UserInfoVo implements Serializable{
     private Sex sex;
     private String email;
     private String realName;
+    private boolean tagopen;
 
     public String getUserid() {
      return userid;
@@ -100,6 +101,14 @@ public class UserInfoVo implements Serializable{
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public boolean isTagopen() {
+        return tagopen;
+    }
+
+    public void setTagopen(boolean tagopen) {
+        this.tagopen = tagopen;
     }
 
     /**

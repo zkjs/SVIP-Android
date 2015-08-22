@@ -234,6 +234,24 @@ public class CacheUtil {
 		return sp.getString("user_photo_url", "");
 	}
 
+	public void saveTagsOpen(boolean isOpen){
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putBoolean("tagsopen",isOpen).commit();
+	}
+
+	public boolean getTagsOpen() {
+		if (null == context) {
+			return true;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getBoolean("tagsopen",true);
+	}
+
 	/**
 	 * 设置开始录音倒计时
 	 * @param isCountDown
