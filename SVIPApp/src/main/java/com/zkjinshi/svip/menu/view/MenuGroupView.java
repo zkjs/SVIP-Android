@@ -2,14 +2,14 @@ package com.zkjinshi.svip.menu.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zkjinshi.base.util.DisplayUtil;
@@ -20,6 +20,7 @@ import com.zkjinshi.svip.menu.action.PushMenuAction;
 import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
+import com.zkjinshi.svip.menu.vo.MenuType;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,10 @@ public class MenuGroupView extends LinearLayout {
     private ArrayList<MenuItem> menuItemList;
     private String url;
     private String menuName;
-    private Button menuBtn;
+    private TextView menuTv;
+    private ImageView menuIv;
+    private MenuType menuType;
+    private RelativeLayout menuBtnLayout;
     private TextView cutlineTv;
     private MenuItemView menuItemView;
     private LayoutParams layoutParams;
@@ -89,32 +93,38 @@ public class MenuGroupView extends LinearLayout {
     }
 
     public void initView(boolean isShowCutline) {
-        menuBtn = (Button) inflater.inflate(R.layout.menu_group_btn, null);
-        menuBtn.setBackgroundResource(R.drawable.bg_menu_btn);
+        menuBtnLayout =  (RelativeLayout) inflater.inflate(R.layout.menu_group_btn, null);
+        menuTv = (TextView) menuBtnLayout.findViewById(R.id.menu_group_tv);
+        menuIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_iv);
         layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
         url = menuGroup.getUrl();
         menuName = menuGroup.getMenuName();
-        menuBtn.setText(menuName);
-        menuBtn.setLayoutParams(layoutParams);
+        menuTv.setText(menuName);
+        menuBtnLayout.setLayoutParams(layoutParams);
         cutlineTv = new TextView(context);
         cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
-        layoutParams = new LayoutParams(DisplayUtil.dip2px(context,1), ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams = new LayoutParams(DisplayUtil.dip2px(context,0.5f), ViewGroup.LayoutParams.MATCH_PARENT);
         cutlineTv.setGravity(Gravity.CENTER_VERTICAL);
         cutlineTv.setLayoutParams(layoutParams);
-        addView(menuBtn);
+        addView(menuBtnLayout);
         if (isShowCutline) {
             addView(cutlineTv);
+        }
+        menuType = menuGroup.getMenuType();
+        if(null != menuType && menuType ==  MenuType.MULTI){
+            menuIv.setVisibility(View.VISIBLE);
+        }else{
+            menuIv.setVisibility(View.GONE);
         }
         invalidate();
     }
 
-    /** 初始化监听器 **/
     public void initListeners() {
         menuItemList = menuGroup.getMenuItemList();
-        if (null != menuItemList && !menuItemList.isEmpty()) {// 打开popwindow
+        if (null != menuItemList && !menuItemList.isEmpty()) {
             menuItemView = new MenuItemView(context, menuItemList);
-            menuBtn.setTag(menuItemView);
-            menuBtn.setOnClickListener(new OnClickListener() {
+            menuTv.setTag(menuItemView);
+            menuTv.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
@@ -152,9 +162,7 @@ public class MenuGroupView extends LinearLayout {
                 }
             });
         } else {
-            if (!TextUtils.isEmpty(url)) {// 主按钮栏跳转
-
-                menuBtn.setOnClickListener(new OnClickListener() {
+                menuTv.setOnClickListener(new OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -171,5 +179,5 @@ public class MenuGroupView extends LinearLayout {
                 });
             }
         }
-    }
+
 }

@@ -8,7 +8,7 @@
         android:id="@+id/tab_host_layout"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="#F0F0F0"
         android:visibility="visible"
         android:orientation="horizontal" />

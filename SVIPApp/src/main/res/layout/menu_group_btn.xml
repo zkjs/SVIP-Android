@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Button xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:textSize="18sp"
-    android:singleLine="true"
-    android:textColor="@color/menu_pop_text_normal"
-    android:orientation="vertical" />
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/menu_group_tv"
+        android:background="@drawable/bg_menu_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"
+        android:singleLine="true"
+        android:textColor="@color/menu_pop_text_normal" />
+
+    <ImageView
+        android:id="@+id/menu_group_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="3dp"
+        android:paddingBottom="3dp"
+        android:src="@mipmap/ic_liaotianmore"/>
+
+</RelativeLayout>
+

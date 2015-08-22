@@ -21,7 +21,7 @@ public class MenuLayoutView extends LinearLayout{
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<MenuGroup> menuGroupList;
-    private MenuGroupView tabHostItemView;
+    private MenuGroupView menuGroupView;
     private LayoutParams layoutParams;
 
     @SuppressLint("NewApi")
@@ -50,17 +50,17 @@ public class MenuLayoutView extends LinearLayout{
         layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT , 1.0f);
         if(null != menuGroupList && !menuGroupList.isEmpty()){
             if(null != menuGroupList && !menuGroupList.isEmpty()){
-                tabHostItemView = new MenuGroupView(context, menuGroupList.get(0),true,0,PostionType.LEFT);
-                tabHostItemView.setLayoutParams(layoutParams);
-                addView(tabHostItemView);
+                menuGroupView = new MenuGroupView(context, menuGroupList.get(0),true,0,PostionType.LEFT);
+                menuGroupView.setLayoutParams(layoutParams);
+                addView(menuGroupView);
                 for(int i= 1; i< menuGroupList.size()-1; i++){
-                    tabHostItemView = new MenuGroupView(context, menuGroupList.get(i),true,i,PostionType.CENTER);
-                    tabHostItemView.setLayoutParams(layoutParams);
-                    addView(tabHostItemView);
+                    menuGroupView = new MenuGroupView(context, menuGroupList.get(i),true,i,PostionType.CENTER);
+                    menuGroupView.setLayoutParams(layoutParams);
+                    addView(menuGroupView);
                 }
-                tabHostItemView = new MenuGroupView(context, menuGroupList.get(menuGroupList.size()-1), false,menuGroupList.size()-1,PostionType.RIGHT);
-                tabHostItemView.setLayoutParams(layoutParams);
-                addView(tabHostItemView);
+                menuGroupView = new MenuGroupView(context, menuGroupList.get(menuGroupList.size()-1), false,menuGroupList.size()-1,PostionType.RIGHT);
+                menuGroupView.setLayoutParams(layoutParams);
+                addView(menuGroupView);
             }
         }
         invalidate();
