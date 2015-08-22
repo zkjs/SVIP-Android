@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@mipmap/bg_svip_mine"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/tab_host_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F0F0F0"
+        android:visibility="visible"
+        android:orientation="horizontal" />
+
+</RelativeLayout>

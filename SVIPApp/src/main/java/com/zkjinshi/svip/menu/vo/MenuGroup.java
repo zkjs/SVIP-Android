@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.menu.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 开发者：JimmyZhang
@@ -15,6 +17,7 @@ public class MenuGroup extends Menu implements Serializable {
     private String icon;
     private String url;
     private MenuType menuType;
+    private ArrayList<MenuItem> menuItemList;
 
     public int getGroupId() {
         return groupId;
@@ -56,4 +59,11 @@ public class MenuGroup extends Menu implements Serializable {
         this.menuType = menuType;
     }
 
+    public ArrayList<MenuItem> getMenuItemList() {
+        return menuItemList;
+    }
+
+    public void setMenuItemList(ArrayList<MenuItem> menuItemList) {
+        this.menuItemList = menuItemList;
+    }
 }

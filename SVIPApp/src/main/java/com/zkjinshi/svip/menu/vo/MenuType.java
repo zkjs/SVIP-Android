@@ -8,7 +8,8 @@ package com.zkjinshi.svip.menu.vo;
  */
 public enum MenuType {
     SINGLE(0),//单菜单
-    MULTI(1);//复选菜单
+    MULTI(1),//复选菜单
+    SWITCH(2);//按钮切换
     private final int value;
     MenuType(int value){
         this.value = value;
