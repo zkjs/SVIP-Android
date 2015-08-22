@@ -101,13 +101,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                                         String userPhotoSuffix = userInfoVo.getUserAvatar();
                                         if(!TextUtils.isEmpty(userPhotoSuffix)){
                                             String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
+                                            //保存头像到本地
                                             CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
                                             MineUiController.getInstance().setUserPhoto(userPhotoUrl,photoCtv);
                                         }
+                                        CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
+                                        CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
+                                        CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                                     }
                                 }
                             }catch (Exception e){
-                                e.printStackTrace();;
+                                e.printStackTrace();
                             }
                         }
                     }

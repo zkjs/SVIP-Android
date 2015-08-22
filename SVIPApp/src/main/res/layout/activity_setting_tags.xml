@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -86,11 +87,77 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llt_tags_content"
+                android:id="@+id/llt_checked_tags"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#333333"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:textSize="22sp"
+                        android:layout_marginLeft="20dp"
+                        android:text="已经选择的标签"
+                        android:textColor="#ffffff"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+                <me.kaede.tagview.TagView
+                    android:id="@+id/tagview_checked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:lineMargin="5dp"
+                    app:tagMargin="3dp"
+                    app:textPaddingBottom="3dp"
+                    app:textPaddingLeft="10dp"
+                    app:textPaddingRight="10dp"
+                    app:textPaddingTop="3dp">
+                </me.kaede.tagview.TagView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"></LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llt_unchecked_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#333333"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:textSize="22sp"
+                        android:layout_marginLeft="20dp"
+                        android:text="可能喜欢的标签"
+                        android:textColor="#ffffff"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+
+                <me.kaede.tagview.TagView
+                    android:id="@+id/tagview_unchecked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingBottom="10dp"
+                    app:lineMargin="5dp"
+                    app:tagMargin="3dp"
+                    app:textPaddingBottom="5dp"
+                    app:textPaddingLeft="10dp"
+                    app:textPaddingRight="10dp"
+                    app:textPaddingTop="5dp">
+                </me.kaede.tagview.TagView>
 
             </LinearLayout>
 
