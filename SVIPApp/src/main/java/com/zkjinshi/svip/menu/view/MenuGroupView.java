@@ -90,7 +90,7 @@ public class MenuGroupView extends LinearLayout {
 
     public void initView(boolean isShowCutline) {
         menuBtn = (Button) inflater.inflate(R.layout.light_app_menu_btn, null);
-        menuBtn.setBackgroundResource(R.drawable.bg_menu_pop_btn_selecter);
+        menuBtn.setBackgroundResource(R.drawable.bg_menu_btn);
         layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
         url = menuGroup.getUrl();
         menuName = menuGroup.getMenuName();

@@ -69,7 +69,7 @@ public class MenuItemView extends PopupWindow {
     public void addView(MenuItem menuItem,boolean isShowCutLine){
         String menuName = menuItem.getMenuName();
         menuBtn =  (Button) inflater.inflate(R.layout.menu_popup_btn, null);
-        menuBtn.setBackgroundResource(R.drawable.bg_menu_pop_btn_selecter);
+        menuBtn.setBackgroundResource(R.drawable.bg_menu_btn);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
         menuBtn.setLayoutParams(layoutParams);
         menuBtn.setText(menuName);
