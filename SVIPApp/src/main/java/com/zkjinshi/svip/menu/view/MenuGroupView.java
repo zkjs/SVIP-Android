@@ -25,6 +25,7 @@ import com.zkjinshi.svip.menu.vo.MenuType;
 import java.util.ArrayList;
 
 /**
+ * 菜单组View
  * 开发者：JimmyZhang
  * 日期：2015/8/22
  * Copyright (C) 2015 深圳中科金石科技有限公司

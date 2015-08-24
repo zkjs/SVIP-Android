@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.menu.vo;
 
 /**
+ * 定义指令类别
  * 开发者：JimmyZhang
  * 日期：2015/8/21
  * Copyright (C) 2015 深圳中科金石科技有限公司

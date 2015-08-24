@@ -16,6 +16,7 @@ import com.zkjinshi.svip.menu.vo.MenuType;
 import java.util.ArrayList;
 
 /**
+ * 快捷指令管理器
  * 开发者：JimmyZhang
  * 日期：2015/8/24
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -67,11 +68,27 @@ public class QuickMenuManager {
         menuGroupList = new ArrayList<MenuGroup>();
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
-        menuItem.setMenuName("最新推荐");
+        menuItem.setMenuName("大床房");
         menuItem.setActionType(ActionType.PUSH);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
-        menuItem.setMenuName("77元特价房");
+        menuItem.setMenuName("双床房");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuItem = new MenuItem();
+        menuItem.setMenuName("高层房");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuItem = new MenuItem();
+        menuItem.setMenuName("角落房");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuItem = new MenuItem();
+        menuItem.setMenuName("无烟房");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuItem = new MenuItem();
+        menuItem.setMenuName("加床");
         menuItem.setActionType(ActionType.PUSH);
         menuItemList.add(menuItem);
         menuGroup = new MenuGroup();
@@ -82,14 +99,21 @@ public class QuickMenuManager {
         //第二组按钮实例化
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
-        menuGroup = new MenuGroup();
-        menuItem.setMenuName("KFC");
+        menuItem.setMenuName("中餐");
         menuItem.setActionType(ActionType.PUSH);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
-        menuItem.setMenuName("必胜客");
+        menuItem.setMenuName("西餐");
         menuItem.setActionType(ActionType.PUSH);
         menuItemList.add(menuItem);
+        menuItem.setMenuName("特色菜");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuItem = new MenuItem();
+        menuItem.setMenuName("清淡");
+        menuItem.setActionType(ActionType.PUSH);
+        menuItemList.add(menuItem);
+        menuGroup = new MenuGroup();
         menuGroup.setMenuItemList(menuItemList);
         menuGroup.setMenuName("订餐");
         menuGroup.setMenuType(MenuType.MULTI);
@@ -102,7 +126,7 @@ public class QuickMenuManager {
         menuItem.setActionType(ActionType.PUSH);
         menuItemList.add(menuItem);
         menuGroup = new MenuGroup();
-        menuGroup.setMenuName("其他");
+        menuGroup.setMenuName("其他服务");
         menuGroup.setMenuItemList(menuItemList);
         menuGroup.setMenuType(MenuType.MULTI);
         menuGroupList.add(menuGroup);
