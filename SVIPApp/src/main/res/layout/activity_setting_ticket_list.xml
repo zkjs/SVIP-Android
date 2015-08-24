@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:itemTitle="设置"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="18dp"
+        android:id="@+id/lv_tickets"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

@@ -402,6 +402,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 startActivity(new Intent(SettingActivity.this,SettingPhoneActivity.class));
                 break;
             case R.id.ius_ticket_info:
+                startActivity(new Intent(SettingActivity.this,SettingTicketsActivity.class));
                 break;
             case R.id.ius_fan_label:
                 startActivity(new Intent(SettingActivity.this,SettingTagsActivity.class));
