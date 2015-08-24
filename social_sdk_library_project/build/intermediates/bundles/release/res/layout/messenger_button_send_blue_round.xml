@@ -26,4 +26,4 @@
   android:layout_height="59dp"
   android:background="@drawable/messenger_button_blue_bg_round"
   />
-<!-- From: file:/F:/develop_code/android/studio/SVIP-Android/social_sdk_library_project/src/main/res/layout/messenger_button_send_blue_round.xml -->
+<!-- From: file:/F:/svip_latest/SVIP-Android/social_sdk_library_project/src/main/res/layout/messenger_button_send_blue_round.xml -->

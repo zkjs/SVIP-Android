@@ -87,9 +87,15 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private boolean         isCallService;//是否已经呼叫服务
     private MessageVo       mMessageVo;
 
+    private String          mShopID;
+
     public MessageListViewManager(Context context, String sessionId) {
         this.context = context;
         this.sessionId = sessionId;
+    }
+
+    public void setShopID(String shopID){
+        this.mShopID = shopID;
     }
 
     public void init() {
@@ -171,6 +177,48 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         Message msg = Message.obtain();
         msg.what    = UPDATE_ADAPTER_UI;
         this.sendMessage(msg);
+    }
+
+    /**
+     * 发送文本消息
+     * @param content
+     */
+    public void sendTextMessage(String content) {
+        String tempMessageId    = UUIDBuilder.getInstance().getRandomUUID();
+        String defaultRuleType = context.getString(R.string.default_rule_type);
+
+        long tempSendTime    = System.currentTimeMillis();
+        messageVector.add(tempMessageId);
+        /** 1、IM发送文本消息 */
+        mMessageVo = buildTextMessageVo(mShopID, sessionId, content,
+                                        tempMessageId, tempSendTime,
+                                        SendStatus.SENDING, defaultRuleType);
+
+        /** 判断shopID聊天室是否存在 */
+        boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(mShopID);
+        if(isExist){
+            // 聊天室已存在, 更新聊天室信息
+            long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
+            DialogUtil.getInstance().showToast(context, "ChatRoom updResult="+updResult);
+        } else {
+            // 聊天室尚未创建, 创建新的聊天室
+            long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
+            DialogUtil.getInstance().showToast(context, "ChatRoom addResult="+addResult);
+        }
+
+        /** 2、保存文本消息到sqlite(注意此时的消息正在发送中) */
+        MessageDBUtil.getInstance().addMessage(mMessageVo);
+
+        /** 3、构建文本vo实体，将消息内容显示到页面 */
+        currentMessageList.add(mMessageVo);
+        Message msg = Message.obtain();
+        msg.what    = UPDATE_ADAPTER_UI;
+        this.sendMessage(msg);
+        if(!isCallService) {
+            sendMessageVo(mMessageVo);
+        }else {
+            callService(mShopID, defaultRuleType);
+        }
     }
 
     /**
