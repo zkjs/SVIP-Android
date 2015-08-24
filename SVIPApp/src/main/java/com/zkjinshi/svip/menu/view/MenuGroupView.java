@@ -99,7 +99,7 @@ public class MenuGroupView extends LinearLayout {
         menuTv = (TextView) menuBtnLayout.findViewById(R.id.menu_group_tv);
         menuTipIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_tip_iv);
         menuSwitchIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_switch_iv);
-        layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
+        layoutParams = new LayoutParams(0, DisplayUtil.dip2px(context,45f), 1.0f);
         url = menuGroup.getUrl();
 
         menuBtnLayout.setLayoutParams(layoutParams);
