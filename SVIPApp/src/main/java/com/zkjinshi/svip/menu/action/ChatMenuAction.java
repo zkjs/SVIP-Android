@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.zkjinshi.svip.utils.VIPContext;
 
 /**
+ * 快捷聊天指令
  * 开发者：JimmyZhang
  * 日期：2015/8/22
  * Copyright (C) 2015 深圳中科金石科技有限公司

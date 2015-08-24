@@ -10,6 +10,6 @@
     android:paddingTop="10dp"
     android:singleLine="true"
     android:paddingBottom="10dp"
-    android:textSize="18sp"
-    android:textColor="@color/menu_pop_text_normal"
+    android:textSize="14sp"
+    android:textColor="@color/menu_text_color"
     android:orientation="vertical" />

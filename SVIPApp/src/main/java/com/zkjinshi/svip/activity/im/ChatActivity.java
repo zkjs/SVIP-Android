@@ -29,6 +29,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.actions.FaceViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MoreViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
+import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -128,6 +129,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化录音管理器
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();
+        //初始化快捷菜单
+        QuickMenuManager.getInstance().init(this);
     }
 
     private void initListener() {

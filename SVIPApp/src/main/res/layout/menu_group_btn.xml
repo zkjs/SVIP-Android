@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:layout_height="match_parent">
 
     <TextView
@@ -15,18 +16,9 @@
         android:visibility="gone"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:singleLine="true"
-        android:textColor="@color/menu_pop_text_normal" />
-
-    <ImageView
-        android:id="@+id/menu_group_switch_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_jianpan"/>
+        android:textColor="@color/menu_text_color" />
 
     <ImageView
         android:id="@+id/menu_group_tip_iv"

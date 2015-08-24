@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:itemTitle="偏好标签"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="发票一"
+            android:textColor="@color/Black"
+            android:textSize="22sp"/>
+    </LinearLayout>
+
+</LinearLayout>

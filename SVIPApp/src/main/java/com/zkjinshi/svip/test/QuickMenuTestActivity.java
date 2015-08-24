@@ -2,9 +2,7 @@ package com.zkjinshi.svip.test;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 
 import com.zkjinshi.svip.R;
@@ -14,7 +12,6 @@ import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
 import com.zkjinshi.svip.menu.vo.MenuType;
 
-import java.net.FileNameMap;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +27,7 @@ public class QuickMenuTestActivity extends Activity{
     private ArrayList<MenuItem> menuItemList;
     private MenuGroup menuGroup;
     private MenuItem menuItem;
-    private MenuLayoutView tabHostLinearLayout;
+    private MenuLayoutView menuLayoutView;
     private LinearLayout.LayoutParams layoutParams;
 
     private void initView(){
@@ -40,11 +37,6 @@ public class QuickMenuTestActivity extends Activity{
     private void initData(){
         //第一组按钮实例化
         menuGroupList = new ArrayList<MenuGroup>();
-        menuGroup = new MenuGroup();
-        menuGroup.setMenuType(MenuType.SWITCH);
-        menuGroup.setMenuName("切换");
-        menuGroupList.add(menuGroup);
-        //第二组按钮实例化
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
         menuGroup = new MenuGroup();
@@ -56,7 +48,7 @@ public class QuickMenuTestActivity extends Activity{
         menuGroup.setMenuName("促销");
         menuGroup.setMenuType(MenuType.MULTI);
         menuGroupList.add(menuGroup);
-        //第三组按钮实例化
+        //第二组按钮实例化
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
         menuGroup = new MenuGroup();
@@ -73,7 +65,7 @@ public class QuickMenuTestActivity extends Activity{
         menuGroup.setMenuName("服务");
         menuGroup.setMenuType(MenuType.MULTI);
         menuGroupList.add(menuGroup);
-        //第四组按钮实例化
+        //第三组按钮实例化
         menuItemList = new ArrayList<MenuItem>();
         menuGroup = new MenuGroup();
         menuGroup.setMenuName("关于");
@@ -83,13 +75,13 @@ public class QuickMenuTestActivity extends Activity{
         menuGroupList.add(menuGroup);
         //绘制低栏按钮
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        tabHostLinearLayout = new MenuLayoutView(this, menuGroupList);
-        tabHostLinearLayout.setLayoutParams(layoutParams);
+        menuLayoutView = new MenuLayoutView(this, menuGroupList);
+        menuLayoutView.setLayoutParams(layoutParams);
         if(menuContainerLayout.getChildCount() > 0){
             menuContainerLayout.removeAllViews();
         }
-        tabHostLinearLayout.init();
-        menuContainerLayout.addView(tabHostLinearLayout);
+        menuLayoutView.init();
+        menuContainerLayout.addView(menuLayoutView);
         menuContainerLayout.setVisibility(View.VISIBLE);
         menuContainerLayout.invalidate();
 

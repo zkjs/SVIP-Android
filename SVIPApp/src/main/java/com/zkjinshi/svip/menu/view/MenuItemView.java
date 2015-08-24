@@ -21,6 +21,7 @@ import com.zkjinshi.svip.menu.vo.MenuItem;
 import java.util.ArrayList;
 
 /**
+ * 菜单项View
  * 开发者：JimmyZhang
  * 日期：2015/8/22
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -94,7 +95,7 @@ public class MenuItemView extends PopupWindow {
         menuLayout.addView(menuBtn);
         if(isShowCutLine){
             cutlineTv = new TextView(context);
-            cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
+            cutlineTv.setBackgroundResource(R.color.menu_cut_line);
             layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
             cutlineTv.setLayoutParams(layoutParams);
             menuLayout.addView(cutlineTv);

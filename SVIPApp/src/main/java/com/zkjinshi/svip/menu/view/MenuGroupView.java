@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +17,6 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.menu.action.ChatMenuAction;
 import com.zkjinshi.svip.menu.action.MenuAction;
 import com.zkjinshi.svip.menu.action.PushMenuAction;
-import com.zkjinshi.svip.menu.action.SwitchMenuAction;
 import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
@@ -27,6 +25,7 @@ import com.zkjinshi.svip.menu.vo.MenuType;
 import java.util.ArrayList;
 
 /**
+ * 菜单组View
  * 开发者：JimmyZhang
  * 日期：2015/8/22
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -40,7 +39,7 @@ public class MenuGroupView extends LinearLayout {
     private String url;
     private String menuName;
     private TextView menuTv;
-    private ImageView menuTipIv,menuSwitchIv;
+    private ImageView menuTipIv;
     private MenuType menuType;
     private RelativeLayout menuBtnLayout;
     private TextView cutlineTv;
@@ -98,14 +97,15 @@ public class MenuGroupView extends LinearLayout {
         menuBtnLayout =  (RelativeLayout) inflater.inflate(R.layout.menu_group_btn, null);
         menuTv = (TextView) menuBtnLayout.findViewById(R.id.menu_group_tv);
         menuTipIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_tip_iv);
-        menuSwitchIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_switch_iv);
-        layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
+        layoutParams = new LayoutParams(0, DisplayUtil.dip2px(context,47f), 1.0f);
         url = menuGroup.getUrl();
-
+        menuName = menuGroup.getMenuName();
+        menuTv.setText(menuName);
+        menuTv.setVisibility(View.VISIBLE);
         menuBtnLayout.setLayoutParams(layoutParams);
         cutlineTv = new TextView(context);
-        cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
-        layoutParams = new LayoutParams(DisplayUtil.dip2px(context,0.5f), ViewGroup.LayoutParams.MATCH_PARENT);
+        cutlineTv.setBackgroundResource(R.color.menu_cut_line);
+        layoutParams = new LayoutParams(DisplayUtil.dip2px(context,0.5f), LayoutParams.MATCH_PARENT);
         cutlineTv.setGravity(Gravity.CENTER_VERTICAL);
         cutlineTv.setLayoutParams(layoutParams);
         addView(menuBtnLayout);
@@ -113,33 +113,17 @@ public class MenuGroupView extends LinearLayout {
             addView(cutlineTv);
         }
         menuType = menuGroup.getMenuType();
-        if(null != menuType){
-           if( menuType ==  MenuType.MULTI){
-               menuTipIv.setVisibility(View.VISIBLE);
-               menuSwitchIv.setVisibility(View.GONE);
-           }else if(menuType == MenuType.SINGLE){
-               menuTipIv.setVisibility(View.GONE);
-               menuSwitchIv.setVisibility(View.GONE);
-           }else{
-               menuTipIv.setVisibility(View.GONE);
-               menuSwitchIv.setVisibility(View.VISIBLE);
-           }
+        if(null != menuType && menuType == MenuType.MULTI){
+            menuTipIv.setVisibility(View.VISIBLE);
         }else{
             menuTipIv.setVisibility(View.GONE);
-        }
-        menuName = menuGroup.getMenuName();
-        if(!TextUtils.isEmpty(menuName) && menuType != MenuType.SWITCH){
-            menuTv.setText(menuName);
-            menuTv.setVisibility(View.VISIBLE);
-        }else{
-            menuTv.setVisibility(View.GONE);
         }
         invalidate();
     }
 
     public void initListeners() {
         menuItemList = menuGroup.getMenuItemList();
-        if (null != menuItemList && !menuItemList.isEmpty()) {
+        if (null != menuType && menuType == MenuType.MULTI) {
             menuItemView = new MenuItemView(context, menuItemList);
             menuTv.setTag(menuItemView);
             menuTv.setOnClickListener(new OnClickListener() {
@@ -191,9 +175,6 @@ public class MenuGroupView extends LinearLayout {
                             menuAction.executeAction();
                         } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                             menuAction = new PushMenuAction();
-                            menuAction.executeAction();
-                        } else if(actionType == ActionType.SWITCH){//执行按钮切换
-                            menuAction = new SwitchMenuAction();
                             menuAction.executeAction();
                         }
                     }
