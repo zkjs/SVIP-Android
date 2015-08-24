@@ -2,6 +2,7 @@ package com.zkjinshi.svip.menu.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.menu.action.ChatMenuAction;
 import com.zkjinshi.svip.menu.action.MenuAction;
 import com.zkjinshi.svip.menu.action.PushMenuAction;
+import com.zkjinshi.svip.menu.action.SwitchMenuAction;
 import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
@@ -38,7 +40,7 @@ public class MenuGroupView extends LinearLayout {
     private String url;
     private String menuName;
     private TextView menuTv;
-    private ImageView menuIv;
+    private ImageView menuTipIv,menuSwitchIv;
     private MenuType menuType;
     private RelativeLayout menuBtnLayout;
     private TextView cutlineTv;
@@ -95,11 +97,11 @@ public class MenuGroupView extends LinearLayout {
     public void initView(boolean isShowCutline) {
         menuBtnLayout =  (RelativeLayout) inflater.inflate(R.layout.menu_group_btn, null);
         menuTv = (TextView) menuBtnLayout.findViewById(R.id.menu_group_tv);
-        menuIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_iv);
+        menuTipIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_tip_iv);
+        menuSwitchIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_switch_iv);
         layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
         url = menuGroup.getUrl();
-        menuName = menuGroup.getMenuName();
-        menuTv.setText(menuName);
+
         menuBtnLayout.setLayoutParams(layoutParams);
         cutlineTv = new TextView(context);
         cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
@@ -111,10 +113,26 @@ public class MenuGroupView extends LinearLayout {
             addView(cutlineTv);
         }
         menuType = menuGroup.getMenuType();
-        if(null != menuType && menuType ==  MenuType.MULTI){
-            menuIv.setVisibility(View.VISIBLE);
+        if(null != menuType){
+           if( menuType ==  MenuType.MULTI){
+               menuTipIv.setVisibility(View.VISIBLE);
+               menuSwitchIv.setVisibility(View.GONE);
+           }else if(menuType == MenuType.SINGLE){
+               menuTipIv.setVisibility(View.GONE);
+               menuSwitchIv.setVisibility(View.GONE);
+           }else{
+               menuTipIv.setVisibility(View.GONE);
+               menuSwitchIv.setVisibility(View.VISIBLE);
+           }
         }else{
-            menuIv.setVisibility(View.GONE);
+            menuTipIv.setVisibility(View.GONE);
+        }
+        menuName = menuGroup.getMenuName();
+        if(!TextUtils.isEmpty(menuName) && menuType != MenuType.SWITCH){
+            menuTv.setText(menuName);
+            menuTv.setVisibility(View.VISIBLE);
+        }else{
+            menuTv.setVisibility(View.GONE);
         }
         invalidate();
     }
@@ -173,6 +191,9 @@ public class MenuGroupView extends LinearLayout {
                             menuAction.executeAction();
                         } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                             menuAction = new PushMenuAction();
+                            menuAction.executeAction();
+                        } else if(actionType == ActionType.SWITCH){//执行按钮切换
+                            menuAction = new SwitchMenuAction();
                             menuAction.executeAction();
                         }
                     }
