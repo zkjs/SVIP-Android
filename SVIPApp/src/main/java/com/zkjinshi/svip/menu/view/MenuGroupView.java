@@ -99,12 +99,12 @@ public class MenuGroupView extends LinearLayout {
         menuTv = (TextView) menuBtnLayout.findViewById(R.id.menu_group_tv);
         menuTipIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_tip_iv);
         menuSwitchIv = (ImageView)menuBtnLayout.findViewById(R.id.menu_group_switch_iv);
-        layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
+        layoutParams = new LayoutParams(0, DisplayUtil.dip2px(context,45f), 1.0f);
         url = menuGroup.getUrl();
 
         menuBtnLayout.setLayoutParams(layoutParams);
         cutlineTv = new TextView(context);
-        cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
+        cutlineTv.setBackgroundResource(R.color.menu_cut_line);
         layoutParams = new LayoutParams(DisplayUtil.dip2px(context,0.5f), ViewGroup.LayoutParams.MATCH_PARENT);
         cutlineTv.setGravity(Gravity.CENTER_VERTICAL);
         cutlineTv.setLayoutParams(layoutParams);

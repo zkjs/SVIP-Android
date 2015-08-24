@@ -94,7 +94,7 @@ public class MenuItemView extends PopupWindow {
         menuLayout.addView(menuBtn);
         if(isShowCutLine){
             cutlineTv = new TextView(context);
-            cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
+            cutlineTv.setBackgroundResource(R.color.menu_cut_line);
             layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
             cutlineTv.setLayoutParams(layoutParams);
             menuLayout.addView(cutlineTv);
