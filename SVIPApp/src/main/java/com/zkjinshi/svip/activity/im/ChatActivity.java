@@ -132,7 +132,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();
         //初始化快捷菜单
-        QuickMenuManager.getInstance().init(this);
+        QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
     }
 
     private void initListener() {

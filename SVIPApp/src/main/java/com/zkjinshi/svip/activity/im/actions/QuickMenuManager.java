@@ -35,6 +35,16 @@ public class QuickMenuManager {
     private MenuLayoutView menuLayoutView;
     private LinearLayout.LayoutParams layoutParams;
 
+    public MessageListViewManager getMessageListViewManager() {
+        return messageListViewManager;
+    }
+
+    public void setMessageListViewManager(MessageListViewManager messageListViewManager) {
+        this.messageListViewManager = messageListViewManager;
+    }
+
+    private MessageListViewManager messageListViewManager;
+
     private QuickMenuManager(){}
 
     public static QuickMenuManager instance;
@@ -46,11 +56,12 @@ public class QuickMenuManager {
         return instance;
     }
 
-    public void init(Context context){
+    public QuickMenuManager init(Context context){
         this.context = context;
         initView(context);
         initData();
         initListeners();
+        return this;
     }
 
     private void initView(Context context){
@@ -69,27 +80,27 @@ public class QuickMenuManager {
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
         menuItem.setMenuName("大床房");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("双床房");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("高层房");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("角落房");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("无烟房");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("加床");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuGroup = new MenuGroup();
         menuGroup.setMenuItemList(menuItemList);
@@ -100,18 +111,18 @@ public class QuickMenuManager {
         menuItemList = new ArrayList<MenuItem>();
         menuItem = new MenuItem();
         menuItem.setMenuName("中餐");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("西餐");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem.setMenuName("特色菜");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuItem = new MenuItem();
         menuItem.setMenuName("清淡");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuGroup = new MenuGroup();
         menuGroup.setMenuItemList(menuItemList);
@@ -123,7 +134,7 @@ public class QuickMenuManager {
         menuItem = new MenuItem();
         menuGroup = new MenuGroup();
         menuItem.setMenuName("呼叫前台");
-        menuItem.setActionType(ActionType.PUSH);
+        menuItem.setActionType(ActionType.CHAT);
         menuItemList.add(menuItem);
         menuGroup = new MenuGroup();
         menuGroup.setMenuName("其他服务");

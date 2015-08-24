@@ -171,7 +171,7 @@ public class MenuGroupView extends LinearLayout {
                         //执行按钮动作
                         ActionType actionType = menuGroup.getActionType();
                         if (actionType == ActionType.CHAT) {//进行预订聊天
-                            menuAction = new ChatMenuAction();
+                            menuAction = new ChatMenuAction(menuName);
                             menuAction.executeAction();
                         } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                             menuAction = new PushMenuAction();
