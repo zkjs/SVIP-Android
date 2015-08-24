@@ -3,14 +3,15 @@
     xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#000000">
 
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/itv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#191223"
-        zkjinshi:itemTitle="偏好标签"
+        zkjinshi:itemTitle="设置"
         zkjinshi:leftImage="@mipmap/icon_white_img_back"
         zkjinshi:itemTitleColor="#FFFFFF"
         />
@@ -19,10 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp">
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:background="@drawable/bg_white_radius">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,6 +31,59 @@
             android:text="发票一"
             android:textColor="@color/Black"
             android:textSize="22sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPersonName"
+                android:hint="输入发票抬头"
+                android:background="@android:color/transparent"
+                android:id="@+id/et_setting_input"
+                />
+            <View
+                android:background="#bbbbbb"
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"></View>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="获取方式：离店时自取"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_setting_tips"
+                />
+
+
+        </LinearLayout>
+
+        <View
+            android:background="#bbbbbb"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="设为默认"
+            android:textSize="20dp"
+            android:textColor="@android:color/holo_blue_light"
+            android:id="@+id/tv_set_default" />
+
+
     </LinearLayout>
 
 </LinearLayout>
