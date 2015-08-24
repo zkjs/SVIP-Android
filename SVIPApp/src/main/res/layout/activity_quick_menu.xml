@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@mipmap/bg_svip_mine"
-    android:layout_height="match_parent">
+    android:background="@android:color/white"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:id="@+id/tab_host_layout"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#F0F0F0"
-        android:visibility="visible"
-        android:orientation="horizontal" />
+        android:background="@mipmap/chat_bottom_bg"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/switch_chat_keyboard_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:background="@drawable/bg_menu_btn"
+            android:visibility="visible"
+            android:focusableInTouchMode="true"
+            android:src="@mipmap/ic_jianpan"/>
+
+        <TextView
+            android:layout_width="0.5dp"
+            android:layout_height="48dp"
+            android:visibility="visible"
+            android:background="@color/menu_cut_line"/>
+
+        <LinearLayout
+            android:id="@+id/tab_host_layout"
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.0"
+            android:layout_height="47dp"
+            android:visibility="visible"
+            android:orientation="horizontal" />
+
+    </LinearLayout>
 
 </RelativeLayout>
