@@ -3,6 +3,8 @@ package com.zkjinshi.svip.activity.im.actions;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -35,6 +37,7 @@ public class QuickMenuManager {
     private MenuItem menuItem;
     private MenuLayoutView menuLayoutView;
     private LinearLayout.LayoutParams layoutParams;
+    private Animation menuInBottom, menuOutTop;
 
     public MessageListViewManager getMessageListViewManager() {
         return messageListViewManager;
@@ -76,6 +79,8 @@ public class QuickMenuManager {
     private void initData(){
         quickMenuLayout.setVisibility(View.VISIBLE);
         chatKeyboardLayout.setVisibility(View.GONE);
+        menuInBottom = AnimationUtils.loadAnimation(context,R.anim.menu_in_bottom);
+        menuOutTop = AnimationUtils.loadAnimation(context,R.anim.menu_out_top);
         //第一组按钮实例化
         menuGroupList = new ArrayList<MenuGroup>();
         menuItemList = new ArrayList<MenuItem>();
@@ -157,21 +162,58 @@ public class QuickMenuManager {
 
     private void initListeners(){
 
+        //显示快捷菜单
         switchQuickMenuIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ChatActivity)context).resetKeyboard();
-                quickMenuLayout.setVisibility(View.VISIBLE);
-                chatKeyboardLayout.setVisibility(View.GONE);
+                quickMenuLayout.startAnimation(menuInBottom);
+                chatKeyboardLayout.startAnimation(menuOutTop);
+                menuInBottom.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        quickMenuLayout.setVisibility(View.VISIBLE);
+                        chatKeyboardLayout.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
             }
         });
 
+        //显示聊天菜单
         switchChatKeyboardIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((ChatActivity)context).resetKeyboard();
-                quickMenuLayout.setVisibility(View.GONE);
-                chatKeyboardLayout.setVisibility(View.VISIBLE);
+                quickMenuLayout.startAnimation(menuOutTop);
+                chatKeyboardLayout.startAnimation(menuInBottom);
+                menuInBottom.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        quickMenuLayout.setVisibility(View.GONE);
+                        chatKeyboardLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
             }
         });
     }
