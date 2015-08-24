@@ -55,10 +55,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private ImageView addHotelIv;
     private LinearLayout msgNotifyLayout;
     private SlidingMenu slidingMenu;
+    private Fragment leftMenuFragment;
 
 
     private void initView(){
-
         initMenu();
         kbv  = new KenBurnsView(this);
         photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
@@ -103,7 +103,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                                             String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
                                             //保存头像到本地
                                             CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
-                                            MineUiController.getInstance().setUserPhoto(userPhotoUrl,photoCtv);
+                                            MineUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
+                                            MenuLeftFragment leftmenu = (MenuLeftFragment)leftMenuFragment;
+                                            leftmenu.setAvatar();
                                         }
                                         CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
                                         CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
@@ -127,7 +129,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     private void initMenu() {
         slidingMenu = new SlidingMenu(this);
-        Fragment leftMenuFragment = new MenuLeftFragment();
+        leftMenuFragment = new MenuLeftFragment();
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(getLayoutInflater().inflate(R.layout.left_menu_frame, null));
         getSupportFragmentManager().beginTransaction()
