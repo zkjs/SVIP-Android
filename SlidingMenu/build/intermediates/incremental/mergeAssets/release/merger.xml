@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\zkjs_repository\SVIP-Android\SlidingMenu\assets"/></dataSet><dataSet config="release"><source path="F:\zkjs_repository\SVIP-Android\SlidingMenu\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\develop_code\android\studio\SVIP-Android\SlidingMenu\assets"/></dataSet><dataSet config="release"><source path="F:\develop_code\android\studio\SVIP-Android\SlidingMenu\src\release\assets"/></dataSet></merger>

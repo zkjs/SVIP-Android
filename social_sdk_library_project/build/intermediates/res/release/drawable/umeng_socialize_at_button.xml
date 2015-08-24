@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/umeng_socialize_at_selected" android:state_pressed="true" android:state_window_focused="true"/>
     <item android:drawable="@drawable/umeng_socialize_at_selected" android:state_focused="true"/>
 
-</selector><!-- From: file:/F:/zkjs_repository/SVIP-Android/social_sdk_library_project/src/main/res/drawable/umeng_socialize_at_button.xml -->
+</selector><!-- From: file:/F:/develop_code/android/studio/SVIP-Android/social_sdk_library_project/src/main/res/drawable/umeng_socialize_at_button.xml -->
