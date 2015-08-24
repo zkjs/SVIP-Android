@@ -199,11 +199,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isExist){
             // 聊天室已存在, 更新聊天室信息
             long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom updResult="+updResult);
         } else {
             // 聊天室尚未创建, 创建新的聊天室
             long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom addResult="+addResult);
         }
 
         /** 2、保存文本消息到sqlite(注意此时的消息正在发送中) */
@@ -240,11 +238,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isExist){
             // 聊天室已存在, 更新聊天室信息
             long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom updResult="+updResult);
         } else {
             // 聊天室尚未创建, 创建新的聊天室
             long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom addResult="+addResult);
         }
 
         /** 2、保存文本消息到sqlite(注意此时的消息正在发送中) */
@@ -287,11 +283,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isExist){
             // 聊天室已存在, 更新聊天室信息
             long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom updResult="+updResult);
         } else {
             // 聊天室尚未创建, 创建新的聊天室
             long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom addResult="+addResult);
         }
 
         // 1、保存文本消息到sqlite(注意此时的消息正在发送中)
@@ -330,11 +324,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isExist){
             // 聊天室已存在, 更新聊天室信息
             long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom updResult="+updResult);
         } else {
             // 聊天室尚未创建, 创建新的聊天室
             long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
-            DialogUtil.getInstance().showToast(context, "ChatRoom addResult="+addResult);
         }
 
         /** 1 保存文本消息到sqlite(注意此时的消息正在发送中) */
@@ -481,7 +473,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                                         // 更新数据库url地址
                                         MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
                                                 buildContentValues(messageUiVo));
-                                        DialogUtil.getInstance().showToast(context, "图片上传成功");
                                     }
 
                                     //获得待发送协议消息
@@ -495,7 +486,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                         } , new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        DialogUtil.getInstance().showToast(context, "上传图片网络异常");
+                        LogUtil.getInstance().info(LogLevel.INFO,"长传图片网络异常");
                     }
                 })
                 {
@@ -834,9 +825,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             if(ProtocolMSG.MSG_CustomerServiceTextChat_RSP == type) {
                 Gson gson = new Gson();
                 MsgCustomerServiceTextChatRSP msgTextRSP = gson.fromJson(message, MsgCustomerServiceTextChatRSP.class);
-                if(Constants.PROTOCAL_FAILED == msgTextRSP.getResult()) {
-                    DialogUtil.getInstance().showToast(context, "消息已存为离线消息");
-                }
                 // 更新数据库
                 String realMsgID = msgTextRSP.getSrvmsgid() + "";//服务器返回msgID
                 long   sendTime  = msgTextRSP.getTimestamp();//服务器返回发送时间
@@ -867,9 +855,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             if(ProtocolMSG.MSG_CustomerServiceMediaChat_RSP == type) {
                 Gson gson = new Gson();
                 MsgCustomerServiceMediaChatRSP msgMediaRSP = gson.fromJson(message, MsgCustomerServiceMediaChatRSP.class);
-                if(Constants.PROTOCAL_FAILED == msgMediaRSP.getResult()) {
-                    DialogUtil.getInstance().showToast(context, "消息已存为离线消息");
-                }
 
                 // 更新数据库
                 String realMsgID = msgMediaRSP.getSrvmsgid() + "";//服务器返回msgID
@@ -905,9 +890,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 Gson gson = new Gson();
                 MsgCustomerServiceImgChatRSP msgImgRSP = gson.fromJson(message,
                         MsgCustomerServiceImgChatRSP.class);
-                if(Constants.PROTOCAL_FAILED == msgImgRSP.getResult()) {
-                    DialogUtil.getInstance().showToast(context, "消息已存为离线消息");
-                }
 
                 // 更新数据库
                 String realMsgID = msgImgRSP.getSrvmsgid() + "";//服务器返回msgID
