@@ -21,18 +21,6 @@
         android:textColor="@color/menu_text_color" />
 
     <ImageView
-        android:id="@+id/menu_group_switch_iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        android:clickable="true"
-        android:background="@drawable/bg_menu_btn"
-        android:visibility="gone"
-        android:focusableInTouchMode="true"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_jianpan"/>
-
-    <ImageView
         android:id="@+id/menu_group_tip_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

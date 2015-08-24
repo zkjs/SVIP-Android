@@ -29,6 +29,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.actions.FaceViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MoreViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
+import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -119,6 +120,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化消息ListView管理器
         messageListViewManager = new MessageListViewManager(this, mSessionID);
         messageListViewManager.init();
+        messageListViewManager.setShopID(mShopID);
+
         //初始化表情框
         facePagerManager = new FaceViewPagerManager(this, faceLinearLayout, mMsgTextInput);
         facePagerManager.init();
@@ -128,6 +131,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化录音管理器
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();
+        //初始化快捷菜单
+        QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
     }
 
     private void initListener() {
@@ -245,20 +250,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    hideFaceLayout();
-                    hideMoreLayout();
-                    hideSoftInput();
-                    Drawable plusawable = getResources().getDrawable(
-                            R.drawable.aio_fold);
-                    plusawable.setBounds(0, 0, plusawable.getMinimumWidth(),
-                            plusawable.getMinimumHeight());
-                    moreCb.setCompoundDrawables(plusawable, null, null, null);
-                    Drawable facedrawable = getResources().getDrawable(
-                            R.drawable.aio_favorite);
-                    facedrawable.setBounds(0, 0,
-                            facedrawable.getMinimumWidth(),
-                            facedrawable.getMinimumHeight());
-                    faceCb.setCompoundDrawables(facedrawable, null, null, null);
+                    resetKeyboard();
                 }
                 return false;
             }
@@ -271,6 +263,23 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 return false;
             }
         });
+    }
+
+    public void resetKeyboard(){
+        hideFaceLayout();
+        hideMoreLayout();
+        hideSoftInput();
+        Drawable plusawable = getResources().getDrawable(
+                R.drawable.aio_fold);
+        plusawable.setBounds(0, 0, plusawable.getMinimumWidth(),
+                plusawable.getMinimumHeight());
+        moreCb.setCompoundDrawables(plusawable, null, null, null);
+        Drawable facedrawable = getResources().getDrawable(
+                R.drawable.aio_favorite);
+        facedrawable.setBounds(0, 0,
+                facedrawable.getMinimumWidth(),
+                facedrawable.getMinimumHeight());
+        faceCb.setCompoundDrawables(facedrawable, null, null, null);
     }
 
     @Override

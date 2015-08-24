@@ -21,6 +21,7 @@ import com.zkjinshi.svip.menu.vo.MenuItem;
 import java.util.ArrayList;
 
 /**
+ * 菜单项View
  * 开发者：JimmyZhang
  * 日期：2015/8/22
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -36,6 +37,7 @@ public class MenuItemView extends PopupWindow {
     private LinearLayout.LayoutParams layoutParams;
     private TextView cutlineTv;
     private MenuAction menuAction;
+    private String menuName;
     public MenuItemView(Context context) {
         super(context);
         this.context = context;
@@ -67,7 +69,7 @@ public class MenuItemView extends PopupWindow {
     }
 
     public void addView(MenuItem menuItem,boolean isShowCutLine){
-        String menuName = menuItem.getMenuName();
+        menuName = menuItem.getMenuName();
         menuBtn =  (Button) inflater.inflate(R.layout.menu_item_btn, null);
         menuBtn.setBackgroundResource(R.drawable.bg_menu_btn);
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
@@ -82,7 +84,7 @@ public class MenuItemView extends PopupWindow {
                 MenuItem menuItem = (MenuItem) view.getTag();
                 ActionType actionType = menuItem.getActionType();
                 if (actionType == ActionType.CHAT) {//进行预订聊天
-                    menuAction = new ChatMenuAction();
+                    menuAction = new ChatMenuAction(menuItem.getMenuName());
                     menuAction.executeAction();
                 } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                     menuAction = new PushMenuAction();
