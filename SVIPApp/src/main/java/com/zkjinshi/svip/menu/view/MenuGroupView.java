@@ -104,7 +104,7 @@ public class MenuGroupView extends LinearLayout {
 
         menuBtnLayout.setLayoutParams(layoutParams);
         cutlineTv = new TextView(context);
-        cutlineTv.setBackgroundResource(R.color.menu_pop_cut_line);
+        cutlineTv.setBackgroundResource(R.color.menu_cut_line);
         layoutParams = new LayoutParams(DisplayUtil.dip2px(context,0.5f), ViewGroup.LayoutParams.MATCH_PARENT);
         cutlineTv.setGravity(Gravity.CENTER_VERTICAL);
         cutlineTv.setLayoutParams(layoutParams);

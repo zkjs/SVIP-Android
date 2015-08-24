@@ -17,7 +17,6 @@
 	<drawable name="focused_color">#2E2F32</drawable>
 	<drawable name="normal_color">#252628</drawable>
 
-	<color name="menu_pop_cut_line">#D3D3D3</color>
-	<color name="menu_pop_text_normal">#666666</color>
-	<color name="menu_pop_text_press">#ea7114</color>
+	<color name="menu_cut_line">#D3D3D3</color>
+	<color name="menu_text_color">@android:color/black</color>
 </resources>
