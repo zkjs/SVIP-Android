@@ -250,20 +250,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    hideFaceLayout();
-                    hideMoreLayout();
-                    hideSoftInput();
-                    Drawable plusawable = getResources().getDrawable(
-                            R.drawable.aio_fold);
-                    plusawable.setBounds(0, 0, plusawable.getMinimumWidth(),
-                            plusawable.getMinimumHeight());
-                    moreCb.setCompoundDrawables(plusawable, null, null, null);
-                    Drawable facedrawable = getResources().getDrawable(
-                            R.drawable.aio_favorite);
-                    facedrawable.setBounds(0, 0,
-                            facedrawable.getMinimumWidth(),
-                            facedrawable.getMinimumHeight());
-                    faceCb.setCompoundDrawables(facedrawable, null, null, null);
+                    resetKeyboard();
                 }
                 return false;
             }
@@ -276,6 +263,23 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 return false;
             }
         });
+    }
+
+    public void resetKeyboard(){
+        hideFaceLayout();
+        hideMoreLayout();
+        hideSoftInput();
+        Drawable plusawable = getResources().getDrawable(
+                R.drawable.aio_fold);
+        plusawable.setBounds(0, 0, plusawable.getMinimumWidth(),
+                plusawable.getMinimumHeight());
+        moreCb.setCompoundDrawables(plusawable, null, null, null);
+        Drawable facedrawable = getResources().getDrawable(
+                R.drawable.aio_favorite);
+        facedrawable.setBounds(0, 0,
+                facedrawable.getMinimumWidth(),
+                facedrawable.getMinimumHeight());
+        faceCb.setCompoundDrawables(facedrawable, null, null, null);
     }
 
     @Override

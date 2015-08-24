@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.menu.view.MenuLayoutView;
 import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
@@ -159,6 +160,7 @@ public class QuickMenuManager {
         switchQuickMenuIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((ChatActivity)context).resetKeyboard();
                 quickMenuLayout.setVisibility(View.VISIBLE);
                 chatKeyboardLayout.setVisibility(View.GONE);
             }
@@ -167,6 +169,7 @@ public class QuickMenuManager {
         switchChatKeyboardIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((ChatActivity)context).resetKeyboard();
                 quickMenuLayout.setVisibility(View.GONE);
                 chatKeyboardLayout.setVisibility(View.VISIBLE);
             }
