@@ -71,6 +71,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
 
     private void initData()
     {
+        setAvatar();
+    }
+
+    public void setAvatar(){
         MainUiController.getInstance().init(getActivity());
         MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
         nameTv.setText(CacheUtil.getInstance().getUserPhone().toString());
