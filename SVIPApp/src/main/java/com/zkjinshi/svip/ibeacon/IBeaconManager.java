@@ -80,13 +80,13 @@ public class IBeaconManager {
 
 	public void scanLeDevice(final boolean enable) {
 		if (enable) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					scanning = false;
-					bluetoothAdapter.stopLeScan(mLeScanCallback);
-				}
-			}, SCAN_PERIOD);
+//			mHandler.postDelayed(new Runnable() {
+//				@Override
+//				public void run() {
+//					scanning = false;
+//					bluetoothAdapter.stopLeScan(mLeScanCallback);
+//				}
+//			}, SCAN_PERIOD);
 			scanning = true;
 			bluetoothAdapter.startLeScan(mLeScanCallback);
 		} else {
