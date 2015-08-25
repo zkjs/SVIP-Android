@@ -57,12 +57,12 @@ public class IBeaconManager {
 		this.context = context;
 		initScanDevices();
 		scanLeDevice(true);
-		//startCheckOutTimer();
+		startCheckOutTimer();
 	}
 
 	public void stopScan(){
 		scanLeDevice(false);
-		//stopOutCheckTimer();
+		stopOutCheckTimer();
 	}
 
 	private void initScanDevices(){

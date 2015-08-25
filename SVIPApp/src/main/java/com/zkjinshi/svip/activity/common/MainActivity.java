@@ -234,7 +234,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         initView();
         initData();
         initListeners();
-//        initIBeaconList();
+        initIBeaconList();
         IBeaconSubject.getInstance().addObserver(this);
     }
 
