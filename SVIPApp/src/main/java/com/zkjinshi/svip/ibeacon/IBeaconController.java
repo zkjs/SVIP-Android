@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.ibeacon;
 
-import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
@@ -14,18 +13,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.NetWorkUtil;
-import com.zkjinshi.svip.activity.order.GoodListNetController;
-import com.zkjinshi.svip.factory.GoodInfoFactory;
-import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 开发者：JimmyZhang
@@ -70,7 +62,7 @@ public class IBeaconController {
                                     for (IBeaconEntity beancon:beaconList ) {
                                         IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(),beancon);
                                     }
-                                    initIBeaconService();
+                                    startBeaconService();
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();;
@@ -89,8 +81,18 @@ public class IBeaconController {
     /**
      * 启动IBeacon蓝牙扫描服务
      */
-    private void initIBeaconService(){
-        Intent iBeaconService = new Intent(VIPContext.getInstance().getContext(), IBeaconService.class);
-        VIPContext.getInstance().getContext().startService(iBeaconService);
+    public void startBeaconService(){
+        Intent intent = new Intent(VIPContext.getInstance().getContext(), IBeaconService.class);
+        intent.setAction("com.zkjinshi.svip.im.Beacon_SERVICE");
+        VIPContext.getInstance().getContext().startService(intent);
+    }
+
+    /**
+     * 停止IBeacon蓝牙扫描服务
+     */
+    public void stopBeaconService(){
+        Intent intent = new Intent(VIPContext.getInstance().getContext(), IBeaconService.class);
+        intent.setAction("com.zkjinshi.svip.im.Beacon_SERVICE");
+        VIPContext.getInstance().getContext().stopService(intent);
     }
 }

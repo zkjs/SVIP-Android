@@ -41,6 +41,7 @@ public class IBeaconService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.getInstance().info(LogLevel.DEBUG, "IBeaconService.onStartCommand()");
+
         cancelAlarmManager();
         awakeAlarmManager(intent);
         IBeaconManager.getInstance().init(this).initScanDevices().scanLeDevice(true);

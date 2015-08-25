@@ -241,7 +241,11 @@
             </intent-filter>
         </service>
 
-        <service android:name=".ibeacon.IBeaconService"></service>
+        <service android:name=".ibeacon.IBeaconService">
+            <intent-filter>
+                <action android:name="com.zkjinshi.svip.im.Beacon_SERVICE"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
