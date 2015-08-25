@@ -17,7 +17,7 @@ public enum MimeType {
     private MimeType(int value){
         this.value = value;
     }
-    private int value;
+    private final int value;
     public int getVlaue(){
         return value;
     }

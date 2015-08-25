@@ -35,14 +35,15 @@ public class IBeaconService extends Service{
     public void onCreate() {
         super.onCreate();
         LogUtil.getInstance().info(LogLevel.DEBUG, "IBeaconService.onCreate()");
-        IBeaconManager.getInstance().init(this);
+        IBeaconManager.getInstance().startCheckOutTimer();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtil.getInstance().info(LogLevel.DEBUG, "IBeaconService.onStartCommand()");
-        //cancelAlarmManager();
-        //awakeAlarmManager(intent);
+        cancelAlarmManager();
+        awakeAlarmManager(intent);
+        IBeaconManager.getInstance().init(this).initScanDevices().scanLeDevice(true);
         return Service.START_NOT_STICKY;
     }
 
@@ -50,7 +51,7 @@ public class IBeaconService extends Service{
     public void onDestroy() {
         super.onDestroy();
         LogUtil.getInstance().info(LogLevel.DEBUG, "IBeaconService.onDestroy()");
-       // cancelAlarmManager();
+        cancelAlarmManager();
         IBeaconManager.getInstance().stopScan();
     }
 
@@ -68,7 +69,7 @@ public class IBeaconService extends Service{
                     intent, PendingIntent.FLAG_ONE_SHOT);
             if(null != am){
                 am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                        SystemClock.elapsedRealtime() + 30 * 1000, pendingIntent);
+                        SystemClock.elapsedRealtime() + 90 * 1000, pendingIntent);
             }
         }
     }

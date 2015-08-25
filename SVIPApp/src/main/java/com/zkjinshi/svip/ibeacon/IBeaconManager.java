@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.VIPContext;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -28,7 +27,8 @@ public class IBeaconManager {
 	private String regionKey;
 	private long currentTimestamp;
 	private Timer outCheckTimer;
-	public static final int CHECK_OUT_DURATION = 10000;
+	public static final int CHECK_AREA_DURATION = 2*60*1000;
+	public static final int OUT_AREA_DURATION = 5*60*1000;
 	private Map<String, Long> checkCycleMap;
 	private Iterator<Map.Entry<String, Long>> iterator;
 	private Map.Entry<String, Long> entry;
@@ -39,7 +39,7 @@ public class IBeaconManager {
 
 	private boolean scanning;
 	private Handler mHandler;
-	private static final long SCAN_PERIOD = 60000;
+	private static final long SCAN_PERIOD = 30000;
 
 	private BluetoothManager bluetoothManager;
 	private BluetoothAdapter bluetoothAdapter;
@@ -57,11 +57,9 @@ public class IBeaconManager {
 		return instance;
 	}
 
-	public void init(Context context){
+	public IBeaconManager init(Context context){
 		this.context = context;
-		initScanDevices();
-		scanLeDevice(true);
-		startCheckOutTimer();
+		return  this;
 	}
 
 	public void stopScan(){
@@ -69,7 +67,7 @@ public class IBeaconManager {
 		stopOutCheckTimer();
 	}
 
-	private void initScanDevices(){
+	public IBeaconManager initScanDevices(){
 		mHandler = new Handler();
 		if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)){
 			bluetoothManager =
@@ -80,17 +78,18 @@ public class IBeaconManager {
 				bluetoothAdapter.enable();
 			}
 		}
+		return this;
 	}
 
 	public void scanLeDevice(final boolean enable) {
 		if (enable) {
-//			mHandler.postDelayed(new Runnable() {
-//				@Override
-//				public void run() {
-//					scanning = false;
-//					bluetoothAdapter.stopLeScan(mLeScanCallback);
-//				}
-//			}, SCAN_PERIOD);
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					scanning = false;
+					bluetoothAdapter.stopLeScan(mLeScanCallback);
+				}
+			}, SCAN_PERIOD);
 			scanning = true;
 			bluetoothAdapter.startLeScan(mLeScanCallback);
 		} else {
@@ -139,7 +138,7 @@ public class IBeaconManager {
 						intoTimestamp = entry.getValue();
 						regionKey = entry.getKey();
 						currentTimestamp = System.currentTimeMillis();
-						if (currentTimestamp - intoTimestamp > CHECK_OUT_DURATION) {//超过十秒
+						if (currentTimestamp - intoTimestamp > OUT_AREA_DURATION) {//超过五分钟
 							regionCycleyMap = IBeaconContext.getInstance().getRegionCycleyMapp();
 							regionVo = regionCycleyMap.get(regionKey);
 							IBeaconContext.getInstance().removeCheck(regionVo);
@@ -155,7 +154,7 @@ public class IBeaconManager {
 					}
 				}
 			}
-		}, CHECK_OUT_DURATION, CHECK_OUT_DURATION);
+		}, CHECK_AREA_DURATION, CHECK_AREA_DURATION);
 	}
 
 	/**
