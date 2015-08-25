@@ -104,7 +104,7 @@ public class IBeaconManager {
 						if(IBeaconContext.getInstance().getBeanconMap().containsKey(ibeacon.getBeaconKey())){
 							IBeaconEntity beaconEntity =  IBeaconContext.getInstance().getBeanconMap().get(ibeacon.getBeaconKey());
 							RegionVo.Builder builder = new RegionVo.Builder();
-							RegionVo regionVo = builder.setiBeacon(ibeacon).build();
+							RegionVo regionVo = builder.setiBeacon(beaconEntity).build();
 							long currentTime = System.currentTimeMillis();
 							IBeaconContext.getInstance().putCheck(regionVo,currentTime);
 							IBeaconContext.getInstance().putRegion(regionVo,currentTime);

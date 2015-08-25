@@ -10,12 +10,12 @@ import java.io.Serializable;
  */
 public class RegionVo implements Serializable{
 
-    private IBeaconVo iBeacon;
+    private IBeaconEntity iBeacon;
     private long inTime;
     private long outTime;
     private long standTime;
 
-    public RegionVo(IBeaconVo iBeacon,long inTime,long outTime,long standTime){
+    public RegionVo(IBeaconEntity iBeacon,long inTime,long outTime,long standTime){
         this.iBeacon = iBeacon;
         this.inTime = inTime;
         this.outTime = outTime;
@@ -30,11 +30,11 @@ public class RegionVo implements Serializable{
         this.inTime = inTime;
     }
 
-    public IBeaconVo getiBeacon() {
+    public IBeaconEntity getiBeacon() {
         return iBeacon;
     }
 
-    public void setiBeacon(IBeaconVo iBeacon) {
+    public void setiBeacon(IBeaconEntity iBeacon) {
         this.iBeacon = iBeacon;
     }
 
@@ -56,7 +56,7 @@ public class RegionVo implements Serializable{
 
     static class Builder{
 
-        private IBeaconVo iBeacon;
+        private IBeaconEntity iBeacon;
 
         private long inTime;
 
@@ -64,7 +64,7 @@ public class RegionVo implements Serializable{
 
         private long standTime;
 
-        public Builder setiBeacon(IBeaconVo iBeacon) {
+        public Builder setiBeacon(IBeaconEntity iBeacon) {
             this.iBeacon = iBeacon;
             return this;
         }

@@ -10,54 +10,50 @@ import com.zkjinshi.svip.utils.PayResult;
  */
 public class IBeaconEntity {
 
-    private String ID;
-    private String code;
-    private String UUID;
-    private String mac_address;
+    private String locid;
+    private String shopid;
+    private String sensorid;
+    private String uuid;
     private String major;
     private String minior;
-    private String name;
-    private String type;
-    private String battery_level;
-    private String deviceNO;
-    private String manufacture;
+    private String locdesc;
     private String status;
     private String remark;
 
     public String getBeaconKey(){
-        return UUID+major+minior;
+        return getUuid()+getMajor()+getMinior();
     }
 
-    public String getID() {
-        return ID;
+    public String getLocid() {
+        return locid;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setLocid(String locid) {
+        this.locid = locid;
     }
 
-    public String getCode() {
-        return code;
+    public String getShopid() {
+        return shopid;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
     }
 
-    public String getUUID() {
-        return UUID;
+    public String getSensorid() {
+        return sensorid;
     }
 
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public void setSensorid(String sensorid) {
+        this.sensorid = sensorid;
     }
 
-    public String getMac_address() {
-        return mac_address;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setMac_address(String mac_address) {
-        this.mac_address = mac_address;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getMajor() {
@@ -76,44 +72,12 @@ public class IBeaconEntity {
         this.minior = minior;
     }
 
-    public String getName() {
-        return name;
+    public String getLocdesc() {
+        return locdesc;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getBattery_level() {
-        return battery_level;
-    }
-
-    public void setBattery_level(String battery_level) {
-        this.battery_level = battery_level;
-    }
-
-    public String getDeviceNO() {
-        return deviceNO;
-    }
-
-    public void setDeviceNO(String deviceNO) {
-        this.deviceNO = deviceNO;
-    }
-
-    public String getManufacture() {
-        return manufacture;
-    }
-
-    public void setManufacture(String manufacture) {
-        this.manufacture = manufacture;
+    public void setLocdesc(String locdesc) {
+        this.locdesc = locdesc;
     }
 
     public String getStatus() {
@@ -135,17 +99,13 @@ public class IBeaconEntity {
     @Override
     public String toString() {
         return "IBeaconEntity{" +
-                "ID='" + ID + '\'' +
-                ", code='" + code + '\'' +
-                ", UUID='" + UUID + '\'' +
-                ", mac_address='" + mac_address + '\'' +
+                "locid='" + locid + '\'' +
+                ", shopid='" + shopid + '\'' +
+                ", sensorid='" + sensorid + '\'' +
+                ", uuid='" + uuid + '\'' +
                 ", major='" + major + '\'' +
                 ", minior='" + minior + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", battery_level='" + battery_level + '\'' +
-                ", deviceNO='" + deviceNO + '\'' +
-                ", manufacture='" + manufacture + '\'' +
+                ", locdesc='" + locdesc + '\'' +
                 ", status='" + status + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

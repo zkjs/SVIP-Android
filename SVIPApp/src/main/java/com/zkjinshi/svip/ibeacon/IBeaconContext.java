@@ -94,9 +94,9 @@ public class IBeaconContext {
             IBeaconSubject.getInstance().notifyObserversInto(regionVo);
             Log.i(TAG, "欢迎进入:" + regionVo.getiBeacon().toString());
             LogUtil.getInstance().info(LogLevel.ERROR, "用户进入以下beacon区域");
-            LogUtil.getInstance().info(LogLevel.ERROR,"name:"+regionVo.getiBeacon().getName());
+            LogUtil.getInstance().info(LogLevel.ERROR,"name:"+regionVo.getiBeacon().getRemark());
             LogUtil.getInstance().info(LogLevel.ERROR,"major:"+regionVo.getiBeacon().getMajor());
-            LogUtil.getInstance().info(LogLevel.ERROR,"minor:"+regionVo.getiBeacon().getMinor());
+            LogUtil.getInstance().info(LogLevel.ERROR,"minor:"+regionVo.getiBeacon().getMinior());
             LogUtil.getInstance().info(LogLevel.ERROR, "-----------------------------------");
         }
         regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);

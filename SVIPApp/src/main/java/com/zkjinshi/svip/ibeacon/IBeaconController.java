@@ -55,7 +55,7 @@ public class IBeaconController {
     }
 
     private void requestIBeanconList(){
-        stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getIBeaconListUrl(),
+        stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getLocationListUrl(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

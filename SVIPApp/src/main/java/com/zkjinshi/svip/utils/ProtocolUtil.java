@@ -57,6 +57,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取区域信息列表
+     * @return
+     */
+    public static String getLocationListUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/location";
+    }
+
+    /**
      * 添加个人gps信息
      * @return
      */

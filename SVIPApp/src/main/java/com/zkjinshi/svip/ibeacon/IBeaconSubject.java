@@ -85,9 +85,9 @@ public class IBeaconSubject {
             }
             IBeaconContext.getInstance().removeRegion(regionVo);
             LogUtil.getInstance().info(LogLevel.WARN, "用户离开以下beacon区域");
-            LogUtil.getInstance().info(LogLevel.WARN,"name:"+regionVo.getiBeacon().getName());
+            LogUtil.getInstance().info(LogLevel.WARN,"name:"+regionVo.getiBeacon().getRemark());
             LogUtil.getInstance().info(LogLevel.WARN,"major:"+regionVo.getiBeacon().getMajor());
-            LogUtil.getInstance().info(LogLevel.WARN, "minor:" + regionVo.getiBeacon().getMinor());
+            LogUtil.getInstance().info(LogLevel.WARN, "minor:" + regionVo.getiBeacon().getMinior());
             LogUtil.getInstance().info(LogLevel.WARN, "standTime:" +standTime);
             LogUtil.getInstance().info(LogLevel.WARN, "-----------------------------------");
         }
