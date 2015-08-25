@@ -240,7 +240,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		sp.edit().putBoolean("tagsopen",isOpen).commit();
+		sp.edit().putBoolean("tagsopen", isOpen).commit();
 	}
 
 	public boolean getTagsOpen() {
@@ -249,7 +249,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getBoolean("tagsopen",true);
+		return sp.getBoolean("tagsopen", true);
 	}
 
 	/**
@@ -286,6 +286,26 @@ public class CacheUtil {
 	public void setVoiceTooShort(boolean voiceTooShort) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putBoolean("voice_too_short", voiceTooShort).commit();
+	}
+
+	/**
+	 * 获取用户是否在这个区域内
+	 * @param shopId
+	 * @return
+	 */
+	public boolean isInArea(String shopId) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("is_in_"+shopId+"_area", false);
+	}
+
+	/**
+	 * 设置用户是否在这个区域内
+	 * @param shopId
+	 * @param isInArea
+	 */
+	public void setInArea(String shopId,boolean isInArea) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("is_in_"+shopId+"_area",  isInArea).commit();
 	}
 
 }

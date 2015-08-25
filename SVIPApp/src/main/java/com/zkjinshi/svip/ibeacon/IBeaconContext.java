@@ -1,9 +1,11 @@
 package com.zkjinshi.svip.ibeacon;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +38,9 @@ public class IBeaconContext {
     private ConcurrentHashMap<String,RegionVo> regionCycleyMap = new ConcurrentHashMap<String,RegionVo>();
 
     private Map<String,IBeaconEntity> beanconMap = new HashMap<String,IBeaconEntity>();
+
+    private IBeaconEntity beaconEntity;
+    private String shopId;
 
     public Map<String,Long> getCheckCycleMap(){
         if(null == checkCycleMap){
@@ -92,12 +97,19 @@ public class IBeaconContext {
         if(!regionCycleyMap.containsKey(regionVo.getiBeacon().getBeaconKey())){
             regionVo.setInTime(activityTime);
             IBeaconSubject.getInstance().notifyObserversInto(regionVo);
-            Log.i(TAG, "欢迎进入:" + regionVo.getiBeacon().toString());
-            LogUtil.getInstance().info(LogLevel.ERROR, "用户进入以下beacon区域");
-            LogUtil.getInstance().info(LogLevel.ERROR,"name:"+regionVo.getiBeacon().getRemark());
-            LogUtil.getInstance().info(LogLevel.ERROR,"major:"+regionVo.getiBeacon().getMajor());
-            LogUtil.getInstance().info(LogLevel.ERROR,"minor:"+regionVo.getiBeacon().getMinior());
-            LogUtil.getInstance().info(LogLevel.ERROR, "-----------------------------------");
+            beaconEntity = regionVo.getiBeacon();
+            if(null != beaconEntity){
+                shopId = beaconEntity.getShopid();
+                if(!TextUtils.isEmpty(shopId)){
+                    CacheUtil.getInstance().setInArea(shopId,true);
+                }
+                Log.i(TAG, "欢迎进入:" + beaconEntity.toString());
+                LogUtil.getInstance().info(LogLevel.ERROR, "用户进入以下beacon区域");
+                LogUtil.getInstance().info(LogLevel.ERROR,"name:" + beaconEntity.getRemark());
+                LogUtil.getInstance().info(LogLevel.ERROR,"major:" + beaconEntity.getMajor());
+                LogUtil.getInstance().info(LogLevel.ERROR,"minor:" + beaconEntity.getMinior());
+                LogUtil.getInstance().info(LogLevel.ERROR, "-----------------------------------");
+            }
         }
         regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);
     }

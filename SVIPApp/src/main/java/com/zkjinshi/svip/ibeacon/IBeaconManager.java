@@ -7,7 +7,9 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.text.TextUtils;
 
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 
 import java.util.Iterator;
@@ -31,6 +33,8 @@ public class IBeaconManager {
 	private Iterator<Map.Entry<String, Long>> iterator;
 	private Map.Entry<String, Long> entry;
 	private RegionVo regionVo;
+	private IBeaconEntity beaconEntity;
+	private String shopId;
 	private Map<String,RegionVo> regionCycleyMap;
 
 	private boolean scanning;
@@ -140,6 +144,13 @@ public class IBeaconManager {
 							regionVo = regionCycleyMap.get(regionKey);
 							IBeaconContext.getInstance().removeCheck(regionVo);
 							IBeaconSubject.getInstance().notifyObserversOut(regionVo);
+							beaconEntity = regionVo.getiBeacon();
+							if(null != beaconEntity){
+								shopId = beaconEntity.getShopid();
+								if(!TextUtils.isEmpty(shopId)){
+									CacheUtil.getInstance().setInArea(shopId,false);
+								}
+							}
 						}
 					}
 				}
