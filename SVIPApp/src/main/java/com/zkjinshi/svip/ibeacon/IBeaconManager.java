@@ -74,7 +74,6 @@ public class IBeaconManager {
 					(BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
 			bluetoothAdapter = bluetoothManager.getAdapter();
 			if(null != bluetoothAdapter){
-				//开启蓝牙
 				bluetoothAdapter.enable();
 			}
 		}

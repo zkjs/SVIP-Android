@@ -8,6 +8,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.net.observer.MessageSubject;
 import com.zkjinshi.base.net.queue.QueueContext;
 import com.zkjinshi.base.net.queue.QueueType;
+import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.Constants;
 
 import java.net.URI;
@@ -161,6 +162,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
     @Override
     public void onDisconnect(int code, String reason) {
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onDisconnect()");
+        ImCacheUtil.getInstance().setIMLogin(false);
         if (null != webSocketClient) {
             webSocketClient.reconnect();
         }
@@ -168,6 +170,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
 
     @Override
     public void onError(Exception e) {
+        ImCacheUtil.getInstance().setIMLogin(false);
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onError()-" + e.getMessage());
     }
 

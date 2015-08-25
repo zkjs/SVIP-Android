@@ -103,15 +103,8 @@ public class IBeaconContext {
                 if(!TextUtils.isEmpty(shopId)){
                     CacheUtil.getInstance().setInArea(shopId,true);
                 }
-                Log.i(TAG, "欢迎进入:" + beaconEntity.toString());
-                LogUtil.getInstance().info(LogLevel.ERROR, "用户进入以下beacon区域");
-                LogUtil.getInstance().info(LogLevel.ERROR,"name:" + beaconEntity.getRemark());
-                LogUtil.getInstance().info(LogLevel.ERROR,"major:" + beaconEntity.getMajor());
-                LogUtil.getInstance().info(LogLevel.ERROR,"minor:" + beaconEntity.getMinior());
-                LogUtil.getInstance().info(LogLevel.ERROR, "-----------------------------------");
             }
+            regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);
         }
-        regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);
     }
-
 }
