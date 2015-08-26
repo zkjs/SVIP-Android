@@ -277,16 +277,17 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                if (mSmsVerifySuccess) {
-                    getUser();//判断用户是否已经存在
-                } else {
-                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
-                    mVerifyCode.setFocusable(true);
-                    mVerifyCode.setFocusableInTouchMode(true);
-                    mVerifyCode.requestFocus();
-                    mBtnConfirm.setText("正在发送中...");
-                    sendVerifyCodeForPhone(inputPhone);//发送验证码
-                }
+                getUser();//判断用户是否已经存在
+//                if (mSmsVerifySuccess) {
+//                    getUser();//判断用户是否已经存在
+//                } else {
+//                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
+//                    mVerifyCode.setFocusable(true);
+//                    mVerifyCode.setFocusableInTouchMode(true);
+//                    mVerifyCode.requestFocus();
+//                    mBtnConfirm.setText("正在发送中...");
+//                    sendVerifyCodeForPhone(inputPhone);//发送验证码
+//                }
             }
         });
 

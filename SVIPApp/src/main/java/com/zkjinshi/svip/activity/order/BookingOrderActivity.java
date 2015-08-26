@@ -120,7 +120,7 @@ public class BookingOrderActivity extends Activity{
         chooseDateBuffer.append("/");
         Date departureDate = null;
         if(null == mBookOrder.getDepartureDate()){
-            long lonDepartureDate = arrivalDate.getTime() + + 1000 * 60 * 60 * 24;
+            long lonDepartureDate = arrivalDate.getTime()  + 1000 * 60 * 60 * 24;
             departureDate= new Date(lonDepartureDate);
             mBookOrder.setDepartureDate(mSimpleFormat.format(departureDate));
             chooseDateBuffer.append(mChineseFormat.format(departureDate));

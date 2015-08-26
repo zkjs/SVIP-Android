@@ -98,5 +98,22 @@ public class ProtocolUtil {
         return  ConfigUtil.getInst().getHttpDomain()+"tags/upload";
     }
 
+    /**
+     * 获取用户订单
+     * @return
+     */
+    public static String getOrderUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"user/order";
+    }
+
+    /**
+     * 获取商家信息
+     * @param shopid
+     * @return
+     */
+    public static String getShopInfoUrl(String shopid){
+        return ConfigUtil.getInst().getHttpDomain()+"user/selectshop?shopid="+shopid+"&web=0";
+    }
+
 
 }
