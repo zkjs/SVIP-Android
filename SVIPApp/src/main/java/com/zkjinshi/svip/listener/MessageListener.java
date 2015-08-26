@@ -1,7 +1,16 @@
 package com.zkjinshi.svip.listener;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
@@ -9,8 +18,11 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.IMessageListener;
 import com.zkjinshi.base.net.core.MessageReceiver;
 import com.zkjinshi.base.net.core.WebSocketClient;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.Constants;
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
@@ -19,10 +31,14 @@ import com.zkjinshi.svip.request.login.LoginRequestManager;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.FileUtil;
+import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.vo.MessageVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.greenrobot.event.EventBus;
 
@@ -32,9 +48,13 @@ import de.greenrobot.event.EventBus;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class MessageListener implements IMessageListener {
+public class MessageListener extends Handler implements IMessageListener {
 
     public static final String TAG = MessageReceiver.class.getSimpleName();
+
+    public static final int RELOGIN_MSG_FLAG = 0;
+
+    private SimpleDateFormat sdf;
 
     @Override
     public void onNetReceiveSucceed(String message) {
@@ -45,6 +65,14 @@ public class MessageListener implements IMessageListener {
         try {
             JSONObject messageObj = new JSONObject(message);
             int type = messageObj.getInt("type");
+
+            if (type == ProtocolMSG.MSG_ServerRepeatLogin) {//重复登录
+                WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
+                Message reLoginMessage = new Message();
+                reLoginMessage.what = RELOGIN_MSG_FLAG;
+                sendMessage(reLoginMessage);
+                return;
+            }
 
             /** 文本消息处理 */
             if (ProtocolMSG.MSG_CustomerServiceTextChat == type) {
@@ -161,5 +189,53 @@ public class MessageListener implements IMessageListener {
     @Override
     public void onWebsocketConnected(WebSocketClient webSocketClient) {
         LoginRequestManager.getInstance().init().sendLoginRequest(webSocketClient);
+    }
+
+    /**
+     * 显示重复登录提示框
+     *
+     * @param context
+     */
+    private synchronized void showReLoginDialog(final Context context) {
+        Dialog dialog = null;
+        sdf = new SimpleDateFormat("HH:mm");
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
+        customBuilder.setTitle("下载通知");
+        customBuilder.setMessage("您的账号于" + sdf.format(new Date()) + "在另一台设备登录");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+            }
+        });
+        customBuilder.setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                WebSocketManager.getInstance().initClient();
+            }
+        });
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+            case RELOGIN_MSG_FLAG:
+                showReLoginDialog(VIPContext.getInstance().getContext());
+                break;
+
+            default:
+        }
+        super.handleMessage(msg);
     }
 }

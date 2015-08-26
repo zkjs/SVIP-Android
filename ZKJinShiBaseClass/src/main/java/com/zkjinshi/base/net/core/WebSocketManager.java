@@ -1,15 +1,23 @@
 package com.zkjinshi.base.net.core;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
 
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.net.observer.MessageSubject;
+import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.net.queue.QueueContext;
 import com.zkjinshi.base.net.queue.QueueType;
 import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.Constants;
+import com.zkjinshi.base.view.CustomDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
 
@@ -30,6 +38,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
     private MessageReceiver messageReceiver;
     private MessageSender messageSender;
     private URI uri;
+    private boolean isLogoutIM;
 
     private WebSocketManager() {
     }
@@ -42,6 +51,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
     }
 
     private void init() {
+        isLogoutIM = false;
         messageReceiver = new MessageReceiver();
         messageSender = new MessageSender();
         uri = URI.create("ws://" + ConfigUtil.getInst().getIMHost() + ":" + ConfigUtil.getInst().getIMPort() + "/zkjs");
@@ -57,6 +67,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
             receiveThread = null;
         }
         receiveThread = new Thread(messageReceiver);
+
     }
 
     private void start() {
@@ -73,9 +84,10 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
     /**
      * 初始化im客户端
      */
-    public void initClient() {
+    public WebSocketManager initClient() {
         init();
         start();
+        return this;
     }
 
     public WebSocketManager initService(Context context) {
@@ -84,6 +96,19 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
         intent.setPackage(context.getPackageName());
         context.startService(intent);
         return this;
+    }
+
+    public void stopService(Context context) {
+        Intent intent = new Intent();
+        intent.setAction(context.getPackageName() + ".im.Message_SERVICE");
+        intent.setPackage(context.getPackageName());
+        context.stopService(intent);
+    }
+
+    public void logoutIM(Context context) {
+        isLogoutIM = true;
+        stopService(context);
+        close();
     }
 
     /**
@@ -164,7 +189,9 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onDisconnect()");
         ImCacheUtil.getInstance().setIMLogin(false);
         if (null != webSocketClient) {
-            webSocketClient.reconnect();
+            if (!isLogoutIM) {
+                webSocketClient.reconnect();
+            }
         }
     }
 

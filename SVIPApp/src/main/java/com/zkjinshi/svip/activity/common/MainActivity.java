@@ -56,6 +56,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private LinearLayout msgNotifyLayout;
     private SlidingMenu slidingMenu;
     private Fragment leftMenuFragment;
+    private MessageListener messageListener;
 
 
     private void initView(){
@@ -76,7 +77,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         initAvatar();
         initDBName();
         LocationManager.getInstance().registerLocation(this);
-        initService();
+        messageListener = new MessageListener();
+        initService(messageListener);
     }
 
     private void initAvatar() {
@@ -283,8 +285,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     /**
      * 初始化socket
      */
-    private void initService() {
-        WebSocketManager.getInstance().initService(this).setMessageListener(new MessageListener());
+    private void initService(MessageListener messageListener) {
+        WebSocketManager.getInstance().initService(this).setMessageListener(messageListener);
     }
 
 }
