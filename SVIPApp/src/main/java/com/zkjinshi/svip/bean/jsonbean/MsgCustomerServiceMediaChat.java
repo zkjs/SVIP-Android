@@ -1,7 +1,5 @@
 package com.zkjinshi.svip.bean.jsonbean;
 
-import org.json.JSONArray;
-
 /**
  * Created by vincent on 2015/6/19.
  * 音频消息发送包体

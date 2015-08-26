@@ -281,49 +281,6 @@ public class ImageUtil {
         }
     }
 
-    /**
-     * 将图片转成Base64格式的字符串
-     * @param photoPath
-     */
-    public static String photo2Base64(String photoPath){
-        File recordFile;
-        BufferedInputStream bis;
-        String record = null;
-        recordFile = new File(photoPath);
-        try {
-            bis = new BufferedInputStream(new FileInputStream(recordFile));
-            byte[] buffer = new byte[1024];
-            int bytesRead = 0 ;
-            while((bytesRead = bis.read(buffer, 0, buffer.length)) != -1){
-                record = Base64.encodeToString(buffer, Base64.DEFAULT);
-            }
-            bis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return record;
-    }
-
-    /**
-     * 将base64格式的文件转成图片
-     * @param base64Code
-     * @param outPath
-     */
-    public static void base642Photo(String base64Code, String outPath){
-        try {
-            byte[] buf = Base64.decode(base64Code, Base64.DEFAULT);
-            File file = new File(outPath);
-            if(!file.exists()){
-                file.createNewFile();
-            }
-            FileOutputStream outputFile = new FileOutputStream(file);
-            outputFile.write(buf);
-            outputFile.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void saveBitmap(Bitmap bitmap, String savePath) {
         File f = new File(savePath);
         if (f.exists()) {

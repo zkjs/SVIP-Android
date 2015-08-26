@@ -130,7 +130,7 @@ public class VoiceRecordManager extends Handler {
         }, 300);
 
         postDelayed(mPollTask, 300);//执行录音动画更新
-        recordFileName = UUIDBuilder.getInstance().getRandomUUID() + ".aac";
+        recordFileName = System.currentTimeMillis() + ".aac";
         mSensor   	   = new SoundMeter();
         mSensor.start(recordFileName);//执行开始录音
         startRecordCountDown();

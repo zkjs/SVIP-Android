@@ -34,6 +34,8 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChatRSP;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2S;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2SRSP;
 import com.zkjinshi.svip.factory.MessageFactory;
+import com.zkjinshi.svip.http.HttpAsyncTask;
+import com.zkjinshi.svip.http.HttpPostUtil;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -49,6 +51,8 @@ import com.zkjinshi.svip.volley.HttpMethod;
 import com.zkjinshi.svip.volley.RequestQueueSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,7 +111,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     private void initData() {
-
         addObservers();
         clearChatRoomBadgeNum(mShopID);
         setOverScrollMode(messageListView);
@@ -141,12 +144,13 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * @param shopID
      */
     private void clearChatRoomBadgeNum(String shopID){
-        //step1  a.查询未读消息，并更新为已读
-        //TODO Jimmy 1、清除本地聊天室未读消息
-        if(MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID) > 0){
-            MessageDBUtil.getInstance().updateMsgReadedByShopID(shopID);
-        }
 
+        //查询未读消息，并更新为已读
+        if(MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID) > 0){
+            long updateMsgReaded = MessageDBUtil.getInstance().updateMsgReadedByShopID(shopID);
+            LogUtil.getInstance().info(LogLevel.INFO, "更新已读消息条数:"+ updateMsgReaded);
+            DialogUtil.getInstance().showToast(context, "更新已读消息条数:" + updateMsgReaded);
+        }
         //TODO Jimmy  2、网络请求聊天室置为已读消息
     }
 
@@ -232,8 +236,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVector.add(tempMessageId);
         /** 1、IM发送文本消息 */
         mMessageVo = buildTextMessageVo(shopID, mSessionID, content,
-                                        tempMessageId, tempSendTime,
-                                        SendStatus.SENDING, ruleType);
+                tempMessageId, tempSendTime,
+                SendStatus.SENDING, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -275,10 +279,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
         //get the base64 string from the filepath
         String attachId = FileUtil.getInstance().filePath2Base64(filePath);
+
         mMessageVo = buildAudioMessageVo(shopID, mSessionID, tempMessageId,
-                                         tempSendTime, SendStatus.SENDING,
-                                         attachId, fileName, filePath,
-                                         voiceTime, ruleType);
+                tempSendTime, SendStatus.SENDING,
+                attachId, fileName, filePath,
+                voiceTime, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -315,7 +320,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         String tempMessageId = UUIDBuilder.getInstance().getRandomUUID();
         long tempSendTime = System.currentTimeMillis();
         messageVector.add(tempMessageId);
-        String attachId = ImageUtil.photo2Base64(filePath);
+        String attachId = FileUtil.getInstance().filePath2Base64(filePath);
 
         /** 生成MessageVo对象 */
         mMessageVo = buildImageMessageVo(shopID, mSessionID, tempMessageId,
@@ -380,7 +385,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         final Gson gson = new Gson();
         String msgJson = gson.toJson(msgRequestWaiterC2S, MsgRequestWaiterC2S.class);
         WebSocketManager.getInstance().sendMessage(msgJson);
-        LogUtil.getInstance().info(LogLevel.INFO, "MsgRequestWaiterC2S:"+msgJson);
+        LogUtil.getInstance().info(LogLevel.INFO, "MsgRequestWaiterC2S:" + msgJson);
     }
 
     /**
@@ -399,7 +404,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 break;
             case AUDIO://语音
                 final MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
-                        buildMsgMediaByMessageVo(messageUiVo);
+                                                   buildMsgMediaByMessageVo(messageUiVo);
 
                 final String mediaUploadUrl = "http://mmm.zkjinshi.com:90/media/upload";
                 DataRequestVolley mediaPost = new DataRequestVolley(HttpMethod.POST, mediaUploadUrl,
@@ -415,19 +420,27 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                                     int result = (int) responseObject.get("result");
                                     // 文件上传成功
                                     if(Constants.POST_SUCCESS == result){
-                                        String mediaUrl = (String) responseObject.get("url");//正常图的URL
-                                        messageUiVo.setUrl(mediaUrl);
-                                    }
-                                    //更新数据库信息
-                                    MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
-                                            buildContentValues(messageUiVo));
-                                    //获得待发送协议消息
-                                    MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
-                                            buildMsgMediaByMessageVo(messageUiVo);
+                                        LogUtil.getInstance().info(LogLevel.INFO, "文件上传成功");
+                                        String mediaUrl = (String) responseObject.get("url");
+                                        String scaleUrl = (String) responseObject.get("s_url");
+                                        messageUiVo.setUrl(scaleUrl);
+                                        messageUiVo.setAttachId(null);
+                                        //更新数据库信息
+                                        MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
+                                                                                buildContentValues(messageUiVo));
+                                        //获得待发送协议消息
+                                        MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
+                                                                      buildMsgMediaByMessageVo(messageUiVo);
 
-                                    Gson gson = new Gson();
-                                    String mediaJson = gson.toJson(msgMedia);
-                                    WebSocketManager.getInstance().sendMessage(mediaJson);
+                                        Gson gson = new Gson();
+                                        String mediaJson = gson.toJson(msgMedia);
+                                        WebSocketManager.getInstance().sendMessage(mediaJson);
+                                    } else {
+                                        LogUtil.getInstance().info(LogLevel.INFO, "文件上传失败");
+                                        Gson gson = new Gson();
+                                        String mediaJson = gson.toJson(msgMedia);
+                                        WebSocketManager.getInstance().sendMessage(mediaJson);
+                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -453,10 +466,21 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 break;
             case IMAGE://图片
                 final MsgCustomerServiceImgChat msgImage = MessageFactory.getInstance().
-                        buildMsgImgByMessageVo(messageUiVo);
+                                                    buildMsgImgByMessageVo(messageUiVo);
 
                 //2、http上传图片（注意需要更新监听成功状态，更新数据库,并通过IM发送图片消息）
                 String imageUploadUrl = "http://mmm.zkjinshi.com:90/img/upload";
+//                String imageUploadUrl = "http://mmm.zkjinshi.com:90/img/uploadbits";
+//                Map<String, String> params = new HashMap<>();
+//                params.put("content-type", "multipart/form-data");
+//                Map<String, File> files = new HashMap<>();
+//                files.put("file", new File(messageUiVo.getFilePath()));
+//                String response = HttpPostUtil.post(imageUploadUrl, params, files, null);
+//                LogUtil.getInstance().info(LogLevel.INFO, "response:"+response);
+//                DialogUtil.getInstance().showToast(context, "response:" + response);
+//                JSONObject responseObject = new JSONObject(response);
+//                int result                = (int) responseObject.get("result");
+
                 DataRequestVolley imagePost = new DataRequestVolley(HttpMethod.POST, imageUploadUrl,
                         new Response.Listener<String>() {
                             @Override
@@ -467,15 +491,21 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                                 try {
                                     JSONObject responseObject = new JSONObject(response);
                                     int result                = (int) responseObject.get("result");
+
+                                    LogUtil.getInstance().info(LogLevel.INFO, "response:"+response);
+                                    DialogUtil.getInstance().showToast(context, "response:" + response);
                                     // 文件上传成功
                                     if(Constants.POST_SUCCESS == result){
                                         String imageUrl = (String) responseObject.get("url");//正常图的URL
                                         String scaleUrl = (String) responseObject.get("s_url");//缩略图的URL
+
                                         messageUiVo.setUrl(imageUrl);
                                         messageUiVo.setScaleUrl(scaleUrl);
+                                        msgImage.setUrl(imageUrl);
+                                        msgImage.setScaleurl(scaleUrl);
                                         // 更新数据库url地址
                                         MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
-                                                buildContentValues(messageUiVo));
+                                                                              buildContentValues(messageUiVo));
                                     }
 
                                     //获得待发送协议消息
@@ -489,7 +519,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                         } , new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        LogUtil.getInstance().info(LogLevel.INFO,"长传图片网络异常");
+                        LogUtil.getInstance().info(LogLevel.INFO, "上传图片网络异常"+error.toString());
+                        //获得待发送协议消息
+                        Gson gson = new Gson();
+                        String imageJson = gson.toJson(msgImage);
+                        WebSocketManager.getInstance().sendMessage(imageJson);
                     }
                 })
                 {
@@ -501,6 +535,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                         paramMap.put("ShopID", msgImage.getShopid());
                         paramMap.put("Format", msgImage.getFormat());
                         paramMap.put("Body", msgImage.getBody());
+//                        paramMap.put("content-type", "multipart/form-data");
+//                        paramMap.put("file", new File(messageUiVo.getFilePath()));
                         return paramMap;
                     }
                 };

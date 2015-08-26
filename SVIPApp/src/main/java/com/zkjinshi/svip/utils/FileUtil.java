@@ -2,9 +2,6 @@ package com.zkjinshi.svip.utils;
 
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.*;
-import android.util.Base64;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -167,20 +164,20 @@ public class FileUtil {
      * @param audioPath
      */
     public void saveBase64IntoPath(String base64, String audioPath) {
-
-        byte[] buffer = android.util.Base64.decode(base64, android.util.Base64.DEFAULT);
+        byte[] buffer = Base64.decode(base64);
         File file = new File(audioPath);
-        BufferedOutputStream bos = null;
+        FileOutputStream outputFile = null;
         try {
-            bos = new BufferedOutputStream(new FileOutputStream(file));
-            bos.write(buffer);
+            outputFile = new FileOutputStream(file);
+            outputFile.write(buffer);
+            outputFile.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                bos.close();
+                outputFile.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -193,7 +190,8 @@ public class FileUtil {
      * @return
      */
     public String filePath2Base64(String filePath){
-        File file;//获取到录音文件
+
+        File file;
         BufferedInputStream bis = null;//文件输入流
         file = new File(filePath);
         if(!file.exists()){
@@ -203,10 +201,10 @@ public class FileUtil {
         String base64Media = null;
         try {
             bis = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[(int)file.length()];
             int i = 0;
-            while((i=bis.read(buffer)) !=-1){
-                base64Media = android.util.Base64.encodeToString(buffer, Base64.DEFAULT);
+            while((i = bis.read(buffer)) != -1){
+                base64Media = Base64.encode(buffer);
             }
             return base64Media;
         } catch (IOException e) {

@@ -157,6 +157,7 @@ public class MessageListener extends Handler implements IMessageListener {
                     mediaPath = System.currentTimeMillis() + "." + msgImgChat.getFormat();
                 }
                 String base64Image = msgImgChat.getBody();
+
                 if(!TextUtils.isEmpty(base64Image)){
                     Log.v(TAG, msgImgChat.toString());
                     FileUtil.getInstance().saveBase64IntoPath(base64Image, mediaPath);
@@ -237,7 +238,6 @@ public class MessageListener extends Handler implements IMessageListener {
             case RELOGIN_MSG_FLAG:
                 showReLoginDialog(VIPContext.getInstance().getContext());
                 break;
-
             default:
         }
         super.handleMessage(msg);

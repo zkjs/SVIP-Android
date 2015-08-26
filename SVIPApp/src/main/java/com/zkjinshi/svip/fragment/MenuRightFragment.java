@@ -66,8 +66,7 @@ public class MenuRightFragment extends Fragment {
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container){
-        mRightFragment    = (LinearLayout) inflater.inflate(R.layout.activity_message_center,
-                container, false);
+        mRightFragment    = (LinearLayout) inflater.inflate(R.layout.activity_message_center, container, false);
         mEmptyView        = (TextView)  mRightFragment.findViewById(R.id.tv_empty_view);
         mListViewChatRoom = (ListView)  mRightFragment.findViewById(R.id.lv_history_order);
         mListViewChatRoom.setEmptyView(mEmptyView);

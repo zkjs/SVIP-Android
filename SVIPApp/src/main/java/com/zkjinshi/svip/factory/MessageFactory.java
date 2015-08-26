@@ -393,7 +393,6 @@ public class MessageFactory {
         msgMedia.setTempid(messageVo.getTempId());
         msgMedia.setRuletype(messageVo.getRuleType());
         msgMedia.setUrl(messageVo.getUrl());
-        msgMedia.setBody(messageVo.getAttachId());
         return msgMedia;
     }
 
@@ -416,7 +415,7 @@ public class MessageFactory {
         messageVo.setMimeType(MimeType.IMAGE);
         messageVo.setSendStatus(SendStatus.SEND_SUCCESS);
         messageVo.setIsRead(false);
-        messageVo.setAttachId(msgImg.getBody());//录音保存路径
+        messageVo.setAttachId(msgImg.getBody());
         messageVo.setTempId(msgImg.getTempid() + "");
         messageVo.setRuleType(msgImg.getRuletype());
         messageVo.setUrl(msgImg.getUrl());
@@ -454,7 +453,6 @@ public class MessageFactory {
             imgFormat = imgName.substring(imgName.indexOf("."));
         }
         msgImg.setFormat(imgFormat);
-        msgImg.setBody(messageVo.getAttachId());
         return msgImg;
     }
 
