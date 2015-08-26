@@ -27,6 +27,7 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.factory.MessageFactory;
+import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.request.login.LoginRequestManager;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
@@ -94,6 +95,7 @@ public class MessageListener extends Handler implements IMessageListener {
                             ChatRoomDBUtil.getInstance().updateChatRoom(messageVo);
                         }
                     }
+                    NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVo);
                     /** 静默处理 */
                     EventBus.getDefault().post(messageVo);
                 }
@@ -132,6 +134,7 @@ public class MessageListener extends Handler implements IMessageListener {
                                 ChatRoomDBUtil.getInstance().updateChatRoom(messageVO);
                             }
                         }
+                        NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVO);
                         /** post the message to chatActivity */
                         EventBus.getDefault().post(messageVO);
                     }
@@ -171,6 +174,7 @@ public class MessageListener extends Handler implements IMessageListener {
                                 ChatRoomDBUtil.getInstance().updateChatRoom(imageMessageVo);
                             }
                         }
+                        NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), imageMessageVo);
                         EventBus.getDefault().post(imageMessageVo);
                     }
                 }
