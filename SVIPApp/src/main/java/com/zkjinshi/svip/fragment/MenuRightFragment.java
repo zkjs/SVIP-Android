@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.factory.ChatRoomFactory;
@@ -68,7 +69,7 @@ public class MenuRightFragment extends Fragment {
         mRightFragment    = (LinearLayout) inflater.inflate(R.layout.activity_message_center,
                 container, false);
         mEmptyView        = (TextView)  mRightFragment.findViewById(R.id.tv_empty_view);
-        mListViewChatRoom = (ListView)  mRightFragment.findViewById(R.id.slv_history_order);
+        mListViewChatRoom = (ListView)  mRightFragment.findViewById(R.id.lv_history_order);
         mListViewChatRoom.setEmptyView(mEmptyView);
     }
 
@@ -95,19 +96,17 @@ public class MenuRightFragment extends Fragment {
         mListViewChatRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO:进入聊天界面
                 ChatRoomVo chatRoom = mChatRoomLists.get(position);
-                Intent intent = new Intent(mActivity, ChatActivity.class);
-
-
+                Intent goChat = new Intent(mActivity, ChatActivity.class);
+                goChat.putExtra("shop_id", chatRoom.getShopid());
+                mActivity.startActivity(goChat);
+                ((MainActivity) mActivity).toggleMenu();
             }
         });
     }
 
     @Subscribe
     public void onEvent(MessageVo messageVo){
-        DialogUtil.getInstance().showToast(mActivity, "消息中心接收到消息:" + messageVo.getContent());
-        // TODO：判断当前UI是否存在此对象
         String shopID = messageVo.getShopId();
         /** case 1: 当前聊天室当前不存在 */
         if(!mChatRoomMap.containsKey(shopID)){
@@ -137,5 +136,4 @@ public class MenuRightFragment extends Fragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
 }

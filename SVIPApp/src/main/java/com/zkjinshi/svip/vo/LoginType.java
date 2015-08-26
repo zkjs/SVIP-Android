@@ -11,9 +11,11 @@ public enum LoginType{
 
     appUser(0), shopUser(1);
 
-    private LoginType(int type){}
+    private LoginType(int type){
+        this.value = type;
+    }
 
-    private int value;
+    private final int value;
 
     public  int getVlaue(){
         return value;

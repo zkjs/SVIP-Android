@@ -118,9 +118,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
 
         //初始化消息ListView管理器
-        messageListViewManager = new MessageListViewManager(this, mSessionID);
+        messageListViewManager = new MessageListViewManager(this, mShopID, mSessionID);
         messageListViewManager.init();
-        messageListViewManager.setShopID(mShopID);
 
         //初始化表情框
         facePagerManager = new FaceViewPagerManager(this, faceLinearLayout, mMsgTextInput);

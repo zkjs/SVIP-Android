@@ -80,7 +80,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private Vector<String> messageVector       = new Vector<>();//存储页面发送的消息ID
     private List<MessageVo> currentMessageList = new ArrayList<>();
     private ArrayList<MessageVo> requestMessageList;
-    private String sessionId;
     private long lastSendTime;
     private static final int PRE_LOAD_PAGE_SIZE = 20;// 每次预加载20条记录
 
@@ -88,14 +87,12 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private MessageVo       mMessageVo;
 
     private String          mShopID;
+    private String          mSessionID;
 
-    public MessageListViewManager(Context context, String sessionId) {
-        this.context = context;
-        this.sessionId = sessionId;
-    }
-
-    public void setShopID(String shopID){
-        this.mShopID = shopID;
+    public MessageListViewManager(Context context, String shopID, String sessionId) {
+        this.context    = context;
+        this.mShopID    = shopID;
+        this.mSessionID = sessionId;
     }
 
     public void init() {
@@ -110,8 +107,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     private void initData() {
+
         addObservers();
-        clearChatRoomBadgeNum(sessionId);
+        clearChatRoomBadgeNum(mShopID);
         setOverScrollMode(messageListView);
         chatAdapter = new ChatAdapter(context, null);
         chatAdapter.setResendListener(this);
@@ -120,10 +118,12 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if (!chatAdapter.isEmpty()) {
             messageListView.setSelection(chatAdapter.getCount() - 1);
         }
+
         //获得本地最后一次发送消息的时间
-        lastSendTime = MessageDBUtil.getInstance().queryLastSendTime(sessionId);
+        lastSendTime = MessageDBUtil.getInstance().queryLastSendTimeByShopID(mShopID);
+
         // 查询数据库获得第一页数据
-        queryPageMessages(sessionId, PRE_LOAD_PAGE_SIZE, lastSendTime, true);
+        queryPageMessages(mShopID, PRE_LOAD_PAGE_SIZE, lastSendTime, true);
     }
 
     private void initListeners() {
@@ -133,18 +133,18 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     public synchronized void destoryMessageListViewManager() {
         removeObservers();
         messageVector.clear();
-        clearChatRoomBadgeNum(sessionId);
+        clearChatRoomBadgeNum(mShopID);
     }
 
     /**
      * 将消息设置为已读
-     * @param seesionId
+     * @param shopID
      */
-    private void clearChatRoomBadgeNum(String seesionId){
+    private void clearChatRoomBadgeNum(String shopID){
         //step1  a.查询未读消息，并更新为已读
         //TODO Jimmy 1、清除本地聊天室未读消息
-        if(MessageDBUtil.getInstance().queryNotifyCount(seesionId) > 0){
-            MessageDBUtil.getInstance().updateMsgReadedBySessionID(seesionId);
+        if(MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID) > 0){
+            MessageDBUtil.getInstance().updateMsgReadedByShopID(shopID);
         }
 
         //TODO Jimmy  2、网络请求聊天室置为已读消息
@@ -154,6 +154,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * 添加EventBus消息通知观察者
      */
     private void addObservers() {
+        MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_RequestWaiter_C2S_RSP);
         MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_CustomerServiceTextChat_RSP);
         MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_CustomerServiceMediaChat_RSP);
         MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_CustomerServiceImgChat_RSP);
@@ -164,6 +165,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * 删除EventBus消息通知观察者
      */
     private void removeObservers() {
+        MessageSubject.getInstance().removeObserver(this, ProtocolMSG.MSG_RequestWaiter_C2S_RSP);
         MessageSubject.getInstance().removeObserver(this, ProtocolMSG.MSG_CustomerServiceTextChat_RSP);
         MessageSubject.getInstance().removeObserver(this, ProtocolMSG.MSG_CustomerServiceMediaChat_RSP);
         MessageSubject.getInstance().removeObserver(this, ProtocolMSG.MSG_CustomerServiceImgChat_RSP);
@@ -185,12 +187,12 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      */
     public void sendTextMessage(String content) {
         String tempMessageId    = UUIDBuilder.getInstance().getRandomUUID();
-        String defaultRuleType = context.getString(R.string.default_rule_type);
+        String defaultRuleType  = context.getString(R.string.default_rule_type);
 
         long tempSendTime    = System.currentTimeMillis();
         messageVector.add(tempMessageId);
         /** 1、IM发送文本消息 */
-        mMessageVo = buildTextMessageVo(mShopID, sessionId, content,
+        mMessageVo = buildTextMessageVo(mShopID, mSessionID, content,
                                         tempMessageId, tempSendTime,
                                         SendStatus.SENDING, defaultRuleType);
 
@@ -212,7 +214,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         Message msg = Message.obtain();
         msg.what    = UPDATE_ADAPTER_UI;
         this.sendMessage(msg);
-        if(!isCallService) {
+        if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
             callService(mShopID, defaultRuleType);
@@ -229,9 +231,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         long tempSendTime    = System.currentTimeMillis();
         messageVector.add(tempMessageId);
         /** 1、IM发送文本消息 */
-        mMessageVo = buildTextMessageVo(shopID, sessionId, content,
-                tempMessageId, tempSendTime,
-                SendStatus.SENDING, ruleType);
+        mMessageVo = buildTextMessageVo(shopID, mSessionID, content,
+                                        tempMessageId, tempSendTime,
+                                        SendStatus.SENDING, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -251,7 +253,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         Message msg = Message.obtain();
         msg.what    = UPDATE_ADAPTER_UI;
         this.sendMessage(msg);
-        if(!isCallService) {
+        if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
             callService(shopID, ruleType);
@@ -273,10 +275,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
         //get the base64 string from the filepath
         String attachId = FileUtil.getInstance().filePath2Base64(filePath);
-        mMessageVo = buildAudioMessageVo(shopID, sessionId, tempMessageId,
-                tempSendTime, SendStatus.SENDING,
-                attachId, fileName, filePath,
-                voiceTime, ruleType);
+        mMessageVo = buildAudioMessageVo(shopID, mSessionID, tempMessageId,
+                                         tempSendTime, SendStatus.SENDING,
+                                         attachId, fileName, filePath,
+                                         voiceTime, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -314,10 +316,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         long tempSendTime = System.currentTimeMillis();
         messageVector.add(tempMessageId);
         String attachId = ImageUtil.photo2Base64(filePath);
+
         /** 生成MessageVo对象 */
-        mMessageVo = buildImageMessageVo(shopID, sessionId, tempMessageId,
-                tempSendTime, SendStatus.SENDING,
-                attachId, fileName, filePath, ruleType);
+        mMessageVo = buildImageMessageVo(shopID, mSessionID, tempMessageId,
+                                         tempSendTime, SendStatus.SENDING,
+                                         attachId, fileName, filePath, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -368,16 +371,16 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(!TextUtils.isEmpty(userName)){
             msgRequestWaiterC2S.setClientname(userName);
         }
-        //TODO 呼叫服务内容待定
         msgRequestWaiterC2S.setDesc("TODO:呼叫服务内容待定");
 //        msgRequestWaiterC2S.setLocid();
 //        msgRequestWaiterC2S.setOther();
-        msgRequestWaiterC2S.setSessionid(sessionId);
+        msgRequestWaiterC2S.setSessionid(mSessionID);
 //        msgRequestWaiterC2S.setSeqid();
 //        msgRequestWaiterC2S.setIsreadack();
         final Gson gson = new Gson();
         String msgJson = gson.toJson(msgRequestWaiterC2S, MsgRequestWaiterC2S.class);
         WebSocketManager.getInstance().sendMessage(msgJson);
+        LogUtil.getInstance().info(LogLevel.INFO, "MsgRequestWaiterC2S:"+msgJson);
     }
 
     /**
@@ -385,7 +388,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * @param messageUiVo
      */
     private void sendMessageVo(final MessageVo messageUiVo) {
-        messageUiVo.setSessionId(sessionId);
+        messageUiVo.setSessionId(mSessionID);
         switch (messageUiVo.getMimeType()){
             case TEXT://文本
                 final MsgCustomerServiceTextChat msgText = MessageFactory.getInstance().
@@ -536,6 +539,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVo.setSendTime(sendTime);
         messageVo.setMimeType(MimeType.TEXT);
         messageVo.setRuleType(ruleType);
+        messageVo.setIsRead(true);
         return messageVo;
     }
 
@@ -557,6 +561,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVo.setFileName(fileName);
         messageVo.setFilePath(filePath);
         messageVo.setRuleType(ruleType);
+        messageVo.setIsRead(true);
         return messageVo;
     }
 
@@ -581,6 +586,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVo.setFilePath(filePath);
         messageVo.setVoiceTime(voiceTime);
         messageVo.setRuleType(ruleType);
+        messageVo.setIsRead(true);
         return messageVo;
     }
 
@@ -613,24 +619,23 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
     /**
      * 查询一页数据
-     * @param sessionId
+     * @param shopID
      * @param limitSize
      * @param lastSendTime
      * @param isFirstTime
      */
-    public void queryPageMessages(String sessionId, int limitSize,
+    public void queryPageMessages(String shopID, int limitSize,
                                   long lastSendTime, boolean isFirstTime) {
+
         long startTime, endTime, midTime = 0;
         int localCount;
         requestMessageList = new ArrayList<MessageVo>();
         if (isFirstTime) {
             requestMessageList = (ArrayList<MessageVo>)MessageDBUtil.getInstance().
-                    queryMessageListBySessionId(
-                            sessionId, lastSendTime, limitSize, true);
+                    queryMessageListByShopID(shopID, lastSendTime, limitSize, true);
         } else {
             requestMessageList = (ArrayList<MessageVo>)MessageDBUtil.getInstance().
-                    queryMessageListBySessionId(
-                            sessionId, lastSendTime, limitSize, false);
+                    queryMessageListByShopID(shopID, lastSendTime, limitSize, false);
         }
         Collections.reverse(requestMessageList);
         localCount = requestMessageList.size();
@@ -644,7 +649,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 // step6 从服务器获取最新数据并更新
                 //TODO Jimmy 同步后台数据，防止数据丢失
             }
-            loadSqlteData(localCount, requestMessageList, sessionId, isFirstTime);
+            loadSqlteData(localCount, requestMessageList, shopID, isFirstTime);
 
         } else if (localCount == 0) {
             if (NetWorkUtil.isNetworkConnected(context)) {
@@ -668,11 +673,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * 加载本地数据库消息记录
      * @param localCount
      * @param requestMessageList
-     * @param chatId
+     * @param shopID
      * @param isFirstTime
      */
     public void loadSqlteData(int localCount, ArrayList<MessageVo> requestMessageList,
-                              String chatId, boolean isFirstTime) {
+                              String shopID, boolean isFirstTime) {
         if (null == currentMessageList) {
             currentMessageList = new ArrayList<MessageVo>();
         }
@@ -733,7 +738,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if (!currentMessageList.isEmpty()) {
             lastSendTime = currentMessageList.get(0).getSendTime();
             // 查询数据库获得第一页数据
-            queryPageMessages(sessionId, PRE_LOAD_PAGE_SIZE, lastSendTime, false);
+            queryPageMessages(mShopID, PRE_LOAD_PAGE_SIZE, lastSendTime, false);
         }
     }
 
@@ -807,12 +812,13 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
             /** 呼叫服务消息的回复 */
             if(ProtocolMSG.MSG_RequestWaiter_C2S_RSP == type){
-                if(!isCallService)
+                if(!isCallService){
                     isCallService = true;
+                }
                 //获得呼叫服务的响应包
                 Gson gson = new Gson();
                 MsgRequestWaiterC2SRSP msgRequestRsp = gson.fromJson(message,
-                        MsgRequestWaiterC2SRSP.class);
+                                               MsgRequestWaiterC2SRSP.class);
                 int rspResult = msgRequestRsp.getResult();
                 if(Constants.PROTOCAL_SUCCESS == rspResult){
                     if(null != mMessageVo){

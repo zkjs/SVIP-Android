@@ -78,6 +78,7 @@ public class MessageListener implements IMessageListener {
                 LogUtil.getInstance().info(LogLevel.INFO, "接收到音频消息:");
                 MsgCustomerServiceMediaChat msgMediaChat = gson.fromJson(
                               message, MsgCustomerServiceMediaChat.class);
+
                 /** 保存音频对象，并获得路径 */
                 String mediaName = msgMediaChat.getFilename();
                 if(TextUtils.isEmpty(mediaName)){

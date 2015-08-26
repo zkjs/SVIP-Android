@@ -21,11 +21,11 @@
             android:text="@string/message_center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-             />
+            />
     </RelativeLayout>
 
-    <com.zkjinshi.svip.view.swipelistview.SwipeMenuListView
-        android:id="@+id/slv_history_order"
+    <ListView
+        android:id="@+id/lv_history_order"
         android:scrollbars="none"
         android:listSelector="@android:color/transparent"
         android:divider="@android:color/transparent"
@@ -33,7 +33,7 @@
         android:background="#EEEEEE"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.zkjinshi.svip.view.swipelistview.SwipeMenuListView>
+    </ListView>
 
     <TextView
         android:id="@+id/tv_empty_view"

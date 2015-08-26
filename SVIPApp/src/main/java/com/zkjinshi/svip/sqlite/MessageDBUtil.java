@@ -276,6 +276,28 @@ public class MessageDBUtil {
     }
 
     /**
+     * 根据shopID更新消息状态为已读
+     * @return
+     */
+    public long updateMsgReadedByShopID(String shopID){
+        int id = -1;
+        SQLiteDatabase db = null;
+        try {
+            db = helper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("is_read", 1);
+            id = db.update(DBOpenHelper.MESSAGE_TBL, values, " shop_id = ? ", new String[]{shopID});
+        } catch (Exception e) {
+            LogUtil.getInstance().info(LogLevel.ERROR,TAG+".updateMessage->"+e.getMessage());
+            e.printStackTrace();
+        } finally{
+            if(null != db)
+                db.close();
+        }
+        return id;
+    }
+
+    /**
      * 设置指定消息为发送成功
      * @param realMsgID
      * @param tempID
@@ -485,6 +507,54 @@ public class MessageDBUtil {
     }
 
     /**
+     * 根据sessionId和时间戳以及查询个数获取消息记录
+     * @param shopID
+     * @param lastSendTime
+     * @param limitSize
+     * @param isInclude 是否包含lastSendTime这条消息记录
+     * @return
+     */
+    public List<MessageVo> queryMessageListByShopID(String shopID,long lastSendTime, int limitSize,boolean isInclude){
+        List<MessageVo> messageList = new ArrayList<MessageVo>();
+        MessageVo messageVo = null;
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        if (null != helper) {
+            try {
+                db = helper.getReadableDatabase();
+                if(isInclude){
+                    cursor = db.query(DBOpenHelper.MESSAGE_TBL, null,
+                            " shop_id = ? and send_time <= ? ",
+                            new String[] {shopID, "" + lastSendTime },
+                            null, null, " send_time desc", "" + limitSize);
+                }else{
+                    cursor = db.query(DBOpenHelper.MESSAGE_TBL, null,
+                            " shop_id = ? and send_time < ? ",
+                            new String[] {shopID, "" + lastSendTime },
+                            null, null, " send_time desc", "" + limitSize);
+                }
+                if (cursor != null && cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+                        messageVo = MessageFactory.getInstance().buildMessageVo(cursor);
+                        messageList.add(messageVo);
+                    }
+                }
+            } catch (Exception e) {
+                LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryMessageListByShopID->"+e.getMessage());
+                e.printStackTrace();
+            } finally {
+                if (null != cursor) {
+                    cursor.close();
+                }
+                if (null != db) {
+                    db.close();
+                }
+            }
+        }
+        return  messageList;
+    }
+
+    /**
      * 根据sessionId获取回话所有消息
      * @param sessionId
      * @return
@@ -593,7 +663,7 @@ public class MessageDBUtil {
     }
 
     /**
-     * 获得某个会话中最近发送时间戳
+     * 获得某个商家中最近的发送时间戳
      * @return
      */
     public long queryLastSendTimeByShopID(String shopID) {
@@ -613,7 +683,7 @@ public class MessageDBUtil {
                     }
                 }
             } catch (Exception e) {
-                LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryLastSendTime->"+e.getMessage());
+                LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryLastSendTimeByShopID->"+e.getMessage());
                 e.printStackTrace();
             } finally {
                 if (null != cursor) {
@@ -721,7 +791,7 @@ public class MessageDBUtil {
     }
 
     /**
-     * 获取某个会话未读消息个数
+     * 获取某个商家未读消息个数
      */
     public int queryNotifyCountByShopID(String shopID){
         int nofifyCount  = 0;
