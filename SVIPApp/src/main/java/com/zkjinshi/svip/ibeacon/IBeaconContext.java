@@ -96,7 +96,6 @@ public class IBeaconContext {
     public void putRegion(RegionVo regionVo,long activityTime){
         if(!regionCycleyMap.containsKey(regionVo.getiBeacon().getBeaconKey())){
             regionVo.setInTime(activityTime);
-            IBeaconSubject.getInstance().notifyObserversInto(regionVo);
             beaconEntity = regionVo.getiBeacon();
             if(null != beaconEntity){
                 shopId = beaconEntity.getShopid();
@@ -105,6 +104,7 @@ public class IBeaconContext {
                 }
             }
             regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);
+            IBeaconSubject.getInstance().notifyObserversInto(regionVo);
         }
     }
 }
