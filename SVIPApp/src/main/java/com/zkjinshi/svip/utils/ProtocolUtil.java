@@ -115,5 +115,29 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"user/selectshop?shopid="+shopid+"&web=0";
     }
 
+    /**
+     * 获取用户发票列表
+     * @return
+     */
+    public static String geTicketListUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/fplist";
+    }
+
+    /**
+     * 添加用户发票列表
+     * @return
+     */
+    public static String addTicketUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/fpadd";
+    }
+
+    /**
+     * 修改/删除个人发票
+     * @return
+     */
+    public static String updateTicketUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/fpupdate";
+    }
+
 
 }
