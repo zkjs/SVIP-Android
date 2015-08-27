@@ -43,8 +43,8 @@ public class BookOrder implements Serializable{
     private String remark;//备注
     private String created;//CURRENT_TIMESTAMP生成时间
     private String trade_status;//支付状态
-    private String content;
-    private String image;
+    private String content;//默认发送订单提示消息内容
+    private String image;//酒店对应图片后缀
     public static String getTradeFinished() {
         return TRADE_FINISHED;
     }
