@@ -99,7 +99,7 @@ public class ChatAdapter extends BaseAdapter {
                 .cacheOnDisk(true)
                 .build();
         cardOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.url_image_loading)
+                .showImageOnLoading(R.mipmap.img_photo)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();

@@ -116,7 +116,7 @@ public class MessageFactory {
         }
 
         values.put("voice_time", "");//语音时间
-        values.put("mime_type", MimeType.TEXT.getVlaue());//消息类型
+        values.put("mime_type", msgText.getChildtype() == 0 ? MimeType.TEXT.getVlaue() : MimeType.CARD.getVlaue());//消息类型
         values.put("send_status", "");//发送状态
         values.put("is_read", 0);//是否已读 0未读 1已读
         values.put("attach_id", "");//附件id
@@ -312,7 +312,7 @@ public class MessageFactory {
         messageVo.setSendTime(msgText.getTimestamp());
         messageVo.setTitle(msgText.getFromname());
         messageVo.setVoiceTime(0);
-        messageVo.setMimeType(MimeType.TEXT);
+        messageVo.setMimeType(msgText.getChildtype() == 0 ? MimeType.TEXT : MimeType.CARD);
         messageVo.setSendStatus(SendStatus.SEND_SUCCESS);
         messageVo.setIsRead(false);
         messageVo.setAttachId("");
@@ -471,6 +471,8 @@ public class MessageFactory {
             return MimeType.VIDEO;
         }else if(4 == mimeTypeValue){
             return MimeType.APPLICATION;
+        } else if (5 == mimeTypeValue) {
+            return MimeType.CARD;
         }
         return  MimeType.TEXT;
     }
