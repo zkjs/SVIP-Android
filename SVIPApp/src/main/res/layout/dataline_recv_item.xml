@@ -96,6 +96,13 @@
                         android:src="@drawable/skin_aio_ptt_record_friend_nor"
                         android:visibility="gone" />
 
+                    <include
+                        android:clickable="false"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        layout="@layout/dataline_card_item" />
+
                 </LinearLayout>
 
                 <TextView

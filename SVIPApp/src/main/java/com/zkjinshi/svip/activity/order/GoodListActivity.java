@@ -189,6 +189,7 @@ public class GoodListActivity extends Activity {
                     bookOrder.setUserID(CacheUtil.getInstance().getUserId());
                     bookOrder.setRoomType(goodInfoVo.getRoom());
                     bookOrder.setRoomRate(goodInfoVo.getPrice());
+                    bookOrder.setImage(goodInfoVo.getImage());
                     bookCommitBtn.setTag(bookOrder);
                 }
             }

@@ -44,7 +44,7 @@ public class BookOrder implements Serializable{
     private String created;//CURRENT_TIMESTAMP生成时间
     private String trade_status;//支付状态
     private String content;
-
+    private String image;
     public static String getTradeFinished() {
         return TRADE_FINISHED;
     }
@@ -253,5 +253,13 @@ public class BookOrder implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

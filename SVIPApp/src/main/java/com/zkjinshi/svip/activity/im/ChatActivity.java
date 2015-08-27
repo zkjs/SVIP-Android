@@ -87,6 +87,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String            mRuleType;
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
+    private String bookOrderStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +139,10 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
         if (null != bookOrder) {
-            messageListViewManager.sendBookTextMessage(new Gson().toJson(bookOrder));
+            bookOrderStr = new Gson().toJson(bookOrder);
+            if (!TextUtils.isEmpty(bookOrderStr)) {
+                messageListViewManager.sendBookTextMessage(bookOrderStr);
+            }
         }
     }
 

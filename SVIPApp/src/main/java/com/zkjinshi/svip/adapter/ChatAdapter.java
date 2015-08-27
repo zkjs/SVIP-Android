@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -34,12 +35,14 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.EmotionType;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ActionItem;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.MessageSpanURL;
@@ -281,6 +284,10 @@ public class ChatAdapter extends BaseAdapter {
         vh.voice = (ImageView) convertView.findViewById(R.id.voice);
         vh.time = (TextView) convertView.findViewById(R.id.tv_time);
         vh.selectCb = (CheckBox) convertView.findViewById(R.id.cb_select);
+        vh.cardLayout = (LinearLayout) convertView.findViewById(R.id.card_layout);
+        vh.contentTip = (TextView) convertView.findViewById(R.id.msg_content_tips);
+        vh.orderContent = (TextView) convertView.findViewById(R.id.msg_order_content);
+        vh.hotelImage = (ImageView) convertView.findViewById(R.id.msg_hotel_image);
     }
 
     /**
@@ -400,6 +407,7 @@ public class ChatAdapter extends BaseAdapter {
             vh.img.setVisibility(View.GONE);
             vh.voice.setVisibility(View.GONE);
             vh.time.setVisibility(View.GONE);
+            vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(MimeType.AUDIO)) {// 语音
             final int voiceTime = item.getVoiceTime();
             if(!isComMsg){
@@ -451,6 +459,7 @@ public class ChatAdapter extends BaseAdapter {
             vh.img.setVisibility(View.GONE);
             vh.voice.setVisibility(View.VISIBLE);
             vh.time.setVisibility(View.VISIBLE);
+            vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(MimeType.IMAGE)) {// 图片
 
             if (!isDelEnabled) {
@@ -532,6 +541,26 @@ public class ChatAdapter extends BaseAdapter {
             vh.img.setVisibility(View.VISIBLE);
             vh.voice.setVisibility(View.GONE);
             vh.time.setVisibility(View.GONE);
+            vh.cardLayout.setVisibility(View.GONE);
+        } else if (mimeType.equals(MimeType.CARD)) {// 卡片布局
+            BookOrder bookOrder = new Gson().fromJson(item.getContent(), BookOrder.class);
+            if (null != bookOrder) {
+                String roomType = bookOrder.getRoomType();
+                String arrivaDate = bookOrder.getArrivalDate();
+                String imageUrl = bookOrder.getImage();
+                int dayNum = bookOrder.getDayNum();
+                vh.contentTip.setText(bookOrder.getContent());
+                vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
+                if (!TextUtils.isEmpty(imageUrl)) {
+                    String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+                    ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, options);
+                }
+            }
+            vh.msg.setVisibility(View.GONE);
+            vh.img.setVisibility(View.GONE);
+            vh.voice.setVisibility(View.GONE);
+            vh.time.setVisibility(View.GONE);
+            vh.cardLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -585,6 +614,9 @@ public class ChatAdapter extends BaseAdapter {
         TextView        time;
         CheckBox        selectCb;
         LinearLayout    contentLayout;
+        LinearLayout cardLayout;
+        TextView contentTip, orderContent;
+        ImageView hotelImage;
     }
 
     static class RecvViewHolder extends ViewHolder {
