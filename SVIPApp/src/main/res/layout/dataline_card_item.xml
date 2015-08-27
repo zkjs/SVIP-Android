@@ -12,7 +12,7 @@
         android:text="@null"
         android:layout_height="32dp"
         android:textSize="14sp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_gravity="left"
         android:gravity="left|center_vertical" />
 
@@ -25,7 +25,7 @@
             android:layout_width="263dp"
             android:layout_height="128dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/bg_cebian" />
+            android:src="@mipmap/img_photo" />
 
         <LinearLayout
             android:layout_width="match_parent"

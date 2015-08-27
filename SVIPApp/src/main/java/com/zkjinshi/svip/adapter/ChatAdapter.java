@@ -71,7 +71,7 @@ public class ChatAdapter extends BaseAdapter {
     private static final int TYPE_RECV_ITEM = 0; // 接收
     private static final int TYPE_SEND_ITEM = 1; // 发送
 
-    DisplayImageOptions options, imageOptions; // DisplayImageOptions是用于设置图片显示的类
+    DisplayImageOptions options, imageOptions, cardOptions; // DisplayImageOptions是用于设置图片显示的类
     private Context context;
     private LayoutInflater inflater;
     private List<MessageVo> messageList;
@@ -94,6 +94,11 @@ public class ChatAdapter extends BaseAdapter {
                 .cacheOnDisk(true)
                 .build();
         imageOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.url_image_loading)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        cardOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.url_image_loading)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
@@ -386,9 +391,6 @@ public class ChatAdapter extends BaseAdapter {
                                 .contains("]"))) {
                             vh.msg.setText(style);
                         }
-                        if (!isComMsg) {
-                            vh.msg.setLinkTextColor(Color.parseColor("#1ae8f0"));
-                        }
                     }
                 }
             }
@@ -553,7 +555,7 @@ public class ChatAdapter extends BaseAdapter {
                 vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
                 if (!TextUtils.isEmpty(imageUrl)) {
                     String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
-                    ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, options);
+                    ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
                 }
             }
             vh.msg.setVisibility(View.GONE);

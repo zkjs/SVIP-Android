@@ -99,7 +99,7 @@
                         android:lineSpacingExtra="2.0dip"
                         android:maxWidth="270dp"
                         android:padding="7.0dip"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@android:color/black"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
