@@ -299,11 +299,12 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         Message msg = Message.obtain();
         msg.what = UPDATE_ADAPTER_UI;
         this.sendMessage(msg);
-        if (isCallService) {
+        sendMessageVo(mMessageVo);
+       /* if (isCallService) {
             sendMessageVo(mMessageVo);
         } else {
             callService(mShopID, defaultRuleType);
-        }
+        }*/
     }
 
     /**
