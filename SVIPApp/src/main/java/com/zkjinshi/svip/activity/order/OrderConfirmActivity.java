@@ -236,6 +236,7 @@ public class OrderConfirmActivity extends Activity{
                 Intent intent = new Intent(OrderConfirmActivity.this, ChatActivity.class);
                 intent.putExtra("shop_id", mBookOrder.getShopID());
                 intent.putExtra("shop_name", mBookOrder.getCompany());
+                intent.putExtra("bookOrder", mBookOrder);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
