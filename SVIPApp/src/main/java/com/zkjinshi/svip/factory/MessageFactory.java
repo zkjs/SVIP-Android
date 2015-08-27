@@ -340,6 +340,7 @@ public class MessageFactory {
         msgText.setSessionid(messageVo.getSessionId());
         msgText.setTempid(messageVo.getTempId());
         msgText.setRuletype(messageVo.getRuleType());
+        msgText.setChildtype(messageVo.getMimeType() == MimeType.TEXT ? 0 : 1);
         return msgText;
     }
 

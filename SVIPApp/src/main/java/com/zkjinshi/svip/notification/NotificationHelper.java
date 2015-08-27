@@ -20,9 +20,9 @@ import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 
 /**
- * wear通知栏定制帮助类
+ * 消息通知帮助类
  * 开发者：JimmyZhang
- * 日期：2015/8/4
+ * 日期：2015/8/26
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */

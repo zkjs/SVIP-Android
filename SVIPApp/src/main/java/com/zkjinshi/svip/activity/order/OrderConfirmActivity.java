@@ -36,6 +36,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.MathUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.response.GoodInfoResponse;
@@ -230,7 +231,14 @@ public class OrderConfirmActivity extends Activity{
             @Override
             public void onClick(View view) {
                 mBookOrder = (BookOrder)view.getTag();
-                OrderConfirmNetController.getInstance().requestGetGoodListTask(mBookOrder);
+                // OrderConfirmNetController.getInstance().requestGetGoodListTask(mBookOrder);
+                //TODO JimmyZhang 跳转到聊天页面，并发送订单预定消息给商户端
+                Intent intent = new Intent(OrderConfirmActivity.this, ChatActivity.class);
+                intent.putExtra("shop_id", mBookOrder.getShopID());
+                intent.putExtra("shop_name", mBookOrder.getCompany());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
     }

@@ -2,6 +2,9 @@ package com.zkjinshi.svip.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
 
 /**
  * 缓存工具类
@@ -306,6 +309,56 @@ public class CacheUtil {
 	public void setInArea(String shopId,boolean isInArea) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putBoolean("is_in_"+shopId+"_area",  isInArea).commit();
+	}
+
+	/**
+	 * 加密存入缓存
+	 *
+	 * @param cacheObj
+	 */
+	public void saveObjCache(Object cacheObj) {
+		if (null != cacheObj) {
+			Gson gson = new Gson();
+			String json = gson.toJson(cacheObj);
+			String key = cacheObj.getClass().getSimpleName();
+			try {
+				String encryptedData = Base64Encoder.encode(json);// base 64加密
+				SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+						Context.MODE_PRIVATE);
+				sp.edit().putString(key, encryptedData).commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 解密取出缓存对象
+	 *
+	 * @param cacheObj
+	 * @return
+	 */
+	public Object getObjCache(Object cacheObj) {
+		if (null == cacheObj) {
+			return null;
+		}
+		if (null != cacheObj) {
+			SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+					Context.MODE_PRIVATE);
+			String key = cacheObj.getClass().getSimpleName();
+			String value = "";
+			String encryptedData = sp.getString(key, "");
+			if (!TextUtils.isEmpty(encryptedData)) {
+				try {
+					value = Base64Decoder.decode(encryptedData);
+					Gson gson = new Gson();
+					cacheObj = gson.fromJson(value, cacheObj.getClass());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return cacheObj;
 	}
 
 }

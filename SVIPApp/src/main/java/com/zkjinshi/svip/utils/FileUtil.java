@@ -164,7 +164,7 @@ public class FileUtil {
      * @param audioPath
      */
     public void saveBase64IntoPath(String base64, String audioPath) {
-        byte[] buffer = Base64.decode(base64);
+        byte[] buffer = Base64Decoder.decodeToBytes(base64);
         File file = new File(audioPath);
         FileOutputStream outputFile = null;
         try {
@@ -204,7 +204,7 @@ public class FileUtil {
             byte[] buffer = new byte[(int)file.length()];
             int i = 0;
             while((i = bis.read(buffer)) != -1){
-                base64Media = Base64.encode(buffer);
+                base64Media = Base64Encoder.encode(buffer);
             }
             return base64Media;
         } catch (IOException e) {

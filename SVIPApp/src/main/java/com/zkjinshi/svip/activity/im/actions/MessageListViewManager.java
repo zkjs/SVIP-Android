@@ -265,6 +265,49 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     /**
+     * TODO JimmyZhang
+     * 发送预定文本消息
+     *
+     * @param shopID
+     * @param content
+     * @param ruleType
+     */
+    public void sendBookTextMessage(String shopID, String content, String ruleType) {
+        //step3
+        String tempMessageId = UUIDBuilder.getInstance().getRandomUUID();
+        long tempSendTime = System.currentTimeMillis();
+        messageVector.add(tempMessageId);
+        /** 1、IM发送文本消息 */
+        mMessageVo = buildBookTextMessageVo(shopID, mSessionID, content,
+                tempMessageId, tempSendTime,
+                SendStatus.SENDING, ruleType);
+
+        /** 判断shopID聊天室是否存在 */
+        boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
+        if (isExist) {
+            // 聊天室已存在, 更新聊天室信息
+            long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
+        } else {
+            // 聊天室尚未创建, 创建新的聊天室
+            long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
+        }
+
+        /** 2、保存文本消息到sqlite(注意此时的消息正在发送中) */
+        MessageDBUtil.getInstance().addMessage(mMessageVo);
+
+        /** 3、构建文本vo实体，将消息内容显示到页面 */
+        currentMessageList.add(mMessageVo);
+        Message msg = Message.obtain();
+        msg.what = UPDATE_ADAPTER_UI;
+        this.sendMessage(msg);
+        if (isCallService) {
+            sendMessageVo(mMessageVo);
+        } else {
+            callService(shopID, ruleType);
+        }
+    }
+
+    /**
      * 发送语音消息
      * @param fileName
      * @param filePath
@@ -324,8 +367,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
         /** 生成MessageVo对象 */
         mMessageVo = buildImageMessageVo(shopID, mSessionID, tempMessageId,
-                                         tempSendTime, SendStatus.SENDING,
-                                         attachId, fileName, filePath, ruleType);
+                tempSendTime, SendStatus.SENDING,
+                attachId, fileName, filePath, ruleType);
 
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
@@ -396,6 +439,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageUiVo.setSessionId(mSessionID);
         switch (messageUiVo.getMimeType()){
             case TEXT://文本
+            case CARD://卡片
                 final MsgCustomerServiceTextChat msgText = MessageFactory.getInstance().
                         buildMsgTextByMessageVo(messageUiVo);
                 Gson gson = new Gson();
@@ -558,6 +602,25 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 scrollBottom();
                 break;
         }
+    }
+
+    public MessageVo buildBookTextMessageVo(String shopID, String sessionId, String content,
+                                            String tempMessageId, long sendTime,
+                                            SendStatus sendStatus, String ruleType) {
+        MessageVo messageVo = new MessageVo();
+        messageVo.setMessageId(tempMessageId);//未发送前的
+        messageVo.setSessionId(sessionId);
+        messageVo.setContent(content);
+        messageVo.setTempId(tempMessageId);
+        messageVo.setContactId(CacheUtil.getInstance().getUserId());
+        messageVo.setContactName(CacheUtil.getInstance().getUserName());
+        messageVo.setShopId(shopID);
+        messageVo.setSendStatus(sendStatus);
+        messageVo.setSendTime(sendTime);
+        messageVo.setMimeType(MimeType.CARD);
+        messageVo.setRuleType(ruleType);
+        messageVo.setIsRead(true);
+        return messageVo;
     }
 
     public MessageVo buildTextMessageVo(String shopID, String sessionId, String content,

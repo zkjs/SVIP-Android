@@ -13,7 +13,8 @@ public enum MimeType {
     AUDIO(1),//语音
     IMAGE(2),//图片
     VIDEO(3),//视频
-    APPLICATION(4);//文件
+    APPLICATION(4),//文件
+    CARD(5);//卡片
     private MimeType(int value){
         this.value = value;
     }

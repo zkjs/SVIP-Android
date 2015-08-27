@@ -26,6 +26,7 @@ public class MsgCustomerServiceTextChat {
     private String       seqid;
     private int          isreadack;//是否要求消息已读回执 0:不需要 1:需要
     private String       textmsg;//文本消息体
+    private int childtype;//0:普通Text 1:自定义json格式
 
     public int getType() {
         return type;
@@ -153,5 +154,13 @@ public class MsgCustomerServiceTextChat {
 
     public void setTextmsg(String textmsg) {
         this.textmsg = textmsg;
+    }
+
+    public int getChildtype() {
+        return childtype;
+    }
+
+    public void setChildtype(int childtype) {
+        this.childtype = childtype;
     }
 }

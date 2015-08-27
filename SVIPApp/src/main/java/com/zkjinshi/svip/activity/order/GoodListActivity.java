@@ -184,6 +184,7 @@ public class GoodListActivity extends Activity {
                     }
                     bookOrder = new BookOrder();
                     bookOrder.setRoomTypeID(goodId);
+                    bookOrder.setCompany(goodInfoVo.getFullname());
                     bookOrder.setShopID(goodInfoVo.getShopid());
                     bookOrder.setUserID(CacheUtil.getInstance().getUserId());
                     bookOrder.setRoomType(goodInfoVo.getRoom());

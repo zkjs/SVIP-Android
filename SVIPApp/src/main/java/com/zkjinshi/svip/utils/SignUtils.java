@@ -21,7 +21,7 @@ public class SignUtils {
 	public static String sign(String content, String privateKey) {
 		try {
 			PKCS8EncodedKeySpec priPKCS8 = new PKCS8EncodedKeySpec(
-					Base64.decode(privateKey));
+					Base64Decoder.decodeToBytes(privateKey));
 			KeyFactory keyf = KeyFactory.getInstance(ALGORITHM);
 			PrivateKey priKey = keyf.generatePrivate(priPKCS8);
 
@@ -33,7 +33,7 @@ public class SignUtils {
 
 			byte[] signed = signature.sign();
 
-			return Base64.encode(signed);
+			return Base64Encoder.encode(signed);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
