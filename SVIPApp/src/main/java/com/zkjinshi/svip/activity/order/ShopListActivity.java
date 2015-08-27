@@ -113,7 +113,8 @@ public class ShopListActivity extends Activity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ShopInfoVo shopInfoVo = (ShopInfoVo)shopAdapter.getItem(position);
-                Intent intent = new Intent(ShopListActivity.this,GoodListActivity.class);
+                //Intent intent = new Intent(ShopListActivity.this,GoodListActivity.class);
+                Intent intent = new Intent(ShopListActivity.this,OrderBookingActivity.class);
                 intent.putExtra("shopid", shopInfoVo.getShopid());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,

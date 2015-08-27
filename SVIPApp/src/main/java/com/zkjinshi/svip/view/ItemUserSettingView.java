@@ -99,4 +99,35 @@ public class ItemUserSettingView extends RelativeLayout{
         mTextSlash.setText(textSlash);
     }
 
+    public TextView getmTextTitle() {
+        return mTextTitle;
+    }
+
+    public void setmTextTitle(TextView mTextTitle) {
+        this.mTextTitle = mTextTitle;
+    }
+
+    public TextView getmTextContent1() {
+        return mTextContent1;
+    }
+
+    public void setmTextContent1(TextView mTextContent1) {
+        this.mTextContent1 = mTextContent1;
+    }
+
+    public TextView getmTextContent2() {
+        return mTextContent2;
+    }
+
+    public void setmTextContent2(TextView mTextContent2) {
+        this.mTextContent2 = mTextContent2;
+    }
+
+    public TextView getmTextSlash() {
+        return mTextSlash;
+    }
+
+    public void setmTextSlash(TextView mTextSlash) {
+        this.mTextSlash = mTextSlash;
+    }
 }

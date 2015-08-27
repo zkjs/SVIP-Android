@@ -49,34 +49,37 @@ public class GoodListActivity extends Activity {
     private ImageButton backIBtn;
     private TextView centerTitleTv;
     private ListView roomListView;
-    private boolean scrollFlag;
+   // private boolean scrollFlag;
     private StringRequest stringRequest;
     private List<GoodInfoResponse> goodResponsseList;
     private List<GoodInfoVo> goodInfoList;
     private String shopId;
     private GoodAdapter goodAdapter;
-    private LinearLayout chooseAndPayLaout;
-    private RadioGroup levelRG,breakfastRG;
-    private Button bookCommitBtn;
-    private BookOrder bookOrder;
+   // private LinearLayout chooseAndPayLaout;
+    //private RadioGroup levelRG,breakfastRG;
+   // private Button bookCommitBtn;
+    //private BookOrder bookOrder;
+
+    private GoodInfoVo goodInfoVo;
 
     private void initView(){
         backIBtn = (ImageButton)findViewById(R.id.good_list_header_bar_btn_back);
         centerTitleTv = (TextView)findViewById(R.id.good_list_header_bar_tv_title);
         roomListView = (ListView)findViewById(R.id.good_list_list_view);
-        chooseAndPayLaout = (LinearLayout)findViewById(R.id.view_choose_and_pay_layout);
-        levelRG = (RadioGroup)findViewById(R.id.good_list_rg_level);
-        breakfastRG = (RadioGroup)findViewById(R.id.good_list_rg_breakfast);
-        bookCommitBtn = (Button)findViewById(R.id.room_list_book_right_now_btn);
+       // chooseAndPayLaout = (LinearLayout)findViewById(R.id.view_choose_and_pay_layout);
+       // levelRG = (RadioGroup)findViewById(R.id.good_list_rg_level);
+        //breakfastRG = (RadioGroup)findViewById(R.id.good_list_rg_breakfast);
+       // bookCommitBtn = (Button)findViewById(R.id.room_list_book_right_now_btn);
     }
 
     private void initData(){
 
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
-        bookCommitBtn.setTag(bookOrder);
+        //bookCommitBtn.setTag(bookOrder);
 
-        shopId = getIntent().getStringExtra("shopid");
+       // shopId = getIntent().getStringExtra("shopid");
+        shopId = goodInfoVo.getShopid();
 
         stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getGoodListUrl(shopId),
                 new Response.Listener<String>() {
@@ -96,7 +99,7 @@ public class GoodListActivity extends Activity {
                                     }
                                 }
                             }catch (Exception e){
-                                e.printStackTrace();;
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -125,53 +128,60 @@ public class GoodListActivity extends Activity {
             }
         });
 
-        //房间档次
-        levelRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//        //房间档次
+//        levelRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//
+//            }
+//        });
 
-            }
-        });
+//        //早餐类型
+//        breakfastRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+//
+//            }
+//        });
 
-        //早餐类型
-        breakfastRG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-
-            }
-        });
-
-        //立即预定
-        bookCommitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bookOrder = (BookOrder)view.getTag();
-                if(null != bookOrder){
-                    Intent intent = new Intent(GoodListActivity.this,OrderConfirmActivity.class);
-                    intent.putExtra("book_order", bookOrder);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }else{
-                    DialogUtil.getInstance().showCustomToast(view.getContext(), "您还未选择房间!", Toast.LENGTH_LONG);
-                }
-            }
-        });
+//        //立即预定
+//        bookCommitBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                bookOrder = (BookOrder)view.getTag();
+//                if(null != bookOrder){
+//                    Intent intent = new Intent(GoodListActivity.this,OrderConfirmActivity.class);
+//                    intent.putExtra("book_order", bookOrder);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.slide_in_right,
+//                            R.anim.slide_out_left);
+//                }else{
+//                    DialogUtil.getInstance().showCustomToast(view.getContext(), "您还未选择房间!", Toast.LENGTH_LONG);
+//                }
+//            }
+//        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_list);
-        initView();
-        initData();
-        initListeners();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+           goodInfoVo = (GoodInfoVo) bundle.getSerializable("GoodInfoVo");
+            initView();
+            initData();
+            initListeners();
+        }
+
+
     }
 
     private void setResponseData(List<GoodInfoVo> goodInfoList){
 
         goodAdapter = new GoodAdapter(goodInfoList,GoodListActivity.this);
         roomListView.setAdapter(goodAdapter);
+        goodAdapter.selectGood(goodInfoVo.getId());
         //房型列表点击监听
         roomListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -181,63 +191,70 @@ public class GoodListActivity extends Activity {
                     String goodId = goodInfoVo.getId();
                     if(!TextUtils.isEmpty(goodId)){
                         goodAdapter.selectGood(goodId);
+                        //跳转回选择页面
+                        Intent inetnt = new Intent();
+                        inetnt.putExtra("GoodInfoVo", goodInfoVo);
+                        setResult(RESULT_OK, inetnt);
+                        finish();
                     }
-                    bookOrder = new BookOrder();
-                    bookOrder.setRoomTypeID(goodId);
-                    bookOrder.setCompany(goodInfoVo.getFullname());
-                    bookOrder.setShopID(goodInfoVo.getShopid());
-                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    bookOrder.setRoomType(goodInfoVo.getRoom());
-                    bookOrder.setRoomRate(goodInfoVo.getPrice());
-                    bookOrder.setImage(goodInfoVo.getImage());
-                    bookCommitBtn.setTag(bookOrder);
+
+
+//                    bookOrder = new BookOrder();
+//                    bookOrder.setRoomTypeID(goodId);
+//                    bookOrder.setCompany(goodInfoVo.getFullname());
+//                    bookOrder.setShopID(goodInfoVo.getShopid());
+//                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
+//                    bookOrder.setRoomType(goodInfoVo.getRoom());
+//                    bookOrder.setRoomRate(goodInfoVo.getPrice());
+//                    bookOrder.setImage(goodInfoVo.getImage());
+//                    bookCommitBtn.setTag(bookOrder);
                 }
             }
         });
 
         //房型列表滑动监听
-        roomListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                switch (scrollState) {
-                    // 当不滚动时
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:// 是当屏幕停止滚动时
-                        scrollFlag = false;
-                        LogUtil.getInstance().info(LogLevel.INFO,"滚动停止");
-                        // 判断滚动到底部
-                        if (roomListView.getLastVisiblePosition() == (roomListView
-                                .getCount() - 1)) {
-                            LogUtil.getInstance().info(LogLevel.INFO,"滚动到底部");
-                        }
-                        // 判断滚动到顶部
-                        if (roomListView.getFirstVisiblePosition() == 0) {
-                            LogUtil.getInstance().info(LogLevel.INFO,"滚动到顶部");
-                        }
-
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 滚动时
-                        scrollFlag = true;
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:// 是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动时
-                        scrollFlag = true;
-                        LogUtil.getInstance().info(LogLevel.INFO,"是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动");
-                        break;
-                }
-                if(scrollFlag){
-                    GoodListUiController.getInstance().hiddleChooseAndPayLaout(chooseAndPayLaout);
-                }else {
-                    GoodListUiController.getInstance().showChooseAndPayLaout(chooseAndPayLaout);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int firstVisibleItem, int lastVisibleItemPosition, int totalItemCount) {
-                if (firstVisibleItem > lastVisibleItemPosition) {// 上滑
-                    LogUtil.getInstance().info(LogLevel.INFO, "上滑");
-                } else{// 下滑
-                    LogUtil.getInstance().info(LogLevel.INFO, "下滑");
-                }
-            }
-        });
+//        roomListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                switch (scrollState) {
+//                    // 当不滚动时
+//                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:// 是当屏幕停止滚动时
+//                        scrollFlag = false;
+//                        LogUtil.getInstance().info(LogLevel.INFO,"滚动停止");
+//                        // 判断滚动到底部
+//                        if (roomListView.getLastVisiblePosition() == (roomListView
+//                                .getCount() - 1)) {
+//                            LogUtil.getInstance().info(LogLevel.INFO,"滚动到底部");
+//                        }
+//                        // 判断滚动到顶部
+//                        if (roomListView.getFirstVisiblePosition() == 0) {
+//                            LogUtil.getInstance().info(LogLevel.INFO,"滚动到顶部");
+//                        }
+//
+//                        break;
+//                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 滚动时
+//                        scrollFlag = true;
+//                        break;
+//                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:// 是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动时
+//                        scrollFlag = true;
+//                        LogUtil.getInstance().info(LogLevel.INFO,"是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动");
+//                        break;
+//                }
+//                if(scrollFlag){
+//                    GoodListUiController.getInstance().hiddleChooseAndPayLaout(chooseAndPayLaout);
+//                }else {
+//                    GoodListUiController.getInstance().showChooseAndPayLaout(chooseAndPayLaout);
+//                }
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView absListView, int firstVisibleItem, int lastVisibleItemPosition, int totalItemCount) {
+//                if (firstVisibleItem > lastVisibleItemPosition) {// 上滑
+//                    LogUtil.getInstance().info(LogLevel.INFO, "上滑");
+//                } else{// 下滑
+//                    LogUtil.getInstance().info(LogLevel.INFO, "下滑");
+//                }
+//            }
+//        });
     }
 }

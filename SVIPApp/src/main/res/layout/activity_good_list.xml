@@ -63,10 +63,10 @@
         android:cacheColorHint="@android:color/transparent"
         android:background="#EEEEEE"/>
 
-    <include
-        layout="@layout/view_choose_and_pay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+    <!--<include-->
+        <!--layout="@layout/view_choose_and_pay"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"/>-->
 
 </RelativeLayout>
