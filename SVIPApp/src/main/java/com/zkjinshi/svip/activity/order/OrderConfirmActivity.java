@@ -233,6 +233,7 @@ public class OrderConfirmActivity extends Activity{
                 mBookOrder = (BookOrder)view.getTag();
                 // OrderConfirmNetController.getInstance().requestGetGoodListTask(mBookOrder);
                 //TODO JimmyZhang 跳转到聊天页面，并发送订单预定消息给商户端
+                mBookOrder.setContent("您好，帮我预定这间房");
                 Intent intent = new Intent(OrderConfirmActivity.this, ChatActivity.class);
                 intent.putExtra("shop_id", mBookOrder.getShopID());
                 intent.putExtra("shop_name", mBookOrder.getCompany());

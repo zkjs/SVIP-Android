@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
@@ -31,6 +33,7 @@ import com.zkjinshi.svip.activity.im.actions.MoreViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
 import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
+import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
@@ -57,6 +60,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String        mShopID;
     private String        mShopName;
     private String        mSessionID;
+    private BookOrder bookOrder;
 
     private ItemTitleView mTitle;
     private EditText      mMsgTextInput;
@@ -113,6 +117,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
         mShopID    = getIntent().getStringExtra("shop_id");
         mShopName  = getIntent().getStringExtra("shop_name");
+        bookOrder = (BookOrder) getIntent().getSerializableExtra("bookOrder");
         mUserID    = CacheUtil.getInstance().getUserId();
         mRuleType  = getString(R.string.default_rule_type);
         mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
@@ -132,6 +137,9 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         voiceRecordManager.init();
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
+        if (null != bookOrder) {
+            messageListViewManager.sendBookTextMessage(new Gson().toJson(bookOrder));
+        }
     }
 
     private void initListener() {

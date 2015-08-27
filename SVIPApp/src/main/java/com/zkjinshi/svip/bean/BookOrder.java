@@ -43,6 +43,7 @@ public class BookOrder implements Serializable{
     private String remark;//备注
     private String created;//CURRENT_TIMESTAMP生成时间
     private String trade_status;//支付状态
+    private String content;
 
     public static String getTradeFinished() {
         return TRADE_FINISHED;
@@ -244,5 +245,13 @@ public class BookOrder implements Serializable{
 
     public void setDayNum(int dayNum) {
         this.dayNum = dayNum;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

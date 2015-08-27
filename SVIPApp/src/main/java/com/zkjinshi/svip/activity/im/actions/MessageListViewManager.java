@@ -268,22 +268,21 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * TODO JimmyZhang
      * 发送预定文本消息
      *
-     * @param shopID
      * @param content
-     * @param ruleType
      */
-    public void sendBookTextMessage(String shopID, String content, String ruleType) {
-        //step3
+    public void sendBookTextMessage(String content) {
         String tempMessageId = UUIDBuilder.getInstance().getRandomUUID();
+        String defaultRuleType = context.getString(R.string.default_rule_type);
+
         long tempSendTime = System.currentTimeMillis();
         messageVector.add(tempMessageId);
-        /** 1、IM发送文本消息 */
-        mMessageVo = buildBookTextMessageVo(shopID, mSessionID, content,
+        /** 1、IM发送预定文本消息 */
+        mMessageVo = buildBookTextMessageVo(mShopID, mSessionID, content,
                 tempMessageId, tempSendTime,
-                SendStatus.SENDING, ruleType);
+                SendStatus.SENDING, defaultRuleType);
 
         /** 判断shopID聊天室是否存在 */
-        boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID);
+        boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(mShopID);
         if (isExist) {
             // 聊天室已存在, 更新聊天室信息
             long updResult = ChatRoomDBUtil.getInstance().updateChatRoom(mMessageVo);
@@ -303,7 +302,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if (isCallService) {
             sendMessageVo(mMessageVo);
         } else {
-            callService(shopID, ruleType);
+            callService(mShopID, defaultRuleType);
         }
     }
 
