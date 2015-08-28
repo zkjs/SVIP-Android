@@ -73,15 +73,15 @@
             android:checked="true"/>
 
         <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:text="保存"
-            android:textSize="16sp"
-            android:textColor="@color/White"
-            android:background="@drawable/btn_bg_01_selector"/>
+        android:id="@+id/btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="保存"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_bg_01_selector"/>
 
 
     </LinearLayout>

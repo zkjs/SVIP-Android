@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,10 +31,10 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.MathUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
@@ -43,14 +45,20 @@ import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
+import com.zkjinshi.svip.vo.TicketVo;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import me.kaede.tagview.OnTagClickListener;
+import me.kaede.tagview.Tag;
+import me.kaede.tagview.TagView;
 
 /**
  * 预订中的订单详情页面
@@ -73,9 +81,15 @@ public class OrderBookingActivity extends Activity{
     private StringRequest stringRequest;
 
     private Button          mBtnSendOrder;
+    private Button          mBtnCancelOrder;
     private LinearLayout    mLltYuan;
+    private LinearLayout    mLltTicketContainer;
+
+    private TagView mRoomTagView;
+    private TagView mServiceTagView;
 
     private ItemUserSettingView mIusvRoomNumber;
+    private TextView mTvTicket;
     private ArrayList<ItemUserSettingView> customerList;
 
 
@@ -93,9 +107,12 @@ public class OrderBookingActivity extends Activity{
     private List<GoodInfoVo> goodInfoList;
     private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo;
+    private TicketVo tickeVo;
+
 
     public static final int GOOD_REQUEST_CODE = 6;
     public static final int PEOPLE_REQUEST_CODE = 7;
+    public static final int TICKET_REQUEST_CODE = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +130,12 @@ public class OrderBookingActivity extends Activity{
     private void initView() {
         mTitle = (ItemTitleView) findViewById(R.id.itv_title);
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
+        mBtnCancelOrder = (Button)findViewById(R.id.btn_cancel_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
         mLltYuan      = (LinearLayout)findViewById(R.id.rl_yuan);
+
+        mRoomTagView = (TagView)findViewById(R.id.tagview_room_tags);
+        mServiceTagView = (TagView)findViewById(R.id.tagview_service_tags);
 
         mTvArriveDate = (TextView)findViewById(R.id.tv_arrive_date);
         mTvLeaveDate  = (TextView)findViewById(R.id.tv_leave_date);
@@ -122,6 +143,7 @@ public class OrderBookingActivity extends Activity{
         mLltDateContainer = (LinearLayout)findViewById(R.id.llt_date_container);
 
         mIusvRoomNumber = (ItemUserSettingView)findViewById(R.id.aod_room_number);
+
 
         mIvRoomImg = (ImageView)findViewById(R.id.iv_room_img);
 
@@ -131,11 +153,16 @@ public class OrderBookingActivity extends Activity{
             customerList.add((ItemUserSettingView)findViewById(customerIds[i]));
         }
 
+        mTvTicket  = (TextView)findViewById(R.id.tv_ticket);
+        mLltTicketContainer = (LinearLayout)findViewById(R.id.llt_ticket_container);
     }
 
     private void initData() {
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
+
+        mBtnSendOrder.setText("发送订单给客服");
+        mBtnCancelOrder.setVisibility(View.GONE);
 
         calendarList = new ArrayList<Calendar>();
         mTitle.setTextTitle(getString(R.string.booking_order));
@@ -212,6 +239,93 @@ public class OrderBookingActivity extends Activity{
             GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
         }
 
+        initRoomTags();
+        initServiceTags();
+        initTicket();
+
+    }
+
+    //初始化发票
+    private void initTicket() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ProtocolUtil.geTicketListUrl(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        mTvTicket.setText("");
+                        DialogUtil.getInstance().cancelProgressDialog();
+                        LogUtil.getInstance().info(LogLevel.INFO, "默认发票响应结果:" + response);
+                        if(!TextUtils.isEmpty(response)){
+                            try {
+                                Gson gson = new Gson();
+                                tickeVo = gson.fromJson(response, TicketVo.class);
+                                if(null != tickeVo){
+                                    mTvTicket.setText(tickeVo.getInvoice_title());
+                                }else{
+                                    mTvTicket.setText("");
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                DialogUtil.getInstance().cancelProgressDialog();
+                mTvTicket.setText("");
+                LogUtil.getInstance().info(LogLevel.INFO, "获取默认发票错误信息:" +  error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                map.put("set","1");
+                return map;
+            }
+        };
+        if(NetWorkUtil.isNetworkConnected(this)){
+            GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
+        }
+    }
+
+    //初始化房间选项标签
+    private void initRoomTags() {
+        mRoomTagView.addTag(createTag(1,"无烟房",true));
+        mRoomTagView.addTag(createTag(2,"视野好",false));
+        mRoomTagView.addTag(createTag(3,"加床",false));
+        mRoomTagView.addTag(createTag(4,"安静",false));
+        mRoomTagView.addTag(createTag(5,"离电梯近",false));
+       // mRoomTagView.addTag(createTag(0,"添加更多",false));
+    }
+
+    //初始化其他服务标签
+    private void initServiceTags() {
+        mServiceTagView.addTag(createTag(1,"免前台",true));
+        mServiceTagView.addTag(createTag(2,"接机服务",false));
+      //  mServiceTagView.addTag(createTag(0,"添加更多",false));
+    }
+
+    private Tag createTag(int id,String tagstr,boolean isChecked){
+        Tag tag = new Tag(id,tagstr);
+        tag.tagTextColor = Color.parseColor("#000000");
+        tag.layoutColor =  Color.parseColor("#ffffff");
+        tag.layoutColorPress = Color.parseColor("#DDDDDD");
+        //or tag.background = this.getResources().getDrawable(R.drawable.custom_bg);
+        tag.radius = 40f;
+        tag.tagTextSize = 18f;
+        tag.layoutBorderSize = 1f;
+        tag.layoutBorderColor = Color.parseColor("#000000");
+        tag.deleteIndicatorColor =  Color.parseColor("#ff0000");
+        tag.deleteIndicatorSize =  18f;
+        tag.isDeletable = true;
+        if(isChecked){
+            tag.deleteIcon = "√";
+        }else{
+            tag.deleteIcon = "";
+        }
+
+        return tag;
     }
 
     //设置离开和到达的日期
@@ -297,6 +411,14 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
+        mLltTicketContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrderBookingActivity.this, ChooseTicketActivity.class);
+                startActivityForResult(intent, TICKET_REQUEST_CODE);
+            }
+        });
+
         for(int i=0;i<roomNum;i++){
             final int index = i;
             customerList.get(i).setOnClickListener(new View.OnClickListener() {
@@ -313,6 +435,41 @@ public class OrderBookingActivity extends Activity{
                 }
             });
         }
+
+        mRoomTagView.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(Tag tag, int position) {
+                if(tag.id != 0){
+                    if(tag.deleteIcon.equals("")){
+                        tag.deleteIcon = "√";
+                    }
+                    else{
+                        tag.deleteIcon = "";
+                    }
+                    mRoomTagView.drawTags();
+                }else{
+
+                }
+            }
+        });
+
+        mServiceTagView.setOnTagClickListener(new OnTagClickListener() {
+            @Override
+            public void onTagClick(Tag tag, int position) {
+                if(tag.id != 0){
+                    if(tag.deleteIcon.equals("")){
+                        tag.deleteIcon = "√";
+                    }
+                    else{
+                        tag.deleteIcon = "";
+                    }
+                    mServiceTagView.drawTags();
+                }else{
+
+                }
+            }
+        });
+
 
         mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -401,6 +558,12 @@ public class OrderBookingActivity extends Activity{
                     String name = data.getStringExtra("name");
                     int index = data.getIntExtra("index", 0);
                     customerList.get(index).setTextContent2(name);
+                }
+            }
+            else if(TICKET_REQUEST_CODE == requestCode){
+                if(null != data){
+                    tickeVo = (TicketVo)data.getSerializableExtra("selectTicketVo");
+                    mTvTicket.setText(tickeVo.getInvoice_title());
                 }
             }
         }

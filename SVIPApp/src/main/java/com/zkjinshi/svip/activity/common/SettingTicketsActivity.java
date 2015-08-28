@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -60,6 +61,7 @@ public class SettingTicketsActivity extends Activity {
     private Response.Listener<String> deleteTicketListener;
     private Response.ErrorListener    deleteTicketErrorListener;
     private int deleteIndex;
+
 
     private class MyAdapter extends BaseAdapter{
 
@@ -334,6 +336,8 @@ public class SettingTicketsActivity extends Activity {
                 finish();
             }
         });
+
+
     }
 
 

@@ -157,7 +157,7 @@ public class TagView extends RelativeLayout {
 	/**
 	 * tag draw
 	 */
-	private void drawTags() {
+	public void drawTags() {
 
 		if (!mInitialized) {
 			return;
@@ -219,7 +219,7 @@ public class TagView extends RelativeLayout {
 				deletableView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						TagView.this.remove(position);
+						//TagView.this.remove(position);
 						if (mDeleteListener != null) {
 							mDeleteListener.onTagDeleted(tag, position);
 						}
