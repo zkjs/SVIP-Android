@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -94,6 +95,7 @@ public class OrderBookingActivity extends Activity{
     private GoodInfoVo lastGoodInfoVo;
 
     public static final int GOOD_REQUEST_CODE = 6;
+    public static final int PEOPLE_REQUEST_CODE = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +157,16 @@ public class OrderBookingActivity extends Activity{
 
         roomNum = 2;
         notifyRoomNumberChange();
+        Drawable drawable= getResources().getDrawable(R.mipmap.ic_get_into_w);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mIusvRoomNumber.getmTextContent2().setCompoundDrawables(null, null, drawable, null);
+
+        for(int i=0;i<customerList.size();i++){
+            Drawable d= getResources().getDrawable(R.mipmap.ic_get_into_w);
+            d.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
+            customerList.get(i).getmTextContent2().setCompoundDrawables(null, null, d, null);
+        }
+
 
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
@@ -267,7 +279,7 @@ public class OrderBookingActivity extends Activity{
 
     //I房间数量已经变 通知U做调整
     private void notifyRoomNumberChange(){
-        mIusvRoomNumber.setTextContent2(roomNum+"间");
+        mIusvRoomNumber.setTextContent2(roomNum + "间");
         for(int i=0;i<customerList.size();i++){
             if(i < roomNum){
                 customerList.get(i).setVisibility(View.VISIBLE);
@@ -284,6 +296,23 @@ public class OrderBookingActivity extends Activity{
                 OrderBookingActivity.this.finish();
             }
         });
+
+        for(int i=0;i<roomNum;i++){
+            final int index = i;
+            customerList.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ItemUserSettingView setView = (ItemUserSettingView)view;
+                    Intent intent = new Intent(OrderBookingActivity.this, AddPeopleActivity.class);
+                    intent.putExtra("name", setView.getTextContent2());
+                    intent.putExtra("index",index);
+                    intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
+                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+            });
+        }
 
         mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +359,7 @@ public class OrderBookingActivity extends Activity{
                     bookOrder.setImage(lastGoodInfoVo.getImage());
 
                     Date arrivalDate = calendarList.get(0).getTime();
-                    Date leaveDate   = calendarList.get(1).getTime();
+                    Date leaveDate = calendarList.get(1).getTime();
                     bookOrder.setArrivalDate(mSimpleFormat.format(arrivalDate));
                     bookOrder.setDepartureDate(mSimpleFormat.format(leaveDate));
                     bookOrder.setDayNum(dayNum);
@@ -365,6 +394,13 @@ public class OrderBookingActivity extends Activity{
                 if(null != data){
                     lastGoodInfoVo = (GoodInfoVo)data.getSerializableExtra("GoodInfoVo");
                     setOrderRoomType(lastGoodInfoVo);
+                }
+            }
+            else if(PEOPLE_REQUEST_CODE == requestCode){
+                if(null != data){
+                    String name = data.getStringExtra("name");
+                    int index = data.getIntExtra("index", 0);
+                    customerList.get(index).setTextContent2(name);
                 }
             }
         }
