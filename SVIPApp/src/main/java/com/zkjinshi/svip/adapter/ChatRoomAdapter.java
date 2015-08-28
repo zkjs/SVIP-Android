@@ -13,6 +13,8 @@ import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.ChatRoomVo;
+import com.zkjinshi.svip.vo.MessageVo;
+import com.zkjinshi.svip.vo.MimeType;
 
 import java.util.List;
 
@@ -72,8 +74,20 @@ public class ChatRoomAdapter extends SvipBaseAdapter<ChatRoomVo> {
             holder.unReadCount.setText(unReadCount+"");
         }
         //设置消息内容
-        String lastMsg = MessageDBUtil.getInstance().queryLastMsgByShopID(shopID);
-        holder.chatContent.setText(lastMsg);
+        MessageVo messageVo = MessageDBUtil.getInstance().queryLastMsgByShopId(shopID);
+        if (null != messageVo) {
+            MimeType mimeType = messageVo.getMimeType();
+            if (mimeType == MimeType.CARD) {
+                holder.chatContent.setText("[订单]");
+            } else if (mimeType == MimeType.IMAGE) {
+                holder.chatContent.setText("[图片]");
+            } else if (mimeType == MimeType.AUDIO) {
+                holder.chatContent.setText("[语音]");
+            } else {
+                String lastMsg = messageVo.getContent();
+                holder.chatContent.setText(lastMsg);
+            }
+        }
         //设置消息时间
         long chatTime      = MessageDBUtil.getInstance().queryLastSendTimeByShopID(shopID);
         String strChatTime = TimeUtil.getChatTime(chatTime);

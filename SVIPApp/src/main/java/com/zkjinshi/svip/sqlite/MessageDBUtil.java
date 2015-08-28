@@ -698,6 +698,32 @@ public class MessageDBUtil {
     }
 
     /**
+     * 根据消息ID查询消息对象
+     *
+     * @return
+     */
+    public MessageVo queryLastMsgByShopId(String shopID) {
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        MessageVo message = null;
+        if (null != helper) {
+            db = helper.getReadableDatabase();
+            cursor = db.query(DBOpenHelper.MESSAGE_TBL, null,
+                    " shop_id = ? ", new String[]{shopID}, null, null,
+                    " send_time desc ", "1");
+            if (cursor != null && cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    message = MessageFactory.getInstance().buildMessageVo(cursor);
+                }
+            }
+        }
+        if (null != cursor) cursor.close();
+        if (null != db) db.close();
+        return message;
+    }
+
+
+    /**
      * 获得某个会话中最近发送时间戳
      * @return
      */
