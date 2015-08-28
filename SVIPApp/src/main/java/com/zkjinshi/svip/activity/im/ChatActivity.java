@@ -137,7 +137,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();
         //初始化快捷菜单
-        QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
+        QuickMenuManager.getInstance().init(this).setShopId(mShopID).setMessageListViewManager(messageListViewManager);
         if (null != bookOrder) {
             bookOrderStr = new Gson().toJson(bookOrder);
             if (!TextUtils.isEmpty(bookOrderStr)) {

@@ -312,6 +312,27 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 获取用户是否在这个区域内
+	 * @param shopId
+	 * @return
+	 */
+	public int getOrderStatus(String shopId) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getInt(shopId + "_order_status", 0);
+	}
+
+	/**
+	 * 设置用户是否在这个区域内
+	 *
+	 * @param shopId
+	 * @param orderStatus
+	 */
+	public void setOrderStatus(String shopId, int orderStatus) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putInt(shopId + "_order_status", orderStatus).commit();
+	}
+
+	/**
 	 * 加密存入缓存
 	 *
 	 * @param cacheObj

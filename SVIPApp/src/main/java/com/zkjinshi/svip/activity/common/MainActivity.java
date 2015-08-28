@@ -257,11 +257,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 //解析json数据
                 LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
                 Gson gson = new Gson();
-                ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>(){}.getType());
+                ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>() {
+                }.getType());
                 lastOrderInfo = datalist.get(0);
                 String roomType = lastOrderInfo.getRoom_type();
                 String roomRate =  lastOrderInfo.getRoom_rate();
                 String arriveDate = lastOrderInfo.getArrival_date();
+                String orderStatusStr = lastOrderInfo.getStatus();
+                String shopId = lastOrderInfo.getShopid();
+                if (!TextUtils.isEmpty(orderStatusStr)) {
+                    CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
+                }
                 String arriveDateStr = "";
                 SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
                 SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");

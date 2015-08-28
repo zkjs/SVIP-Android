@@ -11,10 +11,8 @@ import android.widget.LinearLayout;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.menu.view.MenuLayoutView;
-import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
-import com.zkjinshi.svip.menu.vo.MenuType;
 
 import java.util.ArrayList;
 
@@ -38,6 +36,16 @@ public class QuickMenuManager {
     private MenuLayoutView menuLayoutView;
     private LinearLayout.LayoutParams layoutParams;
     private Animation menuInBottom, menuOutTop;
+    private String shopId;
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public QuickMenuManager setShopId(String shopId) {
+        this.shopId = shopId;
+        return this;
+    }
 
     public MessageListViewManager getMessageListViewManager() {
         return messageListViewManager;
@@ -81,72 +89,7 @@ public class QuickMenuManager {
         chatKeyboardLayout.setVisibility(View.GONE);
         menuInBottom = AnimationUtils.loadAnimation(context,R.anim.menu_in_bottom);
         menuOutTop = AnimationUtils.loadAnimation(context,R.anim.menu_out_top);
-        //第一组按钮实例化
-        menuGroupList = new ArrayList<MenuGroup>();
-        menuItemList = new ArrayList<MenuItem>();
-        menuItem = new MenuItem();
-        menuItem.setMenuName("大床房");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("双床房");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("高层房");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("无烟房");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("角落房");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("我要加床");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuGroup = new MenuGroup();
-        menuGroup.setMenuItemList(menuItemList);
-        menuGroup.setMenuName("订房");
-        menuGroup.setMenuType(MenuType.MULTI);
-        menuGroupList.add(menuGroup);
-        //第二组按钮实例化
-        menuItemList = new ArrayList<MenuItem>();
-        menuItem = new MenuItem();
-        menuItem.setMenuName("中餐厅");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("西餐厅");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuGroup = new MenuGroup();
-        menuGroup.setMenuItemList(menuItemList);
-        menuGroup.setMenuName("订餐");
-        menuGroup.setMenuType(MenuType.MULTI);
-        menuGroupList.add(menuGroup);
-        //第三组按钮实例化
-        menuItemList = new ArrayList<MenuItem>();
-        menuItem = new MenuItem();
-        menuItem.setMenuName("免前台");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("接送");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuItem = new MenuItem();
-        menuItem.setMenuName("客房定制");
-        menuItem.setActionType(ActionType.CHAT);
-        menuItemList.add(menuItem);
-        menuGroup = new MenuGroup();
-        menuGroup.setMenuName("我的特权");
-        menuGroup.setMenuItemList(menuItemList);
-        menuGroup.setMenuType(MenuType.MULTI);
-        menuGroupList.add(menuGroup);
+        menuGroupList = QuickMenuController.getInstance().getMenuGroupList(shopId);
         //绘制低栏按钮
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         menuLayoutView = new MenuLayoutView(context, menuGroupList);
