@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainUiController;
@@ -107,19 +109,24 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
             //免前台
             case R.id.leftmenu_front_tv:
             {
-
+                DialogUtil.getInstance().showCustomToast(view.getContext(), "暂未开发", Gravity.CENTER);
             }
             break;
             //订单
             case R.id.leftmenu_order_tv:
             {
-
+                Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                intent.putExtra("is_order", true);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
             break;
             //足迹
             case R.id.leftmenu_footprint_tv:
             {
                 Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                intent.putExtra("is_order", false);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);

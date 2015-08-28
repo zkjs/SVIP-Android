@@ -5,6 +5,7 @@
     <string name="action_settings">网络配置</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="footprint">足迹</string>
+    <string name="order">订单</string>
     <string name="pull_refresh">下拉刷新</string>
     <string name="last_update_time">最后刷新时间: 2014-03-01 09:09:09</string>
     <string name="splash_ad_info">无声的尊贵</string>

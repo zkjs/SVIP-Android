@@ -68,6 +68,7 @@ public class HistoryOrderActivtiy extends Activity {
     private Response.ErrorListener      getOrdersErrorListener;
     private Response.Listener<String>   updateOrderListener;
     private Response.ErrorListener      updateOrderErrorListener;
+    private boolean isOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,6 @@ public class HistoryOrderActivtiy extends Activity {
     private void initView() {
         mItvTitle = (ItemTitleView) findViewById(R.id.Itv_title);
         mItvTitle.setTextColor(this, R.color.Black);
-        mItvTitle.setResTitle(this, R.string.footprint);
 
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
         mSlvBookOrder = (SwipeMenuListView) findViewById(R.id.slv_history_order);
@@ -103,6 +103,12 @@ public class HistoryOrderActivtiy extends Activity {
     }
 
     private void initData() {
+        isOrder = getIntent().getBooleanExtra("is_order", false);
+        if (isOrder) {
+            mItvTitle.setResTitle(this, R.string.order);
+        } else {
+            mItvTitle.setResTitle(this, R.string.footprint);
+        }
         mUserID = CacheUtil.getInstance().getUserId();
         mToken = CacheUtil.getInstance().getToken();
         mCurrentPage = 1;
