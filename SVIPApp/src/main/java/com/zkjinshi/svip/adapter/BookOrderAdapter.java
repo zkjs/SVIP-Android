@@ -84,11 +84,15 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
         long diff;
         long stayDays = 0;
         try {
-            Date date1 = simpleFormat.parse(itemOrder.getArrivalDate());
-            Date date2 = simpleFormat.parse(itemOrder.getDepartureDate());
-            diff = date2.getTime() - date1.getTime();
-            stayDays = diff / (1000 * 60 * 60 * 24);
-            holder.shopStayDays.setText(stayDays+"天");
+            if (null != itemOrder && !TextUtils.isEmpty(itemOrder.getArrivalDate()) && !TextUtils.isEmpty(itemOrder.getDepartureDate())) {
+                Date date1 = simpleFormat.parse(itemOrder.getArrivalDate());
+                Date date2 = simpleFormat.parse(itemOrder.getDepartureDate());
+                diff = date2.getTime() - date1.getTime();
+                stayDays = diff / (1000 * 60 * 60 * 24);
+                holder.shopStayDays.setText(stayDays + "天");
+            } else {
+                holder.shopStayDays.setText("1天");
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
