@@ -90,11 +90,11 @@ public class MessageListener extends Handler implements IMessageListener {
                 MsgUserDefine msgUserDefine = gson.fromJson(message, MsgUserDefine.class);
                 if (null != msgUserDefine) {
                     int childType = msgUserDefine.getChildtype();
-                    if (0 == childType) {//订单预定失败
+                    if (1002 == childType) {//订单预定失败
                         notifyMessage = new Message();
                         notifyMessage.what = BOOK_HOTEL_FAIL_FLAG;
                         sendMessage(notifyMessage);
-                    } else if (1 == childType) {//订单预定成功
+                    } else if (1003 == childType) {//订单预定成功
                         String bookMsg = msgUserDefine.getContent();
                         if (!TextUtils.isEmpty(bookMsg)) {
                             bookOrder = gson.fromJson(bookMsg, BookOrder.class);
