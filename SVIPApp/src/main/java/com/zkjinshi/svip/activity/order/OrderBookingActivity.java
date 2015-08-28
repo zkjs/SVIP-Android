@@ -1,13 +1,19 @@
 package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -20,6 +26,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.MathUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
@@ -29,6 +36,7 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.response.GoodInfoResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -76,9 +84,8 @@ public class OrderBookingActivity extends Activity{
     private StringBuffer        chooseDateBuffer;
     private ArrayList<Calendar> calendarList = null;
 
-    private String   arriveTimeStr,   leaveTimeStr;
-    private Calendar checkInCalendar, checkOutCalendar;
-    private double payment;
+    private int dayNum;
+    private int roomNum;
 
     private String shopId;
     private List<GoodInfoResponse> goodResponsseList;
@@ -131,6 +138,7 @@ public class OrderBookingActivity extends Activity{
         calendarList = new ArrayList<Calendar>();
         mTitle.setTextTitle(getString(R.string.booking_order));
         mTitle.setTextColor(this, R.color.White);
+        mTitle.getmRight().setVisibility(View.GONE);
 
         mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
         mChineseFormat = new SimpleDateFormat("MM月dd日");
@@ -143,8 +151,10 @@ public class OrderBookingActivity extends Activity{
         tomorrow.setTime(new Date());
         tomorrow.add(Calendar.DAY_OF_YEAR, 1); //下一天
         calendarList.add(tomorrow);
-
         setOrderDate(calendarList);
+
+        roomNum = 2;
+        notifyRoomNumberChange();
 
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
@@ -201,10 +211,69 @@ public class OrderBookingActivity extends Activity{
         mTvArriveDate.setText(mChineseFormat.format(arrivalDate));
         mTvLeaveDate.setText(mChineseFormat.format(leaveDate));
         try{
-            int offsetDay = TimeUtil.daysBetween(arrivalDate,leaveDate);
-            mTvDateTips.setText("共"+offsetDay+"晚，在"+mTvLeaveDate.getText()+"13点前退房");
+            dayNum = TimeUtil.daysBetween(arrivalDate,leaveDate);
+            mTvDateTips.setText("共"+dayNum+"晚，在"+mTvLeaveDate.getText()+"13点前退房");
         }catch (Exception e){
 
+        }
+    }
+
+    //显示房间数量选择对话框
+    private void showRoomNumChooseDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_room_number);
+
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.CENTER);
+        int width = DeviceUtils.getScreenWidth(this);
+
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width = (int) (width*0.8); // 宽度
+        // lp.height = 300; // 高度
+        //lp.alpha = 0.7f; // 透明度
+        dialogWindow.setAttributes(lp);
+        dialog.show();
+        RadioGroup group = (RadioGroup)dialog.findViewById(R.id.gendergroup);
+        RadioButton mRadio1 = (RadioButton) dialog.findViewById(R.id.rbtn_one_room);
+        RadioButton mRadio2 = (RadioButton) dialog.findViewById(R.id.rbtn_two_room);
+        RadioButton mRadio3 = (RadioButton) dialog.findViewById(R.id.rbtn_three_room);
+        if(roomNum == 1){
+            mRadio1.setChecked(true);
+        }
+        else  if(roomNum == 2){
+            mRadio2.setChecked(true);
+        }
+        else  if(roomNum == 3){
+            mRadio3.setChecked(true);
+        }
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId ==R.id.rbtn_one_room) {
+                    roomNum = 1;
+                }
+                else if (checkedId ==R.id.rbtn_two_room) {
+                    roomNum = 2;
+                }else{
+                    roomNum = 3;
+                }
+                 notifyRoomNumberChange();
+                dialog.cancel();
+            }
+        });
+    }
+
+    //I房间数量已经变 通知U做调整
+    private void notifyRoomNumberChange(){
+        mIusvRoomNumber.setTextContent2(roomNum+"间");
+        for(int i=0;i<customerList.size();i++){
+            if(i < roomNum){
+                customerList.get(i).setVisibility(View.VISIBLE);
+            }else{
+                customerList.get(i).setVisibility(View.GONE);
+            }
         }
     }
 
@@ -213,6 +282,13 @@ public class OrderBookingActivity extends Activity{
             @Override
             public void onClick(View view) {
                 OrderBookingActivity.this.finish();
+            }
+        });
+
+        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRoomNumChooseDialog();
             }
         });
 
@@ -236,6 +312,38 @@ public class OrderBookingActivity extends Activity{
                     bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
                     intent.putExtras(bundle);
                     startActivityForResult(intent, GOOD_REQUEST_CODE);
+                }
+            }
+        });
+
+        mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
+                    BookOrder bookOrder = new BookOrder();
+                    bookOrder.setRoomTypeID(lastGoodInfoVo.getId());
+                    bookOrder.setCompany(lastGoodInfoVo.getFullname());
+                    bookOrder.setShopID(lastGoodInfoVo.getShopid());
+                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
+                    bookOrder.setRoomType(lastGoodInfoVo.getRoom());
+                    bookOrder.setRoomRate(lastGoodInfoVo.getPrice());
+                    bookOrder.setImage(lastGoodInfoVo.getImage());
+
+                    Date arrivalDate = calendarList.get(0).getTime();
+                    Date leaveDate   = calendarList.get(1).getTime();
+                    bookOrder.setArrivalDate(mSimpleFormat.format(arrivalDate));
+                    bookOrder.setDepartureDate(mSimpleFormat.format(leaveDate));
+                    bookOrder.setDayNum(dayNum);
+
+                    bookOrder.setContent("您好，帮我预定这间房");
+                    Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
+                    intent.putExtra("shop_id", bookOrder.getShopID());
+                    intent.putExtra("shop_name", bookOrder.getCompany());
+                    intent.putExtra("bookOrder", bookOrder);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+
                 }
             }
         });

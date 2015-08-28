@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ffffff">
+    <RadioGroup
+        android:id="@+id/gendergroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <RadioButton
+            android:id="@+id/rbtn_one_room"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="1间"
+            android:paddingLeft="0dp"
+            android:drawableLeft="@null"
+            style="@style/sex_radio_item"/>
+
+        <View
+            android:background="#bbbbbb"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"></View>
+
+        <RadioButton
+            android:id="@+id/rbtn_two_room"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="2间"
+            android:paddingLeft="0dp"
+            android:drawableLeft="@null"
+            style="@style/sex_radio_item"
+            />
+        <View
+            android:background="#bbbbbb"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"></View>
+
+        <RadioButton
+            android:id="@+id/rbtn_three_room"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="3间"
+            android:paddingLeft="0dp"
+            android:drawableLeft="@null"
+            style="@style/sex_radio_item"
+            />
+    </RadioGroup>
+
+</LinearLayout>
