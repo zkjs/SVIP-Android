@@ -61,7 +61,7 @@ import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
 /**
- * 预订中的订单详情页面
+ * 订单详情页面
  *
  * 开发者：dujiande
  * 日期：2015/8/29
@@ -468,6 +468,21 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initListener() {
+        //保存订单
+        mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        //取消订单
+        mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -586,20 +601,7 @@ public class OrderDetailActivity extends Activity{
 //            }
 //        });
 
-        //保存订单
-        mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
-        //取消订单
-        mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
     }
 

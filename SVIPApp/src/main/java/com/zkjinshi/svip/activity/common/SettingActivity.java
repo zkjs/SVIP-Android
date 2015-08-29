@@ -363,7 +363,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("tips","该名字用于你订房时确定，不会透露给他人");
                 intent.putExtra("field_key","real_name");
                 intent.putExtra("field_value",mRealName.getTextContent2());
-                startActivityForResult(intent,Constants.FLAG_MODIFY_REAL_NAME);
+                startActivityForResult(intent, Constants.FLAG_MODIFY_REAL_NAME);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_user_name:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
@@ -373,7 +375,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("tips","");
                 intent.putExtra("field_key","username");
                 intent.putExtra("field_value", mUserName.getTextContent2());
-                startActivityForResult(intent,Constants.FLAG_MODIFY_USER_NAME);
+                startActivityForResult(intent, Constants.FLAG_MODIFY_USER_NAME);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_user_sex:
                 showSexDialog();
@@ -386,7 +390,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("tips","建议输入全名 如XX市XX科技有限公司");
                 intent.putExtra("field_key","remark");
                 intent.putExtra("field_value", mCompany.getTextContent2());
-                startActivityForResult(intent,Constants.FLAG_MODIFY_REMARK);
+                startActivityForResult(intent, Constants.FLAG_MODIFY_REMARK);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_email:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
@@ -396,16 +402,24 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("tips","");
                 intent.putExtra("field_key","email");
                 intent.putExtra("field_value", mEmail.getTextContent2());
-                startActivityForResult(intent,Constants.FLAG_MODIFY_EMAIL);
+                startActivityForResult(intent, Constants.FLAG_MODIFY_EMAIL);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_user_phone:
                 startActivity(new Intent(SettingActivity.this,SettingPhoneActivity.class));
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_ticket_info:
                 startActivity(new Intent(SettingActivity.this,SettingTicketsActivity.class));
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_fan_label:
                 startActivity(new Intent(SettingActivity.this,SettingTagsActivity.class));
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
 
         }

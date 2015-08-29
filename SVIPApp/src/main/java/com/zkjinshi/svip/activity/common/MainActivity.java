@@ -92,10 +92,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private Response.ErrorListener    loadOrderErrorListener;
 
     private String lastShopId = "";
-    private boolean isInShop = false;
     private OrderInfoVo lastOrderInfo = null;
     private ShopDetailVo lastShopInfo  = null;
-    private RegionVo mRegionVo = null;
+    private ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -260,7 +259,16 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 Gson gson = new Gson();
                 ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>() {
                 }.getType());
+                if(datalist == null){
+                    lastOrderInfo = null;
+                    return;
+                }
+                else if(datalist.size() < 1){
+                    lastOrderInfo = null;
+                    return;
+                }
                 lastOrderInfo = datalist.get(0);
+                //lastOrderInfo.setShopid("120");
                 String roomType = lastOrderInfo.getRoom_type();
                 String roomRate =  lastOrderInfo.getRoom_rate();
                 String arriveDate = lastOrderInfo.getArrival_date();
@@ -290,6 +298,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 volleyError.printStackTrace();
                 LogUtil.getInstance().info(LogLevel.INFO, "获取最近订单失败。" + volleyError.toString());
                 orderInfoTv.setVisibility(View.GONE);
+                lastOrderInfo = null;
             }
         };
     }
@@ -328,12 +337,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         logoIBtn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-               // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
-               // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
-               if(lastShopInfo != null && lastShopInfo.getPhone() != null){
-                   IntentUtil.callPhone(MainActivity.this,lastShopInfo.getPhone());
-                   return true;
-               }
+                // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
+                // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
+                if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
+                    IntentUtil.callPhone(MainActivity.this, lastShopInfo.getPhone());
+                    return true;
+                }
                 return false;
             }
         });
@@ -385,8 +394,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         intent = new Intent(MainActivity.this, ShopListActivity.class);
                         break;
                     case NO_ORDER_IN:
-                        intent = new Intent(MainActivity.this, GoodListActivity.class);
-                        intent.putExtra("shopid", lastShopInfo.getShopid());
+                        if(mRegionList.size() > 0){
+                            intent = new Intent(MainActivity.this, GoodListActivity.class);
+                            intent.putExtra("shopid", mRegionList.get(mRegionList.size()-1).getiBeacon().getShopid());
+                        }
+
                         break;
                     default:
                         if (lastOrderInfo != null) {
@@ -414,6 +426,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             }
         });
 
+        //免前台
+        mianqianLlt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtil.getInstance().showToast(MainActivity.this, "待开发");
+            }
+        });
 
     }
 
@@ -450,12 +469,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         LogUtil.getInstance().info(LogLevel.ERROR, "beacon info:" + regionVo.getiBeacon().toString());
         LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
 
-        isInShop = true;
-        mRegionVo = regionVo;
-        locationTv.setText(regionVo.getiBeacon().getLocdesc());
+
+        mRegionList.add(regionVo);
         getShopInfo(regionVo.getiBeacon().getShopid());
         changeMainText();
-
     }
 
 
@@ -468,15 +485,23 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         LogUtil.getInstance().info(LogLevel.ERROR, "standTime:"+regionVo.getStandTime());
         LogUtil.getInstance().info(LogLevel.ERROR,"beacon info:"+regionVo.getiBeacon().toString());
         LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
-        if(mRegionVo.getiBeacon().getBeaconKey().equals(regionVo.getiBeacon().getBeaconKey())){
-            isInShop = false;
-            locationTv.setText("不在酒店");
-        }
 
+        for(RegionVo item : mRegionList){
+            if(item.getiBeacon().getBeaconKey().equals(regionVo.getiBeacon().getBeaconKey())){
+                mRegionList.remove(item);
+            }
+        }
+        if(mRegionList.size() <= 0){
+            locationTv.setText("不在酒店");
+            lastShopInfo = null;
+            lastShopId = "";
+
+        }
+        changeMainText();
     }
 
     private void getShopInfo(String shopid) {
-        if(lastShopId.equals(shopid)){
+        if(lastShopId.equals(shopid) && lastShopInfo != null){
             return;
         }
         lastShopId = shopid;
@@ -498,28 +523,31 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             @Override
             public void onErrorResponse(VolleyError error) {
                 DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商户信息错误信息:" +  error.getMessage());
+                LogUtil.getInstance().info(LogLevel.INFO, "获取商户信息错误信息:" + error.getMessage());
+                lastShopInfo = null;
             }
         });
         MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
+
     /**
      * 改变主语句
      */
     public  void changeMainText(){
-        if(checkIfInOrderShop() && mRegionVo != null){
-            locationTv.setText(mRegionVo.getiBeacon().getLocdesc());
+        if(checkIfInOrderShop()){
+            RegionVo region = mRegionList.get(mRegionList.size() - 1);
+            locationTv.setText(region.getiBeacon().getLocdesc());
         }else{
             locationTv.setText("不在酒店");
         }
 
-        if(lastOrderInfo == null && !isInShop){
+        if(lastOrderInfo == null && mRegionList.size() <= 0){
             mainTextStatus = MainTextStatus.NO_ORDER_NOT_IN;
             orderStatusTv1.setText("您没有任何预订信息 立即预订");
             setDrawableLeft(orderStatusTv1,R.drawable.sl_wu);
         }
-        else if( lastOrderInfo == null && isInShop && lastShopInfo !=null){
+        else if( lastOrderInfo == null &&  mRegionList.size() > 0){
             mainTextStatus = MainTextStatus.NO_ORDER_IN;
             orderStatusTv1.setText(lastShopInfo.getKnown_as()+"欢迎您，点击马上预订酒店");
             setDrawableLeft(orderStatusTv1, R.drawable.sl_dengdai);
@@ -562,10 +590,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             }catch (Exception e){
             }
         }
-        else if(checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4") && mRegionVo != null){
+        else if(checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4")){
             mainTextStatus = MainTextStatus.CHECKIN_IN;
-            String locdesc = mRegionVo.getiBeacon().getLocdesc();
-            orderStatusTv1.setText("您到达" + locdesc + "," + lastShopInfo.getKnown_as() + "随时为您服务！");
+            String locdesc = mRegionList.get(mRegionList.size()-1).getiBeacon().getLocdesc();
+            orderStatusTv1.setText("您到达" + locdesc + "," + lastOrderInfo.getFullname() + "随时为您服务！");
             setDrawableLeft(orderStatusTv1, R.drawable.sl_yuding);
 
             try{
@@ -609,7 +637,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      * 判断用户是否在最近订单所在的酒店中 如果在则返回true 否则 返回false。
      */
     private boolean checkIfInOrderShop(){
-        if(isInShop && lastShopInfo != null && lastOrderInfo!= null && lastShopInfo.getShopid().equals(lastOrderInfo.getShopid())){
+        if(mRegionList.size() <= 0){
+            return false;
+        }
+        RegionVo regionVo = mRegionList.get(mRegionList.size()-1);
+        if(lastOrderInfo!= null && regionVo.getiBeacon().getShopid().equals(lastOrderInfo.getShopid())) {
             return true;
         }
         return false;
