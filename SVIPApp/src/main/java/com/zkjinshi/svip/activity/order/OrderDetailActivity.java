@@ -34,7 +34,6 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
@@ -45,6 +44,7 @@ import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
+import com.zkjinshi.svip.vo.OrderInfoVo;
 import com.zkjinshi.svip.vo.TicketVo;
 
 import java.lang.reflect.Type;
@@ -64,15 +64,16 @@ import me.kaede.tagview.TagView;
  * 预订中的订单详情页面
  *
  * 开发者：dujiande
- * 日期：2015/8/27
+ * 日期：2015/8/29
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OrderBookingActivity extends Activity{
+public class OrderDetailActivity extends Activity{
 
 
     private ItemTitleView   mTitle;
     private TextView        mRoomType;
+    private TextView        mTvOrderStatus;
     private TextView        mTvArriveDate;
     private TextView        mTvLeaveDate;
     private TextView        mTvDateTips;
@@ -98,19 +99,21 @@ public class OrderBookingActivity extends Activity{
 
     private SimpleDateFormat mSimpleFormat;
     private SimpleDateFormat mChineseFormat;
-
-    private StringBuffer        chooseDateBuffer;
     private ArrayList<Calendar> calendarList = null;
 
     private int dayNum;
     private int roomNum;
 
+    private String orderId;
     private String shopId;
+    private GoodInfoVo lastGoodInfoVo;
+    private TicketVo tickeVo;
+    private OrderInfoVo orderInfoVo;
+
     private List<GoodInfoResponse> goodResponsseList;
     private List<GoodInfoVo> goodInfoList;
     private DisplayImageOptions options;
-    private GoodInfoVo lastGoodInfoVo;
-    private TicketVo tickeVo;
+
 
 
     public static final int GOOD_REQUEST_CODE = 6;
@@ -118,17 +121,31 @@ public class OrderBookingActivity extends Activity{
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
 
+    public OrderDetailActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
 
-        shopId = getIntent().getStringExtra("shopid");
-        if(!StringUtil.isEmpty(shopId)){
-            initView();
+        initView();
+        orderId = getIntent().getStringExtra("orderId");
+        if(StringUtil.isEmpty(orderId)){
+            orderInfoVo = (OrderInfoVo)getIntent().getSerializableExtra("orderInfoVo");
+            orderId = orderInfoVo.getId();
+            shopId = orderInfoVo.getShopid();
             initData();
-            initListener();
+        }else{
+            loadOrderInfoByOrderId();
         }
+
+        initListener();
+    }
+
+    //根据order id 加载订单详细信息。
+    private void loadOrderInfoByOrderId() {
+
     }
 
     private void initView() {
@@ -137,6 +154,7 @@ public class OrderBookingActivity extends Activity{
         mBtnCancelOrder = (Button)findViewById(R.id.btn_cancel_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
         mLltYuan      = (LinearLayout)findViewById(R.id.rl_yuan);
+        mTvOrderStatus = (TextView)findViewById(R.id.tv_order_status);
 
         mRoomTagView = (TagView)findViewById(R.id.tagview_room_tags);
         mServiceTagView = (TagView)findViewById(R.id.tagview_service_tags);
@@ -154,7 +172,7 @@ public class OrderBookingActivity extends Activity{
         customerList = new ArrayList<ItemUserSettingView>();
         int[] customerIds = {R.id.aod_customer1,R.id.aod_customer2,R.id.aod_customer3};
         for(int i=0;i<customerIds.length;i++){
-            customerList.add((ItemUserSettingView)findViewById(customerIds[i]));
+            customerList.add((ItemUserSettingView) findViewById(customerIds[i]));
         }
 
         mTvTicket  = (TextView)findViewById(R.id.tv_ticket);
@@ -164,30 +182,37 @@ public class OrderBookingActivity extends Activity{
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
     }
 
-    private void initData() {
+    private void initData(){
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
 
-        mBtnSendOrder.setText("发送订单给客服");
-        mBtnCancelOrder.setVisibility(View.GONE);
+        mBtnSendOrder.setText("保存订单");
+        //mBtnCancelOrder.setVisibility(View.GONE);
 
         calendarList = new ArrayList<Calendar>();
-        mTitle.setTextTitle(getString(R.string.booking_order));
+       // mTitle.setTextTitle("订单详情");
+        mTitle.setTextTitle(orderInfoVo.getFullname());
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
+
+
 
         mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
         mChineseFormat = new SimpleDateFormat("MM月dd日");
 
-        Calendar today = Calendar.getInstance();
-        today.setTime(new Date()); //当天
-        calendarList.add(today);
+        try{
+            Calendar arrivalDate = Calendar.getInstance();
+            arrivalDate.setTime(mSimpleFormat.parse(orderInfoVo.getArrival_date()));
+            calendarList.add(arrivalDate);
 
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.setTime(new Date());
-        tomorrow.add(Calendar.DAY_OF_YEAR, 1); //下一天
-        calendarList.add(tomorrow);
-        setOrderDate(calendarList);
+            Calendar departureDate = Calendar.getInstance();
+            departureDate.setTime(mSimpleFormat.parse(orderInfoVo.getDeparture_date()));
+            calendarList.add(departureDate);
+            setOrderDate(calendarList);
+        }catch ( Exception e){
+
+        }
+
 
         roomNum = 2;
         notifyRoomNumberChange();
@@ -224,10 +249,12 @@ public class OrderBookingActivity extends Activity{
                                 if(null != goodResponsseList && !goodResponsseList.isEmpty()){
                                     goodInfoList = GoodInfoFactory.getInstance().bulidGoodList(goodResponsseList);
                                     if(null != goodInfoList && !goodInfoList.isEmpty()){
-                                        GoodInfoVo goodInfoVo = goodInfoList.get(0);
-                                        lastGoodInfoVo = goodInfoVo;
-                                        mTitle.setTextTitle(goodInfoVo.getFullname());
-                                        setOrderRoomType(goodInfoVo);
+                                        for( GoodInfoVo goodInfoVo : goodInfoList){
+                                            if(goodInfoVo.getRoom().equals(orderInfoVo.getRoom_type())){
+                                                lastGoodInfoVo = goodInfoVo;
+                                                setOrderRoomType(goodInfoVo);
+                                            }
+                                        }
                                     }
                                 }
                             }catch (Exception e){
@@ -249,7 +276,37 @@ public class OrderBookingActivity extends Activity{
         initRoomTags();
         initServiceTags();
         initTicket();
+        initRemark();
+        initOrderStatus();
+    }
 
+    //初始化订单状态的显示
+    private void initOrderStatus() {
+        if(orderInfoVo.getStatus().equals("0")){
+            mTvOrderStatus.setText("已提交/未确认");
+        }
+        else if(orderInfoVo.getStatus().equals("1")){
+            mTvOrderStatus.setText("已取消");
+        }
+        else if(orderInfoVo.getStatus().equals("2")){
+            mTvOrderStatus.setText("已确认/未支付");
+        }
+        else if(orderInfoVo.getStatus().equals("3")){
+            mTvOrderStatus.setText("已完成订单");
+        }
+        else if(orderInfoVo.getStatus().equals("4")){
+            mTvOrderStatus.setText("已入住");
+        }
+        else if(orderInfoVo.getStatus().equals("5")){
+            mTvOrderStatus.setText("已删除");
+        }
+    }
+
+    //初始化订单备注
+    private void initRemark() {
+        if(!StringUtil.isEmpty(orderInfoVo.getRemark())){
+            mTvRemark.setText(orderInfoVo.getRemark());
+        }
     }
 
     //初始化发票
@@ -414,14 +471,14 @@ public class OrderBookingActivity extends Activity{
         mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderBookingActivity.this.finish();
+                OrderDetailActivity.this.finish();
             }
         });
 
         mLltTicketContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, ChooseTicketActivity.class);
+                Intent intent = new Intent(OrderDetailActivity.this, ChooseTicketActivity.class);
                 startActivityForResult(intent, TICKET_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
@@ -431,7 +488,7 @@ public class OrderBookingActivity extends Activity{
         mlltRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, AddRemarkActivity.class);
+                Intent intent = new Intent(OrderDetailActivity.this, AddRemarkActivity.class);
                 intent.putExtra("remark",mTvRemark.getText());
                 intent.putExtra("tips","如果有其他要求，请在此说明。");
                 intent.putExtra("title", "添加订单备注");
@@ -448,7 +505,7 @@ public class OrderBookingActivity extends Activity{
                 @Override
                 public void onClick(View view) {
                     ItemUserSettingView setView = (ItemUserSettingView)view;
-                    Intent intent = new Intent(OrderBookingActivity.this, AddPeopleActivity.class);
+                    Intent intent = new Intent(OrderDetailActivity.this, AddPeopleActivity.class);
                     intent.putExtra("name", setView.getTextContent2());
                     intent.putExtra("index",index);
                     intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
@@ -501,65 +558,46 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
-        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, CalendarActivity.class);
-                if (calendarList != null) {
-                    intent.putExtra("calendarList", calendarList);
-                }
-                startActivityForResult(intent, CalendarActivity.CALENDAR_REQUEST_CODE);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
-            }
-        });
+//        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(OrderDetailActivity.this, CalendarActivity.class);
+//                if (calendarList != null) {
+//                    intent.putExtra("calendarList", calendarList);
+//                }
+//                startActivityForResult(intent, CalendarActivity.CALENDAR_REQUEST_CODE);
+//                overridePendingTransition(R.anim.slide_in_right,
+//                        R.anim.slide_out_left);
+//            }
+//        });
 
-        mLltYuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
-                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, GOOD_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
-            }
-        });
+//        mLltYuan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(OrderDetailActivity.this, GoodListActivity.class);
+//                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
+//                    intent.putExtras(bundle);
+//                    startActivityForResult(intent, GOOD_REQUEST_CODE);
+//                    overridePendingTransition(R.anim.slide_in_right,
+//                            R.anim.slide_out_left);
+//                }
+//            }
+//        });
 
+        //保存订单
         mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-                    BookOrder bookOrder = new BookOrder();
-                    bookOrder.setRoomTypeID(lastGoodInfoVo.getId());
-                    bookOrder.setCompany(lastGoodInfoVo.getFullname());
-                    bookOrder.setShopID(lastGoodInfoVo.getShopid());
-                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    bookOrder.setRoomType(lastGoodInfoVo.getRoom());
-                    bookOrder.setRoomRate(lastGoodInfoVo.getPrice());
-                    bookOrder.setImage(lastGoodInfoVo.getImage());
 
-                    Date arrivalDate = calendarList.get(0).getTime();
-                    Date leaveDate = calendarList.get(1).getTime();
-                    bookOrder.setArrivalDate(mSimpleFormat.format(arrivalDate));
-                    bookOrder.setDepartureDate(mSimpleFormat.format(leaveDate));
-                    bookOrder.setDayNum(dayNum);
+            }
+        });
+        //取消订单
+        mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    bookOrder.setRemark(mTvRemark.getText().toString());
-
-                    bookOrder.setContent("您好，帮我预定这间房");
-                    Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
-                    intent.putExtra("shop_id", bookOrder.getShopID());
-                    intent.putExtra("shop_name", bookOrder.getCompany());
-                    intent.putExtra("bookOrder", bookOrder);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-
-                }
             }
         });
 
@@ -571,7 +609,6 @@ public class OrderBookingActivity extends Activity{
         if(RESULT_OK == resultCode){
             if(CalendarActivity.CALENDAR_REQUEST_CODE == requestCode){
                 if(null != data){
-                    chooseDateBuffer = new StringBuffer();
                     calendarList = (ArrayList<Calendar>)data.getSerializableExtra("calendarList");
                     setOrderDate(calendarList);
                 }

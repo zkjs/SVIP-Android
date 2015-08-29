@@ -26,6 +26,7 @@ import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.TicketVo;
 import com.zkjinshi.svip.volley.DataRequestVolley;
@@ -87,11 +88,7 @@ public class ChooseTicketActivity extends Activity {
                 holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
             }
             holder.ticketName.setText(listData.get(position).getInvoice_title());
-            if(position == 0){
-                holder.ticketIndex.setText("默认发票");
-            }else{
-                holder.ticketIndex.setText("发票"+(position+1));
-            }
+            holder.ticketIndex.setText("发票"+(position+1));
 
             return convertView;
         }
@@ -144,8 +141,25 @@ public class ChooseTicketActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
-                intent.putExtra("selectTicketVo",listData.get(i));
-                setResult(RESULT_OK,intent);
+                intent.putExtra("selectTicketVo", listData.get(i));
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        mBtnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(StringUtil.isEmpty(mEtInput.getText().toString())){
+                    DialogUtil.getInstance().showToast(ChooseTicketActivity.this,"内容不能为空。");
+                    return;
+                }
+                Intent intent = new Intent();
+                TicketVo ticketVo = new TicketVo();
+                ticketVo.setId("0");
+                ticketVo.setInvoice_title(mEtInput.getText().toString());
+                intent.putExtra("selectTicketVo", ticketVo);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });

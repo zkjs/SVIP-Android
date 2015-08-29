@@ -32,6 +32,7 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
+import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
@@ -388,7 +389,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         intent.putExtra("shopid", lastShopInfo.getShopid());
                         break;
                     default:
-                        //intent = new Intent(MainActivity.this,Order)
+                        if (lastOrderInfo != null) {
+                            intent = new Intent(MainActivity.this, OrderDetailActivity.class);
+                            intent.putExtra("orderInfoVo", lastOrderInfo);
+                        }
+
                 }
                 if (intent != null) {
                     startActivity(intent);

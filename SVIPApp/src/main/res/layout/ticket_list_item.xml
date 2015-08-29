@@ -52,10 +52,9 @@
             android:orientation="horizontal"
             android:paddingTop="10dp"
            >
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:textSize="18sp"
                 android:textColor="#888888"
                 android:text="获取方式:"

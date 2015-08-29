@@ -144,7 +144,13 @@
         <activity android:name=".activity.order.OrderBookingActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
+        <activity android:name=".activity.order.OrderDetailActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
         <activity android:name=".activity.order.AddPeopleActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity android:name=".activity.order.AddRemarkActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.ChooseTicketActivity"

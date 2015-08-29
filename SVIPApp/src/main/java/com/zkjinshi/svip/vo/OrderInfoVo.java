@@ -1,9 +1,11 @@
 package com.zkjinshi.svip.vo;
 
+import java.io.Serializable;
+
 /**
  * Created by djd on 2015/8/25.
  */
-public class OrderInfoVo {
+public class OrderInfoVo implements Serializable {
 
     private String id;
     private String fullname;
