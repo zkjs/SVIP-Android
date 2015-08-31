@@ -101,6 +101,7 @@ public class IBeaconContext {
                 shopId = beaconEntity.getShopid();
                 if(!TextUtils.isEmpty(shopId)){
                     CacheUtil.getInstance().setInArea(shopId,true);
+                    CacheUtil.getInstance().setRegionInfo(shopId, regionVo);
                 }
             }
             regionCycleyMap.put(regionVo.getiBeacon().getBeaconKey(), regionVo);

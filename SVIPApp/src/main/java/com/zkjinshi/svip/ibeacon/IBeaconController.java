@@ -65,7 +65,7 @@ public class IBeaconController {
                                     startBeaconService();
                                 }
                             }catch (Exception e){
-                                e.printStackTrace();;
+                                e.printStackTrace();
                             }
                         }
                     }

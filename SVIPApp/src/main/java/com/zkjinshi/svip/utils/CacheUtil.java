@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
+import com.zkjinshi.svip.ibeacon.RegionVo;
 
 /**
  * 缓存工具类
@@ -309,6 +310,27 @@ public class CacheUtil {
 	public void setInArea(String shopId,boolean isInArea) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putBoolean("is_in_"+shopId+"_area",  isInArea).commit();
+	}
+
+	/**
+	 * 获取区域信息
+	 *
+	 * @param shopId
+	 * @return
+	 */
+	public RegionVo getRegionInfo(String shopId) {
+		RegionVo regionVo = new RegionVo();
+		return (RegionVo) getObjCache(regionVo);
+	}
+
+	/**
+	 * 设置区域信息
+	 *
+	 * @param shopId
+	 * @param regionVo
+	 */
+	public void setRegionInfo(String shopId, RegionVo regionVo) {
+		saveObjCache(regionVo);
 	}
 
 	/**

@@ -15,6 +15,9 @@ public class RegionVo implements Serializable{
     private long outTime;
     private long standTime;
 
+    public RegionVo() {
+    }
+
     public RegionVo(IBeaconEntity iBeacon,long inTime,long outTime,long standTime){
         this.iBeacon = iBeacon;
         this.inTime = inTime;
