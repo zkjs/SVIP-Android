@@ -67,7 +67,7 @@ class SimpleMonthView extends View
 	protected static int MONTH_DAY_LABEL_TEXT_SIZE;
 	protected static int MONTH_HEADER_SIZE;
 	protected static int MONTH_LABEL_TEXT_SIZE;
-    protected static float TIPS_TEXT_SIZE = 16;
+    protected static float TIPS_TEXT_SIZE = 45;
 
     protected int mPadding = 0;
 
@@ -153,6 +153,8 @@ class SimpleMonthView extends View
 
         isPrevDayEnabled = typedArray.getBoolean(R.styleable.DayPickerView_enablePreviousDay, true);
 
+        TIPS_TEXT_SIZE = MINI_DAY_NUMBER_TEXT_SIZE;
+
         initView();
 
     }
@@ -228,11 +230,11 @@ class SimpleMonthView extends View
                     canvas.drawCircle(x, y - MINI_DAY_NUMBER_TEXT_SIZE / 3, DAY_SELECTED_CIRCLE_SIZE, mSelectedCirclePaint);
                 if(mSelectedBeginDay == day)
                 {
-                    canvas.drawText("入住",x,y + MINI_DAY_NUMBER_TEXT_SIZE * 2-25 ,mTextPaint);
+                    canvas.drawText("入住",x,y + MINI_DAY_NUMBER_TEXT_SIZE * 2 ,mTextPaint);
                 }
                 else
                 {
-                    canvas.drawText("离店",x,y + MINI_DAY_NUMBER_TEXT_SIZE * 2-25,mTextPaint);
+                    canvas.drawText("离店",x,y + MINI_DAY_NUMBER_TEXT_SIZE * 2,mTextPaint);
                 }
             }
             if (mHasToday && (mToday == day)) {
@@ -373,7 +375,7 @@ class SimpleMonthView extends View
 	}
 
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mRowHeight * mNumRows + MONTH_HEADER_SIZE);
+		setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), mRowHeight * mNumRows + MONTH_HEADER_SIZE + (int)TIPS_TEXT_SIZE);
 	}
 
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {

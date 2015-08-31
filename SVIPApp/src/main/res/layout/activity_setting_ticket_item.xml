@@ -70,7 +70,9 @@
             android:layout_gravity="center_horizontal"
             android:textSize="20sp"
             android:textColor="@color/Black"
-            android:checked="true"/>
+            android:checked="true"
+            android:button="@drawable/checkbox_ticket_selector"
+            android:background="@null"/>
 
         <Button
         android:id="@+id/btn_confirm"

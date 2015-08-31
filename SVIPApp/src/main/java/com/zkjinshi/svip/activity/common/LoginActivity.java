@@ -99,6 +99,8 @@ public class LoginActivity extends Activity{
     private Map<String, String>       mPhoneVerifyMap;//指定手机对应验证码
     private Map<String, Object>       mResultMap;
 
+    private Bundle thirdBundleData = null;   //从第三方或得的用户数据
+
 
 
     private Handler handler = new Handler(){
@@ -277,17 +279,18 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                getUser();//判断用户是否已经存在
-//                if (mSmsVerifySuccess) {
-//                    getUser();//判断用户是否已经存在
-//                } else {
-//                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
-//                    mVerifyCode.setFocusable(true);
-//                    mVerifyCode.setFocusableInTouchMode(true);
-//                    mVerifyCode.requestFocus();
-//                    mBtnConfirm.setText("正在发送中...");
-//                    sendVerifyCodeForPhone(inputPhone);//发送验证码
-//                }
+                //getUser(inputPhone);
+                if (mSmsVerifySuccess) {
+                    thirdBundleData = null;
+                    getUser(inputPhone);//判断用户是否已经存在
+                } else {
+                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
+                    mVerifyCode.setFocusable(true);
+                    mVerifyCode.setFocusableInTouchMode(true);
+                    mVerifyCode.requestFocus();
+                    mBtnConfirm.setText("正在发送中...");
+                    sendVerifyCodeForPhone(inputPhone);//发送验证码
+                }
             }
         });
 
@@ -387,21 +390,15 @@ public class LoginActivity extends Activity{
                     public void onComplete(int status, Map<String, Object> info) {
                         if (status == 200 && info != null) {
 
-                            Bundle bundle = new Bundle();
-
-                            StringBuilder sb = new StringBuilder();
+                            thirdBundleData = new Bundle();
+                            //StringBuilder sb = new StringBuilder();
                             Set<String> keys = info.keySet();
                             for (String key : keys) {
-                                sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                                bundle.putString(key, info.get(key).toString());
+                                //sb.append(key + "=" + info.get(key).toString() + "\r\n");
+                                thirdBundleData.putString(key, info.get(key).toString());
                             }
-                            Log.d("TestData", sb.toString());
-
-                            Intent intent = new Intent(LoginActivity.this, VertifyPhoneActivity.class);
-                            intent.putExtra("from_third", true);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            finish();
+                            LogUtil.getInstance().info(LogLevel.DEBUG, thirdBundleData.toString());
+                            getUser(thirdBundleData.getString("openid"));
 
                         } else {
 
@@ -675,8 +672,20 @@ public class LoginActivity extends Activity{
                 //如果用户不存在
                 if(regMap.containsKey("set") && regMap.get("set").equals("false")){
                     LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
-                    String inputPhone = mInputPhone.getText().toString();
-                    requestLogin(inputPhone);//验证码输入正确，请求登录
+
+
+                    if(thirdBundleData != null){
+                        Intent intent = new Intent(LoginActivity.this, VertifyPhoneActivity.class);
+                        intent.putExtra("from_third", true);
+                        intent.putExtras(thirdBundleData);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{
+                        String inputPhone = mInputPhone.getText().toString();
+                        requestLogin(inputPhone);//验证码输入正确，请求登录
+                    }
+
                 }
                 else{//用户已经存在
                     LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户已经存在！");
@@ -709,9 +718,8 @@ public class LoginActivity extends Activity{
     /**
      * 获取用户
      */
-    public void getUser(){
-        String inputPhone = mInputPhone.getText().toString();
-        String url =  Constants.POST_GET_USER_URL+"id="+inputPhone;
+    public void getUser(String idValue){
+        String url =  Constants.POST_GET_USER_URL+"id="+idValue;
         createGetuserListenr();
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.GET, url,getUserListener,getUserErrorListener);

@@ -434,10 +434,10 @@ public class VertifyPhoneActivity extends Activity{
                     String inputPhone = mInputPhone.getText().toString();
                     requestLogin(inputPhone);//验证码输入正确，请求登录
                 }
-                else{//用户已经存在
-                    LogUtil.getInstance().info(LogLevel.INFO, "VertifyPhoneActivity_用户已经存在！");
+                else if(regMap.containsKey("set") &&  regMap.get("set").equals("true")) {//用户已经存在
                     String userid = (String) regMap.get("userid");
                     String token = (String) regMap.get("token");
+                    LogUtil.getInstance().info(LogLevel.INFO, "VertifyPhoneActivity_用户已经存在！userid:"+userid+"token:"+token);
                     //更新为最新的token和userid
                     CacheUtil.getInstance().setToken(token);
                     CacheUtil.getInstance().setUserId(userid);
