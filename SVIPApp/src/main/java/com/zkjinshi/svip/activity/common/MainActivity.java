@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -45,10 +46,12 @@ import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
+import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
+import com.zkjinshi.svip.view.BadgeView;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.kenburnsview.KenBurnsView;
 import com.zkjinshi.svip.view.kenburnsview.Transition;
@@ -76,6 +79,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private KenBurnsView kbv;
     private CircleImageView photoCtv;
     private ImageButton menuIbtn,msgListIBtn,logoIBtn;
+    private BadgeView badgeView;
+    private int notifyCount;
     private SlidingMenu slidingMenu;
     private Fragment leftMenuFragment;
     private MessageListener messageListener;
@@ -117,6 +122,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
         menuIbtn = (ImageButton)findViewById(R.id.main_menu_ibtn);
         msgListIBtn = (ImageButton)findViewById(R.id.main_msg_list_ibtn);
+        badgeView = new BadgeView(this, msgListIBtn);
         logoIBtn = (ImageButton)findViewById(R.id.main_logo_ibtn);
 
         orderLlt = (LinearLayout)findViewById(R.id.llt_order);
@@ -136,6 +142,19 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         LocationManager.getInstance().registerLocation(this);
         messageListener = new MessageListener();
         initService(messageListener);
+        //设置消息未读个数
+        notifyCount = MessageDBUtil.getInstance().queryNotifyCount();
+        badgeView.setGravity(Gravity.CENTER);
+        badgeView.setBackgroundResource(R.drawable.list_tv_newmessage);
+        if (notifyCount > 99) {
+            badgeView.setText(99 + "+");
+            badgeView.show();
+        } else if (notifyCount > 0) {
+            badgeView.setText(notifyCount + "");
+            badgeView.show();
+        } else {
+            badgeView.hide();
+        }
     }
 
     private void initAvatar() {
