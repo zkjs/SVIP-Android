@@ -27,6 +27,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.mine.AboutActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.factory.UserInfoFactory;
@@ -63,6 +64,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private ItemUserSettingView mTicketInfo;//发票信息
     private ItemUserSettingView mCompany;//单位
     private ItemUserSettingView mEmail;//邮箱
+    private ItemUserSettingView mAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mEmail            = (ItemUserSettingView) findViewById(R.id.ius_email);
         mTicketInfo        = (ItemUserSettingView) findViewById(R.id.ius_ticket_info);
         mRealName          = (ItemUserSettingView)findViewById(R.id.ius_real_name);
+        mAbout = (ItemUserSettingView) findViewById(R.id.ius_about_us);
     }
 
     private void initListener() {
@@ -101,6 +104,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mEmail.setOnClickListener(this);
         mTicketInfo.setOnClickListener(this);
         mRealName.setOnClickListener(this);
+        mAbout.setOnClickListener(this);
     }
 
     private void initData(){
@@ -354,6 +358,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
             //选择头像
             case R.id.civ_user_icon:
                 MineUiController.getInstance().showChoosePhotoDialog();
+                break;
+            case R.id.ius_about_us:
+                intent = new Intent(SettingActivity.this, AboutActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 break;
             case R.id.ius_real_name:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);

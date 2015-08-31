@@ -63,4 +63,8 @@
     <string name="phone_prompty">可能是一个电话号码,你可以</string>
 
     <string name="default_rule_type">DefaultChatRuleType</string>
+
+    <string name="copyright_notice">中科金石   版权所有</string>
+    <string name="copyright_duration">Copyright ©2015 www.zkjinshi.com</string>
+    <string name="copyright_own">All Rights Reserved</string>
 </resources>
