@@ -2,13 +2,15 @@ package com.zkjinshi.svip.ibeacon;
 
 import com.zkjinshi.svip.utils.PayResult;
 
+import java.io.Serializable;
+
 /**
  * 开发者：JimmyZhang
  * 日期：2015/8/7
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class IBeaconEntity {
+public class IBeaconEntity implements Serializable {
 
     private String locid;
     private String shopid;
