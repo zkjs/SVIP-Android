@@ -13,10 +13,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,6 +65,7 @@ public class IBeaconController {
                                         IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(),beancon);
                                     }
                                     startBeaconService();
+                                    CacheUtil.getInstance().saveObjCache(beaconList);
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -73,6 +76,14 @@ public class IBeaconController {
             @Override
             public void onErrorResponse(VolleyError error) {
                 LogUtil.getInstance().info(LogLevel.INFO, "获取蓝牙列表错误信息:" +  error.getMessage());
+                beaconList = new ArrayList<IBeaconEntity>();
+                beaconList = (ArrayList<IBeaconEntity>) CacheUtil.getInstance().getObjCache(beaconList);
+                if (null != beaconList && !beaconList.isEmpty()) {
+                    for (IBeaconEntity beancon : beaconList) {
+                        IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                    }
+                    startBeaconService();
+                }
             }
         });
         requestQueue.add(stringRequest);
