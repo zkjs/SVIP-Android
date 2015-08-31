@@ -130,7 +130,17 @@ public class HistoryOrderActivtiy extends Activity {
         mItvTitle.getmRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "更多设置");
+                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂未开发");
+            }
+        });
+
+        mSlvBookOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BookOrder bookOrder = mBookOrders.get(position);
+                Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
+                orderDetail.putExtra("book_order", bookOrder);
+                startActivity(orderDetail);
             }
         });
 
@@ -147,20 +157,20 @@ public class HistoryOrderActivtiy extends Activity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-                BookOrder bookOrder = mBookOrders.get(position);
-//                int orderStatus = Integer.parseInt(bookOrder.getStatus());
-//                switch (orderStatus) {
-//                    case BookOrder.ORDER_UNCONFIRMED:
-                        Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
-                        orderDetail.putExtra("book_order", bookOrder);
-                        startActivity(orderDetail);
-//                        break;
-//                    case BookOrder.ORDER_CONFIRMED:
-//                        Intent confirmOrder = new Intent(HistoryOrderActivtiy.this, OrderConfirmActivity.class);
-//                        confirmOrder.putExtra("book_order", bookOrder);
-//                        startActivity(confirmOrder);
-//                        break;
-//                }
+//                BookOrder bookOrder = mBookOrders.get(position);
+////                int orderStatus = Integer.parseInt(bookOrder.getStatus());
+////                switch (orderStatus) {
+////                    case BookOrder.ORDER_UNCONFIRMED:
+//                        Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
+//                        orderDetail.putExtra("book_order", bookOrder);
+//                        startActivity(orderDetail);
+////                        break;
+////                    case BookOrder.ORDER_CONFIRMED:
+////                        Intent confirmOrder = new Intent(HistoryOrderActivtiy.this, OrderConfirmActivity.class);
+////                        confirmOrder.putExtra("book_order", bookOrder);
+////                        startActivity(confirmOrder);
+////                        break;
+////                }
             }
         });
 
@@ -189,13 +199,11 @@ public class HistoryOrderActivtiy extends Activity {
             @Override
             public void onSwipeStart(int position) {
                 // swipe start
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "onSwipeStart");
             }
 
             @Override
             public void onSwipeEnd(int position) {
                 // swipe end
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "onSwipeEnd");
             }
         });
 
@@ -203,7 +211,6 @@ public class HistoryOrderActivtiy extends Activity {
         mSlvBookOrder.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "long_click");
 
                 return false;
             }
@@ -272,7 +279,6 @@ public class HistoryOrderActivtiy extends Activity {
                 DialogUtil.getInstance().cancelProgressDialog();
                 mSlvBookOrder.refreshFinish();//结束刷新状态
                 if(JsonUtil.isJsonNull(response)) {
-                    DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂无更多记录");
                     return ;
                 }
 
@@ -282,11 +288,12 @@ public class HistoryOrderActivtiy extends Activity {
                     if(response.toUpperCase().contains("FALSE")) {
                         JSONObject resultObject = gson.fromJson(response, JSONObject.class);
                         try {
-                            DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "获取订单表err状态码:"
-                                    + resultObject.get("err"));//显示
+                            LogUtil.getInstance().info(LogLevel.ERROR, "获取订单表err状态码:"
+                                    + resultObject.get("err"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                         return ;
                     }
                 }
@@ -315,7 +322,6 @@ public class HistoryOrderActivtiy extends Activity {
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
                 mSlvBookOrder.refreshFinish();//结束刷新状态
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "网络异常");
                 volleyError.printStackTrace();
             }
         };
@@ -330,7 +336,6 @@ public class HistoryOrderActivtiy extends Activity {
             public void onResponse(String response) {
                 LogUtil.getInstance().info(LogLevel.INFO, "response:=" + response);
                 if(JsonUtil.isJsonNull(response)) {
-                    DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂无更多记录");
                     return ;
                 }
 
@@ -344,7 +349,7 @@ public class HistoryOrderActivtiy extends Activity {
                             if(null != resultObject.get("err")){
                                 int errCode = (int) resultObject.get("err");
                                 if(400 == errCode){
-                                    DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "当前用户没有操作权限");//显示
+                                    LogUtil.getInstance().info(LogLevel.ERROR, "当前用户没有操作权限");
                                 }
                             }
                         } else {
@@ -363,7 +368,6 @@ public class HistoryOrderActivtiy extends Activity {
         updateOrderErrorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "网络异常");
                 volleyError.printStackTrace();
             }
         };
