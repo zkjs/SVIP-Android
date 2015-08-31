@@ -42,6 +42,7 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineActivity;
+import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -314,7 +315,6 @@ public class LoginActivity extends Activity{
         mIbtnWeixin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 loginWithWeixin();
-                DialogUtil.getInstance().showToast(view.getContext(), "微信授权出发");
             }
         });
 
@@ -322,16 +322,14 @@ public class LoginActivity extends Activity{
         //微博登录
         mIbtnWeibo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                loginWithWeibo();
+               // loginWithWeibo();
             }
         });
 
         //QQ登录
         mIbtnQQ.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "loginWithQQ", Toast.LENGTH_SHORT).show();
-                loginWithQQ();
-                //logoutWithWeixin();
+               // loginWithQQ();
             }
         });
     }
@@ -367,17 +365,17 @@ public class LoginActivity extends Activity{
         mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
 
                 //获取相关授权信息
                 mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMDataListener() {
@@ -409,7 +407,7 @@ public class LoginActivity extends Activity{
 
             @Override
             public void onCancel(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -668,11 +666,12 @@ public class LoginActivity extends Activity{
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
-                Map regMap = JsonUtil.toMap(response);
-                //如果用户不存在
-                if(regMap.containsKey("set") && regMap.get("set").equals("false")){
-                    LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
 
+                Gson gson = new Gson();
+                GetUserResponse getUserResponse = gson.fromJson(response,GetUserResponse.class);
+                //如果用户不存在
+                if(!getUserResponse.isSet()){
+                    LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
 
                     if(thirdBundleData != null){
                         Intent intent = new Intent(LoginActivity.this, VertifyPhoneActivity.class);
@@ -687,10 +686,10 @@ public class LoginActivity extends Activity{
                     }
 
                 }
-                else{//用户已经存在
+                else if (getUserResponse.isSet()){//用户已经存在
                     LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户已经存在！");
-                    String userid = (String) regMap.get("userid");
-                    String token  = (String) regMap.get("token");
+                    String userid = getUserResponse.getUserid();
+                    String token  = getUserResponse.getToken();
 
                     //更新为最新的token和userid
                     CacheUtil.getInstance().setToken(token);

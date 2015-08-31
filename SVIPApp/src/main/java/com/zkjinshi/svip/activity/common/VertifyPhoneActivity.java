@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,11 +17,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.google.gson.Gson;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineActivity;
+import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.http.HttpRequest;
+import com.zkjinshi.svip.http.HttpRequestListener;
+import com.zkjinshi.svip.http.HttpResponse;
+import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -356,7 +365,6 @@ public class VertifyPhoneActivity extends Activity{
                 if(isRegSuccess){
                     String userid = (String) regMap.get("userid");
                     String token = (String) regMap.get("token");
-                    Boolean isOld = (Boolean) regMap.get("old");
 
                     //更新为最新的token和userid
                     CacheUtil.getInstance().setToken(token);
@@ -427,23 +435,26 @@ public class VertifyPhoneActivity extends Activity{
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
-                Map regMap = JsonUtil.toMap(response);
+                Gson gson = new Gson();
+                GetUserResponse getUserResponse = gson.fromJson(response,GetUserResponse.class);
                 //如果用户不存在
-                if(regMap.containsKey("set") && regMap.get("set").equals("false")){
+                if(!getUserResponse.isSet()){
                     LogUtil.getInstance().info(LogLevel.INFO, "VertifyPhoneActivity_用户不存在！");
                     String inputPhone = mInputPhone.getText().toString();
                     requestLogin(inputPhone);//验证码输入正确，请求登录
                 }
-                else if(regMap.containsKey("set") &&  regMap.get("set").equals("true")) {//用户已经存在
-                    String userid = (String) regMap.get("userid");
-                    String token = (String) regMap.get("token");
-                    LogUtil.getInstance().info(LogLevel.INFO, "VertifyPhoneActivity_用户已经存在！userid:"+userid+"token:"+token);
+                else if(getUserResponse.isSet()) {//用户已经存在
+                    String userid = getUserResponse.getUserid();
+                    String token  = getUserResponse.getToken();
+                    LogUtil.getInstance().info(LogLevel.INFO, "VertifyPhoneActivity_用户已经存在！userid:" + userid + "token:" + token);
                     //更新为最新的token和userid
                     CacheUtil.getInstance().setToken(token);
                     CacheUtil.getInstance().setUserId(userid);
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
-                    goHome();
+
+                    submitUserInfo(VertifyPhoneActivity.this, "wechart", thirdBundleData.getString("openid"));
+
                 }
 
 
@@ -462,12 +473,60 @@ public class VertifyPhoneActivity extends Activity{
     }
 
     /**
+     * 修改个人资料
+     * @param context
+     * @param fieldKey
+     * @param fieldValue
+     */
+    public void submitUserInfo(final Context context,final String fieldKey,final String fieldValue){
+        HttpRequest httpRequest = new HttpRequest();
+        HashMap<String, String> stringMap = new HashMap<String, String>();
+        stringMap.put("userid",CacheUtil.getInstance().getUserId());
+        stringMap.put("token", CacheUtil.getInstance().getToken());
+        stringMap.put(fieldKey,fieldValue);
+        httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
+        httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
+        httpRequest.setStringParamMap(stringMap);
+        MineNetController.getInstance().init(context);
+        MineNetController.getInstance().requestSetInfoTask(httpRequest, new HttpRequestListener<HttpResponse>() {
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
+                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(HttpResponse result) {
+
+                if (null != result && null != result.rawResult) {
+                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
+                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
+                    if (null != baseResponse && baseResponse.isSet()) {
+                        LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息成功。");
+                        goHome();
+                    } else {
+                        LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息错误。");
+                    }
+                } else {
+                    LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息错误。");
+                }
+
+            }
+        });
+    }
+
+    /**
      * 获取用户
      *
      */
     public void getUser(){
         Bundle bundle = getIntent().getExtras();
-        String url =  Constants.POST_GET_USER_URL+"id="+bundle.get("openid");
+        String url =  Constants.POST_GET_USER_URL+"id="+mInputPhone.getText().toString();
         //Log.v("msg", "url：" + url.toString());
         createGetuserListenr();
         DataRequestVolley request = new DataRequestVolley(
