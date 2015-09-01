@@ -256,6 +256,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         super.onResume();
 
         loadLastOrderInfo();
+        if(svipApplication.mRegionList.size() > 0){
+            RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size() -1);
+            getShopInfo(regionVo.getiBeacon().getShopid());
+        }
 
     }
 
@@ -573,18 +577,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         //解析json数据
                         Gson gson = new Gson();
                         lastShopInfo = gson.fromJson(response, ShopDetailVo.class);
-                        logoIBtn.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View view) {
-                                // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
-                                // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
-                                if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
-                                    IntentUtil.callPhone(MainActivity.this, lastShopInfo.getPhone());
-                                    return true;
-                                }
-                                return false;
-                            }
-                        });
                         changeMainText();
                     }
                 }, new Response.ErrorListener() {
