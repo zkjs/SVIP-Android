@@ -3,11 +3,26 @@
     android:layout_height="wrap_content"
     android:background="@color/White">
 
+    <View
+        android:id="@+id/v_up_line"
+        android:layout_width="2dp"
+        android:layout_height="15dp"
+        android:background="#aaaaaa"
+        android:layout_gravity="center_horizontal|top"
+        ></View>
+
+    <View
+        android:id="@+id/v_down_line"
+        android:layout_width="2dp"
+        android:layout_height="15dp"
+        android:background="#aaaaaa"
+        android:layout_gravity="center_horizontal|bottom"
+        ></View>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/White"
         android:paddingBottom="12dp"
         android:paddingTop="12dp">
 
@@ -17,6 +32,8 @@
                 android:layout_height="72dp"
                 android:src="@mipmap/ic_launcher"
                 android:layout_centerHorizontal="true" />
+
+
 
             <com.zkjinshi.svip.view.CircleImageView
                 android:id="@+id/civ_shop_book_icon"
@@ -30,6 +47,7 @@
                 android:src="@mipmap/ic_yuding"
                 android:visibility="gone"
                 android:layout_gravity="right|bottom" />
+
 
         <LinearLayout
             android:id="@+id/rl_info1"

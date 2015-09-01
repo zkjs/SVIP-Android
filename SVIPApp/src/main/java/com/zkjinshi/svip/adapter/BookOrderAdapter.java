@@ -59,7 +59,15 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
             holder.orderStatus  = (TextView) convertView.findViewById(R.id.tv_order_status);
             holder.shopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
             holder.costAmount   = (TextView) convertView.findViewById(R.id.tv_cost_amount);
+            holder.upLine       = convertView.findViewById(R.id.v_up_line);
+            holder.downLine     = convertView.findViewById(R.id.v_down_line);
             convertView.setTag(holder);
+        }
+
+        if(position == mDatas.size() -1){
+            holder.downLine.setVisibility(View.GONE);
+        }else{
+            holder.downLine.setVisibility(View.VISIBLE);
         }
 
         //获得shopID网络路径
@@ -136,5 +144,7 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
         TextView        orderStatus;//订单状态
         TextView        shopName;//商店名称
         TextView        costAmount;//消费金额
+        View            upLine;
+        View            downLine;
     }
 }

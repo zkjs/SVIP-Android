@@ -45,6 +45,16 @@ public class BookOrder implements Serializable{
     private String trade_status;//支付状态
     private String content;//默认发送订单提示消息内容
     private String image;//酒店对应图片后缀
+    private String manInStay;  //入住的人，如果多个人，用逗号隔开
+
+    public String getManInStay() {
+        return manInStay;
+    }
+
+    public void setManInStay(String manInStay) {
+        this.manInStay = manInStay;
+    }
+
     public static String getTradeFinished() {
         return TRADE_FINISHED;
     }

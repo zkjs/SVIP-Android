@@ -15,6 +15,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
+import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
@@ -22,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by JimmyZhang on 2015/7/18.
@@ -29,6 +31,8 @@ import java.io.InputStream;
 public class SVIPApplication extends Application {
 
     public static final String TAG = "SVIPApp";
+
+    public ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
 
     @Override
     public void onCreate() {

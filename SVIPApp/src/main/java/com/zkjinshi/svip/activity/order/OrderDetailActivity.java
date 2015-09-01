@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
@@ -35,9 +36,14 @@ import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
+import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
+import com.zkjinshi.svip.factory.UserInfoFactory;
+import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.response.GoodInfoResponse;
+import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
@@ -46,6 +52,7 @@ import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
 import com.zkjinshi.svip.vo.OrderInfoVo;
 import com.zkjinshi.svip.vo.TicketVo;
+import com.zkjinshi.svip.vo.UserInfoVo;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -105,6 +112,7 @@ public class OrderDetailActivity extends Activity{
     private int roomNum;
 
     private String orderId;
+    private String reservationNo;
     private String shopId;
     private GoodInfoVo lastGoodInfoVo;
     private TicketVo tickeVo;
@@ -130,22 +138,56 @@ public class OrderDetailActivity extends Activity{
         setContentView(R.layout.activity_order_detail);
 
         initView();
-        orderId = getIntent().getStringExtra("orderId");
-        if(StringUtil.isEmpty(orderId)){
+
+        reservationNo = getIntent().getStringExtra("reservation_no");
+        if(StringUtil.isEmpty(reservationNo)){
             orderInfoVo = (OrderInfoVo)getIntent().getSerializableExtra("orderInfoVo");
             orderId = orderInfoVo.getId();
             shopId = orderInfoVo.getShopid();
             initData();
         }else{
-            loadOrderInfoByOrderId();
+            loadOrderInfoByReservationNo();
         }
 
         initListener();
     }
 
-    //根据order id 加载订单详细信息。
-    private void loadOrderInfoByOrderId() {
+    //根据订单号加载订单详细信息。
+    private void loadOrderInfoByReservationNo() {
+        MineNetController.getInstance().init(this);
+        if(CacheUtil.getInstance().getToken() == null){
+            return;
+        }
 
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                ProtocolUtil.getOneOrderUrl(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        DialogUtil.getInstance().cancelProgressDialog();
+                        LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单响应结果:" + response);
+                        if(!TextUtils.isEmpty(response)){
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                DialogUtil.getInstance().cancelProgressDialog();
+                LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单错误信息:" +  error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                map.put("reservation_no", reservationNo);
+                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
+                return map;
+            }
+        };
+        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
+        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
     private void initView() {

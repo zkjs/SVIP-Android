@@ -139,5 +139,13 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"user/fpupdate";
     }
 
+    /**
+     * 获取单个订单
+     * @return
+     */
+    public static String getOneOrderUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/show";
+    }
+
 
 }

@@ -122,6 +122,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         mUserID    = CacheUtil.getInstance().getUserId();
         mRuleType  = getString(R.string.default_rule_type);
         mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
+        mTitle.setTextTitle(mShopName);
 
         //初始化消息ListView管理器
         messageListViewManager = new MessageListViewManager(this, mShopID, mSessionID);

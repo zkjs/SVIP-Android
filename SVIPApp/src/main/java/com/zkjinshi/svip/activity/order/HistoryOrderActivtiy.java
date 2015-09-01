@@ -106,8 +106,13 @@ public class HistoryOrderActivtiy extends Activity {
         isOrder = getIntent().getBooleanExtra("is_order", false);
         if (isOrder) {
             mItvTitle.setResTitle(this, R.string.order);
+            mItvTitle.getmRight().setVisibility(View.GONE);
         } else {
             mItvTitle.setResTitle(this, R.string.footprint);
+            mItvTitle.getmRight().setVisibility(View.GONE);
+//            mItvTitle.mRightImage.setVisibility(View.GONE);
+//            mItvTitle.mRightText.setVisibility(View.VISIBLE);
+//            mItvTitle.mRightText.setText("清空");
         }
         mUserID = CacheUtil.getInstance().getUserId();
         mToken = CacheUtil.getInstance().getToken();
@@ -130,7 +135,10 @@ public class HistoryOrderActivtiy extends Activity {
         mItvTitle.getmRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂未开发");
+               // DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂未开发");
+                if(!isOrder){
+
+                }
             }
         });
 
@@ -138,8 +146,11 @@ public class HistoryOrderActivtiy extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BookOrder bookOrder = mBookOrders.get(position);
-                Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
-                orderDetail.putExtra("book_order", bookOrder);
+//                Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
+//                orderDetail.putExtra("book_order", bookOrder);
+//                startActivity(orderDetail);
+                Intent orderDetail = new Intent(HistoryOrderActivtiy.this,OrderDetailActivity.class);
+                orderDetail.putExtra("reservation_no",bookOrder.getReservationNO());
                 startActivity(orderDetail);
             }
         });

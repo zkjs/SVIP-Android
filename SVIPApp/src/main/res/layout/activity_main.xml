@@ -59,20 +59,22 @@
             android:src="@drawable/ic_xiaoxi"
             android:background="@android:color/transparent"
             android:scaleType="center"/>
-    </RelativeLayout>
-     <TextView
+
+        <TextView
             android:id="@+id/main_msg_num_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textColor="#ffffff"
-            android:gravity="center"
-            android:background="@drawable/ellipse_1"
             android:textSize="16sp"
+            android:text="0"
+            android:textColor="#ffffff"
             android:layout_alignParentRight="true"
+            android:background="@drawable/ellipse_1"
+            android:gravity="center"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="55dp"
-            android:visibility="invisible"/>
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/main_user_photo_layout"

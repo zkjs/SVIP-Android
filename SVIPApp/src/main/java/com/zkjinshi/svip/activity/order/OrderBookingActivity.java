@@ -99,7 +99,6 @@ public class OrderBookingActivity extends Activity{
     private SimpleDateFormat mSimpleFormat;
     private SimpleDateFormat mChineseFormat;
 
-    private StringBuffer        chooseDateBuffer;
     private ArrayList<Calendar> calendarList = null;
 
     private int dayNum;
@@ -121,7 +120,7 @@ public class OrderBookingActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_order_booking);
 
         shopId = getIntent().getStringExtra("shopid");
         if(!StringUtil.isEmpty(shopId)){
@@ -442,7 +441,7 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
-        for(int i=0;i<roomNum;i++){
+        for(int i=0;i<customerList.size();i++){
             final int index = i;
             customerList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -539,7 +538,7 @@ public class OrderBookingActivity extends Activity{
                     bookOrder.setShopID(lastGoodInfoVo.getShopid());
                     bookOrder.setUserID(CacheUtil.getInstance().getUserId());
                     bookOrder.setRoomType(lastGoodInfoVo.getRoom());
-                    bookOrder.setRoomRate(lastGoodInfoVo.getPrice());
+                    //bookOrder.setRoomRate(lastGoodInfoVo.getPrice());
                     bookOrder.setImage(lastGoodInfoVo.getImage());
 
                     Date arrivalDate = calendarList.get(0).getTime();
@@ -548,7 +547,16 @@ public class OrderBookingActivity extends Activity{
                     bookOrder.setDepartureDate(mSimpleFormat.format(leaveDate));
                     bookOrder.setDayNum(dayNum);
 
-                    bookOrder.setRemark(mTvRemark.getText().toString());
+                    // bookOrder.setRemark(mTvRemark.getText().toString());
+                    String manInStay = "";
+                    for (int i = 0; i < roomNum; i++) {
+                        if (i == 0) {
+                            manInStay = customerList.get(i).getTextContent2();
+                        } else {
+                            manInStay = manInStay + "," + customerList.get(i).getTextContent2();
+                        }
+                    }
+                    bookOrder.setManInStay(manInStay);
 
                     bookOrder.setContent("您好，帮我预定这间房");
                     Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
@@ -571,7 +579,6 @@ public class OrderBookingActivity extends Activity{
         if(RESULT_OK == resultCode){
             if(CalendarActivity.CALENDAR_REQUEST_CODE == requestCode){
                 if(null != data){
-                    chooseDateBuffer = new StringBuffer();
                     calendarList = (ArrayList<Calendar>)data.getSerializableExtra("calendarList");
                     setOrderDate(calendarList);
                 }
