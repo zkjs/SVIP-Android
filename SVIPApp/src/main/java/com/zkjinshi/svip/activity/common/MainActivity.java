@@ -299,7 +299,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     return;
                 }
                 lastOrderInfo = datalist.get(0);
-                lastOrderInfo.setShopid("120");
+               // lastOrderInfo.setShopid("120");
                 String roomType = lastOrderInfo.getRoom_type();
                 String roomRate =  lastOrderInfo.getRoom_rate();
                 String arriveDate = lastOrderInfo.getArrival_date();
