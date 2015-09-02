@@ -15,6 +15,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
@@ -46,6 +47,14 @@ public class SVIPApplication extends Application {
         initFace();
         initTest();
         initChecker();
+        initShop();
+    }
+
+    /**
+     * 初始化商家列表信息
+     */
+    private void initShop() {
+        ShopListManager.getInstance().init(this);
     }
 
     /**
