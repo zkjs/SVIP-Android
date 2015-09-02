@@ -60,6 +60,11 @@ public class MenuRightFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+
+    }
+
+    public void onResume(){
+        super.onResume();
         initData();
         initListener();
     }
