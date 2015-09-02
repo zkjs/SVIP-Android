@@ -149,7 +149,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID) > 0){
             long updateMsgReaded = MessageDBUtil.getInstance().updateMsgReadedByShopID(shopID);
             LogUtil.getInstance().info(LogLevel.INFO, "更新已读消息条数:"+ updateMsgReaded);
-            DialogUtil.getInstance().showToast(context, "更新已读消息条数:" + updateMsgReaded);
         }
         //TODO Jimmy  2、网络请求聊天室置为已读消息
     }
@@ -537,7 +536,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                                     int result                = (int) responseObject.get("result");
 
                                     LogUtil.getInstance().info(LogLevel.INFO, "response:"+response);
-                                    DialogUtil.getInstance().showToast(context, "response:" + response);
                                     // 文件上传成功
                                     if(Constants.POST_SUCCESS == result){
                                         String imageUrl = (String) responseObject.get("url");//正常图的URL

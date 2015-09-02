@@ -379,18 +379,28 @@ public class MessageDBUtil {
         SQLiteDatabase db = null;
         Cursor    cursor  = null;
         MessageVo message = null;
-        if (null != helper) {
-            db = helper.getReadableDatabase();
-            String sql = "select * from " + DBOpenHelper.MESSAGE_TBL + " where message_id = ?";
-            cursor = db.rawQuery(sql, new String[]{messageID});
-            if (cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
-                    message = MessageFactory.getInstance().buildMessageVo(cursor);
+        try {
+            if (null != helper) {
+                db = helper.getReadableDatabase();
+                String sql = "select * from " + DBOpenHelper.MESSAGE_TBL + " where message_id = ?";
+                cursor = db.rawQuery(sql, new String[]{messageID});
+                if (cursor != null && cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+                        message = MessageFactory.getInstance().buildMessageVo(cursor);
+                    }
                 }
             }
+        }catch (Exception e){
+            LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryMessageByMessageID->"+e.getMessage());
+            e.printStackTrace();
+        }finally {
+            if (null != cursor) {
+                cursor.close();
+            }
+            if (null != db) {
+                db.close();
+            }
         }
-        if (null != cursor) cursor.close();
-        if (null != db)     db.close();
         return message;
     }
 
@@ -706,19 +716,25 @@ public class MessageDBUtil {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         MessageVo message = null;
-        if (null != helper) {
-            db = helper.getReadableDatabase();
-            cursor = db.query(DBOpenHelper.MESSAGE_TBL, null,
-                    " shop_id = ? ", new String[]{shopID}, null, null,
-                    " send_time desc ", "1");
-            if (cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
-                    message = MessageFactory.getInstance().buildMessageVo(cursor);
+        try {
+            if (null != helper) {
+                db = helper.getReadableDatabase();
+                cursor = db.query(DBOpenHelper.MESSAGE_TBL, null,
+                        " shop_id = ? ", new String[]{shopID}, null, null,
+                        " send_time desc ", "1");
+                if (cursor != null && cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+                        message = MessageFactory.getInstance().buildMessageVo(cursor);
+                    }
                 }
             }
+        }catch (Exception e){
+            LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryLastMsgByShopId->"+e.getMessage());
+            e.printStackTrace();
+        }finally {
+            if (null != cursor) cursor.close();
+            if (null != db) db.close();
         }
-        if (null != cursor) cursor.close();
-        if (null != db) db.close();
         return message;
     }
 

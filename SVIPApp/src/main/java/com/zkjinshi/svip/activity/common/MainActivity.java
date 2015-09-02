@@ -257,7 +257,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     protected  void onResume(){
         super.onResume();
-
+        setBadgeNum();
         loadLastOrderInfo();
         if(svipApplication.mRegionList.size() > 0){
             RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size() -1);

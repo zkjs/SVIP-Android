@@ -49,135 +49,6 @@ public class ChatRoomDBUtil {
         helper  = new DBOpenHelper(context);
     }
 
-//    /**
-//     * 插入单条文本聊天室记录
-//     * @return
-//     */
-//    public long addChatRoom(MsgCustomerServiceTextChat msgText){
-//        ContentValues values = ChatRoomFactory.getInstance().buildAddContentValues(msgText);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.insert(DBOpenHelper.CHAT_ROOM_TBL, null, values);
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".addChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-//
-//    /**
-//     * 更新单条文本聊天室记录
-//     * @return
-//     */
-//    public long updateChatRoom(MsgCustomerServiceTextChat msgText){
-//        ContentValues values = ChatRoomFactory.getInstance().buildUpdateContentValues(msgText);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.update(DBOpenHelper.CHAT_ROOM_TBL, values, "session_id = ?",
-//                    new String[]{msgText.getSessionid()});
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".updateChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-//
-//    /**
-//     * 插入单条图片聊天室记录
-//     * @return
-//     */
-//    public long addChatRoom(MsgCustomerServiceImgChat msgImg){
-//        ContentValues values = ChatRoomFactory.getInstance().buildAddContentValues(msgImg);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.insert(DBOpenHelper.CHAT_ROOM_TBL, null, values);
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".addChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-//
-//    /**
-//     * 更新图片单条聊天室记录
-//     * @return
-//     */
-//    public long updateChatRoom(MsgCustomerServiceImgChat msgImg){
-//        ContentValues values = ChatRoomFactory.getInstance().buildUpdateContentValues(msgImg);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.update(DBOpenHelper.CHAT_ROOM_TBL, values, "session_id = ?",
-//                    new String[]{msgImg.getSessionid()});
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".updateChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-//
-//    /**
-//     * 插入单条图片聊天室记录
-//     * @return
-//     */
-//    public long addChatRoom(MsgCustomerServiceMediaChat msgMedia){
-//        ContentValues values = ChatRoomFactory.getInstance().buildAddContentValues(msgMedia);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.insert(DBOpenHelper.CHAT_ROOM_TBL, null, values);
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".addChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-//
-//    /**
-//     * 更新图片单条聊天室记录
-//     * @return
-//     */
-//    public long updateChatRoom(MsgCustomerServiceMediaChat msgMedia){
-//        ContentValues values = ChatRoomFactory.getInstance().buildUpdateContentValues(msgMedia);
-//        long id = -1;
-//        SQLiteDatabase db = null;
-//        try {
-//            db = helper.getWritableDatabase();
-//            id = db.update(DBOpenHelper.CHAT_ROOM_TBL, values, "session_id = ?",
-//                    new String[]{msgMedia.getSessionid()});
-//        } catch (Exception e) {
-//            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".updateChatRoom->"+e.getMessage());
-//            e.printStackTrace();
-//        } finally{
-//            if(null != db)
-//                db.close();
-//        }
-//        return id;
-//    }
-
     /**
      * 插入单条图片聊天室记录
      * @return
@@ -325,7 +196,7 @@ public class ChatRoomDBUtil {
             db = helper.getReadableDatabase();
             cursor = db.rawQuery("select * from " + DBOpenHelper.CHAT_ROOM_TBL +
                     " where shop_id = " + shopID, null);
-            if(cursor.moveToFirst()){
+            if(cursor.getCount() > 1){
                 return true;
             }
         } catch (Exception e) {
