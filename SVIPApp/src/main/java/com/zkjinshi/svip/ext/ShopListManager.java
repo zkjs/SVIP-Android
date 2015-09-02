@@ -87,4 +87,8 @@ public class ShopListManager {
     public void setShopMap(Map<String, String> shopMap) {
         this.shopMap = shopMap;
     }
+
+    public String getShopName(String shopid){
+        return shopMap.get(shopid);
+    }
 }
