@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    >
-
+    android:background="#EEEEEE">
+<!--
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:background="@android:color/white"
@@ -59,7 +60,17 @@
         android:layout_width="match_parent"
         android:background="#ccc"
         android:layout_height="1dp"/>
+-->
 
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:rightImage="@mipmap/ic_sousuo"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
 
     <ListView
         android:id="@+id/shop_list_view"

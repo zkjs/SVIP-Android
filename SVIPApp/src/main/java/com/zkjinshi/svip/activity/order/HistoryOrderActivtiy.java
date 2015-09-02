@@ -82,8 +82,6 @@ public class HistoryOrderActivtiy extends Activity {
 
     private void initView() {
         mItvTitle = (ItemTitleView) findViewById(R.id.Itv_title);
-        mItvTitle.setTextColor(this, R.color.Black);
-
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
         mSlvBookOrder = (SwipeMenuListView) findViewById(R.id.slv_history_order);
         mSlvBookOrder.setEmptyView(emptyView);

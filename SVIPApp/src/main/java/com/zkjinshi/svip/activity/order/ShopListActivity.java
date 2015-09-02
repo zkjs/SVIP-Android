@@ -25,6 +25,7 @@ import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.factory.ShopInfoFactory;
 import com.zkjinshi.svip.response.ShopInfoResponse;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.ShopInfoVo;
 
 import java.lang.reflect.Type;
@@ -39,8 +40,9 @@ import java.util.List;
  */
 public class ShopListActivity extends Activity{
 
-    private ImageButton backIBtn;
-    private TextView searchTv;
+//    private ImageButton backIBtn;
+//    private TextView searchTv;
+    private ItemTitleView mTitle;
     private StringRequest stringRequest;
     private ListView shopListView;
     private List<ShopInfoResponse> shopResponseList;
@@ -48,12 +50,14 @@ public class ShopListActivity extends Activity{
     private ShopAdapter shopAdapter;
 
     private void initView(){
-        backIBtn = (ImageButton)findViewById(R.id.hotel_list_header_bar_btn_back);
-        searchTv = (TextView)findViewById(R.id.hotel_list_header_bar_tv_search);
+//        backIBtn = (ImageButton)findViewById(R.id.hotel_list_header_bar_btn_back);
+//        searchTv = (TextView)findViewById(R.id.hotel_list_header_bar_tv_search);
+        mTitle = (ItemTitleView) findViewById(R.id.itv_title);
         shopListView = (ListView)findViewById(R.id.shop_list_view);
     }
 
     private void initData(){
+        mTitle.setTextTitle("选择酒店");
         ShopListNetController.getInstance().init(this);
         stringRequest = new StringRequest(Request.Method.GET, Constants.GET_SHOP_LIST,
                 new Response.Listener<String>() {
@@ -91,7 +95,7 @@ public class ShopListActivity extends Activity{
     private void initListeners(){
 
         //返回
-        backIBtn.setOnClickListener(new View.OnClickListener() {
+        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -101,7 +105,7 @@ public class ShopListActivity extends Activity{
         });
 
         //搜索
-        searchTv.setOnClickListener(new View.OnClickListener() {
+        mTitle.getmRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -128,7 +132,7 @@ public class ShopListActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_list);
-        initView();;
+        initView();
         initData();
         initListeners();
     }

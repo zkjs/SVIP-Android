@@ -9,9 +9,12 @@
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/Itv_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:rightImage="@mipmap/ic_gengduo">
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:rightImage="@mipmap/ic_gengduo"
+        zkjinshi:itemTitleColor="#FFFFFF">
+
     </com.zkjinshi.svip.view.ItemTitleView>
 
     <com.zkjinshi.svip.view.swipelistview.SwipeMenuListView

@@ -5,7 +5,7 @@
     android:background="#EEEEEE"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:background="@android:color/white"
@@ -42,6 +42,17 @@
 
         </RelativeLayout>
     </LinearLayout>
+ -->
+
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:itemTitle="@string/choose_check_in_and_out_date"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"

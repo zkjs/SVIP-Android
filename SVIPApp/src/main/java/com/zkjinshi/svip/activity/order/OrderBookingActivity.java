@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -84,6 +85,7 @@ public class OrderBookingActivity extends Activity{
     private Button          mBtnCancelOrder;
     private LinearLayout    mLltYuan;
     private LinearLayout    mLltTicketContainer;
+    private RelativeLayout  mrltRoomImg;
 
     private TagView mRoomTagView;
     private TagView mServiceTagView;
@@ -161,6 +163,7 @@ public class OrderBookingActivity extends Activity{
 
         mTvRemark = (TextView)findViewById(R.id.tv_remark);
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
+        mrltRoomImg = (RelativeLayout)findViewById(R.id.rl_order_top);
     }
 
     private void initData() {
@@ -431,8 +434,8 @@ public class OrderBookingActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OrderBookingActivity.this, AddRemarkActivity.class);
-                intent.putExtra("remark",mTvRemark.getText());
-                intent.putExtra("tips","如果有其他要求，请在此说明。");
+                intent.putExtra("remark", mTvRemark.getText());
+                intent.putExtra("tips", "如果有其他要求，请在此说明。");
                 intent.putExtra("title", "添加订单备注");
                 intent.putExtra("hint", "请输入订单备注");
                 startActivityForResult(intent, REMARK_REQUEST_CODE);
@@ -514,6 +517,21 @@ public class OrderBookingActivity extends Activity{
         });
 
         mLltYuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
+                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, GOOD_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+            }
+        });
+
+        mrltRoomImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);

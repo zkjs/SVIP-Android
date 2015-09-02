@@ -36,7 +36,8 @@ import java.util.List;
  */
 public class CalendarActivity extends Activity implements DatePickerController{
 
-    private ImageButton backIBtn;
+    //private ImageButton backIBtn;
+    private ItemTitleView mTitle;//返回
     private DayPickerView dayPickerView;
     private LinearLayout tipsLlyt;
     private TextView tipsTv;
@@ -47,14 +48,17 @@ public class CalendarActivity extends Activity implements DatePickerController{
     public static final int CALENDAR_REQUEST_CODE = 5;
 
     private void initView(){
-        backIBtn = (ImageButton)findViewById(R.id.calendar_header_bar_btn_back);
+        //backIBtn = (ImageButton)findViewById(R.id.calendar_header_bar_btn_back);
+        mTitle = (ItemTitleView)findViewById(R.id.itv_title);
         dayPickerView = (DayPickerView)findViewById(R.id.date_picker_choose_view);
         tipsLlyt = (LinearLayout)findViewById(R.id.calendar_tips_llyt);
         tipsTv = (TextView)findViewById(R.id.calendar_tips_tv);
     }
 
     private void initData(){
-        backIBtn.setVisibility(View.VISIBLE);
+        //backIBtn.setVisibility(View.VISIBLE);
+        mTitle.getmRight().setVisibility(View.INVISIBLE);
+        mTitle.setTextTitle("选择入住\\退房日期");
         dayPickerView.setController(this);
 
         Intent data = getIntent();
@@ -75,7 +79,7 @@ public class CalendarActivity extends Activity implements DatePickerController{
     private void initListeners(){
 
         //返回
-        backIBtn.setOnClickListener(new View.OnClickListener() {
+        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_CANCELED);
