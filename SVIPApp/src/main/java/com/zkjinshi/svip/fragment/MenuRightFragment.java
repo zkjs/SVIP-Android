@@ -18,6 +18,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.vo.MessageVo;
 import java.util.ArrayList;
@@ -101,8 +102,11 @@ public class MenuRightFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MessageVo messageVo = mChatRoomLists.get(position);
+                String shopId = messageVo.getShopId();
+                String shopName = ShopListManager.getInstance().getShopName(shopId);
                 Intent goChat = new Intent(mActivity, ChatActivity.class);
-                goChat.putExtra("shop_id", messageVo.getShopId());
+                goChat.putExtra("shop_id", shopId);
+                goChat.putExtra("shop_name", shopName);
                 mActivity.startActivity(goChat);
                 mActivity.overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);

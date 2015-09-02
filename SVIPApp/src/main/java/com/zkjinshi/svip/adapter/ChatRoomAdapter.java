@@ -9,6 +9,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -62,7 +63,7 @@ public class ChatRoomAdapter extends SvipBaseAdapter<MessageVo> {
         ImageLoader.getInstance().displayImage(shopLogoUrl, holder.shopIcon, options);
 
         //查询出最后一条聊天对象
-        holder.shopName.setText(shopID);//暂时显示shopID
+        holder.shopName.setText(ShopListManager.getInstance().getShopName(shopID));//暂时显示shopID
         //设置消息未读条数
         long unReadCount = MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID);
         if(unReadCount <= 0){
