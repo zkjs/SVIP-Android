@@ -446,8 +446,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     default:
                         if (lastOrderInfo != null) {
                             intent = new Intent(MainActivity.this, OrderDetailActivity.class);
-                            intent.putExtra("orderInfoVo", lastOrderInfo);
-                            //intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
+                            //intent.putExtra("orderInfoVo", lastOrderInfo);
+                            intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
                         }
 
                 }

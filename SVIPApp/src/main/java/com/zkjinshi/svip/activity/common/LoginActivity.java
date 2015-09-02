@@ -295,6 +295,8 @@ public class LoginActivity extends Activity{
             }
         });
 
+
+
         //需要帮助-文本点击事件
         mNeedHelp.setOnClickListener(new View.OnClickListener() {
             @Override

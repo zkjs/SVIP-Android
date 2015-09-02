@@ -97,7 +97,9 @@ public class MenuRightFragment extends Fragment {
                 Intent goChat = new Intent(mActivity, ChatActivity.class);
                 goChat.putExtra("shop_id", messageVo.getShopId());
                 mActivity.startActivity(goChat);
-                ((MainActivity) mActivity).toggleMenu();
+                mActivity.overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+                //((MainActivity) mActivity).toggleMenu();
             }
         });
     }
