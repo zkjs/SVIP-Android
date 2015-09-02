@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -56,6 +58,7 @@ import com.zkjinshi.svip.view.BadgeView;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.kenburnsview.KenBurnsView;
 import com.zkjinshi.svip.view.kenburnsview.Transition;
+import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.OrderInfoVo;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
@@ -73,14 +76,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+
 public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     public static final String TAG = "MainActivity";
 
+    public static final int NOTIFY_UPDATE_VIEW = 0x0001;
+
     private KenBurnsView kbv;
     private CircleImageView photoCtv;
     private ImageButton menuIbtn,msgListIBtn,logoIBtn;
-    private BadgeView badgeView;
     private int notifyCount;
     private SlidingMenu slidingMenu;
     private Fragment leftMenuFragment;
@@ -125,7 +132,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
         menuIbtn = (ImageButton)findViewById(R.id.main_menu_ibtn);
         msgListIBtn = (ImageButton)findViewById(R.id.main_msg_list_ibtn);
-        badgeView = new BadgeView(this, msgListIBtn);
         logoIBtn = (ImageButton)findViewById(R.id.main_logo_ibtn);
 
         orderLlt = (LinearLayout)findViewById(R.id.llt_order);
@@ -138,6 +144,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     }
 
     private void initData(){
+        EventBus.getDefault().register(this);
         MainUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
         //MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
@@ -147,22 +154,18 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         messageListener = new MessageListener();
         initService(messageListener);
         //设置消息未读个数
+        setBadgeNum();
+    }
+
+    private void setBadgeNum(){
         notifyCount = MessageDBUtil.getInstance().queryNotifyCount();
-        badgeView.setGravity(Gravity.CENTER);
-        badgeView.setBackgroundResource(R.drawable.list_tv_newmessage);
-        badgeView.hide();
         if (notifyCount > 99) {
-            //badgeView.setText(99 + "+");
-            //badgeView.show();
             msgNumTv.setText(99 + "+");
             msgNumTv.setVisibility(View.VISIBLE);
         } else if (notifyCount > 0) {
-            //badgeView.setText(notifyCount + "");
-           // badgeView.show();
             msgNumTv.setText(notifyCount + "");
             msgNumTv.setVisibility(View.VISIBLE);
         } else {
-           // badgeView.hide();
             msgNumTv.setVisibility(View.GONE);
         }
     }
@@ -493,6 +496,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     protected void onDestroy() {
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -700,7 +704,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         if(svipApplication.mRegionList.size() <= 0){
             return false;
         }
-        RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size()-1);
+        RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
         if(lastOrderInfo!= null && regionVo.getiBeacon().getShopid().equals(lastOrderInfo.getShopid())) {
             return true;
         }
@@ -722,5 +726,25 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void initService(MessageListener messageListener) {
         WebSocketManager.getInstance().initService(this).setMessageListener(messageListener);
     }
+
+    @Subscribe
+    public void onEvent(MessageVo messageVo){
+        Message message = new Message();
+        message.what = NOTIFY_UPDATE_VIEW;
+        handler.sendMessage(message);
+    }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case NOTIFY_UPDATE_VIEW:
+                    setBadgeNum();
+                    break;
+            }
+        }
+    };
+
 
 }

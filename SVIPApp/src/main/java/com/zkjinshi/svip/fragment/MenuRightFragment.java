@@ -2,6 +2,8 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,14 +18,10 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
-import com.zkjinshi.svip.factory.ChatRoomFactory;
-import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
-import com.zkjinshi.svip.vo.ChatRoomVo;
+import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.vo.MessageVo;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 
@@ -33,14 +31,15 @@ import de.greenrobot.event.Subscribe;
  */
 public class MenuRightFragment extends Fragment {
 
+    public static final int NOTIFY_UPDATE_VIEW = 0x0001;
+
     public static final String TAG = "MenuRightFragment";
 
     private Activity                mActivity;
     private LinearLayout            mRightFragment;
     private TextView                mEmptyView;
     private ListView                mListViewChatRoom;
-    private List<ChatRoomVo>        mChatRoomLists;
-    private Map<String, ChatRoomVo> mChatRoomMap;
+    private List<MessageVo>        mChatRoomLists;
     private ChatRoomAdapter         mChatRoomAdapter;
 
     @Override
@@ -74,10 +73,9 @@ public class MenuRightFragment extends Fragment {
 
     private void initData() {
         //获得当前Fragment宿主Activity
-        mChatRoomLists = new ArrayList<>();
-        mChatRoomMap   = new HashMap<>();
+        mChatRoomLists = new ArrayList<MessageVo>();
         //查询所有可显示的聊天室
-        mChatRoomLists   = ChatRoomDBUtil.getInstance().queryAllChatRoomList();
+        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
         mChatRoomAdapter = new ChatRoomAdapter(mChatRoomLists, mActivity);
         mListViewChatRoom.setAdapter(mChatRoomAdapter);
     }
@@ -95,9 +93,9 @@ public class MenuRightFragment extends Fragment {
         mListViewChatRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ChatRoomVo chatRoom = mChatRoomLists.get(position);
+                MessageVo messageVo = mChatRoomLists.get(position);
                 Intent goChat = new Intent(mActivity, ChatActivity.class);
-                goChat.putExtra("shop_id", chatRoom.getShopid());
+                goChat.putExtra("shop_id", messageVo.getShopId());
                 mActivity.startActivity(goChat);
                 ((MainActivity) mActivity).toggleMenu();
             }
@@ -106,30 +104,25 @@ public class MenuRightFragment extends Fragment {
 
     @Subscribe
     public void onEvent(MessageVo messageVo){
-        String shopID = messageVo.getShopId();
-        /** case 1: 当前聊天室当前不存在 */
-        if(!mChatRoomMap.containsKey(shopID)){
-            ChatRoomVo chatRoom = ChatRoomFactory.getInstance().
-                    buildChatRoomByMessageVo(messageVo);
-            long updResult = ChatRoomDBUtil.getInstance().updateChatRoomInVisible(chatRoom);
-            if(updResult > 0){
-                mChatRoomMap.put(shopID, chatRoom);
-                mChatRoomLists.add(chatRoom);
-            }
-        } else {
-            /** case 2: 当前聊天室当前已存在 */
-            ChatRoomVo chatRoom = mChatRoomMap.get(shopID);
-            if(null != chatRoom) {
-                long updResult = ChatRoomDBUtil.getInstance().updateChatRoomInVisible(chatRoom);
-                if(updResult > 0) {
-                    mChatRoomLists.remove(chatRoom);
-                    mChatRoomLists.add(chatRoom);
-                    mChatRoomMap.put(chatRoom.getShopid(), chatRoom);
-                }
+        Message message = new Message();
+        message.what = NOTIFY_UPDATE_VIEW;
+        handler.sendMessage(message);
+    }
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case NOTIFY_UPDATE_VIEW:
+                    mChatRoomLists = MessageDBUtil.getInstance().queryHistoryMessageList();
+                    if(null != mChatRoomAdapter){
+                        mChatRoomAdapter.setData(mChatRoomLists);
+                    }
+                    break;
             }
         }
-        mChatRoomAdapter.setData(mChatRoomLists);
-    }
+    };
 
     public void onDestroy() {
         super.onDestroy();

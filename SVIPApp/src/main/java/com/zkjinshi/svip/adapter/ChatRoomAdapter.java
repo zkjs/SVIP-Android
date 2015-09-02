@@ -25,11 +25,11 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ChatRoomAdapter extends SvipBaseAdapter<ChatRoomVo> {
+public class ChatRoomAdapter extends SvipBaseAdapter<MessageVo> {
 
     private DisplayImageOptions options;//图片显示
 
-    public ChatRoomAdapter(List<ChatRoomVo> datas, Activity activity) {
+    public ChatRoomAdapter(List<MessageVo> datas, Activity activity) {
         super(datas, activity);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_launcher)
@@ -40,7 +40,6 @@ public class ChatRoomAdapter extends SvipBaseAdapter<ChatRoomVo> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        ChatRoomVo chatRoomVo = mDatas.get(position);
         ViewHolder holder = null;
         if(null == convertView) {
             holder      = new ViewHolder();
@@ -55,11 +54,13 @@ public class ChatRoomAdapter extends SvipBaseAdapter<ChatRoomVo> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String shopLogoUrl = Constants.GET_SHOP_LOGO + chatRoomVo.getShopid()+
+        MessageVo messageVo = mDatas.get(position);
+        String shopID = messageVo.getShopId();
+
+        String shopLogoUrl = Constants.GET_SHOP_LOGO + shopID +
                              Constants.FORMAT_PNG;
         ImageLoader.getInstance().displayImage(shopLogoUrl, holder.shopIcon, options);
 
-        String shopID = chatRoomVo.getShopid();
         //查询出最后一条聊天对象
         holder.shopName.setText(shopID);//暂时显示shopID
         //设置消息未读条数
@@ -74,19 +75,16 @@ public class ChatRoomAdapter extends SvipBaseAdapter<ChatRoomVo> {
             holder.unReadCount.setText(unReadCount+"");
         }
         //设置消息内容
-        MessageVo messageVo = MessageDBUtil.getInstance().queryLastMsgByShopId(shopID);
-        if (null != messageVo) {
-            MimeType mimeType = messageVo.getMimeType();
-            if (mimeType == MimeType.CARD) {
-                holder.chatContent.setText("[订单]");
-            } else if (mimeType == MimeType.IMAGE) {
-                holder.chatContent.setText("[图片]");
-            } else if (mimeType == MimeType.AUDIO) {
-                holder.chatContent.setText("[语音]");
-            } else {
-                String lastMsg = messageVo.getContent();
-                holder.chatContent.setText(lastMsg);
-            }
+        MimeType mimeType = messageVo.getMimeType();
+        if (mimeType == MimeType.CARD) {
+            holder.chatContent.setText("[订单]");
+        } else if (mimeType == MimeType.IMAGE) {
+            holder.chatContent.setText("[图片]");
+        } else if (mimeType == MimeType.AUDIO) {
+            holder.chatContent.setText("[语音]");
+        } else {
+            String lastMsg = messageVo.getContent();
+            holder.chatContent.setText(lastMsg);
         }
         //设置消息时间
         long chatTime      = MessageDBUtil.getInstance().queryLastSendTimeByShopID(shopID);
