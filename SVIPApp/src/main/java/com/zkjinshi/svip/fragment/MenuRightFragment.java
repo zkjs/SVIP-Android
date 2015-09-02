@@ -60,13 +60,15 @@ public class MenuRightFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-
+        initData();
+        initListener();
     }
 
     public void onResume(){
         super.onResume();
-        initData();
-        initListener();
+        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
+        mChatRoomAdapter.setData(mChatRoomLists);
+        mListViewChatRoom.invalidate();
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container){

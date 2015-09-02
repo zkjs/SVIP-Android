@@ -34,11 +34,14 @@ import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
 import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.ChatRoomVo;
+
 import java.io.File;
 import java.util.ArrayList;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
@@ -122,6 +125,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         mUserID    = CacheUtil.getInstance().getUserId();
         mRuleType  = getString(R.string.default_rule_type);
         mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
+
         mTitle.setTextTitle(mShopName);
 
         //初始化消息ListView管理器

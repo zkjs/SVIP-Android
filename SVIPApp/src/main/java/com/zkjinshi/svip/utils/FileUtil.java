@@ -177,7 +177,8 @@ public class FileUtil {
             e.printStackTrace();
         } finally {
             try {
-                outputFile.close();
+                if(null != outputFile)
+                    outputFile.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
