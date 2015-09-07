@@ -45,18 +45,18 @@ public class NotificationHelper {
      * 后台通知栏通知用户收到消息
      *
      * @param context
-     * @param messageItem
+     * @param messageVo
      */
-    public void showNotification(Context context, MessageVo messageItem) {
+    public void showNotification(Context context, MessageVo messageVo) {
         if (ActivityManagerHelper.isRunningBackground(context)) {
             int nofifyFlag = 0;
             NotificationCompat.Builder notificationBuilder = null;
             // 1.设置显示信息
             notificationBuilder = new NotificationCompat.Builder(context);
-            notificationBuilder.setContentTitle("" + messageItem.getContactName());
-            MimeType msgType = messageItem.getMimeType();
+            notificationBuilder.setContentTitle("" + messageVo.getContactName());
+            MimeType msgType = messageVo.getMimeType();
             if (msgType == MimeType.TEXT) {
-                notificationBuilder.setContentText("" + messageItem.getContent());
+                notificationBuilder.setContentText("" + messageVo.getContent());
             } else if (msgType == MimeType.IMAGE) {
                 notificationBuilder.setContentText("[图片]");
             } else {
