@@ -29,6 +29,8 @@ import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
+import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2MRSP;
+import com.zkjinshi.svip.bean.jsonbean.MsgPushLocAd;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
 import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.notification.NotificationHelper;
@@ -42,8 +44,11 @@ import com.zkjinshi.svip.vo.MessageVo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -81,6 +86,17 @@ public class MessageListener extends Handler implements IMessageListener {
                 notifyMessage.what = RELOGIN_MSG_FLAG;
                 sendMessage(notifyMessage);
                 return;
+            }
+
+            if (type == ProtocolMSG.MSG_PushLoc_A2M_RSP) {//商家区域推送信息响应
+                if (gson == null) {
+                    gson = new Gson();
+                }
+                MsgPushLocA2MRSP msgPushLocA2MRSP = gson.fromJson(message,MsgPushLocA2MRSP.class);
+                ArrayList<MsgPushLocAd> arrmsg = msgPushLocA2MRSP.getArrmsg();
+                if(null != arrmsg && !arrmsg.isEmpty()){
+                    NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(),arrmsg.get(0));
+                }
             }
 
             if (type == ProtocolMSG.MSG_UserDefine_RSP) {//用户自定义协议
@@ -224,6 +240,7 @@ public class MessageListener extends Handler implements IMessageListener {
 
     @Override
     public void onWebsocketConnected(WebSocketClient webSocketClient) {
+        //发送登录包根据自己的业务逻辑实现，以下代码仅供参考
         LoginRequestManager.getInstance().init().sendLoginRequest(webSocketClient);
     }
 

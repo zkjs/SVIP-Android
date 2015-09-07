@@ -38,6 +38,7 @@ import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
+import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.fragment.MenuRightFragment;
@@ -47,6 +48,7 @@ import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.map.LocationManager;
+import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
@@ -447,7 +449,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         if (lastOrderInfo != null) {
                             intent = new Intent(MainActivity.this, OrderDetailActivity.class);
                             //intent.putExtra("orderInfoVo", lastOrderInfo);
-                            intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
+                            intent.putExtra("reservation_no", lastOrderInfo.getReservation_no());
                         }
 
                 }
@@ -515,7 +517,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         LogUtil.getInstance().info(LogLevel.ERROR, "beacon info:" + regionVo.getiBeacon().toString());
         LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
 
-
+        reginAdPush(regionVo);
         addRegionVo(regionVo);
         changeMainText();
         getShopInfo(regionVo.getiBeacon().getShopid());
@@ -561,6 +563,16 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 break;
             }
         }
+    }
+
+    /**
+     * 区域广告通知
+     * @param regionVo
+     */
+    private void reginAdPush(RegionVo regionVo){
+        MsgPushLocA2M msgPushLocA2M = MsgPushLocA2MReqTool.buildMsgPushLocA2M(regionVo);
+        String msgPushStr = new Gson().toJson(msgPushLocA2M,MsgPushLocA2M.class);
+        WebSocketManager.getInstance().sendMessage(msgPushStr);
     }
 
     //获取商家信息。

@@ -255,6 +255,7 @@
 
         <meta-data android:name="TESTIN_APPKEY" android:value="ced4cd6e19b606a268819bbaced9c339"/>
 
+        <!--IM消息服务-->
         <service android:name="com.zkjinshi.base.net.core.MessageService"
             android:exported="false">
             <intent-filter>

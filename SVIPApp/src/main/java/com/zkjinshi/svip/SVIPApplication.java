@@ -42,6 +42,7 @@ public class SVIPApplication extends Application {
         saveConfig();
         initLog();
         initCache();
+        initImCache();
         initImageLoader();
         initDevice();
         initFace();
@@ -104,6 +105,12 @@ public class SVIPApplication extends Application {
      */
     private void initCache(){
         CacheUtil.getInstance().init(this);
+    }
+
+    /**
+     * 初始化IM缓存
+     */
+    private void initImCache(){
         ImCacheUtil.getInstance().init(this);
     }
 
