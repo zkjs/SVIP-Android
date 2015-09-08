@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
+import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.actions.FaceViewPagerManager;
 import com.zkjinshi.svip.activity.im.actions.MoreViewPagerManager;
@@ -35,6 +36,8 @@ import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.response.OrderRoomResponse;
+import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -66,6 +69,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String  mSessionID;
     private String  textContext;
     private OrderDetailResponse orderDetailResponse;
+    private OrderRoomResponse orderRoomResponse;
 
     private ItemTitleView mTitle;
     private EditText      mMsgTextInput;
@@ -93,6 +97,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
     private String bookOrderStr;
+    private BookOrder bookOrder;
+    private ArrayList<OrderUsersResponse> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +153,42 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setShopId(mShopID).setMessageListViewManager(messageListViewManager);
         if (null != orderDetailResponse) {
-            bookOrderStr = new Gson().toJson(orderDetailResponse);
+            orderRoomResponse = orderDetailResponse.getRoom();
+            users = orderDetailResponse.getUsers();
+            if(null != orderRoomResponse){
+                bookOrder = new BookOrder();
+                String arrivalDate = orderRoomResponse.getArrival_date();
+                String departureDate = orderRoomResponse.getDeparture_date();
+                bookOrder.setArrivalDate(arrivalDate);
+                bookOrder.setDepartureDate(departureDate);
+                bookOrder.setFullame(orderRoomResponse.getFullname());
+                bookOrder.setContent("您好，帮我预定这间房");
+                bookOrder.setImage(orderRoomResponse.getImageurl());
+                bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
+                StringBuffer usersStr = new StringBuffer();
+                if(null != users && !users.isEmpty()){
+                    for(OrderUsersResponse user : users){
+                        usersStr.append(user.getRealname()).append(",");
+                    }
+                    if(!TextUtils.isEmpty(usersStr)){
+                        String usersString = usersStr.subSequence(0,usersStr.length()-1).toString();
+                        bookOrder.setManInStay(usersString);
+                    }
+                }
+                bookOrder.setRoomType(orderRoomResponse.getRoom_type());
+                bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
+                bookOrder.setRooms("" + orderRoomResponse.getRooms());
+                bookOrder.setShopID(orderRoomResponse.getShopid());
+                bookOrder.setUserID(CacheUtil.getInstance().getUserId());
+                try {
+                    int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
+                    bookOrder.setDayNum(dayNum);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            bookOrderStr = new Gson().toJson(bookOrder);
             if (!TextUtils.isEmpty(bookOrderStr)) {
                 messageListViewManager.sendBookTextMessage(bookOrderStr);
             }
