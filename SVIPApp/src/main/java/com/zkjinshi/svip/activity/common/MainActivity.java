@@ -176,7 +176,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         if(CacheUtil.getInstance().getToken() == null){
             return;
         }
-
+        MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),
                         CacheUtil.getInstance().getUserId()),

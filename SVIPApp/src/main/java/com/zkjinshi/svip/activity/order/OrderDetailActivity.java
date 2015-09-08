@@ -32,7 +32,9 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.response.OrderPrivilegeResponse;
@@ -256,9 +258,12 @@ public class OrderDetailActivity extends Activity{
         }
 
         ArrayList<OrderUsersResponse> users = orderDetailResponse.getUsers();
-        for(int i=0;i< users.size();i++){
-            OrderUsersResponse user = users.get(i);
-            customerList.get(i).getmTextContent2().setText(user.getRealname());
+        for(int i=0;i< roomNum;i++){
+            if(i<3){
+                OrderUsersResponse user = users.get(i);
+                customerList.get(i).getmTextContent2().setText(user.getRealname());
+            }
+
         }
 
         //初始化商品信息
@@ -365,6 +370,7 @@ public class OrderDetailActivity extends Activity{
             for(OrderRoomTagResponse item : roomTags){
                 mRoomTagView.addTag(createTag(item.getId(),item.getContent(),false));
             }
+            orderDetailResponse.getRoom_tag().clear();
         }
     }
 
@@ -377,6 +383,7 @@ public class OrderDetailActivity extends Activity{
             for(OrderPrivilegeResponse item : privileges){
                 mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),false));
             }
+            orderDetailResponse.getPrivilege().clear();
         }
     }
 
@@ -514,7 +521,7 @@ public class OrderDetailActivity extends Activity{
         mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                cancelOrder();
             }
         });
 
@@ -658,8 +665,56 @@ public class OrderDetailActivity extends Activity{
 
     }
 
+    //取消订单
+    private void cancelOrder(){
+        MineNetController.getInstance().init(this);
+        if(CacheUtil.getInstance().getToken() == null){
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                ProtocolUtil.updateOrderUrl(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        DialogUtil.getInstance().cancelProgressDialog();
+                        LogUtil.getInstance().info(LogLevel.ERROR, "取消订单响应结果:" + response);
+                        if(!TextUtils.isEmpty(response)){
+                            BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
+                            if(baseResponse.isSet()){
+                                Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                                intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                                intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                                intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.slide_in_right,
+                                        R.anim.slide_out_left);
+                                finish();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                DialogUtil.getInstance().cancelProgressDialog();
+                LogUtil.getInstance().info(LogLevel.INFO, "取消订单错误信息:" +  error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //status 订单状态=2 确认 , 1 取消 *
+                Map<String, String> map = generatedPostParm();
+                map.put("status","1");
+                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
+                return map;
+            }
+        };
+        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
+        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+    }
+
     //确认订单
     private void confirmOrder() {
+
         MineNetController.getInstance().init(this);
         if(CacheUtil.getInstance().getToken() == null){
             return;
@@ -673,35 +728,78 @@ public class OrderDetailActivity extends Activity{
                         DialogUtil.getInstance().cancelProgressDialog();
                         LogUtil.getInstance().info(LogLevel.ERROR, "确认订单响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
-                            orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
-                            if(orderDetailResponse != null){
-                                initData();
-                            }
+                            BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
+                           if(baseResponse.isSet()){
+                               Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                               intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                               intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                               intent.putExtra("text_context", "您好，我已确认该订单，请跟进。");
+                               startActivity(intent);
+                               overridePendingTransition(R.anim.slide_in_right,
+                                       R.anim.slide_out_left);
+                               finish();
+                           }
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单错误信息:" +  error.getMessage());
+                LogUtil.getInstance().info(LogLevel.INFO, "确认订单错误信息:" +  error.getMessage());
             }
         }){
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("reservation_no", reservationNo);
-                map.put("shopid",shopId);
-//                map.put("userid","5551fc5b8c35e");
-//                map.put("token", "I1Ae4us4ssrwsWIg");
-//                map.put("reservation_no", "H00120180203");
-//                map.put("shopid","120");
+                //status 订单状态=2 确认 , 1 取消 *
+                Map<String, String> map = generatedPostParm();
+                map.put("status","2");
                 LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
                 return map;
             }
         };
         LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
         MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+    }
+
+    //产生post 表单参数
+    private Map<String, String> generatedPostParm(){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("userid", CacheUtil.getInstance().getUserId());
+        map.put("token", CacheUtil.getInstance().getToken());
+        map.put("reservation_no", reservationNo);
+        String userids = "";
+        for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
+            if(i == 0){
+                userids = userids + orderDetailResponse.getUsers().get(i).getId();
+            }else{
+                userids = userids + ","+orderDetailResponse.getUsers().get(i).getId();
+            }
+        }
+        map.put("users",userids);
+        map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
+        map.put("invoice[invoice_get_id]",orderDetailResponse.getInvoice().getInvoice_get_id());
+        String roomtags = "";
+        for(int i=0;i<orderDetailResponse.getRoom_tag().size();i++){
+            if(i == 0){
+                roomtags = roomtags + orderDetailResponse.getRoom_tag().get(i).getId();
+            }else{
+                roomtags = roomtags + ","+orderDetailResponse.getRoom_tag().get(i).getId();
+            }
+        }
+        map.put("room_tags",roomtags);
+        String privileges = "";
+        for(int i=0;i<orderDetailResponse.getPrivilege().size();i++){
+            if(i == 0){
+                privileges = privileges + orderDetailResponse.getPrivilege().get(i).getId();
+            }else{
+                privileges = privileges + ","+orderDetailResponse.getPrivilege().get(i).getId();
+            }
+        }
+        map.put("privilege",privileges);
+        map.put("remark",orderDetailResponse.getRoom().getRemark());
+        map.put("pay_status",orderDetailResponse.getRoom().getPay_status());
+
+
+        return map;
     }
 
     @Override
