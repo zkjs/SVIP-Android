@@ -365,7 +365,8 @@ public class OrderDetailActivity extends Activity{
     private void initRoomTags() {
 
         ArrayList<OrderRoomTagResponse> roomTags = orderDetailResponse.getRoom_tag();
-        totalRoomTags = roomTags;
+        totalRoomTags = new ArrayList<OrderRoomTagResponse>();
+        totalRoomTags.addAll(roomTags);
         if(roomTags != null){
             for(OrderRoomTagResponse item : roomTags){
                 mRoomTagView.addTag(createTag(item.getId(),item.getContent(),false));
@@ -378,7 +379,8 @@ public class OrderDetailActivity extends Activity{
     private void initServiceTags() {
 
         ArrayList<OrderPrivilegeResponse> privileges = orderDetailResponse.getPrivilege();
-        totalPrivileges = privileges;
+        totalPrivileges = new ArrayList<OrderPrivilegeResponse>();
+        totalPrivileges.addAll(privileges);
         if(privileges != null){
             for(OrderPrivilegeResponse item : privileges){
                 mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),false));
@@ -781,7 +783,7 @@ public class OrderDetailActivity extends Activity{
         map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
         map.put("invoice[invoice_get_id]","1");
 
-        String roomtags = "null";
+        String roomtags = "";
         if(orderDetailResponse.getRoom_tag() != null){
             for(int i=0;i<orderDetailResponse.getRoom_tag().size();i++){
                 if(i == 0){
@@ -793,7 +795,7 @@ public class OrderDetailActivity extends Activity{
         }
         map.put("room_tags",roomtags);
 
-        String privileges = "null";
+        String privileges = "";
         if(orderDetailResponse.getPrivilege() != null){
             for(int i=0;i<orderDetailResponse.getPrivilege().size();i++){
                 if(i == 0){
@@ -805,8 +807,8 @@ public class OrderDetailActivity extends Activity{
         }
         map.put("privilege",privileges);
 
-        map.put("remark",orderDetailResponse.getRoom().getRemark());
-        map.put("pay_status",orderDetailResponse.getRoom().getPay_status());
+        map.put("remark",TextUtils.isEmpty(orderDetailResponse.getRoom().getRemark())? "" : orderDetailResponse.getRoom().getRemark());
+       // map.put("pay_status",orderDetailResponse.getRoom().getPay_status());
 
         return map;
     }
