@@ -23,6 +23,9 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.InsertResponse;
+import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -40,7 +43,7 @@ import java.util.Map;
 /**
  * Created by djd on 2015/8/28.
  */
-public class ChooseTicketActivity extends Activity {
+public class ChooseInvoiceActivity extends Activity {
 
     private EditText mEtInput;
     private ItemTitleView mTitle;
@@ -50,8 +53,10 @@ public class ChooseTicketActivity extends Activity {
     private ArrayList<TicketVo> listData = new ArrayList<TicketVo>();
     private MyAdapter myAdapter;
 
-    private Response.Listener<String> loadTicketsListListener;
-    private Response.ErrorListener    loadTicketsListErrorListener;
+    private Response.Listener<String> loadInvoicesListListener;
+    private Response.ErrorListener loadInvoicesListErrorListener;
+    private Response.Listener<String> addInvoicesListener;
+    private Response.ErrorListener    addInvoicesErrorListener;
 
     private class MyAdapter extends BaseAdapter{
         private LayoutInflater mInflater;//得到一个LayoutInfalter对象用来导入布局
@@ -150,28 +155,80 @@ public class ChooseTicketActivity extends Activity {
         mBtnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(StringUtil.isEmpty(mEtInput.getText().toString())){
-                    DialogUtil.getInstance().showToast(ChooseTicketActivity.this,"内容不能为空。");
+                if (StringUtil.isEmpty(mEtInput.getText().toString())) {
+                    DialogUtil.getInstance().showToast(ChooseInvoiceActivity.this, "内容不能为空。");
                     return;
                 }
-                Intent intent = new Intent();
-                TicketVo ticketVo = new TicketVo();
-                ticketVo.setId("0");
-                ticketVo.setInvoice_title(mEtInput.getText().toString());
-                intent.putExtra("selectTicketVo", ticketVo);
-                setResult(RESULT_OK, intent);
-                finish();
+               addInvoice();
             }
         });
 
     }
+
+    //添加发票
+    private void addInvoice(){
+        DialogUtil.getInstance().showProgressDialog(this);
+        createAddInvoiceListener();
+        DataRequestVolley request = new DataRequestVolley(
+                HttpMethod.POST, ProtocolUtil.addTicketUrl(), addInvoicesListener, addInvoicesErrorListener){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                map.put("invoice_title",mEtInput.getText().toString());
+                map.put("is_default","0");
+                return map;
+            }
+        };
+        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void createAddInvoiceListener() {
+        addInvoicesListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                DialogUtil.getInstance().cancelProgressDialog();
+                if(JsonUtil.isJsonNull(response)){
+                    return ;
+                }
+                //解析json数据
+                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
+                InsertResponse insertResponse = new Gson().fromJson(response,InsertResponse.class);
+                if(insertResponse.isSet()){
+                    Intent intent = new Intent();
+                    OrderInvoiceResponse orderInvoiceResponse = new OrderInvoiceResponse();
+                    orderInvoiceResponse.setId(insertResponse.getId());
+                    orderInvoiceResponse.setInvoice_title(mEtInput.getText().toString());
+                    orderInvoiceResponse.setInvoice_get_id("1");
+                    intent.putExtra("selectInvoice", orderInvoiceResponse);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    LogUtil.getInstance().info(LogLevel.ERROR, "添加发票失败。" );
+                }
+            }
+        };
+
+        //error listener
+        addInvoicesErrorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
+                volleyError.printStackTrace();
+                LogUtil.getInstance().info(LogLevel.ERROR, "添加发票失败。" + volleyError.toString());
+                DialogUtil.getInstance().cancelProgressDialog();
+            }
+        };
+    }
+
 
     //加载发票列表
     private void loadTicketsList() {
         DialogUtil.getInstance().showProgressDialog(this);
         createLoadTicketListListener();
         DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.geTicketListUrl(), loadTicketsListListener, loadTicketsListErrorListener){
+                HttpMethod.POST, ProtocolUtil.geTicketListUrl(), loadInvoicesListListener, loadInvoicesListErrorListener){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
@@ -187,7 +244,7 @@ public class ChooseTicketActivity extends Activity {
 
     //加载发票列表监听
     private void createLoadTicketListListener() {
-        loadTicketsListListener = new Response.Listener<String>() {
+        loadInvoicesListListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 DialogUtil.getInstance().cancelProgressDialog();
@@ -212,7 +269,7 @@ public class ChooseTicketActivity extends Activity {
         };
 
         //error listener
-        loadTicketsListErrorListener = new Response.ErrorListener() {
+        loadInvoicesListErrorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError) {
                 volleyError.printStackTrace();

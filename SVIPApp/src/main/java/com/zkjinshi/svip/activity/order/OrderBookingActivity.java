@@ -35,11 +35,14 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.response.GoodInfoResponse;
+import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.response.OrderInvoiceResponse;
+import com.zkjinshi.svip.response.OrderRoomResponse;
+import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
@@ -112,6 +115,10 @@ public class OrderBookingActivity extends Activity{
     private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo;
     private TicketVo tickeVo;
+
+    private OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
+    private OrderRoomResponse orderRoomResponse = new OrderRoomResponse();
+    private ArrayList<OrderUsersResponse> users = new ArrayList<OrderUsersResponse>();
 
 
     public static final int GOOD_REQUEST_CODE = 6;
@@ -201,6 +208,7 @@ public class OrderBookingActivity extends Activity{
             Drawable d= getResources().getDrawable(R.mipmap.ic_get_into_w);
             d.setBounds(0, 0, d.getMinimumWidth(), d.getMinimumHeight());
             customerList.get(i).getmTextContent2().setCompoundDrawables(null, null, d, null);
+            users.add(new OrderUsersResponse());
         }
 
 
@@ -217,7 +225,7 @@ public class OrderBookingActivity extends Activity{
                     @Override
                     public void onResponse(String response) {
                         DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取商品列表响应结果:" + response);
+                        LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
                             try {
                                 Type listType = new TypeToken<List<GoodInfoResponse>>(){}.getType();
@@ -345,12 +353,17 @@ public class OrderBookingActivity extends Activity{
 
         mTvArriveDate.setText(mChineseFormat.format(arrivalDate));
         mTvLeaveDate.setText(mChineseFormat.format(leaveDate));
+
+        orderRoomResponse.setArrival_date(mSimpleFormat.format(arrivalDate));
+        orderRoomResponse.setDeparture_date(mSimpleFormat.format(leaveDate));
         try{
             dayNum = TimeUtil.daysBetween(arrivalDate,leaveDate);
             mTvDateTips.setText("共"+dayNum+"晚，在"+mTvLeaveDate.getText()+"13点前退房");
         }catch (Exception e){
 
         }
+
+
     }
 
     //显示房间数量选择对话框
@@ -410,6 +423,7 @@ public class OrderBookingActivity extends Activity{
                 customerList.get(i).setVisibility(View.GONE);
             }
         }
+        orderRoomResponse.setRooms(roomNum);
     }
 
     private void initListener() {
@@ -423,7 +437,7 @@ public class OrderBookingActivity extends Activity{
         mLltTicketContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, ChooseTicketActivity.class);
+                Intent intent = new Intent(OrderBookingActivity.this, ChooseInvoiceActivity.class);
                 startActivityForResult(intent, TICKET_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
@@ -444,19 +458,35 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
+//        for(int i=0;i<customerList.size();i++){
+//            final int index = i;
+//            customerList.get(i).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    ItemUserSettingView setView = (ItemUserSettingView)view;
+//                    Intent intent = new Intent(OrderBookingActivity.this, AddPeopleActivity.class);
+//                    intent.putExtra("name", setView.getTextContent2());
+//                    intent.putExtra("index",index);
+//                    intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
+//                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
+//                    overridePendingTransition(R.anim.slide_in_right,
+//                            R.anim.slide_out_left);
+//                }
+//            });
+//        }
+
         for(int i=0;i<customerList.size();i++){
             final int index = i;
             customerList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ItemUserSettingView setView = (ItemUserSettingView)view;
-                    Intent intent = new Intent(OrderBookingActivity.this, AddPeopleActivity.class);
-                    intent.putExtra("name", setView.getTextContent2());
+                    ItemUserSettingView setView = (ItemUserSettingView) view;
+                    Intent intent = new Intent(OrderBookingActivity.this, ChoosePeopleActivity.class);
                     intent.putExtra("index",index);
-                    intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
                     startActivityForResult(intent, PEOPLE_REQUEST_CODE);
                     overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_out_left);
+
                 }
             });
         }
@@ -550,37 +580,13 @@ public class OrderBookingActivity extends Activity{
             @Override
             public void onClick(View view) {
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-                    BookOrder bookOrder = new BookOrder();
-                    bookOrder.setRoomTypeID(lastGoodInfoVo.getId());
-                    bookOrder.setCompany(lastGoodInfoVo.getFullname());
-                    bookOrder.setShopID(lastGoodInfoVo.getShopid());
-                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    bookOrder.setRoomType(lastGoodInfoVo.getRoom());
-                    //bookOrder.setRoomRate(lastGoodInfoVo.getPrice());
-                    bookOrder.setImage(lastGoodInfoVo.getImage());
-
-                    Date arrivalDate = calendarList.get(0).getTime();
-                    Date leaveDate = calendarList.get(1).getTime();
-                    bookOrder.setArrivalDate(mSimpleFormat.format(arrivalDate));
-                    bookOrder.setDepartureDate(mSimpleFormat.format(leaveDate));
-                    bookOrder.setDayNum(dayNum);
-
-                    // bookOrder.setRemark(mTvRemark.getText().toString());
-                    String manInStay = "";
-                    for (int i = 0; i < roomNum; i++) {
-                        if (i == 0) {
-                            manInStay = customerList.get(i).getTextContent2();
-                        } else {
-                            manInStay = manInStay + "," + customerList.get(i).getTextContent2();
-                        }
-                    }
-                    bookOrder.setManInStay(manInStay);
-
-                    bookOrder.setContent("您好，帮我预定这间房");
+                    orderDetailResponse.setRoom(orderRoomResponse);
+                    orderDetailResponse.setUsers(users);
+                    orderDetailResponse.setContent("您好，帮我预定这间房");
                     Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
-                    intent.putExtra("shop_id", bookOrder.getShopID());
-                    intent.putExtra("shop_name", bookOrder.getCompany());
-                    intent.putExtra("bookOrder", bookOrder);
+                    intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                    intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                    intent.putExtra("orderDetailResponse", orderDetailResponse);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_out_left);
@@ -609,15 +615,22 @@ public class OrderBookingActivity extends Activity{
             }
             else if(PEOPLE_REQUEST_CODE == requestCode){
                 if(null != data){
-                    String name = data.getStringExtra("name");
+//                    String name = data.getStringExtra("name");
+//                    int index = data.getIntExtra("index", 0);
+//                    customerList.get(index).setTextContent2(name);
+
+                    OrderUsersResponse orderUsersResponse = (OrderUsersResponse)data.getSerializableExtra("selectPeople");
                     int index = data.getIntExtra("index", 0);
-                    customerList.get(index).setTextContent2(name);
+                    customerList.get(index).setTextContent2(orderUsersResponse.getRealname());
+                    users.set(index,orderUsersResponse);
+                    orderDetailResponse.setUsers(users);
                 }
             }
             else if(TICKET_REQUEST_CODE == requestCode){
                 if(null != data){
-                    tickeVo = (TicketVo)data.getSerializableExtra("selectTicketVo");
-                    mTvTicket.setText(tickeVo.getInvoice_title());
+                    OrderInvoiceResponse orderInvoiceResponse = (OrderInvoiceResponse)data.getSerializableExtra("selectInvoice");
+                    mTvTicket.setText(orderInvoiceResponse.getInvoice_title());
+                    orderDetailResponse.setInvoice(orderInvoiceResponse);
                 }
             }
             else if(REMARK_REQUEST_CODE == requestCode){
@@ -635,8 +648,13 @@ public class OrderBookingActivity extends Activity{
         if(!TextUtils.isEmpty(imageUrl)){
             String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
+            orderRoomResponse.setImageurl(imageUrl);
         }
-        mRoomType.setText(goodInfoVo.getRoom());
+        mRoomType.setText(goodInfoVo.getRoom()+goodInfoVo.getType());
+        orderRoomResponse.setRoom_type(goodInfoVo.getRoom()+goodInfoVo.getType());
+        orderRoomResponse.setShopid(goodInfoVo.getShopid());
+        orderRoomResponse.setFullname(goodInfoVo.getFullname());
+
     }
 
 }

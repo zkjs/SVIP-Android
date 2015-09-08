@@ -34,6 +34,7 @@ import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
 import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -63,7 +64,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String        mShopID;
     private String        mShopName;
     private String        mSessionID;
-    private BookOrder bookOrder;
+   // private BookOrder bookOrder;
+    private OrderDetailResponse orderDetailResponse;
 
     private ItemTitleView mTitle;
     private EditText      mMsgTextInput;
@@ -121,7 +123,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
         mShopID    = getIntent().getStringExtra("shop_id");
         mShopName  = getIntent().getStringExtra("shop_name");
-        bookOrder = (BookOrder) getIntent().getSerializableExtra("bookOrder");
+        orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
         mUserID    = CacheUtil.getInstance().getUserId();
         mRuleType  = getString(R.string.default_rule_type);
         mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
@@ -143,8 +145,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         voiceRecordManager.init();
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setShopId(mShopID).setMessageListViewManager(messageListViewManager);
-        if (null != bookOrder) {
-            bookOrderStr = new Gson().toJson(bookOrder);
+        if (null != orderDetailResponse) {
+            bookOrderStr = new Gson().toJson(orderDetailResponse);
             if (!TextUtils.isEmpty(bookOrderStr)) {
                 messageListViewManager.sendBookTextMessage(bookOrderStr);
             }

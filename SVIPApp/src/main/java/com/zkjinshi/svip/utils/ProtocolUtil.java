@@ -145,7 +145,31 @@ public class ProtocolUtil {
      */
     public static String getOneOrderUrl(){
         return ConfigUtil.getInst().getHttpDomain()+"order/show";
+       // return "http://172.21.7.54/order/show";
     }
 
+    /**
+     * 确认/修改订单
+     * @return
+     */
+    public static String updateOrderUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/update";
+    }
+
+    /**
+     * 获取用户常用入住人列表
+     * @return
+     */
+    public static String getPeopleListUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/createlist";
+    }
+
+    /**
+     * 用户关联人信息新增
+     * @return
+     */
+    public static String addPeopleListUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/useradd";
+    }
 
 }

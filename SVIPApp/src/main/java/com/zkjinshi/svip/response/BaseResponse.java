@@ -16,8 +16,8 @@ public class BaseResponse extends HttpResponse {
     public boolean isSet() {
         return set;
     }
-
     public void setSet(boolean set) {
         this.set = set;
     }
+
 }

@@ -24,43 +24,33 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.activity.mine.MineUiController;
-import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.factory.GoodInfoFactory;
-import com.zkjinshi.svip.factory.UserInfoFactory;
-import com.zkjinshi.svip.fragment.MenuLeftFragment;
-import com.zkjinshi.svip.response.GoodInfoResponse;
-import com.zkjinshi.svip.response.UserInfoResponse;
+import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.response.OrderInvoiceResponse;
+import com.zkjinshi.svip.response.OrderPrivilegeResponse;
+import com.zkjinshi.svip.response.OrderRoomTagResponse;
+import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
-import com.zkjinshi.svip.vo.OrderInfoVo;
 import com.zkjinshi.svip.vo.TicketVo;
-import com.zkjinshi.svip.vo.UserInfoVo;
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import me.kaede.tagview.OnTagClickListener;
@@ -80,6 +70,7 @@ public class OrderDetailActivity extends Activity{
 
     private ItemTitleView   mTitle;
     private TextView        mRoomType;
+    private TextView        mRoomRate;
     private TextView        mTvOrderStatus;
     private TextView        mTvArriveDate;
     private TextView        mTvLeaveDate;
@@ -111,16 +102,19 @@ public class OrderDetailActivity extends Activity{
     private int dayNum;
     private int roomNum;
 
-    private String orderId;
     private String reservationNo;
     private String shopId;
     private GoodInfoVo lastGoodInfoVo;
-    private TicketVo tickeVo;
-    private OrderInfoVo orderInfoVo;
+    private OrderInvoiceResponse orderInvoiceResponse;
+    private ArrayList<OrderPrivilegeResponse> totalPrivileges;
+    private ArrayList<OrderRoomTagResponse> totalRoomTags;
+    //private OrderInfoVo orderInfoVo;
 
-    private List<GoodInfoResponse> goodResponsseList;
-    private List<GoodInfoVo> goodInfoList;
+    //private List<GoodInfoResponse> goodResponsseList;
+    //private List<GoodInfoVo> goodInfoList;
     private DisplayImageOptions options;
+
+    private OrderDetailResponse orderDetailResponse = null;
 
 
 
@@ -138,18 +132,11 @@ public class OrderDetailActivity extends Activity{
         setContentView(R.layout.activity_order_detail);
 
         initView();
+        initListener();
 
         reservationNo = getIntent().getStringExtra("reservation_no");
-        if(StringUtil.isEmpty(reservationNo)){
-            orderInfoVo = (OrderInfoVo)getIntent().getSerializableExtra("orderInfoVo");
-            orderId = orderInfoVo.getId();
-            shopId = orderInfoVo.getShopid();
-            initData();
-        }else{
-            loadOrderInfoByReservationNo();
-        }
-
-        initListener();
+        shopId = getIntent().getStringExtra("shopid");
+        loadOrderInfoByReservationNo();
     }
 
     //根据订单号加载订单详细信息。
@@ -167,7 +154,10 @@ public class OrderDetailActivity extends Activity{
                         DialogUtil.getInstance().cancelProgressDialog();
                         LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
-
+                            orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
+                            if(orderDetailResponse != null){
+                                initData();
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -182,6 +172,11 @@ public class OrderDetailActivity extends Activity{
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
                 map.put("reservation_no", reservationNo);
+                map.put("shopid",shopId);
+//                map.put("userid","5551fc5b8c35e");
+//                map.put("token", "I1Ae4us4ssrwsWIg");
+//                map.put("reservation_no", "H00120180203");
+//                map.put("shopid","120");
                 LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
                 return map;
             }
@@ -195,6 +190,7 @@ public class OrderDetailActivity extends Activity{
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
         mBtnCancelOrder = (Button)findViewById(R.id.btn_cancel_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
+        mRoomRate     = (TextView) findViewById(R.id.tv_payment);
         mLltYuan      = (LinearLayout)findViewById(R.id.rl_yuan);
         mTvOrderStatus = (TextView)findViewById(R.id.tv_order_status);
 
@@ -225,38 +221,29 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initData(){
-        GoodListNetController.getInstance().init(this);
-        GoodListUiController.getInstance().init(this);
-
-        mBtnSendOrder.setText("保存订单");
-        //mBtnCancelOrder.setVisibility(View.GONE);
-
-        calendarList = new ArrayList<Calendar>();
-       // mTitle.setTextTitle("订单详情");
-        mTitle.setTextTitle(orderInfoVo.getFullname());
+        mBtnSendOrder.setText("确认订单");
+        mTitle.setTextTitle(orderDetailResponse.getRoom().getFullname());
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
-
-
-
+        //初始化入住时间
+        calendarList = new ArrayList<Calendar>();
         mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
         mChineseFormat = new SimpleDateFormat("MM月dd日");
 
         try{
             Calendar arrivalDate = Calendar.getInstance();
-            arrivalDate.setTime(mSimpleFormat.parse(orderInfoVo.getArrival_date()));
+            arrivalDate.setTime(mSimpleFormat.parse(orderDetailResponse.getRoom().getArrival_date()));
             calendarList.add(arrivalDate);
 
             Calendar departureDate = Calendar.getInstance();
-            departureDate.setTime(mSimpleFormat.parse(orderInfoVo.getDeparture_date()));
+            departureDate.setTime(mSimpleFormat.parse(orderDetailResponse.getRoom().getDeparture_date()));
             calendarList.add(departureDate);
             setOrderDate(calendarList);
         }catch ( Exception e){
 
         }
-
-
-        roomNum = 2;
+        //初始化入住人信息
+        roomNum = orderDetailResponse.getRoom().getRooms();
         notifyRoomNumberChange();
         Drawable drawable= getResources().getDrawable(R.mipmap.ic_get_into_w);
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
@@ -268,7 +255,13 @@ public class OrderDetailActivity extends Activity{
             customerList.get(i).getmTextContent2().setCompoundDrawables(null, null, d, null);
         }
 
+        ArrayList<OrderUsersResponse> users = orderDetailResponse.getUsers();
+        for(int i=0;i< users.size();i++){
+            OrderUsersResponse user = users.get(i);
+            customerList.get(i).getmTextContent2().setText(user.getRealname());
+        }
 
+        //初始化商品信息
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
@@ -276,140 +269,140 @@ public class OrderDetailActivity extends Activity{
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-
-        stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getGoodListUrl(shopId),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取商品列表响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Type listType = new TypeToken<List<GoodInfoResponse>>(){}.getType();
-                                Gson gson = new Gson();
-                                goodResponsseList = gson.fromJson(response, listType);
-                                if(null != goodResponsseList && !goodResponsseList.isEmpty()){
-                                    goodInfoList = GoodInfoFactory.getInstance().bulidGoodList(goodResponsseList);
-                                    if(null != goodInfoList && !goodInfoList.isEmpty()){
-                                        for( GoodInfoVo goodInfoVo : goodInfoList){
-                                            if(goodInfoVo.getRoom().equals(orderInfoVo.getRoom_type())){
-                                                lastGoodInfoVo = goodInfoVo;
-                                                setOrderRoomType(goodInfoVo);
-                                            }
-                                        }
-                                    }
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商品列表错误信息:" +  error.getMessage());
-            }
-        });
-        if(NetWorkUtil.isNetworkConnected(this)){
-            GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
+        if(!TextUtils.isEmpty(orderDetailResponse.getRoom().getImageurl())){
+            String logoUrl = ProtocolUtil.getGoodImgUrl(orderDetailResponse.getRoom().getImageurl());
+            ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
         }
+        mRoomType.setText(orderDetailResponse.getRoom().getRoom_type());
+        mRoomRate.setText(orderDetailResponse.getRoom().getRoom_rate());
 
+        initOrderStatus();
         initRoomTags();
         initServiceTags();
         initTicket();
         initRemark();
-        initOrderStatus();
+
+
     }
+
+
 
     //初始化订单状态的显示
     private void initOrderStatus() {
-        if(orderInfoVo.getStatus().equals("0")){
-            mTvOrderStatus.setText("已提交/未确认");
+        //订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单
+        //支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账
+
+        String orderStatus = orderDetailResponse.getRoom().getStatus();
+        String payStatus = orderDetailResponse.getRoom().getPay_status();
+
+        mBtnSendOrder.setVisibility(View.GONE);
+
+        if (orderStatus.equals("0")){
+            mTvOrderStatus.setText("已提交");
+            mBtnSendOrder.setVisibility(View.VISIBLE);
         }
-        else if(orderInfoVo.getStatus().equals("1")){
+        else if(orderStatus.equals("1")){
             mTvOrderStatus.setText("已取消");
         }
-        else if(orderInfoVo.getStatus().equals("2")){
-            mTvOrderStatus.setText("已确认/未支付");
+        else if(orderStatus.equals("2")){
+            mTvOrderStatus.setText("已确认");
         }
-        else if(orderInfoVo.getStatus().equals("3")){
-            mTvOrderStatus.setText("已完成订单");
+        else if(orderStatus.equals("3")){
+            mTvOrderStatus.setText("已完成");
         }
-        else if(orderInfoVo.getStatus().equals("4")){
+        else if(orderStatus.equals("4")){
             mTvOrderStatus.setText("已入住");
         }
-        else if(orderInfoVo.getStatus().equals("5")){
+        else if(orderStatus.equals("5")){
             mTvOrderStatus.setText("已删除");
+        }
+
+        if (payStatus.equals("0")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+        }
+        else if(payStatus.equals("1")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已支付");
+        }
+        else if(payStatus.equals("2")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"");
+        }
+        else if(payStatus.equals("3")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/支付一部分");
+        }
+        else if(payStatus.equals("4")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已退款");
+        }
+        else if(payStatus.equals("5")){
+            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已挂账");
         }
     }
 
     //初始化订单备注
     private void initRemark() {
-        if(!StringUtil.isEmpty(orderInfoVo.getRemark())){
-            mTvRemark.setText(orderInfoVo.getRemark());
+        if(!StringUtil.isEmpty(orderDetailResponse.getRoom().getRemark())){
+            mTvRemark.setText(orderDetailResponse.getRoom().getRemark());
         }
     }
 
     //初始化发票
     private void initTicket() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ProtocolUtil.geTicketListUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        mTvTicket.setText("");
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "默认发票响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Gson gson = new Gson();
-                                tickeVo = gson.fromJson(response, TicketVo.class);
-                                if(null != tickeVo){
-                                    mTvTicket.setText(tickeVo.getInvoice_title());
-                                }else{
-                                    mTvTicket.setText("");
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                mTvTicket.setText("");
-                LogUtil.getInstance().info(LogLevel.INFO, "获取默认发票错误信息:" +  error.getMessage());
-            }
-        }){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("set","1");
-                return map;
-            }
-        };
-        if(NetWorkUtil.isNetworkConnected(this)){
-            GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
+        orderInvoiceResponse = orderDetailResponse.getInvoice();
+        if(orderInvoiceResponse != null){
+            mTvTicket.setText(orderInvoiceResponse.getInvoice_title());
         }
+        else{
+            mTvTicket.setText("");
+        }
+
     }
 
     //初始化房间选项标签
     private void initRoomTags() {
-        mRoomTagView.addTag(createTag(1,"无烟房",true));
-        mRoomTagView.addTag(createTag(2,"视野好",false));
-        mRoomTagView.addTag(createTag(3,"加床",false));
-        mRoomTagView.addTag(createTag(4,"安静",false));
-        mRoomTagView.addTag(createTag(5,"离电梯近",false));
-       // mRoomTagView.addTag(createTag(0,"添加更多",false));
+
+        ArrayList<OrderRoomTagResponse> roomTags = orderDetailResponse.getRoom_tag();
+        totalRoomTags = roomTags;
+        if(roomTags != null){
+            for(OrderRoomTagResponse item : roomTags){
+                mRoomTagView.addTag(createTag(item.getId(),item.getContent(),false));
+            }
+        }
     }
 
     //初始化其他服务标签
     private void initServiceTags() {
-        mServiceTagView.addTag(createTag(1,"免前台",true));
-        mServiceTagView.addTag(createTag(2,"接机服务",false));
-      //  mServiceTagView.addTag(createTag(0,"添加更多",false));
+
+        ArrayList<OrderPrivilegeResponse> privileges = orderDetailResponse.getPrivilege();
+        totalPrivileges = privileges;
+        if(privileges != null){
+            for(OrderPrivilegeResponse item : privileges){
+                mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),false));
+            }
+        }
+    }
+
+    //根据id 获取房间服务
+    private OrderPrivilegeResponse getPrivilegeById(int id){
+
+        if(totalPrivileges != null){
+            for(OrderPrivilegeResponse privilege : totalPrivileges){
+                if(id == privilege.getId()){
+                    return privilege;
+                }
+            }
+        }
+        return null;
+    }
+
+    //根据id 获取 房间选项
+    private OrderRoomTagResponse getRoomTagById(int id){
+        if(totalRoomTags != null){
+            for(OrderRoomTagResponse roomTag : totalRoomTags){
+                if(id == roomTag.getId()){
+                    return roomTag;
+                }
+            }
+        }
+        return null;
     }
 
     private Tag createTag(int id,String tagstr,boolean isChecked){
@@ -514,7 +507,7 @@ public class OrderDetailActivity extends Activity{
         mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                confirmOrder();
             }
         });
         //取消订单
@@ -535,12 +528,28 @@ public class OrderDetailActivity extends Activity{
         mLltTicketContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderDetailActivity.this, ChooseTicketActivity.class);
+                Intent intent = new Intent(OrderDetailActivity.this, ChooseInvoiceActivity.class);
                 startActivityForResult(intent, TICKET_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
         });
+
+        for(int i=0;i<customerList.size();i++){
+            final int index = i;
+            customerList.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ItemUserSettingView setView = (ItemUserSettingView) view;
+                    Intent intent = new Intent(OrderDetailActivity.this, ChoosePeopleActivity.class);
+                    intent.putExtra("index",index);
+                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+
+                }
+            });
+        }
 
         mlltRemark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -556,64 +565,66 @@ public class OrderDetailActivity extends Activity{
             }
         });
 
-        for(int i=0;i<roomNum;i++){
-            final int index = i;
-            customerList.get(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ItemUserSettingView setView = (ItemUserSettingView)view;
-                    Intent intent = new Intent(OrderDetailActivity.this, AddPeopleActivity.class);
-                    intent.putExtra("name", setView.getTextContent2());
-                    intent.putExtra("index",index);
-                    intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
-                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
-            });
-        }
+
 
         mRoomTagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
-                if(tag.id != 0){
-                    if(tag.deleteIcon.equals("")){
-                        tag.deleteIcon = "√";
-                    }
-                    else{
-                        tag.deleteIcon = "";
-                    }
-                    mRoomTagView.drawTags();
-                }else{
-
+                if(tag.deleteIcon.equals("")){
+                    tag.deleteIcon = "√";
                 }
+                else{
+                    tag.deleteIcon = "";
+                }
+                mRoomTagView.drawTags();
+                ArrayList<OrderRoomTagResponse> roomTags = orderDetailResponse.getRoom_tag();
+                if(roomTags == null){
+                    roomTags = new ArrayList<OrderRoomTagResponse>();
+                }else{
+                    roomTags.clear();
+                }
+                for(Tag item : mRoomTagView.getTags()){
+                    if(item.deleteIcon.equals("√")){
+                        roomTags.add(getRoomTagById(item.id));
+                    }
+                }
+                orderDetailResponse.setRoom_tag(roomTags);
+
             }
         });
 
         mServiceTagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
-                if(tag.id != 0){
-                    if(tag.deleteIcon.equals("")){
-                        tag.deleteIcon = "√";
-                    }
-                    else{
-                        tag.deleteIcon = "";
-                    }
-                    mServiceTagView.drawTags();
-                }else{
-
+                if(tag.deleteIcon.equals("")){
+                    tag.deleteIcon = "√";
                 }
+                else{
+                    tag.deleteIcon = "";
+                }
+                mServiceTagView.drawTags();
+                ArrayList<OrderPrivilegeResponse> privileges = orderDetailResponse.getPrivilege();
+                if(privileges == null){
+                    privileges = new ArrayList<OrderPrivilegeResponse>();
+                }else{
+                    privileges.clear();
+                }
+                for(Tag item : mServiceTagView.getTags()){
+                    if(item.deleteIcon.equals("√")){
+                        privileges.add(getPrivilegeById(item.id));
+                    }
+                }
+
             }
         });
 
 
-        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRoomNumChooseDialog();
-            }
-        });
+//        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showRoomNumChooseDialog();
+//            }
+//        });
 
 //        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -647,52 +658,95 @@ public class OrderDetailActivity extends Activity{
 
     }
 
+    //确认订单
+    private void confirmOrder() {
+        MineNetController.getInstance().init(this);
+        if(CacheUtil.getInstance().getToken() == null){
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                ProtocolUtil.updateOrderUrl(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        DialogUtil.getInstance().cancelProgressDialog();
+                        LogUtil.getInstance().info(LogLevel.ERROR, "确认订单响应结果:" + response);
+                        if(!TextUtils.isEmpty(response)){
+                            orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
+                            if(orderDetailResponse != null){
+                                initData();
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                DialogUtil.getInstance().cancelProgressDialog();
+                LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单错误信息:" +  error.getMessage());
+            }
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                map.put("reservation_no", reservationNo);
+                map.put("shopid",shopId);
+//                map.put("userid","5551fc5b8c35e");
+//                map.put("token", "I1Ae4us4ssrwsWIg");
+//                map.put("reservation_no", "H00120180203");
+//                map.put("shopid","120");
+                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
+                return map;
+            }
+        };
+        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
+        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(RESULT_OK == resultCode){
             if(CalendarActivity.CALENDAR_REQUEST_CODE == requestCode){
                 if(null != data){
-                    calendarList = (ArrayList<Calendar>)data.getSerializableExtra("calendarList");
-                    setOrderDate(calendarList);
+                    //calendarList = (ArrayList<Calendar>)data.getSerializableExtra("calendarList");
+                    //setOrderDate(calendarList);
                 }
             }
             else if(GOOD_REQUEST_CODE == requestCode){
                 if(null != data){
-                    lastGoodInfoVo = (GoodInfoVo)data.getSerializableExtra("GoodInfoVo");
-                    setOrderRoomType(lastGoodInfoVo);
+                    //lastGoodInfoVo = (GoodInfoVo)data.getSerializableExtra("GoodInfoVo");
+                    //setOrderRoomType(lastGoodInfoVo);
                 }
             }
             else if(PEOPLE_REQUEST_CODE == requestCode){
                 if(null != data){
-                    String name = data.getStringExtra("name");
+                    OrderUsersResponse orderUsersResponse = (OrderUsersResponse)data.getSerializableExtra("selectPeople");
                     int index = data.getIntExtra("index", 0);
-                    customerList.get(index).setTextContent2(name);
+                    customerList.get(index).setTextContent2(orderUsersResponse.getRealname());
+                    ArrayList<OrderUsersResponse> users = orderDetailResponse.getUsers();
+                    users.set(index,orderUsersResponse);
+                    orderDetailResponse.setUsers(users);
                 }
             }
             else if(TICKET_REQUEST_CODE == requestCode){
                 if(null != data){
-                    tickeVo = (TicketVo)data.getSerializableExtra("selectTicketVo");
-                    mTvTicket.setText(tickeVo.getInvoice_title());
+                    OrderInvoiceResponse orderInvoiceResponse = (OrderInvoiceResponse)data.getSerializableExtra("selectInvoice");
+                    mTvTicket.setText(orderInvoiceResponse.getInvoice_title());
+                    orderDetailResponse.setInvoice(orderInvoiceResponse);
                 }
             }
             else if(REMARK_REQUEST_CODE == requestCode){
                 if(null != data){
                     String remark = data.getStringExtra("remark");
                     mTvRemark.setText(remark);
+                    orderDetailResponse.getRoom().setRemark(remark);
                 }
             }
         }
     }
 
-    private void setOrderRoomType(GoodInfoVo goodInfoVo) {
-        lastGoodInfoVo = goodInfoVo;
-        String imageUrl = goodInfoVo.getImage();
-        if(!TextUtils.isEmpty(imageUrl)){
-            String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
-            ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
-        }
-        mRoomType.setText(goodInfoVo.getRoom());
-    }
+
 
 }

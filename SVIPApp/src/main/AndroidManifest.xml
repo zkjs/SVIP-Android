@@ -150,10 +150,13 @@
         <activity android:name=".activity.order.AddPeopleActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
+        <activity android:name=".activity.order.ChoosePeopleActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
         <activity android:name=".activity.order.AddRemarkActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".activity.order.ChooseTicketActivity"
+        <activity android:name=".activity.order.ChooseInvoiceActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.OrderConfirmActivity"
