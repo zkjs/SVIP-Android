@@ -582,7 +582,8 @@ public class OrderBookingActivity extends Activity{
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
                     ArrayList<OrderUsersResponse> userslist = new ArrayList<OrderUsersResponse>();
-                    for(OrderUsersResponse user : users){
+                    for(int i=0;i<orderRoomResponse.getRooms();i++){
+                        OrderUsersResponse user = users.get(i);
                         if(!TextUtils.isEmpty(user.getRealname())){
                             userslist.add(user);
                         }
@@ -657,7 +658,7 @@ public class OrderBookingActivity extends Activity{
             orderRoomResponse.setImageurl(imageUrl);
         }
         mRoomType.setText(goodInfoVo.getRoom()+goodInfoVo.getType());
-        orderRoomResponse.setRoom_type(goodInfoVo.getRoom()+goodInfoVo.getType());
+        orderRoomResponse.setRoom_type(goodInfoVo.getRoom() + goodInfoVo.getType());
         orderRoomResponse.setShopid(goodInfoVo.getShopid());
         orderRoomResponse.setFullname(goodInfoVo.getFullname());
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
