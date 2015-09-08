@@ -546,19 +546,19 @@ public class ChatAdapter extends BaseAdapter {
             vh.time.setVisibility(View.GONE);
             vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(MimeType.CARD)) {// 卡片布局
-            OrderDetailResponse orderDetailResponse = new Gson().fromJson(item.getContent(), OrderDetailResponse.class);
-            if (null != orderDetailResponse) {
-                String roomType = orderDetailResponse.getRoom().getRoom_type();
-                String arrivaDate = orderDetailResponse.getRoom().getArrival_date();
-                String departureDate = orderDetailResponse.getRoom().getDeparture_date();
-                String imageUrl = orderDetailResponse.getRoom().getImageurl();
+            BookOrder bookOrder = new Gson().fromJson(item.getContent(), BookOrder.class);
+            if (null != bookOrder) {
+                String roomType = bookOrder.getRoomType();
+                String arrivaDate = bookOrder.getArrivalDate();
+                String departureDate = bookOrder.getDepartureDate();
+                String imageUrl = bookOrder.getImage();
                 int dayNum = 1;
                 try {
                    dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
                 }catch (Exception e){
 
                 }
-                vh.contentTip.setText(orderDetailResponse.getContent());
+                vh.contentTip.setText(bookOrder.getContent());
                 vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
                 if (!TextUtils.isEmpty(imageUrl)) {
                     String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
