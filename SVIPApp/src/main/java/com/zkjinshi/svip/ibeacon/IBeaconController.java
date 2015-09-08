@@ -19,7 +19,6 @@ import com.zkjinshi.svip.utils.VIPContext;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 开发者：JimmyZhang
@@ -34,7 +33,7 @@ public class IBeaconController {
     private static IBeaconController instance;
     private StringRequest stringRequest;
     private RequestQueue requestQueue;
-    private List<IBeaconEntity> beaconList;
+    private ArrayList<IBeaconEntity> beaconList;
 
     public synchronized static IBeaconController getInstance(){
         if(null == instance){
@@ -56,7 +55,7 @@ public class IBeaconController {
                         LogUtil.getInstance().info(LogLevel.INFO, "获取蓝牙列表响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
                             try {
-                                Type listType = new TypeToken<List<IBeaconEntity>>(){}.getType();
+                                Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
                                 Gson gson = new Gson();
                                 beaconList = gson.fromJson(response, listType);
                                 if(null != beaconList && !beaconList.isEmpty()){
@@ -65,7 +64,7 @@ public class IBeaconController {
                                         IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(),beancon);
                                     }
                                     startBeaconService();
-                                    CacheUtil.getInstance().saveObjCache(beaconList);
+                                    CacheUtil.getInstance().saveListCache(IBeaconController.class.getSimpleName(), beaconList);
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -76,13 +75,17 @@ public class IBeaconController {
             @Override
             public void onErrorResponse(VolleyError error) {
                 LogUtil.getInstance().info(LogLevel.INFO, "获取蓝牙列表错误信息:" +  error.getMessage());
-                beaconList = new ArrayList<IBeaconEntity>();
-                beaconList = (ArrayList<IBeaconEntity>) CacheUtil.getInstance().getObjCache(beaconList);
-                if (null != beaconList && !beaconList.isEmpty()) {
-                    for (IBeaconEntity beancon : beaconList) {
-                        IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                String listStr =  CacheUtil.getInstance().getListStrCache(IBeaconController.class.getSimpleName());
+                if(!TextUtils.isEmpty(listStr)){
+                    Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
+                    Gson gson = new Gson();
+                    beaconList = gson.fromJson(listStr, listType);
+                    if (null != beaconList && !beaconList.isEmpty()) {
+                        for (IBeaconEntity beancon : beaconList) {
+                            IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                        }
+                        startBeaconService();
                     }
-                    startBeaconService();
                 }
             }
         });

@@ -3,9 +3,16 @@ package com.zkjinshi.svip.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 缓存工具类
@@ -402,6 +409,51 @@ public class CacheUtil {
 			}
 		}
 		return cacheObj;
+	}
+
+	/**
+	 *  存入集合缓存的通用方法
+	 * @param key
+	 * @param cacheList
+	 * @param <T>
+	 */
+	public <T> void saveListCache(String key,
+										 ArrayList<T> cacheList) {
+		if (null != cacheList && cacheList.size() > 0) {
+			Gson gson = new Gson();
+			String json = gson.toJson(cacheList);
+			try {
+				String encryptedData = Base64Encoder.encode(json);// base
+				// 64加密
+				SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+						Context.MODE_PRIVATE);
+				sp.edit().putString(key, encryptedData).commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.e("info", "saveListCache Exception:" + e);
+			}
+		}
+	}
+
+	/**
+	 * 取集合缓存的通用方法
+	 * @param key
+	 * @return
+	 */
+	public String getListStrCache(String key) {
+			SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+					Context.MODE_PRIVATE);
+			String value = "";
+			String encryptedData = sp.getString(key, "");
+			if (!TextUtils.isEmpty(encryptedData)) {
+				try {
+					value = Base64Decoder.decode(encryptedData);// base 64解密
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.e("info", "getListCache Exception:" + e);
+				}
+			}
+			return value;
 	}
 
 }
