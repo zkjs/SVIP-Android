@@ -745,7 +745,7 @@ public class OrderDetailActivity extends Activity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "确认订单错误信息:" +  error.getMessage());
+                LogUtil.getInstance().info(LogLevel.ERROR, "确认订单错误信息:" +  error.getMessage());
             }
         }){
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -767,37 +767,46 @@ public class OrderDetailActivity extends Activity{
         map.put("token", CacheUtil.getInstance().getToken());
         map.put("reservation_no", reservationNo);
         String userids = "";
-        for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
-            if(i == 0){
-                userids = userids + orderDetailResponse.getUsers().get(i).getId();
-            }else{
-                userids = userids + ","+orderDetailResponse.getUsers().get(i).getId();
+        if(orderDetailResponse.getUsers() != null){
+            for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
+                if(i == 0){
+                    userids = userids + orderDetailResponse.getUsers().get(i).getId();
+                }else{
+                    userids = userids + ","+orderDetailResponse.getUsers().get(i).getId();
+                }
             }
         }
         map.put("users",userids);
+
         map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
-        map.put("invoice[invoice_get_id]",orderDetailResponse.getInvoice().getInvoice_get_id());
-        String roomtags = "";
-        for(int i=0;i<orderDetailResponse.getRoom_tag().size();i++){
-            if(i == 0){
-                roomtags = roomtags + orderDetailResponse.getRoom_tag().get(i).getId();
-            }else{
-                roomtags = roomtags + ","+orderDetailResponse.getRoom_tag().get(i).getId();
+        map.put("invoice[invoice_get_id]","1");
+
+        String roomtags = "null";
+        if(orderDetailResponse.getRoom_tag() != null){
+            for(int i=0;i<orderDetailResponse.getRoom_tag().size();i++){
+                if(i == 0){
+                    roomtags = "" + orderDetailResponse.getRoom_tag().get(i).getId();
+                }else{
+                    roomtags = roomtags + ","+orderDetailResponse.getRoom_tag().get(i).getId();
+                }
             }
         }
         map.put("room_tags",roomtags);
-        String privileges = "";
-        for(int i=0;i<orderDetailResponse.getPrivilege().size();i++){
-            if(i == 0){
-                privileges = privileges + orderDetailResponse.getPrivilege().get(i).getId();
-            }else{
-                privileges = privileges + ","+orderDetailResponse.getPrivilege().get(i).getId();
+
+        String privileges = "null";
+        if(orderDetailResponse.getPrivilege() != null){
+            for(int i=0;i<orderDetailResponse.getPrivilege().size();i++){
+                if(i == 0){
+                    privileges = "" + orderDetailResponse.getPrivilege().get(i).getId();
+                }else{
+                    privileges = privileges + ","+orderDetailResponse.getPrivilege().get(i).getId();
+                }
             }
         }
         map.put("privilege",privileges);
+
         map.put("remark",orderDetailResponse.getRoom().getRemark());
         map.put("pay_status",orderDetailResponse.getRoom().getPay_status());
-
 
         return map;
     }

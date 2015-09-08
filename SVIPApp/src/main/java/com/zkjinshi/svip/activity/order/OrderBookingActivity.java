@@ -581,7 +581,13 @@ public class OrderBookingActivity extends Activity{
             public void onClick(View view) {
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
-                    orderDetailResponse.setUsers(users);
+                    ArrayList<OrderUsersResponse> userslist = new ArrayList<OrderUsersResponse>();
+                    for(OrderUsersResponse user : users){
+                        if(!TextUtils.isEmpty(user.getRealname())){
+                            userslist.add(user);
+                        }
+                    }
+                    orderDetailResponse.setUsers(userslist);
                     orderDetailResponse.setContent("您好，帮我预定这间房");
                     Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
                     intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
