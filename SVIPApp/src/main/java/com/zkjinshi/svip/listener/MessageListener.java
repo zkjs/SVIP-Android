@@ -63,8 +63,8 @@ public class MessageListener extends Handler implements IMessageListener {
 
     public static final String TAG = MessageReceiver.class.getSimpleName();
 
-    public static final int BOOK_HOTEL_FAIL_FLAG = 0;
-    public static final int BOOK_HOTEL_SUCC_FLAG = 1;
+    public static final int BOOK_HOTEL_FAIL_FLAG = 1002;
+    public static final int BOOK_HOTEL_SUCC_FLAG = 1003;
     public static final int RELOGIN_MSG_FLAG = 2;
 
     private SimpleDateFormat sdf;
@@ -108,11 +108,11 @@ public class MessageListener extends Handler implements IMessageListener {
                 MsgUserDefine msgUserDefine = gson.fromJson(message, MsgUserDefine.class);
                 if (null != msgUserDefine) {
                     int childType = msgUserDefine.getChildtype();
-                    if (1002 == childType) {//订单预定失败
+                    if (BOOK_HOTEL_FAIL_FLAG == childType) {//订单预定失败
                         notifyMessage = new Message();
                         notifyMessage.what = BOOK_HOTEL_FAIL_FLAG;
                         sendMessage(notifyMessage);
-                    } else if (1003 == childType) {//订单预定成功
+                    } else if (BOOK_HOTEL_SUCC_FLAG == childType) {//订单预定成功
                         String  orderGsonStr = msgUserDefine.getContent();
                         orderVo = new Gson().fromJson(orderGsonStr, OrderVo.class);
                         notifyMessage = new Message();
