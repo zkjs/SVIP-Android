@@ -40,6 +40,7 @@ import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.vo.MessageVo;
+import com.zkjinshi.svip.vo.OrderVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,7 +68,7 @@ public class MessageListener extends Handler implements IMessageListener {
     public static final int RELOGIN_MSG_FLAG = 2;
 
     private SimpleDateFormat sdf;
-    private String reservationNo;
+    private OrderVo orderVo;
     private Message notifyMessage;
 
     @Override
@@ -112,10 +113,11 @@ public class MessageListener extends Handler implements IMessageListener {
                         notifyMessage.what = BOOK_HOTEL_FAIL_FLAG;
                         sendMessage(notifyMessage);
                     } else if (1003 == childType) {//订单预定成功
-                        String  reservationNo = msgUserDefine.getContent();
+                        String  orderGsonStr = msgUserDefine.getContent();
+                        orderVo = new Gson().fromJson(orderGsonStr, OrderVo.class);
                         notifyMessage = new Message();
                         notifyMessage.what = BOOK_HOTEL_SUCC_FLAG;
-                        notifyMessage.obj = reservationNo;
+                        notifyMessage.obj = orderVo;
                         sendMessage(notifyMessage);
                     }
                 }
@@ -280,7 +282,7 @@ public class MessageListener extends Handler implements IMessageListener {
         dialog.show();
     }
 
-    private synchronized void showBookHotelSuccDialog(final Context context, final String reservationNo) {
+    private synchronized void showBookHotelSuccDialog(final Context context, final OrderVo orderVo) {
         Dialog dialog = null;
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
         customBuilder.setTitle("订单通知");
@@ -300,7 +302,10 @@ public class MessageListener extends Handler implements IMessageListener {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 Intent intent = new Intent(context, OrderDetailActivity.class);
+                String reservationNo = orderVo.getOrderId();
+                String shopId = orderVo.getShopId();
                 intent.putExtra("reservation_no", reservationNo);
+                intent.putExtra("shopid", shopId);
                 context.startActivity(intent);
                 ((Activity) context).finish();
             }
@@ -339,8 +344,8 @@ public class MessageListener extends Handler implements IMessageListener {
                 break;
 
             case BOOK_HOTEL_SUCC_FLAG:
-                reservationNo = (String) msg.obj;
-                showBookHotelSuccDialog(VIPContext.getInstance().getContext(), reservationNo);
+                orderVo = (OrderVo) msg.obj;
+                showBookHotelSuccDialog(VIPContext.getInstance().getContext(), orderVo);
                 break;
 
             case RELOGIN_MSG_FLAG:
