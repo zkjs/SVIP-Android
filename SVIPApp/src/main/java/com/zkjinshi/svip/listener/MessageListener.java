@@ -100,7 +100,7 @@ public class MessageListener extends Handler implements IMessageListener {
                 }
             }
 
-            if (type == ProtocolMSG.MSG_UserDefine_RSP) {//用户自定义协议
+            if (type == ProtocolMSG.MSG_UserDefine) {//用户自定义协议
                 //1、订单成功信息响应
                 if (gson == null) {
                     gson = new Gson();
@@ -302,12 +302,12 @@ public class MessageListener extends Handler implements IMessageListener {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 String reservationNo = orderVo.getOrderId();
                 String shopId = orderVo.getShopId();
                 intent.putExtra("reservation_no", reservationNo);
                 intent.putExtra("shopid", shopId);
                 context.startActivity(intent);
-                ((Activity) context).finish();
             }
         });
         dialog = customBuilder.create();
