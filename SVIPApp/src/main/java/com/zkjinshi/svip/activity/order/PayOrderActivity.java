@@ -22,6 +22,7 @@ import com.zkjinshi.base.util.MathUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.utils.PayResult;
 import com.zkjinshi.svip.utils.SignUtils;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -51,7 +52,7 @@ public class PayOrderActivity extends Activity{
     private TextView orderPriceTv,roomTypeTv,roomTagTv;
     private ImageButton aliPayIBtn, weChatPayIBtn;
     private TextView ccPayTv;
-    private BookOrder bookOrder;
+    private OrderDetailResponse orderDetailResponse;
 
     private void initView(){
         itemTitleView = (ItemTitleView)findViewById(R.id.pay_order_title_layout);
@@ -66,8 +67,10 @@ public class PayOrderActivity extends Activity{
     private void initData(){
         itemTitleView.setTextTitle(getString(R.string.pay));
         itemTitleView.setTextColor(this, R.color.White);
-        bookOrder = (BookOrder)getIntent().getSerializableExtra("bookOrder");
-        orderPriceTv.setText(bookOrder.getPayment());
+        orderDetailResponse = (OrderDetailResponse)getIntent().getSerializableExtra("orderDetailResponse");
+        orderPriceTv.setText(orderDetailResponse.getRoom().getRoom_rate());
+        roomTypeTv.setText(orderDetailResponse.getRoom().getRoom_type());
+        roomTagTv.setText(orderDetailResponse.getRoom().getRemark());
     }
 
     private void initListeners(){
@@ -146,22 +149,24 @@ public class PayOrderActivity extends Activity{
      */
     public void pay() {
 
-        String roomRateStr = bookOrder.getRoomRate();
-        LogUtil.getInstance().info(LogLevel.DEBUG, "roomRate:" + roomRateStr);
-        int dayNum = bookOrder.getDayNum();
-        LogUtil.getInstance().info(LogLevel.DEBUG,"dayNum:"+dayNum);
-        double totalPrice = 0.00;
-        if(!TextUtils.isEmpty(roomRateStr)){
-            double roomRate = Double.parseDouble(roomRateStr);
-            LogUtil.getInstance().info(LogLevel.DEBUG,"roomRate:"+roomRate);
-            totalPrice = MathUtil.convertDouble((dayNum * roomRate));
-        }
-        LogUtil.getInstance().info(LogLevel.DEBUG,"totalPrice:"+totalPrice);
-        String roomType = bookOrder.getRoomType();
-        String remark =  bookOrder.getRemark();
-        String orderNo = bookOrder.getReservationNO();
+//        String roomRateStr = orderDetailResponse.getRoom().getRoom_rate();
+//        LogUtil.getInstance().info(LogLevel.DEBUG, "roomRate:" + roomRateStr);
+//        int dayNum = bookOrder.getDayNum();
+//        LogUtil.getInstance().info(LogLevel.DEBUG,"dayNum:"+dayNum);
+//        double totalPrice = 0.00;
+//        if(!TextUtils.isEmpty(roomRateStr)){
+//            double roomRate = Double.parseDouble(roomRateStr);
+//            LogUtil.getInstance().info(LogLevel.DEBUG,"roomRate:"+roomRate);
+//            totalPrice = MathUtil.convertDouble((dayNum * roomRate));
+//        }
+//        LogUtil.getInstance().info(LogLevel.DEBUG,"totalPrice:"+totalPrice);
+//        String roomType = bookOrder.getRoomType();
+//        String remark =  bookOrder.getRemark();
+//        String orderNo = bookOrder.getReservationNO();
         // 订单
-        String orderInfo = getOrderInfo(roomType, remark, ""+totalPrice,orderNo);
+//        String orderInfo = getOrderInfo(roomType, remark, ""+totalPrice,orderNo);
+        String orderInfo = getOrderInfo(orderDetailResponse.getRoom().getRoom_type(), orderDetailResponse.getRoom().getRemark(),
+                orderDetailResponse.getRoom().getRoom_rate(),orderDetailResponse.getRoom().getReservation_no());
         // 对订单做RSA 签名
         String sign = sign(orderInfo);
         try {

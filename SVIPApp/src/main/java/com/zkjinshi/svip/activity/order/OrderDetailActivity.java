@@ -96,6 +96,9 @@ public class OrderDetailActivity extends Activity{
     private TextView mTvRemark;
     private LinearLayout mlltRemark;
 
+    private TextView mTvPayTips; //支付提示语句
+    private TextView mTvPay;  //支付跳转
+
 
     private SimpleDateFormat mSimpleFormat;
     private SimpleDateFormat mChineseFormat;
@@ -209,6 +212,9 @@ public class OrderDetailActivity extends Activity{
 
         mIvRoomImg = (ImageView)findViewById(R.id.iv_room_img);
 
+        mTvPayTips = (TextView)findViewById(R.id.tv_pay_tips);
+        mTvPay = (TextView)findViewById(R.id.tv_pay);
+
         customerList = new ArrayList<ItemUserSettingView>();
         int[] customerIds = {R.id.aod_customer1,R.id.aod_customer2,R.id.aod_customer3};
         for(int i=0;i<customerIds.length;i++){
@@ -297,20 +303,23 @@ public class OrderDetailActivity extends Activity{
         //订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单
         //支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账
 
-        String orderStatus = orderDetailResponse.getRoom().getStatus();
+        final String orderStatus = orderDetailResponse.getRoom().getStatus();
         String payStatus = orderDetailResponse.getRoom().getPay_status();
 
         mBtnSendOrder.setVisibility(View.GONE);
+        mBtnCancelOrder.setVisibility(View.GONE);
 
         if (orderStatus.equals("0")){
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
+            mBtnCancelOrder.setVisibility(View.VISIBLE);
         }
         else if(orderStatus.equals("1")){
             mTvOrderStatus.setText("已取消");
         }
         else if(orderStatus.equals("2")){
             mTvOrderStatus.setText("已确认");
+            mBtnCancelOrder.setVisibility(View.VISIBLE);
         }
         else if(orderStatus.equals("3")){
             mTvOrderStatus.setText("已完成");
@@ -324,21 +333,44 @@ public class OrderDetailActivity extends Activity{
 
         if (payStatus.equals("0")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+            mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
+            mTvPay.setText("立即支付");
+            mTvPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(OrderDetailActivity.this,PayOrderActivity.class);
+                    intent.putExtra("orderDetailResponse",orderDetailResponse);
+                    startActivity(intent);
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+
+                }
+            });
+
         }
         else if(payStatus.equals("1")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已支付");
+            mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
+            mTvPay.setText("已支付");
         }
         else if(payStatus.equals("2")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"");
         }
         else if(payStatus.equals("3")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/支付一部分");
+            mTvPayTips.setText("");
+            mTvPay.setText("支付一部分");
         }
         else if(payStatus.equals("4")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已退款");
+            mTvPayTips.setText("");
+            mTvPay.setText("已退款");
         }
         else if(payStatus.equals("5")){
             mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已挂账");
+            mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
+            mTvPay.setText("已挂账");
         }
     }
 
@@ -704,7 +736,10 @@ public class OrderDetailActivity extends Activity{
         }){
             protected Map<String, String> getParams() throws AuthFailureError {
                 //status 订单状态=2 确认 , 1 取消 *
-                Map<String, String> map = generatedPostParm();
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                map.put("reservation_no", reservationNo);
                 map.put("status","1");
                 LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
                 return map;

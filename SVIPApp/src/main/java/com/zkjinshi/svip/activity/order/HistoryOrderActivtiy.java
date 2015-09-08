@@ -149,6 +149,7 @@ public class HistoryOrderActivtiy extends Activity {
 //                startActivity(orderDetail);
                 Intent orderDetail = new Intent(HistoryOrderActivtiy.this,OrderDetailActivity.class);
                 orderDetail.putExtra("reservation_no",bookOrder.getReservationNO());
+                orderDetail.putExtra("shopid",bookOrder.getShopID());
                 startActivity(orderDetail);
             }
         });
