@@ -60,11 +60,11 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
     private final static String TAG = ChatActivity.class.getSimpleName();
 
-    private String        mUserID;
-    private String        mShopID;
-    private String        mShopName;
-    private String        mSessionID;
-   // private BookOrder bookOrder;
+    private String  mUserID;
+    private String  mShopID;
+    private String  mShopName;
+    private String  mSessionID;
+    private String  textContext;
     private OrderDetailResponse orderDetailResponse;
 
     private ItemTitleView mTitle;
@@ -123,6 +123,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
         mShopID    = getIntent().getStringExtra("shop_id");
         mShopName  = getIntent().getStringExtra("shop_name");
+        textContext = getIntent().getStringExtra("text_context");
         orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
         mUserID    = CacheUtil.getInstance().getUserId();
         mRuleType  = getString(R.string.default_rule_type);
@@ -150,6 +151,11 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             if (!TextUtils.isEmpty(bookOrderStr)) {
                 messageListViewManager.sendBookTextMessage(bookOrderStr);
             }
+        }
+
+        //自动发送文本消息
+        if(!TextUtils.isEmpty(textContext)){
+            messageListViewManager.sendTextMessage(textContext);
         }
     }
 
