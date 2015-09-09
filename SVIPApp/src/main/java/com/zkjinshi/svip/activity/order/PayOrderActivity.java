@@ -323,6 +323,7 @@ public class PayOrderActivity extends Activity{
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 Intent intent = new Intent(PayOrderActivity.this,HistoryOrderActivtiy.class);
+                intent.putExtra("is_order", true);
                 startActivity(intent);
                 finish();
             }
