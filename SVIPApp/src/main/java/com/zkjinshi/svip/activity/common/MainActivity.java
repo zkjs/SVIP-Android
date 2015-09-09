@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zkjinshi.base.config.ConfigUtil;
@@ -292,47 +293,47 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         loadOrderListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(JsonUtil.isJsonNull(response))
-                    return ;
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                Gson gson = new Gson();
-                ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>() {
-                }.getType());
-                if(datalist == null){
-                    lastOrderInfo = null;
-                    return;
+                if(!TextUtils.isEmpty(response)){
+                    try {
+                        LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
+                        Gson gson = new Gson();
+                        ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>() {
+                        }.getType());
+                        if(datalist == null){
+                            lastOrderInfo = null;
+                            return;
+                        }
+                        else if(datalist.size() < 1){
+                            lastOrderInfo = null;
+                            return;
+                        }
+                        lastOrderInfo = datalist.get(0);
+                        // lastOrderInfo.setShopid("120");
+                        String roomType = lastOrderInfo.getRoom_type();
+                        String roomRate =  lastOrderInfo.getRoom_rate();
+                        String arriveDate = lastOrderInfo.getArrival_date();
+                        String orderStatusStr = lastOrderInfo.getStatus();
+                        String shopId = lastOrderInfo.getShopid();
+                        if (!TextUtils.isEmpty(orderStatusStr)) {
+                            CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
+                        }
+                        String arriveDateStr = "";
+                        SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
+                        try {
+                            Date date = mSimpleFormat.parse(arriveDate);
+                            arriveDateStr = mChineseFormat.format(date);
+                        }catch (Exception e){
+                        }
+                        orderInfoTv.setVisibility(View.VISIBLE);
+                        orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
+                        changeMainText();
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                 }
-                else if(datalist.size() < 1){
-                    lastOrderInfo = null;
-                    return;
-                }
-                lastOrderInfo = datalist.get(0);
-               // lastOrderInfo.setShopid("120");
-                String roomType = lastOrderInfo.getRoom_type();
-                String roomRate =  lastOrderInfo.getRoom_rate();
-                String arriveDate = lastOrderInfo.getArrival_date();
-                String orderStatusStr = lastOrderInfo.getStatus();
-                String shopId = lastOrderInfo.getShopid();
-                if (!TextUtils.isEmpty(orderStatusStr)) {
-                    CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
-                }
-                String arriveDateStr = "";
-                SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
-                try {
-                    Date date = mSimpleFormat.parse(arriveDate);
-                    arriveDateStr = mChineseFormat.format(date);
-                }catch (Exception e){
-                }
-                orderInfoTv.setVisibility(View.VISIBLE);
-                orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
-
-//                if(CacheUtil.getInstance().isInArea(lastOrderInfo.getShopid())){
-//                    RegionVo regionVo = CacheUtil.getInstance().getRegionInfo(lastOrderInfo.getShopid());
-//                    addRegionVo(regionVo);
-//                }
-                changeMainText();
             }
         };
 

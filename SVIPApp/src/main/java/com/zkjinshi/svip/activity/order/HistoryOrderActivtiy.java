@@ -74,8 +74,12 @@ public class HistoryOrderActivtiy extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_order);
-
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initData();
         initListener();
     }
@@ -108,9 +112,6 @@ public class HistoryOrderActivtiy extends Activity {
         } else {
             mItvTitle.setResTitle(this, R.string.footprint);
             mItvTitle.getmRight().setVisibility(View.GONE);
-//            mItvTitle.mRightImage.setVisibility(View.GONE);
-//            mItvTitle.mRightText.setVisibility(View.VISIBLE);
-//            mItvTitle.mRightText.setText("清空");
         }
         mUserID = CacheUtil.getInstance().getUserId();
         mToken = CacheUtil.getInstance().getToken();
@@ -133,7 +134,6 @@ public class HistoryOrderActivtiy extends Activity {
         mItvTitle.getmRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // DialogUtil.getInstance().showToast(HistoryOrderActivtiy.this, "暂未开发");
                 if(!isOrder){
 
                 }
@@ -144,9 +144,6 @@ public class HistoryOrderActivtiy extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BookOrder bookOrder = mBookOrders.get(position);
-//                Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
-//                orderDetail.putExtra("book_order", bookOrder);
-//                startActivity(orderDetail);
                 Intent orderDetail = new Intent(HistoryOrderActivtiy.this,OrderDetailActivity.class);
                 orderDetail.putExtra("reservation_no",bookOrder.getReservationNO());
                 orderDetail.putExtra("shopid",bookOrder.getShopID());
@@ -167,20 +164,7 @@ public class HistoryOrderActivtiy extends Activity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-//                BookOrder bookOrder = mBookOrders.get(position);
-////                int orderStatus = Integer.parseInt(bookOrder.getStatus());
-////                switch (orderStatus) {
-////                    case BookOrder.ORDER_UNCONFIRMED:
-//                        Intent orderDetail = new Intent(HistoryOrderActivtiy.this, BookingOrderActivity.class);
-//                        orderDetail.putExtra("book_order", bookOrder);
-//                        startActivity(orderDetail);
-////                        break;
-////                    case BookOrder.ORDER_CONFIRMED:
-////                        Intent confirmOrder = new Intent(HistoryOrderActivtiy.this, OrderConfirmActivity.class);
-////                        confirmOrder.putExtra("book_order", bookOrder);
-////                        startActivity(confirmOrder);
-////                        break;
-////                }
+
             }
         });
 
