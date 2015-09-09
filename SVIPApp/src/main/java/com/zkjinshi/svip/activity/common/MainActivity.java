@@ -36,6 +36,7 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
+import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
@@ -440,7 +441,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         break;
                     case NO_ORDER_IN:
                         if (svipApplication.mRegionList.size() > 0) {
-                            intent = new Intent(MainActivity.this, GoodListActivity.class);
+                            //intent = new Intent(MainActivity.this, GoodListActivity.class);
+                           // intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
+
+                            intent = new Intent(MainActivity.this,OrderBookingActivity.class);
                             intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
                         }
 
@@ -448,7 +452,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     default:
                         if (lastOrderInfo != null) {
                             intent = new Intent(MainActivity.this, OrderDetailActivity.class);
-                            //intent.putExtra("orderInfoVo", lastOrderInfo);
                             intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
                             intent.putExtra("shopid",lastOrderInfo.getShopid());
                         }
