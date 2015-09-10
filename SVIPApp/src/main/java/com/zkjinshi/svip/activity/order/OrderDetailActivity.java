@@ -273,7 +273,7 @@ public class OrderDetailActivity extends Activity{
 
         ArrayList<OrderUsersResponse> users = orderDetailResponse.getUsers();
         for(int i=0;i< roomNum;i++){
-            if(i<3){
+            if(i<customerList.size() && users != null && users.size() > 0 && i<users.size()){
                 OrderUsersResponse user = users.get(i);
                 customerList.get(i).getmTextContent2().setText(user.getRealname());
             }
@@ -288,8 +288,8 @@ public class OrderDetailActivity extends Activity{
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-        if(!TextUtils.isEmpty(orderDetailResponse.getRoom().getImageurl())){
-            String logoUrl = ProtocolUtil.getGoodImgUrl(orderDetailResponse.getRoom().getImageurl());
+        if(!TextUtils.isEmpty(orderDetailResponse.getRoom().getImgurl())){
+            String logoUrl = ProtocolUtil.getGoodImgUrl(orderDetailResponse.getRoom().getImgurl());
             ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
         }
         mRoomType.setText(orderDetailResponse.getRoom().getRoom_type());
@@ -393,7 +393,7 @@ public class OrderDetailActivity extends Activity{
     //初始化发票
     private void initTicket() {
         orderInvoiceResponse = orderDetailResponse.getInvoice();
-        if(orderInvoiceResponse != null){
+        if(orderInvoiceResponse != null && orderInvoiceResponse.getInvoice_title() != null){
             mTvTicket.setText(orderInvoiceResponse.getInvoice_title());
         }
         else{

@@ -13,11 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
-import com.zkjinshi.svip.activity.order.ShopListNetController;
-import com.zkjinshi.svip.adapter.ShopAdapter;
-import com.zkjinshi.svip.factory.ShopInfoFactory;
 import com.zkjinshi.svip.response.ShopInfoResponse;
 import com.zkjinshi.svip.utils.Constants;
 
@@ -30,7 +26,8 @@ import java.util.Map;
  * Created by djd on 2015/9/2.
  */
 public class ShopListManager {
-    private Map<String,String> shopMap = new HashMap<String,String>();
+    private Map<String,String> shopNameMap = new HashMap<String,String>();
+    private Map<String,String> shopPhoneMap = new HashMap<String,String>();
     private static ShopListManager instance;
     private Context context;
     private RequestQueue requestQueue;
@@ -59,7 +56,8 @@ public class ShopListManager {
                                 List<ShopInfoResponse> shopResponseList = gson.fromJson(response, listType);
                                 if(null != shopResponseList && !shopResponseList.isEmpty()){
                                     for(ShopInfoResponse item : shopResponseList){
-                                        shopMap.put(item.getShopid(),item.getKnown_as());
+                                        shopNameMap.put(item.getShopid(), item.getKnown_as());
+                                        shopPhoneMap.put(item.getShopid(),item.getPhone());
                                     }
                                 }
                             }catch (Exception e){
@@ -80,15 +78,19 @@ public class ShopListManager {
         }
     }
 
-    public Map<String, String> getShopMap() {
-        return shopMap;
+    public Map<String, String> getShopNameMap() {
+        return shopNameMap;
     }
 
-    public void setShopMap(Map<String, String> shopMap) {
-        this.shopMap = shopMap;
+    public void setShopNameMap(Map<String, String> shopNameMap) {
+        this.shopNameMap = shopNameMap;
     }
 
     public String getShopName(String shopid){
-        return shopMap.get(shopid);
+        return shopNameMap.get(shopid);
+    }
+
+    public String getShopPhone(String shopid){
+        return shopPhoneMap.get(shopid);
     }
 }

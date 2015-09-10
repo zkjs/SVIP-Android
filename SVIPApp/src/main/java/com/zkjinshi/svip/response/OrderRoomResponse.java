@@ -20,14 +20,14 @@ public class OrderRoomResponse  extends HttpResponse {
     private String  status;// 订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单 int
     private String  remark;// 备注内容
     private String  pay_status;// 支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账   int
-    private String imageurl;
+    private String imgurl;
 
-    public String getImageurl() {
-        return imageurl;
+    public String getImgurl() {
+        return imgurl;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public String getReservation_no() {

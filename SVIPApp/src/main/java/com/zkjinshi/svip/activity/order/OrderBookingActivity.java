@@ -655,7 +655,7 @@ public class OrderBookingActivity extends Activity{
         if(!TextUtils.isEmpty(imageUrl)){
             String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
-            orderRoomResponse.setImageurl(imageUrl);
+            orderRoomResponse.setImgurl(imageUrl);
         }
         mRoomType.setText(goodInfoVo.getRoom()+goodInfoVo.getType());
         orderRoomResponse.setRoom_type(goodInfoVo.getRoom() + goodInfoVo.getType());
