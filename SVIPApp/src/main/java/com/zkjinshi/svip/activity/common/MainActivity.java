@@ -486,7 +486,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         mianqianLlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogUtil.getInstance().showToast(MainActivity.this, "待开发");
+               // DialogUtil.getInstance().showToast(MainActivity.this, "待开发");
+                Intent intent = new Intent(MainActivity.this, SettingNologinActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
 

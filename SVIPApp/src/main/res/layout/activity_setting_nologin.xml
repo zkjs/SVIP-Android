@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/White">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.zkjinshi.svip.view.ItemTitleView
+            android:id="@+id/itv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#191223"
+            zkjinshi:leftImage="@mipmap/icon_white_img_back"
+            zkjinshi:itemTitleColor="#FFFFFF"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开启"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:layout_marginRight="5dp"/>
+
+            <ToggleButton
+                style="@style/tags_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/toggleButton"
+                android:checked="true"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

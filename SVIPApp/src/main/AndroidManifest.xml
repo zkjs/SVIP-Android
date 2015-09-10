@@ -133,6 +133,13 @@
             android:label="@string/app_name"
             >
         </activity>
+        <activity
+            android:name=".activity.common.SettingNologinActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/app_name"
+            >
+        </activity>
 
         <!-- 订单模块 -->
         <activity android:name=".activity.order.HistoryOrderActivtiy"
