@@ -321,6 +321,7 @@ public class OrderDetailActivity extends Activity{
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
             mBtnCancelOrder.setVisibility(View.VISIBLE);
+            initTagClickEvent();
         }
         else if(orderStatus.equals("1")){
             mTvOrderStatus.setText("已取消");
@@ -409,9 +410,17 @@ public class OrderDetailActivity extends Activity{
         totalRoomTags.addAll(roomTags);
         if(roomTags != null){
             for(OrderRoomTagResponse item : roomTags){
-                mRoomTagView.addTag(createTag(item.getId(),item.getContent(),false));
+                if(orderDetailResponse.getRoom().getStatus().equals("0")){
+                    mRoomTagView.addTag(createTag(item.getId(),item.getContent(),false));
+                }else{
+                    mRoomTagView.addTag(createTag(item.getId(),item.getContent(),true));
+                }
+
             }
-            orderDetailResponse.getRoom_tag().clear();
+            if(orderDetailResponse.getRoom().getStatus().equals("0")){
+                orderDetailResponse.getRoom_tag().clear();
+            }
+
         }
     }
 
@@ -423,9 +432,16 @@ public class OrderDetailActivity extends Activity{
         totalPrivileges.addAll(privileges);
         if(privileges != null){
             for(OrderPrivilegeResponse item : privileges){
-                mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),false));
+                if(orderDetailResponse.getRoom().getStatus().equals("0")){
+                    mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),false));
+                }else{
+                    mServiceTagView.addTag(createTag(item.getId(),item.getPrivilege_name(),true));
+                }
+
             }
-            orderDetailResponse.getPrivilege().clear();
+            if(orderDetailResponse.getRoom().getStatus().equals("0")){
+                orderDetailResponse.getPrivilege().clear();
+            }
         }
     }
 
@@ -604,8 +620,8 @@ public class OrderDetailActivity extends Activity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OrderDetailActivity.this, AddRemarkActivity.class);
-                intent.putExtra("remark",mTvRemark.getText());
-                intent.putExtra("tips","如果有其他要求，请在此说明。");
+                intent.putExtra("remark", mTvRemark.getText());
+                intent.putExtra("tips", "如果有其他要求，请在此说明。");
                 intent.putExtra("title", "添加订单备注");
                 intent.putExtra("hint", "请输入订单备注");
                 startActivityForResult(intent, REMARK_REQUEST_CODE);
@@ -616,6 +632,47 @@ public class OrderDetailActivity extends Activity{
 
 
 
+
+
+
+//        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showRoomNumChooseDialog();
+//            }
+//        });
+
+//        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(OrderDetailActivity.this, CalendarActivity.class);
+//                if (calendarList != null) {
+//                    intent.putExtra("calendarList", calendarList);
+//                }
+//                startActivityForResult(intent, CalendarActivity.CALENDAR_REQUEST_CODE);
+//                overridePendingTransition(R.anim.slide_in_right,
+//                        R.anim.slide_out_left);
+//            }
+//        });
+
+//        mLltYuan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(OrderDetailActivity.this, GoodListActivity.class);
+//                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
+//                    intent.putExtras(bundle);
+//                    startActivityForResult(intent, GOOD_REQUEST_CODE);
+//                    overridePendingTransition(R.anim.slide_in_right,
+//                            R.anim.slide_out_left);
+//                }
+//            }
+//        });
+    }
+
+    //初始化标签点击事件
+    private void initTagClickEvent(){
         mRoomTagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
@@ -666,45 +723,6 @@ public class OrderDetailActivity extends Activity{
 
             }
         });
-
-
-//        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showRoomNumChooseDialog();
-//            }
-//        });
-
-//        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(OrderDetailActivity.this, CalendarActivity.class);
-//                if (calendarList != null) {
-//                    intent.putExtra("calendarList", calendarList);
-//                }
-//                startActivityForResult(intent, CalendarActivity.CALENDAR_REQUEST_CODE);
-//                overridePendingTransition(R.anim.slide_in_right,
-//                        R.anim.slide_out_left);
-//            }
-//        });
-
-//        mLltYuan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(OrderDetailActivity.this, GoodListActivity.class);
-//                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-//                    intent.putExtras(bundle);
-//                    startActivityForResult(intent, GOOD_REQUEST_CODE);
-//                    overridePendingTransition(R.anim.slide_in_right,
-//                            R.anim.slide_out_left);
-//                }
-//            }
-//        });
-
-
-
     }
 
     //取消订单

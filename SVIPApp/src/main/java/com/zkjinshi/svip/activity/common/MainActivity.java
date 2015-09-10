@@ -290,6 +290,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
+                LogUtil.getInstance().info(LogLevel.ERROR, map.toString());
                 return map;
             }
         };
