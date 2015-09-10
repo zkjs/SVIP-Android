@@ -51,6 +51,7 @@ import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
+import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
@@ -110,7 +111,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private Response.ErrorListener    loadOrderErrorListener;
 
     private String lastShopId = "";
-    private OrderInfoVo lastOrderInfo = null;
+    private OrderLastResponse lastOrderInfo = null;
     private ShopDetailVo lastShopInfo  = null;
    // private ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
     SVIPApplication svipApplication;
@@ -186,11 +187,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     @Override
                     public void onResponse(String response) {
                         DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取用户信息响应结果:" + response);
+                        LogUtil.getInstance().info(LogLevel.ERROR, "获取用户信息响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
                             try {
                                 UserInfoResponse userInfoResponse =  new Gson().fromJson(response, UserInfoResponse.class);
-                                if(null != userInfoResponse){
+                                if(null != userInfoResponse && userInfoResponse.getUserid() != null){
+
                                     UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
                                     if(null != userInfoVo){
                                         String userPhotoSuffix = userInfoVo.getUserAvatar();
@@ -206,6 +208,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                                         CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                                         CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                                     }
+                                }else if(!userInfoResponse.isSet()){
+                                    CacheUtil.getInstance().setLogin(false);
+                                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in_right,
+                                            R.anim.slide_out_left);
+                                    finish();
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
@@ -219,6 +228,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 LogUtil.getInstance().info(LogLevel.INFO, "获取用户信息错误信息:" +  error.getMessage());
             }
         });
+        LogUtil.getInstance().info(LogLevel.ERROR, "获取用户信息:" + stringRequest.toString());
         MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
@@ -274,14 +284,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void loadLastOrderInfo(){
         createLoadLastOrderListener();
         DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.getOrderUrl(), loadOrderListener, loadOrderErrorListener){
+                HttpMethod.POST, ProtocolUtil.getLastOrder(), loadOrderListener, loadOrderErrorListener){
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
-                map.put("page", "-1");
-                map.put("set","1");
                 return map;
             }
         };
@@ -297,18 +305,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 if(!TextUtils.isEmpty(response)){
                     try {
                         LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                        Gson gson = new Gson();
-                        ArrayList<OrderInfoVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<OrderInfoVo>>() {
-                        }.getType());
-                        if(datalist == null){
+
+                        lastOrderInfo = new Gson().fromJson(response, OrderLastResponse.class);
+                        if(lastOrderInfo.getUserid() == null){
                             lastOrderInfo = null;
                             return;
                         }
-                        else if(datalist.size() < 1){
-                            lastOrderInfo = null;
-                            return;
-                        }
-                        lastOrderInfo = datalist.get(0);
                         // lastOrderInfo.setShopid("120");
                         String roomType = lastOrderInfo.getRoom_type();
                         String roomRate =  lastOrderInfo.getRoom_rate();
@@ -386,7 +388,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             public boolean onLongClick(View view) {
                 // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
                 // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
-                if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
+                if(lastOrderInfo != null && lastOrderInfo.getPhone() != null){
+                    IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
+                    return true;
+                }else  if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
                     IntentUtil.callPhone(MainActivity.this, lastShopInfo.getPhone());
                     return true;
                 }
@@ -406,11 +411,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         break;
                     default:
 
-                        if (lastShopInfo != null) {
+                        if (lastShopInfo != null &&  lastShopInfo.getShopid() != null) {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastShopInfo.getShopid());
                             intent.putExtra("shop_name", lastShopInfo.getKnown_as());
-                        } else if (lastOrderInfo != null) {
+                        } else if (lastOrderInfo != null && lastOrderInfo.getShopid()!= null) {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastOrderInfo.getShopid());
                             intent.putExtra("shop_name", lastOrderInfo.getFullname());
@@ -451,7 +456,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
                         break;
                     default:
-                        if (lastOrderInfo != null) {
+                        if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
                             intent = new Intent(MainActivity.this, OrderDetailActivity.class);
                             intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
                             intent.putExtra("shopid",lastOrderInfo.getShopid());
@@ -616,7 +621,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      * 改变主语句
      */
     public synchronized void changeMainText(){
-        if(checkIfInOrderShop()){
+        if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
+            RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
+            locationTv.setText(region.getiBeacon().getLocdesc());
+        }else if(checkIfInOrderShop()){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
             locationTv.setText(region.getiBeacon().getLocdesc());
         }else{

@@ -172,4 +172,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"order/useradd";
     }
 
+    /**
+     * 个人获取最新订单
+     * @return
+     */
+    public static String getLastOrder(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/last";
+    }
+
 }

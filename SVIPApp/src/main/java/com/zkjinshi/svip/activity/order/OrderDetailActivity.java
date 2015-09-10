@@ -159,7 +159,15 @@ public class OrderDetailActivity extends Activity{
                         DialogUtil.getInstance().cancelProgressDialog();
                         LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
-                            orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
+                            try{
+                                orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
+                            }catch (Exception e){
+                                orderDetailResponse = null;
+                                LogUtil.getInstance().info(LogLevel.ERROR, "获取单个订单错误信息:" +  e.getMessage());
+                                DialogUtil.getInstance().showToast(OrderDetailActivity.this,"获取订单详情失败");
+                                finish();
+                            }
+
                             if(orderDetailResponse != null){
                                 initData();
                             }
@@ -169,7 +177,7 @@ public class OrderDetailActivity extends Activity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单错误信息:" +  error.getMessage());
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取单个订单错误信息:" +  error.getMessage());
             }
         }){
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -177,7 +185,7 @@ public class OrderDetailActivity extends Activity{
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
                 map.put("reservation_no", reservationNo);
-                map.put("shopid",shopId);
+//                map.put("shopid",shopId);
 //                map.put("userid","5551fc5b8c35e");
 //                map.put("token", "I1Ae4us4ssrwsWIg");
 //                map.put("reservation_no", "H00120180203");
