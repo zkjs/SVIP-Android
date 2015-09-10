@@ -2,12 +2,18 @@ package com.zkjinshi.svip.activity.im.actions;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import com.android.volley.Response;
@@ -23,7 +29,9 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChatRSP;
@@ -33,6 +41,7 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChatRSP;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2S;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2SRSP;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.http.HttpAsyncTask;
 import com.zkjinshi.svip.http.HttpPostUtil;
@@ -45,6 +54,7 @@ import com.zkjinshi.svip.utils.UUIDBuilder;
 import com.zkjinshi.svip.view.MsgListView;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
+import com.zkjinshi.svip.vo.OrderVo;
 import com.zkjinshi.svip.vo.SendStatus;
 import com.zkjinshi.svip.volley.DataRequestVolley;
 import com.zkjinshi.svip.volley.HttpMethod;
@@ -77,6 +87,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private static final String TAG = "MessageListViewManager";
 
     private static final int UPDATE_ADAPTER_UI = 0X00 ;
+    private static final int SHOW_CALL_PHONE_DIALOG = 0X01;
 
     private Context context;
     private MsgListView messageListView;
@@ -297,13 +308,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         currentMessageList.add(mMessageVo);
         Message msg = Message.obtain();
         msg.what = UPDATE_ADAPTER_UI;
-        this.sendMessage(msg);
-        sendMessageVo(mMessageVo);
-       /* if (isCallService) {
+       if (isCallService) {
             sendMessageVo(mMessageVo);
         } else {
             callService(mShopID, defaultRuleType);
-        }*/
+        }
     }
 
     /**
@@ -598,6 +607,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             case UPDATE_ADAPTER_UI:
                 chatAdapter.setData(currentMessageList);
                 scrollBottom();
+                break;
+            case SHOW_CALL_PHONE_DIALOG:
+                showCallPhoneDialog(mShopID);
                 break;
         }
     }
@@ -921,6 +933,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     if(null != mMessageVo){
                         sendMessageVo(mMessageVo);//发送消息包
                     }
+                }else{//呼叫服务失败
+                    Message dialogMessage = new Message();
+                    dialogMessage.what = SHOW_CALL_PHONE_DIALOG;
+                    sendMessage(dialogMessage);
                 }
             }
 
@@ -1027,4 +1043,39 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             e.printStackTrace();
         }
     }
+
+    private void showCallPhoneDialog( final String shopId) {
+        Dialog dialog = null;
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
+        customBuilder.setTitle("温馨提示");
+        customBuilder.setMessage("客服不在线，是否电话联系?");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        customBuilder.setPositiveButton("呼叫", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                String phoneNum = ShopListManager.getInstance().getShopPhone(shopId);
+                if (!TextUtils.isEmpty(phoneNum)) {
+                    Intent intent = new Intent(Intent.ACTION_CALL,
+                            Uri.parse("tel:" + phoneNum));
+                    context.startActivity(intent);
+                }
+            }
+        });
+        dialog = customBuilder.create();
+        dialog.show();
+    }
+
+
+
+
 }
