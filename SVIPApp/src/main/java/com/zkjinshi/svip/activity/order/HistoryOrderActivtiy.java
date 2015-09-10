@@ -229,7 +229,7 @@ public class HistoryOrderActivtiy extends Activity {
                 map.put("set", Constants.QUREY_ORDER + "");
                 map.put("page", currentPage+"");
                 if (isOrder) {
-                    map.put("status", "0,1,2,4");
+                    map.put("status", "0,2,4");
                 } else {
                     map.put("status", "3");
                 }

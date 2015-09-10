@@ -185,11 +185,6 @@ public class OrderDetailActivity extends Activity{
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
                 map.put("reservation_no", reservationNo);
-//                map.put("shopid",shopId);
-//                map.put("userid","5551fc5b8c35e");
-//                map.put("token", "I1Ae4us4ssrwsWIg");
-//                map.put("reservation_no", "H00120180203");
-//                map.put("shopid","120");
                 LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
                 return map;
             }
