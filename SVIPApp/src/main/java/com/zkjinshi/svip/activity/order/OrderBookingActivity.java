@@ -37,6 +37,7 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
@@ -50,6 +51,8 @@ import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
 import com.zkjinshi.svip.vo.TicketVo;
+
+import org.apache.log4j.Level;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -110,8 +113,8 @@ public class OrderBookingActivity extends Activity{
     private int roomNum;
 
     private String shopId;
-    private List<GoodInfoResponse> goodResponsseList;
-    private List<GoodInfoVo> goodInfoList;
+    private ArrayList<GoodInfoResponse> goodResponsseList;
+    private ArrayList<GoodInfoVo> goodInfoList;
     private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo;
     private TicketVo tickeVo;
@@ -181,7 +184,7 @@ public class OrderBookingActivity extends Activity{
         mBtnCancelOrder.setVisibility(View.GONE);
 
         calendarList = new ArrayList<Calendar>();
-        mTitle.setTextTitle(getString(R.string.booking_order));
+        mTitle.setTextTitle(ShopListManager.getInstance().getShopName(shopId));
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
 
@@ -236,12 +239,12 @@ public class OrderBookingActivity extends Activity{
                                     if(null != goodInfoList && !goodInfoList.isEmpty()){
                                         GoodInfoVo goodInfoVo = goodInfoList.get(0);
                                         lastGoodInfoVo = goodInfoVo;
-                                        mTitle.setTextTitle(goodInfoVo.getFullname());
                                         setOrderRoomType(goodInfoVo);
                                     }
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
+                                LogUtil.getInstance().info(LogLevel.ERROR,e.getMessage());
                             }
                         }
                     }
@@ -249,10 +252,11 @@ public class OrderBookingActivity extends Activity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商品列表错误信息:" +  error.getMessage());
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表错误信息:" +  error.getMessage());
             }
         });
         if(NetWorkUtil.isNetworkConnected(this)){
+            LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表:" +  stringRequest.toString());
             GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
         }
 
@@ -549,30 +553,14 @@ public class OrderBookingActivity extends Activity{
         mLltYuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
-                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, GOOD_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
+               gotoChooseRoomTypeList();
             }
         });
 
         mrltRoomImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
-                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-                    intent.putExtras(bundle);
-                    startActivityForResult(intent, GOOD_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
+                gotoChooseRoomTypeList();
             }
         });
 
@@ -602,6 +590,20 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
+    }
+
+    //跳转到选择房型列表
+    private void gotoChooseRoomTypeList(){
+        Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
+        if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
+            bundle.putSerializable("goodInfoList",goodInfoList);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, GOOD_REQUEST_CODE);
+            overridePendingTransition(R.anim.slide_in_right,
+                    R.anim.slide_out_left);
+        }
     }
 
     @Override
@@ -651,7 +653,7 @@ public class OrderBookingActivity extends Activity{
 
     private void setOrderRoomType(GoodInfoVo goodInfoVo) {
         lastGoodInfoVo = goodInfoVo;
-        String imageUrl = goodInfoVo.getImage();
+        String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){
             String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl,mIvRoomImg,options);
@@ -659,8 +661,8 @@ public class OrderBookingActivity extends Activity{
         }
         mRoomType.setText(goodInfoVo.getRoom()+goodInfoVo.getType());
         orderRoomResponse.setRoom_type(goodInfoVo.getRoom() + goodInfoVo.getType());
-        orderRoomResponse.setShopid(goodInfoVo.getShopid());
-        orderRoomResponse.setFullname(goodInfoVo.getFullname());
+        orderRoomResponse.setShopid(shopId);
+        orderRoomResponse.setFullname(ShopListManager.getInstance().getShopName(shopId));
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
 
     }

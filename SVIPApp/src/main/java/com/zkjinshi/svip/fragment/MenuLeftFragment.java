@@ -65,6 +65,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
         photoCtv = (CircleImageView)mView.findViewById(R.id.leftmenu_user_photo_civ);
         nameTv = (TextView)mView.findViewById(R.id.leftmenu_user_name);
 
+        photoCtv.setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_home_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_set_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_front_tv).setOnClickListener(this);
@@ -88,6 +89,14 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId())
         {
+            //头像
+            case R.id.leftmenu_user_photo_civ:
+            {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+            }
             //主页
             case R.id.leftmenu_home_tv:
             {

@@ -31,11 +31,8 @@ public class GoodInfoFactory {
      */
     public GoodInfoVo buildGoodInfo(GoodInfoResponse goodInfoResponse){
         GoodInfoVo goodInfoVo = new GoodInfoVo();
-        goodInfoVo.setLogo(goodInfoResponse.getLogo());
-        goodInfoVo.setFullname(goodInfoResponse.getFullname());
-        goodInfoVo.setShopid(goodInfoResponse.getShopid());
         goodInfoVo.setId(goodInfoResponse.getId());
-        goodInfoVo.setImage(goodInfoResponse.getImage());
+        goodInfoVo.setImgurl(goodInfoResponse.getImgurl());
         goodInfoVo.setMeat(goodInfoResponse.getMeat());
         goodInfoVo.setPrice(goodInfoResponse.getPrice());
         goodInfoVo.setRoom(goodInfoResponse.getRoom());
@@ -48,8 +45,8 @@ public class GoodInfoFactory {
      * @param goodResponseList
      * @return
      */
-    public List<GoodInfoVo> bulidGoodList(List<GoodInfoResponse> goodResponseList){
-        List<GoodInfoVo> goodInfoList = new ArrayList<GoodInfoVo>();
+    public ArrayList<GoodInfoVo> bulidGoodList(ArrayList<GoodInfoResponse> goodResponseList){
+        ArrayList<GoodInfoVo> goodInfoList = new ArrayList<GoodInfoVo>();
         for (GoodInfoResponse goodResponse : goodResponseList){
             goodInfoList.add(buildGoodInfo(goodResponse));
         }

@@ -13,25 +13,20 @@ public class GoodInfoVo implements Serializable {
 
     /**
      "id": "1",
-     "shopid": "120",
-     "room": "豪华",
-     "image": "uploads/rooms/1.jpg",
-     "type": "大床",
-     "meat": "无早",
-     "pice": "0.08",
-     "logo": "uploads/shops/120.png",
-     "fullname": "长沙芙蓉国温德姆至尊豪廷大酒店"
+     "room": "房型",
+     "type": "床床",
+     "imgurl": "房型图片url",
+     "meat": "无早",  早餐
+     "price": "100.00" 房型价格
+
      */
 
     private String id;
-    private String shopid;
     private String room;
-    private String image;
     private String type;
+    private String imgurl;
     private String meat;
     private String price;
-    private String logo;
-    private String fullname;
 
     public String getId() {
         return id;
@@ -39,14 +34,6 @@ public class GoodInfoVo implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getShopid() {
-        return shopid;
-    }
-
-    public void setShopid(String shopid) {
-        this.shopid = shopid;
     }
 
     public String getRoom() {
@@ -57,20 +44,20 @@ public class GoodInfoVo implements Serializable {
         this.room = room;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public String getMeat() {
@@ -87,21 +74,5 @@ public class GoodInfoVo implements Serializable {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
     }
 }
