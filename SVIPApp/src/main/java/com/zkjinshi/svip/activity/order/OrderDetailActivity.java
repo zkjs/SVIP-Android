@@ -843,9 +843,9 @@ public class OrderDetailActivity extends Activity{
         if(orderDetailResponse.getRoom_tag() != null){
             for(int i=0;i<orderDetailResponse.getRoom_tag().size();i++){
                 if(i == 0){
-                    roomtags = "" + orderDetailResponse.getRoom_tag().get(i).getId();
+                    roomtags = "" + orderDetailResponse.getRoom_tag().get(i).getContent();
                 }else{
-                    roomtags = roomtags + ","+orderDetailResponse.getRoom_tag().get(i).getId();
+                    roomtags = roomtags + ","+orderDetailResponse.getRoom_tag().get(i).getContent();
                 }
             }
         }
