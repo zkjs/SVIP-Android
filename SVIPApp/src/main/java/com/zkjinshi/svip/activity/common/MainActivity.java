@@ -621,11 +621,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
-
     /**
-     * 改变主语句
+     * 改变位置提示信息。
      */
-    public synchronized void changeMainText(){
+    private void changLocationTips(){
         if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
             locationTv.setText(region.getiBeacon().getLocdesc());
@@ -635,84 +634,126 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         }else{
             locationTv.setText("不在酒店");
         }
+    }
 
+    /**
+     * 获取主语句状态
+     */
+    public MainTextStatus getMainTextStatus(){
         if(lastOrderInfo == null && svipApplication.mRegionList.size() <= 0){
             mainTextStatus = MainTextStatus.NO_ORDER_NOT_IN;
-            orderStatusTv1.setText("您没有任何预订信息 立即预订");
-            setDrawableLeft(orderStatusTv1,R.drawable.sl_wu);
         }
         else if( lastOrderInfo == null &&  svipApplication.mRegionList.size() > 0 && lastShopInfo != null){
             mainTextStatus = MainTextStatus.NO_ORDER_IN;
-            orderStatusTv1.setText(lastShopInfo.getKnown_as()+"欢迎您，点击马上预订酒店");
-            setDrawableLeft(orderStatusTv1, R.drawable.sl_dengdai);
         }
         else if(lastOrderInfo != null && lastOrderInfo.getStatus().equals("0") && !checkIfInOrderShop()){
             mainTextStatus = MainTextStatus.BOOKING_NOT_IN;
-            orderStatusTv1.setText("订单已提交，请等待酒店确定");
-            setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
         }
         else if(lastOrderInfo != null && lastOrderInfo.getStatus().equals("0") && checkIfInOrderShop()){
             mainTextStatus = MainTextStatus.BOOKING_IN;
-            orderStatusTv1.setText("订单已提交，请等待酒店确定");
-            setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
         }
         else if(checkIfInOrderShop() && lastOrderInfo.getStatus().equals("2") && lastOrderInfo.getNologin().equals("0")){
             mainTextStatus = MainTextStatus.SURE_IN_NOT_NOLOGIN;
-            orderStatusTv1.setText("到达酒店，请办理入住手续");
-            setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
         }
         else if(checkIfInOrderShop() && lastOrderInfo.getStatus().equals("2") && lastOrderInfo.getNologin().equals("1")){
             mainTextStatus = MainTextStatus.SURE_IN_HAVE_NOLOGIN;
-            orderStatusTv1.setText("到达酒店，将为您办理入住手续");
-            setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
         }
         else if(!checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("2")){
             mainTextStatus = MainTextStatus.SURE_NOT_IN;
-            try {
-                Calendar todayC = Calendar.getInstance();
-                Date today = todayC.getTime();
-                SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
-                Date arrivelDay = mSimpleFormat.parse(lastOrderInfo.getArrival_date());
-                int offsetDay = TimeUtil.daysBetween(today,arrivelDay);
-                if(offsetDay != 0){
-                    orderStatusTv1.setText(offsetDay+"天后入住"+lastOrderInfo.getFullname()+"酒店");
-                }else{
-                    orderStatusTv1.setText("今天入住"+lastOrderInfo.getFullname()+"酒店");
-                }
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_zhuyi);
-
-            }catch (Exception e){
-            }
         }
         else if(checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4")){
             mainTextStatus = MainTextStatus.CHECKIN_IN;
-            String locdesc = svipApplication.mRegionList.get(svipApplication.mRegionList.size()-1).getiBeacon().getLocdesc();
-            orderStatusTv1.setText("您到达" + locdesc + "," + lastOrderInfo.getFullname() + "随时为您服务！");
-            setDrawableLeft(orderStatusTv1, R.drawable.sl_yuding);
-
-            try{
-                Calendar todayC = Calendar.getInstance();
-                Date today = todayC.getTime();
-                SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
-                Date departureDay = mSimpleFormat.parse(lastOrderInfo.getDeparture_date());
-                int offsetDay = TimeUtil.daysBetween(today,departureDay);
-                if(offsetDay == 0){
-                    orderStatusTv1.setText("您今天需要退房，旅途愉快!");
-                    setDrawableLeft(orderStatusTv1, R.drawable.sl_tuifang);
-                }
-            }catch (Exception e){
-            }
-
         }
         else if(!checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4")){
             mainTextStatus = MainTextStatus.CHECKIN_NOT_IN;
-            orderStatusTv1.setText(lastOrderInfo.getFullname() + "随时为您服务！");
-            setDrawableLeft(orderStatusTv1, R.drawable.sl_likai);
         }
         else{
             mainTextStatus = MainTextStatus.DEFAULT_NULL;
-            orderStatusTv1.setText("如有疑问，请和客服联系!");
         }
+        return mainTextStatus;
+    }
+
+
+    /**
+     * 改变主语句
+     */
+    public synchronized void changeMainText(){
+        try{
+            changLocationTips();
+            switch (getMainTextStatus()){
+                //其他状态
+                case DEFAULT_NULL:
+                    orderStatusTv1.setText("如有疑问，请和客服联系!");
+                    break;
+                //没订单，不在酒店
+                case NO_ORDER_NOT_IN:
+                    orderStatusTv1.setText("您没有任何预订信息 立即预订");
+                    setDrawableLeft(orderStatusTv1,R.drawable.sl_wu);
+                    break;
+                //没订单，在酒店
+                case NO_ORDER_IN:
+                    orderStatusTv1.setText(lastShopInfo.getKnown_as()+"欢迎您，点击马上预订酒店");
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_dengdai);
+                    break;
+                //有预定状态订单，不在酒店
+                case BOOKING_NOT_IN:
+                    orderStatusTv1.setText("订单已提交，请等待酒店确定");
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
+                    break;
+                //有预定状态订单，在酒店
+                case BOOKING_IN:
+                    orderStatusTv1.setText("订单已提交，请等待酒店确定");
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
+                    break;
+                //有确认状态的订单，在酒店，有免前台特权
+                case SURE_IN_HAVE_NOLOGIN:
+                    orderStatusTv1.setText("到达酒店，将为您办理入住手续");
+                    setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
+                    break;
+                //有确认状态的订单，在酒店，没有免前台特权
+                case SURE_IN_NOT_NOLOGIN:
+                    orderStatusTv1.setText("到达酒店，请办理入住手续");
+                    setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
+                    break;
+                //有确认状态订单，不在酒店
+                case SURE_NOT_IN:
+                    Calendar todayC = Calendar.getInstance();
+                    Date today = todayC.getTime();
+                    SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                    Date arrivelDay = mSimpleFormat.parse(lastOrderInfo.getArrival_date());
+                    int offsetDay = TimeUtil.daysBetween(today,arrivelDay);
+                    if(offsetDay != 0){
+                        orderStatusTv1.setText(offsetDay+"天后入住"+lastOrderInfo.getFullname()+"酒店");
+                    }else{
+                        orderStatusTv1.setText("今天入住"+lastOrderInfo.getFullname()+"酒店");
+                    }
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_zhuyi);
+                    break;
+                //有已经入住订单，在酒店
+                case CHECKIN_IN:
+                    String locdesc = svipApplication.mRegionList.get(svipApplication.mRegionList.size()-1).getiBeacon().getLocdesc();
+                    orderStatusTv1.setText("您到达" + locdesc + "," + lastOrderInfo.getFullname() + "随时为您服务！");
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_yuding);
+                    Calendar todayC2 = Calendar.getInstance();
+                    Date today2 = todayC2.getTime();
+                    SimpleDateFormat mSimpleFormat2  = new SimpleDateFormat("yyyy-MM-dd");
+                    Date departureDay = mSimpleFormat2.parse(lastOrderInfo.getDeparture_date());
+                    int offsetDay2 = TimeUtil.daysBetween(today2,departureDay);
+                    if(offsetDay2 == 0){
+                        orderStatusTv1.setText("您今天需要退房，旅途愉快!");
+                        setDrawableLeft(orderStatusTv1, R.drawable.sl_tuifang);
+                    }
+                    break;
+                //有已经入住订单，不在酒店
+                case CHECKIN_NOT_IN:
+                    orderStatusTv1.setText(lastOrderInfo.getFullname() + "随时为您服务！");
+                    setDrawableLeft(orderStatusTv1, R.drawable.sl_likai);
+                    break;
+            }
+        }catch (Exception e){
+            LogUtil.getInstance().info(LogLevel.ERROR,e.getMessage());
+        }
+
     }
 
     /**

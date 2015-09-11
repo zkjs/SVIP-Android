@@ -357,6 +357,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
             //选择头像
             case R.id.civ_user_icon:
+                MineUiController.getInstance().init(this);
                 MineUiController.getInstance().showChoosePhotoDialog();
                 break;
             case R.id.ius_about_us:
