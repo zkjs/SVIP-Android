@@ -651,6 +651,7 @@ public class LoginActivity extends Activity{
 
     private void goHome() {
         Intent mainIntent = new Intent(this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mainIntent);
         finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
