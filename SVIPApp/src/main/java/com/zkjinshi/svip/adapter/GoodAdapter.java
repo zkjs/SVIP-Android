@@ -80,7 +80,7 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
             viewHolder.roomPriceTv.setText("¥"+priceStr);
         }
 
-        String imageUrl = goodInfoVo.getImage();
+        String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){
             String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl,viewHolder.roomPicTv,options);

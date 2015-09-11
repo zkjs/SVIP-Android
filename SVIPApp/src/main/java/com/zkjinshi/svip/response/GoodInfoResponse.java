@@ -9,15 +9,23 @@ package com.zkjinshi.svip.response;
  */
 public class GoodInfoResponse extends BaseResponse{
 
+    /**
+     "id": "1",
+     "room": "房型",
+     "type": "床床",
+     "imgurl": "房型图片url",
+     "meat": "无早",  早餐
+     "price": "100.00" 房型价格
+
+     */
+
     private String id;
-    private String shopid;
     private String room;
-    private String image;
     private String type;
+    private String imgurl;
     private String meat;
     private String price;
-    private String logo;
-    private String fullname;
+
 
     public String getId() {
         return id;
@@ -25,14 +33,6 @@ public class GoodInfoResponse extends BaseResponse{
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getShopid() {
-        return shopid;
-    }
-
-    public void setShopid(String shopid) {
-        this.shopid = shopid;
     }
 
     public String getRoom() {
@@ -43,14 +43,6 @@ public class GoodInfoResponse extends BaseResponse{
         this.room = room;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getType() {
         return type;
     }
@@ -59,28 +51,20 @@ public class GoodInfoResponse extends BaseResponse{
         this.type = type;
     }
 
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
+    }
+
     public String getMeat() {
         return meat;
     }
 
     public void setMeat(String meat) {
         this.meat = meat;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
     }
 
     public String getPrice() {

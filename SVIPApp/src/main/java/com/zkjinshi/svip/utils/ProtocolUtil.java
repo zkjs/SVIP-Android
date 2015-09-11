@@ -36,7 +36,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGoodListUrl(String shopId){
-        return ConfigUtil.getInst().getHttpDomain()+Constants.GET_GOOD_LIST+"?shopid="+shopId+"&page=1";
+        return ConfigUtil.getInst().getHttpDomain()+"order/goods?shopid="+shopId+"&page=1";
     }
 
     /**
@@ -178,6 +178,14 @@ public class ProtocolUtil {
      */
     public static String getLastOrder(){
         return ConfigUtil.getInst().getHttpDomain()+"order/last";
+    }
+
+    /**
+     * 个人获取全部订单列表
+     * @return
+     */
+    public static String getOrderList(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/showlist";
     }
 
 }

@@ -25,6 +25,7 @@ import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuCreator;
@@ -219,7 +220,7 @@ public class HistoryOrderActivtiy extends Activity {
      */
     private void getUserOrders(final String userID, final String token, final int currentPage) {
         createGetOrdersListener();
-        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST, Constants.POST_USER_ORDERS,
+        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST, ProtocolUtil.getOrderList(),
                 getOrdersListener, getOrdersErrorListener){
             @Override
             protected Map<String, String> getParams(){
@@ -236,6 +237,7 @@ public class HistoryOrderActivtiy extends Activity {
                 return map;
             }
         };
+        LogUtil.getInstance().info(LogLevel.ERROR,getUserOrders.toString());
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(getUserOrders);
     }
 
@@ -269,7 +271,7 @@ public class HistoryOrderActivtiy extends Activity {
         getOrdersListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                LogUtil.getInstance().info(LogLevel.INFO, "response:=" + response);
+                LogUtil.getInstance().info(LogLevel.ERROR, "response:=" + response);
                 DialogUtil.getInstance().cancelProgressDialog();
                 mSlvBookOrder.refreshFinish();//结束刷新状态
                 if(JsonUtil.isJsonNull(response)) {

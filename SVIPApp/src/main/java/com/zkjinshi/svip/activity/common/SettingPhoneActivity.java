@@ -462,9 +462,10 @@ public class SettingPhoneActivity extends Activity {
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
-                Map regMap = JsonUtil.toMap(response);
+
+                BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
                 //如果用户不存在
-                if(regMap.containsKey("set") &&  regMap.get("set").equals("false")){
+                if(!baseResponse.isSet()){
                     LogUtil.getInstance().info(LogLevel.INFO, "用户不存在！");
                     String inputPhone = mInputPhone.getText().toString();
                     submitInfo("phone",inputPhone);

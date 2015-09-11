@@ -1,60 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    >
+    android:background="#EEEEEE">
 
-    <LinearLayout
-        android:id="@+id/good_list_head_layout"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="50dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.0">
-
-            <ImageButton
-                android:id="@+id/good_list_header_bar_btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_horizontal"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/header_ibtn_back"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/good_list_header_bar_tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:textColor="@android:color/black"
-                android:text="@string/book_hotel"/>
-
-        </RelativeLayout>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/good_list_cut_line"
-        android:layout_below="@id/good_list_head_layout"
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/itv_title"
         android:layout_width="match_parent"
-        android:background="#ccc"
-        android:layout_height="1dp"/>
-
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:itemTitleColor="#FFFFFF"
+        />
 
     <ListView
         android:id="@+id/good_list_list_view"
-        android:layout_below="@id/good_list_cut_line"
+        android:layout_below="@id/itv_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"

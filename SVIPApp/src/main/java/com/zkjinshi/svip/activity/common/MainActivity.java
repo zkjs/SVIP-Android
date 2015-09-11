@@ -355,6 +355,16 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     private void initListeners() {
 
+        //头像
+        photoCtv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,SettingActivity.class));
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+            }
+        });
+
         //动态图片背景
         kbv.setTransitionListener(new KenBurnsView.TransitionListener() {
             @Override
