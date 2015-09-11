@@ -421,15 +421,15 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         intent.putExtra("click_to_talk", true);
                         break;
                     default:
-
-                        if (lastShopInfo != null &&  lastShopInfo.getShopid() != null) {
-                            intent = new Intent(MainActivity.this, ChatActivity.class);
-                            intent.putExtra("shop_id", lastShopInfo.getShopid());
-                            intent.putExtra("shop_name", lastShopInfo.getKnown_as());
-                        } else if (lastOrderInfo != null && lastOrderInfo.getShopid()!= null) {
+                        if (lastOrderInfo != null && lastOrderInfo.getShopid()!= null) {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastOrderInfo.getShopid());
                             intent.putExtra("shop_name", lastOrderInfo.getFullname());
+                        }
+                        else if (lastShopInfo != null &&  lastShopInfo.getShopid() != null) {
+                            intent = new Intent(MainActivity.this, ChatActivity.class);
+                            intent.putExtra("shop_id", lastShopInfo.getShopid());
+                            intent.putExtra("shop_name", lastShopInfo.getKnown_as());
                         }
 
                         break;
