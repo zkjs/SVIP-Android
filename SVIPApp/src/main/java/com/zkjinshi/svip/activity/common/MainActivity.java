@@ -295,6 +295,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             }
         };
         LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
+        DialogUtil.getInstance().showProgressDialog(this);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
@@ -303,6 +304,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         loadOrderListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                DialogUtil.getInstance().cancelProgressDialog();
                 if(!TextUtils.isEmpty(response)){
                     try {
                         LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
@@ -345,6 +347,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         loadOrderErrorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
+                DialogUtil.getInstance().cancelProgressDialog();
                 volleyError.printStackTrace();
                 LogUtil.getInstance().info(LogLevel.INFO, "获取最近订单失败。" + volleyError.toString());
                 orderInfoTv.setVisibility(View.GONE);
