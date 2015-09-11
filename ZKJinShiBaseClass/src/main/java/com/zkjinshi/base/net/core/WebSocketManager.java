@@ -197,8 +197,13 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
 
     @Override
     public void onError(Exception e) {
-        ImCacheUtil.getInstance().setIMLogin(false);
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onError()-" + e.getMessage());
+        ImCacheUtil.getInstance().setIMLogin(false);
+        if (null != webSocketClient) {
+            if (!isLogoutIM) {
+                webSocketClient.reconnect();
+            }
+        }
     }
 
 }
