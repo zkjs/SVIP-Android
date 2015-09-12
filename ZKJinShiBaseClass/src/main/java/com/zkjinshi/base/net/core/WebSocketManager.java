@@ -1,23 +1,16 @@
 package com.zkjinshi.base.net.core;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
-import android.view.Gravity;
 
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.net.observer.MessageSubject;
-import com.zkjinshi.base.net.protocol.ProtocolMSG;
+import com.zkjinshi.base.net.ping.HeartBeatTimer;
 import com.zkjinshi.base.net.queue.QueueContext;
 import com.zkjinshi.base.net.queue.QueueType;
 import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.Constants;
-import com.zkjinshi.base.view.CustomDialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URI;
 
@@ -124,6 +117,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
         if (null != webSocketClient) {
             webSocketClient.disconnect();
         }
+        stopHeartBeat();
         Log.e(Constants.ZKJINSHI_BASE_TAG, TAG + ".close()");
     }
 
@@ -205,5 +199,20 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
             }
         }
     }
+
+    /**
+     * 开启心跳服务
+     */
+    public void startHeartBeat() {
+        HeartBeatTimer.getInstance().init().startHeartbeat();
+    }
+
+    /**
+     * 停止心跳服务
+     */
+    public void stopHeartBeat() {
+        HeartBeatTimer.getInstance().stopHeartbeat();
+    }
+
 
 }

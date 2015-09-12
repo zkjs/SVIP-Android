@@ -35,7 +35,6 @@ public class MessageService extends Service {
     public void onCreate() {
         super.onCreate();
         startClient();
-        startHeartBeat();
         Log.i(TAG, TAG + ".onCreate()");
     }
 
@@ -44,7 +43,6 @@ public class MessageService extends Service {
         super.onDestroy();
         cancelAlarmManager();
         stopClient();
-        stopHeartBeat();
         Log.i(TAG, TAG + ".onDestroy()");
     }
 
@@ -98,19 +96,4 @@ public class MessageService extends Service {
     private void stopClient() {
         WebSocketManager.getInstance().close();
     }
-
-    /**
-     * 开启心跳服务
-     */
-    private void startHeartBeat() {
-        HeartBeatTimer.getInstance().init(this).startHeartbeat();
-    }
-
-    /**
-     * 停止心跳服务
-     */
-    private void stopHeartBeat() {
-        HeartBeatTimer.getInstance().stopHeartbeat();
-    }
-
 }

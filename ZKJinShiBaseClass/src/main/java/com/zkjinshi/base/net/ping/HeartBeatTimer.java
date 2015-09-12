@@ -34,7 +34,6 @@ public class HeartBeatTimer implements IMessageObserver {
     private long ACTIVE_TIME = 60 * 1000;// 发送心跳时间间隔
     private boolean isActive = true;
     private PingRequestVo pingRequestVo;
-    private Context context;
 
     private HeartBeatTimer() {
     }
@@ -49,9 +48,8 @@ public class HeartBeatTimer implements IMessageObserver {
     /**
      * 初始化心跳服务
      */
-    public HeartBeatTimer init(Context context) {
+    public HeartBeatTimer init() {
         MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_Ping);
-        this.context = context;
         return this;
     }
 
@@ -68,7 +66,7 @@ public class HeartBeatTimer implements IMessageObserver {
 
             @Override
             public void run() {
-                if (NetWorkUtil.isNetworkConnected(context) && ImCacheUtil.getInstance().isIMLogin()) {
+                if (ImCacheUtil.getInstance().isIMLogin()) {
                     if (isActive) {
                         sendPingMessage();
                         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + "-开始发送心跳包");
