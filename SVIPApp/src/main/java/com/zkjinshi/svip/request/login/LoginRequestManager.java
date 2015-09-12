@@ -2,6 +2,7 @@ package com.zkjinshi.svip.request.login;
 
 import com.google.gson.Gson;
 import com.zkjinshi.base.net.core.WebSocketClient;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.net.observer.IMessageObserver;
 import com.zkjinshi.base.net.observer.MessageSubject;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
@@ -53,6 +54,7 @@ public class LoginRequestManager implements IMessageObserver {
             int type = messageObj.getInt("type");
             if (ProtocolMSG.MSG_ClientLogin_RSP == type) {
                 ImCacheUtil.getInstance().setIMLogin(true);
+                WebSocketManager.getInstance().startHeartBeat();
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -29,6 +29,8 @@ import com.zkjinshi.svip.vo.MimeType;
  */
 public class NotificationHelper {
 
+    public static int NOTIFY_ID = 1;
+
     private NotificationHelper() {
     }
 
@@ -87,7 +89,7 @@ public class NotificationHelper {
      * @param msgPushLocAd
      */
     public void showNotification(Context context, MsgPushLocAd msgPushLocAd) {
-        int nofifyFlag = 0;
+
         NotificationCompat.Builder notificationBuilder = null;
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
@@ -104,7 +106,7 @@ public class NotificationHelper {
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(context);
-        notificationManager.notify(nofifyFlag, notificationBuilder.build());
+        notificationManager.notify(++NOTIFY_ID, notificationBuilder.build());
     }
 
 }
