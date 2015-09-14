@@ -13,9 +13,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.core.MessageReceiver;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.response.ShopInfoResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -26,8 +29,9 @@ import java.util.Map;
  * Created by djd on 2015/9/2.
  */
 public class ShopListManager {
-    private Map<String,String> shopNameMap = new HashMap<String,String>();
-    private Map<String,String> shopPhoneMap = new HashMap<String,String>();
+    public static final String TAG = MessageReceiver.class.getSimpleName();
+   // private Map<String,String> shopNameMap = new HashMap<String,String>();
+   // private Map<String,String> shopPhoneMap = new HashMap<String,String>();
     private static ShopListManager instance;
     private Context context;
     private RequestQueue requestQueue;
@@ -48,49 +52,41 @@ public class ShopListManager {
                     @Override
                     public void onResponse(String response) {
                        // DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取商户列表响应结果:" + response);
+                        LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
                             try {
-                                Type listType = new TypeToken<List<ShopInfoResponse>>(){}.getType();
+                                Type listType = new TypeToken<List<ShopDetailVo>>(){}.getType();
                                 Gson gson = new Gson();
-                                List<ShopInfoResponse> shopResponseList = gson.fromJson(response, listType);
-                                if(null != shopResponseList && !shopResponseList.isEmpty()){
-                                    for(ShopInfoResponse item : shopResponseList){
-                                        shopNameMap.put(item.getShopid(), item.getKnown_as());
-                                        shopPhoneMap.put(item.getShopid(),item.getPhone());
-                                    }
-                                }
+                                List<ShopDetailVo> shopResponseList = gson.fromJson(response, listType);
+                                ShopDetailDBUtil.getInstance().batchAddShopInfo(shopResponseList);
                             }catch (Exception e){
                                 e.printStackTrace();
+                                LogUtil.getInstance().info(LogLevel.ERROR, TAG+"错误信息:" + e.getMessage());
                             }
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-               // DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商户列表错误信息:" +  error.getMessage());
+
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表错误信息:" +  error.getMessage());
             }
         });
         if(NetWorkUtil.isNetworkConnected(context)){
-            //DialogUtil.getInstance().showProgressDialog(context);
+          //  LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表" + stringRequest.toString());
             this.requestQueue.add(stringRequest);
         }
     }
 
-    public Map<String, String> getShopNameMap() {
-        return shopNameMap;
-    }
-
-    public void setShopNameMap(Map<String, String> shopNameMap) {
-        this.shopNameMap = shopNameMap;
-    }
-
     public String getShopName(String shopid){
-        return shopNameMap.get(shopid);
+       // return shopNameMap.get(shopid);
+        String name = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
+       return TextUtils.isEmpty(name)? "":name;
     }
 
     public String getShopPhone(String shopid){
-        return shopPhoneMap.get(shopid);
+       // return shopPhoneMap.get(shopid);
+        String phone = ShopDetailDBUtil.getInstance().queryShopPhoneByShopID(shopid);
+        return TextUtils.isEmpty(phone)? "":phone;
     }
 }

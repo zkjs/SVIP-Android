@@ -221,8 +221,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/aod_customer1"
                     android:layout_width="match_parent"

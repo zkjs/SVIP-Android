@@ -41,6 +41,7 @@ import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.fragment.MenuRightFragment;
@@ -55,6 +56,7 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -152,14 +154,21 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         EventBus.getDefault().register(this);
         MainUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
-        //MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
-        initAvatar();
         initDBName();
+        initShop();
+        initAvatar();
         LocationManager.getInstance().registerLocation(this);
         messageListener = new MessageListener();
         initService(messageListener);
         //设置消息未读个数
         setBadgeNum();
+    }
+
+    /**
+     * 初始化商家列表信息
+     */
+    private void initShop() {
+        ShopListManager.getInstance().init(this);
     }
 
     private void setBadgeNum(){
@@ -310,7 +319,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
 
                         lastOrderInfo = new Gson().fromJson(response, OrderLastResponse.class);
-                        if(lastOrderInfo.getUserid() == null){
+                        if(lastOrderInfo != null && lastOrderInfo.getUserid() == null){
+                            lastOrderInfo = null;
+                            return;
+                        }
+                        if(lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")){
                             lastOrderInfo = null;
                             return;
                         }
@@ -402,10 +415,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             public boolean onLongClick(View view) {
                 // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
                 // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
-                if(lastOrderInfo != null && lastOrderInfo.getPhone() != null){
+                if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
                     IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
                     return true;
-                }else  if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
+                } else if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
                     IntentUtil.callPhone(MainActivity.this, lastShopInfo.getPhone());
                     return true;
                 }
@@ -424,15 +437,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         intent.putExtra("click_to_talk", true);
                         break;
                     default:
-                        if (lastOrderInfo != null && lastOrderInfo.getShopid()!= null) {
+                        if (lastOrderInfo != null && lastOrderInfo.getShopid() != null) {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastOrderInfo.getShopid());
                             intent.putExtra("shop_name", lastOrderInfo.getFullname());
-                        }
-                        else if (lastShopInfo != null &&  lastShopInfo.getShopid() != null) {
+                        } else if (lastShopInfo != null && lastShopInfo.getShopid() != null) {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastShopInfo.getShopid());
                             intent.putExtra("shop_name", lastShopInfo.getKnown_as());
+                        } else {
+                            intent = new Intent(MainActivity.this, ShopListActivity.class);
+                            intent.putExtra("click_to_talk", true);
                         }
 
                         break;
@@ -462,9 +477,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     case NO_ORDER_IN:
                         if (svipApplication.mRegionList.size() > 0) {
                             //intent = new Intent(MainActivity.this, GoodListActivity.class);
-                           // intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
+                            // intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
 
-                            intent = new Intent(MainActivity.this,OrderBookingActivity.class);
+                            intent = new Intent(MainActivity.this, OrderBookingActivity.class);
                             intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
                         }
 
@@ -472,8 +487,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     default:
                         if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
                             intent = new Intent(MainActivity.this, OrderDetailActivity.class);
-                            intent.putExtra("reservation_no",lastOrderInfo.getReservation_no());
-                            intent.putExtra("shopid",lastOrderInfo.getShopid());
+                            intent.putExtra("reservation_no", lastOrderInfo.getReservation_no());
+                            intent.putExtra("shopid", lastOrderInfo.getShopid());
                         }
 
                 }
@@ -500,7 +515,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         mianqianLlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // DialogUtil.getInstance().showToast(MainActivity.this, "待开发");
+                // DialogUtil.getInstance().showToast(MainActivity.this, "待开发");
                 Intent intent = new Intent(MainActivity.this, SettingNologinActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
@@ -537,6 +552,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             DBOpenHelper.DB_NAME = CacheUtil.getInstance().getUserId() + ".db";
         }
     }
+
+
 
     @Override
     public void intoRegion(RegionVo regionVo) {

@@ -48,7 +48,8 @@ public class SVIPApplication extends Application {
         initFace();
         initTest();
         initChecker();
-        initShop();
+        //initShop();
+
     }
 
     /**

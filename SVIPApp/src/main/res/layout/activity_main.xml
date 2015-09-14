@@ -130,25 +130,39 @@
                android:orientation="horizontal"
                android:background="@drawable/layout_bg_top"
                android:paddingLeft="10dp"
-               android:paddingRight="10dp">
+               android:paddingRight="10dp"
+               android:clickable="true"
+               android:focusable="true"
+               android:focusableInTouchMode="true">
                <TextView
                    android:drawableLeft="@drawable/ic_map"
                    android:drawablePadding="10dp"
-                   android:layout_width="wrap_content"
+                   android:layout_width="100dp"
                    android:layout_height="wrap_content"
                    android:text="不在酒店"
                    android:textColor="#ffffff"
-                   android:textSize="16sp"
-                   android:id="@+id/tv_location" />
+                   android:textSize="15sp"
+                   android:id="@+id/tv_location"
+                   android:singleLine="true"
+                   android:ellipsize="marquee"
+                   android:clickable="true"
+                   android:focusable="true"
+                   android:focusableInTouchMode="true"
+                   />
                <!--android:text="豪华大床 |  6/30入住  |  ￥120"-->
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:textColor="#ffffff"
-                   android:textSize="16sp"
+                   android:textSize="15sp"
                    android:gravity="right"
                    android:layout_weight="1"
-                   android:id="@+id/tv_book_info" />
+                   android:id="@+id/tv_book_info"
+                   android:singleLine="true"
+                   android:ellipsize="marquee"
+                   android:clickable="true"
+                   android:focusable="true"
+                   android:focusableInTouchMode="true" />
            </LinearLayout>
 
            <LinearLayout
