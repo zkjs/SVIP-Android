@@ -114,7 +114,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     private String lastShopId = "";
     private OrderLastResponse lastOrderInfo = null;
-    private ShopDetailVo lastShopInfo  = null;
+   // private ShopDetailVo lastShopInfo  = null;
    // private ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
     SVIPApplication svipApplication;
 
@@ -282,11 +282,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         super.onResume();
         setBadgeNum();
         loadLastOrderInfo();
-        if(svipApplication.mRegionList.size() > 0){
-            RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size() -1);
-            getShopInfo(regionVo.getiBeacon().getShopid());
-        }
-
     }
 
     //加载最近的一条订单信息
@@ -418,8 +413,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
                     IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
                     return true;
-                } else if (lastShopInfo != null && lastShopInfo.getPhone() != null) {
-                    IntentUtil.callPhone(MainActivity.this, lastShopInfo.getPhone());
+                } else if (svipApplication.mRegionList.size() > 0) {
+                    int index = svipApplication.mRegionList.size() - 1;
+                    String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                    String phone = ShopListManager.getInstance().getShopPhone(shopid);
+                    IntentUtil.callPhone(MainActivity.this, phone);
                     return true;
                 }
                 return false;
@@ -441,10 +439,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                             intent = new Intent(MainActivity.this, ChatActivity.class);
                             intent.putExtra("shop_id", lastOrderInfo.getShopid());
                             intent.putExtra("shop_name", lastOrderInfo.getFullname());
-                        } else if (lastShopInfo != null && lastShopInfo.getShopid() != null) {
+                        } else if (svipApplication.mRegionList.size() > 0) {
+                            int index = svipApplication.mRegionList.size() - 1;
+                            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                            String fullname = ShopListManager.getInstance().getShopName(shopid);
+
                             intent = new Intent(MainActivity.this, ChatActivity.class);
-                            intent.putExtra("shop_id", lastShopInfo.getShopid());
-                            intent.putExtra("shop_name", lastShopInfo.getKnown_as());
+                            intent.putExtra("shop_id", shopid);
+                            intent.putExtra("shop_name", fullname);
                         } else {
                             intent = new Intent(MainActivity.this, ShopListActivity.class);
                             intent.putExtra("click_to_talk", true);
@@ -565,8 +567,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         reginAdPush(regionVo);
         addRegionVo(regionVo);
         changeMainText();
-        getShopInfo(regionVo.getiBeacon().getShopid());
-
     }
 
     @Override
@@ -581,7 +581,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         removeRegionVo(regionVo);
         if(svipApplication.mRegionList.size() <= 0){
             locationTv.setText("不在酒店");
-            lastShopInfo = null;
             lastShopId = "";
 
         }
@@ -620,36 +619,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         WebSocketManager.getInstance().sendMessage(msgPushStr);
     }
 
-    //获取商家信息。
-    private void getShopInfo(String shopid) {
-        if(lastShopId.equals(shopid) && lastShopInfo != null){
-            return;
-        }
-        lastShopId = shopid;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ProtocolUtil.getShopInfoUrl(lastShopId),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取商户信息响应结果:" + response);
-                        if(JsonUtil.isJsonNull(response))
-                            return ;
-                        //解析json数据
-                        Gson gson = new Gson();
-                        lastShopInfo = gson.fromJson(response, ShopDetailVo.class);
-                        changeMainText();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商户信息错误信息:" + error.getMessage());
-                lastShopInfo = null;
-            }
-        });
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
-    }
+
 
     /**
      * 改变位置提示信息。
@@ -673,7 +643,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         if(lastOrderInfo == null && svipApplication.mRegionList.size() <= 0){
             mainTextStatus = MainTextStatus.NO_ORDER_NOT_IN;
         }
-        else if( lastOrderInfo == null &&  svipApplication.mRegionList.size() > 0 && lastShopInfo != null){
+        else if( lastOrderInfo == null &&  svipApplication.mRegionList.size() > 0){
             mainTextStatus = MainTextStatus.NO_ORDER_IN;
         }
         else if(lastOrderInfo != null && lastOrderInfo.getStatus().equals("0") && !checkIfInOrderShop()){
@@ -722,7 +692,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                     break;
                 //没订单，在酒店
                 case NO_ORDER_IN:
-                    orderStatusTv1.setText(lastShopInfo.getKnown_as()+"欢迎您，点击马上预订酒店");
+                    int index = svipApplication.mRegionList.size()-1;
+                    String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                    String fullname = ShopListManager.getInstance().getShopName(shopid);
+                    orderStatusTv1.setText(fullname+"欢迎您，点击马上预订酒店");
                     setDrawableLeft(orderStatusTv1, R.drawable.sl_dengdai);
                     break;
                 //有预定状态订单，不在酒店
