@@ -187,7 +187,7 @@ public class SettingTicketsItemActivity extends Activity {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
-                map.put("id",tickeData.getId());
+                map.put("id",tickeData.getId()+"");
                 map.put("set","2");
                 map.put("invoice_title",mInputEt.getText().toString());
                 map.put("is_default",mDefaultRbtn.isChecked() ? "1":"0");
