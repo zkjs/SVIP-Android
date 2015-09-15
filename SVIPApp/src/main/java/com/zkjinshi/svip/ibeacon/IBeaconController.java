@@ -47,6 +47,9 @@ public class IBeaconController {
         requestIBeanconList();
     }
 
+    /**
+     * 请求蓝牙区域信息
+     */
     private void requestIBeanconList(){
         stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getLocationListUrl(),
                 new Response.Listener<String>() {

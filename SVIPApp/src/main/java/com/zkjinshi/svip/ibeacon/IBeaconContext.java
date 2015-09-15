@@ -42,6 +42,10 @@ public class IBeaconContext {
     private IBeaconEntity beaconEntity;
     private String shopId;
 
+    /**
+     * 检测是否超时Map
+     * @return
+     */
     public Map<String,Long> getCheckCycleMap(){
         if(null == checkCycleMap){
             checkCycleMap = new ConcurrentHashMap<String,Long>();
@@ -49,6 +53,10 @@ public class IBeaconContext {
         return checkCycleMap;
     }
 
+    /**
+     * iBeacon区域Map
+     * @return
+     */
     public Map<String,IBeaconEntity> getBeanconMap(){
         if(null ==  beanconMap){
             beanconMap = new HashMap<String,IBeaconEntity>();
@@ -56,7 +64,11 @@ public class IBeaconContext {
         return beanconMap;
     }
 
-    public Map<String,RegionVo> getRegionCycleyMapp(){
+    /**
+     * 检测超时蓝牙区域Map
+     * @return
+     */
+    public Map<String,RegionVo> getRegionCycleyMap(){
         if(null == regionCycleyMap){
             regionCycleyMap = new ConcurrentHashMap<String,RegionVo>();
         }

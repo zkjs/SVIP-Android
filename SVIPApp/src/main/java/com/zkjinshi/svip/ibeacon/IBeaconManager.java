@@ -138,7 +138,7 @@ public class IBeaconManager {
 						regionKey = entry.getKey();
 						currentTimestamp = System.currentTimeMillis();
 						if (currentTimestamp - intoTimestamp > OUT_AREA_DURATION) {//超过五分钟
-							regionCycleyMap = IBeaconContext.getInstance().getRegionCycleyMapp();
+							regionCycleyMap = IBeaconContext.getInstance().getRegionCycleyMap();
 							regionVo = regionCycleyMap.get(regionKey);
 							IBeaconContext.getInstance().removeCheck(regionVo);
 							IBeaconSubject.getInstance().notifyObserversOut(regionVo);

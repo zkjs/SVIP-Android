@@ -115,7 +115,9 @@ public class CutActivity extends Activity {
         mImageView = (CropImageView) findViewById(R.id.gl_modify_avatar_image);
         Bitmap bitmap = null;
         try {
+            int degree = ImageUtil.readPictureDegree(mPath);
             bitmap =  ImageUtil.decodeFile(mPath);
+            bitmap = ImageUtil.rotaingImageView(bitmap,degree);
             mBitmap = ImageUtil.cropBitmap(bitmap, screenWidth, screenHeight);
             if (mBitmap == null) {
                 DialogUtil.getInstance().showCustomToast(CutActivity.this, "没有找到图片", Gravity.CENTER);
