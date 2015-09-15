@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -475,7 +477,18 @@ public class SettingPhoneActivity extends Activity {
                 }
                 else{//用户已经存在
                     LogUtil.getInstance().info(LogLevel.INFO, "用户已经存在！");
-                    DialogUtil.getInstance().showCustomToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。", Gravity.CENTER);
+                   // DialogUtil.getInstance().showCustomToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。", Gravity.CENTER);
+                    new AlertDialog.Builder(SettingPhoneActivity.this)
+                            .setTitle("警告")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage("该手机号码已经注册过，不能修改。")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            })
+                            .show();
                 }
             }
         };
