@@ -6,15 +6,15 @@ import java.io.Serializable;
  * Created by djd on 2015/8/27.
  */
 public class TicketVo implements Serializable {
-    private String id;
+    private int id;
     private String invoice_title;
     private String is_default;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

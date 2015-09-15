@@ -146,7 +146,11 @@ public class ChooseInvoiceActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
-                intent.putExtra("selectTicketVo", listData.get(i));
+                OrderInvoiceResponse orderInvoiceResponse = new OrderInvoiceResponse();
+                orderInvoiceResponse.setId(listData.get(i).getId());
+                orderInvoiceResponse.setInvoice_title(listData.get(i).getInvoice_title());
+                orderInvoiceResponse.setInvoice_get_id("1");
+                intent.putExtra("selectInvoice", orderInvoiceResponse);
                 setResult(RESULT_OK, intent);
                 finish();
             }

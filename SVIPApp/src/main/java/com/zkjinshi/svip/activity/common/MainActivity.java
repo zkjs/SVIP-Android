@@ -188,7 +188,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         if(CacheUtil.getInstance().getToken() == null){
             return;
         }
-        MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),
                         CacheUtil.getInstance().getUserId()),
@@ -280,6 +280,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     protected  void onResume(){
         super.onResume();
+        MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
         setBadgeNum();
         loadLastOrderInfo();
     }

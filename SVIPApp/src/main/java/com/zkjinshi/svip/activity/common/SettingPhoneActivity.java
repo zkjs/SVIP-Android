@@ -7,6 +7,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -458,7 +459,8 @@ public class SettingPhoneActivity extends Activity {
 
             @Override
             public void onResponse(String response) {
-                Log.v("msg", "response：" + response);
+                DialogUtil.getInstance().cancelProgressDialog();
+                LogUtil.getInstance().info(LogLevel.INFO, response);
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
@@ -473,7 +475,7 @@ public class SettingPhoneActivity extends Activity {
                 }
                 else{//用户已经存在
                     LogUtil.getInstance().info(LogLevel.INFO, "用户已经存在！");
-                    DialogUtil.getInstance().showToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。");
+                    DialogUtil.getInstance().showCustomToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。", Gravity.CENTER);
                 }
             }
         };
@@ -482,6 +484,7 @@ public class SettingPhoneActivity extends Activity {
         getPhoneErrorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
+                DialogUtil.getInstance().cancelProgressDialog();
                 volleyError.printStackTrace();
                 LogUtil.getInstance().info(LogLevel.INFO, "获取用户失败。"+volleyError.toString());
             }
@@ -499,7 +502,7 @@ public class SettingPhoneActivity extends Activity {
         createGetPhoneListenr();
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.GET, url, getPhoneListener, getPhoneErrorListener);
-        //Log.v("msg", "request：" + request.toString());
+        DialogUtil.getInstance().showProgressDialog(SettingPhoneActivity.this);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 }

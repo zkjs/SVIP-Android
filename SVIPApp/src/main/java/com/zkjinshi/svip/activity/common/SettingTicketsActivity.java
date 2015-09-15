@@ -178,7 +178,7 @@ public class SettingTicketsActivity extends Activity {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
-                map.put("id",ticketData.getId());
+                map.put("id",ticketData.getId()+"");
                 map.put("set","3");
                 return map;
             }
@@ -307,18 +307,6 @@ public class SettingTicketsActivity extends Activity {
         };
     }
 
-
-    //测试
-    private void test(){
-        listData = new ArrayList<TicketVo>();
-        for(int i=0;i<4;i++)
-        {
-            TicketVo ticket = new TicketVo();
-            ticket.setId("" + i);
-            ticket.setInvoice_title("中科金石科技有限公司 " + i);
-            listData.add(ticket);
-        }
-    }
 
     private void initListener(){
         mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
