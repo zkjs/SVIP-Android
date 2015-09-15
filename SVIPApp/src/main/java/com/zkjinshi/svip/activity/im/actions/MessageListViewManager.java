@@ -308,7 +308,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         currentMessageList.add(mMessageVo);
         Message msg = Message.obtain();
         msg.what = UPDATE_ADAPTER_UI;
-       if (isCallService) {
+        this.sendMessage(msg);
+        if (isCallService) {
             sendMessageVo(mMessageVo);
         } else {
             callService(mShopID, defaultRuleType);
