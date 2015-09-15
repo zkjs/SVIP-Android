@@ -33,13 +33,11 @@ import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.facebook.controller.utils.ToastUtil;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineActivity;
 import com.zkjinshi.svip.response.GetUserResponse;
@@ -677,7 +675,7 @@ public class LoginActivity extends Activity{
                     LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
 
                     if(thirdBundleData != null){
-                        Intent intent = new Intent(LoginActivity.this, VertifyPhoneActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, OauthLoginActivity.class);
                         intent.putExtra("from_third", true);
                         intent.putExtras(thirdBundleData);
                         startActivity(intent);

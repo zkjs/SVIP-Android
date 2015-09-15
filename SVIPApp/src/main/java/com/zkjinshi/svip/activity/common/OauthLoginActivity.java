@@ -52,9 +52,9 @@ import java.util.TimerTask;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class VertifyPhoneActivity extends Activity{
+public class OauthLoginActivity extends Activity{
 
-    private final static String TAG = VertifyPhoneActivity.class.getSimpleName();
+    private final static String TAG = OauthLoginActivity.class.getSimpleName();
 
     private final static int SMS_UNSEND         = 0;  //默认状态，尚未申请点击发送验证码
     private final static int SMS_SENDED         = 1;  //请求点击发送验证码状态
@@ -160,7 +160,7 @@ public class VertifyPhoneActivity extends Activity{
 
         thirdBundleData = getIntent().getExtras();
 
-//        Intent intent = new Intent(VertifyPhoneActivity.this, MineActivity.class);
+//        Intent intent = new Intent(OauthLoginActivity.this, MineActivity.class);
 //        intent.putExtra("from_third", true);
 //        intent.putExtras(thirdBundleData);
 //        startActivity(intent);
@@ -289,7 +289,7 @@ public class VertifyPhoneActivity extends Activity{
         mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(VertifyPhoneActivity.this,LoginActivity.class));
+               startActivity(new Intent(OauthLoginActivity.this,LoginActivity.class));
                finish();
             }
         });
@@ -372,7 +372,7 @@ public class VertifyPhoneActivity extends Activity{
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
                     //跳转到个人资料设置页面
-                    Intent intent = new Intent(VertifyPhoneActivity.this, MineActivity.class);
+                    Intent intent = new Intent(OauthLoginActivity.this, MineActivity.class);
                     intent.putExtra("from_third", true);
                     intent.putExtras(thirdBundleData);
                     startActivity(intent);
@@ -403,7 +403,7 @@ public class VertifyPhoneActivity extends Activity{
                 HttpMethod.POST, Constants.POST_LOGIN_URL, registerListener, registerErrorListener){
             @Override
             protected Map<String, String> getParams() {
-                DeviceUtils.init(VertifyPhoneActivity.this);
+                DeviceUtils.init(OauthLoginActivity.this);
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("phone", phoneNumber);
                 map.put("userstatus", "2");
@@ -453,7 +453,7 @@ public class VertifyPhoneActivity extends Activity{
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
 
-                    submitUserInfo(VertifyPhoneActivity.this, "wechart", thirdBundleData.getString("openid"));
+                    submitUserInfo(OauthLoginActivity.this, "wechart", thirdBundleData.getString("openid"));
 
                 }
 

@@ -99,7 +99,7 @@ public class SettingTagsActivity extends Activity{
         MineUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
         MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
-        mNameTv.setText(CacheUtil.getInstance().getUserPhone());
+        mNameTv.setText(CacheUtil.getInstance().getUserName());
 
         mTitle.getmRight().setVisibility(View.VISIBLE);
         mTitle.mRightImage.setVisibility(View.GONE);
@@ -239,17 +239,7 @@ public class SettingTagsActivity extends Activity{
 
     }
 
-    //测试
-    private void test(){
-        for(int i=1;i<=5;i++){
-            mCheckedTagView.addTag(createTag(i,"喜欢的标签"+i));
-        }
 
-        for(int i=1;i<=8;i++){
-            mUnCheckTagView.addTag(createTag(i,"可能喜欢标签"+i));
-        }
-
-    }
 
     private Tag createTag(int id,String tagstr){
         Tag tag = new Tag(id,tagstr);
@@ -268,7 +258,7 @@ public class SettingTagsActivity extends Activity{
     //保存喜好标签
     private void saveTags() {
         createSaveTagsListenr();
-        DataRequestVolley signUpRequest = new DataRequestVolley(
+        DataRequestVolley requestString = new DataRequestVolley(
                 HttpMethod.POST,ProtocolUtil.getPostTagsUrl(), saveTagsListener, saveTagsErrorListener){
             @Override
             protected Map<String, String> getParams() {
@@ -280,8 +270,9 @@ public class SettingTagsActivity extends Activity{
                 return map;
             }
         };
-        Log.v("msg", "request：" + signUpRequest.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(signUpRequest);
+        LogUtil.getInstance().info(LogLevel.INFO, requestString.toString());
+        DialogUtil.getInstance().showProgressDialog(this);
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(requestString);
     }
 
     //注册提交标签时的监听器
@@ -290,7 +281,8 @@ public class SettingTagsActivity extends Activity{
 
             @Override
             public void onResponse(String response) {
-                Log.v("msg", "response：" +response);
+                LogUtil.getInstance().info(LogLevel.INFO,response.toString());
+                DialogUtil.getInstance().cancelProgressDialog();
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
@@ -310,6 +302,7 @@ public class SettingTagsActivity extends Activity{
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError) {
                 volleyError.printStackTrace();
+                DialogUtil.getInstance().cancelProgressDialog();
                 DialogUtil.getInstance().showToast(SettingTagsActivity.this, "保存标签信息失败");
                 LogUtil.getInstance().info(LogLevel.INFO, "保存标签信息失败"+volleyError.toString());
             }
