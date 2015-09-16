@@ -25,6 +25,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * Created by JimmyZhang on 2015/7/18.
@@ -33,7 +34,7 @@ public class SVIPApplication extends Application {
 
     public static final String TAG = "SVIPApp";
 
-    public ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
+    public Vector<RegionVo> mRegionList = new Vector<RegionVo>();
 
     @Override
     public void onCreate() {

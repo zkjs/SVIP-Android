@@ -34,6 +34,7 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
@@ -229,13 +230,14 @@ public class OrderDetailActivity extends Activity{
 
         mTvRemark = (TextView)findViewById(R.id.tv_remark);
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
+
+        mBtnSendOrder.setText("确认订单");
+        mTitle.setTextTitle(ShopListManager.getInstance().getShopName(shopId));
+        mTitle.setTextColor(this, R.color.White);
+        mTitle.getmRight().setVisibility(View.GONE);
     }
 
     private void initData(){
-        mBtnSendOrder.setText("确认订单");
-        mTitle.setTextTitle(orderDetailResponse.getRoom().getFullname());
-        mTitle.setTextColor(this, R.color.White);
-        mTitle.getmRight().setVisibility(View.GONE);
         //初始化入住时间
         calendarList = new ArrayList<Calendar>();
         mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");

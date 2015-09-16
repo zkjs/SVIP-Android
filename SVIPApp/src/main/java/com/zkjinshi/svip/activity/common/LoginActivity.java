@@ -38,6 +38,7 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineActivity;
 import com.zkjinshi.svip.response.GetUserResponse;
@@ -278,7 +279,7 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                //getUser(inputPhone);
+               // getUser(inputPhone);
                 if (mSmsVerifySuccess) {
                     thirdBundleData = null;
                     getUser(inputPhone);//判断用户是否已经存在
@@ -649,7 +650,7 @@ public class LoginActivity extends Activity{
 
     private void goHome() {
         Intent mainIntent = new Intent(this, MainActivity.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       // mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mainIntent);
         finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
@@ -663,7 +664,8 @@ public class LoginActivity extends Activity{
 
             @Override
             public void onResponse(String response) {
-                Log.v("msg", "response：" +response);
+                LogUtil.getInstance().info(LogLevel.INFO,response.toString());
+                DialogUtil.getInstance().cancelProgressDialog();
                 if(JsonUtil.isJsonNull(response))
                     return ;
                 //解析json数据
@@ -710,7 +712,8 @@ public class LoginActivity extends Activity{
             @Override
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
                 volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取用户失败。"+volleyError.toString());
+                DialogUtil.getInstance().cancelProgressDialog();
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取用户失败。"+volleyError.toString());
             }
         };
     }
@@ -723,7 +726,7 @@ public class LoginActivity extends Activity{
         createGetuserListenr();
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.GET, url,getUserListener,getUserErrorListener);
-        //Log.v("msg", "request：" + request.toString());
+        DialogUtil.getInstance().showProgressDialog(this);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
