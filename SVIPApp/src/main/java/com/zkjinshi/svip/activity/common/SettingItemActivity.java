@@ -143,8 +143,11 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
                        Intent data = new Intent();
-                        data.putExtra("new_value",fieldValue);
+                        data.putExtra("new_value", fieldValue);
                         setResult(RESULT_OK, data);
+                        if(fieldKey.equals("username")){
+                            CacheUtil.getInstance().setUserName(fieldValue);
+                        }
                         finish();
                     } else {
                         DialogUtil.getInstance().showCustomToast(SettingItemActivity.this, "修改失败!", Toast.LENGTH_LONG);
