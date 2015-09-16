@@ -758,12 +758,18 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      * 改变主语句
      */
     public synchronized void changeMainText(){
-        try{
-            changLocationTips();
-            changMiddleBlockTips();
-        }catch (Exception e){
-            LogUtil.getInstance().info(LogLevel.ERROR,e.getMessage());
-        }
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    changLocationTips();
+                    changMiddleBlockTips();
+                } catch (Exception e) {
+                    LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
+                }
+            }
+        });
     }
 
     /**
