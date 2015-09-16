@@ -11,7 +11,7 @@ import com.zkjinshi.svip.http.HttpResponse;
  */
 public class BaseResponse extends HttpResponse {
 
-    private boolean set;
+    private boolean set = true;
 
     public boolean isSet() {
         return set;

@@ -121,7 +121,7 @@ public class OrderDetailActivity extends Activity{
     private DisplayImageOptions options;
 
     private OrderDetailResponse orderDetailResponse = null;
-
+    private boolean modifyEnable = false; //订单是否可修改
 
 
     public static final int GOOD_REQUEST_CODE = 6;
@@ -129,8 +129,7 @@ public class OrderDetailActivity extends Activity{
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
 
-    public OrderDetailActivity() {
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,7 +237,30 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initData(){
+        //初始化订单状态的显示
+        initOrderStatus();
         //初始化入住时间
+        initArrivalDate();
+        //初始化入住人信息
+        initPeople();
+        //初始化房间信息信息
+        initRoom();
+        //初始化房间选项标签
+        initRoomTags();
+        //初始化其他服务标签
+        initServiceTags();
+        //初始化发票
+        initTicket();
+        //初始化订单备注
+        initRemark();
+
+        if(modifyEnable){
+            //初始化标签点击事件
+            initTagClickEvent();
+        }
+    }
+    //初始化入住时间
+    private void initArrivalDate(){
         calendarList = new ArrayList<Calendar>();
         mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
         mChineseFormat = new SimpleDateFormat("MM月dd日");
@@ -255,7 +277,10 @@ public class OrderDetailActivity extends Activity{
         }catch ( Exception e){
 
         }
-        //初始化入住人信息
+    }
+
+    //初始化入住人信息
+    private void initPeople(){
         roomNum = orderDetailResponse.getRoom().getRooms();
         notifyRoomNumberChange();
         Drawable drawable= getResources().getDrawable(R.mipmap.ic_get_into_w);
@@ -276,8 +301,10 @@ public class OrderDetailActivity extends Activity{
             }
 
         }
+    }
 
-        //初始化商品信息
+    //初始化房间信息信息
+    private void initRoom(){
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
@@ -291,17 +318,7 @@ public class OrderDetailActivity extends Activity{
         }
         mRoomType.setText(orderDetailResponse.getRoom().getRoom_type());
         mRoomRate.setText(orderDetailResponse.getRoom().getRoom_rate());
-
-        initOrderStatus();
-        initRoomTags();
-        initServiceTags();
-        initTicket();
-        initRemark();
-
-
     }
-
-
 
     //初始化订单状态的显示
     private void initOrderStatus() {
@@ -313,12 +330,14 @@ public class OrderDetailActivity extends Activity{
 
         mBtnSendOrder.setVisibility(View.GONE);
         mBtnCancelOrder.setVisibility(View.GONE);
+        modifyEnable = false;
 
         if (orderStatus.equals("0")){
+            modifyEnable = true;
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
             mBtnCancelOrder.setVisibility(View.VISIBLE);
-            initTagClickEvent();
+
         }
         else if(orderStatus.equals("1")){
             mTvOrderStatus.setText("已取消");
@@ -565,11 +584,13 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initListener() {
-        //保存订单
+        //确认订单
         mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmOrder();
+                if(modifyEnable){
+                    confirmOrder();
+                }
             }
         });
         //取消订单
@@ -579,93 +600,62 @@ public class OrderDetailActivity extends Activity{
                 cancelOrder();
             }
         });
-
+        //返回
         mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OrderDetailActivity.this.finish();
             }
         });
-
+        //修改发票
         mLltTicketContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderDetailActivity.this, ChooseInvoiceActivity.class);
-                startActivityForResult(intent, TICKET_REQUEST_CODE);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
+                if(modifyEnable){
+                    Intent intent = new Intent(OrderDetailActivity.this, ChooseInvoiceActivity.class);
+                    startActivityForResult(intent, TICKET_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+
             }
         });
-
+        //修改入住人
         for(int i=0;i<customerList.size();i++){
             final int index = i;
             customerList.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ItemUserSettingView setView = (ItemUserSettingView) view;
-                    Intent intent = new Intent(OrderDetailActivity.this, ChoosePeopleActivity.class);
-                    intent.putExtra("index",index);
-                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
+                    if(modifyEnable){
+                        ItemUserSettingView setView = (ItemUserSettingView) view;
+                        Intent intent = new Intent(OrderDetailActivity.this, ChoosePeopleActivity.class);
+                        intent.putExtra("index",index);
+                        startActivityForResult(intent, PEOPLE_REQUEST_CODE);
+                        overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
 
                 }
             });
         }
-
+        //修改备注
         mlltRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(OrderDetailActivity.this, AddRemarkActivity.class);
-                intent.putExtra("remark", mTvRemark.getText());
-                intent.putExtra("tips", "如果有其他要求，请在此说明。");
-                intent.putExtra("title", "添加订单备注");
-                intent.putExtra("hint", "请输入订单备注");
-                startActivityForResult(intent, REMARK_REQUEST_CODE);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
+                if(modifyEnable){
+                    Intent intent = new Intent(OrderDetailActivity.this, AddRemarkActivity.class);
+                    intent.putExtra("remark", mTvRemark.getText());
+                    intent.putExtra("tips", "如果有其他要求，请在此说明。");
+                    intent.putExtra("title", "添加订单备注");
+                    intent.putExtra("hint", "请输入订单备注");
+                    startActivityForResult(intent, REMARK_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+
             }
         });
 
-
-
-
-
-
-//        mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showRoomNumChooseDialog();
-//            }
-//        });
-
-//        mLltDateContainer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(OrderDetailActivity.this, CalendarActivity.class);
-//                if (calendarList != null) {
-//                    intent.putExtra("calendarList", calendarList);
-//                }
-//                startActivityForResult(intent, CalendarActivity.CALENDAR_REQUEST_CODE);
-//                overridePendingTransition(R.anim.slide_in_right,
-//                        R.anim.slide_out_left);
-//            }
-//        });
-
-//        mLltYuan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(OrderDetailActivity.this, GoodListActivity.class);
-//                if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-//                    intent.putExtras(bundle);
-//                    startActivityForResult(intent, GOOD_REQUEST_CODE);
-//                    overridePendingTransition(R.anim.slide_in_right,
-//                            R.anim.slide_out_left);
-//                }
-//            }
-//        });
     }
 
     //初始化标签点击事件

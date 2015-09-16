@@ -91,6 +91,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     public static final String TAG = "MainActivity";
 
     public static final int NOTIFY_UPDATE_VIEW = 0x0001;
+    public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
 
     private KenBurnsView kbv;
     private CircleImageView photoCtv;
@@ -315,6 +316,15 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
 
                         lastOrderInfo = new Gson().fromJson(response, OrderLastResponse.class);
+                        if(lastOrderInfo != null && !lastOrderInfo.isSet()){
+                            CacheUtil.getInstance().setLogin(false);
+                            DialogUtil.getInstance().showToast(MainActivity.this,"token 过期，请重新登录");
+                            Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                            MainActivity.this.startActivity(mainIntent);
+                            MainActivity.this.finish();
+                            overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+                            return;
+                        }
                         if(lastOrderInfo != null && lastOrderInfo.getUserid() == null){
                             lastOrderInfo = null;
                             return;
@@ -342,7 +352,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                         }
                         orderInfoTv.setVisibility(View.VISIBLE);
                         orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
-                        changeMainText();
+                        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     } catch (NumberFormatException e) {
@@ -567,7 +577,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
         reginAdPush(regionVo);
         addRegionVo(regionVo);
-        changeMainText();
+        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
     }
 
     @Override
@@ -585,7 +595,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             lastShopId = "";
 
         }
-        changeMainText();
+        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
     }
 
     //添加蓝牙设备
@@ -759,17 +769,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      */
     public synchronized void changeMainText(){
 
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    changLocationTips();
-                    changMiddleBlockTips();
-                } catch (Exception e) {
-                    LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
-                }
-            }
-        });
+        try {
+            changLocationTips();
+            changMiddleBlockTips();
+        } catch (Exception e) {
+            LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
+        }
     }
 
     /**
@@ -828,6 +833,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             switch (msg.what){
                 case NOTIFY_UPDATE_VIEW:
                     setBadgeNum();
+                    break;
+                case NOTIFY_UPDATE_MAIN_TEXT:
+                    changeMainText();
                     break;
             }
         }
