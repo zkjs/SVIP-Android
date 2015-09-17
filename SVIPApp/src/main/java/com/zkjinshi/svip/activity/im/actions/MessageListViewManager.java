@@ -13,12 +13,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
@@ -26,12 +26,9 @@ import com.zkjinshi.base.net.observer.IMessageObserver;
 import com.zkjinshi.base.net.observer.MessageSubject;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DeviceUtils;
-import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChatRSP;
@@ -43,10 +40,12 @@ import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2S;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2SRSP;
 import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.MessageFactory;
-import com.zkjinshi.svip.http.HttpAsyncTask;
-import com.zkjinshi.svip.http.HttpPostUtil;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.http.MediaRequest;
+import com.zkjinshi.svip.http.MediaRequestListener;
+import com.zkjinshi.svip.http.MediaRequestTask;
+import com.zkjinshi.svip.http.MediaResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
@@ -54,7 +53,6 @@ import com.zkjinshi.svip.utils.UUIDBuilder;
 import com.zkjinshi.svip.view.MsgListView;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
-import com.zkjinshi.svip.vo.OrderVo;
 import com.zkjinshi.svip.vo.SendStatus;
 import com.zkjinshi.svip.volley.DataRequestVolley;
 import com.zkjinshi.svip.volley.HttpMethod;
@@ -62,7 +60,6 @@ import com.zkjinshi.svip.volley.RequestQueueSingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -458,141 +455,131 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             case AUDIO://语音
                 final MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
                                                    buildMsgMediaByMessageVo(messageUiVo);
-
-                final String mediaUploadUrl = "http://mmm.zkjinshi.com:90/media/upload";
-                DataRequestVolley mediaPost = new DataRequestVolley(HttpMethod.POST, mediaUploadUrl,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                //音频上传成功，获取URL
-                                if(TextUtils.isEmpty(response)){
-                                    return ;
-                                }
-                                try {
-                                    JSONObject responseObject = new JSONObject(response);
-                                    int result = (int) responseObject.get("result");
-                                    // 文件上传成功
-                                    if(Constants.POST_SUCCESS == result){
-                                        LogUtil.getInstance().info(LogLevel.INFO, "文件上传成功");
-                                        String mediaUrl = (String) responseObject.get("url");
-                                        String scaleUrl = (String) responseObject.get("s_url");
-                                        messageUiVo.setUrl(scaleUrl);
-                                        messageUiVo.setAttachId(null);
-                                        //更新数据库信息
-                                        MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
-                                                                                buildContentValues(messageUiVo));
-                                        //获得待发送协议消息
-                                        MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
-                                                                      buildMsgMediaByMessageVo(messageUiVo);
-
-                                        Gson gson = new Gson();
-                                        String mediaJson = gson.toJson(msgMedia);
-                                        WebSocketManager.getInstance().sendMessage(mediaJson);
-                                    } else {
-                                        LogUtil.getInstance().info(LogLevel.INFO, "文件上传失败");
-                                        Gson gson = new Gson();
-                                        String mediaJson = gson.toJson(msgMedia);
-                                        WebSocketManager.getInstance().sendMessage(mediaJson);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        } , new Response.ErrorListener(){
+                MediaRequest voiceRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"media/upload");
+                try {
+                    voiceRequest.addBizParam("fromid", msgMedia.getFromid());
+                    voiceRequest.addBizParam("sessionid", msgMedia.getSessionid());
+                    voiceRequest.addBizParam("shopid", msgMedia.getShopid());
+                    voiceRequest.addBizParam("format", "aac");
+                    voiceRequest.addBizParam("body", msgMedia.getBody());
+                    voiceRequest.addBizParam("tempid", msgMedia.getTempid());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                MediaRequestTask voiceRequestTask = new MediaRequestTask(context,voiceRequest, MediaResponse.class);
+                voiceRequestTask.setMediaRequestListener(new MediaRequestListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //TODO: 网络异常处理
-                        Log.v(TAG, "error:" + error.toString());
-                    }}){
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> paramMap = new HashMap<>();
-                        paramMap.put("FromID", msgMedia.getFromid());
-                        paramMap.put("SessionID", msgMedia.getSessionid());
-                        paramMap.put("ShopID", msgMedia.getShopid());
-                        paramMap.put("Format", "aac");
-                        paramMap.put("Body", msgMedia.getBody());
-                        return paramMap;
+                    public void onNetworkRequestError(int errorCode, String errorMessage) {
+                        Log.i(TAG, "errorCode:" + errorCode);
+                        Log.i(TAG, "errorMessage:" + errorMessage);
                     }
-                };
-                RequestQueueSingleton.getInstance(context).addToRequestQueue(mediaPost);
+
+                    @Override
+                    public void onNetworkRequestCancelled() {
+
+                    }
+
+                    @Override
+                    public void onNetworkResponseSucceed(MediaResponse result) {
+                        Log.i(TAG, "rawResult:" + result.rawResult);
+                        try {
+                            JSONObject responseObject = new JSONObject(result.rawResult);
+                            int resultCode = (int) responseObject.get("result");
+                            // 文件上传成功
+                            if (Constants.POST_SUCCESS == resultCode) {
+                                LogUtil.getInstance().info(LogLevel.INFO, "文件上传成功");
+                                String mediaUrl = (String) responseObject.get("url");
+                                String scaleUrl = (String) responseObject.get("s_url");
+                                messageUiVo.setUrl(scaleUrl);
+                                messageUiVo.setAttachId(null);
+                                //更新数据库信息
+                                MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
+                                        buildContentValues(messageUiVo));
+                                //获得待发送协议消息
+                                MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
+                                        buildMsgMediaByMessageVo(messageUiVo);
+
+                                Gson gson = new Gson();
+                                String mediaJson = gson.toJson(msgMedia);
+                                WebSocketManager.getInstance().sendMessage(mediaJson);
+                            } else {
+                                LogUtil.getInstance().info(LogLevel.INFO, "文件上传失败");
+                                Gson gson = new Gson();
+                                String mediaJson = gson.toJson(msgMedia);
+                                WebSocketManager.getInstance().sendMessage(mediaJson);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void beforeNetworkRequestStart() {
+
+                    }
+                });
+                voiceRequestTask.execute();
                 break;
             case IMAGE://图片
                 final MsgCustomerServiceImgChat msgImage = MessageFactory.getInstance().
                                                     buildMsgImgByMessageVo(messageUiVo);
+                MediaRequest uploadImgRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"img/upload");
+                try {
+                    uploadImgRequest.addBizParam("fromid", msgImage.getFromid());
+                    uploadImgRequest.addBizParam("sessionid", msgImage.getSessionid());
+                    uploadImgRequest.addBizParam("shopid", msgImage.getShopid());
+                    uploadImgRequest.addBizParam("format", msgImage.getFormat());
+                    uploadImgRequest.addBizParam("body", msgImage.getBody());
+                    uploadImgRequest.addBizParam("tempid", msgImage.getTempid());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                MediaRequestTask uploadImgRequestTask = new MediaRequestTask(context,uploadImgRequest, MediaResponse.class);
+                uploadImgRequestTask.setMediaRequestListener(new MediaRequestListener() {
+                    @Override
+                    public void onNetworkRequestError(int errorCode, String errorMessage) {
+                        Log.i(TAG, "errorCode:" + errorCode);
+                        Log.i(TAG, "errorMessage:" + errorMessage);
+                    }
 
-                //2、http上传图片（注意需要更新监听成功状态，更新数据库,并通过IM发送图片消息）
-                String imageUploadUrl = "http://mmm.zkjinshi.com:90/img/upload";
-//                String imageUploadUrl = "http://mmm.zkjinshi.com:90/img/uploadbits";
-//                Map<String, String> params = new HashMap<>();
-//                params.put("content-type", "multipart/form-data");
-//                Map<String, File> files = new HashMap<>();
-//                files.put("file", new File(messageUiVo.getFilePath()));
-//                String response = HttpPostUtil.post(imageUploadUrl, params, files, null);
-//                LogUtil.getInstance().info(LogLevel.INFO, "response:"+response);
-//                DialogUtil.getInstance().showToast(context, "response:" + response);
-//                JSONObject responseObject = new JSONObject(response);
-//                int result                = (int) responseObject.get("result");
+                    @Override
+                    public void onNetworkRequestCancelled() {
 
-                DataRequestVolley imagePost = new DataRequestVolley(HttpMethod.POST, imageUploadUrl,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                if(TextUtils.isEmpty(response)){
-                                    return ;
-                                }
-                                try {
-                                    JSONObject responseObject = new JSONObject(response);
-                                    int result                = (int) responseObject.get("result");
+                    }
 
-                                    LogUtil.getInstance().info(LogLevel.INFO, "response:"+response);
-                                    // 文件上传成功
-                                    if(Constants.POST_SUCCESS == result){
-                                        String imageUrl = (String) responseObject.get("url");//正常图的URL
-                                        String scaleUrl = (String) responseObject.get("s_url");//缩略图的URL
-
-                                        messageUiVo.setUrl(imageUrl);
-                                        messageUiVo.setScaleUrl(scaleUrl);
-                                        msgImage.setUrl(imageUrl);
-                                        msgImage.setScaleurl(scaleUrl);
-                                        // 更新数据库url地址
-                                        MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
-                                                                              buildContentValues(messageUiVo));
-                                    }
-
-                                    //获得待发送协议消息
-                                    Gson gson = new Gson();
-                                    String imageJson = gson.toJson(msgImage);
-                                    WebSocketManager.getInstance().sendMessage(imageJson);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                    @Override
+                    public void onNetworkResponseSucceed(MediaResponse result) {
+                        Log.i(TAG, "rawResult:" + result.rawResult);
+                        try {
+                            JSONObject responseObject = new JSONObject(result.rawResult);
+                            int resultCode = (int) responseObject.get("result");
+                            // 文件上传成功
+                            if (Constants.POST_SUCCESS == resultCode) {
+                                String imageUrl = (String) responseObject.get("url");//正常图的URL
+                                String scaleUrl = (String) responseObject.get("s_url");//缩略图的URL
+                                messageUiVo.setUrl(imageUrl);
+                                messageUiVo.setScaleUrl(scaleUrl);
+                                msgImage.setUrl(imageUrl);
+                                msgImage.setScaleurl(scaleUrl);
+                                // 更新数据库url地址
+                                MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
+                                        buildContentValues(messageUiVo));
                             }
-                        } , new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        LogUtil.getInstance().info(LogLevel.INFO, "上传图片网络异常"+error.toString());
-                        //获得待发送协议消息
-                        Gson gson = new Gson();
-                        String imageJson = gson.toJson(msgImage);
-                        WebSocketManager.getInstance().sendMessage(imageJson);
+                            //获得待发送协议消息
+                            Gson gson = new Gson();
+                            String imageJson = gson.toJson(msgImage);
+                            WebSocketManager.getInstance().sendMessage(imageJson);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                })
-                {
+
                     @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> paramMap = new HashMap<>();
-                        paramMap.put("FromID", msgImage.getFromid());
-                        paramMap.put("SessionID", msgImage.getSessionid());
-                        paramMap.put("ShopID", msgImage.getShopid());
-                        paramMap.put("Format", msgImage.getFormat());
-                        paramMap.put("Body", msgImage.getBody());
-//                        paramMap.put("content-type", "multipart/form-data");
-//                        paramMap.put("file", new File(messageUiVo.getFilePath()));
-                        return paramMap;
+                    public void beforeNetworkRequestStart() {
+
                     }
-                };
-                RequestQueueSingleton.getInstance(context).addToRequestQueue(imagePost);
+                });
+                uploadImgRequestTask.execute();
                 break;
             case VIDEO://视频
                 break;
@@ -1075,8 +1062,5 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         dialog = customBuilder.create();
         dialog.show();
     }
-
-
-
 
 }

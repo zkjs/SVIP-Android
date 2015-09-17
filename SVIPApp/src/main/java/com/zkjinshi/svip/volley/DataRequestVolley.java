@@ -2,6 +2,7 @@ package com.zkjinshi.svip.volley;
 
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -9,9 +10,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DataRequestVolley extends Request<String> {
 
     private Response.Listener<String> mListener;
+
+    private HashMap<String,String> headMap;
 
     public DataRequestVolley(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
         super(method, url,errorListener);
@@ -42,5 +48,17 @@ public class DataRequestVolley extends Request<String> {
         mListener.onResponse(response);
     }
 
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        return headMap != null ? headMap : super.getHeaders();
+    }
+
+    public HashMap<String, String> getHeadMap() {
+        return headMap;
+    }
+
+    public void setHeadMap(HashMap<String, String> headMap) {
+        this.headMap = headMap;
+    }
 }
 
