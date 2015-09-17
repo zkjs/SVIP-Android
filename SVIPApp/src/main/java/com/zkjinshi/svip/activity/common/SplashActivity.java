@@ -160,10 +160,12 @@ public class SplashActivity extends Activity {
     }
 
     private void goHome() {
-        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-        SplashActivity.this.startActivity(mainIntent);
-        SplashActivity.this.finish();
-        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+//        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+//        SplashActivity.this.startActivity(mainIntent);
+//        SplashActivity.this.finish();
+//        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+        LoginController.getInstance().init(this);
+        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,null);
     }
 
     Handler handler = new Handler() {

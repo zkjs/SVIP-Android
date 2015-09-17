@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.base;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,7 +33,10 @@ public class BaseUiController {
      * @param photoImageView
      */
     public void setUserPhoto(String photoUrl,ImageView photoImageView){
-        ImageLoader.getInstance().displayImage(photoUrl, photoImageView, options);
+        if(!TextUtils.isEmpty(photoUrl) && photoImageView != null){
+            ImageLoader.getInstance().displayImage(photoUrl, photoImageView, options);
+        }
+
     }
 
     public DisplayImageOptions getOptions(){

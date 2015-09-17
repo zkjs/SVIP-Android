@@ -118,6 +118,7 @@ public class TableOpenHelper {
                     + " real_name text, "//真实姓名
                     + " english_name text, "//英文名称
                     + " idcard text "//身份证号
+                    + " tagopen text "//是否公开标签
                     + " )";
 
     /**

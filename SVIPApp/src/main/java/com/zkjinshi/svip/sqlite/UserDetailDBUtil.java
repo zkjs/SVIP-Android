@@ -48,6 +48,10 @@ public class UserDetailDBUtil {
      * @param userDetailVo
      */
     public long addUserDetail(UserDetailVo userDetailVo) {
+        UserDetailVo user = queryUserDetailByUserID(userDetailVo.getUserid());
+        if(user != null){
+            return -1;
+        }
         ContentValues values = UserDetailFactory.getInstance().buildContentValues(userDetailVo);
         long id = -1;
         SQLiteDatabase db = null;
@@ -78,7 +82,7 @@ public class UserDetailDBUtil {
             cursor = db.rawQuery("select * from " + DBOpenHelper.USER_INFO_TBL +
                     "where user_id = ?", new String[]{userID});
             if (cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
+                if (cursor.moveToFirst()) {
                     userDetailVo = UserDetailFactory.getInstance().buildUserDetailVoByCursor(cursor);
                 }
             }
@@ -91,8 +95,9 @@ public class UserDetailDBUtil {
                 cursor.close();
             if (null != db)
                 db.close();
+            return userDetailVo;
         }
-        return userDetailVo;
+
     }
 
 }

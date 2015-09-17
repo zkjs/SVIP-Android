@@ -18,6 +18,7 @@ import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.response.ShopInfoResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import java.lang.reflect.Type;
@@ -35,6 +36,7 @@ public class ShopListManager {
     private static ShopListManager instance;
     private Context context;
     private RequestQueue requestQueue;
+    StringRequest stringRequest;
 
     private ShopListManager(){}
     public static synchronized ShopListManager getInstance(){
@@ -44,15 +46,19 @@ public class ShopListManager {
         return instance;
     }
 
+    public StringRequest getStringRequest() {
+        return stringRequest;
+    }
+
     public void init(Context context){
         this.context = context;
         this.requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.GET_SHOP_LIST,
+        stringRequest = new StringRequest(Request.Method.GET, Constants.GET_SHOP_LIST,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                        // DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表响应结果:" + response);
+                        LogUtil.getInstance().info(LogLevel.INFO, "获取商户列表响应结果:" + response);
                         if(!TextUtils.isEmpty(response)){
                             try {
                                 Type listType = new TypeToken<List<ShopDetailVo>>(){}.getType();
@@ -73,7 +79,8 @@ public class ShopListManager {
             }
         });
         if(NetWorkUtil.isNetworkConnected(context)){
-          //  LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表" + stringRequest.toString());
+            LogUtil.getInstance().info(LogLevel.ERROR, stringRequest.toString());
+            stringRequest.setRetryPolicy(ProtocolUtil.getDefaultRetryPolicy());
             this.requestQueue.add(stringRequest);
         }
     }
