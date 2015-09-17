@@ -99,12 +99,37 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取 IM Port
+     * 获取 媒体 Host
+     *
+     * @return String-host	服务器ip
+     */
+    public String getMediaHost() {
+        return getConfigValue(Constants.MEDIA_HOST);
+    }
+
+    /**
+     * 获取 媒体 Port
      *
      * @return String-port	服务器端口号
      */
-    public int getIMPort() {
-        return Integer.parseInt(getConfigValue(Constants.IM_PORT));
+    public int getMediaPort() {
+        return Integer.parseInt(getConfigValue(Constants.MEDIA_PORT));
+    }
+
+    /**
+     * 获取http请求端口
+     * @return
+     */
+    public String getIMPort() {
+        return  getConfigValue(Constants.IM_PORT);
+    }
+
+    /**
+     * 获取媒体http请求链接
+     * @return
+     */
+    public String getMediaDomain() {
+        return "http://" + getConfigValue(Constants.MEDIA_HOST)+":"+ getConfigValue(Constants.MEDIA_PORT)+ "/";
     }
 
     /**

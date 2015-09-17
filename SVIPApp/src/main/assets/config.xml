@@ -4,8 +4,13 @@
     <!--http相关ip-->
     <http-host>120.25.241.196</http-host>
 
+
     <!--IM相关ip和端口-->
     <im-host>112.74.82.82</im-host><!-- ip地址  -->
 	<im-port>7777</im-port><!-- im ip端口  -->
+
+    <!--媒体服务器-->
+    <media-host>112.74.205.31</media-host>
+    <media-port>9090</media-port>
 
 </config>

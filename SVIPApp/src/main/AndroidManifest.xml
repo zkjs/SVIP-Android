@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="8"
-    android:versionName="1.0.7">
+    android:versionCode="9"
+    android:versionName="1.0.8">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -57,6 +57,21 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name"
             >
+        </activity>
+        <activity
+            android:name=".activity.common.WebViewActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter android:label="(金石推荐)" >
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.common.LoginActivity"

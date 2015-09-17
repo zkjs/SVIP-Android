@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#191223"
     android:layout_height="50dp">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,5 +46,18 @@
             android:textColor="@android:color/white"
             android:visibility="gone"
             android:text="@string/mine_finish"/>
+
+        <ImageButton
+            android:id="@+id/header_bar_list_ibtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/header_bar_btn_more"
+            android:padding="10dp"
+            android:visibility="gone" />
+
+
     </RelativeLayout>
 </LinearLayout>

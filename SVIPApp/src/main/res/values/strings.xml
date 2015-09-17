@@ -40,6 +40,9 @@
     <string name="single_breakfast">单早</string>
     <string name="book_right_now">立刻预定</string>
     <string name="sweet_prompt">*温馨提示</string>
+    <string name="sure_option">确认</string>
+    <string name="cancel_option">取消</string>
+    <string name="option_prompty">选择将要执行的操作</string>
     <string name="sweet_prompt_one">1、成功预订需要酒店回馈，请注意订单通知</string>
     <string name="sweet_prompt_two">2、如需退房退款，请和酒店联系</string>
     <string name="choose_check_in_and_out_date">选择入住\退房日期</string>

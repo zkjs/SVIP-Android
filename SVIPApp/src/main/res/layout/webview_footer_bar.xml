@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_operations"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@drawable/skin_aio_input_bar_bg"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    android:minHeight="50.0dip" >
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:background="@drawable/bottom_bar_btn_selector"
+        android:paddingBottom="6.0dip"
+        android:paddingTop="6.0dip"
+        android:src="@drawable/browser_arrow_left" />
+
+    <ImageView
+        android:id="@+id/forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:background="@drawable/bottom_bar_btn_selector"
+        android:paddingBottom="6.0dip"
+        android:paddingTop="6.0dip"
+        android:src="@drawable/browser_arrow_right" />
+
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:background="@drawable/bottom_bar_btn_selector"
+        android:paddingBottom="6.0dip"
+        android:paddingTop="6.0dip"
+        android:src="@drawable/browser_icon_refresh" />
+
+</LinearLayout>
