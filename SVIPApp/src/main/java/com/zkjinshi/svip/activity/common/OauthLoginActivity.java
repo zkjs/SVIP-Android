@@ -185,6 +185,7 @@ public class OauthLoginActivity extends Activity{
     }
 
     private void initData() {
+        LoginController.getInstance().init(this);
         mTitle.setTextTitle(getString(R.string.phone_verify_title));
         mTitle.setTextColor(this, R.color.White);
 
@@ -371,12 +372,7 @@ public class OauthLoginActivity extends Activity{
                     CacheUtil.getInstance().setUserId(userid);
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
-                    //跳转到个人资料设置页面
-                    Intent intent = new Intent(OauthLoginActivity.this, MineActivity.class);
-                    intent.putExtra("from_third", true);
-                    intent.putExtras(thirdBundleData);
-                    startActivity(intent);
-                    finish();
+                   LoginController.getInstance().getUserDetailInfo(userid,token,true,thirdBundleData);
                 }else {
                     LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
                 }
@@ -413,15 +409,10 @@ public class OauthLoginActivity extends Activity{
             }
         };
         Log.v("msg", "request：" + signUpRequest.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(signUpRequest);
+        LoginController.getInstance().addToRequestQueue(signUpRequest);
     }
 
-    private void goHome() {
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        startActivity(mainIntent);
-        finish();
-        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-    }
+
 
     /**
      * create listener for getuser
@@ -508,7 +499,7 @@ public class OauthLoginActivity extends Activity{
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
                         LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息成功。");
-                        goHome();
+                        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,null);
                     } else {
                         LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息错误。");
                     }
@@ -532,6 +523,6 @@ public class OauthLoginActivity extends Activity{
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.GET, url,getUserListener,getUserErrorListener);
         //Log.v("msg", "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        LoginController.getInstance().addToRequestQueue(request);
     }
 }

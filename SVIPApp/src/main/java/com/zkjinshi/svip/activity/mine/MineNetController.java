@@ -46,4 +46,8 @@ public class MineNetController {
         DialogUtil.getInstance().showProgressDialog(context);
         requestQueue.add(stringRequest);
     }
+
+    public RequestQueue getRequestQueue() {
+        return requestQueue;
+    }
 }

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -196,6 +197,69 @@ public class LoginActivity extends Activity{
     }
 
     private void initData() {
+        LoginController.getInstance().init(this);
+    }
+
+    private void initListener() {
+        //注册按钮及发送验证码点击事件
+        mBtnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String inputPhone = mInputPhone.getText().toString();
+               getUser(inputPhone);
+//                if (mSmsVerifySuccess) {
+//                    thirdBundleData = null;
+//                    getUser(inputPhone);//判断用户是否已经存在
+//                } else {
+//                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
+//                    mVerifyCode.setFocusable(true);
+//                    mVerifyCode.setFocusableInTouchMode(true);
+//                    mVerifyCode.requestFocus();
+//                    mBtnConfirm.setText("正在发送中...");
+//                    sendVerifyCodeForPhone(inputPhone);//发送验证码
+//                }
+            }
+        });
+
+
+
+        //需要帮助-文本点击事件
+        mNeedHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO:需要帮助
+            }
+        });
+
+        //用户协议-文本点击事件
+        mUserAgreement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO:用户协议
+            }
+        });
+
+        //微信登录
+        mIbtnWeixin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                loginWithWeixin();
+            }
+        });
+
+
+        //微博登录
+        mIbtnWeibo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+               // loginWithWeibo();
+            }
+        });
+
+        //QQ登录
+        mIbtnQQ.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+               // loginWithQQ();
+            }
+        });
 
         //手机号输入监听事件
         mInputPhone.addTextChangedListener(new TextWatcher() {
@@ -269,68 +333,6 @@ public class LoginActivity extends Activity{
                         mImgVerifyRight.setVisibility(View.GONE);
                     }
                 }
-            }
-        });
-    }
-
-    private void initListener() {
-        //注册按钮及发送验证码点击事件
-        mBtnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String inputPhone = mInputPhone.getText().toString();
-               // getUser(inputPhone);
-                if (mSmsVerifySuccess) {
-                    thirdBundleData = null;
-                    getUser(inputPhone);//判断用户是否已经存在
-                } else {
-                    mVerifyCode.setHint("请输入验证码");//1.请求验证码
-                    mVerifyCode.setFocusable(true);
-                    mVerifyCode.setFocusableInTouchMode(true);
-                    mVerifyCode.requestFocus();
-                    mBtnConfirm.setText("正在发送中...");
-                    sendVerifyCodeForPhone(inputPhone);//发送验证码
-                }
-            }
-        });
-
-
-
-        //需要帮助-文本点击事件
-        mNeedHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO:需要帮助
-            }
-        });
-
-        //用户协议-文本点击事件
-        mUserAgreement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO:用户协议
-            }
-        });
-
-        //微信登录
-        mIbtnWeixin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                loginWithWeixin();
-            }
-        });
-
-
-        //微博登录
-        mIbtnWeibo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-               // loginWithWeibo();
-            }
-        });
-
-        //QQ登录
-        mIbtnQQ.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-               // loginWithQQ();
             }
         });
     }
@@ -556,9 +558,7 @@ public class LoginActivity extends Activity{
                     CacheUtil.getInstance().setUserId(userid);
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
-                    //跳转到个人资料设置页面
-                    /** 注册成功后, 获取用户详细信息 add by winkyqin */
-                    getUserDetailInfo(userid, token, true);
+                    LoginController.getInstance().getUserDetailInfo(userid, token, true,null);
 
                 }else {
                     LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
@@ -576,55 +576,7 @@ public class LoginActivity extends Activity{
         };
     }
 
-    /**
-     * 获取用户详细信息
-     * @param userid
-     * @param token
-     * @param isNewRegister 是否是新注册用户
-     */
-    private void getUserDetailInfo(final String userid, String token,final boolean isNewRegister) {
-        DataRequestVolley getUserDetail = new DataRequestVolley(HttpMethod.GET,
-            Constants.GET_USER_DETAIL_URL + "userid=" + userid + "&token=" + token,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "response="+response);
-                    if(!TextUtils.isEmpty(response)){
-                        Gson gson = new Gson();
-                        UserDetailVo userDetailVo = gson.fromJson(response, UserDetailVo.class);
-                        UserDetailDBUtil.getInstance().addUserDetail(userDetailVo);
-                        if(null != userDetailVo){
-                            //缓存用户名
-                            String userName = userDetailVo.getUsername();
-                            if(TextUtils.isEmpty(userName)){
-                                CacheUtil.getInstance().setUserName(userName);
-                            }
-                            //缓存手机号
-                            String userPhone = userDetailVo.getPhone();
-                            if(TextUtils.isEmpty(userPhone)){
-                                CacheUtil.getInstance().setUserPhone(userPhone);
-                            }
-                        }
-                    }
 
-                    if(isNewRegister){
-                        Intent intent = new Intent(LoginActivity.this, MineActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        goHome();
-                    }
-                }
-            },
-
-            new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtil.getInstance().info(LogLevel.INFO, "getUserDetailInfo=>获取用户详细信息失败"+error.toString());
-            }
-        });
-        RequestQueueSingleton.getInstance(LoginActivity.this).addToRequestQueue(getUserDetail);
-    }
 
     /**
      * 用户请求注册或注册
@@ -641,20 +593,15 @@ public class LoginActivity extends Activity{
                 map.put("phone", phoneNumber);
                 map.put("userstatus", "2");
                 map.put("phone_os", DeviceUtils.getOS()+" "+DeviceUtils.getSdk() );
+                LogUtil.getInstance().info(LogLevel.INFO, map.toString());
                 return map;
             }
         };
-        Log.v("msg", "request：" + signUpRequest.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(signUpRequest);
+        LogUtil.getInstance().info(LogLevel.INFO,signUpRequest.toString());
+        LoginController.getInstance().addToRequestQueue(signUpRequest);
     }
 
-    private void goHome() {
-        Intent mainIntent = new Intent(this, MainActivity.class);
-       // mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(mainIntent);
-        finish();
-        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-    }
+
 
     /**
      * create listener for getuser
@@ -699,9 +646,7 @@ public class LoginActivity extends Activity{
                     CacheUtil.getInstance().setUserId(userid);
                     CacheUtil.getInstance().setLogin(true);
                     DBOpenHelper.DB_NAME = userid +".db";
-
-                    /** 用户已经存在，获取用户详细信息后存入数据库 */
-                    getUserDetailInfo(userid, token, false);
+                    LoginController.getInstance().getUserDetailInfo(userid, token, false,null);
 
                 }
             }
@@ -727,7 +672,7 @@ public class LoginActivity extends Activity{
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.GET, url,getUserListener,getUserErrorListener);
         DialogUtil.getInstance().showProgressDialog(this);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        LoginController.getInstance().addToRequestQueue(request);
     }
 
     /**

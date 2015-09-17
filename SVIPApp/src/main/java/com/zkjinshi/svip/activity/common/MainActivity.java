@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
@@ -36,7 +34,6 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
-import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
@@ -56,18 +53,13 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
-import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
-import com.zkjinshi.svip.view.BadgeView;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.kenburnsview.KenBurnsView;
 import com.zkjinshi.svip.view.kenburnsview.Transition;
 import com.zkjinshi.svip.vo.MessageVo;
-import com.zkjinshi.svip.vo.OrderInfoVo;
-import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import com.zkjinshi.svip.vo.UserInfoVo;
 import com.zkjinshi.svip.volley.DataRequestVolley;
@@ -85,6 +77,7 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
+
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
@@ -118,6 +111,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
    // private ShopDetailVo lastShopInfo  = null;
    // private ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
     SVIPApplication svipApplication;
+    private ArrayList<Request<String>> requestList = new ArrayList<Request<String>>();
+
+
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -157,7 +153,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         MineNetController.getInstance().init(this);
         initDBName();
         initShop();
-        initAvatar();
         LocationManager.getInstance().registerLocation(this);
         messageListener = new MessageListener();
         initService(messageListener);
@@ -170,6 +165,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      */
     private void initShop() {
         ShopListManager.getInstance().init(this);
+        requestList.add(ShopListManager.getInstance().getStringRequest());
     }
 
     private void setBadgeNum(){
@@ -183,63 +179,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         } else {
             msgNumTv.setVisibility(View.GONE);
         }
-    }
-
-    private void initAvatar() {
-        if(CacheUtil.getInstance().getToken() == null){
-            return;
-        }
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),
-                        CacheUtil.getInstance().getUserId()),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.ERROR, "获取用户信息响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                UserInfoResponse userInfoResponse =  new Gson().fromJson(response, UserInfoResponse.class);
-                                if(null != userInfoResponse && userInfoResponse.getUserid() != null){
-
-                                    UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
-                                    if(null != userInfoVo){
-                                        String userPhotoSuffix = userInfoVo.getUserAvatar();
-                                        if(!TextUtils.isEmpty(userPhotoSuffix)){
-                                            String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
-                                            //保存头像到本地
-                                            CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
-                                            MineUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
-                                            MenuLeftFragment leftmenu = (MenuLeftFragment)leftMenuFragment;
-                                            leftmenu.setAvatar();
-                                        }
-                                        CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
-                                        CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
-                                        CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
-                                    }
-                                }else if(!userInfoResponse.isSet()){
-                                    CacheUtil.getInstance().setLogin(false);
-                                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                                    startActivity(intent);
-                                    overridePendingTransition(R.anim.slide_in_right,
-                                            R.anim.slide_out_left);
-                                    finish();
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取用户信息错误信息:" +  error.getMessage());
-            }
-        });
-        LogUtil.getInstance().info(LogLevel.ERROR, "获取用户信息:" + stringRequest.toString());
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
     }
 
     private void initMenu() {
@@ -277,17 +216,32 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     protected void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
+        for(Request<String> request : requestList){
+            LogUtil.getInstance().info(LogLevel.INFO,"取消 "+request.toString());
+            request.cancel();
+        }
+        requestList.clear();
     }
 
     protected  void onResume(){
         super.onResume();
-        MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserPhotoUrl())){
+            MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+        }
         setBadgeNum();
         loadLastOrderInfo();
     }
 
+    protected void onStop(){
+        super.onStop();
+    }
+
     //加载最近的一条订单信息
     private void loadLastOrderInfo(){
+        if(TextUtils.isEmpty( CacheUtil.getInstance().getToken())){
+            reLogin();
+            return;
+        }
         createLoadLastOrderListener();
         DataRequestVolley request = new DataRequestVolley(
                 HttpMethod.POST, ProtocolUtil.getLastOrder(), loadOrderListener, loadOrderErrorListener){
@@ -296,12 +250,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("userid", CacheUtil.getInstance().getUserId());
                 map.put("token", CacheUtil.getInstance().getToken());
-                LogUtil.getInstance().info(LogLevel.ERROR, map.toString());
+                LogUtil.getInstance().info(LogLevel.INFO, map.toString());
                 return map;
             }
         };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
+        LogUtil.getInstance().info(LogLevel.INFO, request.toString());
         DialogUtil.getInstance().showProgressDialog(this);
+        request.setRetryPolicy(ProtocolUtil.getDefaultRetryPolicy());
+        requestList.add(request);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
     }
@@ -313,7 +269,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 DialogUtil.getInstance().cancelProgressDialog();
                 if(!TextUtils.isEmpty(response)){
                     try {
-                        LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
+                        LogUtil.getInstance().info(LogLevel.INFO, "获取最近订单结果:"+response);
 
                         lastOrderInfo = new Gson().fromJson(response, OrderLastResponse.class);
                         if(lastOrderInfo != null && !lastOrderInfo.isSet()){
@@ -368,7 +324,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             public void onErrorResponse(com.android.volley.VolleyError volleyError){
                 DialogUtil.getInstance().cancelProgressDialog();
                 volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取最近订单失败。" + volleyError.toString());
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取最近订单失败。" + volleyError.toString());
                 orderInfoTv.setVisibility(View.GONE);
                 lastOrderInfo = null;
             }
@@ -840,6 +796,16 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             }
         }
     };
+
+    //重新登录
+    private void reLogin(){
+        CacheUtil.getInstance().setLogin(false);
+        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
+        finish();
+    }
 
 
 }
