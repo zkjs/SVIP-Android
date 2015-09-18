@@ -89,7 +89,7 @@ public class UserDetailDBUtil {
         try {
             db = helper.getWritableDatabase();
             cursor = db.rawQuery("select * from " + DBOpenHelper.USER_INFO_TBL +
-                    "where user_id = ?", new String[]{userID});
+                    " where user_id = ?", new String[]{userID});
             if (cursor != null && cursor.getCount() > 0) {
                 if (cursor.moveToFirst()) {
                     userDetailVo = UserDetailFactory.getInstance().buildUserDetailVoByCursor(cursor);
