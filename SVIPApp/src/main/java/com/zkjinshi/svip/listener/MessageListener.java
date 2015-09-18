@@ -200,10 +200,15 @@ public class MessageListener extends Handler implements IMessageListener {
                 //保存音频对象，并获得路径
                 String imageName = msgImgChat.getFilename();
                 String mediaPath = null;
-                if(TextUtils.isEmpty(imageName)){
-                    mediaPath = FileUtil.getInstance().getImagePath() + imageName;
+                if(!TextUtils.isEmpty(imageName)){
+                    if(imageName.contains(".")){
+                        mediaPath = FileUtil.getInstance().getImagePath() + imageName;
+                    } else {
+                        mediaPath = FileUtil.getInstance().getImagePath() +
+                                System.currentTimeMillis()+ msgImgChat.getFormat();
+                    }
                 } else {
-                    mediaPath = System.currentTimeMillis() + "." + msgImgChat.getFormat();
+                    mediaPath = FileUtil.getInstance().getImagePath() + imageName;
                 }
                 String base64Image = msgImgChat.getBody();
 
