@@ -202,7 +202,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         mMessageVo = buildTextMessageVo(mShopID, mSessionID, content,
                                         tempMessageId, tempSendTime,
                                         SendStatus.SENDING, defaultRuleType);
-
         /** 判断shopID聊天室是否存在 */
         boolean isExist = ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(mShopID);
         if(isExist){
@@ -212,10 +211,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             // 聊天室尚未创建, 创建新的聊天室
             long addResult = ChatRoomDBUtil.getInstance().addChatRoom(mMessageVo);
         }
-
         /** 2、保存文本消息到sqlite(注意此时的消息正在发送中) */
         MessageDBUtil.getInstance().addMessage(mMessageVo);
-
         /** 3、构建文本vo实体，将消息内容显示到页面 */
         currentMessageList.add(mMessageVo);
         Message msg = Message.obtain();
@@ -742,6 +739,39 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         } else if (localCount == 0) {
             if (NetWorkUtil.isNetworkConnected(context)) {
                 //TODO Jimmy 请求后台，获取一页数据
+                HashMap<String,String> bizMap = new HashMap<String,String>();
+                bizMap.put("ClientID",mSessionID);
+                bizMap.put("ShopID",shopID);
+                bizMap.put("UserID",CacheUtil.getInstance().getUserId());
+                bizMap.put("FromTime",""+System.currentTimeMillis());
+                bizMap.put("Count",""+20);
+                MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"msg/find/clientid");
+                mediaRequest.setBizParamMap(bizMap);
+                MediaRequestTask mediaRequestTask = new MediaRequestTask(context,mediaRequest,MediaResponse.class);
+                mediaRequestTask.setMediaRequestListener(new MediaRequestListener() {
+                    @Override
+                    public void onNetworkRequestError(int errorCode, String errorMessage) {
+                        Log.i(TAG,"errorCode:"+errorCode);
+                        Log.i(TAG,"errorMessage:"+errorMessage);
+                    }
+
+                    @Override
+                    public void onNetworkRequestCancelled() {
+
+                    }
+
+                    @Override
+                    public void onNetworkResponseSucceed(MediaResponse result) {
+                        Log.i(TAG,"rawResult:"+result.rawResult);
+                    }
+
+                    @Override
+                    public void beforeNetworkRequestStart() {
+
+                    }
+                });
+                mediaRequestTask.execute();
+
                 // step7 从服务器获取历史记录
                 postDelayed(stopRefreshRunnable, 3000);
             }

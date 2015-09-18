@@ -101,7 +101,6 @@
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="CCP_REST_SMS_SDK_JAVA_v2.6.3r" level="project" />
-    <orderEntry type="library" exported="" name="commons-httpclient-3.0" level="project" />
     <orderEntry type="library" exported="" name="MapApiLocation_1.3.3" level="project" />
     <orderEntry type="module" module-name="social_sdk_library_project" exported="" />
     <orderEntry type="module" module-name="ZKJinShiBaseClass" exported="" />
