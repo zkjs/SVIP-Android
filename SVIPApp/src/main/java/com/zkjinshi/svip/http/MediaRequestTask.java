@@ -166,7 +166,7 @@ public class MediaRequestTask extends AsyncTask<MediaRequest, Void, MediaRespons
         try {
             is = conn.getInputStream();
             baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[8*1024*1024];
             int len = -1 ;
             while((len = is.read(buffer)) != -1){
                 baos.write(buffer, 0, len);

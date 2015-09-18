@@ -56,21 +56,4 @@ public class MediaRequest {
     public JSONObject getBizJson() {
         return mBizJson;
     }
-
-    public String getRawRequestParams(){
-        List<NameValuePair> params = new ArrayList<NameValuePair>(1);
-        JSONObject json = new JSONObject();
-        try {
-            json.put("biz", mBizJson);
-            Log.i("info", "JimmyZhang-json:" + json.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e(TAG,"The request parameters is invalid for Json." + e.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG,"The request parameters is failed to encrypted." + e.toString());
-        }
-
-        return json.toString();
-    }
 }
