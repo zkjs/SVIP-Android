@@ -135,12 +135,10 @@ public class OrderDetailActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-
-        initView();
-        initListener();
-
         reservationNo = getIntent().getStringExtra("reservation_no");
         shopId = getIntent().getStringExtra("shopid");
+        initView();
+        initListener();
         loadOrderInfoByReservationNo();
     }
 

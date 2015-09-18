@@ -21,7 +21,7 @@ import com.zkjinshi.svip.vo.UserDetailVo;
  */
 public class UserDetailDBUtil {
 
-    private final static String TAG = ChatRoomDBUtil.class.getSimpleName();
+    private final static String TAG = UserDetailDBUtil.class.getSimpleName();
 
     private Context context;
     private DBOpenHelper    helper;
@@ -48,16 +48,25 @@ public class UserDetailDBUtil {
      * @param userDetailVo
      */
     public long addUserDetail(UserDetailVo userDetailVo) {
-        UserDetailVo user = queryUserDetailByUserID(userDetailVo.getUserid());
-        if(user != null){
-            return -1;
-        }
+
         ContentValues values = UserDetailFactory.getInstance().buildContentValues(userDetailVo);
         long id = -1;
         SQLiteDatabase db = null;
         try {
             db = helper.getWritableDatabase();
-            id = db.insert(DBOpenHelper.USER_INFO_TBL, null, values);
+
+            try {
+                id = db.insert(DBOpenHelper.USER_INFO_TBL, null, values);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if(id == -1){
+                id = db.update(DBOpenHelper.USER_INFO_TBL, values, " userid = ? ", new String[]{userDetailVo.getUserid()});
+                LogUtil.getInstance().info(LogLevel.INFO, TAG + "本地数据库更新用户资料");
+            }else{
+                LogUtil.getInstance().info(LogLevel.INFO, TAG + "本地数据库插入用户资料");
+            }
+
         } catch (Exception e){
             LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".addUserDetail->" + e.getMessage());
             e.printStackTrace();
