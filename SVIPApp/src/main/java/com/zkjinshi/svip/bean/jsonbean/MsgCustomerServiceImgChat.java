@@ -10,6 +10,8 @@ public class MsgCustomerServiceImgChat {
     private int         type;//not  null //协议消息类型
     private long        timestamp;//not  null //当前时间
     private String      tempid;//app端临时ID
+    private String attachId;
+    private String filePath;
     private long        srvmsgid;
     private int         protover;//消息协议版本
 
@@ -229,12 +231,30 @@ public class MsgCustomerServiceImgChat {
         this.body = body;
     }
 
+    public String getAttachId() {
+        return attachId;
+    }
+
+    public void setAttachId(String attachId) {
+        this.attachId = attachId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public String toString() {
         return "MsgCustomerServiceImgChat{" +
                 "type=" + type +
                 ", timestamp=" + timestamp +
                 ", tempid='" + tempid + '\'' +
+                ", attachId='" + attachId + '\'' +
+                ", filePath='" + filePath + '\'' +
                 ", srvmsgid=" + srvmsgid +
                 ", protover=" + protover +
                 ", fromid='" + fromid + '\'' +

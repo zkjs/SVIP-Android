@@ -15,8 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+
 import com.google.gson.Gson;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
@@ -54,9 +53,7 @@ import com.zkjinshi.svip.view.MsgListView;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.SendStatus;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,7 +62,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import de.greenrobot.event.EventBus;
@@ -327,7 +323,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVector.add(tempMessageId);
 
         //get the base64 string from the filepath
-        String attachId = FileUtil.getInstance().filePath2Base64(filePath);
+        String attachId = UUIDBuilder.getInstance().getRandomUUID();
 
         mMessageVo = buildAudioMessageVo(shopID, mSessionID, tempMessageId,
                 tempSendTime, SendStatus.SENDING,
@@ -369,7 +365,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         String tempMessageId = UUIDBuilder.getInstance().getRandomUUID();
         long tempSendTime = System.currentTimeMillis();
         messageVector.add(tempMessageId);
-        String attachId = FileUtil.getInstance().filePath2Base64(filePath);
+        String attachId = UUIDBuilder.getInstance().getRandomUUID();
 
         /** 生成MessageVo对象 */
         mMessageVo = buildImageMessageVo(shopID, mSessionID, tempMessageId,
@@ -455,17 +451,17 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             case AUDIO://语音
                 final MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
                                                    buildMsgMediaByMessageVo(messageUiVo);
+                HashMap<String,String> voiceBizMap = new HashMap<String,String>();
+                HashMap<String,String> voiceFileMap = new HashMap<String,String>();
+                voiceBizMap.put("SessionID", msgMedia.getSessionid());
+                voiceBizMap.put("FromID", msgMedia.getFromid());
+                voiceBizMap.put("ShopID", msgMedia.getShopid());
+                voiceBizMap.put("Format", "aac");
+                voiceBizMap.put("TempID", msgMedia.getTempid());
+                voiceFileMap.put("Body", messageUiVo.getFilePath());
                 MediaRequest voiceRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"media/upload");
-                try {
-                    voiceRequest.addBizParam("fromid", msgMedia.getFromid());
-                    voiceRequest.addBizParam("sessionid", msgMedia.getSessionid());
-                    voiceRequest.addBizParam("shopid", msgMedia.getShopid());
-                    voiceRequest.addBizParam("format", "aac");
-                    voiceRequest.addBizParam("body", msgMedia.getBody());
-                    voiceRequest.addBizParam("tempid", msgMedia.getTempid());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                voiceRequest.setBizParamMap(voiceBizMap);
+                voiceRequest.setFileParamMap(voiceFileMap);
                 MediaRequestTask voiceRequestTask = new MediaRequestTask(context,voiceRequest, MediaResponse.class);
                 voiceRequestTask.setMediaRequestListener(new MediaRequestListener() {
                     @Override
@@ -487,23 +483,18 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                             int resultCode = (int) responseObject.get("result");
                             // 文件上传成功
                             if (Constants.POST_SUCCESS == resultCode) {
-                                LogUtil.getInstance().info(LogLevel.INFO, "文件上传成功");
                                 String mediaUrl = (String) responseObject.get("url");
-                                String scaleUrl = (String) responseObject.get("s_url");
-                                messageUiVo.setUrl(scaleUrl);
-                                messageUiVo.setAttachId(null);
+                                messageUiVo.setUrl(mediaUrl);
                                 //更新数据库信息
                                 MessageDBUtil.getInstance().updateMessage(MessageFactory.getInstance().
                                         buildContentValues(messageUiVo));
                                 //获得待发送协议消息
                                 MsgCustomerServiceMediaChat msgMedia = MessageFactory.getInstance().
                                         buildMsgMediaByMessageVo(messageUiVo);
-
                                 Gson gson = new Gson();
                                 String mediaJson = gson.toJson(msgMedia);
                                 WebSocketManager.getInstance().sendMessage(mediaJson);
                             } else {
-                                LogUtil.getInstance().info(LogLevel.INFO, "文件上传失败");
                                 Gson gson = new Gson();
                                 String mediaJson = gson.toJson(msgMedia);
                                 WebSocketManager.getInstance().sendMessage(mediaJson);
@@ -523,17 +514,17 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             case IMAGE://图片
                 final MsgCustomerServiceImgChat msgImage = MessageFactory.getInstance().
                                                     buildMsgImgByMessageVo(messageUiVo);
+                HashMap<String,String> imgBizMap = new HashMap<String,String>();
+                HashMap<String,String> imgFileMap = new HashMap<String,String>();
+                imgBizMap.put("SessionID",msgImage.getSessionid());
+                imgBizMap.put("FromID",msgImage.getFromid());
+                imgBizMap.put("ShopID", msgImage.getShopid());
+                imgBizMap.put("Format", msgImage.getFormat());
+                imgBizMap.put("TempID",msgImage.getAttachId());
+                imgFileMap.put("Body", msgImage.getFilePath());
                 MediaRequest uploadImgRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"img/upload");
-                try {
-                    uploadImgRequest.addBizParam("fromid", msgImage.getFromid());
-                    uploadImgRequest.addBizParam("sessionid", msgImage.getSessionid());
-                    uploadImgRequest.addBizParam("shopid", msgImage.getShopid());
-                    uploadImgRequest.addBizParam("format", msgImage.getFormat());
-                    uploadImgRequest.addBizParam("body", msgImage.getBody());
-                    uploadImgRequest.addBizParam("tempid", msgImage.getTempid());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                uploadImgRequest.setBizParamMap(imgBizMap);
+                uploadImgRequest.setFileParamMap(imgFileMap);
                 MediaRequestTask uploadImgRequestTask = new MediaRequestTask(context,uploadImgRequest, MediaResponse.class);
                 uploadImgRequestTask.setMediaRequestListener(new MediaRequestListener() {
                     @Override

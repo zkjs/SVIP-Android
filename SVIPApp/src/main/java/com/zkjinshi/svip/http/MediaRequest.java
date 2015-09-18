@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,6 +28,16 @@ public class MediaRequest {
     public String requestUrl;
 
     /**
+     * 业务层数据Map
+     */
+    private HashMap<String, String> bizParamMap;
+
+    /**
+     * 文件数据Map
+     */
+    private HashMap<String, String> fileParamMap;
+
+    /**
      * 响应的数据的编码格式，默认为UTF-8
      *
      * @return
@@ -38,8 +49,6 @@ public class MediaRequest {
      */
     public String waitingPromptMessage;
 
-    private JSONObject mBizJson = new JSONObject();
-
     /**
      *
      * @param requestUrl
@@ -49,11 +58,20 @@ public class MediaRequest {
         this.requestUrl = requestUrl;
     }
 
-    public void addBizParam(String name, String value) throws JSONException {
-        this.mBizJson.put(name, value);
+    public HashMap<String, String> getFileParamMap() {
+        return fileParamMap;
     }
 
-    public JSONObject getBizJson() {
-        return mBizJson;
+    public void setFileParamMap(HashMap<String, String> fileParamMap) {
+        this.fileParamMap = fileParamMap;
     }
+
+    public HashMap<String, String> getBizParamMap() {
+        return bizParamMap;
+    }
+
+    public void setBizParamMap(HashMap<String, String> bizParamMap) {
+        this.bizParamMap = bizParamMap;
+    }
+
 }

@@ -7,18 +7,29 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 
-import org.apache.http.HttpStatus;
+import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
-import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 媒体请求Task封装类
@@ -100,30 +111,47 @@ public class MediaRequestTask extends AsyncTask<MediaRequest, Void, MediaRespons
     protected MediaResponse doInBackground(MediaRequest... params) {
         MediaResponse resultInfo = null;
         String requestUrl = null;
-        String bizContent = null;
-        URL url = null;
-        HttpURLConnection conn = null;
-        OutputStream os = null;
+        HashMap bizMap = null;
+        HashMap fileMap = null;
         try {
             requestUrl = mediaRequest.requestUrl;
-            bizContent = mediaRequest.getBizJson().toString();
-            url = new URL(requestUrl);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("User-Agent", "Fiddler");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Charset", "UTF-8");
-            os = conn.getOutputStream();
-            os.write(bizContent.getBytes());
-            os.close();
+            bizMap = mediaRequest.getBizParamMap();
+            fileMap = mediaRequest.getFileParamMap();
+            MultipartEntity multipartEntity = new MultipartEntity();
+            if(null != bizMap){
+                Iterator<Map.Entry<String, String>> bizIterator = bizMap.entrySet()
+                        .iterator();
+                while (bizIterator.hasNext()) {
+                    HashMap.Entry bizEntry = (HashMap.Entry) bizIterator.next();
+                    StringBody bizStringBody = new StringBody((URLEncoder.encode(bizEntry
+                            .getValue().toString(), "UTF-8")));
+                    multipartEntity.addPart(bizEntry.getKey().toString(), bizStringBody);
+                }
+            }
+            if(null != fileMap){
+                String filePath = null;
+                File file = null;
+                FileBody fileBody = null;
+                Iterator<Map.Entry<String, String>> fileIterator = fileMap.entrySet()
+                        .iterator();
+                while (fileIterator.hasNext()) {
+                    HashMap.Entry fileEntry = (HashMap.Entry) fileIterator.next();
+                    filePath = (String)fileEntry.getValue();
+                    file = new File(filePath);
+                    fileBody= new FileBody(file);
+                    multipartEntity.addPart(URLEncoder.encode((String)fileEntry.getKey(), "UTF-8"), fileBody);
+                }
+            }
+            HttpPost httpPost = new HttpPost(requestUrl);
+            HttpClient httpClient = new DefaultHttpClient();
+            httpPost.setEntity(multipartEntity);
+            HttpResponse response = httpClient.execute(httpPost);
             int respCode = 0;
             if (errorCode == REQ_RESP_SUCCESS) {
-                if (conn != null && ((respCode = conn.getResponseCode()) == HttpStatus.SC_OK ||
+                if (response != null && null != response.getStatusLine() && ((respCode = response.getStatusLine().getStatusCode()) == HttpStatus.SC_OK ||
                         respCode == 404)) {
-                    resultInfo = buildResultData(conn,respCode);
-                } else if (conn == null) {
+                    resultInfo = buildResultData(response,respCode);
+                } else if (response == null) {
                     errorCode = RESPONSE_ERROR;
                 } else {
                     errorCode = HOST_ERROR;
@@ -158,20 +186,11 @@ public class MediaRequestTask extends AsyncTask<MediaRequest, Void, MediaRespons
         return statusMsg;
     }
 
-    private MediaResponse buildResultData(HttpURLConnection conn,int respCode) {
+    private MediaResponse buildResultData(HttpResponse response,int respCode) {
         MediaResponse resultInfo = null;
         String resultString = null;
-        ByteArrayOutputStream baos = null;
-        InputStream is = null;
         try {
-            is = conn.getInputStream();
-            baos = new ByteArrayOutputStream();
-            byte[] buffer = new byte[8*1024*1024];
-            int len = -1 ;
-            while((len = is.read(buffer)) != -1){
-                baos.write(buffer, 0, len);
-            }
-            resultString = new String(baos.toByteArray());
+            resultString =  EntityUtils.toString(response.getEntity());
             Gson gson = new Gson();
             if (respCode == REQ_RESP_SUCCESS) {
                 resultInfo = gson.fromJson(resultString, responseClazz);
@@ -188,17 +207,6 @@ public class MediaRequestTask extends AsyncTask<MediaRequest, Void, MediaRespons
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if(null != is){
-                    is.close();
-                }
-                if(null != baos){
-                    baos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return resultInfo;
     }
