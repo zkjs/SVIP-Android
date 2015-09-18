@@ -112,78 +112,7 @@ public class ChatRoomDBUtil {
         return id;
     }
 
-    /**
-     * 删除所有聊天室
-     * @return
-     */
-    public long deleteAllChatRoom(){
-        long id = -1;
-        SQLiteDatabase db = null;
-        try {
-            db = helper.getWritableDatabase();
-            id = db.delete(DBOpenHelper.CHAT_ROOM_TBL, "1 = ?", new String[]{"1"});
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, TAG+" deleteAll->"+e.getMessage());
-            e.printStackTrace();
-        } finally{
-            if(null != db)
-                db.close();
-        }
-        return id;
-    }
 
-    /**
-     * 查询单调聊天室记录表
-     * @return
-     */
-    public Cursor queryRawChatRoom(String shopID){
-        Cursor cursor = null;
-        SQLiteDatabase db = null;
-        try {
-            db = helper.getWritableDatabase();
-            cursor = db.rawQuery("select * from " + DBOpenHelper.CHAT_ROOM_TBL +
-                    "where shop_id = ?", new String[]{shopID});
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".queryRawChatRoom->"+e.getMessage());
-            e.printStackTrace();
-        } finally{
-            if(null != db)
-                db.close();
-        }
-        return cursor;
-    }
-
-    /**
-     * 查询所有显示在消息中心聊天室记录表
-     * @return
-     */
-    public List<ChatRoomVo> queryAllChatRoomList(){
-        List<ChatRoomVo> chatRoomList = new ArrayList<>();
-        ChatRoomVo chatRoom = null;
-        SQLiteDatabase   db = null;
-        Cursor       cursor = null;
-        try{
-            db = helper.getWritableDatabase();
-            db.execSQL("update "+ DBOpenHelper.CHAT_ROOM_TBL + " set is_visible = 1 ");
-            cursor = db.rawQuery("select * from " + DBOpenHelper.CHAT_ROOM_TBL + " where is_visible = 1 order by end_time desc ", null);
-            if (cursor != null && cursor.getCount() > 0) {
-                while (cursor.moveToNext()) {
-                    chatRoom = ChatRoomFactory.getInstance().buildChatRoomByCursor(cursor);
-                    chatRoomList.add(chatRoom);
-                }
-            }
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".queryAllChatRoomList->" + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            if(cursor != null)
-                cursor.close();
-
-            if(db != null)
-                db.close();
-        }
-        return chatRoomList;
-    }
 
     /**
      * 判断聊天室是否已经存在
@@ -203,35 +132,16 @@ public class ChatRoomDBUtil {
             LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".isChatRoomExist->"+e.getMessage());
             e.printStackTrace();
         } finally{
+            if(null != cursor)
+                cursor.close();
+
             if(null != db)
                 db.close();
 
-            if(null != cursor)
-                cursor.close();
         }
         return false;
     }
 
-    /**
-     * @param chatRoom
-     * @return
-     */
-    public long updateChatRoomInVisible(ChatRoomVo chatRoom){
-        ContentValues values = ChatRoomFactory.getInstance().buildUpdateContentValues(chatRoom);
-        long id = -1;
-        SQLiteDatabase db = null;
-        try {
-            db = helper.getWritableDatabase();
-            id = db.update(DBOpenHelper.CHAT_ROOM_TBL, values, "shop_id = ?",
-                    new String[]{chatRoom.getShopid()});
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, TAG+".updateChatRoomInVisible->"+e.getMessage());
-            e.printStackTrace();
-        } finally{
-            if(null != db)
-                db.close();
-        }
-        return id;
-    }
+
 
 }

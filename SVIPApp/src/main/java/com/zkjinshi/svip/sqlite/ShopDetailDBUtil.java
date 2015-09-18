@@ -66,11 +66,11 @@ public class ShopDetailDBUtil {
             LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".isShopExists->"+e.getMessage());
             e.printStackTrace();
         } finally{
+            if(null != cursor)
+                cursor.close();
             if(null != db)
                 db.close();
 
-            if(null != cursor)
-                cursor.close();
         }
         return false;
     }
@@ -197,10 +197,11 @@ public class ShopDetailDBUtil {
             LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".queryShopValueByShopID->" + e.getMessage());
             e.printStackTrace();
         } finally {
+            if(null != cursor)
+                cursor.close();
             if(null != db)
                 db.close();
-            if(null != cursor)
-                db.close();
+
         }
         return shopValue;
     }
