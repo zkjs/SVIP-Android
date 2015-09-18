@@ -11,6 +11,8 @@ public class MsgCustomerServiceMediaChat {
     private String      tempid;//app端临时ID
     private long        srvmsgid;
     private int         protover;//消息协议版本
+    private String attachId;
+    private String filePath;
 
     private String      fromid;
     private String      fromname;
@@ -201,6 +203,22 @@ public class MsgCustomerServiceMediaChat {
         this.filename = filename;
     }
 
+    public String getAttachId() {
+        return attachId;
+    }
+
+    public void setAttachId(String attachId) {
+        this.attachId = attachId;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public String toString() {
         return "MsgCustomerServiceMediaChat{" +
@@ -209,6 +227,8 @@ public class MsgCustomerServiceMediaChat {
                 ", tempid='" + tempid + '\'' +
                 ", srvmsgid=" + srvmsgid +
                 ", protover=" + protover +
+                ", attachId='" + attachId + '\'' +
+                ", filePath='" + filePath + '\'' +
                 ", fromid='" + fromid + '\'' +
                 ", fromname='" + fromname + '\'' +
                 ", clientid='" + clientid + '\'' +

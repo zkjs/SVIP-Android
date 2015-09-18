@@ -380,6 +380,7 @@ public class MessageFactory {
     public MsgCustomerServiceMediaChat buildMsgMediaByMessageVo(MessageVo messageVo){
         MsgCustomerServiceMediaChat msgMedia = new MsgCustomerServiceMediaChat();
         msgMedia.setSrvmsgid(0);
+        msgMedia.setFilePath(messageVo.getFilePath());
         msgMedia.setType(ProtocolMSG.MSG_CustomerServiceMediaChat);
         msgMedia.setTimestamp(System.currentTimeMillis());
         msgMedia.setShopid(messageVo.getShopId());
@@ -435,6 +436,8 @@ public class MessageFactory {
         MsgCustomerServiceImgChat msgImg = new MsgCustomerServiceImgChat();
         msgImg.setSrvmsgid(0);
         msgImg.setType(ProtocolMSG.MSG_CustomerServiceImgChat);
+        msgImg.setAttachId(messageVo.getAttachId());
+        msgImg.setFilePath(messageVo.getFilePath());
         msgImg.setTimestamp(System.currentTimeMillis());
         msgImg.setShopid(messageVo.getShopId());
         msgImg.setFromid(CacheUtil.getInstance().getUserId());
@@ -451,7 +454,7 @@ public class MessageFactory {
         String imgName = messageVo.getFileName();
         String imgFormat = null;
         if(!TextUtils.isEmpty(imgName) && imgName.contains(".")){
-            imgFormat = imgName.substring(imgName.indexOf("."));
+            imgFormat = imgName.substring(imgName.lastIndexOf(".") + 1);
         }
         msgImg.setFormat(imgFormat);
         return msgImg;
