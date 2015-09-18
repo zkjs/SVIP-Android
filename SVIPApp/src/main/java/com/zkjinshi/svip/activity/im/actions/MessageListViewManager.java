@@ -740,11 +740,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             if (NetWorkUtil.isNetworkConnected(context)) {
                 //TODO Jimmy 请求后台，获取一页数据
                 HashMap<String,String> bizMap = new HashMap<String,String>();
-                bizMap.put("ClientID",mSessionID);
+                bizMap.put("ClientID", CacheUtil.getInstance().getUserId());
                 bizMap.put("ShopID",shopID);
                 bizMap.put("UserID",CacheUtil.getInstance().getUserId());
                 bizMap.put("FromTime",""+System.currentTimeMillis());
-                bizMap.put("Count",""+20);
+                bizMap.put("Count", "" + 100);
                 MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"msg/find/clientid");
                 mediaRequest.setBizParamMap(bizMap);
                 MediaRequestTask mediaRequestTask = new MediaRequestTask(context,mediaRequest,MediaResponse.class);

@@ -191,9 +191,9 @@ public class MediaRequestTask extends AsyncTask<MediaRequest, Void, MediaRespons
         String resultString = null;
         try {
             resultString =  EntityUtils.toString(response.getEntity());
-            Gson gson = new Gson();
             if (respCode == REQ_RESP_SUCCESS) {
-                resultInfo = gson.fromJson(resultString, responseClazz);
+                resultInfo = responseClazz.newInstance();
+                ;
                 if (resultInfo != null) {
                     resultInfo.rawResult = resultString;
                 }
