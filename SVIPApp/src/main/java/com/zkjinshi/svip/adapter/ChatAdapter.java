@@ -503,7 +503,6 @@ public class ChatAdapter extends BaseAdapter {
                     displayBitmap = ImageUtil.loadThumbBitmap(context,
                             displayBitmap);
                     vh.img.setImageBitmap(displayBitmap);
-                    msgCacheMap.put(key, displayBitmap); // 缓存起来
                 } else {// 从网络取
                     //ToDo Jimmy 获取图片链接
                     String thumbUrl = item.getScaleUrl();

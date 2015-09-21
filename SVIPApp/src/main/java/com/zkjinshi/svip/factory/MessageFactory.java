@@ -264,6 +264,14 @@ public class MessageFactory {
         if(!TextUtils.isEmpty(scaleUrl)){
             values.put("scale_url", scaleUrl);
         }
+        String fileName = msgImg.getFilename();
+        String filePath = msgImg.getFilePath();
+        if(!TextUtils.isEmpty(fileName)){
+            values.put("file_name",fileName);
+        }
+        if(!TextUtils.isEmpty(filePath)){
+            values.put("file_path",filePath);
+        }
         return values;
     }
 
