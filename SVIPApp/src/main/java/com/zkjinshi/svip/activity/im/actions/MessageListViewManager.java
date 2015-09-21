@@ -744,7 +744,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 bizMap.put("ShopID",shopID);
                 bizMap.put("UserID",CacheUtil.getInstance().getUserId());
                 bizMap.put("FromTime",""+System.currentTimeMillis());
-                bizMap.put("Count", "" + 100);
+                bizMap.put("Count", "" + 20);
                 MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"msg/find/clientid");
                 mediaRequest.setBizParamMap(bizMap);
                 MediaRequestTask mediaRequestTask = new MediaRequestTask(context,mediaRequest,MediaResponse.class);
@@ -763,6 +763,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     @Override
                     public void onNetworkResponseSucceed(MediaResponse result) {
                         Log.i(TAG,"rawResult:"+result.rawResult);
+                        //TODO Jimmy 1、数据库入库
+
+                        //TODO Jimmy 2、UI展示
+
                     }
 
                     @Override

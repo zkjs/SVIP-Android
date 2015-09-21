@@ -327,16 +327,6 @@ public class ChatAdapter extends BaseAdapter {
         }
 
         ImageLoader.getInstance().displayImage(avatarUrl, vh.head, options);
-        if (!isDelEnabled) {
-            vh.head.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //ToDo Jimmy 跳转到个人详情页面
-//                    Intent goSelfInfo = new Intent((Activity)context, MineActivity.class);
-//                    context.startActivity(goSelfInfo);
-                }
-            });
-        }
         final String attachId = item.getAttachId();
         MimeType mimeType = item.getMimeType();
         if (mimeType.equals(MimeType.TEXT)) {// 文本消息
@@ -413,11 +403,6 @@ public class ChatAdapter extends BaseAdapter {
             vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(MimeType.AUDIO)) {// 语音
             final int voiceTime = item.getVoiceTime();
-            if(!isComMsg){
-                if(item.getSendStatus().equals(SendStatus.SENDING)){
-                    //TODO Jimmy 监听发送语音成功状态
-                }
-            }
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
             if (!isDelEnabled) {
                 vh.contentLayout
@@ -434,7 +419,8 @@ public class ChatAdapter extends BaseAdapter {
                         public void onClick(View v) {
                             MessageVo vo = (MessageVo) v.getTag();
                             //播放语音文件
-                            String mediaPath = vo.getFilePath();
+                            String mediaName = vo.getFileName();
+                            String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
                             if(!TextUtils.isEmpty(mediaPath)){
                                 MediaPlayerUtil.play(context, mediaPath);
                             }else {
@@ -447,7 +433,8 @@ public class ChatAdapter extends BaseAdapter {
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             MessageVo vo = (MessageVo) v.getTag();
-                            String mediaPath = vo.getFilePath();
+                            String mediaName = vo.getFileName();
+                            String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
                             if(!TextUtils.isEmpty(mediaPath)){
                                 MediaPlayerUtil.play(context, mediaPath);
                             }else{

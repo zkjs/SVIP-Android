@@ -160,33 +160,24 @@ public class MessageListener extends Handler implements IMessageListener {
 
                 /** 保存音频对象，并获得路径 */
                 String mediaName = msgMediaChat.getFilename();
-                if(TextUtils.isEmpty(mediaName)){
-                    mediaName = System.currentTimeMillis() + ".aac";
-                }
                 String audioPath   = FileUtil.getInstance().getAudioPath() + mediaName;
-                String base64Audio = msgMediaChat.getBody();
-
-                if(!TextUtils.isEmpty(base64Audio)){
-                    FileUtil.getInstance().saveBase64IntoPath(base64Audio, audioPath);
-                    Log.v(TAG, msgMediaChat.toString());
-                    /** 消息表中添加音频消息记录 */
-                    long resultCount = MessageDBUtil.getInstance().addMessage(msgMediaChat);
-                    if(resultCount > 0){
-                        MessageVo messageVO = MessageFactory.getInstance().buildMessageVoByMsgMedia(
-                                                                            msgMediaChat, audioPath);
-                        /** insert or update into table ChatRoom */
-                        String shopID = messageVO.getShopId();
-                        if(!TextUtils.isEmpty(shopID)) {
-                            if(ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID)){
-                                ChatRoomDBUtil.getInstance().addChatRoom(messageVO);
-                            } else {
-                                ChatRoomDBUtil.getInstance().updateChatRoom(messageVO);
-                            }
+                /** 消息表中添加音频消息记录 */
+                long resultCount = MessageDBUtil.getInstance().addMessage(msgMediaChat);
+                if(resultCount > 0){
+                    MessageVo messageVO = MessageFactory.getInstance().buildMessageVoByMsgMedia(
+                            msgMediaChat, audioPath);
+                    /** insert or update into table ChatRoom */
+                    String shopID = messageVO.getShopId();
+                    if(!TextUtils.isEmpty(shopID)) {
+                        if(ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID)){
+                            ChatRoomDBUtil.getInstance().addChatRoom(messageVO);
+                        } else {
+                            ChatRoomDBUtil.getInstance().updateChatRoom(messageVO);
                         }
-                        NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVO);
-                        /** post the message to chatActivity */
-                        EventBus.getDefault().post(messageVO);
                     }
+                    NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVO);
+                    /** post the message to chatActivity */
+                    EventBus.getDefault().post(messageVO);
                 }
             }
 

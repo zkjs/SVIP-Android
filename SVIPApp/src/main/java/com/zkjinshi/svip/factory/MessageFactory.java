@@ -192,6 +192,14 @@ public class MessageFactory {
         if(!TextUtils.isEmpty(url)){
             values.put("url", url);
         }
+        String fileName = msgMedia.getFilename();
+        String filePath = msgMedia.getFilePath();
+        if(!TextUtils.isEmpty(fileName)){
+            values.put("file_name",fileName);
+        }
+        if(!TextUtils.isEmpty(filePath)){
+            values.put("file_path",filePath);
+        }
         return values;
     }
 
