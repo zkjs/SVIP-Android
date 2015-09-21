@@ -115,9 +115,9 @@ public class MessageFactory {
             values.put("title", title);//聊天室名称
         }
 
-        values.put("voice_time", "");//语音时间
+        values.put("voice_time", 0);//语音时间
         values.put("mime_type", msgText.getChildtype() == 0 ? MimeType.TEXT.getVlaue() : MimeType.CARD.getVlaue());//消息类型
-        values.put("send_status", "");//发送状态
+        values.put("send_status", 1);//发送状态
         values.put("is_read", 0);//是否已读 0未读 1已读
         values.put("attach_id", "");//附件id
 
@@ -176,8 +176,8 @@ public class MessageFactory {
         }
         values.put("voice_time", msgMedia.getDurnum());//语音时间
         values.put("mime_type", MimeType.AUDIO.getVlaue());//消息类型
-        values.put("send_status", "");//发送状态
-        values.put("is_read", "");//是否已读
+        values.put("send_status", 1);//发送状态
+        values.put("is_read", 0);//是否已读
 
         String attachID = msgMedia.getBody();
         if(!TextUtils.isEmpty(attachID)){
@@ -241,10 +241,10 @@ public class MessageFactory {
         if(!TextUtils.isEmpty(title)){
             values.put("title", title);//聊天室名称
         }
-        values.put("voice_time", "");//无语音时间
+        values.put("voice_time", 0);//无语音时间
         values.put("mime_type", MimeType.IMAGE.getVlaue());//消息类型
-        values.put("send_status", "");//发送状态
-        values.put("is_read", "");//是否已读
+        values.put("send_status", 1);//发送状态
+        values.put("is_read", 0);//是否已读
         String attachID = msgImg.getBody();
         if(!TextUtils.isEmpty(attachID)){
             values.put("attach_id", msgImg.getBody());//附件id 图片本地保存路径
@@ -262,7 +262,7 @@ public class MessageFactory {
 
         String scaleUrl = msgImg.getScaleurl();
         if(!TextUtils.isEmpty(scaleUrl)){
-            values.put("scaleUrl", scaleUrl);
+            values.put("scale_url", scaleUrl);
         }
         return values;
     }
@@ -401,10 +401,9 @@ public class MessageFactory {
     /**
      * 根据语音消息条目构建MessageVo
      * @param msgImg
-     * @param imgPath
      * @return
      */
-    public MessageVo buildMessageVoByMsgImg(MsgCustomerServiceImgChat msgImg, String imgPath){
+    public MessageVo buildMessageVoByMsgImg(MsgCustomerServiceImgChat msgImg){
         MessageVo messageVo = new MessageVo();
         messageVo.setMessageId(msgImg.getSrvmsgid() + "");
         messageVo.setSessionId(msgImg.getSessionid());
@@ -423,7 +422,6 @@ public class MessageFactory {
         messageVo.setUrl(msgImg.getUrl());
         messageVo.setScaleUrl(msgImg.getScaleurl());
         messageVo.setFileName(msgImg.getFilename());
-        messageVo.setFilePath(imgPath);
         return  messageVo;
     }
 

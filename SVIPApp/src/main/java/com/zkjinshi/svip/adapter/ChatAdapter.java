@@ -506,35 +506,37 @@ public class ChatAdapter extends BaseAdapter {
                     msgCacheMap.put(key, displayBitmap); // 缓存起来
                 } else {// 从网络取
                     //ToDo Jimmy 获取图片链接
-                    String thumbUrl = Constants.GET_USER_AVATAR + item.getContactId() + ".jpg";
-                    ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
-                            imageOptions, new ImageLoadingListener() {
+                    String thumbUrl = item.getScaleUrl();
+                    if(!TextUtils.isEmpty(thumbUrl)){
+                        ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
+                                imageOptions, new ImageLoadingListener() {
 
-                                @Override
-                                public void onLoadingStarted(String imageUri,
-                                                             View view) {
-                                }
+                                    @Override
+                                    public void onLoadingStarted(String imageUri,
+                                                                 View view) {
+                                    }
 
-                                @Override
-                                public void onLoadingFailed(String imageUri,
-                                                            View view, FailReason failReason) {
-                                }
+                                    @Override
+                                    public void onLoadingFailed(String imageUri,
+                                                                View view, FailReason failReason) {
+                                    }
 
-                                @Override
-                                public void onLoadingComplete(String imageUri,
-                                                              View view, Bitmap loadedImage) {
-                                    File file = new File(
-                                            FileUtil.getInstance().getImagePath()
-                                                    + fileName);
-                                    ImageUtil.saveBitmap(loadedImage,
-                                            file.getPath());
-                                }
+                                    @Override
+                                    public void onLoadingComplete(String imageUri,
+                                                                  View view, Bitmap loadedImage) {
+                                        File file = new File(
+                                                FileUtil.getInstance().getImagePath()
+                                                        + fileName);
+                                        ImageUtil.saveBitmap(loadedImage,
+                                                file.getPath());
+                                    }
 
-                                @Override
-                                public void onLoadingCancelled(String imageUri,
-                                                               View view) {
-                                }
-                            });
+                                    @Override
+                                    public void onLoadingCancelled(String imageUri,
+                                                                   View view) {
+                                    }
+                                });
+                    }
                     vh.img.setTag(attachId);
                 }
             } else {

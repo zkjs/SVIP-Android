@@ -197,41 +197,21 @@ public class MessageListener extends Handler implements IMessageListener {
                 LogUtil.getInstance().info(LogLevel.INFO, "接收到图片消息:");
                 MsgCustomerServiceImgChat msgImgChat = gson.fromJson(message,
                                             MsgCustomerServiceImgChat.class);
-                //保存音频对象，并获得路径
-                String imageName = msgImgChat.getFilename();
-                String mediaPath = null;
-                if(!TextUtils.isEmpty(imageName)){
-                    if(imageName.contains(".")){
-                        mediaPath = FileUtil.getInstance().getImagePath() + imageName;
-                    } else {
-                        mediaPath = FileUtil.getInstance().getImagePath() +
-                                System.currentTimeMillis()+ msgImgChat.getFormat();
-                    }
-                } else {
-                    mediaPath = FileUtil.getInstance().getImagePath() + imageName;
-                }
-                String base64Image = msgImgChat.getBody();
-
-                if(!TextUtils.isEmpty(base64Image)){
-                    Log.v(TAG, msgImgChat.toString());
-                    FileUtil.getInstance().saveBase64IntoPath(base64Image, mediaPath);
-                    /** 消息表中添加图片消息记录 */
-                    long resultCount = MessageDBUtil.getInstance().addMessage(msgImgChat);
-                    if(resultCount > 0){
-                        MessageVo imageMessageVo = MessageFactory.getInstance().buildMessageVoByMsgImg(
-                                                                                 msgImgChat, mediaPath);
-                        /** insert or update into table ChatRoom */
-                        String shopID = imageMessageVo.getShopId();
-                        if(!TextUtils.isEmpty(shopID)) {
-                            if(ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID)){
-                                ChatRoomDBUtil.getInstance().addChatRoom(imageMessageVo);
-                            } else {
-                                ChatRoomDBUtil.getInstance().updateChatRoom(imageMessageVo);
-                            }
+                /** 消息表中添加图片消息记录 */
+                long resultCount = MessageDBUtil.getInstance().addMessage(msgImgChat);
+                if(resultCount > 0){
+                    MessageVo imageMessageVo = MessageFactory.getInstance().buildMessageVoByMsgImg(
+                                                                             msgImgChat);
+                    String shopID = imageMessageVo.getShopId();
+                    if(!TextUtils.isEmpty(shopID)) {
+                        if(ChatRoomDBUtil.getInstance().isChatRoomExistsByShopID(shopID)){
+                            ChatRoomDBUtil.getInstance().addChatRoom(imageMessageVo);
+                        } else {
+                            ChatRoomDBUtil.getInstance().updateChatRoom(imageMessageVo);
                         }
-                        NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), imageMessageVo);
-                        EventBus.getDefault().post(imageMessageVo);
                     }
+                    NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), imageMessageVo);
+                    EventBus.getDefault().post(imageMessageVo);
                 }
             }
 
@@ -271,7 +251,6 @@ public class MessageListener extends Handler implements IMessageListener {
                 Intent intent = new Intent(context, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-                ((Activity) context).finish();
             }
         });
         customBuilder.setPositiveButton("重新登录", new DialogInterface.OnClickListener() {

@@ -771,9 +771,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     }
                 });
                 mediaRequestTask.execute();
-
-                // step7 从服务器获取历史记录
-                postDelayed(stopRefreshRunnable, 3000);
             }
         }
     }

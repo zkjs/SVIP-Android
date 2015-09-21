@@ -16,24 +16,24 @@ public class TableOpenHelper {
             "create table if not exists "
                     + DBOpenHelper.MESSAGE_TBL
                     + "("
-                    + " message_id text primary key, "
-                    + " session_id text, "//聊天室唯一标识
-                    + " shop_id text, "//聊点指定商家ID
-                    + " contact_id text, "//发送者ID
-                    + " contact_name text, "//发送者名称
-                    + " content text, "//消息内容
-                    + " send_time long, "//发送时间
-                    + " title text, "//聊天室名称
-                    + " voice_time, "//语音时间
-                    + " mime_type integer, "//消息类别
-                    + " send_status integer,  "//发送状态
-                    + " is_read integer,  "//是否已读
-                    + " attach_id text, "//附件id
-                    + " temp_id text, "//临时消息id
-                    + " rule_type text, "//消息规则类型
-                    + " file_name text, "//文件名称
-                    + " file_path text, "//文件路径
-                    + " url text,  "//URl
+                    + " message_id text primary key , "
+                    + " session_id text , "//聊天室唯一标识
+                    + " shop_id text , "//聊点指定商家ID
+                    + " contact_id text , "//发送者ID
+                    + " contact_name text , "//发送者名称
+                    + " content text , "//消息内容
+                    + " send_time long , "//发送时间
+                    + " title text , "//聊天室名称
+                    + " voice_time integer , "//语音时间
+                    + " mime_type integer , "//消息类别
+                    + " send_status integer ,  "//发送状态
+                    + " is_read integer , "//是否已读
+                    + " attach_id text , "//附件id
+                    + " temp_id text , "//临时消息id
+                    + " rule_type text , "//消息规则类型
+                    + " file_name text , "//文件名称
+                    + " file_path text , "//文件路径
+                    + " url text , "//URl
                     + " scale_url text "//缩略图URL
                     + ")";
 
