@@ -712,8 +712,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * @param lastSendTime
      * @param isFirstTime
      */
-    public void queryPageMessages(String shopID, int limitSize,
-                                  long lastSendTime, boolean isFirstTime) {
+    public void queryPageMessages(final String shopID,final int limitSize,
+                                  final long lastSendTime, final boolean isFirstTime) {
 
         long startTime, endTime, midTime = 0;
         int localCount;
@@ -747,7 +747,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 bizMap.put("ClientID", CacheUtil.getInstance().getUserId());
                 bizMap.put("ShopID", shopID);
                 bizMap.put("UserID", CacheUtil.getInstance().getUserId());
-                bizMap.put("FromTime", "" + System.currentTimeMillis());
+                bizMap.put("FromTime", "" + lastSendTime);
                 bizMap.put("Count", "" + PRE_LOAD_PAGE_SIZE);
                 MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain() + "msg/find/clientid");
                 mediaRequest.setBizParamMap(bizMap);
@@ -766,31 +766,26 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     @Override
                     public void onNetworkResponseSucceed(MediaResponse result) {
                         Log.i(TAG, "获取聊天历史记录数据 rawResult:" + result.rawResult);
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取聊天历史记录数据 rawResult:" + result.rawResult);
                         //TODO Jimmy 1、数据库入库
                         Gson gson = new Gson();
                         Type type = new TypeToken<List<MsgCustomerServiceChat>>() {
                         }.getType();
                         List<MsgCustomerServiceChat> chatLists = gson.fromJson(result.rawResult, type);
+                        MessageVo messageVo= null;
                         if (null != chatLists && !chatLists.isEmpty()) {
-                            List<MessageVo> messageVos = new ArrayList<MessageVo>();
-                            for (int i = 0; i < chatLists.size(); i++) {
-                                MsgCustomerServiceChat msgChat = chatLists.get(i);
-                                MessageVo messageVo = MessageFactory.getInstance().buildMessageVoByMsgChat(msgChat);
+                            for(MsgCustomerServiceChat msgChat : chatLists){
+                                messageVo = MessageFactory.getInstance().buildMessageVoByMsgChat(msgChat);
                                 if (null != messageVo) {
-                                    messageVos.add(messageVo);
                                     long addResult = MessageDBUtil.getInstance().addMessage(msgChat);
                                     if (addResult > 0) {
-                                        LogUtil.getInstance().info(LogLevel.INFO, " 历史记录消息添加数据库成功 addResult:" + addResult);
-                                    } else {
-                                        LogUtil.getInstance().info(LogLevel.INFO, " 历史记录消息添加失败 addResult:" + addResult);
+                                        requestMessageList.add(messageVo);
                                     }
                                 }
                             }
-
-                            currentMessageList.addAll(messageVos);
+                            int requestCount = requestMessageList.size();
+                            loadSqlteData(requestCount, requestMessageList, shopID, isFirstTime);
                             //TODO Jimmy 2、UI展示
-                            if (!messageVos.isEmpty()) {
+                            if (!requestMessageList.isEmpty()) {
                                 Message msg = Message.obtain();
                                 msg.what = UPDATE_ADAPTER_UI;
                                 sendMessage(msg);
@@ -799,6 +794,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     }
                     @Override
                     public void beforeNetworkRequestStart() {
+
                     }
                 });
                 mediaRequestTask.execute();

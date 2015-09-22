@@ -679,7 +679,7 @@ public class MessageDBUtil {
      */
     public long queryLastSendTimeByShopID(String shopID) {
         SQLiteDatabase db = null;
-        long lastSendTime = 0;
+        long lastSendTime = System.currentTimeMillis();
         Cursor cursor = null;
         if (null != helper) {
             try {
