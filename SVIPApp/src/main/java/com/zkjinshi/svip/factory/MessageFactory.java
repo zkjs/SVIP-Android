@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
+import com.zkjinshi.svip.bean.jsonbean.MsgClientLogin;
+import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
@@ -284,6 +286,32 @@ public class MessageFactory {
     }
 
     /**
+     * 构建聊天消息键对值
+     *
+     * @param msgChat
+     * @return
+     */
+    public ContentValues buildContentValues(MsgCustomerServiceChat msgChat) {
+        ContentValues values = new ContentValues();
+        int type = msgChat.getType();
+        if (ProtocolMSG.MSG_CustomerServiceTextChat == type) {
+            MsgCustomerServiceTextChat msgTextChat = buildMsgTextByMsgChat(msgChat);
+            values = buildContentValues(msgTextChat);
+        }
+
+        if (ProtocolMSG.MSG_CustomerServiceMediaChat == type) {
+            MsgCustomerServiceMediaChat msgMedia = buildMsgMediaByMsgChat(msgChat);
+            values = buildContentValues(msgMedia);
+        }
+
+        if (ProtocolMSG.MSG_CustomerServiceImgChat == type) {
+            MsgCustomerServiceImgChat msgImgChat = buildMsgImgByMsgChat(msgChat);
+            values = buildContentValues(msgImgChat);
+        }
+        return values;
+    }
+
+    /**
      * 根据cursor构建MessageVo
      * @param cursor
      * @return
@@ -363,10 +391,9 @@ public class MessageFactory {
     /**
      * 根据语音消息条目构建MessageVo
      * @param msgMedia
-     * @param mediaPath
      * @return
      */
-    public MessageVo buildMessageVoByMsgMedia(MsgCustomerServiceMediaChat msgMedia, String mediaPath){
+    public MessageVo buildMessageVoByMsgMedia(MsgCustomerServiceMediaChat msgMedia) {
         MessageVo messageVo = new MessageVo();
         messageVo.setMessageId(msgMedia.getSrvmsgid() + "");
         messageVo.setSessionId(msgMedia.getSessionid());
@@ -384,7 +411,28 @@ public class MessageFactory {
         messageVo.setRuleType(msgMedia.getRuletype());
         messageVo.setUrl(msgMedia.getUrl());
         messageVo.setFileName(msgMedia.getFilename());
-        messageVo.setFilePath(mediaPath);
+        return messageVo;
+    }
+
+    public MessageVo buildMessageVoByMsgMedia(MsgCustomerServiceMediaChat msgMedia, String audioPath){
+        MessageVo messageVo = new MessageVo();
+        messageVo.setMessageId(msgMedia.getSrvmsgid() + "");
+        messageVo.setSessionId(msgMedia.getSessionid());
+        messageVo.setContactId(msgMedia.getFromid());
+        messageVo.setContactName(msgMedia.getFromname());
+        messageVo.setContent(Constants.DISPLAY_FOR_AUDIO);
+        messageVo.setSendTime(msgMedia.getTimestamp());
+        messageVo.setTitle(msgMedia.getFromname());
+        messageVo.setVoiceTime(msgMedia.getDurnum());
+        messageVo.setMimeType(MimeType.AUDIO);
+        messageVo.setSendStatus(SendStatus.SEND_SUCCESS);
+        messageVo.setIsRead(false);
+        messageVo.setAttachId(msgMedia.getBody());//录音保存路径
+        messageVo.setTempId(msgMedia.getTempid());
+        messageVo.setRuleType(msgMedia.getRuletype());
+        messageVo.setUrl(msgMedia.getUrl());
+        messageVo.setFileName(msgMedia.getFilename());
+        messageVo.setFilePath(audioPath);
         return  messageVo;
     }
 
@@ -474,6 +522,127 @@ public class MessageFactory {
         return msgImg;
     }
 
+
+    /**
+     * 根据语音消息条目构建MessageVo
+     *
+     * @param msgChat
+     * @return
+     */
+    public MessageVo buildMessageVoByMsgChat(MsgCustomerServiceChat msgChat) {
+        MessageVo messageVo = null;
+        if (msgChat.getType() == ProtocolMSG.MSG_CustomerServiceTextChat) {
+            MsgCustomerServiceTextChat msgText = buildMsgTextByMsgChat(msgChat);
+            messageVo = buildMessageVoByMsgText(msgText);
+        }
+
+        if (msgChat.getType() == ProtocolMSG.MSG_CustomerServiceMediaChat) {
+            MsgCustomerServiceMediaChat msgMedia = buildMsgMediaByMsgChat(msgChat);
+            messageVo = buildMessageVoByMsgMedia(msgMedia);
+        }
+
+        if (msgChat.getType() == ProtocolMSG.MSG_CustomerServiceImgChat) {
+            MsgCustomerServiceImgChat msgImg = buildMsgImgByMsgChat(msgChat);
+            messageVo = buildMessageVoByMsgImg(msgImg);
+        }
+        return messageVo;
+    }
+
+    /**
+     * 根据MessageVo构建文本消息条目
+     *
+     * @param msgChat
+     * @return
+     */
+    public MsgCustomerServiceTextChat buildMsgTextByMsgChat(MsgCustomerServiceChat msgChat) {
+        MsgCustomerServiceTextChat msgText = new MsgCustomerServiceTextChat();
+
+        msgText.setType(ProtocolMSG.MSG_CustomerServiceTextChat);
+        msgText.setTimestamp(msgChat.getTimestamp());
+        msgText.setTempid(msgChat.getTempid());
+        msgText.setSrvmsgid(msgChat.getSrvmsgid());
+        msgText.setProtover(msgChat.getProtover());
+
+        msgText.setFromid(msgChat.getFromid());
+        msgText.setFromname(msgChat.getFromname());
+        msgText.setClientid(msgChat.getClientid());
+        msgText.setClientname(msgChat.getClientname());
+        msgText.setShopid(msgChat.getShopid());
+        msgText.setRuletype(msgChat.getRuletype());
+        msgText.setAdminid(msgChat.getAdminid());
+        msgText.setSessionid(msgChat.getSessionid());
+        msgText.setSeqid(msgChat.getSeqid());
+        msgText.setIsreadack(msgChat.getIsreadack());
+        msgText.setTextmsg(msgChat.getTextmsg());
+        msgText.setChildtype(msgChat.getChildtype());
+        return msgText;
+    }
+
+    /**
+     * 根据MessageVo构建音频消息条目
+     *
+     * @param msgChat
+     * @return
+     */
+    public MsgCustomerServiceMediaChat buildMsgMediaByMsgChat(MsgCustomerServiceChat msgChat) {
+
+        MsgCustomerServiceMediaChat msgMedia = new MsgCustomerServiceMediaChat();
+        msgMedia.setType(ProtocolMSG.MSG_CustomerServiceMediaChat);
+        msgMedia.setTimestamp(msgChat.getTimestamp());
+        msgMedia.setTempid(msgChat.getTempid());
+        msgMedia.setSrvmsgid(msgChat.getSrvmsgid());
+        msgMedia.setProtover(msgChat.getProtover());
+
+        msgMedia.setFilePath(msgChat.getFilePath());
+        msgMedia.setTimestamp(System.currentTimeMillis());
+        msgMedia.setShopid(msgChat.getShopid());
+        msgMedia.setFromid(msgChat.getFromid());
+        msgMedia.setFromname(msgChat.getFromname());
+        msgMedia.setClientid(msgChat.getClientid());
+        msgMedia.setClientname(msgChat.getClientname());
+        msgMedia.setSessionid(msgChat.getSessionid());
+        msgMedia.setDurnum(msgChat.getDurnum());
+        msgMedia.setFilename(msgChat.getFilename());
+        msgMedia.setBody(msgChat.getAttachId());
+        msgMedia.setTempid(msgChat.getTempid());
+        msgMedia.setRuletype(msgChat.getRuletype());
+        msgMedia.setUrl(msgChat.getUrl());
+        return msgMedia;
+    }
+
+    /**
+     * 根据MessageVo构建图片消息条目
+     *
+     * @param msgChat
+     * @return
+     */
+    public MsgCustomerServiceImgChat buildMsgImgByMsgChat(MsgCustomerServiceChat msgChat) {
+
+        MsgCustomerServiceImgChat msgImg = new MsgCustomerServiceImgChat();
+        msgImg.setType(ProtocolMSG.MSG_CustomerServiceImgChat);
+        msgImg.setTimestamp(msgChat.getTimestamp());
+        msgImg.setTempid(msgChat.getTempid());
+        msgImg.setSrvmsgid(msgChat.getSrvmsgid());
+        msgImg.setProtover(msgChat.getProtover());
+
+        msgImg.setAttachId(msgChat.getAttachId());
+        msgImg.setFilePath(msgChat.getFilePath());
+        msgImg.setShopid(msgChat.getShopid());
+        msgImg.setFromid(msgChat.getFromid());
+        msgImg.setFromname(msgChat.getFromname());
+        msgImg.setClientid(msgChat.getClientid());
+        msgImg.setClientname(msgChat.getClientname());
+        msgImg.setSessionid(msgChat.getSessionid());
+        msgImg.setFilename(msgChat.getFilename());
+        msgImg.setBody(msgChat.getBody());
+        msgImg.setTempid(msgChat.getTempid());
+        msgImg.setRuletype(msgChat.getRuletype());
+        msgImg.setUrl(msgChat.getUrl());
+        msgImg.setScaleurl(msgChat.getScaleurl());
+        msgImg.setFormat(msgChat.getFormat());
+        return msgImg;
+    }
+
     /**
      * 获取文件类型
      * @param mimeTypeValue
@@ -507,4 +676,5 @@ public class MessageFactory {
         }
         return  SendStatus.SENDING;
     }
+
 }

@@ -160,12 +160,11 @@ public class MessageListener extends Handler implements IMessageListener {
 
                 /** 保存音频对象，并获得路径 */
                 String mediaName = msgMediaChat.getFilename();
-                String audioPath   = FileUtil.getInstance().getAudioPath() + mediaName;
+                String audioPath = FileUtil.getInstance().getAudioPath() + mediaName;
                 /** 消息表中添加音频消息记录 */
                 long resultCount = MessageDBUtil.getInstance().addMessage(msgMediaChat);
                 if(resultCount > 0){
-                    MessageVo messageVO = MessageFactory.getInstance().buildMessageVoByMsgMedia(
-                            msgMediaChat, audioPath);
+                    MessageVo messageVO = MessageFactory.getInstance().buildMessageVoByMsgMedia(msgMediaChat, audioPath);
                     /** insert or update into table ChatRoom */
                     String shopID = messageVO.getShopId();
                     if(!TextUtils.isEmpty(shopID)) {

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
@@ -693,7 +694,7 @@ public class MessageDBUtil {
                     }
                 }
             } catch (Exception e) {
-                LogUtil.getInstance().info(LogLevel.ERROR,TAG+".queryLastSendTimeByShopID->"+e.getMessage());
+                LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".queryLastSendTimeByShopID->" + e.getMessage());
                 e.printStackTrace();
             } finally {
                 if (null != cursor) {
@@ -889,5 +890,27 @@ public class MessageDBUtil {
             }
         }
         return sendStatus;
+    }
+
+    /**
+     * 消息表中添加消息对象
+     *
+     * @param msgChat
+     */
+    public long addMessage(MsgCustomerServiceChat msgChat) {
+        ContentValues values = MessageFactory.getInstance().buildContentValues(msgChat);
+        long id = -1;
+        SQLiteDatabase db = null;
+        try {
+            db = helper.getWritableDatabase();
+            id = db.insert(DBOpenHelper.MESSAGE_TBL, null, values);
+        } catch (Exception e) {
+            LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".addMessage->" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (null != db)
+                db.close();
+        }
+        return id;
     }
 }

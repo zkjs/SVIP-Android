@@ -1,15 +1,6 @@
 package com.zkjinshi.svip.http;
 
-import android.util.Log;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 封装媒体附件请求类

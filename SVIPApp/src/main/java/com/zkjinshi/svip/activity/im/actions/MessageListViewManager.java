@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -29,6 +30,7 @@ import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ChatAdapter;
+import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChatRSP;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
@@ -58,6 +60,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,19 +82,19 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
     private static final String TAG = "MessageListViewManager";
 
-    private static final int UPDATE_ADAPTER_UI = 0X00 ;
+    private static final int UPDATE_ADAPTER_UI = 0X00;
     private static final int SHOW_CALL_PHONE_DIALOG = 0X01;
 
     private Context context;
     private MsgListView messageListView;
     private ChatAdapter chatAdapter;
-    private Vector<String> messageVector       = new Vector<>();//存储页面发送的消息ID
+    private Vector<String> messageVector = new Vector<>();//存储页面发送的消息ID
     private List<MessageVo> currentMessageList = new ArrayList<>();
     private ArrayList<MessageVo> requestMessageList;
     private long lastSendTime;
     private static final int PRE_LOAD_PAGE_SIZE = 20;// 每次预加载20条记录
 
-    private boolean         isCallService;//是否已经呼叫服务
+    private boolean isCallService;//是否已经呼叫服务
     private MessageVo       mMessageVo;
 
     private String          mShopID;
@@ -737,41 +740,65 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             loadSqlteData(localCount, requestMessageList, shopID, isFirstTime);
 
         } else if (localCount == 0) {
+            //本地数据库不存在历史数据
             if (NetWorkUtil.isNetworkConnected(context)) {
-                //TODO Jimmy 请求后台，获取一页数据
+                //获取聊天历史请求，获取一页数据
                 HashMap<String,String> bizMap = new HashMap<String,String>();
                 bizMap.put("ClientID", CacheUtil.getInstance().getUserId());
-                bizMap.put("ShopID",shopID);
-                bizMap.put("UserID",CacheUtil.getInstance().getUserId());
-                bizMap.put("FromTime",""+System.currentTimeMillis());
-                bizMap.put("Count", "" + 20);
-                MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain()+"msg/find/clientid");
+                bizMap.put("ShopID", shopID);
+                bizMap.put("UserID", CacheUtil.getInstance().getUserId());
+                bizMap.put("FromTime", "" + System.currentTimeMillis());
+                bizMap.put("Count", "" + PRE_LOAD_PAGE_SIZE);
+                MediaRequest mediaRequest = new MediaRequest(ConfigUtil.getInst().getMediaDomain() + "msg/find/clientid");
                 mediaRequest.setBizParamMap(bizMap);
-                MediaRequestTask mediaRequestTask = new MediaRequestTask(context,mediaRequest,MediaResponse.class);
+                MediaRequestTask mediaRequestTask = new MediaRequestTask(context, mediaRequest, MediaResponse.class);
                 mediaRequestTask.setMediaRequestListener(new MediaRequestListener() {
                     @Override
                     public void onNetworkRequestError(int errorCode, String errorMessage) {
-                        Log.i(TAG,"errorCode:"+errorCode);
-                        Log.i(TAG,"errorMessage:"+errorMessage);
+                        Log.i(TAG, "errorCode:" + errorCode);
+                        Log.i(TAG, "errorMessage:" + errorMessage);
                     }
 
                     @Override
                     public void onNetworkRequestCancelled() {
-
                     }
 
                     @Override
                     public void onNetworkResponseSucceed(MediaResponse result) {
-                        Log.i(TAG,"rawResult:"+result.rawResult);
+                        Log.i(TAG, "获取聊天历史记录数据 rawResult:" + result.rawResult);
+                        LogUtil.getInstance().info(LogLevel.INFO, "获取聊天历史记录数据 rawResult:" + result.rawResult);
                         //TODO Jimmy 1、数据库入库
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<MsgCustomerServiceChat>>() {
+                        }.getType();
+                        List<MsgCustomerServiceChat> chatLists = gson.fromJson(result.rawResult, type);
+                        if (null != chatLists && !chatLists.isEmpty()) {
+                            List<MessageVo> messageVos = new ArrayList<MessageVo>();
+                            for (int i = 0; i < chatLists.size(); i++) {
+                                MsgCustomerServiceChat msgChat = chatLists.get(i);
+                                MessageVo messageVo = MessageFactory.getInstance().buildMessageVoByMsgChat(msgChat);
+                                if (null != messageVo) {
+                                    messageVos.add(messageVo);
+                                    long addResult = MessageDBUtil.getInstance().addMessage(msgChat);
+                                    if (addResult > 0) {
+                                        LogUtil.getInstance().info(LogLevel.INFO, " 历史记录消息添加数据库成功 addResult:" + addResult);
+                                    } else {
+                                        LogUtil.getInstance().info(LogLevel.INFO, " 历史记录消息添加失败 addResult:" + addResult);
+                                    }
+                                }
+                            }
 
-                        //TODO Jimmy 2、UI展示
-
+                            currentMessageList.addAll(messageVos);
+                            //TODO Jimmy 2、UI展示
+                            if (!messageVos.isEmpty()) {
+                                Message msg = Message.obtain();
+                                msg.what = UPDATE_ADAPTER_UI;
+                                sendMessage(msg);
+                            }
+                        }
                     }
-
                     @Override
                     public void beforeNetworkRequestStart() {
-
                     }
                 });
                 mediaRequestTask.execute();
