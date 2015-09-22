@@ -127,6 +127,7 @@ public class MessageFactory {
         if(!TextUtils.isEmpty(ruleType)){
             values.put("rule_type", ruleType);
         }
+
         return values;
     }
 
@@ -308,6 +309,7 @@ public class MessageFactory {
             MsgCustomerServiceImgChat msgImgChat = buildMsgImgByMsgChat(msgChat);
             values = buildContentValues(msgImgChat);
         }
+        values.put("is_read", 1);//是否已读 0未读 1已读
         return values;
     }
 
@@ -545,6 +547,7 @@ public class MessageFactory {
             MsgCustomerServiceImgChat msgImg = buildMsgImgByMsgChat(msgChat);
             messageVo = buildMessageVoByMsgImg(msgImg);
         }
+        messageVo.setIsRead(true);
         return messageVo;
     }
 
