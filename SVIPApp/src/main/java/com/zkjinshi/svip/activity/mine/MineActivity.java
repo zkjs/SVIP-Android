@@ -13,9 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,21 +25,17 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
-import com.zkjinshi.svip.factory.UserInfoFactory;
-import com.zkjinshi.svip.http.HttpRequest;
-import com.zkjinshi.svip.http.HttpRequestListener;
-import com.zkjinshi.svip.http.HttpResponse;
+import com.zkjinshi.svip.http.post.HttpRequest;
+import com.zkjinshi.svip.http.post.HttpRequestListener;
+import com.zkjinshi.svip.http.post.HttpResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.Sex;
 import com.zkjinshi.svip.vo.UserInfoVo;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,7 +43,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  * 个人信息页面

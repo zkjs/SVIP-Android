@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.http;
+package com.zkjinshi.svip.http.post;
 
 import android.content.Context;
 import android.os.AsyncTask;

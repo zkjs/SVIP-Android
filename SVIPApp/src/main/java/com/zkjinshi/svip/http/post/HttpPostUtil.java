@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.http;
+package com.zkjinshi.svip.http.post;
 
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;

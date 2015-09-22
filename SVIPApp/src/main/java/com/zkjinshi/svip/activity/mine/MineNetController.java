@@ -6,9 +6,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.svip.http.HttpAsyncTask;
-import com.zkjinshi.svip.http.HttpRequest;
-import com.zkjinshi.svip.http.HttpRequestListener;
+import com.zkjinshi.svip.http.post.HttpAsyncTask;
+import com.zkjinshi.svip.http.post.HttpRequest;
+import com.zkjinshi.svip.http.post.HttpRequestListener;
 
 
 /**

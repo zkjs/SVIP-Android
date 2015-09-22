@@ -1,7 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,9 +17,9 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.http.HttpRequest;
-import com.zkjinshi.svip.http.HttpRequestListener;
-import com.zkjinshi.svip.http.HttpResponse;
+import com.zkjinshi.svip.http.post.HttpRequest;
+import com.zkjinshi.svip.http.post.HttpRequestListener;
+import com.zkjinshi.svip.http.post.HttpResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;

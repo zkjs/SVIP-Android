@@ -133,18 +133,18 @@ public class MediaPlayerUtil {
 	 * @param context
 	 * @param mediaPath
 	 */
-	public static void play(Context context, String mediaPath){
+	public static void play(Context context, String mediaPath,OnCompletionListener onCompletionListener){
 		try {
  			File mediaFile = new File(mediaPath);
 			if(!mediaFile.exists()){
 				return ;
 			}
 			if(mIsNotify){//播放提示音
-				MediaPlayer mp = new MediaPlayer();
-				mp.reset();
-				mp.setDataSource(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-				mp.prepare();
-				mp.start();
+				MediaPlayer mediaPlayer = new MediaPlayer();
+				mediaPlayer.reset();
+				mediaPlayer.setDataSource(context, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+				mediaPlayer.prepare();
+				mediaPlayer.start();
 			}
 
 			if(null != mPlayer){
@@ -156,6 +156,7 @@ public class MediaPlayerUtil {
 				mPlayer.setDataSource(mediaPath);
 				mPlayer.prepare();
 				mPlayer.start();
+				mPlayer.setOnCompletionListener(onCompletionListener);
 			}catch(IOException e){
 				Log.e("play","播放失败");
 			}

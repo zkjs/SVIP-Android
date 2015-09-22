@@ -1,6 +1,6 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.HttpResponse;
+import com.zkjinshi.svip.http.post.HttpResponse;
 
 import java.util.ArrayList;
 

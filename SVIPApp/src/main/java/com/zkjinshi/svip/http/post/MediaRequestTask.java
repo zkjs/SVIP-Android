@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.http;
+package com.zkjinshi.svip.http.post;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,12 +19,9 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URLEncoder;
 import java.util.HashMap;

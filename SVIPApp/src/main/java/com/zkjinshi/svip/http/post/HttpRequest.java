@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.http;
+package com.zkjinshi.svip.http.post;
 
 import java.io.File;
 import java.io.Serializable;

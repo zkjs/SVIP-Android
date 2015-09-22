@@ -5,6 +5,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -36,6 +40,8 @@ import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.http.get.DownloadRequestListener;
+import com.zkjinshi.svip.http.get.DownloadTask;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -421,10 +427,71 @@ public class ChatAdapter extends BaseAdapter {
                             //播放语音文件
                             String mediaName = vo.getFileName();
                             String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
+                            vh.voice = (ImageView) v
+                                    .getTag(R.id.content_layout);
+                            vh.voice.setImageResource(R.drawable.other_record_animation_list);
+                            final AnimationDrawable animation = (AnimationDrawable) vh.voice
+                                    .getDrawable();
+                            animation.setOneShot(false);
+                            if (animation.isRunning()) {
+                                animation.stop();
+                            }
                             if(!TextUtils.isEmpty(mediaPath)){
-                                MediaPlayerUtil.play(context, mediaPath);
-                            }else {
-                                DialogUtil.getInstance().showToast(context, "音频文件不存在");
+                                File mediaFile = new File(mediaPath);
+                                if(mediaFile.exists() && mediaFile.length() > 0){
+                                    animation.start();
+                                    MediaPlayerUtil.play(context, mediaPath, new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            MediaPlayerUtil.playPlayFinishRecordVoice(context);
+                                            if (animation.isRunning()) {
+                                                animation.stop();
+                                            }
+                                            Message messge = new Message();
+                                            messge.what = 0;
+                                            messge.obj = vh.voice;
+                                            handler.sendMessage(messge);
+                                        }
+                                    });
+                                }else{
+                                    String downloadUrl = vo.getUrl();
+                                    DownloadTask downloadTask = new DownloadTask(context,downloadUrl,mediaPath);
+                                    downloadTask.setDownloadRequestListener(new DownloadRequestListener() {
+                                        @Override
+                                        public void onDownloadRequestError(String errorMessage) {
+
+                                        }
+
+                                        @Override
+                                        public void onDownloadRequestCancelled() {
+
+                                        }
+
+                                        @Override
+                                        public void onDownloadResponseSucceed(String filePath) {
+                                            animation.start();
+                                            MediaPlayerUtil.play(context, filePath, new MediaPlayer.OnCompletionListener() {
+                                                @Override
+                                                public void onCompletion(MediaPlayer mp) {
+                                                    MediaPlayerUtil.playPlayFinishRecordVoice(context);
+                                                    if (animation.isRunning()) {
+                                                        animation.stop();
+                                                    }
+                                                    Message messge = new Message();
+                                                    messge.what = 0;
+                                                    messge.obj = vh.voice;
+                                                    handler.sendMessage(messge);
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void beforeDownloadRequestStart() {
+
+                                        }
+                                    });
+                                    downloadTask.execute();
+                                }
                             }
                         }
                     });
@@ -432,13 +499,76 @@ public class ChatAdapter extends BaseAdapter {
                 } else {// 自己
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+
                             MessageVo vo = (MessageVo) v.getTag();
+                            //播放语音文件
                             String mediaName = vo.getFileName();
                             String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
+                            vh.voice = (ImageView) v
+                                    .getTag(R.id.content_layout);
+                            vh.voice.setImageResource(R.drawable.self_record_animation_list);
+                            final AnimationDrawable animation = (AnimationDrawable) vh.voice
+                                    .getDrawable();
+                            animation.setOneShot(false);
+                            if (animation.isRunning()) {
+                                animation.stop();
+                            }
                             if(!TextUtils.isEmpty(mediaPath)){
-                                MediaPlayerUtil.play(context, mediaPath);
-                            }else{
-                                DialogUtil.getInstance().showToast(context, "音频文件不存在");
+                                File mediaFile = new File(mediaPath);
+                                if(mediaFile.exists() && mediaFile.length() > 0){
+                                    animation.start();
+                                    MediaPlayerUtil.play(context, mediaPath, new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            MediaPlayerUtil.playPlayFinishRecordVoice(context);
+                                            if (animation.isRunning()) {
+                                                animation.stop();
+                                            }
+                                            Message messge = new Message();
+                                            messge.what = 1;
+                                            messge.obj = vh.voice;
+                                            handler.sendMessage(messge);
+                                        }
+                                    });
+                                }else{
+                                    String downloadUrl = vo.getUrl();
+                                    DownloadTask downloadTask = new DownloadTask(context,downloadUrl,mediaPath);
+                                    downloadTask.setDownloadRequestListener(new DownloadRequestListener() {
+                                        @Override
+                                        public void onDownloadRequestError(String errorMessage) {
+
+                                        }
+
+                                        @Override
+                                        public void onDownloadRequestCancelled() {
+
+                                        }
+
+                                        @Override
+                                        public void onDownloadResponseSucceed(String filePath) {
+                                            animation.start();
+                                            MediaPlayerUtil.play(context, filePath, new MediaPlayer.OnCompletionListener() {
+                                                @Override
+                                                public void onCompletion(MediaPlayer mp) {
+                                                    MediaPlayerUtil.playPlayFinishRecordVoice(context);
+                                                    if (animation.isRunning()) {
+                                                        animation.stop();
+                                                    }
+                                                    Message messge = new Message();
+                                                    messge.what = 1;
+                                                    messge.obj = vh.voice;
+                                                    handler.sendMessage(messge);
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void beforeDownloadRequestStart() {
+
+                                        }
+                                    });
+                                    downloadTask.execute();
+                                }
                             }
                         }
                     });
@@ -560,6 +690,27 @@ public class ChatAdapter extends BaseAdapter {
             vh.cardLayout.setVisibility(View.VISIBLE);
         }
     }
+
+    Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            ImageView iv = (ImageView) msg.obj;
+            switch (msg.what) {
+                case 0:// 别人
+                    iv.setImageResource(R.drawable.skin_aio_ptt_record_friend_nor);
+                    break;
+                case 1:// 自己
+                    iv.setImageResource(R.drawable.skin_aio_ptt_record_user_nor);
+                    break;
+                default:
+                    iv.invalidate();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     /**
      * 显示操作条

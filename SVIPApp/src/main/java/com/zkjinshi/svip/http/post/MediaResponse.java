@@ -1,15 +1,15 @@
-package com.zkjinshi.svip.http;
+package com.zkjinshi.svip.http.post;
 
 import java.io.InputStream;
-import java.io.Serializable;
 
 /**
+ * 封装媒体附件响应类
  * 开发者：JimmyZhang
- * 日期：2015/7/22
+ * 日期：2015/9/17
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class HttpResponse implements Serializable {
+public class MediaResponse {
 
     /**
      * 返回的原始文本数据

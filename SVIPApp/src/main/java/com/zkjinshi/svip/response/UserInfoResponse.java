@@ -1,7 +1,5 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.HttpRequest;
-
 /**
  * 用户信息响应类
  * 开发者：JimmyZhang
