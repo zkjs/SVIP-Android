@@ -65,6 +65,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -99,6 +101,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private String          mShopID;
     private String          mSessionID;
 
+    private LinkedBlockingQueue<MessageVo> messageQueue = new LinkedBlockingQueue<MessageVo>();
+
     public MessageListViewManager(Context context, String shopID, String sessionId) {
         this.context    = context;
         this.mShopID    = shopID;
@@ -120,6 +124,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         addObservers();
         clearChatRoomBadgeNum(mShopID);
         setOverScrollMode(messageListView);
+        messageQueue = new LinkedBlockingQueue<MessageVo>();
         chatAdapter = new ChatAdapter(context, null);
         chatAdapter.setResendListener(this);
         messageListView.setPullLoadEnable(false);
@@ -223,6 +228,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
+            messageQueue.add(mMessageVo);
             callService(mShopID, defaultRuleType);
         }
     }
@@ -262,6 +268,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
+            messageQueue.add(mMessageVo);
             callService(shopID, ruleType);
         }
     }
@@ -304,6 +311,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if (isCallService) {
             sendMessageVo(mMessageVo);
         } else {
+            messageQueue.add(mMessageVo);
             callService(mShopID, defaultRuleType);
         }
     }
@@ -350,6 +358,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
+            messageQueue.add(mMessageVo);
             callService(shopID, ruleType);
         }
     }
@@ -394,6 +403,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(isCallService) {
             sendMessageVo(mMessageVo);
         }else {
+            messageQueue.add(mMessageVo);
             callService(shopID, ruleType);
         }
     }
@@ -407,9 +417,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         MsgRequestWaiterC2S msgRequestWaiterC2S = new MsgRequestWaiterC2S();
         msgRequestWaiterC2S.setType(ProtocolMSG.MSG_RequestWaiter_C2S);
         msgRequestWaiterC2S.setTimestamp(System.currentTimeMillis());
-//        msgRequestWaiterC2S.setTempid();
-//        msgRequestWaiterC2S.setSrvmsgid();
-//        msgRequestWaiterC2S.setProtover();
         msgRequestWaiterC2S.setShopid(shopID);
         msgRequestWaiterC2S.setRuletype(ruleType);
         String userID   = CacheUtil.getInstance().getUserId();
@@ -421,15 +428,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             msgRequestWaiterC2S.setClientname(userName);
         }
         msgRequestWaiterC2S.setDesc("TODO:呼叫服务内容待定");
-//        msgRequestWaiterC2S.setLocid();
-//        msgRequestWaiterC2S.setOther();
         msgRequestWaiterC2S.setSessionid(mSessionID);
-//        msgRequestWaiterC2S.setSeqid();
-//        msgRequestWaiterC2S.setIsreadack();
         final Gson gson = new Gson();
         String msgJson = gson.toJson(msgRequestWaiterC2S, MsgRequestWaiterC2S.class);
         WebSocketManager.getInstance().sendMessage(msgJson);
-        LogUtil.getInstance().info(LogLevel.INFO, "MsgRequestWaiterC2S:" + msgJson);
     }
 
     /**
@@ -962,8 +964,12 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                                                MsgRequestWaiterC2SRSP.class);
                 int rspResult = msgRequestRsp.getResult();
                 if(Constants.PROTOCAL_SUCCESS == rspResult){
-                    if(null != mMessageVo){
-                        sendMessageVo(mMessageVo);//发送消息包
+                    //TODO JimmyZhang 遍历队列，批量发送消息包
+                    while (!messageQueue.isEmpty()){
+                        mMessageVo = messageQueue.poll();
+                        if(null != mMessageVo){
+                            sendMessageVo(mMessageVo);
+                        }
                     }
                 }else{//呼叫服务失败
                     Message dialogMessage = new Message();
