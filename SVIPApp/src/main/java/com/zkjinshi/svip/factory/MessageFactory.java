@@ -328,7 +328,7 @@ public class MessageFactory {
         messageVo.setContent(cursor.getString(5));
         messageVo.setSendTime(cursor.getLong(6));
         messageVo.setTitle(cursor.getString(7));
-        messageVo.setVoiceTime(cursor.getInt(8));
+        messageVo.setVoiceTime(cursor.getString(8));
         messageVo.setMimeType(getMimeType(cursor.getInt(9)));
         messageVo.setSendStatus(getSendStatus(cursor.getInt(10)));
         messageVo.setIsRead(cursor.getInt(11) == 1 ? true : false);
@@ -357,7 +357,6 @@ public class MessageFactory {
         messageVo.setContent(msgText.getTextmsg());
         messageVo.setSendTime(msgText.getTimestamp());
         messageVo.setTitle(msgText.getFromname());
-        messageVo.setVoiceTime(0);
         messageVo.setMimeType(msgText.getChildtype() == 0 ? MimeType.TEXT : MimeType.CARD);
         messageVo.setSendStatus(SendStatus.SEND_SUCCESS);
         messageVo.setIsRead(false);
@@ -478,7 +477,6 @@ public class MessageFactory {
         messageVo.setContent(Constants.DISPLAY_FOR_IMAGE);
         messageVo.setSendTime(msgImg.getTimestamp());
         messageVo.setTitle(msgImg.getFromname());
-        messageVo.setVoiceTime(0);
         messageVo.setMimeType(MimeType.IMAGE);
         messageVo.setSendStatus(SendStatus.SEND_SUCCESS);
         messageVo.setIsRead(false);

@@ -408,7 +408,7 @@ public class ChatAdapter extends BaseAdapter {
             vh.time.setVisibility(View.GONE);
             vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(MimeType.AUDIO)) {// 语音
-            final int voiceTime = item.getVoiceTime();
+            final String voiceTime = item.getVoiceTime();
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
             if (!isDelEnabled) {
                 vh.contentLayout
@@ -788,7 +788,7 @@ public class ChatAdapter extends BaseAdapter {
      * @param timeTv
      * @param layout
      */
-    public void setTimeView(int time, TextView timeTv, LinearLayout layout) {;
+    public void setTimeView(String time, TextView timeTv, LinearLayout layout) {;
         int minWidth = 66; // 最小宽度
         int maxWidth = 186; // 最大宽度
         int secWidth = 2; // 每秒宽度
@@ -799,7 +799,7 @@ public class ChatAdapter extends BaseAdapter {
         DisplayMetrics dm = new DisplayMetrics();
         dm = context.getResources().getDisplayMetrics();
         float density = dm.density; // 屏幕密度（像素比例）
-        curWidth = minWidth + secWidth * time;
+        curWidth = minWidth + secWidth * Integer.parseInt(time);
         if (curWidth < maxWidth)
             scaleWidth = (int) (curWidth * density);
         else

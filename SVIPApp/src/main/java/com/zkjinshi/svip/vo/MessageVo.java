@@ -17,7 +17,7 @@ public class MessageVo {
     private String      content;
     private long        sendTime;
     private String      title;
-    private int         voiceTime;
+    private String         voiceTime;
     private MimeType    mimeType;
     private SendStatus  sendStatus;
     private boolean     isRead;
@@ -93,11 +93,11 @@ public class MessageVo {
         this.title = title;
     }
 
-    public int getVoiceTime() {
+    public String getVoiceTime() {
         return voiceTime;
     }
 
-    public void setVoiceTime(int voiceTime) {
+    public void setVoiceTime(String voiceTime) {
         this.voiceTime = voiceTime;
     }
 

@@ -673,7 +673,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         messageVo.setAttachId(attachId);
         messageVo.setFileName(fileName);
         messageVo.setFilePath(filePath);
-        messageVo.setVoiceTime(voiceTime);
+        messageVo.setVoiceTime(""+voiceTime);
         messageVo.setRuleType(ruleType);
         messageVo.setIsRead(true);
         return messageVo;

@@ -24,7 +24,7 @@ public class TableOpenHelper {
                     + " content text , "//消息内容
                     + " send_time long , "//发送时间
                     + " title text , "//聊天室名称
-                    + " voice_time integer , "//语音时间
+                    + " voice_time text , "//语音时间
                     + " mime_type integer , "//消息类别
                     + " send_status integer ,  "//发送状态
                     + " is_read integer , "//是否已读

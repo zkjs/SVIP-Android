@@ -29,11 +29,12 @@ public class MsgCustomerServiceMediaChat {
 
     //MsgMedia
     private int         fsize;//文件大小(字节),文件默认为aac格式
-    private int         durnum;//语音时长(秒)
+    private String         durnum;//语音时长(秒)
     private String      url;//链接
     private String      crc;//效验值
     private String      body;//文件内容(Base64编码)
     private String      filename;
+    private String salesid;
 
     public int getType() {
         return type;
@@ -163,11 +164,11 @@ public class MsgCustomerServiceMediaChat {
         this.fsize = fsize;
     }
 
-    public int getDurnum() {
+    public String getDurnum() {
         return durnum;
     }
 
-    public void setDurnum(int durnum) {
+    public void setDurnum(String durnum) {
         this.durnum = durnum;
     }
 
@@ -219,6 +220,14 @@ public class MsgCustomerServiceMediaChat {
         this.filePath = filePath;
     }
 
+    public String getSalesid() {
+        return salesid;
+    }
+
+    public void setSalesid(String salesid) {
+        this.salesid = salesid;
+    }
+
     @Override
     public String toString() {
         return "MsgCustomerServiceMediaChat{" +
@@ -240,11 +249,12 @@ public class MsgCustomerServiceMediaChat {
                 ", seqid='" + seqid + '\'' +
                 ", isreadack=" + isreadack +
                 ", fsize=" + fsize +
-                ", durnum=" + durnum +
+                ", durnum='" + durnum + '\'' +
                 ", url='" + url + '\'' +
                 ", crc='" + crc + '\'' +
                 ", body='" + body + '\'' +
                 ", filename='" + filename + '\'' +
+                ", salesid='" + salesid + '\'' +
                 '}';
     }
 }
