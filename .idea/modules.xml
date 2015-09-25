@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CalendarListView/CalendarListView.iml" filepath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" filepath="$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SVIP-Android.iml" filepath="$PROJECT_DIR$/SVIP-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SVIP.iml" filepath="$PROJECT_DIR$/SVIP.iml" />
       <module fileurl="file://$PROJECT_DIR$/SVIPApp/SVIPApp.iml" filepath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" filepath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />

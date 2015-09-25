@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":SVIPApp" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="SVIP-Android" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":SVIPApp" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="SVIP" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -101,6 +101,7 @@
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="CCP_REST_SMS_SDK_JAVA_v2.6.3r" level="project" />
+    <orderEntry type="library" exported="" name="commons-httpclient-3.0" level="project" />
     <orderEntry type="library" exported="" name="MapApiLocation_1.3.3" level="project" />
     <orderEntry type="module" module-name="social_sdk_library_project" exported="" />
     <orderEntry type="module" module-name="ZKJinShiBaseClass" exported="" />
