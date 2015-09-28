@@ -84,7 +84,7 @@ public class SVIPApplication extends Application {
                 ConfigUtil.getInst().save(this);
             }
         } catch (IOException e) {
-            Log.e(TAG, "找不到assets/目录下的config.xml或者fileendings.xml配置文件", e);
+            Log.e(TAG, "找不到assets/目录下的config.xml配置文件", e);
             e.printStackTrace();
         }
     }
