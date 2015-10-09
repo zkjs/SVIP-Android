@@ -367,7 +367,6 @@ public class OrderBookingActivity extends Activity{
 
         }
 
-
     }
 
     //显示房间数量选择对话框

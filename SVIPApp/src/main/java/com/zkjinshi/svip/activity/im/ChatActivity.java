@@ -165,6 +165,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 bookOrder.setContent("您好，帮我预定这间房");
                 bookOrder.setImage(orderRoomResponse.getImgurl());
                 bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
+                bookOrder.setGuest(CacheUtil.getInstance().getUserName());
                 StringBuffer usersStr = new StringBuffer();
                 if(null != users && !users.isEmpty()){
                     for(OrderUsersResponse user : users){
