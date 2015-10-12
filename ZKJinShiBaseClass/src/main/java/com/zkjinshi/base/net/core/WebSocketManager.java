@@ -47,7 +47,7 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
         isLogoutIM = false;
         messageReceiver = new MessageReceiver();
         messageSender = new MessageSender();
-        uri = URI.create("ws://" + ConfigUtil.getInst().getIMHost() + ":" + ConfigUtil.getInst().getIMPort() + "/zkjs2");
+        uri = URI.create("wss://" + ConfigUtil.getInst().getIMHost() + ":" + ConfigUtil.getInst().getIMPort() + "/zkjs");
         webSocketClient = new WebSocketClient(uri, this);
         messageSender.setWebSocketClient(webSocketClient);
         if (null != sendThread) {

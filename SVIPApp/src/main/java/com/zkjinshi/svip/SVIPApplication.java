@@ -13,6 +13,7 @@ import com.zkjinshi.base.log.LogConfig;
 import com.zkjinshi.base.log.LogSwitch;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.util.ImCacheUtil;
+import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
 import com.zkjinshi.svip.ext.ShopListManager;
@@ -65,6 +66,7 @@ public class SVIPApplication extends Application {
      */
     private void initContext(){
         VIPContext.getInstance().init(this);
+        BaseContext.getInstance().init(this);
     }
 
     /**
