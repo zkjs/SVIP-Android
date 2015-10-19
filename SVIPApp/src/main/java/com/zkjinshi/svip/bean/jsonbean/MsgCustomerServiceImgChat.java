@@ -38,6 +38,7 @@ public class MsgCustomerServiceImgChat {
     private String      scaleurl;//缩略图链接
     private String      crc;//效验值
     private String      body;//文件内容(Base64编码)
+    private String salesid;
 
     public int getType() {
         return type;
@@ -245,6 +246,14 @@ public class MsgCustomerServiceImgChat {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public String getSalesid() {
+        return salesid;
+    }
+
+    public void setSalesid(String salesid) {
+        this.salesid = salesid;
     }
 
     @Override

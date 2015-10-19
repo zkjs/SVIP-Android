@@ -27,7 +27,7 @@ public class MsgCustomerServiceTextChat {
     private int          isreadack;//是否要求消息已读回执 0:不需要 1:需要
     private String       textmsg;//文本消息体
     private int childtype;//0:普通Text 1:自定义json格式
-    private String salesid;
+    private String       salesid;
 
     public int getType() {
         return type;

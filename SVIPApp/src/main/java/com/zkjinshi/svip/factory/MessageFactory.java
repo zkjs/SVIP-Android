@@ -386,6 +386,10 @@ public class MessageFactory {
         msgText.setTempid(messageVo.getTempId());
         msgText.setRuletype(messageVo.getRuleType());
         msgText.setChildtype(messageVo.getMimeType() == MimeType.TEXT ? 0 : 1);
+        String saleId = messageVo.getSaleId();
+        if(!TextUtils.isEmpty(saleId)){
+            msgText.setSalesid(messageVo.getSaleId());
+        }
         return msgText;
     }
 
@@ -460,6 +464,10 @@ public class MessageFactory {
         msgMedia.setTempid(messageVo.getTempId());
         msgMedia.setRuletype(messageVo.getRuleType());
         msgMedia.setUrl(messageVo.getUrl());
+        String saleId = messageVo.getSaleId();
+        if(!TextUtils.isEmpty(saleId)){
+            messageVo.setSaleId(saleId);
+        }
         return msgMedia;
     }
 
@@ -519,6 +527,10 @@ public class MessageFactory {
             imgFormat = imgName.substring(imgName.lastIndexOf(".") + 1);
         }
         msgImg.setFormat(imgFormat);
+        String saleId = messageVo.getSaleId();
+        if(!TextUtils.isEmpty(saleId)) {
+            msgImg.setSalesid(saleId);
+        }
         return msgImg;
     }
 

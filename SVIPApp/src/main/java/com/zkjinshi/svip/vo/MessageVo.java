@@ -11,6 +11,7 @@ public class MessageVo {
 
     private String      messageId;
     private String      sessionId;
+    private String      saleId;
     private String      shopId;
     private String      contactId;
     private String      contactName;
@@ -179,5 +180,13 @@ public class MessageVo {
 
     public void setScaleUrl(String scaleUrl) {
         this.scaleUrl = scaleUrl;
+    }
+
+    public String getSaleId() {
+        return saleId;
+    }
+
+    public void setSaleId(String saleId) {
+        this.saleId = saleId;
     }
 }

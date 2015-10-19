@@ -24,6 +24,7 @@ public class MsgRequestWaiterC2S {
     private String  sessionid;
     private String  seqid;
     private String  isreadack;
+    private String salesid;
 
     public int getType() {
         return type;
@@ -143,6 +144,14 @@ public class MsgRequestWaiterC2S {
 
     public void setIsreadack(String isreadack) {
         this.isreadack = isreadack;
+    }
+
+    public String getSalesid() {
+        return salesid;
+    }
+
+    public void setSalesid(String salesid) {
+        this.salesid = salesid;
     }
 
     @Override
