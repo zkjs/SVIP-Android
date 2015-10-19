@@ -205,4 +205,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"order/showlist";
     }
 
+    /**
+     * 获取我的专属客服
+     * @return
+     */
+    public static String getUserMysemp(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/mysemp";
+    }
+
 }

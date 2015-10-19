@@ -166,7 +166,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void initShop() {
         ShopListManager.getInstance().init(this);
         requestList.add(ShopListManager.getInstance().getStringRequest());
+        //初始化专属客服列表
+        ShopListManager.getInstance().initServerPeral();
     }
+
+
 
     private void setBadgeNum(){
         notifyCount = MessageDBUtil.getInstance().queryNotifyCount();

@@ -15,10 +15,13 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.MessageReceiver;
 import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.svip.factory.ServerPersonalFactory;
 import com.zkjinshi.svip.response.ShopInfoResponse;
+import com.zkjinshi.svip.sqlite.ServerPeronalDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.ServerPersonalVo;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import java.lang.reflect.Type;
@@ -76,6 +79,42 @@ public class ShopListManager {
             public void onErrorResponse(VolleyError error) {
 
                 LogUtil.getInstance().info(LogLevel.ERROR, "获取商户列表错误信息:" +  error.getMessage());
+            }
+        });
+        if(NetWorkUtil.isNetworkConnected(context)){
+            LogUtil.getInstance().info(LogLevel.ERROR, stringRequest.toString());
+            stringRequest.setRetryPolicy(ProtocolUtil.getDefaultRetryPolicy());
+            this.requestQueue.add(stringRequest);
+        }
+    }
+
+    /**
+     * 初始化专属客服列表信息
+     */
+    public void initServerPeral(){
+        stringRequest = new StringRequest(Request.Method.POST, ProtocolUtil.getUserMysemp(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // DialogUtil.getInstance().cancelProgressDialog();
+                        LogUtil.getInstance().info(LogLevel.INFO, "获取专属客服列表响应结果:" + response);
+                        if(!TextUtils.isEmpty(response)){
+                            try {
+                                Type listType = new TypeToken<List<ServerPersonalVo>>(){}.getType();
+                                Gson gson = new Gson();
+                                List<ServerPersonalVo> serverPersonalVoList = gson.fromJson(response, listType);
+                                ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                LogUtil.getInstance().info(LogLevel.ERROR, TAG+"错误信息:" + e.getMessage());
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                LogUtil.getInstance().info(LogLevel.ERROR, "获取专属客服列表错误信息:" +  error.getMessage());
             }
         });
         if(NetWorkUtil.isNetworkConnected(context)){

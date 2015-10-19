@@ -23,6 +23,7 @@ public class DBOpenHelper extends SQLiteOpenHelper{
     public static final String CHAT_MEMBER_TBL = "chatmembertbl";//聊天室成员表
     public static final String USER_INFO_TBL   = "userinfotbl";//用户个人信息表
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
+    public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
 
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSION);

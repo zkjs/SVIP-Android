@@ -164,6 +164,16 @@ public class TableOpenHelper {
                     + " shop_bg text, " //商家背景 值格式uploads/shops/shopid_bg.jpg
                     + " shop_title text" //商家标语
                     + " )";
+        /**
+         * 创建专属客服表sql语句
+         */
+        public static String SERVER_PERSONAL_TBL_SQL =
+                "create table if not exists "
+                        + DBOpenHelper.SERVER_PERSONAL_TBL
+                        + "("
+                        + " shopid text primary key, "//商家ID
+                        + " salesid text" //商家标语
+                        + " )";
 
     /**
      * 获取数据库所有表名
@@ -175,7 +185,8 @@ public class TableOpenHelper {
                 DBOpenHelper.CHAT_ROOM_TBL,   //聊天室表
                 DBOpenHelper.CHAT_MEMBER_TBL, //聊天成员表
                 DBOpenHelper.USER_INFO_TBL,   //详细用户信息表
-                DBOpenHelper.SHOP_INFO_TBL    //商家详细信息表
+                DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
+                DBOpenHelper.SERVER_PERSONAL_TBL    //专属客服表
         };
     }
 }
