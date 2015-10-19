@@ -3,6 +3,7 @@ package com.zkjinshi.svip.ext;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,6 +20,7 @@ import com.zkjinshi.svip.factory.ServerPersonalFactory;
 import com.zkjinshi.svip.response.ShopInfoResponse;
 import com.zkjinshi.svip.sqlite.ServerPeronalDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ServerPersonalVo;
@@ -116,7 +118,14 @@ public class ShopListManager {
 
                 LogUtil.getInstance().info(LogLevel.ERROR, "获取专属客服列表错误信息:" +  error.getMessage());
             }
-        });
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("userid", CacheUtil.getInstance().getUserId());
+                map.put("token", CacheUtil.getInstance().getToken());
+                return map;
+            }
+        };
         if(NetWorkUtil.isNetworkConnected(context)){
             LogUtil.getInstance().info(LogLevel.ERROR, stringRequest.toString());
             stringRequest.setRetryPolicy(ProtocolUtil.getDefaultRetryPolicy());

@@ -7,267 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7f96a85-b786-4d38-bfd4-94b608e02bcf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ServerPeronalDBUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ServerPersonalFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/ServerPersonalVo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-debug.aar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-debug.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-release.aar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/outputs/aar/SlidingMenu-release.aar" afterPath="$PROJECT_DIR$/SlidingMenu/build/outputs/aar/SlidingMenu-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/classes.jar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/outputs/aar/social_sdk_library_project-release.aar" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/outputs/aar/social_sdk_library_project-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/DBOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/DBOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ORMOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ORMOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/TableOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/TableOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_like_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_like_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_like_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_like_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_login_silver_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_login_silver_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_login_silver_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_login_silver_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_send_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_send_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_send_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_send_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_login_fragment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_login_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_login_fragment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_login_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_tooltip_bubble.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_tooltip_bubble.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_tooltip_bubble.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_tooltip_bubble.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeResources/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_close_button_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_close_button_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_close_button_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_close_button_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_cycle_5.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_cycle_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_cycle_5.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_cycle_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_alpha.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_alpha.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_alpha.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_alpha.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_scale.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_scale.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_scale.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_scale.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_edit_anim.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_edit_anim.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_edit_anim.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_edit_anim.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_edittext_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_edittext_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_edittext_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_edittext_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_imageview_rotate.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_imageview_rotate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_imageview_rotate.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_imageview_rotate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_imgview_border.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_imgview_border.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_imgview_border.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_imgview_border.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_scrshot_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_scrshot_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_scrshot_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_scrshot_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_scrshot_snapshot.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_scrshot_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_scrshot_snapshot.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_scrshot_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_shake_layout_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_shake_layout_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_shake_layout_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_shake_layout_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_share_btn_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_share_btn_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_share_btn_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_share_btn_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_share_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_share_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_share_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_share_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/layout/slidingmenumain.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/layout/slidingmenumain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" afterPath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_13_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_13_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/res/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/res/layout/tagview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/layout/tagview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/res/androidTest/debug/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/res/androidTest/debug/layout/tagview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_item_simple.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_item_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_item_simple.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_item_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_selector_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_selector_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_selector_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_selector_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_back.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_back.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_back.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_back.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_personal_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_personal_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_personal_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_personal_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_share_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_share_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_share_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_share_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_actionbar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_actionbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_actionbar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_actionbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_at_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_at_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_at_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_at_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_overlay.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_overlay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_overlay.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_overlay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_bind_select_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_bind_select_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_bind_select_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_bind_select_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_grey_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_grey_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_grey_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_grey_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_login.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_login.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_red_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_red_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_red_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_red_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_white_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_white_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_white_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_white_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_content.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_content.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_content.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_content.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail_nomap.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail_nomap.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail_nomap.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail_nomap.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_item_bg_shape.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_item_bg_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_item_bg_shape.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_item_bg_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_more.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_more.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_more.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_more.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_commnet_header_bg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_commnet_header_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_commnet_header_bg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_commnet_header_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_composer_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_composer_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_composer_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_composer_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_facebook_login_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_facebook_login_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_facebook_login_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_facebook_login_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_failed_load_page.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_failed_load_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_failed_load_page.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_failed_load_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_follow_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_follow_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_follow_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_follow_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_curtain.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_curtain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_curtain.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_curtain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_oauth_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_oauth_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_oauth_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_oauth_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment_platform.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment_platform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment_platform.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment_platform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_pull_to_refresh_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_pull_to_refresh_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_pull_to_refresh_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_pull_to_refresh_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_black.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_black.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_black.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_black.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_grey.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_grey.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_grey.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_grey.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_to_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_to_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_to_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_to_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_transparent_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_transparent_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_transparent_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_transparent_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_shareboard_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_shareboard_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_shareboard_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_shareboard_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shareboard_item_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shareboard_item_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shareboard_item_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shareboard_item_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_normal.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_normal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_normal.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_normal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selected.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selected.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selected.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selected.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_simple_spinner_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_simple_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_simple_spinner_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_simple_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_in_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_in_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_out_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_out_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_back_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_back_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_back_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_back_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_right_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_right_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_right_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_right_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_left.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_left.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_right.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_right.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-h500dp-normal/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-h500dp-normal/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-h500dp-normal/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-h500dp-normal/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter_platform_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter_platform_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter_platform_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter_platform_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_window_shadow_pad.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_window_shadow_pad.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_window_shadow_pad.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_window_shadow_pad.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/values/values.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SVIP-Android.iws" />
@@ -296,11 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41127348">
-              <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
               <folding>
                 <element signature="e#7353#7379#0" expanded="true" />
                 <element signature="e#9795#12896#0" expanded="true" />
@@ -310,21 +50,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShopListManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ShopListManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="93" column="31" selection-start-line="93" selection-start-column="16" selection-end-line="93" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.7724426">
+              <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProtocolUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java">
+      <file leaf-file-name="OrderBookingActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="211" column="41" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+              <caret line="306" column="10" selection-start-line="298" selection-start-column="10" selection-end-line="306" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -5896,8 +5636,8 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ServerPersonalFactory.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ServerPeronalDBUtil.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java" />
       </list>
     </option>
   </component>
@@ -6016,32 +5756,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -6370,6 +6084,13 @@
       <option name="number" value="Default" />
       <updated>1445074973600</updated>
     </task>
+    <task id="LOCAL-00001" summary="添加专属客服列表">
+      <created>1445248035762</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1445248035762</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -6383,13 +6104,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2021419" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23159304" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -6401,7 +6123,6 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -6414,6 +6135,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="添加专属客服列表" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加专属客服列表" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -6545,31 +6270,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
+          <folding>
+            <element signature="e#7353#7379#0" expanded="true" />
+            <element signature="e#9795#12896#0" expanded="true" />
+            <element signature="e#12895#12896#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56367433">
           <caret line="211" column="41" selection-start-line="211" selection-start-column="41" selection-end-line="211" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="306" column="10" selection-start-line="298" selection-start-column="10" selection-end-line="306" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/ext/ShopListManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="93" column="31" selection-start-line="93" selection-start-column="16" selection-end-line="93" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.7724426">
+          <caret line="125" column="27" selection-start-line="125" selection-start-column="27" selection-end-line="125" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41127348">
-          <caret line="171" column="0" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
-          <folding>
-            <element signature="e#7353#7379#0" expanded="true" />
-            <element signature="e#9795#12896#0" expanded="true" />
-            <element signature="e#12895#12896#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
