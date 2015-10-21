@@ -264,7 +264,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         });
     }
 
-
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
         HttpRequest httpRequest = new HttpRequest();

@@ -40,7 +40,7 @@ public class MenuRightFragment extends Fragment {
     private LinearLayout            mRightFragment;
     private TextView                mEmptyView;
     private ListView                mListViewChatRoom;
-    private List<MessageVo>        mChatRoomLists;
+    private List<MessageVo>         mChatRoomLists;
     private ChatRoomAdapter         mChatRoomAdapter;
 
     @Override
