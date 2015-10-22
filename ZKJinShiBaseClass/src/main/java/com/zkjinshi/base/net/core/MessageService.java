@@ -8,7 +8,6 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 
-import com.zkjinshi.base.net.ping.HeartBeatTimer;
 import com.zkjinshi.base.util.Constants;
 
 /**

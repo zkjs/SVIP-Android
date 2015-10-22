@@ -1138,8 +1138,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String defaultRuleType  = context.getString(R.string.default_rule_type);
-                callService(shopId,defaultRuleType);
+                if (null != messageQueue && null != mMessageVo) {
+                    messageQueue.add(mMessageVo);
+                }
+                String defaultRuleType = context.getString(R.string.default_rule_type);
+                callService(shopId, defaultRuleType);
             }
         });
         dialog = customBuilder.create();
