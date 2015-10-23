@@ -31,11 +31,15 @@ public class MsgPushLocA2MReqTool {
         if(null != iBeaconEntity){
             String shopId = iBeaconEntity.getShopid();
             String locId = iBeaconEntity.getLocid();
+            String locDesc = iBeaconEntity.getLocdesc();
             if(!TextUtils.isEmpty(shopId)){
                 msgPushLocA2M.setShopid(shopId);
             }
             if(!TextUtils.isEmpty(locId)){
                 msgPushLocA2M.setLocid(locId);
+            }
+            if(!TextUtils.isEmpty(locDesc)){
+                msgPushLocA2M.setLocdesc(locDesc);
             }
         }
         return msgPushLocA2M;
