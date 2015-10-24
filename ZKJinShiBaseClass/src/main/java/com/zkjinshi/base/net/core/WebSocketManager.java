@@ -2,6 +2,8 @@ package com.zkjinshi.base.net.core;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.zkjinshi.base.config.ConfigUtil;
@@ -21,9 +23,12 @@ import java.net.URI;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class WebSocketManager implements IMessageProcess, WebSocketClient.Listener {
+public class WebSocketManager extends Handler implements IMessageProcess, WebSocketClient.Listener {
 
     public static final String TAG = "WebSocketManager";
+
+    public static final int NOTIFY_OBSERVERS_MSG_WHAT = 0x0010;
+
     private static WebSocketManager instance;
     private IMessageListener messageListener;
     private WebSocketClient webSocketClient;
@@ -150,7 +155,10 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
             messageListener.onNetReceiveSucceed(message);
         }
         // 2、通知所有观察者更新
-        MessageSubject.getInstance().notifyObservers(message);
+        Message msg = new Message();
+        msg.what = NOTIFY_OBSERVERS_MSG_WHAT;
+        msg.obj = message;
+        sendMessage(msg);
     }
 
     public void setMessageListener(IMessageListener messageListener) {
@@ -214,5 +222,16 @@ public class WebSocketManager implements IMessageProcess, WebSocketClient.Listen
         HeartBeatTimer.getInstance().stopHeartbeat();
     }
 
-
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what){
+            case NOTIFY_OBSERVERS_MSG_WHAT:
+            {//通知所有观察者
+                String message = (String)msg.obj;
+                MessageSubject.getInstance().notifyObservers(message);
+            }
+            break;
+        }
+    }
 }

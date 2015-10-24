@@ -18,7 +18,7 @@ public class MsgCustomerServiceTextChatRSP {
 
     private String       shopid;//商家管理端ID
     private String       sessionid;
-    private int          result;
+    private int          result;// 0:发送成功  1:发送失败  2:客人在线客服离线   3:客人离线客户在线 4:所有客户不在线
     private JSONArray    failedusers;  //发送失败用户列表
 
     public int getType() {

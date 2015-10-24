@@ -35,7 +35,7 @@ public class LoginRequestTool {
         }
         msgClientLogin.setLogintype(LoginType.appUser.getVlaue());
         msgClientLogin.setVersion("");
-        msgClientLogin.setPlatform("");
+        msgClientLogin.setPlatform("A");
         msgClientLogin.setAppid("");
         return msgClientLogin;
     }
