@@ -122,34 +122,38 @@
 
             <ImageButton
                 android:id="@+id/pay_order_ali_pay_ibtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/bg_layout_item_selector"
+                android:src="@mipmap/ic_zhifubao"
                 android:visibility="visible"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:background="@mipmap/ic_zhifubao"/>
+                android:layout_marginTop="45dp"/>
 
             <ImageButton
                 android:id="@+id/pay_order_we_chat_pay_ibtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/bg_layout_item_selector"
+                android:src="@mipmap/ic_weixinzhifu"
                 android:visibility="visible"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="42dp"
-                android:background="@mipmap/ic_weixinzhifu"/>
+                android:layout_gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/pay_order_cc_pay_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:drawablePadding="10dp"
-                android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:clickable="true"
-                android:drawableRight="@drawable/bg_get_into"
-                android:textColor="@color/pay_order_btn_text"
+                android:background="@drawable/bg_layout_item_selector"
+                android:textColor="#0B0B0B"
                 android:text="@string/pay_cc"/>
 
             <TextView
@@ -159,7 +163,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:textColor="#0B0B0B"
                 android:text="@string/sweet_prompt"/>
 

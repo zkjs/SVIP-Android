@@ -21,4 +21,5 @@
 	<color name="menu_cut_line">#D3D3D3</color>
 	<color name="menu_text_color">@android:color/black</color>
 	<color name="about_text_color">#a6a6a6</color>
+	<color name="light_gray">#88F1F1F1</color>
 </resources>
