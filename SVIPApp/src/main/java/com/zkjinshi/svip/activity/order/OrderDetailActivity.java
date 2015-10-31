@@ -70,7 +70,6 @@ import me.kaede.tagview.TagView;
  */
 public class OrderDetailActivity extends Activity{
 
-
     private ItemTitleView   mTitle;
     private TextView        mRoomType;
     private TextView        mRoomRate;
@@ -128,8 +127,6 @@ public class OrderDetailActivity extends Activity{
     public static final int PEOPLE_REQUEST_CODE = 7;
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
