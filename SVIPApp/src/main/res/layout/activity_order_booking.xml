@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#dfdfdf"
     android:orientation="vertical">
+
     <!--标题-->
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/itv_title"
@@ -128,25 +129,14 @@
 
                 </LinearLayout>
 
-
-
             </RelativeLayout>
-            <!--房间数量-->
-            <com.zkjinshi.svip.view.ItemUserSettingView
-                android:id="@+id/aod_room_number"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                zkjinshi:itemSettingTitle="房间数量"
-                android:background="#ffffff"/>
+
             <!--入住离店日期-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@color/White"
-                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
@@ -212,10 +202,19 @@
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_get_into_w"/>
                 </LinearLayout>
-
-
-
             </LinearLayout>
+
+            <!--房间数量-->
+            <com.zkjinshi.svip.view.ItemUserSettingView
+                android:id="@+id/aod_room_number"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                zkjinshi:itemSettingTitle="房间数量"
+                android:background="#ffffff"/>
+
             <!--入住人-->
             <LinearLayout
                 android:layout_width="match_parent"
