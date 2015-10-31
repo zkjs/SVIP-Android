@@ -5,44 +5,6 @@
     android:background="#EEEEEE"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!--
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="50dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.0">
-
-            <ImageButton
-                android:id="@+id/calendar_header_bar_btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_horizontal"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/header_ibtn_back"
-                android:visibility="visible" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_centerHorizontal="true"
-                android:textColor="@android:color/black"
-                android:text="@string/choose_check_in_and_out_date"/>
-
-        </RelativeLayout>
-    </LinearLayout>
- -->
 
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/itv_title"
@@ -61,7 +23,7 @@
             android:id="@+id/date_picker_choose_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            calendar:drawRoundRect="false"
+            calendar:drawRoundRect="true"
             calendar:startCurrentMonth="true"
             calendar:enablePreviousDay="false"
             calendar:preSetDay="true"

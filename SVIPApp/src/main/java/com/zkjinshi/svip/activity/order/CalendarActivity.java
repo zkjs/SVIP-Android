@@ -58,7 +58,7 @@ public class CalendarActivity extends Activity implements DatePickerController{
     private void initData(){
         //backIBtn.setVisibility(View.VISIBLE);
         mTitle.getmRight().setVisibility(View.INVISIBLE);
-        mTitle.setTextTitle("选择入住\\退房日期");
+        mTitle.setTextTitle("选择入住和退房日期");
         dayPickerView.setController(this);
 
         Intent data = getIntent();
