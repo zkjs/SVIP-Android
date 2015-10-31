@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/actionsheet_top"
-        android:textColor="#0000FF"
+        android:textColor="@drawable/bg_color_take_photo"
         android:textSize="18sp"
         android:text="拍照" 
 		/>
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/actionsheet_bottom"
-        android:textColor="#0000FF"
+        android:textColor="@drawable/bg_color_take_photo"
         android:textSize="18sp"
         android:text="从相册选择" 
 		/>
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/actionsheet_single"
-        android:textColor="#0000FF"
+        android:textColor="@drawable/bg_color_take_photo"
         android:textSize="18sp"
         android:text="取消" 
 		/>

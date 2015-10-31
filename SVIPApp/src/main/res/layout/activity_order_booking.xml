@@ -66,9 +66,9 @@
                             android:id="@+id/tv_RMB_symbol"
                             android:textSize="13sp"
                             android:padding="2dp"
-                            android:textColor="@color/Black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/OrangeFB880E"
                             android:text="¥" />
 
                         <TextView

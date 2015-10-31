@@ -244,7 +244,7 @@ public class OrderBookingActivity extends Activity{
                                 }
                             }catch (Exception e){
                                 e.printStackTrace();
-                                LogUtil.getInstance().info(LogLevel.ERROR,e.getMessage());
+                                LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
                             }
                         }
                     }
@@ -330,7 +330,7 @@ public class OrderBookingActivity extends Activity{
     private Tag createTag(int id,String tagstr,boolean isChecked){
         Tag tag = new Tag(id,tagstr);
         tag.tagTextColor = Color.parseColor("#000000");
-        tag.layoutColor =  Color.parseColor("#ffffff");
+        tag.layoutColor  =  Color.parseColor("#ffffff");
         tag.layoutColorPress = Color.parseColor("#DDDDDD");
         //or tag.background = this.getResources().getDrawable(R.drawable.custom_bg);
         tag.radius = 40f;
