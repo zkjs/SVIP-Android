@@ -1,10 +1,14 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,6 +28,8 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -73,6 +79,7 @@ public class LoginActivity extends Activity{
     private final static int SMS_COUNTING_DOWN  = 10; //倒计时进行中
     private final static int SMS_COUNT_OVER     = 11; //倒计时结束
     private final static int SEND_SMS_VERIFY    = 12; //发送短信验证码
+    private final static int SEND_SMS_RECEIVE    = 13; //获取短信验证码
 
     private int       mSmsVerifyStatus = SMS_UNSEND;//初始状态
     private int       mSmsCountSeconds = 60;//短信倒计时
@@ -99,6 +106,7 @@ public class LoginActivity extends Activity{
     private Response.ErrorListener    getUserErrorListener;//获取用户失败监听事件
     private Map<String, String>       mPhoneVerifyMap;//指定手机对应验证码
     private Map<String, Object>       mResultMap;
+    private SmsReceiver smsReceiver;
 
     private Bundle thirdBundleData = null;   //从第三方或得的用户数据
 
@@ -165,6 +173,12 @@ public class LoginActivity extends Activity{
                         mBtnConfirm.setEnabled(true);
                     }
                     break;
+                case SEND_SMS_RECEIVE:
+                    if(null != mVerifyCode){
+                        String vertifyCode = msg.obj.toString();
+                        mVerifyCode.setText(vertifyCode);
+                    }
+                    break;
             }
         }
     };
@@ -178,6 +192,14 @@ public class LoginActivity extends Activity{
         initView();
         initData();
         initListener();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(null != smsReceiver){
+            unregisterReceiver(smsReceiver);
+        }
     }
 
     private void initView() {
@@ -198,6 +220,11 @@ public class LoginActivity extends Activity{
 
     private void initData() {
         LoginController.getInstance().init(this);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
+        filter.setPriority(Integer.MAX_VALUE);
+        smsReceiver = new SmsReceiver();
+        registerReceiver(smsReceiver, filter);
     }
 
     private void initListener() {
@@ -206,7 +233,7 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                //getUser(inputPhone);
+               // getUser(inputPhone);
                 if (mSmsVerifySuccess) {
                     thirdBundleData = null;
                     getUser(inputPhone);//判断用户是否已经存在
@@ -373,7 +400,7 @@ public class LoginActivity extends Activity{
 
             @Override
             public void onError(SocializeException e, SHARE_MEDIA platform) {
-               // Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -674,6 +701,54 @@ public class LoginActivity extends Activity{
         DialogUtil.getInstance().showProgressDialog(this);
         LoginController.getInstance().addToRequestQueue(request);
     }
+
+    private String strContent;
+    private String patternCoder = "(?<!--\\d)\\d{6}(?!\\d)";
+
+    /**
+     * 匹配短信中间的6个数字（验证码等）
+     *
+     * @param patternContent
+     * @return
+     */
+    private String patternCode(String patternContent) {
+        if (TextUtils.isEmpty(patternContent)) {
+            return null;
+        }
+        Pattern p = Pattern.compile(patternCoder);
+        Matcher matcher = p.matcher(patternContent);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return null;
+    }
+
+    class  SmsReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Object[] objs = (Object[]) intent.getExtras().get("pdus");
+            for (Object obj : objs) {
+                byte[] pdu = (byte[]) obj;
+                SmsMessage sms = SmsMessage.createFromPdu(pdu);
+                String message = sms.getMessageBody();
+                String from = sms.getOriginatingAddress();
+                if (!TextUtils.isEmpty(from)) {
+                    strContent = from + "   " + message;
+                    if (!TextUtils.isEmpty(from)) {
+                        String code = patternCode(message);
+                        if (!TextUtils.isEmpty(code)) {
+                            strContent = code;
+                            Message receiveMessage = new Message();
+                            receiveMessage.obj = strContent;
+                            receiveMessage.what = SEND_SMS_RECEIVE;
+                            handler.sendMessage(receiveMessage);
+                        }
+                    }
+                }
+            }
+        }
+    };
 
     /**
      * 短信倒数计时器
