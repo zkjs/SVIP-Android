@@ -24,6 +24,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
@@ -132,12 +133,14 @@ public class SettingTagsActivity extends Activity{
                                 }.getType());
                                 if(responseList.size() > 0){
                                     mContainerCheckedLlt.setVisibility(View.VISIBLE);
+                                    findViewById(R.id.white_line).setVisibility(View.GONE);
                                     for(TagInfoVo item : responseList){
                                         LogUtil.getInstance().info(LogLevel.INFO, item.toString());
                                         mCheckedTagView.addTag(createTag(item.getTagid(),item.getTag()));
                                     }
                                 } else{
                                     mContainerCheckedLlt.setVisibility(View.GONE);
+                                    findViewById(R.id.white_line).setVisibility(View.VISIBLE);
                                 }
 
 
@@ -243,14 +246,14 @@ public class SettingTagsActivity extends Activity{
 
     private Tag createTag(int id,String tagstr){
         Tag tag = new Tag(id,tagstr);
-        tag.tagTextColor = Color.parseColor("#FFFFFF");
-        tag.layoutColor =  Color.parseColor("#555555");
+        tag.tagTextColor = Color.parseColor("#333333");
+        tag.layoutColor =  Color.parseColor("#ffffff");
         tag.layoutColorPress = Color.parseColor("#DDDDDD");
         //or tag.background = this.getResources().getDrawable(R.drawable.custom_bg);
         tag.radius = 20f;
-        tag.tagTextSize = 18f;
+        tag.tagTextSize = 14f;
         tag.layoutBorderSize = 1f;
-        tag.layoutBorderColor = Color.parseColor("#FFFFFF");
+        tag.layoutBorderColor = Color.parseColor("#bbbbbb");
         tag.isDeletable = false;
        return tag;
     }
