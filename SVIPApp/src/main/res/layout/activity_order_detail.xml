@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#dfdfdf"
     android:orientation="vertical">
+
 <!--标题-->
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/itv_title"
@@ -14,8 +15,7 @@
         android:background="#191223"
         zkjinshi:itemTitle="酒店名"
         zkjinshi:leftImage="@mipmap/icon_white_img_back"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        zkjinshi:itemTitleColor="#FFFFFF" />
 
     <ScrollView
         android:scrollbars="none"
@@ -66,7 +66,7 @@
                             android:id="@+id/tv_RMB_symbol"
                             android:textSize="13sp"
                             android:padding="2dp"
-                            android:textColor="@color/Black"
+                            android:textColor="@color/OrangeFB880E"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="¥" />
@@ -248,7 +248,8 @@
                     zkjinshi:itemSettingTitle="入住人3"
                     android:background="#ffffff"/>
             </LinearLayout>
-<!--支付方式-->
+
+            <!--支付方式-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -266,8 +267,7 @@
                     android:textSize="16sp"
                     android:textColor="@color/Black"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:padding="5dp"
@@ -428,7 +428,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择你需要的定制服务"/>
             </LinearLayout>
-<!--订单备注-->
+            <!--订单备注-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -461,7 +461,7 @@
                     android:text=""/>
             </LinearLayout>
 
- <!--按钮-->
+            <!--按钮-->
             <LinearLayout
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"

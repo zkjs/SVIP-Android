@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.ext.ShopListManager;

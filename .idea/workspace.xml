@@ -9,333 +9,35 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f36245b-8863-41f7-90ae-843e1adbdf18" name="Default" comment="">
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\CCP_REST_SMS_SDK_JAVA_v2_6_3r.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\MapApiLocation_1_3_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_AtFriends.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_QQZone_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_QQZone_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_QQZone_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_Sina.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_UserCenter.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_WeiXin_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_actionbarview.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_comment.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_evernote.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_facebook_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_facebook_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_flickr.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_foursquare.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_instagram.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_kakao.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_laiwang_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_laiwang_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_like.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_line.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_linkedin.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_pinterest.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_pocket.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_renren_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_renren_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_scrshot.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_shake.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_sms.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_tencentWB_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_tumblr.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_whatsapp.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_yixin_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_yixin_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\SocialSDK_ynote.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\alipaySDK_20150610.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\appcompat_v7_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\appcompat_v7_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\appcompat_v7_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\bolts_android_1_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\eventbus_3_0_0_beta1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\httpmime_4_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\library_1_0_17.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\library_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\picasso_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\recyclerview_v7_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_annotations_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_annotations_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_annotations_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_annotations_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_v4_13_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_v4_21_0_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_v4_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_v4_22_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\support_v4_22_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\testinagent.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\umeng_social_sdk.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-Android\.idea\libraries\universal_image_loader_1_9_4.xml" afterPath="" />
+    <list default="true" id="56022c31-6fa6-4014-83d8-ea82370b83b9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_qianjin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_qianjin.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-debug.aar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-debug.aar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-release.aar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/outputs/aar/Cloud_TagView-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/CustomViewAbove.class" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/CustomViewAbove.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivityHelper.class" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/app/SlidingActivityHelper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/outputs/aar/SlidingMenu-release.aar" afterPath="$PROJECT_DIR$/SlidingMenu/build/outputs/aar/SlidingMenu-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/SlidingMenu.class" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/classes/release/com/jeremyfeinstein/slidingmenu/lib/SlidingMenu.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/classes.jar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/resources/resources-debug-androidTest.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/resources/resources-debug-androidTest.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/resources/resources-debug-androidTest.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/outputs/aar/social_sdk_library_project-release.aar" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/outputs/aar/social_sdk_library_project-release.aar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/aapt/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/aapt/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/aapt/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/aapt/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/aapt/AndroidManifest.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/aapt/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/AndroidManifest.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aapt/AndroidManifest.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aapt/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/generated/source/buildConfig/release/com/example/demo_cloud_tagview/BuildConfig.java" afterPath="$PROJECT_DIR$/Cloud_TagView/build/generated/source/buildConfig/release/com/example/demo_cloud_tagview/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/generated/source/buildConfig/release/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" afterPath="$PROJECT_DIR$/SlidingMenu/build/generated/source/buildConfig/release/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/generated/source/buildConfig/release/com/umeng_social_sdk_res_lib/BuildConfig.java" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/generated/source/buildConfig/release/com/umeng_social_sdk_res_lib/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" afterPath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" afterPath="$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/MediaMetadataCompat.aidl" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/MediaMetadataCompat.aidl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/MediaSessionCompat.aidl" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/MediaSessionCompat.aidl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/ParcelableVolumeInfo.aidl" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/ParcelableVolumeInfo.aidl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/PlaybackStateCompat.aidl" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/session/PlaybackStateCompat.aidl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/RatingCompat.aidl" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/aidl/android/support/v4/media/RatingCompat.aidl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" afterPath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_like_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_like_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_like_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_like_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_login_silver_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_login_silver_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_login_silver_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_login_silver_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_send_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/com_facebook_button_send_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_send_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/com_facebook_button_send_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_login_fragment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_login_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_login_fragment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_login_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_tooltip_bubble.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/com_facebook_tooltip_bubble.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_tooltip_bubble.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/com_facebook_tooltip_bubble.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_message_center.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_message_center.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_detail.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_detail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_card_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_card_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_chat_keyboard.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_chat_keyboard.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_quick_menu.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_quick_menu.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeAssets/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeAssets/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeResources/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/mergeResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/packageResources/release/merger.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/incremental/packageResources/release/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_blue_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_blue_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_blue_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_blue_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_large.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_large.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/messenger_button_send_white_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_small.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/messenger_button_send_white_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_round.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_round.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/messenger_button_white_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/messenger_button_white_bg_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" afterPath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_close_button_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_close_button_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_close_button_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_close_button_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_cycle_5.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_cycle_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_cycle_5.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_cycle_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_alpha.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_alpha.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_alpha.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_alpha.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_scale.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_dlg_scale.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_scale.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_dlg_scale.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_edit_anim.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_edit_anim.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_edit_anim.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_edit_anim.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_edittext_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_edittext_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_edittext_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_edittext_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_imageview_rotate.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_imageview_rotate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_imageview_rotate.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_imageview_rotate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_imgview_border.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_imgview_border.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_imgview_border.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_imgview_border.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_preview_edit_corners_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_scrshot_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/shake_umeng_socialize_scrshot_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_scrshot_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/shake_umeng_socialize_scrshot_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_scrshot_snapshot.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_scrshot_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_scrshot_snapshot.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_scrshot_snapshot.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_shake_layout_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_shake_layout_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_shake_layout_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_shake_layout_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_share_btn_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/shake_umeng_socialize_share_btn_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_share_btn_style.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/shake_umeng_socialize_share_btn_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_share_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/shake_umeng_socialize_share_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_share_dlg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/shake_umeng_socialize_share_dlg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/layout/slidingmenumain.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/layout/slidingmenumain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" afterPath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/layout/tagview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_at_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_at_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_item_simple.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_item_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_item_simple.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_item_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_selector_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_bak_platform_selector_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_selector_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_bak_platform_selector_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_back.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_back.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_back.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_back.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_personal_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_personal_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_personal_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_personal_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_share_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_action_share_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_share_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_action_share_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_actionbar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_actionbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_actionbar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_actionbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_at_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_at_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_at_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_at_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_overlay.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_overlay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_overlay.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_overlay.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_at_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_at_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_base_alert_dialog_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_base_alert_dialog_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_bind_select_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_bind_select_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_bind_select_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_bind_select_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_grey_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_grey_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_grey_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_grey_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_login.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_login.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_login.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_red_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_red_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_red_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_red_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_white_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_button_white_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_white_blue.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_button_white_blue.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_content.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_content.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_content.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_content.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail_nomap.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_detail_nomap.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail_nomap.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_detail_nomap.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_icon.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_item_bg_shape.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_comment_item_bg_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_item_bg_shape.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_comment_item_bg_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_more.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_more.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_more.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_more.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_comment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_view.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_comment_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_commnet_header_bg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_commnet_header_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_commnet_header_bg.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_commnet_header_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_composer_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_composer_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_composer_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_composer_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_facebook_login_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_facebook_login_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_facebook_login_activity_layout.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_facebook_login_activity_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_failed_load_page.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_failed_load_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_failed_load_page.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_failed_load_page.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_follow_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_follow_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_follow_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_follow_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_alert_dialog_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_alert_dialog_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_curtain.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_full_curtain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_curtain.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_full_curtain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_oauth_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_oauth_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_oauth_check.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_oauth_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment_platform.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_comment_platform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment_platform.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_comment_platform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_share.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_post_share.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_pull_to_refresh_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_pull_to_refresh_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_pull_to_refresh_header.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_pull_to_refresh_header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_black.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_black.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_black.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_black.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_grey.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shape_solid_grey.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_grey.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shape_solid_grey.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_to_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_to_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_to_button.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_to_button.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_transparent_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_share_transparent_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_transparent_corner.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_share_transparent_corner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_in.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_shareboard_animation_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_out.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_shareboard_animation_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_shareboard_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_shareboard_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_shareboard_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_shareboard_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shareboard_item_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_shareboard_item_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shareboard_item_background.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_shareboard_item_background.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_normal.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_normal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_normal.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_normal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selected.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selected.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selected.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selected.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_sidebar_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selector.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_sidebar_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_simple_spinner_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_simple_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_simple_spinner_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_simple_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_in_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_in_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_out_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/anim/umeng_socialize_slide_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_out_from_bottom.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/anim/umeng_socialize_slide_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_titile_bar.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_titile_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_titile_bar_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar_comment.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_titile_bar_comment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_back_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_back_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_back_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_back_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_right_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_right_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_right_bt.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_right_bt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_left.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_left.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_right.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_title_tab_button_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_right.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_title_tab_button_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-h500dp-normal/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-h500dp-normal/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout-sw550dp-large/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-h500dp-normal/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-h500dp-normal/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_ucenter.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout-sw550dp-large/umeng_socialize_ucenter.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter_platform_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/layout/umeng_socialize_ucenter_platform_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter_platform_item.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/layout/umeng_socialize_ucenter_platform_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_window_shadow_pad.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/drawable/umeng_socialize_window_shadow_pad.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_window_shadow_pad.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/drawable/umeng_socialize_window_shadow_pad.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/SlidingMenu/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/bundles/release/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/values/values.xml" afterPath="$PROJECT_DIR$/social_sdk_library_project/build/intermediates/res/release/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/debug/merger.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/incremental/packageResources/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/res/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/bundles/debug/res/layout/tagview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/res/androidTest/debug/layout/tagview_item.xml" afterPath="$PROJECT_DIR$/Cloud_TagView/build/intermediates/res/androidTest/debug/layout/tagview_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SVIP-Android.iws" />
@@ -364,23 +66,125 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SettingActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java">
+      <file leaf-file-name="MenuRightFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="420" column="47" selection-start-line="420" selection-start-column="47" selection-end-line="420" selection-end-column="47" />
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="62" selection-end-column="5" />
+              <folding>
+                <element signature="e#1936#1937#0" expanded="true" />
+                <element signature="e#1977#1978#0" expanded="true" />
+                <element signature="e#5221#5508#0" expanded="true" />
+                <element signature="e#5507#5508#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout_quick_menu.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_quick_menu.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatRoomAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatRoomAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32580262">
-              <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
+      <file leaf-file-name="item_chat_room.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
               <folding />
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/ChatActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="159" column="73" selection-start-line="159" selection-start-column="73" selection-end-line="159" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuLeftFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuLeftFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="132" column="68" selection-start-line="132" selection-start-column="68" selection-end-line="132" selection-end-column="68" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryOrderActivtiy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/HistoryOrderActivtiy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.4">
+              <caret line="147" column="83" selection-start-line="147" selection-start-column="83" selection-end-line="147" selection-end-column="83" />
+              <folding>
+                <element signature="e#7408#7630#0" expanded="true" />
+                <element signature="e#7629#7630#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrderDetailActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderDetailActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="136" column="45" selection-start-line="136" selection-start-column="45" selection-end-line="136" selection-end-column="45" />
+              <folding>
+                <element signature="e#25809#26687#0" expanded="true" />
+                <element signature="e#26686#26687#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_order_detail.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_detail.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6101695">
+              <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -5046,6 +4850,7 @@
     </option>
     <option name="modificationStamps">
       <map>
+        <entry key="F:/github_project/Android-Mosil-Sample-Toolbar" value="8667777942587" />
         <entry key="F:/svip_latest/SVIP-Android" value="12962884856019" />
         <entry key="F:/svip_latest/SuperService-Android" value="8659548272421" />
         <entry key="$PROJECT_DIR$/../ErrorView" value="7214512577298" />
@@ -5053,8 +4858,9 @@
         <entry key="$PROJECT_DIR$/../Service-Android" value="7214599253340" />
         <entry key="$PROJECT_DIR$/../SuperService-Android" value="5771615683030" />
         <entry key="$PROJECT_DIR$/../service/Service-Android" value="7214607330545" />
+        <entry key="F:/zkjs_gitlab/SuperService-Android" value="2887501929300" />
         <entry key="F:/zkjs_repository/volley" value="2874766564087" />
-        <entry key="F:\zkjs_github\SVIP-Android" value="12996326979181" />
+        <entry key="F:\zkjs_github\SVIP-Android" value="12998562699244" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -5944,12 +5750,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/actions/MessageListViewManager.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/MessageFactory.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/bean/jsonbean/MsgCustomerServiceTextChat.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_item.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_message_center.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_quick_menu.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_chat_keyboard.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_card_item.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/listitem_history_order.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_detail.xml" />
       </list>
     </option>
   </component>
@@ -5994,6 +5803,8 @@
     <panes>
       <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -6002,10 +5813,126 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mipmap" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mipmap" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ic_qianjin.png" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svip" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="svip" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="http" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -6017,13 +5944,138 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="last_opened_file_path" value="F:/zkjs_repository/2" />
+    <property name="last_opened_file_path" value="F:/zkjs_work/android_key.jks" />
     <property name="android.sdk.path" value="D:/AndroidStudioFrom_qingquan/sdk" />
+    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
+    <property name="FullScreen" value="false" />
+    <property name="SearchEverywhereHistoryKey" value="Left&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.MenuLeftFragment&#10;datalinec&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;ChatA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.im.ChatActivity&#10;chat_keyb&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/res/layout/layout_chat_keyboard.xml&#10;layout_q&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/res/layout/layout_quick_menu.xml&#10;getUserDetailInfo&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.LoginController#getUserDetailInfo&#10;Right&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.MenuRightFragment" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71UBBLH22C4C" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_10_API_21" />
-    <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="Set&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java&#10;Item&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingItemActivity.java&#10;Setting&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingActivity&#10;Fragment&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.MenuRightFragment&#10;Msg&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android/SVIPApp/src/main/java/com/zkjinshi/svip/bean/jsonbean/MsgCustomerServiceTextChat.java&#10;MessageL&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.im.actions.MessageListViewManager" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\zkjs_github\SVIP-Android\SVIPApp\src\main\res\mipmap-xxhdpi" />
+      <recent name="F:\zkjs_github\SVIP-Android\SVIPApp\src\main\res\mipmap-xhdpi" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/build.gradle</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_pay_order.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/layout/listitem_history_order.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/values/colors.xml</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bg_layout_item_selector.xml</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Android Application.SVIPApp">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -6045,40 +6097,6 @@
       <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
       <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
       <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
-      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
-      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -6115,11 +6133,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -6177,12 +6190,6 @@
       <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
       <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
       <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <method />
     </configuration>
     <list size="1">
@@ -6211,47 +6218,46 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2f36245b-8863-41f7-90ae-843e1adbdf18" name="Default" comment="" />
-      <created>1444036369223</created>
+      <changelist id="56022c31-6fa6-4014-83d8-ea82370b83b9" name="Default" comment="" />
+      <created>1446271907046</created>
       <option name="number" value="Default" />
-      <updated>1444036369223</updated>
+      <updated>1446271907046</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3207127" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="FIR.im" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -6262,28 +6268,29 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3207127" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32972974" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="FIR.im" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -6302,224 +6309,158 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="420" column="47" selection-start-line="420" selection-start-column="47" selection-end-line="420" selection-end-column="47" />
+          <caret line="61" column="34" selection-start-line="61" selection-start-column="34" selection-end-line="62" selection-end-column="5" />
+          <folding>
+            <element signature="e#1936#1937#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#5221#5508#0" expanded="true" />
+            <element signature="e#5507#5508#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_chat_keyboard.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/actions/MessageListViewManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="306" column="43" selection-start-line="306" selection-start-column="43" selection-end-line="306" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatRoomAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/MessageDBUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/bean/jsonbean/MsgCustomerServiceTextChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="157" column="5" selection-start-line="151" selection-start-column="2" selection-end-line="157" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ChatRoomFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="51" selection-start-line="44" selection-start-column="51" selection-end-line="44" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ChatRoomMemberFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/MessageFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="349" column="62" selection-start-line="349" selection-start-column="62" selection-end-line="349" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="304" column="42" selection-start-line="304" selection-start-column="42" selection-end-line="304" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/menu/action/ChatMenuAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multi-image-selector/src/main/java/me/nereo/multi_image_selector/MultiImageSelectorFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.21749137">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12428078">
-          <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatRoomAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31070197">
-          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/actions/MessageListViewManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24856156">
-          <caret line="314" column="50" selection-start-line="314" selection-start-column="50" selection-end-line="314" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/MessageDBUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/bean/jsonbean/MsgCustomerServiceTextChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.24280782">
-          <caret line="157" column="5" selection-start-line="151" selection-start-column="2" selection-end-line="157" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ChatRoomMemberFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="36" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/menu/action/ChatMenuAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62140393">
-          <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="304" column="42" selection-start-line="304" selection-start-column="42" selection-end-line="304" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/MessageFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="349" column="62" selection-start-line="349" selection-start-column="62" selection-end-line="349" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/factory/ChatRoomFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7146145">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35399285">
-          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingItemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.093210585">
-          <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_message_center.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="39" column="39" selection-start-line="39" selection-start-column="39" selection-end-line="39" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingTagsActivity.java">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_card_item.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24856156">
-          <caret line="78" column="46" selection-start-line="78" selection-start-column="46" selection-end-line="78" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.14438502">
+          <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/base/BaseUiController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59608746">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/ChatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="420" column="47" selection-start-line="420" selection-start-column="47" selection-end-line="420" selection-end-column="47" />
+          <caret line="159" column="73" selection-start-line="159" selection-start-column="73" selection-end-line="159" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/styles.xml">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuLeftFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32580262">
-          <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="132" column="68" selection-start-line="132" selection-start-column="68" selection-end-line="132" selection-end-column="68" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatRoomAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/layout_quick_menu.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuRightFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/listitem_history_order.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/BookOrderAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.02455357">
+          <caret line="53" column="68" selection-start-line="53" selection-start-column="68" selection-end-line="53" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/HistoryOrderActivtiy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.4">
+          <caret line="147" column="83" selection-start-line="147" selection-start-column="83" selection-end-line="147" selection-end-column="83" />
+          <folding>
+            <element signature="e#7408#7630#0" expanded="true" />
+            <element signature="e#7629#7630#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="136" column="45" selection-start-line="136" selection-start-column="45" selection-end-line="136" selection-end-column="45" />
+          <folding>
+            <element signature="e#25809#26687#0" expanded="true" />
+            <element signature="e#26686#26687#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_detail.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6101695">
+          <caret line="12" column="43" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
