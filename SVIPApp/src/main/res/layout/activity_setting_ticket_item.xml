@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000">
+    android:background="#ffffff">
 
     <com.zkjinshi.svip.view.ItemTitleView
         android:id="@+id/itv_title"
@@ -22,7 +22,7 @@
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:background="@drawable/bg_white_radius">
+        android:background="#ffffff">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,20 +38,23 @@
                 android:hint="输入发票抬头"
                 android:background="@android:color/transparent"
                 android:id="@+id/et_setting_input"
+                android:textSize="16sp"
+                android:textColorHint="#9e9e9e"
+                android:gravity="bottom"
                 />
             <View
                 android:background="#bbbbbb"
                 android:layout_height="1dp"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"></View>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"></View>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="获取方式：离店时自取"
-                android:textSize="18sp"
-                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="#949494"
                 android:id="@+id/tv_setting_tips"
                 />
 
@@ -64,11 +67,11 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设为默认"
+            android:text="  设为默认"
             android:id="@+id/ticket_checkbox"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textColor="@color/Black"
             android:checked="true"
             android:button="@drawable/checkbox_ticket_selector"
@@ -81,7 +84,7 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         android:text="保存"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/White"
         android:background="@drawable/btn_bg_01_selector"/>
 

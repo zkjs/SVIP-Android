@@ -93,7 +93,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
     private void initListener() {
         mTitle.getmLeft().setOnClickListener(this);
-        mUserIcon.setOnClickListener(this);
+       // mUserIcon.setOnClickListener(this);
+        findViewById(R.id.rl_user_icon_img).setOnClickListener(this);
         mItemUserIcon.setOnClickListener(this);
         mUserName.setOnClickListener(this);
         mUserPhone.setOnClickListener(this);
@@ -354,7 +355,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
             finish();
                 break;
             //选择头像
-            case R.id.civ_user_icon:
+            case R.id.rl_user_icon_img:
                 MineUiController.getInstance().init(this);
                 MineUiController.getInstance().showChoosePhotoDialog();
                 break;

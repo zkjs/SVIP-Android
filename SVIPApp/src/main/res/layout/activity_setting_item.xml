@@ -28,14 +28,17 @@
             android:inputType="textPersonName"
             android:hint="输入你的真实姓名"
             android:background="@android:color/transparent"
-            android:ems="10"
+            android:textColorHint="#999999"
+            android:textSize="16sp"
             android:id="@+id/et_setting_input"
+            android:gravity="bottom"
             />
 
         <View
             android:background="#bbbbbb"
             android:layout_height="1dp"
             android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"></View>
 
@@ -43,8 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="该名字用于你订房时确定，不会透露给他人"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_marginTop="5dp"
             android:id="@+id/tv_setting_tips"
             />
 
@@ -54,7 +58,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:text="保存"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/White"
             android:background="@drawable/btn_bg_01_selector"/>
     </LinearLayout>

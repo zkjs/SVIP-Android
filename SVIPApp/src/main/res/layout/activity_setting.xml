@@ -4,7 +4,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9E9E9E"
+    android:background="#dadada"
     android:orientation="vertical">
 
     <com.zkjinshi.svip.view.ItemTitleView
@@ -106,7 +106,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="修改手机"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="10dp"/>
 
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/ius_ticket_info"
