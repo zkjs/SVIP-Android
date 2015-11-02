@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -24,6 +27,8 @@ import com.zkjinshi.svip.utils.CacheUtil;
  * 版权所有
  */
 public class SplashActivity extends Activity {
+
+    private DisplayImageOptions options;
 
     private static final int SPLASH_DELAY_MILLIS = 4000;
 
@@ -55,6 +60,19 @@ public class SplashActivity extends Activity {
         msgLayout = (LinearLayout)findViewById(R.id.splash_msg_layout);
         logoIv = (ImageView)findViewById(R.id.splash_logo_iv);
         textTv = (TextView)findViewById(R.id.splash_ad_tv);
+
+        this.options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .build();
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserPhotoUrl())){
+            ImageLoader.getInstance().displayImage(CacheUtil.getInstance().getUserPhotoUrl(), logoIv, options);
+        }
+
+
     }
 
     /**
@@ -67,44 +85,17 @@ public class SplashActivity extends Activity {
         bodyLayout.startAnimation(skyDropOutAnim);
 
         //logo淡入效果
-        logoFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_logo);
-        logoIv.startAnimation(logoFadeInAnim);
-        logoFadeInAnim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                logoFadeOutAnim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fade_out_logo);
-                logoIv.startAnimation(logoFadeOutAnim);
-                logoFadeOutAnim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        logoIv.setVisibility(View.INVISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+        //logoFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_logo);
+       // logoIv.startAnimation(logoFadeInAnim);
+        int[] ids = {R.id.guiji01,R.id.guiji02,R.id.guiji03};
+        for(int i=0;i<ids.length;i++){
+            Animation rotate = AnimationUtils.loadAnimation(this,R.anim.anim_guiji);
+            findViewById(ids[i]).startAnimation(rotate);
+        }
 
 
-        //logo淡入效果
+
+        //logo text 淡入效果
         textFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_text);
         textTv.startAnimation(textFadeInAnim);
         textFadeInAnim.setAnimationListener(new Animation.AnimationListener() {
