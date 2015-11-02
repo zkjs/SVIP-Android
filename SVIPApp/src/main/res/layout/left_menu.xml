@@ -3,9 +3,7 @@
     android:layout_width="270dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#252628"
-    >
-
+    android:background="#252628">
 
     <RelativeLayout
         android:layout_width="270dp"
@@ -44,18 +42,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:layout_width="fill_parent"
-            style="@style/LeftMenuText"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:text="首页"
-            android:visibility="gone"
-            android:drawableLeft="@drawable/ic_home"
-            android:id="@+id/leftmenu_home_tv" />
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="fill_parent"
@@ -89,8 +76,8 @@
                 style="@style/LeftMenuText"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:text="订单"
-                android:drawableLeft="@drawable/ic_dingdan"
+                android:text="行程"
+                android:drawableLeft="@drawable/ic_xingcheng"
                 android:id="@+id/leftmenu_order_tv"
                 />
 
@@ -101,7 +88,7 @@
             style="@style/LeftMenuText"
             android:clickable="true"
             android:gravity="center_vertical"
-            android:text="足迹"
+            android:text="已消费"
             android:drawableLeft="@drawable/ic_zuji"
             android:id="@+id/leftmenu_footprint_tv"
             />

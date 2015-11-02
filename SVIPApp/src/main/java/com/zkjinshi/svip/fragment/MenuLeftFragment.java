@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.fragment;
 
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,9 +27,14 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
 /**
- * Created by djd on 2015/8/10.
+ * 左侧滑菜单
+ * 开发者：JimmyZhang
+ * 日期：2015/11/02
+ * Copyright (C) 2015 深圳中科金石科技有限公司
+ * 版权所有
  */
 public class MenuLeftFragment extends Fragment implements View.OnClickListener{
+
     public static final String TAG = "MenuLeftFragment";
     private View mView;
     private CircleImageView photoCtv;
@@ -44,7 +48,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
         {
             initView(inflater, container);
         }
-
         return mView;
     }
 
@@ -67,7 +70,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
         nameTv = (TextView)mView.findViewById(R.id.leftmenu_user_name);
 
         photoCtv.setOnClickListener(this);
-        mView.findViewById(R.id.leftmenu_home_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_set_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_front_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_order_tv).setOnClickListener(this);
@@ -97,15 +99,6 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
-            }
-            //主页
-            case R.id.leftmenu_home_tv:
-            {
-                Activity activity = getActivity();
-                if(activity instanceof MainActivity)
-                {
-                    ((MainActivity)activity).toggleMenu();
-                }
             }
             break;
             //设置
