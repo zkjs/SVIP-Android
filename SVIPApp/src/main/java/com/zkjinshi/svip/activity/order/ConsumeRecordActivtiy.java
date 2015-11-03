@@ -264,11 +264,31 @@ public class ConsumeRecordActivtiy extends Activity {
                 LogUtil.getInstance().info(LogLevel.ERROR, "response:=" + response);
                 DialogUtil.getInstance().cancelProgressDialog();
                 mSlvBookOrder.refreshFinish();//结束刷新状态
-                //测试 只用于显示
-                ArrayList<BookOrder> bookOrders = new ArrayList<BookOrder>();
-                for(int i=0;i<10;i++){
-                    bookOrders.add(new BookOrder());
+                if(JsonUtil.isJsonNull(response)) {
+                    return ;
                 }
+
+                Gson gson = new Gson();
+                //判断返回值
+                if(response.toUpperCase().contains("SET")){
+                    if(response.toUpperCase().contains("FALSE")) {
+                        JSONObject resultObject = gson.fromJson(response, JSONObject.class);
+                        try {
+                            LogUtil.getInstance().info(LogLevel.ERROR, "获取订单表err状态码:"
+                                    + resultObject.get("err"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        return ;
+                    }
+                }
+                ArrayList<BookOrder> bookOrders = gson.fromJson(response, new TypeToken<ArrayList<BookOrder>>(){}.getType());
+                //测试 只用于显示
+//                ArrayList<BookOrder> bookOrders = new ArrayList<BookOrder>();
+//                for(int i=0;i<10;i++){
+//                    bookOrders.add(new BookOrder());
+//                }
                 if(null != bookOrders && bookOrders.size() > 0){
                     if (mCurrentPage == 1) {
                         if(mBookOrderAdapter == null){
