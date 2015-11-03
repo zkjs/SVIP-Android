@@ -29,7 +29,6 @@
                 android:id="@+id/iv_left_image"
                 android:layout_width="13dp"
                 android:layout_height="23dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_centerVertical="true" />
         </RelativeLayout>
 
@@ -46,7 +45,6 @@
                 android:id="@+id/iv_right_image"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@mipmap/ic_launcher"
                 android:layout_centerVertical="true"
                 />
             <TextView

@@ -71,4 +71,9 @@
     <string name="copyright_notice">中科金石   版权所有</string>
     <string name="copyright_duration">Copyright ©2015 www.zkjinshi.com</string>
     <string name="copyright_own">All Rights Reserved</string>
+    <string name="complete_info">完善资料</string>
+    <string name="nickname">昵称</string>
+    <string name="invite_code">邀请码</string>
+    <string name="what_is_invite_code">什么是邀请码？</string>
+    <string name="please_be_none_if_not_exists">没有请为空</string>
 </resources>

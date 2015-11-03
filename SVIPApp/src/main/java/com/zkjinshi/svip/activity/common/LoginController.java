@@ -107,17 +107,22 @@ public class LoginController {
 
                         }
 
-                        if(isNewRegister){
-                            Intent intent = new Intent(activity, MineActivity.class);
-                            if(thirdBundleData != null){
-                                intent.putExtra("from_third", true);
-                                intent.putExtras(thirdBundleData);
-                            }
-                            activity.startActivity(intent);
-                            activity.finish();
-                        } else {
-                            goHome();
-                        }
+                        Intent completeInfo = new Intent(activity, CompleteInfoActivity.class);
+                        activity.startActivity(completeInfo);
+                        activity.finish();
+
+//                        if(isNewRegister){
+//                            //TODO:进行完善资料的填写
+//                            Intent intent = new Intent(activity, CompleteInfoActivity.class);
+//                            if(thirdBundleData != null){
+//                                intent.putExtra("from_third", true);
+//                                intent.putExtras(thirdBundleData);
+//                            }
+//                            activity.startActivity(intent);
+//                            activity.finish();
+//                        } else {
+//                            goHome();
+//                        }
                     }
                 },
 
