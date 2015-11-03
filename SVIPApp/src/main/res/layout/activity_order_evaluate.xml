@@ -19,7 +19,7 @@
             <RelativeLayout
                 android:id="@+id/order_evaluate_layout_title"
                 android:layout_width="match_parent"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_height="206dp">
 
                 <ImageView
