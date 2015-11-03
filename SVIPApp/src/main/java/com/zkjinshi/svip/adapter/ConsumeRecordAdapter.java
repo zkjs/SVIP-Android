@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,11 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 开发者：dujiande
@@ -96,6 +102,26 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         }else{
             holder.downLine.setVisibility(View.VISIBLE);
         }
+
+        //获得shopID网络路径
+        if(!TextUtils.isEmpty(itemOrder.getShopID())){
+            String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopID() + ".png";
+            ImageLoader.getInstance().displayImage(logoUrl, holder.shopIcon, options);
+        }
+        SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            //转换成指定之间格式
+            Date date = detailFormat.parse(itemOrder.getArrivalDate());
+            String simpleDate= simpleFormat.format(date);
+            holder.orderData.setText(simpleDate + "");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String goodstr = itemOrder.getRoomType()+"×"+itemOrder.getRooms();
+        holder.good.setText(goodstr);
+        holder.shopName.setText(itemOrder.getFullName() + "");
+        holder.price.setText("￥" + itemOrder.getRoomRate()+"元");
 
         return convertView;
     }
