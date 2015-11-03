@@ -606,7 +606,7 @@ public class LoginActivity extends Activity{
 
 
     /**
-     * 用户请求注册或注册
+     * 用户请求登录或注册
      * @param phoneNumber   手机号
      */
     public void requestLogin(final String phoneNumber){
@@ -650,14 +650,14 @@ public class LoginActivity extends Activity{
                 if(!getUserResponse.isSet()){
                     LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
 
-                    if(thirdBundleData != null){
+                    if (thirdBundleData != null) {
                         Intent intent = new Intent(LoginActivity.this, OauthLoginActivity.class);
                         intent.putExtra("from_third", true);
                         intent.putExtras(thirdBundleData);
                         startActivity(intent);
                         finish();
-                    }
-                    else{
+                    } else {
+                        //TODO: 加入完善资料操作
                         String inputPhone = mInputPhone.getText().toString();
                         requestLogin(inputPhone);//验证码输入正确，请求登录
                     }

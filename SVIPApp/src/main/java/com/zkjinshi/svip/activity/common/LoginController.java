@@ -108,7 +108,8 @@ public class LoginController {
                         }
 
                         if(isNewRegister){
-                            Intent intent = new Intent(activity, MineActivity.class);
+                            //TODO:进行完善资料的填写
+                            Intent intent = new Intent(activity, CompleteInfoActivity.class);
                             if(thirdBundleData != null){
                                 intent.putExtra("from_third", true);
                                 intent.putExtras(thirdBundleData);
