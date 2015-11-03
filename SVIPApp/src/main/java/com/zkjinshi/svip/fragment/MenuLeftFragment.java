@@ -24,6 +24,7 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.mine.MineActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
@@ -134,7 +135,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
             //足迹
             case R.id.leftmenu_footprint_tv:
             {
-                Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
+                Intent intent = new Intent(getActivity(), OrderEvaluateActivity.class);
                 intent.putExtra("is_order", false);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,

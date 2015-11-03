@@ -160,6 +160,9 @@
         </activity>
 
         <!-- 订单模块 -->
+        <activity android:name=".activity.order.OrderEvaluateActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
         <activity android:name=".activity.order.ConsumeRecordActivtiy"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
