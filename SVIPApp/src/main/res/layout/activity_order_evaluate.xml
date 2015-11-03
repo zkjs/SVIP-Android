@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1">
+
+    <RelativeLayout
+        android:id="@+id/order_evaluate_layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="206dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/img_dingdanxiangqing"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/order_evaluate_ibtn_back"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@mipmap/ic_order_fanhui"/>
+
+            <ImageButton
+                android:id="@+id/order_evaluate_ibtn_more"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:src="@mipmap/ic_more"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:text="订单详情"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/order_evaluate_iv_sales_photo"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/img_logo_zhanwei"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_below="@id/order_evaluate_iv_sales_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="张三"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/order_evaluate_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单内容"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#101010"
+            android:textSize="14sp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/order_evaluate_iv_hotel_photo"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:scaleType="fitXY"
+                android:layout_margin="10dp"
+                android:src="@mipmap/img_avatar_hotel"
+                />
+
+            <TextView
+                android:id="@+id/order_evaluate_tv_hotel_name"
+                android:layout_toRightOf="@id/order_evaluate_iv_hotel_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:textColor="#525252"
+                android:text="长沙豪庭大酒店"/>
+
+            <TextView
+                android:id="@+id/order_evaluate_tv_room_info"
+                android:layout_toRightOf="@id/order_evaluate_iv_hotel_photo"
+                android:layout_below="@id/order_evaluate_tv_hotel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:textColor="#525252"
+                android:text="豪华双床房x2"/>
+
+            <TextView
+                android:id="@+id/order_evaluate_tv_room_total_price"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/order_evaluate_tv_hotel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:textColor="#525252"
+                android:text="¥399"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:text="入住时间"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:textSize="14sp"
+                android:text="2015-09-25到09-27"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:text="入住人"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:textSize="14sp"
+                android:text="王小丫、李三郎"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:text="发票信息"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:textSize="14sp"
+                android:text="深圳市中科金石有限公司"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:layout_marginLeft="10dp"
+                android:textSize="14sp"
+                android:text="订单备注"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#828282"
+                android:layout_marginBottom="20dp"
+                android:textSize="14sp"
+                android:text="请尽量安排靠光线好的房间，谢谢"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:button="@null"
+                android:text="差"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawableTop="@drawable/star_checkbox_selector"
+                android:visibility="visible"/>
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_weight="1.0"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@null"
+                android:button="@null"
+                android:text="差"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:drawableTop="@drawable/star_checkbox_selector"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
