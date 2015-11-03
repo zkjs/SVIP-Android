@@ -22,4 +22,8 @@
 	<color name="menu_text_color">@android:color/black</color>
 	<color name="about_text_color">#a6a6a6</color>
 	<color name="light_gray">#88F1F1F1</color>
+
+	<color name="star_check_color">#ff9800</color>
+	<color name="star_nor_color">#101010</color>
+
 </resources>

@@ -3,8 +3,11 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.zkjinshi.svip.R;
 
@@ -18,6 +21,10 @@ import com.zkjinshi.svip.R;
 public class OrderEvaluateActivity extends Activity{
 
     private CheckBox poorCb,commonCb,gratifyCb,greatGratifyCb,highlyRecommendCb;
+    private EditText inputEvaluateEtv;
+    private RelativeLayout inputEvaluateTipLayout;
+    private Animation layoutInBottom, layoutOutTop;
+    private boolean isFirst = true;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -25,10 +32,13 @@ public class OrderEvaluateActivity extends Activity{
         gratifyCb = (CheckBox)findViewById(R.id.order_evaluate_cb_gratify);
         greatGratifyCb = (CheckBox)findViewById(R.id.order_evaluate_cb_great_gratify);
         highlyRecommendCb = (CheckBox)findViewById(R.id.order_evaluate_cb_highly_recommend);
+        inputEvaluateEtv = (EditText)findViewById(R.id.order_evaluate_etv_content);
+        inputEvaluateTipLayout = (RelativeLayout)findViewById(R.id.order_evaluate_layout_tips);
     }
 
     private void initData(){
-
+        layoutInBottom = AnimationUtils.loadAnimation(this, R.anim.layout_in_bottom);
+        layoutOutTop = AnimationUtils.loadAnimation(this,R.anim.layout_out_top);
     }
 
     private void initListeners(){
@@ -42,6 +52,12 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setChecked(false);
                 greatGratifyCb.setChecked(false);
                 highlyRecommendCb.setChecked(false);
+                poorCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                showEvaluateInput();
             }
         });
 
@@ -54,6 +70,12 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setChecked(false);
                 greatGratifyCb.setChecked(false);
                 highlyRecommendCb.setChecked(false);
+                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                commonCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                showEvaluateInput();
             }
         });
 
@@ -66,6 +88,12 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setChecked(true);
                 greatGratifyCb.setChecked(false);
                 highlyRecommendCb.setChecked(false);
+                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                gratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                showEvaluateInput();
             }
         });
 
@@ -78,6 +106,12 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setChecked(true);
                 greatGratifyCb.setChecked(true);
                 highlyRecommendCb.setChecked(false);
+                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                showEvaluateInput();
             }
         });
 
@@ -90,8 +124,42 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setChecked(true);
                 greatGratifyCb.setChecked(true);
                 highlyRecommendCb.setChecked(true);
+                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                showEvaluateInput();
             }
         });
+    }
+
+    /**
+     * 显示评价内容
+     *
+     */
+    private void showEvaluateInput(){
+        if(isFirst){
+            inputEvaluateTipLayout.startAnimation(layoutOutTop);
+            inputEvaluateEtv.startAnimation(layoutInBottom);
+            layoutInBottom.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    inputEvaluateEtv.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            isFirst = false;
+        }
     }
 
     @Override
