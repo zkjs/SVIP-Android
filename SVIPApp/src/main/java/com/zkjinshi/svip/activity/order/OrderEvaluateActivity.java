@@ -2,12 +2,16 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
 
@@ -24,6 +28,7 @@ public class OrderEvaluateActivity extends Activity{
     private EditText inputEvaluateEtv;
     private RelativeLayout inputEvaluateTipLayout;
     private Animation layoutInBottom, layoutOutTop;
+    private Button submitBtn;
     private boolean isFirst = true;
 
     private void initView(){
@@ -34,6 +39,7 @@ public class OrderEvaluateActivity extends Activity{
         highlyRecommendCb = (CheckBox)findViewById(R.id.order_evaluate_cb_highly_recommend);
         inputEvaluateEtv = (EditText)findViewById(R.id.order_evaluate_etv_content);
         inputEvaluateTipLayout = (RelativeLayout)findViewById(R.id.order_evaluate_layout_tips);
+        submitBtn = (Button)findViewById(R.id.order_evaluate_btn_ok);
     }
 
     private void initData(){
@@ -132,6 +138,7 @@ public class OrderEvaluateActivity extends Activity{
                 showEvaluateInput();
             }
         });
+
     }
 
     /**
@@ -146,6 +153,7 @@ public class OrderEvaluateActivity extends Activity{
                 @Override
                 public void onAnimationStart(Animation animation) {
                     inputEvaluateEtv.setVisibility(View.VISIBLE);
+                    submitBtn.setVisibility(View.VISIBLE);
                 }
 
                 @Override

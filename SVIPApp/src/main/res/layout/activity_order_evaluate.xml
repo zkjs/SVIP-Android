@@ -82,7 +82,6 @@
 
             </RelativeLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -358,6 +357,7 @@
                     android:background="@drawable/bg_order_evaluate_input"
                     android:hint="感谢您的评价，说说您满意的理由"
                     android:textSize="14sp"
+                    android:inputType="text"
                     android:imeOptions="actionDone"
                     android:textColorHint="#828282"
                     android:textColor="#101010"
@@ -380,7 +380,23 @@
 
                 </RelativeLayout>
 
+                <Button
+                    android:id="@+id/order_evaluate_btn_ok"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:text="提交"
+                    android:visibility="gone"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/btn_black_selector_shape"
+                    android:textColor="@android:color/white"/>
+
             </LinearLayout>
+
 
         </LinearLayout>
 
