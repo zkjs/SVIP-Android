@@ -135,7 +135,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
             //足迹
             case R.id.leftmenu_footprint_tv:
             {
-                Intent intent = new Intent(getActivity(), OrderEvaluateActivity.class);
+                Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
                 intent.putExtra("is_order", false);
                 getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,

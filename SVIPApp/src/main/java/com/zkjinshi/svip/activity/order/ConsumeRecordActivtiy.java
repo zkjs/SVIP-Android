@@ -141,6 +141,8 @@ public class ConsumeRecordActivtiy extends Activity {
 //                orderDetail.putExtra("reservation_no",bookOrder.getReservationNO());
 //                orderDetail.putExtra("shopid",bookOrder.getShopID());
 //                startActivity(orderDetail);
+                Intent intent = new Intent(ConsumeRecordActivtiy.this,OrderEvaluateActivity.class);
+                startActivity(intent);
             }
         });
 

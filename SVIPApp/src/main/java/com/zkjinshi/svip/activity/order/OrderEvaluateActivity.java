@@ -10,10 +10,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.vo.EvaluateLevel;
 
 /**
  * 订单评价页面
@@ -30,6 +33,9 @@ public class OrderEvaluateActivity extends Activity{
     private Animation layoutInBottom, layoutOutTop;
     private Button submitBtn;
     private boolean isFirst = true;
+    private ScrollView bodyScrollView;
+    private EvaluateLevel evaluateLevel;
+    private ImageButton backIBtn,moreIBtn;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -40,6 +46,9 @@ public class OrderEvaluateActivity extends Activity{
         inputEvaluateEtv = (EditText)findViewById(R.id.order_evaluate_etv_content);
         inputEvaluateTipLayout = (RelativeLayout)findViewById(R.id.order_evaluate_layout_tips);
         submitBtn = (Button)findViewById(R.id.order_evaluate_btn_ok);
+        bodyScrollView = (ScrollView)findViewById(R.id.order_evaluate_sv_body);
+        backIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_back);
+        moreIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_more);
     }
 
     private void initData(){
@@ -48,6 +57,14 @@ public class OrderEvaluateActivity extends Activity{
     }
 
     private void initListeners(){
+
+        //返回
+        backIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //差
         poorCb.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +80,8 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                evaluateLevel = EvaluateLevel.POOR;
+                setEvaluateHint(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -81,6 +100,8 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                evaluateLevel = EvaluateLevel.COMMON;
+                setEvaluateHint(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -99,6 +120,8 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
                 greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                evaluateLevel = EvaluateLevel.GRATIFY;
+                setEvaluateHint(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -117,6 +140,8 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 greatGratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
                 highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+                evaluateLevel = EvaluateLevel.GREAT_GRATIFY;
+                setEvaluateHint(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -135,10 +160,38 @@ public class OrderEvaluateActivity extends Activity{
                 gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_check_color));
+                evaluateLevel = EvaluateLevel.HIGHLY_RECOMMEND;
+                setEvaluateHint(evaluateLevel);
                 showEvaluateInput();
             }
         });
 
+        //确认
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+    }
+
+    /**
+     * 设置评价Hint提示内容
+     * @param evaluateLevel
+     */
+    private void setEvaluateHint(EvaluateLevel evaluateLevel){
+        if (evaluateLevel.equals(EvaluateLevel.POOR)) {
+            inputEvaluateEtv.setHint("感谢您的评价，说说您差评的理由");
+        }else if (evaluateLevel.equals(EvaluateLevel.COMMON)) {
+            inputEvaluateEtv.setHint("感谢您的评价，说说您一般的理由");
+        }else if (evaluateLevel.equals(EvaluateLevel.GRATIFY)) {
+            inputEvaluateEtv.setHint("感谢您的评价，说说您满意的理由");
+        }else if (evaluateLevel.equals(EvaluateLevel.GREAT_GRATIFY)) {
+            inputEvaluateEtv.setHint("感谢您的评价，说说您非常满意的理由");
+        }else if (evaluateLevel.equals(EvaluateLevel.HIGHLY_RECOMMEND)) {
+            inputEvaluateEtv.setHint("感谢您的评价，说说您强烈推荐的理由");
+        }
     }
 
     /**
@@ -158,7 +211,7 @@ public class OrderEvaluateActivity extends Activity{
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-
+                    bodyScrollView.fullScroll(ScrollView.FOCUS_DOWN);
                 }
 
                 @Override
