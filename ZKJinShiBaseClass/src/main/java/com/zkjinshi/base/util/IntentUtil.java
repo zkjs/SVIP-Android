@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.util.Patterns;
 import android.view.Gravity;
 
@@ -193,5 +194,21 @@ public class IntentUtil {
 		Intent intent= new Intent(Intent.ACTION_VIEW,content_url);        
 	    ctx.startActivity(intent);
 	}
+	/**
+	 *
+	 * 打开网络设置页面
+	 */
+	public static void showNetworkSetting(Context context) {
+		Intent i = null;
+		if (android.os.Build.VERSION.SDK_INT > 10) {
+			// 3.0以上打开设置界面，也可以直接用ACTION_WIRELESS_SETTINGS打开到wifi界面
+			i = new Intent(Settings.ACTION_SETTINGS);
+		} else {
+			i = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+		}
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(i);// 进入无线网络配置界面
+	}
+
 
 }

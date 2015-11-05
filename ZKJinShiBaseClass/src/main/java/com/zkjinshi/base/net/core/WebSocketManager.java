@@ -37,6 +37,7 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
     private MessageSender messageSender;
     private URI uri;
     private boolean isLogoutIM;
+    private boolean isConnected;
 
     private WebSocketManager() {
     }
@@ -168,6 +169,7 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
     @Override
     public void onConnect() {
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onConnect()");
+        isConnected = true;
         if (null != webSocketClient) {
             if (null != messageListener) {
                 messageListener.onWebsocketConnected(webSocketClient);
@@ -189,6 +191,7 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
     @Override
     public void onDisconnect(int code, String reason) {
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onDisconnect()");
+        isConnected = false;
         ImCacheUtil.getInstance().setIMLogin(false);
         if (null != webSocketClient) {
             if (!isLogoutIM) {
@@ -200,6 +203,7 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
     @Override
     public void onError(Exception e) {
         Log.i(Constants.ZKJINSHI_BASE_TAG, TAG + ".onError()-" + e.getMessage());
+        isConnected = false;
         ImCacheUtil.getInstance().setIMLogin(false);
         if (null != webSocketClient) {
             if (!isLogoutIM) {
@@ -233,5 +237,13 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
             }
             break;
         }
+    }
+
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    public void setIsConnected(boolean isConnected) {
+        this.isConnected = isConnected;
     }
 }

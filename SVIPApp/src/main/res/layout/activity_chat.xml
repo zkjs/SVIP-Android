@@ -21,7 +21,7 @@
         </com.zkjinshi.svip.view.ItemTitleView>
 
         <TextView
-            android:id="@+id/push_chat_txt_netset"
+            android:id="@+id/chat_txt_netset"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#ffd893"
