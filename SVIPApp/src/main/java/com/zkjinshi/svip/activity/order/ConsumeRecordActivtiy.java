@@ -242,15 +242,14 @@ public class ConsumeRecordActivtiy extends Activity {
      */
     private void updateOrderStatus(final String userID, final String token, final int position , final String orderStatus) {
         createUpdateOrderListener(position);
-        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST, Constants.POST_USER_ORDERS,
+        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST,ProtocolUtil.updateOrderUrl(),
                 updateOrderListener, updateOrderErrorListener){
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String> map = new HashMap<>();
                 map.put("userid", userID);
                 map.put("token", token);
-                map.put("set", orderStatus);//订单状态操作
-                map.put("status", Constants.UPDATE_ORDER + "");
+                map.put("status", orderStatus);
                 map.put("reservation_no", mBookOrderAdapter.datalist.get(position).getReservationNO());//订单更新
                 return map;
             }

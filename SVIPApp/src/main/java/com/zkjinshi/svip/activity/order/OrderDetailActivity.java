@@ -812,7 +812,7 @@ public class OrderDetailActivity extends Activity{
         map.put("token", CacheUtil.getInstance().getToken());
         map.put("reservation_no", reservationNo);
         String userids = "";
-        if(orderDetailResponse.getUsers() != null){
+        if(orderDetailResponse.getUsers() != null && orderDetailResponse.getUsers().size() > 0){
             for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
                 if(i == 0){
                     userids = userids + orderDetailResponse.getUsers().get(i).getId();
@@ -821,7 +821,10 @@ public class OrderDetailActivity extends Activity{
                 }
             }
         }
-        map.put("users",userids);
+        if(!TextUtils.isEmpty(userids)){
+            map.put("users",userids);
+        }
+
 
         map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
         map.put("invoice[invoice_get_id]","1");
@@ -836,7 +839,10 @@ public class OrderDetailActivity extends Activity{
                 }
             }
         }
-        map.put("room_tags",roomtags);
+        if(!TextUtils.isEmpty(roomtags)){
+            map.put("room_tags",roomtags);
+        }
+
 
         String privileges = "";
         if(orderDetailResponse.getPrivilege() != null){
@@ -848,7 +854,10 @@ public class OrderDetailActivity extends Activity{
                 }
             }
         }
-        map.put("privilege",privileges);
+        if(!TextUtils.isEmpty(privileges)){
+            map.put("privilege",privileges);
+        }
+
 
         map.put("remark",TextUtils.isEmpty(orderDetailResponse.getRoom().getRemark())? "" : orderDetailResponse.getRoom().getRemark());
        // map.put("pay_status",orderDetailResponse.getRoom().getPay_status());
