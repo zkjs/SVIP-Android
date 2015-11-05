@@ -20,7 +20,7 @@ public class MsgCustomerServiceImgChat {
     private String      clientid;
     private String      clientname;
     private String      shopid;
-    private String      ruletype;
+    private String      ruletype =  "DefaultChatRuleType";// "INNERSESSION",则表明是商家员工内部聊天 "DefaultChatRuleType"，客人与商家聊天;
     private String      adminid;
 
     //MsgSessionID
@@ -39,7 +39,6 @@ public class MsgCustomerServiceImgChat {
     private String      crc;//效验值
     private String      body;//文件内容(Base64编码)
     private String salesid;
-    private String RuleType = "DefaultChatRuleType";// "INNERSESSION",则表明是商家员工内部聊天 "DefaultChatRuleType"，客人与商家聊天
 
     public int getType() {
         return type;
@@ -257,14 +256,6 @@ public class MsgCustomerServiceImgChat {
         this.salesid = salesid;
     }
 
-    public String getRuleType() {
-        return RuleType;
-    }
-
-    public void setRuleType(String ruleType) {
-        RuleType = ruleType;
-    }
-
     @Override
     public String toString() {
         return "MsgCustomerServiceImgChat{" +
@@ -295,7 +286,6 @@ public class MsgCustomerServiceImgChat {
                 ", crc='" + crc + '\'' +
                 ", body='" + body + '\'' +
                 ", salesid='" + salesid + '\'' +
-                ", RuleType='" + RuleType + '\'' +
                 '}';
     }
 }
