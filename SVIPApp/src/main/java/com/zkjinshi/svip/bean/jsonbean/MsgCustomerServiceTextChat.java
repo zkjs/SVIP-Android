@@ -28,6 +28,7 @@ public class MsgCustomerServiceTextChat {
     private String       textmsg;//文本消息体
     private int childtype;//0:普通Text 1:自定义json格式
     private String       salesid;
+    private String RuleType = "DefaultChatRuleType";// "INNERSESSION",则表明是商家员工内部聊天 "DefaultChatRuleType"，客人与商家聊天
 
     public int getType() {
         return type;
@@ -173,6 +174,14 @@ public class MsgCustomerServiceTextChat {
         this.salesid = salesid;
     }
 
+    public String getRuleType() {
+        return RuleType;
+    }
+
+    public void setRuleType(String ruleType) {
+        RuleType = ruleType;
+    }
+
     @Override
     public String toString() {
         return "MsgCustomerServiceTextChat{" +
@@ -194,6 +203,7 @@ public class MsgCustomerServiceTextChat {
                 ", textmsg='" + textmsg + '\'' +
                 ", childtype=" + childtype +
                 ", salesid='" + salesid + '\'' +
+                ", RuleType='" + RuleType + '\'' +
                 '}';
     }
 }
