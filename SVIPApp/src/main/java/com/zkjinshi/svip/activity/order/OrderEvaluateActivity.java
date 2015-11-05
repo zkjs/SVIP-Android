@@ -2,15 +2,15 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -28,6 +28,7 @@ import com.zkjinshi.svip.vo.EvaluateLevel;
 public class OrderEvaluateActivity extends Activity{
 
     private CheckBox poorCb,commonCb,gratifyCb,greatGratifyCb,highlyRecommendCb;
+    private CheckBox poorResultCb,commonResultCb,gratifyResultCb,greatGratifyResultCb,highlyRecommendResultCb;
     private EditText inputEvaluateEtv;
     private RelativeLayout inputEvaluateTipLayout;
     private Animation layoutInBottom, layoutOutTop;
@@ -36,6 +37,8 @@ public class OrderEvaluateActivity extends Activity{
     private ScrollView bodyScrollView;
     private EvaluateLevel evaluateLevel;
     private ImageButton backIBtn,moreIBtn;
+    private LinearLayout evaluateLayout,compleEvaluateLayout;
+    private TextView compleEvaluateTv;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -49,6 +52,14 @@ public class OrderEvaluateActivity extends Activity{
         bodyScrollView = (ScrollView)findViewById(R.id.order_evaluate_sv_body);
         backIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_back);
         moreIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_more);
+        evaluateLayout = (LinearLayout)findViewById(R.id.order_evaluate_layout);
+        compleEvaluateLayout = (LinearLayout)findViewById(R.id.order_evaluate_result_layout);
+        compleEvaluateTv = (TextView)findViewById(R.id.order_evaluate_result_etv_content);
+        poorResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_poor);
+        commonResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_common);
+        gratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_gratify);
+        greatGratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_great_gratify);
+        highlyRecommendResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_highly_recommend);
     }
 
     private void initData(){
@@ -70,18 +81,9 @@ public class OrderEvaluateActivity extends Activity{
         poorCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poorCb.setChecked(true);
-                commonCb.setChecked(false);
-                gratifyCb.setChecked(false);
-                greatGratifyCb.setChecked(false);
-                highlyRecommendCb.setChecked(false);
-                poorCb.setTextColor(getResources().getColor(R.color.star_check_color));
-                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 evaluateLevel = EvaluateLevel.POOR;
                 setEvaluateHint(evaluateLevel);
+                setEvaluateStar(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -90,18 +92,9 @@ public class OrderEvaluateActivity extends Activity{
         commonCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poorCb.setChecked(true);
-                commonCb.setChecked(true);
-                gratifyCb.setChecked(false);
-                greatGratifyCb.setChecked(false);
-                highlyRecommendCb.setChecked(false);
-                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                commonCb.setTextColor(getResources().getColor(R.color.star_check_color));
-                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 evaluateLevel = EvaluateLevel.COMMON;
                 setEvaluateHint(evaluateLevel);
+                setEvaluateStar(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -110,18 +103,9 @@ public class OrderEvaluateActivity extends Activity{
         gratifyCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poorCb.setChecked(true);
-                commonCb.setChecked(true);
-                gratifyCb.setChecked(true);
-                greatGratifyCb.setChecked(false);
-                highlyRecommendCb.setChecked(false);
-                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                gratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
-                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 evaluateLevel = EvaluateLevel.GRATIFY;
                 setEvaluateHint(evaluateLevel);
+                setEvaluateStar(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -130,18 +114,9 @@ public class OrderEvaluateActivity extends Activity{
         greatGratifyCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poorCb.setChecked(true);
-                commonCb.setChecked(true);
-                gratifyCb.setChecked(true);
-                greatGratifyCb.setChecked(true);
-                highlyRecommendCb.setChecked(false);
-                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
-                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
                 evaluateLevel = EvaluateLevel.GREAT_GRATIFY;
                 setEvaluateHint(evaluateLevel);
+                setEvaluateStar(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -150,18 +125,9 @@ public class OrderEvaluateActivity extends Activity{
         highlyRecommendCb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                poorCb.setChecked(true);
-                commonCb.setChecked(true);
-                gratifyCb.setChecked(true);
-                greatGratifyCb.setChecked(true);
-                highlyRecommendCb.setChecked(true);
-                poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
-                highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_check_color));
                 evaluateLevel = EvaluateLevel.HIGHLY_RECOMMEND;
                 setEvaluateHint(evaluateLevel);
+                setEvaluateStar(evaluateLevel);
                 showEvaluateInput();
             }
         });
@@ -170,7 +136,12 @@ public class OrderEvaluateActivity extends Activity{
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                evaluateLayout.setVisibility(View.GONE);
+                compleEvaluateLayout.setVisibility(View.VISIBLE);
+                String evaluateContent = inputEvaluateEtv.getText().toString();
+                if(!TextUtils.isEmpty(evaluateContent)){
+                    compleEvaluateTv.setText(evaluateContent);
+                }
             }
         });
 
@@ -191,6 +162,115 @@ public class OrderEvaluateActivity extends Activity{
             inputEvaluateEtv.setHint("感谢您的评价，说说您非常满意的理由");
         }else if (evaluateLevel.equals(EvaluateLevel.HIGHLY_RECOMMEND)) {
             inputEvaluateEtv.setHint("感谢您的评价，说说您强烈推荐的理由");
+        }
+    }
+
+    private void setEvaluateStar(EvaluateLevel evaluateLevel){
+        if (evaluateLevel.equals(EvaluateLevel.POOR)) {
+            poorCb.setChecked(true);
+            commonCb.setChecked(false);
+            gratifyCb.setChecked(false);
+            greatGratifyCb.setChecked(false);
+            highlyRecommendCb.setChecked(false);
+            poorResultCb.setChecked(true);
+            commonResultCb.setChecked(false);
+            gratifyResultCb.setChecked(false);
+            greatGratifyResultCb.setChecked(false);
+            highlyRecommendResultCb.setChecked(false);
+            poorCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            poorResultCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            commonResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+        }else if (evaluateLevel.equals(EvaluateLevel.COMMON)) {
+            poorCb.setChecked(true);
+            commonCb.setChecked(true);
+            gratifyCb.setChecked(false);
+            greatGratifyCb.setChecked(false);
+            highlyRecommendCb.setChecked(false);
+            poorResultCb.setChecked(true);
+            commonResultCb.setChecked(true);
+            gratifyResultCb.setChecked(false);
+            greatGratifyResultCb.setChecked(false);
+            highlyRecommendResultCb.setChecked(false);
+            poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            poorResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonResultCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            gratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+        }else if (evaluateLevel.equals(EvaluateLevel.GRATIFY)) {
+            poorCb.setChecked(true);
+            commonCb.setChecked(true);
+            gratifyCb.setChecked(true);
+            greatGratifyCb.setChecked(false);
+            highlyRecommendCb.setChecked(false);
+            poorResultCb.setChecked(true);
+            commonResultCb.setChecked(true);
+            gratifyResultCb.setChecked(true);
+            greatGratifyResultCb.setChecked(false);
+            highlyRecommendResultCb.setChecked(false);
+            poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            poorResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyResultCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            greatGratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+        }else if (evaluateLevel.equals(EvaluateLevel.GREAT_GRATIFY)) {
+            poorCb.setChecked(true);
+            commonCb.setChecked(true);
+            gratifyCb.setChecked(true);
+            greatGratifyCb.setChecked(true);
+            highlyRecommendCb.setChecked(false);
+            poorResultCb.setChecked(true);
+            commonResultCb.setChecked(true);
+            gratifyResultCb.setChecked(true);
+            greatGratifyResultCb.setChecked(true);
+            highlyRecommendResultCb.setChecked(false);
+            poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            poorResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyResultCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            highlyRecommendResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+        }else if (evaluateLevel.equals(EvaluateLevel.HIGHLY_RECOMMEND)) {
+            poorCb.setChecked(true);
+            commonCb.setChecked(true);
+            gratifyCb.setChecked(true);
+            greatGratifyCb.setChecked(true);
+            highlyRecommendCb.setChecked(true);
+            poorResultCb.setChecked(true);
+            commonResultCb.setChecked(true);
+            gratifyResultCb.setChecked(true);
+            greatGratifyResultCb.setChecked(true);
+            highlyRecommendResultCb.setChecked(true);
+            poorCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendCb.setTextColor(getResources().getColor(R.color.star_check_color));
+            poorResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            commonResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            gratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            greatGratifyResultCb.setTextColor(getResources().getColor(R.color.star_nor_color));
+            highlyRecommendResultCb.setTextColor(getResources().getColor(R.color.star_check_color));
         }
     }
 

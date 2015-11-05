@@ -246,158 +246,170 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:id="@+id/order_evaluate_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
 
-                    <CheckBox
-                        android:id="@+id/order_evaluate_cb_poor"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:text="差"
-                        android:textColor="#101010"
-                        android:drawablePadding="15dp"
-                        android:textSize="14sp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:drawableTop="@drawable/star_checkbox_selector"
-                        android:visibility="visible"/>
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
 
-                    <CheckBox
-                        android:id="@+id/order_evaluate_cb_common"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:text="一般"
-                        android:textColor="#101010"
-                        android:textSize="14sp"
-                        android:layout_gravity="center"
-                        android:drawablePadding="15dp"
-                        android:gravity="center"
-                        android:drawableTop="@drawable/star_checkbox_selector"
-                        android:visibility="visible"/>
+                        <CheckBox
+                            android:id="@+id/order_evaluate_cb_poor"
+                            android:layout_width="0dp"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:button="@null"
+                            android:text="差"
+                            android:textColor="#101010"
+                            android:drawablePadding="15dp"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/star_checkbox_selector"
+                            android:visibility="visible"/>
+
+                        <CheckBox
+                            android:id="@+id/order_evaluate_cb_common"
+                            android:layout_width="0dp"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:button="@null"
+                            android:text="一般"
+                            android:textColor="#101010"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"
+                            android:drawablePadding="15dp"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/star_checkbox_selector"
+                            android:visibility="visible"/>
 
 
-                    <CheckBox
-                        android:id="@+id/order_evaluate_cb_gratify"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:text="满意"
-                        android:textColor="#101010"
-                        android:drawablePadding="15dp"
-                        android:textSize="14sp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:drawableTop="@drawable/star_checkbox_selector"
-                        android:visibility="visible"/>
+                        <CheckBox
+                            android:id="@+id/order_evaluate_cb_gratify"
+                            android:layout_width="0dp"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:button="@null"
+                            android:text="满意"
+                            android:textColor="#101010"
+                            android:drawablePadding="15dp"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/star_checkbox_selector"
+                            android:visibility="visible"/>
 
-                    <CheckBox
-                        android:id="@+id/order_evaluate_cb_great_gratify"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:text="非常满意"
-                        android:textColor="#101010"
-                        android:drawablePadding="15dp"
-                        android:textSize="14sp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:drawableTop="@drawable/star_checkbox_selector"
-                        android:visibility="visible"/>
+                        <CheckBox
+                            android:id="@+id/order_evaluate_cb_great_gratify"
+                            android:layout_width="0dp"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:button="@null"
+                            android:text="非常满意"
+                            android:textColor="#101010"
+                            android:drawablePadding="15dp"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/star_checkbox_selector"
+                            android:visibility="visible"/>
 
-                    <CheckBox
-                        android:id="@+id/order_evaluate_cb_highly_recommend"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.0"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:button="@null"
-                        android:text="强烈推荐"
-                        android:textColor="#101010"
-                        android:drawablePadding="15dp"
+                        <CheckBox
+                            android:id="@+id/order_evaluate_cb_highly_recommend"
+                            android:layout_width="0dp"
+                            android:layout_weight="1.0"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:button="@null"
+                            android:text="强烈推荐"
+                            android:textColor="#101010"
+                            android:drawablePadding="15dp"
+                            android:textSize="14sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/star_checkbox_selector"
+                            android:visibility="visible"/>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/order_evaluate_etv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:padding="10dp"
+                        android:gravity="left|top"
+                        android:visibility="gone"
+                        android:background="@drawable/bg_order_evaluate_input"
+                        android:hint="感谢您的评价，说说您满意的理由"
                         android:textSize="14sp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:drawableTop="@drawable/star_checkbox_selector"
-                        android:visibility="visible"/>
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:textColorHint="#828282"
+                        android:textColor="#101010"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/order_evaluate_layout_tips"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:textSize="12sp"
+                            android:textColor="#828282"
+                            android:text="*本次评价可获得25个积分"/>
+
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/order_evaluate_btn_ok"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:text="确认"
+                        android:visibility="gone"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/btn_black_selector_shape"
+                        android:textColor="@android:color/white"/>
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/order_evaluate_etv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:padding="10dp"
-                    android:gravity="left|top"
-                    android:visibility="gone"
-                    android:background="@drawable/bg_order_evaluate_input"
-                    android:hint="感谢您的评价，说说您满意的理由"
-                    android:textSize="14sp"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:textColorHint="#828282"
-                    android:textColor="#101010"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/order_evaluate_layout_tips"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:textSize="12sp"
-                        android:textColor="#828282"
-                        android:text="*本次评价可获得25个积分"/>
-
-                </RelativeLayout>
-
-                <Button
-                    android:id="@+id/order_evaluate_btn_ok"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:text="确认"
-                    android:visibility="gone"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/btn_black_selector_shape"
-                    android:textColor="@android:color/white"/>
-
             </LinearLayout>
 
+            <include
+                layout="@layout/layout_comple_evaluate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
