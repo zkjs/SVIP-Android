@@ -82,6 +82,32 @@ import de.greenrobot.event.Subscribe;
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
         ChatAdapter.ResendListener, IMessageObserver{
 
+    /**
+     0：成功
+     1:
+     1.1.JSON解析失败
+     1.2.sessionid为空
+     1.3.消息包中的fromid与建立socket连接的userid不一致。即伪造身份.
+
+     2: 超级身份中,客人与客服聊天时有用
+     会话中仅客人在线(针对客人)
+
+     3: 超级服务中,客服与客人聊天时有用
+     当前会话中客人不在线(针对客服)
+
+     4: 超级身份中,客人给客服发消息时
+     商家所有客服都不在线
+
+     5: 超级服务中，商家内部聊天时，当会话没成员时触发
+     会话中没有成员. 可能是会话未建立或已解散
+
+     6:
+     当前消息发送者不是SessionID中的会话成员
+     用户知道SessionID(比如客人会话ID),但不是其当前会话成员时触发。
+     原因可能是之前有跟对方聊过，但对方现在后面和其它人聊。可用加入会话的协议加入会话。
+     或者重新建立双方的会话
+
+     */
     private static final String TAG = "MessageListViewManager";
 
     private static final int UPDATE_ADAPTER_UI = 0X00;
@@ -989,7 +1015,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     Message msg = Message.obtain();
                     msg.what    = UPDATE_ADAPTER_UI;
                     this.sendMessage(msg);
-                }else if(2 == result){
+                }else if(2 == result || 6 == result){
                     showCallServiceDialog(mShopID);
                 }else if(4 == result){
                     Message dialogMessage = new Message();
@@ -1031,7 +1057,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     Message msg = Message.obtain();
                     msg.what    = UPDATE_ADAPTER_UI;
                     this.sendMessage(msg);
-                }else if(2 == result){
+                }else if(2 == result || 6 == result){
                     showCallPhoneDialog(mShopID);
                 }else if(4 == result){
                     Message dialogMessage = new Message();
@@ -1075,7 +1101,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     Message msg = Message.obtain();
                     msg.what    = UPDATE_ADAPTER_UI;
                     this.sendMessage(msg);
-                }else if(2 == result){
+                }else if(2 == result || 6 == result){
                     showCallServiceDialog(mShopID);
                 }else if(4 == result){
                     Message dialogMessage = new Message();
