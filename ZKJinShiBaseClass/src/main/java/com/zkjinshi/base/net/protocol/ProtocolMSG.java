@@ -299,4 +299,8 @@ public class ProtocolMSG {
     // 消息规则移除
     public static int MSG_RuleRemove = 506;
     public static int MSG_RuleRemove_RSP = 507;
+
+    // 文本消息ChildType类型
+    public static int MSG_ChildType_BindInviteCode = 1007;
+
 }

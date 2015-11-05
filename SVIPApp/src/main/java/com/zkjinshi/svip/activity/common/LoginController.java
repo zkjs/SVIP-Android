@@ -104,7 +104,6 @@ public class LoginController {
                                 LogUtil.getInstance().info(LogLevel.ERROR,"token 过期");
                                 DialogUtil.getInstance().showToast(activity,"token 过期");
                             }
-
                         }
 
                         if(isNewRegister){

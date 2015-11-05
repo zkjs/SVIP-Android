@@ -213,4 +213,36 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"user/mysemp";
     }
 
+    /**
+     * POST 服务员随机获取一个邀请码
+     * @return
+     */
+    public static String getNewRandomInviteCodeUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"invitation/random";
+    }
+
+    /**
+     * POST 服务员查看我的邀请码
+     * @return
+     */
+    public static String getEmpInviteCodeUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"invitation/sempcode";
+    }
+
+    /**
+     * POST 客户根据邀请码查询服务员
+     * @return
+     */
+    public static String getEmpByInviteCodeUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"invitation/getcode";
+    }
+
+    /**
+     * POST 超级身份输入邀请码动作
+     * @return
+     */
+    public static String getUserBindInviteCodeURrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"invitation/bdcode";
+    }
+
 }

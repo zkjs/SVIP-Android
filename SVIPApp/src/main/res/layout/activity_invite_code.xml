@@ -18,33 +18,70 @@
     <RelativeLayout
         android:layout_gravity="center_horizontal"
         android:layout_width="173dp"
+        android:paddingBottom="60dp"
         android:gravity="center"
         android:layout_weight="1"
         android:layout_height="0dp">
 
-        <EditText
-            android:id="@+id/et_invite_code"
-            android:layout_width="173dp"
-            android:padding="5dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/White"
-            android:hint="@string/invite_code"
-            android:singleLine="true"
-            android:textSize="14sp"
-            android:background="#00000000"
-            android:textColorHint="@color/Gray9E9E9E"
-            android:gravity="center_vertical|left" />
+        <LinearLayout
+            android:id="@+id/ll_invite_code"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_saler_info"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <com.zkjinshi.svip.view.CircleImageView
+                    android:id="@+id/civ_saler_avatar"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_photo_btn_selector" />
+
+                <TextView
+                    android:id="@+id/tv_saler_name"
+                    android:padding="5dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14sp"
+                    android:text="testName"
+                    android:textColor="@color/White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_invite_code"
+                android:layout_width="173dp"
+                android:padding="5dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/White"
+                android:hint="@string/invite_code"
+                android:singleLine="true"
+                android:textSize="14sp"
+                android:background="#00000000"
+                android:textColorHint="@color/Gray9E9E9E"
+                android:gravity="center_vertical|left" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/v_line"
-            android:layout_alignBottom="@id/et_invite_code"
+            android:layout_alignBottom="@id/ll_invite_code"
             android:layout_height="1px"
             android:background="@android:color/white"
             android:layout_width="match_parent"/>
 
         <LinearLayout
             android:padding="10dp"
-            android:layout_below="@id/v_line"
+            android:layout_below="@id/ll_invite_code"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
@@ -87,7 +124,5 @@
             android:background="@mipmap/ic_qianjin" />
 
     </RelativeLayout>
-
-
 
 </LinearLayout>
