@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,7 @@ import com.zkjinshi.svip.adapter.BookOrderAdapter;
 import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.listener.OnRefreshListener;
+import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
@@ -172,13 +174,13 @@ public class ConsumeRecordActivtiy extends Activity {
                 switch (index) {
                     case 0:
                         /** 执行订单状态删除 */
-//                        int orderStatus = Integer.parseInt(mBookOrderAdapter.datalist.get(position).getStatus());
-//                        if (BookOrder.ORDER_DELETED == orderStatus || BookOrder.ORDER_CANCELLED
-//                                == orderStatus || BookOrder.ORDER_FINISHED == orderStatus) {
-//                             updateOrderStatus(mUserID, mToken, position, BookOrder.ORDER_DELETED + "");
-//                        } else {
-//                            DialogUtil.getInstance().showToast(ConsumeRecordActivtiy.this, "当前订单状态不可删除");
-//                        }
+                        int orderStatus = Integer.parseInt(mBookOrderAdapter.datalist.get(position).getStatus());
+                        if (BookOrder.ORDER_DELETED == orderStatus || BookOrder.ORDER_CANCELLED
+                                == orderStatus || BookOrder.ORDER_FINISHED == orderStatus) {
+                             updateOrderStatus(mUserID, mToken, position, BookOrder.ORDER_DELETED + "");
+                        } else {
+                            DialogUtil.getInstance().showToast(ConsumeRecordActivtiy.this, "当前订单状态不可删除");
+                        }
                         break;
                 }
                 return false;
@@ -326,33 +328,17 @@ public class ConsumeRecordActivtiy extends Activity {
             @Override
             public void onResponse(String response) {
                 LogUtil.getInstance().info(LogLevel.INFO, "response:=" + response);
-                if(JsonUtil.isJsonNull(response)) {
-                    return ;
+               if(TextUtils.isEmpty(response)){
+                   return;
+               }
+                Gson gson = new Gson();
+                BaseResponse baseResponse = gson.fromJson(response,BaseResponse.class);
+                if(baseResponse.isSet()){
+                    //删除成功
+                    mBookOrderAdapter.datalist.remove(postion);
+                    mBookOrderAdapter.notifyDataSetChanged();
                 }
 
-                Gson gson = new Gson();
-                //判断返回值
-                if(response.toUpperCase().contains("SET")){
-                    JSONObject resultObject = gson.fromJson(response, JSONObject.class);
-                    try {
-                        Boolean updateSuccess = (Boolean) resultObject.get("set");
-                        if(!updateSuccess){
-                            if(null != resultObject.get("err")){
-                                int errCode = (int) resultObject.get("err");
-                                if(400 == errCode){
-                                    LogUtil.getInstance().info(LogLevel.ERROR, "当前用户没有操作权限");
-                                }
-                            }
-                        } else {
-                            //删除成功
-                            mBookOrderAdapter.datalist.remove(postion);
-                            mBookOrderAdapter.notifyDataSetChanged();
-                            mSlvBookOrder.setSelection(postion - 1);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         };
 

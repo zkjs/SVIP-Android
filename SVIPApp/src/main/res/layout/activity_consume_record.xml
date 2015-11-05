@@ -30,7 +30,8 @@
         android:gravity="center"
         android:padding="15dp"
         android:text="@string/no_more_data"
+        android:textColor="@color/Black"
         android:textSize="22sp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </LinearLayout>
