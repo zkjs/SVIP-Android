@@ -5,7 +5,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -30,6 +32,11 @@ import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -43,6 +50,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.nereo.multi_image_selector.bean.Image;
@@ -55,6 +63,10 @@ import me.nereo.multi_image_selector.bean.Image;
  * 版权所有
  */
 public class InviteCodeActivity extends Activity {
+
+    private Context       mContext;
+    private String        mUserID;
+    private String        mToken;
 
     private ItemTitleView mTitle;
     private EditText      mEtInviteCode;
@@ -90,6 +102,10 @@ public class InviteCodeActivity extends Activity {
     }
 
     private void initData() {
+        mContext = InviteCodeActivity.this;
+        mUserID  = CacheUtil.getInstance().getUserId();
+        mToken   = CacheUtil.getInstance().getToken();
+
         mTitle.setTextTitle("");
     }
 
@@ -116,7 +132,8 @@ public class InviteCodeActivity extends Activity {
                 String inviteCodeStr = inviteCode.toString();
                 if (inviteCodeStr.length() >= 6) {
                     //TODO 执行view动画 显示专属服务员信息
-                    findSalerByInviteCode(inviteCodeStr);
+                    String upperCode = inviteCodeStr.toUpperCase();
+                    findSalerByInviteCode(upperCode);
                 }
 
                 if (TextUtils.isEmpty(inviteCodeStr)) {
@@ -137,7 +154,7 @@ public class InviteCodeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String inviteCode = mEtInviteCode.getText().toString().trim();
-                if (!TextUtils.isEmpty(inviteCode)) {
+                if (!TextUtils.isEmpty(inviteCode) && (mLlSalerInfo.getVisibility()== View.VISIBLE)) {
                     //邀请码验证成功
                     //发送文本消息通知专属客服
                     //MsgUserDefine msgUserDefine = bindInviteCodeMsgText();
@@ -155,60 +172,64 @@ public class InviteCodeActivity extends Activity {
      * @param inviteCodeStr
      */
     private void findSalerByInviteCode(final String inviteCodeStr) {
-        String url = ProtocolUtil.getEmpByInviteCodeUrl();
-        DataRequestVolley getSalerVolley = new DataRequestVolley(HttpMethod.POST, url,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject responseObj = new JSONObject(response);
-                        Boolean    isSuccess   = responseObj.getBoolean("set");
-                        if(isSuccess) {
-                            String userAvatar = responseObj.getString("user_avatar");
-                            String salerName  = responseObj.getString("username");
-                            showSalerInfo(true, userAvatar, salerName);
-                        } else {
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                                "登录异常，请退出后重新登陆", Gravity.CENTER);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            },
 
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                                      "网络访问异常", Gravity.CENTER);
-                }
-            }
-        )
-        {
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getEmpByInviteCodeUrl());
+        HashMap<String, String> bizMap = new HashMap<>();
+        bizMap.put("salesid", mUserID);
+        bizMap.put("token", mToken);
+        bizMap.put("code", inviteCodeStr);
+
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(mContext, netRequest, NetResponse.class);
+        netRequestTask.methodType     = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mContext) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                String userID = CacheUtil.getInstance().getUserId();
-                String token  = CacheUtil.getInstance().getToken();
-
-                Map<String, String> paramMap = new HashMap<>();
-                paramMap.put("userid", userID);
-                paramMap.put("token", token);
-                paramMap.put("code", inviteCodeStr);
-                return paramMap;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,  "网络异常", Gravity.CENTER);
             }
-        };
 
-        RequestQueueSingleton.getInstance(InviteCodeActivity.this).addToRequestQueue(getSalerVolley);
+            @Override
+            public void onNetworkRequestCancelled() {
+                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,  "请求取消", Gravity.CENTER);
+            }
 
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                String jsonResult = result.rawResult;
+                try {
+                    JSONObject responseObj = new JSONObject(jsonResult);
+                    Boolean    isSuccess   = responseObj.getBoolean("set");
+                    if(isSuccess) {
+                        //  String userAvatar = responseObj.getString("user_avatar");
+                        String salesID   = responseObj.getString("salesid");
+                        String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
+                        String salerName = responseObj.getString("username");
+                        showSalerInfo(true, avatarUrl, salerName);
+                    } else {
+                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                "登录异常，请退出后重新登陆", Gravity.CENTER);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+                //网络请求前
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     /**
      * 绑定邀请码
      */
     private MsgUserDefine bindInviteCodeMsgText(String content, String toID) {
-
         //确认绑定邀请码的通知是由何种协议
         //1.MsgUserDefine
         MsgUserDefine msgUserDefine = new MsgUserDefine();
@@ -235,15 +256,6 @@ public class InviteCodeActivity extends Activity {
             ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", 0, (5/4) * mEtInviteCode.getHeight());
             ObjectAnimator fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 1, 0);
             animation.playTogether(move, fade);
-
-            if(!TextUtils.isEmpty(avatarUrl)){
-                ImageLoader.getInstance().displayImage(avatarUrl, mCivSalerAvatar, mOptions);
-            }
-
-            if(!TextUtils.isEmpty(salerName)){
-                mTvSalerName.setText(salerName);
-            }
-
         } else if ((mLlSalerInfo.getVisibility() != View.VISIBLE) && show) {
             animation = new AnimatorSet();
             ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", (5/4) * mEtInviteCode.getHeight(), 0);
@@ -254,6 +266,16 @@ public class InviteCodeActivity extends Activity {
                 fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 0, 0.33f);
             }
             animation.playTogether(move, fade);
+        }
+
+        /** 设置头像显示和姓名显示 */
+        if(show && !TextUtils.isEmpty(avatarUrl)){
+            System.out.println("avatarUrl:" + avatarUrl);
+            ImageLoader.getInstance().displayImage(avatarUrl, mCivSalerAvatar, mOptions);
+        }
+
+        if(show && !TextUtils.isEmpty(salerName)){
+            mTvSalerName.setText(salerName);
         }
 
         if (animation != null) {

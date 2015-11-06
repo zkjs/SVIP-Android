@@ -245,4 +245,13 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"invitation/bdcode";
     }
 
+    /**
+     * 获得用户头像
+     * @param userid
+     * @return
+     */
+    public static String getAvatarUrl(String userid){
+        return ConfigUtil.getInst().getHttpDomain()+"uploads/users/"+userid+".jpg";
+    }
+
 }
