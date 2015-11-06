@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.bean.BookOrder;
+
+import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
 
@@ -28,21 +30,21 @@ import java.util.Date;
  */
 public class ConsumeRecordAdapter extends BaseAdapter {
 
-    public ArrayList<BookOrder> datalist = new ArrayList<BookOrder>();
+    public ArrayList<OrderConsumeResponse> datalist = new ArrayList<OrderConsumeResponse>();
     private Activity activity;
     private DisplayImageOptions options;
 
-    public void loadMore(ArrayList<BookOrder> morelist){
+    public void loadMore(ArrayList<OrderConsumeResponse> morelist){
         datalist.addAll(morelist);
         notifyDataSetChanged();
     }
 
-    public void refresh(ArrayList<BookOrder> refreshlist){
+    public void refresh(ArrayList<OrderConsumeResponse> refreshlist){
         datalist = refreshlist;
         notifyDataSetChanged();
     }
 
-    public ConsumeRecordAdapter(ArrayList<BookOrder> datalist, Activity activity) {
+    public ConsumeRecordAdapter(ArrayList<OrderConsumeResponse> datalist, Activity activity) {
         this.datalist = datalist;
         this.activity = activity;
 
@@ -72,7 +74,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)  {
-        BookOrder itemOrder = datalist.get(position);
+        OrderConsumeResponse itemOrder = datalist.get(position);
         ViewHolder holder = null;
         if(convertView != null) {
             holder = (ViewHolder) convertView.getTag();
@@ -104,24 +106,35 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         }
 
         //获得shopID网络路径
-        if(!TextUtils.isEmpty(itemOrder.getShopID())){
-            String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopID() + ".png";
+        if(!TextUtils.isEmpty(itemOrder.getShopid())){
+            String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopid() + ".png";
             ImageLoader.getInstance().displayImage(logoUrl, holder.shopIcon, options);
         }
-        SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            //转换成指定之间格式
-            Date date = detailFormat.parse(itemOrder.getArrivalDate());
-            String simpleDate= simpleFormat.format(date);
-            holder.orderData.setText(simpleDate + "");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String goodstr = itemOrder.getRoomType()+"×"+itemOrder.getRooms();
+//        SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        try {
+//            //转换成指定之间格式
+//            Date date = detailFormat.parse(itemOrder.getArrival_date());
+//            String simpleDate= simpleFormat.format(date);
+//            holder.orderData.setText(simpleDate + "");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        holder.orderData.setText(itemOrder.getArrival_date());
+        String goodstr = itemOrder.getRoom_type()+"×"+itemOrder.getRooms();
         holder.good.setText(goodstr);
-        holder.shopName.setText(itemOrder.getFullName() + "");
-        holder.price.setText("￥" + itemOrder.getRoomRate()+"元");
+        String shopname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(itemOrder.getShopid());
+        holder.shopName.setText(shopname);
+        holder.price.setText("￥" + itemOrder.getRoom_rate()+"元");
+
+        if(itemOrder.getScore().equals("0")){
+            holder.gradeLayout.setVisibility(View.GONE);
+            holder.unGrade.setVisibility(View.VISIBLE);
+        }else{
+            holder.gradeLayout.setVisibility(View.VISIBLE);
+            holder.unGrade.setVisibility(View.GONE);
+            holder.starNum.setText(itemOrder.getScore());
+        }
 
         return convertView;
     }

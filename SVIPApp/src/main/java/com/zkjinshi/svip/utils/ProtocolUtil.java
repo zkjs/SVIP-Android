@@ -254,4 +254,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"uploads/users/"+userid+".jpg";
     }
 
+    /**
+     * V0.9.1 订单列表带评论状态
+     * @return
+     */
+    public static String getOrderV10list(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/v10list";
+    }
+
 }

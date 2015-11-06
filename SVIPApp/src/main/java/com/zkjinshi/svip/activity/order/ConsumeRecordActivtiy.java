@@ -29,6 +29,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 
@@ -209,15 +210,14 @@ public class ConsumeRecordActivtiy extends Activity {
      * @param currentPage
      */
     private void getUserOrders(final String userID, final String token, final int currentPage) {
-        String url =  ProtocolUtil.getOrderList();
+        String url =  ProtocolUtil.getOrderV10list();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", userID);
         bizMap.put("token", token);
-        bizMap.put("set", Constants.QUREY_ORDER + "");
-        bizMap.put("page", currentPage+"");
         bizMap.put("status", "3");
+        bizMap.put("page", currentPage+"");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;
@@ -239,7 +239,7 @@ public class ConsumeRecordActivtiy extends Activity {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     mSlvBookOrder.refreshFinish();//结束刷新状态
-                    ArrayList<BookOrder> bookOrders = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<BookOrder>>(){}.getType());
+                    ArrayList<OrderConsumeResponse> bookOrders = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<OrderConsumeResponse>>(){}.getType());
                     if(null != bookOrders && bookOrders.size() > 0){
                         if (mCurrentPage == 1) {
                             if(mBookOrderAdapter == null){
@@ -285,7 +285,7 @@ public class ConsumeRecordActivtiy extends Activity {
         bizMap.put("userid", userID);
         bizMap.put("token", token);
         bizMap.put("status", orderStatus);
-        bizMap.put("reservation_no", mBookOrderAdapter.datalist.get(position).getReservationNO());//订单更新
+        bizMap.put("reservation_no", mBookOrderAdapter.datalist.get(position).getReservation_no());//订单更新
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;

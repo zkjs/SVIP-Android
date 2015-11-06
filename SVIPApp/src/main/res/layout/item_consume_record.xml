@@ -103,9 +103,10 @@
                     android:textSize="12sp"
                     android:textColor="#ff9800"
                     android:layout_marginLeft="15dp"
-                    android:visibility="gone"/>
+                   />
                 <LinearLayout
                     android:id="@+id/layout_grade"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
