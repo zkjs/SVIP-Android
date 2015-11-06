@@ -31,8 +31,10 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.EvaluateResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.EvaluateLevel;
 
@@ -59,11 +61,13 @@ public class OrderEvaluateActivity extends Activity{
     private ImageButton backIBtn,moreIBtn;
     private LinearLayout evaluateLayout,compleEvaluateLayout;
     private TextView compleEvaluateTv;
-    private BookOrder bookOrder;
+    private OrderConsumeResponse bookOrder;
     private String reservationNo;
     private ImageView hotelIconIv;
     private TextView hotelNameTv,roomInfoTv,priceTv,checkInDateTv,checkInNamesTv,invoiceInfoTv,remarkInfoTv;
-    private DisplayImageOptions options;
+    private DisplayImageOptions goodsIconOptions,shopLogoOptions,salsePhotoOption;
+    private TextView salesNameTv;
+    private ImageView salesIconIv,goodsIconIv;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -93,21 +97,34 @@ public class OrderEvaluateActivity extends Activity{
         checkInNamesTv = (TextView)findViewById(R.id.order_evaluate_tv_check_in_names);
         invoiceInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_invoice_info);
         remarkInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_remark_info);
+        salesNameTv = (TextView)findViewById(R.id.order_evaluate_iv_sales_name);
+        salesIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_sales_photo);
+        goodsIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_goods);
     }
 
     private void initData(){
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_launcher)
+        goodsIconOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        shopLogoOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_avatar_hotel)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        salsePhotoOption = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_logo_zhanwei)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .build();
         layoutInBottom = AnimationUtils.loadAnimation(this, R.anim.layout_in_bottom);
         layoutOutTop = AnimationUtils.loadAnimation(this, R.anim.layout_out_top);
         if(null != getIntent() && null != getIntent().getSerializableExtra("bookOrder")){
-            bookOrder = (BookOrder)getIntent().getSerializableExtra("bookOrder");
+            bookOrder = (OrderConsumeResponse)getIntent().getSerializableExtra("bookOrder");
             if(null != bookOrder){
-                reservationNo = bookOrder.getReservationNO();
-                String shopId = bookOrder.getShopID();
+                reservationNo = bookOrder.getReservation_no();
+                String shopId = bookOrder.getShopid();
                 if(null != shopId){
                     String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
                     if(!TextUtils.isEmpty(shopName)){
@@ -116,30 +133,30 @@ public class OrderEvaluateActivity extends Activity{
                     String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
                     if(!TextUtils.isEmpty(logo)){
                         String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
-                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, options);
+                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
                     }
-                    String roomType = bookOrder.getRoomType();
+                    String roomType = bookOrder.getRoom_type();
                     String rooms = bookOrder.getRooms();
                     roomInfoTv.setText(roomType + "*" + rooms);
-                    String roomRate = bookOrder.getRoomRate();
+                    String roomRate = bookOrder.getRoom_rate();
                     if(!TextUtils.isEmpty(roomRate)){
                         priceTv.setText("¥"+roomRate);
                     }
-                    String checkInDate = bookOrder.getArrivalDate();
-                    String checkOutDate = bookOrder.getDepartureDate();
+                    String checkInDate = bookOrder.getArrival_date();
+                    String checkOutDate = bookOrder.getDeparture_date();
                     checkInDateTv.setText(checkInDate + "到" + checkOutDate);
                     String guest = bookOrder.getGuest();
                     if(!TextUtils.isEmpty(guest)){
                         checkInNamesTv.setText(guest);
                     }
-                    String remark = bookOrder.getRemark();
+                    String remark = bookOrder.getRoom_rate();
                     if(!TextUtils.isEmpty(remark)){
                         remarkInfoTv.setText(remark);
                     }
                 }
             }
         }
-        requestGetEvaluateTask("559f378c6a8f3",reservationNo);
+        requestGetEvaluateTask(reservationNo);
     }
 
     private void initListeners(){
@@ -383,11 +400,11 @@ public class OrderEvaluateActivity extends Activity{
         initListeners();
     }
 
-    private void requestGetEvaluateTask(String salesId, String reservationNo){
+    private void requestGetEvaluateTask(String reservationNo){
         NetRequest netRequest = new NetRequest(ProtocolUtil.getGetEvaluateUrl());
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("token",CacheUtil.getInstance().getToken());
-        bizMap.put("salesid", salesId);
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
         bizMap.put("reservation_no", reservationNo);
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
@@ -428,6 +445,22 @@ public class OrderEvaluateActivity extends Activity{
                                             String content = evaluateBean.getContent();
                                             if(!TextUtils.isEmpty(content)){
                                                 compleEvaluateTv.setText(content);
+                                            }
+                                            String salesName = evaluateBean.getSale_name();
+                                            if(!TextUtils.isEmpty(salesName)){
+                                                salesNameTv.setText(salesName);
+                                            }
+                                            String salesId = evaluateBean.getSalesid();
+                                            if(!TextUtils.isEmpty(salesId)){
+                                                String salesIconUrl =  ProtocolUtil.getAvatarUrl(salesId);
+                                                if(!TextUtils.isEmpty(salesIconUrl)){
+                                                    ImageLoader.getInstance().displayImage(salesIconUrl, salesIconIv, salsePhotoOption);
+                                                }
+                                            }
+                                            String imageUrl = evaluateBean.getImgurl();
+                                            if(!TextUtils.isEmpty(imageUrl)){
+                                                String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+                                                ImageLoader.getInstance().displayImage(logoUrl,goodsIconIv,goodsIconOptions);
                                             }
                                             int score = evaluateBean.getScore();
                                             if(1 == score){

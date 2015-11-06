@@ -16,6 +16,9 @@ public class EvaluateBean implements Serializable {
     private String content;
     private String createdate;
     private String userid;
+    private String salesid;
+    private String sale_name;
+    private String imgurl;
 
     public String getId() {
         return id;
@@ -63,5 +66,29 @@ public class EvaluateBean implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String getSalesid() {
+        return salesid;
+    }
+
+    public void setSalesid(String salesid) {
+        this.salesid = salesid;
+    }
+
+    public String getSale_name() {
+        return sale_name;
+    }
+
+    public void setSale_name(String sale_name) {
+        this.sale_name = sale_name;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }

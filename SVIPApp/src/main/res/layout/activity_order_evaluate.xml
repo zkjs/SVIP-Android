@@ -24,9 +24,11 @@
                 android:layout_height="206dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/order_evaluate_iv_goods"
+                    android:layout_width="match_parent"
                     android:visibility="visible"
-                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:layout_height="206dp"
                     android:src="@mipmap/img_dingdanxiangqing"/>
 
                 <RelativeLayout
@@ -66,17 +68,18 @@
                     android:id="@+id/order_evaluate_iv_sales_photo"
                     android:layout_width="88dp"
                     android:layout_height="88dp"
-                    android:scaleType="centerInside"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/img_logo_zhanwei"
                     android:layout_centerInParent="true"/>
 
                 <TextView
+                    android:id="@+id/order_evaluate_iv_sales_name"
                     android:layout_below="@id/order_evaluate_iv_sales_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
-                    android:text="张三"
+                    android:text="@null"
                     android:textSize="16sp"
                     android:textColor="@android:color/white"
                     />
