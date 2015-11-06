@@ -241,7 +241,7 @@ public class ProtocolUtil {
      * POST 超级身份输入邀请码动作
      * @return
      */
-    public static String getUserBindInviteCodeURrl(){
+    public static String getUserBindInviteCodeUrl(){
         return ConfigUtil.getInst().getHttpDomain()+"invitation/bdcode";
     }
 
