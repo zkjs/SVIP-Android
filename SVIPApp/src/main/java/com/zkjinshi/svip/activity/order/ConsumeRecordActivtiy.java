@@ -136,6 +136,8 @@ public class ConsumeRecordActivtiy extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
+                BookOrder bookOrder = (BookOrder)mBookOrderAdapter.getItem(position);
+                intent.putExtra("bookOrder",bookOrder);
                 startActivity(intent);
             }
         });
