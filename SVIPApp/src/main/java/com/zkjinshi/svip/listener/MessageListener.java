@@ -32,6 +32,7 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2MRSP;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocAd;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
+import com.zkjinshi.svip.bean.jsonbean.MsgUserDefineRSP;
 import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.request.login.LoginRequestManager;
@@ -70,13 +71,14 @@ public class MessageListener extends Handler implements IMessageListener {
     private SimpleDateFormat sdf;
     private OrderVo orderVo;
     private Message notifyMessage;
+    private Gson    gson;
 
     @Override
     public void onNetReceiveSucceed(String message) {
         if(TextUtils.isEmpty(message)){
             return ;
         }
-        Gson gson = null;
+
         try {
             JSONObject messageObj = new JSONObject(message);
             int type = messageObj.getInt("type");
@@ -122,6 +124,29 @@ public class MessageListener extends Handler implements IMessageListener {
                     }
                 }
                 return;
+            }
+
+            if(ProtocolMSG.MSG_UserDefine_RSP == type){
+                Gson gson = new Gson();
+                MsgUserDefineRSP msgUserDefineRSP = gson.fromJson(message, MsgUserDefineRSP.class);
+                int pushResult = msgUserDefineRSP.getResult();
+                switch (pushResult) {
+                    case MsgUserDefineRSP.PUSH_SUCCESS:
+                        LogUtil.getInstance().info(LogLevel.INFO, "push_success");
+                        break;
+                    case MsgUserDefineRSP.PUSH_FAILED:
+                        LogUtil.getInstance().info(LogLevel.INFO, "push_failed");
+                        break;
+                    case MsgUserDefineRSP.PUSH_OFFLINE_SUCCESS:
+                        LogUtil.getInstance().info(LogLevel.INFO, "push_offline_success");
+                        break;
+                    case MsgUserDefineRSP.PUSH_OFFLINE_FAILED:
+                        LogUtil.getInstance().info(LogLevel.INFO, "push_offline_failed");
+                        break;
+                    case MsgUserDefineRSP.PUSH_AS_OFFLINE_MSG:
+                        LogUtil.getInstance().info(LogLevel.INFO, "push_as_offline_msg");
+                        break;
+                }
             }
 
             /** 文本消息处理 */
