@@ -122,7 +122,7 @@
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:textColor="#525252"
-                        android:text="长沙豪庭大酒店"/>
+                        android:text="\@null"/>
 
                     <TextView
                         android:id="@+id/order_evaluate_tv_room_info"
@@ -133,7 +133,7 @@
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:textColor="#525252"
-                        android:text="豪华双床房x2"/>
+                        android:text="\@null"/>
 
                     <TextView
                         android:id="@+id/order_evaluate_tv_room_total_price"
@@ -145,7 +145,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="50dp"
                         android:textColor="#525252"
-                        android:text="¥399"/>
+                        android:text="\@null"/>
 
                 </RelativeLayout>
 
@@ -164,11 +164,12 @@
                         android:text="入住时间"/>
 
                     <TextView
+                        android:id="@+id/order_evaluate_tv_check_in_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:textSize="14sp"
-                        android:text="2015-09-25到09-27"/>
+                        android:text="\@null"/>
 
                 </LinearLayout>
 
@@ -179,6 +180,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
@@ -187,11 +189,12 @@
                         android:text="入住人"/>
 
                     <TextView
+                        android:id="@+id/order_evaluate_tv_check_in_names"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:textSize="14sp"
-                        android:text="王小丫、李三郎"/>
+                        android:text="\@null"/>
 
                 </LinearLayout>
 
@@ -210,11 +213,12 @@
                         android:text="发票信息"/>
 
                     <TextView
+                        android:id="@+id/order_evaluate_tv_invoice_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:textSize="14sp"
-                        android:text="深圳市中科金石有限公司"/>
+                        android:text="暂无"/>
 
                 </LinearLayout>
 
@@ -233,12 +237,13 @@
                         android:text="订单备注"/>
 
                     <TextView
+                        android:id="@+id/order_evaluate_tv_remark_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:layout_marginBottom="20dp"
                         android:textSize="14sp"
-                        android:text="请尽量安排靠光线好的房间，谢谢"/>
+                        android:text="暂无"/>
 
                 </LinearLayout>
 

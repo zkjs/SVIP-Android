@@ -173,6 +173,15 @@ public class ShopDetailDBUtil {
     }
 
     /**
+     * 根据商家ID查询商家Logo
+     * @param shopID
+     * @return
+     */
+    public String queryShopLogoByShopID(String shopID) {
+        return queryShopValueByShopID("logo",shopID);
+    }
+
+    /**
      * 根据商家ID查询商家某字段的值
      * @param field
      * @param shopID

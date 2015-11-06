@@ -9,11 +9,11 @@ package com.zkjinshi.svip.vo;
  */
 public enum EvaluateLevel {
 
-    POOR(0),//差
-    COMMON(1),//一般
-    GRATIFY(2),//满意
-    GREAT_GRATIFY(3),//非常满意
-    HIGHLY_RECOMMEND(4);//强烈推荐
+    POOR(1),//差
+    COMMON(2),//一般
+    GRATIFY(3),//满意
+    GREAT_GRATIFY(4),//非常满意
+    HIGHLY_RECOMMEND(5);//强烈推荐
 
     private EvaluateLevel(int value){
         this.value = value;

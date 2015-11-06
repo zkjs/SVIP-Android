@@ -105,7 +105,12 @@ public class LoginController {
                             CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                         }
 
+                       /* Intent intent = new Intent(activity, CompleteInfoActivity.class);
+                        activity.startActivity(intent);
+                        activity.finish();*/
+
                         if(isNewRegister){
+                            //TODO:进行完善资料的填写
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);
                             if(thirdBundleData != null){
                                 intent.putExtra("from_third", true);

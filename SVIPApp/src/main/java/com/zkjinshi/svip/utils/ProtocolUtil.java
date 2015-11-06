@@ -26,6 +26,22 @@ public class ProtocolUtil {
                 DEFAULT_MAX_RETRIES,
                 DEFAULT_BACKOFF_MULT);
     }
+    /**
+     * 获取订单评价 URL
+     * @return
+     */
+    public static String getGetEvaluateUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"comment/show";
+    }
+
+
+    /**
+     * 新增订单评价 URL
+     * @return
+     */
+    public static String getAddEvaluateUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"comment/add";
+    }
 
 
     /**
