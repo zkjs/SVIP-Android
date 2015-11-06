@@ -128,7 +128,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
         }
         if (this.requestListener != null) {
             if (errorCode == REQ_RESP_SUCCESS) {
-                if (result != null) {
+                if (result != null &&  !TextUtils.isEmpty(result.rawResult)) {
                     this.requestListener.onNetworkResponseSucceed(result);
                 } else {
                     errorLog.append(context.getString(R.string.no_data));

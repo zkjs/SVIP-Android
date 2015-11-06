@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -17,12 +18,11 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.zkjinshi.base.config.ConfigUtil;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
@@ -39,7 +39,7 @@ import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.ext.ShopListManager;
-import com.zkjinshi.svip.factory.UserInfoFactory;
+
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.fragment.MenuRightFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
@@ -48,9 +48,14 @@ import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.map.LocationManager;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.OrderLastResponse;
-import com.zkjinshi.svip.response.UserInfoResponse;
+
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -61,10 +66,6 @@ import com.zkjinshi.svip.view.kenburnsview.KenBurnsView;
 import com.zkjinshi.svip.view.kenburnsview.Transition;
 import com.zkjinshi.svip.vo.MessageVo;
 
-import com.zkjinshi.svip.vo.UserInfoVo;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
 
 
 
@@ -246,93 +247,86 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             reLogin();
             return;
         }
-        createLoadLastOrderListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.getLastOrder(), loadOrderListener, loadOrderErrorListener){
+        String url = ProtocolUtil.getLastOrder();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                LogUtil.getInstance().info(LogLevel.INFO, map.toString());
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.INFO, request.toString());
-        DialogUtil.getInstance().showProgressDialog(this);
-        request.setRetryPolicy(ProtocolUtil.getDefaultRetryPolicy());
-        requestList.add(request);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
-    }
-
-    private void createLoadLastOrderListener() {
-        loadOrderListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(!TextUtils.isEmpty(response)){
-                    try {
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取最近订单结果:"+response);
+            public void onNetworkRequestCancelled() {
 
-                        lastOrderInfo = new Gson().fromJson(response, OrderLastResponse.class);
-                        if(lastOrderInfo != null && !lastOrderInfo.isSet()){
-                            CacheUtil.getInstance().setLogin(false);
-                            DialogUtil.getInstance().showToast(MainActivity.this,"token 过期，请重新登录");
-                            Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
-                            MainActivity.this.startActivity(mainIntent);
-                            MainActivity.this.finish();
-                            overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-                            return;
-                        }
-                        if(lastOrderInfo != null && lastOrderInfo.getUserid() == null){
-                            lastOrderInfo = null;
-                            return;
-                        }
-                        if(lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")){
-                            lastOrderInfo = null;
-                            return;
-                        }
-                        // lastOrderInfo.setShopid("120");
-                        String roomType = lastOrderInfo.getRoom_type();
-                        String roomRate =  lastOrderInfo.getRoom_rate();
-                        String arriveDate = lastOrderInfo.getArrival_date();
-                        String orderStatusStr = lastOrderInfo.getStatus();
-                        String shopId = lastOrderInfo.getShopid();
-                        if (!TextUtils.isEmpty(orderStatusStr)) {
-                            CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
-                        }
-                        String arriveDateStr = "";
-                        SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
-                        SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
-                        try {
-                            Date date = mSimpleFormat.parse(arriveDate);
-                            arriveDateStr = mChineseFormat.format(date);
-                        }catch (Exception e){
-                        }
-                        orderInfoTv.setVisibility(View.VISIBLE);
-                        orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
-                        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
-                    } catch (JsonSyntaxException e) {
-                        e.printStackTrace();
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+
+                    lastOrderInfo = new Gson().fromJson(result.rawResult, OrderLastResponse.class);
+                    if(lastOrderInfo != null && !lastOrderInfo.isSet()){
+                        CacheUtil.getInstance().setLogin(false);
+                        DialogUtil.getInstance().showToast(MainActivity.this,"token 过期，请重新登录");
+                        Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
+                        MainActivity.this.startActivity(mainIntent);
+                        MainActivity.this.finish();
+                        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+                        return;
                     }
+                    if(lastOrderInfo != null && lastOrderInfo.getUserid() == null){
+                        lastOrderInfo = null;
+                        return;
+                    }
+                    if(lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")){
+                        lastOrderInfo = null;
+                        return;
+                    }
+                    // lastOrderInfo.setShopid("120");
+                    String roomType = lastOrderInfo.getRoom_type();
+                    String roomRate =  lastOrderInfo.getRoom_rate();
+                    String arriveDate = lastOrderInfo.getArrival_date();
+                    String orderStatusStr = lastOrderInfo.getStatus();
+                    String shopId = lastOrderInfo.getShopid();
+                    if (!TextUtils.isEmpty(orderStatusStr)) {
+                        CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
+                    }
+                    String arriveDateStr = "";
+                    SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
+                    try {
+                        Date date = mSimpleFormat.parse(arriveDate);
+                        arriveDateStr = mChineseFormat.format(date);
+                    }catch (Exception e){
+                    }
+                    orderInfoTv.setVisibility(View.VISIBLE);
+                    orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
+                    handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
-            }
-        };
 
-        //register error listener
-        loadOrderErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                DialogUtil.getInstance().cancelProgressDialog();
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取最近订单失败。" + volleyError.toString());
-                orderInfoTv.setVisibility(View.GONE);
-                lastOrderInfo = null;
             }
-        };
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     private void initListeners() {

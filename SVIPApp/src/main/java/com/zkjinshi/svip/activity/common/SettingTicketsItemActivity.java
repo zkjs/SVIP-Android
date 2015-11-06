@@ -3,21 +3,27 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
+
 
 import com.android.volley.Response;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.JsonUtil;
@@ -25,11 +31,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.TicketVo;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,56 +123,57 @@ public class SettingTicketsItemActivity extends Activity {
             DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"发票抬头不能为空。");
             return;
         }
-        DialogUtil.getInstance().showProgressDialog(this);
-        createAddTicketListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.addTicketUrl(),addTicketListener, addTicketErrorListener){
+        String url = ProtocolUtil.addTicketUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("invoice_title",mInputEt.getText().toString());
+        bizMap.put("is_default",mDefaultRbtn.isChecked() ? "1":"0");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("invoice_title",mInputEt.getText().toString());
-                map.put("is_default",mDefaultRbtn.isChecked() ? "1":"0");
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-    }
 
-    private void createAddTicketListener() {
-        addTicketListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    BaseResponse baseResponse = gson.fromJson( result.rawResult,BaseResponse.class);
+                    if(baseResponse.isSet()){
+                        DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"保存发票成功。");
+                        back();
+                    }else{
+                        DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this, "保存发票失败。");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                Gson gson = new Gson();
-                BaseResponse result = gson.fromJson(response,BaseResponse.class);
-               if(result.isSet()){
-                   DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"保存发票成功。");
-                   back();
-               }else{
-                   DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"保存发票失败。");
-               }
-            }
-        };
 
-        //error listener
-        addTicketErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "保存发票失败" + volleyError.toString());
-                DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this, "保存发票失败。");
-                DialogUtil.getInstance().cancelProgressDialog();
             }
-        };
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
+
+
 
     //修改发票
     private void updateTicket(){
@@ -178,58 +181,60 @@ public class SettingTicketsItemActivity extends Activity {
             DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"发票抬头不能为空。");
             return;
         }
-        DialogUtil.getInstance().showProgressDialog(this);
-        createUpdateTicketListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.updateTicketUrl(),updateTicketListener, updateTicketErrorListener){
+        String url = ProtocolUtil.updateTicketUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("id",tickeData.getId()+"");
+        bizMap.put("set","2");
+        bizMap.put("invoice_title",mInputEt.getText().toString());
+        bizMap.put("is_default",mDefaultRbtn.isChecked() ? "1":"0");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("id",tickeData.getId()+"");
-                map.put("set","2");
-                map.put("invoice_title",mInputEt.getText().toString());
-                map.put("is_default",mDefaultRbtn.isChecked() ? "1":"0");
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    BaseResponse baseResponse = gson.fromJson(result.rawResult,BaseResponse.class);
+                    if(baseResponse.isSet()){
+                        DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"更新发票成功。");
+                        back();
+                    }else{
+                        DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this, "更新发票失败。");
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
-    private void createUpdateTicketListener() {
-        updateTicketListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
-                }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                Gson gson = new Gson();
-                BaseResponse result = gson.fromJson(response,BaseResponse.class);
-                if(result.isSet()){
-                    DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"更新发票成功。");
-                    back();
-                }else{
-                    DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this,"更新发票失败。");
-                }
-            }
-        };
 
-        //error listener
-        updateTicketErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "更新发票失败" + volleyError.toString());
-                DialogUtil.getInstance().showToast(SettingTicketsItemActivity.this, "更新发票失败。");
-                DialogUtil.getInstance().cancelProgressDialog();
-            }
-        };
-    }
 
     //回退
     private void back(){

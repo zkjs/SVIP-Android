@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,27 +24,31 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+
 import com.zkjinshi.svip.response.InsertResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.JsonUtil;
+
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.TicketVo;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by djd on 2015/8/28.
  */
 public class ChooseInvoiceActivity extends Activity {
+    private final static String TAG = ChooseInvoiceActivity.class.getSimpleName();
 
     private EditText mEtInput;
     private ItemTitleView mTitle;
@@ -52,11 +57,6 @@ public class ChooseInvoiceActivity extends Activity {
 
     private ArrayList<TicketVo> listData = new ArrayList<TicketVo>();
     private MyAdapter myAdapter;
-
-    private Response.Listener<String> loadInvoicesListListener;
-    private Response.ErrorListener loadInvoicesListErrorListener;
-    private Response.Listener<String> addInvoicesListener;
-    private Response.ErrorListener    addInvoicesErrorListener;
 
     private class MyAdapter extends BaseAdapter{
         private LayoutInflater mInflater;//得到一个LayoutInfalter对象用来导入布局
@@ -171,115 +171,119 @@ public class ChooseInvoiceActivity extends Activity {
 
     //添加发票
     private void addInvoice(){
-        DialogUtil.getInstance().showProgressDialog(this);
-        createAddInvoiceListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.addTicketUrl(), addInvoicesListener, addInvoicesErrorListener){
+        String url = ProtocolUtil.addTicketUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("invoice_title",mEtInput.getText().toString());
+        bizMap.put("is_default","0");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("invoice_title",mEtInput.getText().toString());
-                map.put("is_default","0");
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    InsertResponse insertResponse = new Gson().fromJson(result.rawResult,InsertResponse.class);
+                    if(insertResponse.isSet()){
+                        Intent intent = new Intent();
+                        OrderInvoiceResponse orderInvoiceResponse = new OrderInvoiceResponse();
+                        orderInvoiceResponse.setId(insertResponse.getId());
+                        orderInvoiceResponse.setInvoice_title(mEtInput.getText().toString());
+                        orderInvoiceResponse.setInvoice_get_id("1");
+                        intent.putExtra("selectInvoice", orderInvoiceResponse);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }else{
+                        LogUtil.getInstance().info(LogLevel.ERROR, "添加发票失败。");
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
-    private void createAddInvoiceListener() {
-        addInvoicesListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
-                }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                InsertResponse insertResponse = new Gson().fromJson(response,InsertResponse.class);
-                if(insertResponse.isSet()){
-                    Intent intent = new Intent();
-                    OrderInvoiceResponse orderInvoiceResponse = new OrderInvoiceResponse();
-                    orderInvoiceResponse.setId(insertResponse.getId());
-                    orderInvoiceResponse.setInvoice_title(mEtInput.getText().toString());
-                    orderInvoiceResponse.setInvoice_get_id("1");
-                    intent.putExtra("selectInvoice", orderInvoiceResponse);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }else{
-                    LogUtil.getInstance().info(LogLevel.ERROR, "添加发票失败。" );
-                }
-            }
-        };
 
-        //error listener
-        addInvoicesErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "添加发票失败。" + volleyError.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
-            }
-        };
-    }
 
 
     //加载发票列表
     private void loadTicketsList() {
-        DialogUtil.getInstance().showProgressDialog(this);
-        createLoadTicketListListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.geTicketListUrl(), loadInvoicesListListener, loadInvoicesListErrorListener){
+        String url =ProtocolUtil.geTicketListUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("set","0");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("set","0");
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    ArrayList<TicketVo> datalist = gson.fromJson(result.rawResult, new TypeToken<ArrayList<TicketVo>>(){}.getType());
+                    listData.clear();
+                    for(TicketVo ticketVo : datalist){
+                        if(ticketVo.getIs_default().equals("1")){
+                            listData.add(0,ticketVo);
+                        }
+                        else{
+                            listData.add(ticketVo);
+                        }
+                    }
+                    myAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
-    //加载发票列表监听
-    private void createLoadTicketListListener() {
-        loadInvoicesListListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
-                }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                Gson gson = new Gson();
-                ArrayList<TicketVo> datalist = gson.fromJson(response, new TypeToken<ArrayList<TicketVo>>(){}.getType());
-                listData.clear();
-                for(TicketVo ticketVo : datalist){
-                    if(ticketVo.getIs_default().equals("1")){
-                        listData.add(0,ticketVo);
-                    }
-                    else{
-                        listData.add(ticketVo);
-                    }
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-        };
-
-        //error listener
-        loadInvoicesListErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取发票列表失败。" + volleyError.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
-            }
-        };
-    }
 }

@@ -13,35 +13,36 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
+
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.BookOrderAdapter;
 import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.bean.HistoryOrder;
+
 import com.zkjinshi.svip.listener.OnRefreshListener;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.JsonUtil;
+
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuCreator;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuItem;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuListView;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * 说明：历史订单(用户足迹)界面
@@ -65,10 +66,6 @@ public class HistoryOrderActivtiy extends Activity {
     private String mToken;
     private int    mCurrentPage;//记录当前查询页
 
-    private Response.Listener<String>   getOrdersListener;
-    private Response.ErrorListener      getOrdersErrorListener;
-    private Response.Listener<String>   updateOrderListener;
-    private Response.ErrorListener      updateOrderErrorListener;
     private boolean isOrder;
 
     @Override
@@ -219,26 +216,70 @@ public class HistoryOrderActivtiy extends Activity {
      * @param currentPage
      */
     private void getUserOrders(final String userID, final String token, final int currentPage) {
-        createGetOrdersListener();
-        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST, ProtocolUtil.getOrderList(),
-                getOrdersListener, getOrdersErrorListener){
+
+        String url = ProtocolUtil.getOrderList();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", userID);
+        bizMap.put("token", token);
+        bizMap.put("set", Constants.QUREY_ORDER + "");
+        bizMap.put("page", currentPage+"");
+        bizMap.put("status", "0,2,4");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> map = new HashMap<>();
-                map.put("userid", userID);
-                map.put("token", token);
-                map.put("set", Constants.QUREY_ORDER + "");
-                map.put("page", currentPage+"");
-                if (isOrder) {
-                    map.put("status", "0,2,4");
-                } else {
-                    map.put("status", "3");
-                }
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                mSlvBookOrder.refreshFinish();//结束刷新状态
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR,getUserOrders.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(getUserOrders);
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    mSlvBookOrder.refreshFinish();//结束刷新状态
+                    Gson gson = new Gson();
+                    List<BookOrder> bookOrders = gson.fromJson( result.rawResult, new TypeToken<List<BookOrder>>(){}.getType());
+                    if(null != bookOrders && bookOrders.size() > 0){
+                        if (mCurrentPage == 1) {
+                            mBookOrders = new ArrayList<>();
+                            mBookOrders.addAll(bookOrders);
+                            mBookOrderAdapter = new BookOrderAdapter(mBookOrders,
+                                    HistoryOrderActivtiy.this);
+                            mSlvBookOrder.setAdapter(mBookOrderAdapter);
+                            mCurrentPage++;//进入第2页
+                        } else {
+                            mBookOrders.addAll(bookOrders);
+                            int lastPosition = mCurrentPage * 10 - 1;
+                            mCurrentPage++;//当前页+1
+                            mBookOrderAdapter.notifyDataSetChanged();
+                            mSlvBookOrder.setSelection(lastPosition + 1);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     /**
@@ -247,126 +288,55 @@ public class HistoryOrderActivtiy extends Activity {
      * @param token
      */
     private void updateOrderStatus(final String userID, final String token, final int position , final String orderStatus) {
-        createUpdateOrderListener(position);
-        DataRequestVolley getUserOrders = new DataRequestVolley(HttpMethod.POST, Constants.POST_USER_ORDERS,
-                updateOrderListener, updateOrderErrorListener){
+        String url = ProtocolUtil.updateOrderUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", userID);
+        bizMap.put("token", token);
+        bizMap.put("status", orderStatus);
+        bizMap.put("reservation_no", mBookOrders.get(position).getReservationNO());//订单更新
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> map = new HashMap<>();
-                map.put("userid", userID);
-                map.put("token", token);
-                map.put("set", orderStatus);//订单状态操作
-                map.put("status", Constants.UPDATE_ORDER + "");
-                map.put("reservation_no", mBookOrders.get(position).getReservationNO());//订单更新
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(getUserOrders);
-    }
 
-    /**
-     * 创建获取网络数据监听
-     */
-    private void createGetOrdersListener() {
-        getOrdersListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "response:=" + response);
-                DialogUtil.getInstance().cancelProgressDialog();
-                mSlvBookOrder.refreshFinish();//结束刷新状态
-                if(JsonUtil.isJsonNull(response)) {
-                    return ;
-                }
+            public void onNetworkRequestCancelled() {
 
-                Gson gson = new Gson();
-                //判断返回值
-                if(response.toUpperCase().contains("SET")){
-                    if(response.toUpperCase().contains("FALSE")) {
-                        JSONObject resultObject = gson.fromJson(response, JSONObject.class);
-                        try {
-                            LogUtil.getInstance().info(LogLevel.ERROR, "获取订单表err状态码:"
-                                    + resultObject.get("err"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+            }
 
-                        return ;
-                    }
-                }
-                List<BookOrder> bookOrders = gson.fromJson(response, new TypeToken<List<BookOrder>>(){}.getType());
-                Log.v(TAG, "response:=" + bookOrders.toString());
-                if(null != bookOrders && bookOrders.size() > 0){
-                    if (mCurrentPage == 1) {
-                        mBookOrders = new ArrayList<>();
-                        mBookOrders.addAll(bookOrders);
-                        mBookOrderAdapter = new BookOrderAdapter(mBookOrders,
-                                HistoryOrderActivtiy.this);
-                        mSlvBookOrder.setAdapter(mBookOrderAdapter);
-                        mCurrentPage++;//进入第2页
-                    } else {
-                        mBookOrders.addAll(bookOrders);
-                        int lastPosition = mCurrentPage * 10 - 1;
-                        mCurrentPage++;//当前页+1
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    BaseResponse baseResponse = gson.fromJson(result.rawResult,BaseResponse.class);
+                    if(baseResponse.isSet()){
+                        //删除成功
+                        mBookOrders.remove(position);
                         mBookOrderAdapter.notifyDataSetChanged();
-                        mSlvBookOrder.setSelection(lastPosition + 1);
+                        mSlvBookOrder.setSelection(position - 1);
                     }
-                }
-            }
-        };
 
-        getOrdersErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                mSlvBookOrder.refreshFinish();//结束刷新状态
-                volleyError.printStackTrace();
-            }
-        };
-    }
-
-    /**
-     * 创建获取网络数据监听
-     */
-    private void createUpdateOrderListener(final int postion) {
-        updateOrderListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                LogUtil.getInstance().info(LogLevel.INFO, "response:=" + response);
-                if(JsonUtil.isJsonNull(response)) {
-                    return ;
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
 
-                Gson gson = new Gson();
-                //判断返回值
-                if(response.toUpperCase().contains("SET")){
-                    JSONObject resultObject = gson.fromJson(response, JSONObject.class);
-                    try {
-                        Boolean updateSuccess = (Boolean) resultObject.get("set");
-                        if(!updateSuccess){
-                            if(null != resultObject.get("err")){
-                                int errCode = (int) resultObject.get("err");
-                                if(400 == errCode){
-                                    LogUtil.getInstance().info(LogLevel.ERROR, "当前用户没有操作权限");
-                                }
-                            }
-                        } else {
-                            //删除成功
-                            mBookOrders.remove(postion);
-                            mBookOrderAdapter.notifyDataSetChanged();
-                            mSlvBookOrder.setSelection(postion - 1);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
-        };
 
-        updateOrderErrorListener = new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                volleyError.printStackTrace();
+            public void beforeNetworkRequestStart() {
+
             }
-        };
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
 }

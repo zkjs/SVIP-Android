@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -18,23 +19,23 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
+
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
-import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.ext.ShopListManager;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
@@ -47,14 +48,14 @@ import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
-import com.zkjinshi.svip.vo.TicketVo;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+
 
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.Tag;
@@ -69,6 +70,8 @@ import me.kaede.tagview.TagView;
  * 版权所有
  */
 public class OrderDetailActivity extends Activity{
+
+    private final static String TAG = OrderDetailActivity.class.getSimpleName();
 
     private ItemTitleView   mTitle;
     private TextView        mRoomType;
@@ -141,51 +144,52 @@ public class OrderDetailActivity extends Activity{
 
     //根据订单号加载订单详细信息。
     private void loadOrderInfoByReservationNo() {
-        MineNetController.getInstance().init(this);
-        if(CacheUtil.getInstance().getToken() == null){
-            return;
-        }
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                ProtocolUtil.getOneOrderUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取单个订单响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try{
-                                orderDetailResponse = new Gson().fromJson(response,OrderDetailResponse.class);
-                            }catch (Exception e){
-                                orderDetailResponse = null;
-                                LogUtil.getInstance().info(LogLevel.ERROR, "获取单个订单错误信息:" +  e.getMessage());
-                                DialogUtil.getInstance().showToast(OrderDetailActivity.this,"获取订单详情失败");
-                                finish();
-                            }
-
-                            if(orderDetailResponse != null){
-                                initData();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url =  ProtocolUtil.getOneOrderUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("reservation_no", reservationNo);
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取单个订单错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        }){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("reservation_no", reservationNo);
-                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
-                return map;
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    orderDetailResponse = new Gson().fromJson( result.rawResult,OrderDetailResponse.class);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    orderDetailResponse = null;
+                    DialogUtil.getInstance().showToast(OrderDetailActivity.this,"获取订单详情失败");
+                    finish();
+                }
+                if(orderDetailResponse != null){
+                    initData();
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     private void initView() {
@@ -709,105 +713,117 @@ public class OrderDetailActivity extends Activity{
 
     //取消订单
     private void cancelOrder(){
-        MineNetController.getInstance().init(this);
-        if(CacheUtil.getInstance().getToken() == null){
-            return;
-        }
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                ProtocolUtil.updateOrderUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.ERROR, "取消订单响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
-                            if(baseResponse.isSet()){
-                                Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
-                                intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                                intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                                intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.slide_in_right,
-                                        R.anim.slide_out_left);
-                                finish();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url = ProtocolUtil.updateOrderUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("reservation_no", reservationNo);
+        bizMap.put("status","1");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "取消订单错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        }){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //status 订单状态=2 确认 , 1 取消 *
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("reservation_no", reservationNo);
-                map.put("status","1");
-                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
-                return map;
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
+                    if(baseResponse.isSet()){
+                        Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                        intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                        finish();
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     //确认订单
     private void confirmOrder() {
-
-        MineNetController.getInstance().init(this);
-        if(CacheUtil.getInstance().getToken() == null){
-            return;
-        }
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                ProtocolUtil.updateOrderUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.ERROR, "确认订单响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
-                           if(baseResponse.isSet()){
-                               Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
-                               intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                               intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                               intent.putExtra("text_context", "您好，我已确认该订单，请跟进。");
-                               startActivity(intent);
-                               overridePendingTransition(R.anim.slide_in_right,
-                                       R.anim.slide_out_left);
-                               finish();
-                           }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url =  ProtocolUtil.updateOrderUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = generatedPostParm();
+        bizMap.put("status","2");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.ERROR, "确认订单错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        }){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //status 订单状态=2 确认 , 1 取消 *
-                Map<String, String> map = generatedPostParm();
-                map.put("status","2");
-                LogUtil.getInstance().info(LogLevel.ERROR,"map="+map.toString());
-                return map;
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR,stringRequest.toString());
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
+                    if(baseResponse.isSet()){
+                        Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                        intent.putExtra("text_context", "您好，我已确认该订单，请跟进。");
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                        finish();
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     //产生post 表单参数
-    private Map<String, String> generatedPostParm(){
-        Map<String, String> map = new HashMap<String, String>();
+    private HashMap<String, String> generatedPostParm(){
+        HashMap<String, String> map = new HashMap<String, String>();
         map.put("userid", CacheUtil.getInstance().getUserId());
         map.put("token", CacheUtil.getInstance().getToken());
         map.put("reservation_no", reservationNo);

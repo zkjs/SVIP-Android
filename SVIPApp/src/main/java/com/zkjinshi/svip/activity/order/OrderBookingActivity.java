@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -39,6 +40,11 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
@@ -76,7 +82,7 @@ import me.kaede.tagview.TagView;
  * 版权所有
  */
 public class OrderBookingActivity extends Activity{
-
+    private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
     private ItemTitleView   mTitle;
     private TextView        mRoomType;
@@ -223,131 +229,56 @@ public class OrderBookingActivity extends Activity{
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
 
-        stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getGoodListUrl(shopId),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Type listType = new TypeToken<List<GoodInfoResponse>>(){}.getType();
-                                Gson gson = new Gson();
-                                goodResponsseList = gson.fromJson(response, listType);
-                                if(null != goodResponsseList && !goodResponsseList.isEmpty()){
-                                    goodInfoList = GoodInfoFactory.getInstance().bulidGoodList(goodResponsseList);
-                                    if(null != goodInfoList && !goodInfoList.isEmpty()){
-                                        GoodInfoVo goodInfoVo = goodInfoList.get(0);
-                                        lastGoodInfoVo = goodInfoVo;
-                                        setOrderRoomType(goodInfoVo);
-                                    }
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                                LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url = ProtocolUtil.getGoodListUrl(shopId);
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<List<GoodInfoResponse>>(){}.getType();
+                     Gson gson = new Gson();
+                     goodResponsseList = gson.fromJson(result.rawResult, listType);
+                     if(null != goodResponsseList && !goodResponsseList.isEmpty()){
+                         goodInfoList = GoodInfoFactory.getInstance().bulidGoodList(goodResponsseList);
+                         if(null != goodInfoList && !goodInfoList.isEmpty()){
+                             GoodInfoVo goodInfoVo = goodInfoList.get(0);
+                             lastGoodInfoVo = goodInfoVo;
+                             setOrderRoomType(goodInfoVo);
+                         }
+                     }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
             }
         });
-        if(NetWorkUtil.isNetworkConnected(this)){
-            LogUtil.getInstance().info(LogLevel.ERROR, "获取商品列表:" +  stringRequest.toString());
-            GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
-        }
-
-        initRoomTags();
-        initServiceTags();
-        initTicket();
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
 
     }
 
-    //初始化发票
-    private void initTicket() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ProtocolUtil.geTicketListUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        mTvTicket.setText("");
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "默认发票响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Gson gson = new Gson();
-                                tickeVo = gson.fromJson(response, TicketVo.class);
-                                if(null != tickeVo){
-                                    mTvTicket.setText(tickeVo.getInvoice_title());
-                                }else{
-                                    mTvTicket.setText("");
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                mTvTicket.setText("");
-                LogUtil.getInstance().info(LogLevel.INFO, "获取默认发票错误信息:" +  error.getMessage());
-            }
-        }){
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("set","1");
-                return map;
-            }
-        };
-        if(NetWorkUtil.isNetworkConnected(this)){
-            GoodListNetController.getInstance().requestGetGoodListTask(stringRequest);
-        }
-    }
 
-    //初始化房间选项标签
-    private void initRoomTags() {
-        mRoomTagView.addTag(createTag(1,"无烟房",true));
-        mRoomTagView.addTag(createTag(2,"视野好",false));
-        mRoomTagView.addTag(createTag(3,"加床",false));
-        mRoomTagView.addTag(createTag(4,"安静",false));
-        mRoomTagView.addTag(createTag(5,"离电梯近",false));
-       // mRoomTagView.addTag(createTag(0,"添加更多",false));
-    }
-
-    //初始化其他服务标签
-    private void initServiceTags() {
-        mServiceTagView.addTag(createTag(1,"免前台",true));
-        mServiceTagView.addTag(createTag(2,"接机服务",false));
-      //  mServiceTagView.addTag(createTag(0,"添加更多",false));
-    }
-
-    private Tag createTag(int id,String tagstr,boolean isChecked){
-        Tag tag = new Tag(id,tagstr);
-        tag.tagTextColor = Color.parseColor("#000000");
-        tag.layoutColor  =  Color.parseColor("#ffffff");
-        tag.layoutColorPress = Color.parseColor("#DDDDDD");
-        //or tag.background = this.getResources().getDrawable(R.drawable.custom_bg);
-        tag.radius = 40f;
-        tag.tagTextSize = 18f;
-        tag.layoutBorderSize = 1f;
-        tag.layoutBorderColor = Color.parseColor("#000000");
-        tag.deleteIndicatorColor =  Color.parseColor("#ff0000");
-        tag.deleteIndicatorSize =  18f;
-        tag.isDeletable = true;
-        if(isChecked){
-            tag.deleteIcon = "√";
-        }else{
-            tag.deleteIcon = "";
-        }
-
-        return tag;
-    }
 
     //设置离开和到达的日期
     private void setOrderDate(ArrayList<Calendar> calendarList){
@@ -461,22 +392,6 @@ public class OrderBookingActivity extends Activity{
             }
         });
 
-//        for(int i=0;i<customerList.size();i++){
-//            final int index = i;
-//            customerList.get(i).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    ItemUserSettingView setView = (ItemUserSettingView)view;
-//                    Intent intent = new Intent(OrderBookingActivity.this, AddPeopleActivity.class);
-//                    intent.putExtra("name", setView.getTextContent2());
-//                    intent.putExtra("index",index);
-//                    intent.putExtra("title", "设置"+setView.getmTextTitle().getText().toString());
-//                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
-//                    overridePendingTransition(R.anim.slide_in_right,
-//                            R.anim.slide_out_left);
-//                }
-//            });
-//        }
 
         for(int i=0;i<customerList.size();i++){
             final int index = i;

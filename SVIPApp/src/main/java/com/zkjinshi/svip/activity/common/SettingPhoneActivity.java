@@ -29,6 +29,11 @@ import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.http.post.HttpRequest;
 import com.zkjinshi.svip.http.post.HttpRequestListener;
 import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -36,9 +41,6 @@ import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -452,69 +454,69 @@ public class SettingPhoneActivity extends Activity {
         });
     }
 
-    /**
-     * create listener for getphone
-     */
-    private void createGetPhoneListenr() {
-        getPhoneListener = new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, response);
-                if(JsonUtil.isJsonNull(response))
-                    return ;
-                //解析json数据
-
-                BaseResponse baseResponse = new Gson().fromJson(response,BaseResponse.class);
-                //如果用户不存在
-                if(!baseResponse.isSet()){
-                    LogUtil.getInstance().info(LogLevel.INFO, "用户不存在！");
-                    String inputPhone = mInputPhone.getText().toString();
-                    submitInfo("phone",inputPhone);
-
-                }
-                else{//用户已经存在
-                    LogUtil.getInstance().info(LogLevel.INFO, "用户已经存在！");
-                   // DialogUtil.getInstance().showCustomToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。", Gravity.CENTER);
-                    new AlertDialog.Builder(SettingPhoneActivity.this)
-                            .setTitle("警告")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setMessage("该手机号码已经注册过，不能修改。")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            })
-                            .show();
-                }
-            }
-        };
-
-        //getuser error listener
-        getPhoneErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                DialogUtil.getInstance().cancelProgressDialog();
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取用户失败。"+volleyError.toString());
-            }
-        };
-    }
 
     /**
      * 获取用户
      *
      */
     public void getPhone(String phone){
+        String url = Constants.POST_GET_PHONE_URL+"phone="+phone;
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
 
-        String url =  Constants.POST_GET_PHONE_URL+"phone="+phone;
-        Log.v("msg", "url：" + url.toString());
-        createGetPhoneListenr();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.GET, url, getPhoneListener, getPhoneErrorListener);
-        DialogUtil.getInstance().showProgressDialog(SettingPhoneActivity.this);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
+                    //如果用户不存在
+                    if(!baseResponse.isSet()){
+                        LogUtil.getInstance().info(LogLevel.INFO, "用户不存在！");
+                        String inputPhone = mInputPhone.getText().toString();
+                        submitInfo("phone", inputPhone);
+
+                    }
+                    else{//用户已经存在
+                        LogUtil.getInstance().info(LogLevel.INFO, "用户已经存在！");
+                        // DialogUtil.getInstance().showCustomToast(SettingPhoneActivity.this, "该手机号码已经注册过，不能修改。", Gravity.CENTER);
+                        new AlertDialog.Builder(SettingPhoneActivity.this)
+                                .setTitle("警告")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setMessage("该手机号码已经注册过，不能修改。")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                })
+                                .show();
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 }

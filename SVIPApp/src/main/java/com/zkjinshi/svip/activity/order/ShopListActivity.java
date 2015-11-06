@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -23,12 +24,19 @@ import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.factory.ShopInfoFactory;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.ShopInfoResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.ShopInfoVo;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,6 +47,8 @@ import java.util.List;
  * 版权所有
  */
 public class ShopListActivity extends Activity{
+
+    private final static String TAG = ShopListActivity.class.getSimpleName();
 
 //    private ImageButton backIBtn;
 //    private TextView searchTv;
@@ -58,38 +68,50 @@ public class ShopListActivity extends Activity{
 
     private void initData(){
         mTitle.setTextTitle("选择酒店");
-        ShopListNetController.getInstance().init(this);
-        stringRequest = new StringRequest(Request.Method.GET, Constants.GET_SHOP_LIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取商户列表响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Type listType = new TypeToken<List<ShopInfoResponse>>(){}.getType();
-                                Gson gson = new Gson();
-                                shopResponseList = gson.fromJson(response, listType);
-                                if(null != shopResponseList && !shopResponseList.isEmpty()){
-                                    shopInfoList = ShopInfoFactory.getInstance().bulidShopList(shopResponseList);
-                                    shopAdapter = new ShopAdapter(shopInfoList,ShopListActivity.this);
-                                    shopListView.setAdapter(shopAdapter);
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();;
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+
+        String url = Constants.GET_SHOP_LIST;
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取商户列表错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<List<ShopInfoResponse>>(){}.getType();
+                    Gson gson = new Gson();
+                    shopResponseList = gson.fromJson(result.rawResult, listType);
+                    if(null != shopResponseList && !shopResponseList.isEmpty()){
+                        shopInfoList = ShopInfoFactory.getInstance().bulidShopList(shopResponseList);
+                        shopAdapter = new ShopAdapter(shopInfoList,ShopListActivity.this);
+                        shopListView.setAdapter(shopAdapter);
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
             }
         });
-        if(NetWorkUtil.isNetworkConnected(this)){
-            ShopListNetController.getInstance().requestGetShopListTask(stringRequest);
-        }
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     private void initListeners(){

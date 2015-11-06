@@ -27,12 +27,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
+
 import com.google.gson.Gson;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -47,19 +47,22 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.mine.MineActivity;
+
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
-import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
+
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
-import com.zkjinshi.svip.vo.UserDetailVo;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+
+
 
 /**
  * 开发者：JimmyZhang
@@ -563,45 +566,7 @@ public class LoginActivity extends Activity{
         }).start();
     }
 
-    /**
-     * create listener for register
-     */
-    private void createRegisterListenr() {
-        registerListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if(JsonUtil.isJsonNull(response))
-                    return ;
-                //解析json数据
-                Map regMap = JsonUtil.toMap(response);
-                Boolean isRegSuccess = (Boolean) regMap.get("set");
-                if(isRegSuccess){
-                    String userid = (String) regMap.get("userid");
-                    String token  = (String) regMap.get("token");
-                    Boolean isOld = (Boolean) regMap.get("old");
 
-                    //更新为最新的token和userid
-                    CacheUtil.getInstance().setToken(token);
-                    CacheUtil.getInstance().setUserId(userid);
-                    CacheUtil.getInstance().setLogin(true);
-                    DBOpenHelper.DB_NAME = userid +".db";
-                    LoginController.getInstance().getUserDetailInfo(userid, token, true,null);
-
-                }else {
-                    LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
-                }
-            }
-        };
-
-        //register error listener
-        registerErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.INFO, "网络登录失败。"+volleyError.toString());
-            }
-        };
-    }
 
 
 
@@ -610,96 +575,141 @@ public class LoginActivity extends Activity{
      * @param phoneNumber   手机号
      */
     public void requestLogin(final String phoneNumber){
-        createRegisterListenr();
-        DataRequestVolley signUpRequest = new DataRequestVolley(
-                HttpMethod.POST, Constants.POST_LOGIN_URL, registerListener, registerErrorListener){
+        String url =  Constants.POST_LOGIN_URL;
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("phone",phoneNumber);
+        bizMap.put("userstatus","2");
+        DeviceUtils.init(LoginActivity.this);
+        bizMap.put("phone_os", DeviceUtils.getOS()+" "+DeviceUtils.getSdk());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                DeviceUtils.init(LoginActivity.this);
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("phone", phoneNumber);
-                map.put("userstatus", "2");
-                map.put("phone_os", DeviceUtils.getOS()+" "+DeviceUtils.getSdk() );
-                LogUtil.getInstance().info(LogLevel.INFO, map.toString());
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.INFO,signUpRequest.toString());
-        LoginController.getInstance().addToRequestQueue(signUpRequest);
-    }
-
-
-
-    /**
-     * create listener for getuser
-     */
-    private void createGetuserListenr() {
-        getUserListener = new Response.Listener<String>() {
 
             @Override
-            public void onResponse(String response) {
-                LogUtil.getInstance().info(LogLevel.INFO,response.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response))
-                    return ;
-                //解析json数据
+            public void onNetworkRequestCancelled() {
 
-                Gson gson = new Gson();
-                GetUserResponse getUserResponse = gson.fromJson(response,GetUserResponse.class);
-                //如果用户不存在
-                if(!getUserResponse.isSet()){
-                    LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
+            }
 
-                    if (thirdBundleData != null) {
-                        Intent intent = new Intent(LoginActivity.this, OauthLoginActivity.class);
-                        intent.putExtra("from_third", true);
-                        intent.putExtras(thirdBundleData);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        //TODO: 加入完善资料操作
-                        String inputPhone = mInputPhone.getText().toString();
-                        requestLogin(inputPhone);//验证码输入正确，请求登录
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    if(JsonUtil.isJsonNull(result.rawResult))
+                        return ;
+                    //解析json数据
+                    Map regMap = JsonUtil.toMap(result.rawResult);
+                    Boolean isRegSuccess = (Boolean) regMap.get("set");
+                    if(isRegSuccess){
+                        String userid = (String) regMap.get("userid");
+                        String token  = (String) regMap.get("token");
+                        Boolean isOld = (Boolean) regMap.get("old");
+
+                        //更新为最新的token和userid
+                        CacheUtil.getInstance().setToken(token);
+                        CacheUtil.getInstance().setUserId(userid);
+                        CacheUtil.getInstance().setLogin(true);
+                        DBOpenHelper.DB_NAME = userid +".db";
+                        LoginController.getInstance().getUserDetailInfo(userid, token, true, null);
+
+                    }else {
+                        LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
                     }
 
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
-                else if (getUserResponse.isSet()){//用户已经存在
-                    LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户已经存在！");
-                    String userid = getUserResponse.getUserid();
-                    String token  = getUserResponse.getToken();
 
-                    //更新为最新的token和userid
-                    CacheUtil.getInstance().setToken(token);
-                    CacheUtil.getInstance().setUserId(userid);
-                    CacheUtil.getInstance().setLogin(true);
-                    DBOpenHelper.DB_NAME = userid +".db";
-                    LoginController.getInstance().getUserDetailInfo(userid, token, false,null);
-
-                }
             }
-        };
 
-        //getuser error listener
-        getUserErrorListener = new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError){
-                volleyError.printStackTrace();
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取用户失败。"+volleyError.toString());
+            public void beforeNetworkRequestStart() {
+
             }
-        };
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
+
 
     /**
      * 获取用户
      */
     public void getUser(String idValue){
-        String url =  Constants.POST_GET_USER_URL+"id="+idValue;
-        createGetuserListenr();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.GET, url,getUserListener,getUserErrorListener);
-        DialogUtil.getInstance().showProgressDialog(this);
-        LoginController.getInstance().addToRequestQueue(request);
+        String url = Constants.POST_GET_USER_URL+"id="+idValue;
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    GetUserResponse getUserResponse = gson.fromJson(result.rawResult,GetUserResponse.class);
+                    //如果用户不存在
+                    if(!getUserResponse.isSet()){
+                        LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户不存在！");
+
+                        if (thirdBundleData != null) {
+                            Intent intent = new Intent(LoginActivity.this, OauthLoginActivity.class);
+                            intent.putExtra("from_third", true);
+                            intent.putExtras(thirdBundleData);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            //TODO: 加入完善资料操作
+                            String inputPhone = mInputPhone.getText().toString();
+                            requestLogin(inputPhone);//验证码输入正确，请求登录
+                        }
+
+                    }
+                    else if (getUserResponse.isSet()){//用户已经存在
+                        LogUtil.getInstance().info(LogLevel.INFO, "LoginActivity_用户已经存在！");
+                        String userid = getUserResponse.getUserid();
+                        String token  = getUserResponse.getToken();
+
+                        //更新为最新的token和userid
+                        CacheUtil.getInstance().setToken(token);
+                        CacheUtil.getInstance().setUserId(userid);
+                        CacheUtil.getInstance().setLogin(true);
+                        DBOpenHelper.DB_NAME = userid +".db";
+                        LoginController.getInstance().getUserDetailInfo(userid, token, false,null);
+
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     private String strContent;

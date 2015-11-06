@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,25 +23,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DeviceUtils;
+
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.DisplayUtil;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
+
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.TagInfoVo;
-import com.zkjinshi.svip.vo.UserDetailVo;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+
 
 
 import java.util.ArrayList;
@@ -260,57 +263,61 @@ public class SettingTagsActivity extends Activity{
 
     //保存喜好标签
     private void saveTags() {
-        createSaveTagsListenr();
-        DataRequestVolley requestString = new DataRequestVolley(
-                HttpMethod.POST,ProtocolUtil.getPostTagsUrl(), saveTagsListener, saveTagsErrorListener){
+        String url = ProtocolUtil.getPostTagsUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("tagid", getCheckedTagIds() );
+        bizMap.put("tagopen", mIsTagOpen?"1":"0" );
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("tagid", getCheckedTagIds() );
-                map.put("tagopen", mIsTagOpen?"1":"0" );
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.INFO, requestString.toString());
-        DialogUtil.getInstance().showProgressDialog(this);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(requestString);
-    }
-
-    //注册提交标签时的监听器
-    private void createSaveTagsListenr() {
-        saveTagsListener = new Response.Listener<String>() {
 
             @Override
-            public void onResponse(String response) {
-                LogUtil.getInstance().info(LogLevel.INFO,response.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response))
-                    return ;
-                //解析json数据
-                Gson gson = new Gson();
-                BaseResponse baseResponseVo = gson.fromJson(response, BaseResponse.class);
-                if(baseResponseVo.isSet()){
-                    CacheUtil.getInstance().saveTagsOpen(mIsTagOpen);
-                    DialogUtil.getInstance().showToast(SettingTagsActivity.this, "保存标签信息成功");
-                    finish();
-                }else{
-                    DialogUtil.getInstance().showToast(SettingTagsActivity.this,"保存标签信息失败");
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    //解析json数据
+                    Gson gson = new Gson();
+                    BaseResponse baseResponseVo = gson.fromJson(result.rawResult, BaseResponse.class);
+                    if(baseResponseVo.isSet()){
+                        CacheUtil.getInstance().saveTagsOpen(mIsTagOpen);
+                        DialogUtil.getInstance().showToast(SettingTagsActivity.this, "保存标签信息成功");
+                        finish();
+                    }else{
+                        DialogUtil.getInstance().showToast(SettingTagsActivity.this, "保存标签信息失败");
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
-            }
-        };
 
-        saveTagsErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                DialogUtil.getInstance().cancelProgressDialog();
-                DialogUtil.getInstance().showToast(SettingTagsActivity.this, "保存标签信息失败");
-                LogUtil.getInstance().info(LogLevel.INFO, "保存标签信息失败"+volleyError.toString());
             }
-        };
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
+
+
 
     //获取用逗号分割的tagid
     public String getCheckedTagIds(){

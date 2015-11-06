@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,26 +24,30 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.response.BaseResponse;
+
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.InsertResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.JsonUtil;
+
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
-import com.zkjinshi.svip.volley.DataRequestVolley;
-import com.zkjinshi.svip.volley.HttpMethod;
-import com.zkjinshi.svip.volley.RequestQueueSingleton;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * Created by djd on 2015/8/28.
  */
 public class ChoosePeopleActivity extends Activity {
+    private final static String TAG = ChoosePeopleActivity.class.getSimpleName();
 
     private EditText mEtInput;
     private ItemTitleView mTitle;
@@ -51,9 +56,6 @@ public class ChoosePeopleActivity extends Activity {
 
     private ArrayList<OrderUsersResponse> listData = new ArrayList<OrderUsersResponse>();
     private MyAdapter myAdapter;
-
-    private Response.Listener<String> loadPeopleListListener , addPeopleListener;
-    private Response.ErrorListener   loadTicketsListErrorListener , addPeopleErrorListener;
     private int mIndex;
 
     private class MyAdapter extends BaseAdapter{
@@ -168,103 +170,108 @@ public class ChoosePeopleActivity extends Activity {
 
     //添加入住人
     private void addPeople(final String realname){
-        DialogUtil.getInstance().showProgressDialog(this);
-        createAddPeopleListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.addPeopleListUrl(), addPeopleListener, addPeopleErrorListener){
+
+        String url = ProtocolUtil.addPeopleListUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("realname",realname);
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                map.put("realname",realname);
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    InsertResponse insertResponse = new Gson().fromJson(result.rawResult,InsertResponse.class);
+                    if(insertResponse.isSet()){
+                        Intent intent = new Intent();
+                        OrderUsersResponse orderUsersResponse = new OrderUsersResponse();
+                        orderUsersResponse.setId(insertResponse.getId());
+                        orderUsersResponse.setRealname(mEtInput.getText().toString());
+                        intent.putExtra("selectPeople", orderUsersResponse);
+                        intent.putExtra("index",mIndex);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }else{
+                        LogUtil.getInstance().info(LogLevel.ERROR, "添加入住人失败。");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
-    private void createAddPeopleListener() {
-        addPeopleListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
-                }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                InsertResponse insertResponse = new Gson().fromJson(response,InsertResponse.class);
-                if(insertResponse.isSet()){
-                    Intent intent = new Intent();
-                    OrderUsersResponse orderUsersResponse = new OrderUsersResponse();
-                    orderUsersResponse.setId(insertResponse.getId());
-                    orderUsersResponse.setRealname(mEtInput.getText().toString());
-                    intent.putExtra("selectPeople", orderUsersResponse);
-                    intent.putExtra("index",mIndex);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }else{
-                    LogUtil.getInstance().info(LogLevel.ERROR, "添加入住人失败。" );
-                }
-            }
-        };
 
-        //error listener
-        addPeopleErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "添加入住人失败。" + volleyError.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
-            }
-        };
-    }
 
     //加载发票列表
     private void loadPeopleList() {
-        DialogUtil.getInstance().showProgressDialog(this);
-        createLoadTicketListListener();
-        DataRequestVolley request = new DataRequestVolley(
-                HttpMethod.POST, ProtocolUtil.getPeopleListUrl(), loadPeopleListListener, loadTicketsListErrorListener){
+        String url =  ProtocolUtil.getPeopleListUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("userid", CacheUtil.getInstance().getUserId());
-                map.put("token", CacheUtil.getInstance().getToken());
-                return map;
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
             }
-        };
-        LogUtil.getInstance().info(LogLevel.ERROR, "request：" + request.toString());
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-    }
 
-    //加载发票列表监听
-    private void createLoadTicketListListener() {
-        loadPeopleListListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                if(JsonUtil.isJsonNull(response)){
-                    return ;
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    listData = gson.fromJson( result.rawResult, new TypeToken<ArrayList<OrderUsersResponse>>(){}.getType());
+                    myAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
-                //解析json数据
-                LogUtil.getInstance().info(LogLevel.ERROR, "public void onResponse:\n"+response);
-                Gson gson = new Gson();
-                listData = gson.fromJson(response, new TypeToken<ArrayList<OrderUsersResponse>>(){}.getType());
-                myAdapter.notifyDataSetChanged();
-            }
-        };
 
-        //error listener
-        loadTicketsListErrorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(com.android.volley.VolleyError volleyError) {
-                volleyError.printStackTrace();
-                LogUtil.getInstance().info(LogLevel.ERROR, "获取入住人列表失败。" + volleyError.toString());
-                DialogUtil.getInstance().cancelProgressDialog();
             }
-        };
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
+
+
 }
