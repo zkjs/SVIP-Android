@@ -24,13 +24,10 @@ import com.google.gson.Gson;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
-import com.zkjinshi.base.net.observer.IMessageObserver;
-import com.zkjinshi.base.net.observer.MessageSubject;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.jsonbean.InviteCodeBean;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
@@ -57,7 +54,7 @@ import java.util.HashMap;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class InviteCodeActivity extends Activity implements IMessageObserver{
+public class InviteCodeActivity extends Activity {
 
     private Context       mContext;
     private String        mUserID;
@@ -82,7 +79,6 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_code);
 
-        addObservers();
         initView();
         initData();
         initListener();
@@ -131,7 +127,6 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
             public void afterTextChanged(Editable inviteCode) {
                 String inviteCodeStr = inviteCode.toString();
                 if (inviteCodeStr.length() >= 6) {
-                    //TODO 执行view动画 显示专属服务员信息
                     String upperCode = inviteCodeStr.toUpperCase();
                     findSalerByInviteCode(upperCode);
                 }
@@ -165,12 +160,6 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
                 }
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        removeObservers();
-        super.onDestroy();
     }
 
     /**
@@ -207,10 +196,9 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
                     JSONObject responseObj = new JSONObject(jsonResult);
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
-                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                     "恭喜，成功使用邀请码并绑定专属客服。", Gravity.CENTER);
+//                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+//                                     "恭喜，成功使用邀请码并绑定专属客服。", Gravity.CENTER);
 
-                        //TODO 发送消息协议通知超级服务端
                         Gson gson = new Gson();
                         InviteCodeBean codeBean = new InviteCodeBean();
                         codeBean.setDate(System.currentTimeMillis());
@@ -269,12 +257,14 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
-                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this, "网络异常", Gravity.CENTER);
+                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                              getString(R.string.net_exception), Gravity.CENTER);
             }
 
             @Override
             public void onNetworkRequestCancelled() {
-                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this, "请求取消", Gravity.CENTER);
+                DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                              getString(R.string.request_cancel), Gravity.CENTER);
             }
 
             @Override
@@ -293,7 +283,7 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
                         }
                     } else {
                         DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                "登录异常，请退出后重新登陆", Gravity.CENTER);
+                                "邀请码输入错误，请重新输入！", Gravity.CENTER);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -342,12 +332,14 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
 
         if ((mLlSalerInfo.getVisibility() == View.VISIBLE) && !show) {
             animation = new AnimatorSet();
-            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", 0, (5/4) * mEtInviteCode.getHeight());
+            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", 0,
+                                                      (5/4) * mEtInviteCode.getHeight());
             ObjectAnimator fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 1, 0);
             animation.playTogether(move, fade);
         } else if ((mLlSalerInfo.getVisibility() != View.VISIBLE) && show) {
             animation = new AnimatorSet();
-            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", (5/4) * mEtInviteCode.getHeight(), 0);
+            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY",
+                                                (5/4) * mEtInviteCode.getHeight(), 0);
             ObjectAnimator fade;
             if (mEtInviteCode.isFocused()) {
                 fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 0, 1);
@@ -358,13 +350,15 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
         }
 
         /** 设置头像显示和姓名显示 */
-        if(show && !TextUtils.isEmpty(avatarUrl)){
-            System.out.println("avatarUrl:" + avatarUrl);
-            ImageLoader.getInstance().displayImage(avatarUrl, mCivSalerAvatar, mOptions);
-        }
+        if(show){
+            SoftInputUtil.hideSoftInputMode(InviteCodeActivity.this, mEtInviteCode);
 
-        if(show && !TextUtils.isEmpty(salerName)){
-            mTvSalerName.setText(salerName);
+            if(!TextUtils.isEmpty(avatarUrl)){
+                ImageLoader.getInstance().displayImage(avatarUrl, mCivSalerAvatar, mOptions);
+            }
+            if(!TextUtils.isEmpty(salerName)){
+                mTvSalerName.setText(salerName);
+            }
         }
 
         if (animation != null) {
@@ -384,57 +378,6 @@ public class InviteCodeActivity extends Activity implements IMessageObserver{
             });
             animation.start();
         }
-    }
-
-    @Override
-    public void receive(String message) {
-        LogUtil.getInstance().info(LogLevel.INFO, message.toString());
-        if(TextUtils.isEmpty(message))
-            return ;
-
-        try {
-            JSONObject messageObj = new JSONObject(message);
-            int type = messageObj.getInt("type");
-
-            if(ProtocolMSG.MSG_UserDefine_RSP == type){
-                Gson gson = new Gson();
-                MsgUserDefineRSP msgUserDefineRSP = gson.fromJson(message, MsgUserDefineRSP.class);
-                int pushResult = msgUserDefineRSP.getResult();
-                switch (pushResult) {
-                    case MsgUserDefineRSP.PUSH_SUCCESS:
-                        LogUtil.getInstance().info(LogLevel.INFO, "push_success");
-                        break;
-                    case MsgUserDefineRSP.PUSH_FAILED:
-                        LogUtil.getInstance().info(LogLevel.INFO, "push_failed");
-                        break;
-                    case MsgUserDefineRSP.PUSH_OFFLINE_SUCCESS:
-                        LogUtil.getInstance().info(LogLevel.INFO, "push_offline_success");
-                        break;
-                    case MsgUserDefineRSP.PUSH_OFFLINE_FAILED:
-                        LogUtil.getInstance().info(LogLevel.INFO, "push_offline_failed");
-                        break;
-                    case MsgUserDefineRSP.PUSH_AS_OFFLINE_MSG:
-                        LogUtil.getInstance().info(LogLevel.INFO, "push_as_offline_msg");
-                        break;
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 添加EventBus消息通知观察者
-     */
-    private void addObservers() {
-        MessageSubject.getInstance().addObserver(this, ProtocolMSG.MSG_UserDefine_RSP);
-    }
-
-    /**
-     * 删除EventBus消息通知观察者
-     */
-    private void removeObservers() {
-        MessageSubject.getInstance().removeObserver(this, ProtocolMSG.MSG_UserDefine_RSP);
     }
 
 }

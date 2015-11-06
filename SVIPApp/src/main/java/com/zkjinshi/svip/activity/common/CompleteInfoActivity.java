@@ -167,13 +167,15 @@ public class CompleteInfoActivity extends Activity {
                 //验证昵称
                 String nickName = mEtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
-                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "请输入昵称", Gravity.CENTER);
+                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
+                            getString(R.string.please_input_nickname), Gravity.CENTER);
                     return;
                 }
 
                 //性别选择
                 if (!mRbMale.isChecked() && !mRbFemale.isChecked()) {
-                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "请选择性别", Gravity.CENTER);
+                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
+                                getString(R.string.please_choose_sex), Gravity.CENTER);
                     return;
                 }
 
@@ -223,8 +225,7 @@ public class CompleteInfoActivity extends Activity {
                             if (null != baseResponse && baseResponse.isSet()) {
                                 ImageLoader.getInstance().clearDiskCache();
                                 ImageLoader.getInstance().clearMemoryCache();
-                                DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, CompleteInfoActivity.this.getString(
-                                                                         R.string.update_user_info_success), Gravity.CENTER);
+
                                 //进入邀请码页面，并输入邀请码
                                 Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
                                 CompleteInfoActivity.this.startActivity(goInviteCode);
