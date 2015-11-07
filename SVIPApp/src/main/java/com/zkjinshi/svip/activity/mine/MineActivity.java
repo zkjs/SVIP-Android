@@ -312,7 +312,6 @@ public class MineActivity extends Activity{
         mobilePhoneStr = userInfoVo.getMobilePhoto();
         positionStr = userInfoVo.getPosition();
         companyStr = userInfoVo.getCompany();
-        userPhotoSuffix = userInfoVo.getUserAvatar();
         sex = userInfoVo.getSex();
         if(!TextUtils.isEmpty(userNameStr)){
             userNameEtv.setText(userNameStr);
@@ -332,11 +331,6 @@ public class MineActivity extends Activity{
             bogyRBtn.setChecked(true);
         }else {
             girlRBtn.setChecked(true);
-        }
-        if(!TextUtils.isEmpty(userPhotoSuffix)){
-            userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
-            CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
-            MineUiController.getInstance().setUserPhoto(userPhotoUrl,photoImageView);
         }
     }
 }

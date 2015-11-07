@@ -22,9 +22,10 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BaseBean;
-import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.bean.EvaluateBean;
 import com.zkjinshi.svip.bean.HeadBean;
+import com.zkjinshi.svip.bean.OrderDetailBean;
+import com.zkjinshi.svip.bean.UserBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -32,12 +33,14 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.EvaluateResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.response.OrderEvaluateResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.EvaluateLevel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -145,18 +148,11 @@ public class OrderEvaluateActivity extends Activity{
                     String checkInDate = bookOrder.getArrival_date();
                     String checkOutDate = bookOrder.getDeparture_date();
                     checkInDateTv.setText(checkInDate + "到" + checkOutDate);
-                    String guest = bookOrder.getGuest();
-                    if(!TextUtils.isEmpty(guest)){
-                        checkInNamesTv.setText(guest);
-                    }
-                    String remark = bookOrder.getRoom_rate();
-                    if(!TextUtils.isEmpty(remark)){
-                        remarkInfoTv.setText(remark);
-                    }
                 }
             }
         }
         requestGetEvaluateTask(reservationNo);
+        requestOrderDetailTask(reservationNo);
     }
 
     private void initListeners(){
@@ -400,6 +396,120 @@ public class OrderEvaluateActivity extends Activity{
         initListeners();
     }
 
+    /**
+     * 获取订单信息
+     * @param reservationNo
+     */
+    private void requestOrderDetailTask(String reservationNo){
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getOrderDetailUrl());
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("token",CacheUtil.getInstance().getToken());
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("reservation_no", reservationNo);
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                if (null != result && !TextUtils.isEmpty(result.rawResult)) {
+                    Log.i(TAG, "result.rawResult:" + result.rawResult);
+                    try {
+                        OrderEvaluateResponse orderDetailResponse = new Gson().fromJson(result.rawResult, OrderEvaluateResponse.class);
+                        if (null != orderDetailResponse) {
+                            HeadBean headBean = orderDetailResponse.getHead();
+                            if (null != headBean) {
+                                boolean isSet = headBean.isSet();
+                                if (isSet) {
+                                    OrderDetailBean orderDetailBean = orderDetailResponse.getData();
+                                    String shopId = orderDetailBean.getShopid();
+                                    String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+                                    if(!TextUtils.isEmpty(shopName)){
+                                        hotelNameTv.setText(shopName);
+                                    }
+                                    String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
+                                    if(!TextUtils.isEmpty(logo)){
+                                        String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
+                                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
+                                    }
+                                    String roomType = orderDetailBean.getRoom_type();
+                                    int rooms = orderDetailBean.getRooms();
+                                    roomInfoTv.setText(roomType + "*" + rooms);
+                                    String roomRate = orderDetailBean.getRoom_rate();
+                                    if(!TextUtils.isEmpty(roomRate)){
+                                        priceTv.setText("¥"+roomRate);
+                                    }
+                                    String checkInDate = orderDetailBean.getArrival_date();
+                                    String checkOutDate = orderDetailBean.getDeparture_date();
+                                    checkInDateTv.setText(checkInDate + "到" + checkOutDate);
+                                    ArrayList<UserBean> userList = orderDetailBean.getUsers();
+                                    StringBuffer userNamesSb = new StringBuffer();
+                                    if(null != userList && !userList.isEmpty()){
+                                        for(UserBean userBean: userList){
+                                            String realName = userBean.getRealname();
+                                            if(!TextUtils.isEmpty(realName)){
+                                                userNamesSb.append(""+realName+",");
+                                            }
+                                        }
+                                        checkInNamesTv.setText(userNamesSb.subSequence(0,userNamesSb.length()-1));
+                                    }
+                                    String remark = orderDetailBean.getRemark();
+                                    if(!TextUtils.isEmpty(remark)){
+                                        remarkInfoTv.setText(remark);
+                                    }
+                                    String salesName = orderDetailBean.getSale_name();
+                                    if (!TextUtils.isEmpty(salesName)) {
+                                        salesNameTv.setText(salesName);
+                                    }
+                                    String salesId = orderDetailBean.getSalesid();
+                                    if (!TextUtils.isEmpty(salesId)) {
+                                        String salesIconUrl = ProtocolUtil.getAvatarUrl(salesId);
+                                        if (!TextUtils.isEmpty(salesIconUrl)) {
+                                            ImageLoader.getInstance().displayImage(salesIconUrl, salesIconIv, salsePhotoOption);
+                                        }
+                                    }
+                                    String imageUrl = orderDetailBean.getImgurl();
+                                    if (!TextUtils.isEmpty(imageUrl)) {
+                                        String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+                                        ImageLoader.getInstance().displayImage(logoUrl, goodsIconIv, goodsIconOptions);
+                                    }
+                                    String invoiceInfo = orderDetailBean.getInvoice_title();
+                                    if(!TextUtils.isEmpty(invoiceInfo)){
+                                        invoiceInfoTv.setText(invoiceInfo);
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+    }
+
+    /**
+     * 获取评价信息
+     * @param reservationNo
+     */
     private void requestGetEvaluateTask(String reservationNo){
         NetRequest netRequest = new NetRequest(ProtocolUtil.getGetEvaluateUrl());
         HashMap<String,String> bizMap = new HashMap<String,String>();
@@ -426,52 +536,36 @@ public class OrderEvaluateActivity extends Activity{
                 if (null != result && !TextUtils.isEmpty(result.rawResult)) {
                     Log.i(TAG, "result.rawResult:" + result.rawResult);
                     try {
-                        EvaluateResponse evaluateResponse = new Gson().fromJson(result.rawResult,EvaluateResponse.class);
-                        if(null != evaluateResponse){
+                        EvaluateResponse evaluateResponse = new Gson().fromJson(result.rawResult, EvaluateResponse.class);
+                        if (null != evaluateResponse) {
                             HeadBean headBean = evaluateResponse.getHead();
-                            if(null != headBean){
+                            if (null != headBean) {
                                 boolean isSet = headBean.isSet();
-                                if(isSet){
+                                if (isSet) {
                                     String errorInfo = headBean.getErr();
-                                    if(!TextUtils.isEmpty(errorInfo) && "404".equals(errorInfo)){//还未评价
+                                    if (!TextUtils.isEmpty(errorInfo) && "404".equals(errorInfo)) {//还未评价
                                         evaluateLayout.setVisibility(View.VISIBLE);
                                         compleEvaluateLayout.setVisibility(View.GONE);
-                                    }else{
+                                    } else {
                                         EvaluateBean evaluateBean = evaluateResponse.getData();
-                                        if(null != evaluateBean){
+                                        if (null != evaluateBean) {
                                             evaluateLayout.setVisibility(View.GONE);
                                             compleEvaluateLayout.setVisibility(View.VISIBLE);
                                             //设置评价内容和几颗星
                                             String content = evaluateBean.getContent();
-                                            if(!TextUtils.isEmpty(content)){
+                                            if (!TextUtils.isEmpty(content)) {
                                                 compleEvaluateTv.setText(content);
                                             }
-                                            String salesName = evaluateBean.getSale_name();
-                                            if(!TextUtils.isEmpty(salesName)){
-                                                salesNameTv.setText(salesName);
-                                            }
-                                            String salesId = evaluateBean.getSalesid();
-                                            if(!TextUtils.isEmpty(salesId)){
-                                                String salesIconUrl =  ProtocolUtil.getAvatarUrl(salesId);
-                                                if(!TextUtils.isEmpty(salesIconUrl)){
-                                                    ImageLoader.getInstance().displayImage(salesIconUrl, salesIconIv, salsePhotoOption);
-                                                }
-                                            }
-                                            String imageUrl = evaluateBean.getImgurl();
-                                            if(!TextUtils.isEmpty(imageUrl)){
-                                                String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
-                                                ImageLoader.getInstance().displayImage(logoUrl,goodsIconIv,goodsIconOptions);
-                                            }
                                             int score = evaluateBean.getScore();
-                                            if(1 == score){
+                                            if (1 == score) {
                                                 evaluateLevel = EvaluateLevel.POOR;
-                                            }else if(2 == score){
+                                            } else if (2 == score) {
                                                 evaluateLevel = EvaluateLevel.COMMON;
-                                            }else if(3 == score){
+                                            } else if (3 == score) {
                                                 evaluateLevel = EvaluateLevel.GRATIFY;
-                                            }else if(4 == score){
+                                            } else if (4 == score) {
                                                 evaluateLevel = EvaluateLevel.GREAT_GRATIFY;
-                                            }else {
+                                            } else {
                                                 evaluateLevel = EvaluateLevel.HIGHLY_RECOMMEND;
                                             }
                                             setEvaluateStar(evaluateLevel);
@@ -496,7 +590,7 @@ public class OrderEvaluateActivity extends Activity{
     }
 
     /**
-     *
+     * 新增订单评价
      * @param score 评分 12345
      * @param content 评论的的内容
      * @param reservationNo 订单号

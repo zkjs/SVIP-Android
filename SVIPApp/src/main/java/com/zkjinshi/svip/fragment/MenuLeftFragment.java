@@ -26,6 +26,7 @@ import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
 /**
@@ -85,7 +86,9 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
 
     public void setAvatar(){
         MainUiController.getInstance().init(getActivity());
-        MainUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+        String userId = CacheUtil.getInstance().getUserId();
+        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+        MainUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
         nameTv.setText(CacheUtil.getInstance().getUserName());
     }
 

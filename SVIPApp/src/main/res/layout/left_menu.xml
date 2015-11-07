@@ -32,7 +32,7 @@
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:text="@null"
                 android:id="@+id/leftmenu_user_name"/>
 
         </LinearLayout>

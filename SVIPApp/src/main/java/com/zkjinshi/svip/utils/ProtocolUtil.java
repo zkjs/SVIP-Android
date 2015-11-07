@@ -28,6 +28,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取订单详细信息
+     * @return
+     */
+    public static String getOrderDetailUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"order/v10show";
+    }
+
+    /**
      * 获取订单评价 URL
      * @return
      */

@@ -158,9 +158,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         Sex sex = userInfoVo.getSex();
         String emailStr = userInfoVo.getEmail();
 
-        if(!TextUtils.isEmpty(userPhotoSuffix)){
-            String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
-            CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
+        String userId = CacheUtil.getInstance().getUserId();
+        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+        if(!TextUtils.isEmpty(userPhotoUrl)){
             MineUiController.getInstance().setUserPhoto(userPhotoUrl,mUserIcon);
         }
         if(!TextUtils.isEmpty(realNameStr)){

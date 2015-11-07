@@ -94,12 +94,7 @@ public class LoginController {
                         //存缓存
                         UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
                         if(null != userInfoVo){
-                            String userPhotoSuffix = userInfoVo.getUserAvatar();
-                            if(!TextUtils.isEmpty(userPhotoSuffix)){
-                                String userPhotoUrl = ConfigUtil.getInst().getHttpDomain()+userPhotoSuffix;
-                                //保存头像到本地
-                                CacheUtil.getInstance().saveUserPhotoUrl(userPhotoUrl);
-                            }
+                            CacheUtil.getInstance().setUserId(userInfoVo.getUserid());
                             CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
                             CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                             CacheUtil.getInstance().setUserName(userInfoVo.getUsername());

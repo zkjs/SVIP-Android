@@ -165,7 +165,7 @@ public class CompleteInfoActivity extends Activity {
             public void onClick(View v) {
 
                 //验证昵称
-                String nickName = mEtNickName.getText().toString().trim();
+                final String nickName = mEtNickName.getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
                     DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
                             getString(R.string.please_input_nickname), Gravity.CENTER);
@@ -224,8 +224,8 @@ public class CompleteInfoActivity extends Activity {
                             BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                             if (null != baseResponse && baseResponse.isSet()) {
                                 ImageLoader.getInstance().clearDiskCache();
-                                ImageLoader.getInstance().clearMemoryCache();
-
+                                ImageLoader.getInstance().clearMemoryCache();;
+                                CacheUtil.getInstance().setUserName(nickName);
                                 //进入邀请码页面，并输入邀请码
                                 Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
                                 CompleteInfoActivity.this.startActivity(goInviteCode);

@@ -230,8 +230,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     protected  void onResume(){
         super.onResume();
-        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserPhotoUrl())){
-            MineUiController.getInstance().setUserPhoto(CacheUtil.getInstance().getUserPhotoUrl(), photoCtv);
+        String userId = CacheUtil.getInstance().getUserId();
+        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+        if(!TextUtils.isEmpty(userPhotoUrl)){
+            MineUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
         }
         setBadgeNum();
         loadLastOrderInfo();

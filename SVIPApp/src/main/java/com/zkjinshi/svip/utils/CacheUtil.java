@@ -227,24 +227,6 @@ public class CacheUtil {
 		return sp.getString("audioPath", "");
 	}
 
-	public void saveUserPhotoUrl( String userPhotoUrl) {
-		if (null == context) {
-			return;
-		}
-		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
-				Context.MODE_PRIVATE);
-		sp.edit().putString("user_photo_url", userPhotoUrl).commit();
-	}
-
-	public String getUserPhotoUrl() {
-		if (null == context) {
-			return null;
-		}
-		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
-				Context.MODE_PRIVATE);
-		return sp.getString("user_photo_url", "");
-	}
-
 	public void saveTagsOpen(boolean isOpen){
 		if (null == context) {
 			return;
