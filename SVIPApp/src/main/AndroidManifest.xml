@@ -61,6 +61,12 @@
             >
         </activity>
         <activity
+            android:name=".activity.common.Main2Activity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name"
+            >
+        </activity>
+        <activity
             android:name=".activity.common.WebViewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -168,18 +174,14 @@
         <activity android:name=".activity.order.HistoryOrderActivtiy"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".activity.order.BookingOrderActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+
         <activity android:name=".activity.order.OrderBookingActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.OrderDetailActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".activity.order.AddPeopleActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+
         <activity android:name=".activity.order.ChoosePeopleActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
@@ -189,9 +191,7 @@
         <activity android:name=".activity.order.ChooseInvoiceActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".activity.order.OrderConfirmActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+
         <activity
             android:name=".activity.order.ShopListActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
