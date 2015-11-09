@@ -333,18 +333,29 @@ public class OrderBookingActivity extends Activity{
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId ==R.id.rbtn_one_room) {
+                if (checkedId == R.id.rbtn_one_room) {
                     roomNum = 1;
-                }
-                else if (checkedId ==R.id.rbtn_two_room) {
+                } else if (checkedId == R.id.rbtn_two_room) {
                     roomNum = 2;
-                }else{
+                } else {
                     roomNum = 3;
                 }
-                 notifyRoomNumberChange();
+                notifyRoomNumberChange();
                 dialog.cancel();
             }
         });
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        };
+
+        mRadio1.setOnClickListener(clickListener);
+        mRadio2.setOnClickListener(clickListener);
+        mRadio3.setOnClickListener(clickListener);
+
     }
 
     //房间数量已经变 通知UI做调整

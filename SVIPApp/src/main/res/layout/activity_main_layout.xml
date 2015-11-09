@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#aaaaaa">
+    
+    <LinearLayout
+        android:id="@+id/info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_biaoqian">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_caidan"
+                android:background="@android:color/transparent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="长沙"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/bubble_popup_arrow_down_pressed"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_user_photo_layout"
+            android:background="@mipmap/bg_main_track"
+            android:layout_width="136dp"
+            android:layout_height="140dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/main_user_photo_civ"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:clickable="true"
+                android:background="@mipmap/ic_main_user_default_photo_nor"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Smith"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+                <TextView
+                    android:layout_alignBaseline="@+id/line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VIP 1 (未激活)"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#ffffff"></View>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_alignRight="@+id/line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有订单  距离18km"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_layout"
+        android:orientation="vertical"
+        android:background="#ffffff">
+            <LinearLayout
+                android:id="@+id/tips_layout"
+                android:layout_width="match_parent"
+                android:layout_height="21dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您的VIP身份尚未激活，"
+                    android:textColor="#101010"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即激活 >"
+                    android:textColor="#1c74d9"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e3e3e3"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/civ_shop_icon"
+                android:layout_margin="10dp"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:src="@mipmap/ic_launcher" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="长沙 芙蓉国温德姆至尊豪廷大酒店 >"
+                        android:textColor="#828282"
+                        android:textSize="12sp"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_weight="1"/>
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/ratingBar"
+                        android:numStars="5"
+                        android:rating="4"
+                        style="?android:attr/ratingBarStyleSmall"/>
+                </LinearLayout>
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="你已经提交订单，请等待酒店确认"
+                    android:textColor="#030003"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="豪华大床房 ｜ 11/02 入住 ｜2晚  |  ¥1200"
+                    android:textColor="#828282"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/main_logo_ibtn"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_logo_btn_selector"/>
+
+        <ImageButton
+            android:id="@+id/main_shop"
+            android:layout_toLeftOf="@+id/main_logo_ibtn"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_logo_btn_selector"/>
+
+        <ImageButton
+            android:id="@+id/main_msg"
+            android:layout_toRightOf="@+id/main_logo_ibtn"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_logo_btn_selector"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

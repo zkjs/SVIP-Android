@@ -829,11 +829,16 @@ public class OrderDetailActivity extends Activity{
         map.put("reservation_no", reservationNo);
         String userids = "";
         if(orderDetailResponse.getUsers() != null && orderDetailResponse.getUsers().size() > 0){
+            boolean isFirst = true;
             for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
-                if(i == 0){
-                    userids = userids + orderDetailResponse.getUsers().get(i).getId();
-                }else{
-                    userids = userids + ","+orderDetailResponse.getUsers().get(i).getId();
+
+                if(orderDetailResponse.getUsers().get(i) != null){
+                    if(isFirst){
+                        userids = userids + orderDetailResponse.getUsers().get(i).getId();
+                        isFirst = false;
+                    }else{
+                        userids = userids + ","+orderDetailResponse.getUsers().get(i).getId();
+                    }
                 }
             }
         }
@@ -841,9 +846,11 @@ public class OrderDetailActivity extends Activity{
             map.put("users",userids);
         }
 
+        if(orderDetailResponse.getInvoice() != null && TextUtils.isEmpty(orderDetailResponse.getInvoice().getInvoice_title())){
+            map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
+            map.put("invoice[invoice_get_id]","1");
+        }
 
-        map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
-        map.put("invoice[invoice_get_id]","1");
 
         String roomtags = "";
         if(orderDetailResponse.getRoom_tag() != null){
@@ -901,9 +908,25 @@ public class OrderDetailActivity extends Activity{
                 if(null != data){
                     OrderUsersResponse orderUsersResponse = (OrderUsersResponse)data.getSerializableExtra("selectPeople");
                     int index = data.getIntExtra("index", 0);
+                    for(int i=0;i<3;i++){
+                        if(TextUtils.isEmpty(customerList.get(i).getTextContent2())){
+                           if(i<index){
+                               index = i;
+                           }
+                            break;
+                        }
+                    }
                     customerList.get(index).setTextContent2(orderUsersResponse.getRealname());
+
                     ArrayList<OrderUsersResponse> users = orderDetailResponse.getUsers();
-                    users.set(index,orderUsersResponse);
+                    if(users == null){
+                        users = new ArrayList<OrderUsersResponse>();
+                    }
+                    if(index >= users.size()){
+                        users.add(orderUsersResponse);
+                    }else{
+                        users.set(index, orderUsersResponse);
+                    }
                     orderDetailResponse.setUsers(users);
                 }
             }
