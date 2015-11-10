@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="drawable_array">
+        <item>@drawable/ic_canyin</item>
+        <item>@drawable/ic_jiudian</item>
+        <item>@drawable/ic_xiuxian</item>
+    </array>
+</resources>

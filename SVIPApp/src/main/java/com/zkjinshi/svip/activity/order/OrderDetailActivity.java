@@ -846,7 +846,7 @@ public class OrderDetailActivity extends Activity{
             map.put("users",userids);
         }
 
-        if(orderDetailResponse.getInvoice() != null && TextUtils.isEmpty(orderDetailResponse.getInvoice().getInvoice_title())){
+        if(orderDetailResponse.getInvoice() != null && !TextUtils.isEmpty(orderDetailResponse.getInvoice().getInvoice_title())){
             map.put("invoice[invoice_title]",orderDetailResponse.getInvoice().getInvoice_title());
             map.put("invoice[invoice_get_id]","1");
         }

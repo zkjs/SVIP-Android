@@ -280,6 +280,15 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获得商家logo
+     * @param shopid
+     * @return
+     */
+    public static String getShopIconUrl(String shopid){
+        return ConfigUtil.getInst().getHttpDomain()+"uploads/shops/"+shopid+".png";
+    }
+
+    /**
      * V0.9.1 订单列表带评论状态
      * @return
      */

@@ -1,64 +1,258 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#aaaaaa">
 
-    <com.zkjinshi.svip.view.kenburnsview.KenBurnsView
-        android:id="@+id/main_burns_view"
+    <LinearLayout
+        android:id="@+id/info_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_main_burns"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/bg_jianbian"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="match_parent">
-
-
-
-    <RelativeLayout
-        android:id="@+id/main_tool_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <ImageButton
-            android:id="@+id/main_menu_ibtn"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_width="40dp"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        android:background="@mipmap/bg_svip_mine">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:src="@drawable/ic_caidan"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageButton
+                android:id="@+id/menu_ibtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_caidan"
+                android:background="@android:color/transparent" />
+            <TextView
+                android:id="@+id/city_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="长沙"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_down"/>
+        </LinearLayout>
 
-        <ImageView
+        <LinearLayout
+            android:id="@+id/main_user_photo_layout"
+            android:background="@mipmap/bg_main_track"
+            android:layout_width="136dp"
+            android:layout_height="140dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/main_user_photo_civ"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:clickable="true"
+                android:background="@mipmap/ic_main_user_default_photo_nor"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Smith"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <View
+                android:layout_centerInParent="true"
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#ffffff"></View>
+
+            <TextView
+                android:id="@+id/level_tv"
+                android:layout_toLeftOf="@+id/line"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VIP 1 (未激活)"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:id="@+id/distance_tv"
+                android:layout_toRightOf="@+id/line"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有订单  距离18km"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_layout"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/tips_layout"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="#ffffff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您的VIP身份尚未激活，"
+                android:textColor="#101010"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即激活"
+                android:textColor="#1c74d9"
+                android:textSize="14sp"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_right_blue"/>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e3e3e3"/>
+        <LinearLayout
+            android:id="@+id/order_llt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#ffffff">
+
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/civ_shop_icon"
+                android:layout_margin="10dp"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:src="@mipmap/img_avatar_hotel" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/shop_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="长沙 芙蓉国温德姆至尊豪廷大酒店 >"
+                        android:textColor="#828282"
+                        android:textSize="12sp"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:layout_weight="1"/>
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/ratingBar"
+                        android:numStars="5"
+                        android:rating="4"
+                        android:isIndicator="true"
+                        android:stepSize="1"
+                        style="@style/myRatingBar"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_order_status"
+                    android:singleLine="true"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="你已经提交订单，请等待酒店确认"
+                    android:textColor="#030003"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="豪华大床房 ｜ 11/02 入住 ｜2晚  |  ¥1200"
+                    android:textColor="#828282"
+                    android:textSize="12sp"
+                    android:id="@+id/tv_book_info"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+            </LinearLayout>
+        </LinearLayout>
+        <ListView
+            android:layout_marginTop="10dp"
+            android:id="@+id/ad_listview"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></ListView>
+        <TextView
+            android:id="@+id/empty_listview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:textColor="#828282"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/frame_bg">
+        <ImageButton
+            android:id="@+id/main_logo_ibtn"
             android:layout_centerInParent="true"
-            android:layout_marginTop="35dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_main_text_svip"
-            android:id="@+id/main_logo_imageView"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_jiqiren"
+            android:visibility="invisible"/>
 
         <ImageButton
-            android:id="@+id/main_msg_list_ibtn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_xiaoxi"
-            android:background="@android:color/transparent"
-            android:scaleType="center"/>
+            android:id="@+id/main_shop"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/main_logo_ibtn"
+            android:layout_marginRight="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_hotel"/>
+
+        <ImageButton
+            android:id="@+id/main_msg"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/main_logo_ibtn"
+            android:layout_marginLeft="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_lianxiren"/>
 
         <TextView
             android:id="@+id/main_msg_num_tv"
@@ -67,186 +261,23 @@
             android:textSize="16sp"
             android:text="0"
             android:textColor="#ffffff"
-            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/main_logo_ibtn"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ellipse_1"
-            android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"/>
+            android:gravity="center"/>
 
     </RelativeLayout>
 
-
-        <LinearLayout
-            android:id="@+id/main_user_photo_layout"
-            android:background="@mipmap/bg_main_track"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <com.zkjinshi.svip.view.CircleImageView
-                android:id="@+id/main_user_photo_civ"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_gravity="center"
-                android:scaleType="center"
-                android:clickable="true"
-                android:background="@mipmap/ic_main_user_default_photo_nor"
-                />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/main_menu_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentBottom="true">
+    <com.zkjinshi.svip.view.GooeyMenu
+        android:id="@+id/gooey_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:fab_radius="@dimen/big_circle_radius"
+        app:gap_between_menu_fab="@dimen/min_gap"
+        app:menu_radius="@dimen/small_circle_radius"
+        app:no_of_menu="3"
+        app:menu_drawable="@array/drawable_array"/>
 
 
-
-            <ImageButton
-                android:id="@+id/main_logo_ibtn"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/main_logo_btn_selector"/>
-
-        </RelativeLayout>
-
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:layout_below="@id/main_user_photo_layout"
-           android:layout_above="@id/main_menu_layout"
-           android:layout_marginTop="10dp"
-           android:gravity="center"
-           android:padding="10dp">
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="34dp"
-               android:gravity="center_vertical"
-               android:orientation="horizontal"
-               android:background="@drawable/layout_bg_top"
-               android:paddingLeft="10dp"
-               android:paddingRight="10dp"
-               android:clickable="true"
-               android:focusable="true"
-               android:focusableInTouchMode="true">
-               <TextView
-                   android:drawableLeft="@drawable/ic_map"
-                   android:drawablePadding="10dp"
-                   android:layout_width="100dp"
-                   android:layout_height="wrap_content"
-                   android:text="不在酒店"
-                   android:textColor="#ffffff"
-                   android:textSize="15sp"
-                   android:id="@+id/tv_location"
-                   android:singleLine="true"
-                   android:ellipsize="marquee"
-                   android:clickable="true"
-                   android:focusable="true"
-                   android:focusableInTouchMode="true"
-                   />
-               <!--android:text="豪华大床 |  6/30入住  |  ￥120"-->
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="#ffffff"
-                   android:textSize="15sp"
-                   android:gravity="right"
-                   android:layout_weight="1"
-                   android:id="@+id/tv_book_info"
-                   android:singleLine="true"
-                   android:ellipsize="marquee"
-                   android:clickable="true"
-                   android:focusable="true"
-                   android:focusableInTouchMode="true" />
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:background="@drawable/layout_bg_middle"
-               android:gravity="center_vertical"
-               android:orientation="horizontal"
-               android:paddingLeft="10dp"
-               android:paddingRight="10dp"
-               android:layout_marginTop="0dp"
-               android:id="@+id/llt_order">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="16sp"
-                   android:gravity="center_horizontal"
-                   android:drawablePadding="10dp"
-                   android:textColor="#edcf9e"
-                   android:text="你没有任何预定信息"
-                   android:drawableLeft="@drawable/sl_canting"
-                   android:id="@+id/tv_order_status" />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text=""
-                   android:textColor="#ffffff"
-                   android:textSize="16sp"
-                   android:gravity="right"
-                   android:layout_weight="1"
-                   android:drawablePadding="5dp"
-                   android:drawableRight="@mipmap/ic_get_into_w"
-                   android:id="@+id/tv_order_status2" />
-           </LinearLayout>
-
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="50dp"
-               android:background="@drawable/layout_bg_middle"
-               android:gravity="center_vertical"
-               android:orientation="horizontal"
-               android:paddingLeft="10dp"
-               android:paddingRight="10dp"
-               android:layout_marginTop="2dp"
-               android:id="@+id/llt_mianqiantai">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textSize="16sp"
-                   android:gravity="center_horizontal"
-                   android:drawablePadding="10dp"
-                   android:textColor="#edcf9e"
-                   android:text="你具有免前台的特权"
-                   android:drawableLeft="@drawable/ic_mianqiantai2"/>
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="立即查看"
-                   android:textColor="#ffffff"
-                   android:textSize="16sp"
-                   android:gravity="right"
-                   android:layout_weight="1"
-                   android:drawablePadding="5dp"
-                   android:drawableRight="@mipmap/ic_get_into_w"
-                   />
-           </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/layout_bg_bottom"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="0dp"
-            android:id="@+id/llt_add">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_jiahao"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-
-       </LinearLayout>
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

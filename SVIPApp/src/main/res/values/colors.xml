@@ -26,4 +26,8 @@
 	<color name="star_check_color">#ff9800</color>
 	<color name="star_nor_color">#101010</color>
 
+	<color name="default_color">@android:color/black</color>
+	<color name="default_color_dark">@android:color/black</color>
+	<color name="color_red">#FF0000</color>
+
 </resources>

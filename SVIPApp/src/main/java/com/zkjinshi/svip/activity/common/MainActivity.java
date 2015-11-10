@@ -11,18 +11,11 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
-import com.android.volley.Request;
-import com.android.volley.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
@@ -32,14 +25,11 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.im.ChatActivity;
-import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.ext.ShopListManager;
-
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.fragment.MenuRightFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
@@ -55,66 +45,34 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.OrderLastResponse;
-
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.view.kenburnsview.KenBurnsView;
-import com.zkjinshi.svip.view.kenburnsview.Transition;
 import com.zkjinshi.svip.vo.MessageVo;
 
-
-
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
+import com.zkjinshi.svip.view.GooeyMenu;
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver {
+public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface {
 
-    public static final String TAG = "MainActivity";
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     public static final int NOTIFY_UPDATE_VIEW = 0x0001;
     public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
 
-    private KenBurnsView kbv;
-    private CircleImageView photoCtv;
-    private ImageButton menuIbtn,msgListIBtn,logoIBtn;
-    private int notifyCount;
-    private SlidingMenu slidingMenu;
-    private Fragment leftMenuFragment;
-    private MessageListener messageListener;
-
-    private LinearLayout orderLlt;
-    private LinearLayout mianqianLlt;
-    private LinearLayout addLlt;
-    private TextView locationTv;
-    private TextView orderInfoTv;
-    private TextView orderStatusTv1;
-    private TextView msgNumTv;
-
-
-    private Response.Listener<String> loadOrderListener;
-    private Response.ErrorListener    loadOrderErrorListener;
-
-    private String lastShopId = "";
-    private OrderLastResponse lastOrderInfo = null;
-   // private ShopDetailVo lastShopInfo  = null;
-   // private ArrayList<RegionVo> mRegionList = new ArrayList<RegionVo>();
     SVIPApplication svipApplication;
-    private ArrayList<Request<String>> requestList = new ArrayList<Request<String>>();
-
-
+    private OrderLastResponse lastOrderInfo = null;
+    private SlidingMenu slidingMenu;
+    private GooeyMenu mGooeyMenu;
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -131,50 +89,50 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     private MainTextStatus mainTextStatus = MainTextStatus.DEFAULT_NULL;
 
+    @Override
+    public void menuOpen() {
+
+    }
+
+    @Override
+    public void menuClose() {
+
+    }
+
+    @Override
+    public void menuItemClicked(int menuNumber) {
+
+    }
+
+
+
     private void initView(){
         initMenu();
-        kbv  = new KenBurnsView(this);
-        photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
-        menuIbtn = (ImageButton)findViewById(R.id.main_menu_ibtn);
-        msgListIBtn = (ImageButton)findViewById(R.id.main_msg_list_ibtn);
-        logoIBtn = (ImageButton)findViewById(R.id.main_logo_ibtn);
+        TextView nameTv = (TextView)findViewById(R.id.name_tv);
+        nameTv.setText(CacheUtil.getInstance().getUserName());
 
-        orderLlt = (LinearLayout)findViewById(R.id.llt_order);
-        mianqianLlt = (LinearLayout)findViewById(R.id.llt_mianqiantai);
-        addLlt     = (LinearLayout) findViewById(R.id.llt_add);
-        locationTv = (TextView) findViewById(R.id.tv_location);
-        orderInfoTv = (TextView)findViewById(R.id.tv_book_info);
-        orderStatusTv1 = (TextView)findViewById(R.id.tv_order_status);
-        msgNumTv = (TextView)findViewById(R.id.main_msg_num_tv);
+        mGooeyMenu = (GooeyMenu) findViewById(R.id.gooey_menu);
+        mGooeyMenu.setOnMenuListener(this);
     }
 
     private void initData(){
-        EventBus.getDefault().register(this);
-        MainUiController.getInstance().init(this);
-        MineNetController.getInstance().init(this);
         initDBName();
-        initShop();
+        EventBus.getDefault().register(this);
+        MainController.getInstance().init(this);
+        MainController.getInstance().initShop();
+        MainController.getInstance().initServerPersonal();
         LocationManager.getInstance().registerLocation(this);
-        messageListener = new MessageListener();
+        MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         //设置消息未读个数
         setBadgeNum();
+
+
     }
-
-    /**
-     * 初始化商家列表信息
-     */
-    private void initShop() {
-        ShopListManager.getInstance().init(this);
-        requestList.add(ShopListManager.getInstance().getStringRequest());
-        //初始化专属客服列表
-        ShopListManager.getInstance().initServerPeral();
-    }
-
-
 
     private void setBadgeNum(){
-        notifyCount = MessageDBUtil.getInstance().queryNotifyCount();
+        int notifyCount = MessageDBUtil.getInstance().queryNotifyCount();
+        TextView msgNumTv = (TextView)findViewById(R.id.main_msg_num_tv);
         if (notifyCount > 99) {
             msgNumTv.setText(99 + "+");
             msgNumTv.setVisibility(View.VISIBLE);
@@ -188,7 +146,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     private void initMenu() {
         slidingMenu = new SlidingMenu(this);
-        leftMenuFragment = new MenuLeftFragment();
+        Fragment leftMenuFragment = new MenuLeftFragment();
         slidingMenu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         slidingMenu.setMenu(getLayoutInflater().inflate(R.layout.left_menu_frame, null));
         getSupportFragmentManager().beginTransaction()
@@ -212,28 +170,19 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 .replace(R.id.id_right_menu_frame, rightMenuFragment).commit();
     }
 
-    public void toggleMenu(){
-        slidingMenu.toggle();
-    }
-
-
     @Override
     protected void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
-        for(Request<String> request : requestList){
-            LogUtil.getInstance().info(LogLevel.INFO,"取消 "+request.toString());
-            request.cancel();
-        }
-        requestList.clear();
     }
 
     protected  void onResume(){
         super.onResume();
+        CircleImageView photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
         String userId = CacheUtil.getInstance().getUserId();
         String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
         if(!TextUtils.isEmpty(userPhotoUrl)){
-            MineUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
+            MainController.getInstance().setPhoto(userPhotoUrl, photoCtv);
         }
         setBadgeNum();
         loadLastOrderInfo();
@@ -245,10 +194,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
     //加载最近的一条订单信息
     private void loadLastOrderInfo(){
-        if(TextUtils.isEmpty( CacheUtil.getInstance().getToken())){
-            reLogin();
-            return;
-        }
         String url = ProtocolUtil.getLastOrder();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -276,42 +221,53 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 try {
 
                     lastOrderInfo = new Gson().fromJson(result.rawResult, OrderLastResponse.class);
-                    if(lastOrderInfo != null && !lastOrderInfo.isSet()){
+                    if (lastOrderInfo != null && !lastOrderInfo.isSet()) {
                         CacheUtil.getInstance().setLogin(false);
-                        DialogUtil.getInstance().showToast(MainActivity.this,"token 过期，请重新登录");
+                        DialogUtil.getInstance().showToast(MainActivity.this, "token 过期，请重新登录");
                         Intent mainIntent = new Intent(MainActivity.this, LoginActivity.class);
                         MainActivity.this.startActivity(mainIntent);
                         MainActivity.this.finish();
                         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
                         return;
                     }
-                    if(lastOrderInfo != null && lastOrderInfo.getUserid() == null){
+                    if (lastOrderInfo != null && lastOrderInfo.getUserid() == null) {
                         lastOrderInfo = null;
                         return;
                     }
-                    if(lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")){
+                    if (lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")) {
                         lastOrderInfo = null;
                         return;
                     }
-                    // lastOrderInfo.setShopid("120");
                     String roomType = lastOrderInfo.getRoom_type();
-                    String roomRate =  lastOrderInfo.getRoom_rate();
+                    String roomRate = lastOrderInfo.getRoom_rate();
                     String arriveDate = lastOrderInfo.getArrival_date();
+                    String departureDate = lastOrderInfo.getDeparture_date();
                     String orderStatusStr = lastOrderInfo.getStatus();
                     String shopId = lastOrderInfo.getShopid();
                     if (!TextUtils.isEmpty(orderStatusStr)) {
                         CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
                     }
+                    CircleImageView shopLogo = (CircleImageView) findViewById(R.id.civ_shop_icon);
+                    MainController.getInstance().setPhoto(ProtocolUtil.getShopIconUrl(shopId), shopLogo);
+
+                    TextView shopNameTv = (TextView) findViewById(R.id.shop_name_tv);
+                    shopNameTv.setText(lastOrderInfo.getFullname());
+
                     String arriveDateStr = "";
-                    SimpleDateFormat mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
+                    int dayNum = 0;
+                    SimpleDateFormat mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
                     try {
                         Date date = mSimpleFormat.parse(arriveDate);
                         arriveDateStr = mChineseFormat.format(date);
-                    }catch (Exception e){
+
+                        dayNum = TimeUtil.daysBetween(arriveDate, departureDate);
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
                     }
+                    TextView orderInfoTv = (TextView) findViewById(R.id.tv_book_info);
                     orderInfoTv.setVisibility(View.VISIBLE);
-                    orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "  |  ￥" + roomRate);
+                    orderInfoTv.setText("" + roomType + "  |  " + arriveDateStr + "入住  |  " + dayNum + "晚" + "  |  ￥" + roomRate);
                     handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
                 } catch (JsonSyntaxException e) {
                     e.printStackTrace();
@@ -334,30 +290,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
     private void initListeners() {
 
         //头像
-        photoCtv.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_user_photo_civ).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,SettingActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
         });
 
-        //动态图片背景
-        kbv.setTransitionListener(new KenBurnsView.TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {
-
-            }
-
-            @Override
-            public void onTransitionEnd(Transition transition) {
-
-            }
-        });
-
         //左菜单
-        menuIbtn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.menu_ibtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slidingMenu.showMenu();
@@ -365,18 +308,61 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         });
 
         //右菜单消息列表
-        msgListIBtn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_msg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slidingMenu.showSecondaryMenu();
             }
         });
 
-        logoIBtn.setOnLongClickListener(new View.OnLongClickListener() {
+        findViewById(R.id.order_llt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                switch (mainTextStatus) {
+                    case DEFAULT_NULL:
+                        intent = new Intent(MainActivity.this, ShopListActivity.class);
+                        break;
+                    case NO_ORDER_NOT_IN:
+                        intent = new Intent(MainActivity.this, ShopListActivity.class);
+                        break;
+                    case NO_ORDER_IN:
+                        if (svipApplication.mRegionList.size() > 0) {
+
+                            intent = new Intent(MainActivity.this, OrderBookingActivity.class);
+                            intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
+                        }
+
+                        break;
+                    default:
+                        if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
+                            intent = new Intent(MainActivity.this, OrderDetailActivity.class);
+                            intent.putExtra("reservation_no", lastOrderInfo.getReservation_no());
+                            intent.putExtra("shopid", lastOrderInfo.getShopid());
+                        }
+
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+            }
+        });
+
+        findViewById(R.id.main_shop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.main_logo_ibtn).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                // LogUtil.getInstance().info(LogLevel.DEBUG," public boolean onLongClick(View view) " + lastShopInfo.getPhone());
-                // && StringUtil.isPhoneNumber(lastShopInfo.getPhone())
                 if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
                     IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
                     return true;
@@ -391,8 +377,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             }
         });
 
+
+
         //智能键
-        logoIBtn.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.main_logo_ibtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = null;
@@ -428,67 +416,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 }
 
 
-            }
-        });
-
-        //中间消息提示布局
-        orderLlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = null;
-                switch (mainTextStatus) {
-                    case DEFAULT_NULL:
-                        intent = new Intent(MainActivity.this, ShopListActivity.class);
-                        break;
-                    case NO_ORDER_NOT_IN:
-                        intent = new Intent(MainActivity.this, ShopListActivity.class);
-                        break;
-                    case NO_ORDER_IN:
-                        if (svipApplication.mRegionList.size() > 0) {
-                            //intent = new Intent(MainActivity.this, GoodListActivity.class);
-                            // intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
-
-                            intent = new Intent(MainActivity.this, OrderBookingActivity.class);
-                            intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
-                        }
-
-                        break;
-                    default:
-                        if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
-                            intent = new Intent(MainActivity.this, OrderDetailActivity.class);
-                            intent.putExtra("reservation_no", lastOrderInfo.getReservation_no());
-                            intent.putExtra("shopid", lastOrderInfo.getShopid());
-                        }
-
-                }
-                if (intent != null) {
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
-            }
-        });
-
-        //添加
-        addLlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
-            }
-        });
-
-        //免前台
-        mianqianLlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-                intent.putExtra("webview_url","http://iwxy.cc/mqt/");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
             }
         });
 
@@ -547,8 +474,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
 
         removeRegionVo(regionVo);
         if(svipApplication.mRegionList.size() <= 0){
-            locationTv.setText("不在酒店");
-            lastShopId = "";
 
         }
         handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
@@ -592,6 +517,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      * 改变位置提示信息。
      */
     private void changLocationTips(){
+        TextView locationTv = (TextView)findViewById(R.id.distance_tv);
         if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
             locationTv.setText(region.getiBeacon().getLocdesc());
@@ -607,6 +533,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
      * 改变中间块提示信息。
      */
     private void changMiddleBlockTips() throws  Exception{
+        TextView orderStatusTv1 = (TextView)findViewById(R.id.tv_order_status);
         switch (getMainTextStatus()){
             //其他状态
             case DEFAULT_NULL:
@@ -615,35 +542,29 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             //没订单，不在酒店
             case NO_ORDER_NOT_IN:
                 orderStatusTv1.setText("您没有任何预订信息 立即预订");
-                setDrawableLeft(orderStatusTv1,R.drawable.sl_wu);
                 break;
             //没订单，在酒店
             case NO_ORDER_IN:
                 int index = svipApplication.mRegionList.size()-1;
                 String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
                 String fullname = ShopListManager.getInstance().getShopName(shopid);
-                orderStatusTv1.setText(fullname+"欢迎您，点击马上预订酒店");
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_dengdai);
+                orderStatusTv1.setText(fullname + "欢迎您，点击马上预订酒店");
                 break;
             //有预定状态订单，不在酒店
             case BOOKING_NOT_IN:
                 orderStatusTv1.setText("订单已提交，请等待酒店确定");
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
                 break;
             //有预定状态订单，在酒店
             case BOOKING_IN:
                 orderStatusTv1.setText("订单已提交，请等待酒店确定");
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_tijiao);
                 break;
             //有确认状态的订单，在酒店，有免前台特权
             case SURE_IN_HAVE_NOLOGIN:
                 orderStatusTv1.setText("到达酒店，将为您办理入住手续");
-                setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
                 break;
             //有确认状态的订单，在酒店，没有免前台特权
             case SURE_IN_NOT_NOLOGIN:
                 orderStatusTv1.setText("到达酒店，请办理入住手续");
-                setDrawableLeft(orderStatusTv1, R.drawable.ic_zhuanshuqiantai);
                 break;
             //有确认状态订单，不在酒店
             case SURE_NOT_IN:
@@ -657,13 +578,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 }else{
                     orderStatusTv1.setText("今天入住"+lastOrderInfo.getFullname()+"酒店");
                 }
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_zhuyi);
+
                 break;
             //有已经入住订单，在酒店
             case CHECKIN_IN:
                 String locdesc = svipApplication.mRegionList.get(svipApplication.mRegionList.size()-1).getiBeacon().getLocdesc();
                 orderStatusTv1.setText("您到达" + locdesc + "," + lastOrderInfo.getFullname() + "随时为您服务！");
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_yuding);
+
                 Calendar todayC2 = Calendar.getInstance();
                 Date today2 = todayC2.getTime();
                 SimpleDateFormat mSimpleFormat2  = new SimpleDateFormat("yyyy-MM-dd");
@@ -671,14 +592,27 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
                 int offsetDay2 = TimeUtil.daysBetween(today2,departureDay);
                 if(offsetDay2 == 0){
                     orderStatusTv1.setText("您今天需要退房，旅途愉快!");
-                    setDrawableLeft(orderStatusTv1, R.drawable.sl_tuifang);
+
                 }
                 break;
             //有已经入住订单，不在酒店
             case CHECKIN_NOT_IN:
                 orderStatusTv1.setText(lastOrderInfo.getFullname() + "随时为您服务！");
-                setDrawableLeft(orderStatusTv1, R.drawable.sl_likai);
+
                 break;
+        }
+    }
+
+    /**
+     * 改变主语句
+     */
+    public synchronized void changeMainText(){
+
+        try {
+            changLocationTips();
+            changMiddleBlockTips();
+        } catch (Exception e) {
+            LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
         }
     }
 
@@ -717,32 +651,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
             mainTextStatus = MainTextStatus.DEFAULT_NULL;
         }
         return mainTextStatus;
-    }
-
-
-    /**
-     * 改变主语句
-     */
-    public synchronized void changeMainText(){
-
-        try {
-            changLocationTips();
-            changMiddleBlockTips();
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
-        }
-    }
-
-    /**
-     * 设定textView 的 DrawableLeft 属性
-     */
-    private void setDrawableLeft(TextView myTextview,int resoundId){
-
-        Drawable drawable= getResources().getDrawable(resoundId);
-        /// 这一步必须要做,否则不会显示.
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-        myTextview.setCompoundDrawables(drawable,null,null,null);
-
     }
 
     /**
@@ -797,15 +705,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver {
         }
     };
 
-    //重新登录
-    private void reLogin(){
-        CacheUtil.getInstance().setLogin(false);
-        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-        finish();
-    }
+
 
 
 }
