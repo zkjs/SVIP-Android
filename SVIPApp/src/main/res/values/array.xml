@@ -2,7 +2,7 @@
 <resources>
     <array name="drawable_array">
         <item>@drawable/ic_canyin</item>
-        <item>@drawable/ic_jiudian</item>
         <item>@drawable/ic_xiuxian</item>
+        <item>@drawable/ic_jiudian</item>
     </array>
 </resources>

@@ -15,6 +15,7 @@ import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by Anshul on 24/06/15.
  */
-public class GooeyMenu extends View {
+public class GooeyMenu extends View implements GestureDetector.OnGestureListener {
 
     private static final long ANIMATION_DURATION = 300;
     private static final int DEFUALT_MENU_NO = 5;
@@ -64,6 +65,8 @@ public class GooeyMenu extends View {
             {android.R.attr.state_enabled, -android.R.attr.state_active,
                     android.R.attr.state_pressed};
 
+    private GestureDetector detector;
+
     public GooeyMenu(Context context) {
         super(context);
         init(null);
@@ -86,6 +89,7 @@ public class GooeyMenu extends View {
 //    }
 
     private void init(AttributeSet attrs) {
+        detector = new GestureDetector(this);
         if (attrs != null) {
             TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -215,9 +219,11 @@ public class GooeyMenu extends View {
 
             if (mDrawableArray != null) {
                 for (Drawable drawable : mDrawableArray)
-                    drawable.setBounds(0, 0, /*2 * */mMenuButtonRadius,/* 2 * */mMenuButtonRadius);
+                    drawable.setBounds(0,0, 2*mMenuButtonRadius, 2*mMenuButtonRadius);
             }
         }
+
+        hide();
 
     }
 
@@ -246,10 +252,12 @@ public class GooeyMenu extends View {
             CirclePoint circlePoint = mMenuPoints.get(i);
             float x = (float) (circlePoint.radius * Math.cos(circlePoint.angle));
             float y = (float) (circlePoint.radius * Math.sin(circlePoint.angle));
+//            float x = 0;
+//            float y = 0;
             canvas.drawCircle(x + mCenterX, mCenterY - y, mMenuButtonRadius, mCirclePaint);
             if (i < mDrawableArray.size()) {
                 canvas.save();
-                canvas.translate(x + mCenterX - mMenuButtonRadius / 2, mCenterY - y - mMenuButtonRadius / 2);
+                canvas.translate(x + mCenterX - mMenuButtonRadius , mCenterY - y - mMenuButtonRadius);
                 mDrawableArray.get(i).draw(canvas);
                 canvas.restore();
             }
@@ -286,6 +294,7 @@ public class GooeyMenu extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        //detector.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (isGooeyMenuTouch(event)) {
@@ -301,6 +310,7 @@ public class GooeyMenu extends View {
                     return true;
                 }
                 return false;
+
             case MotionEvent.ACTION_UP:
                 if (isGooeyMenuTouch(event)) {
                     mBezierAnimation.start();
@@ -337,7 +347,17 @@ public class GooeyMenu extends View {
                 return false;
 
         }
-        return true;
+       // return true;
+       return super.onTouchEvent(event);
+    }
+
+    public void hide(){
+        mBezierAnimation.start();
+        cancelAllAnimation();
+        if (isMenuVisible) {
+            startHideAnimate();
+        }
+        isMenuVisible = false;
     }
 
     private int isMenuItemTouched(MotionEvent event) {
@@ -370,6 +390,84 @@ public class GooeyMenu extends View {
                 return true;
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent event) {
+        if (isGooeyMenuTouch(event)) {
+            return true;
+        }
+        int menuItem = isMenuItemTouched(event);
+        if (isMenuVisible && menuItem > 0) {
+            if (menuItem <= mDrawableArray.size()) {
+                mDrawableArray.get(mMenuPoints.size() - menuItem).setState(STATE_PRESSED);
+                invalidate();
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent event) {
+        int menuItem = isMenuItemTouched(event);
+        if (isGooeyMenuTouch(event)) {
+            mBezierAnimation.start();
+            cancelAllAnimation();
+            if (isMenuVisible) {
+                startHideAnimate();
+                if (mGooeyMenuInterface != null) {
+                    mGooeyMenuInterface.menuClose();
+                }
+            } else {
+                startShowAnimate();
+                if (mGooeyMenuInterface != null) {
+                    mGooeyMenuInterface.menuOpen();
+                }
+            }
+            isMenuVisible = !isMenuVisible;
+            return true;
+        }
+
+        if (isMenuVisible) {
+            menuItem = isMenuItemTouched(event);
+            invalidate();
+            if (menuItem > 0) {
+                if (menuItem <= mDrawableArray.size()) {
+                    mDrawableArray.get(mMenuPoints.size() - menuItem).setState(STATE_ACTIVE);
+                    postInvalidateDelayed(1000);
+                }
+                if (mGooeyMenuInterface != null) {
+                    mGooeyMenuInterface.menuItemClicked(menuItem);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent event) {
+        if (isGooeyMenuTouch(event)) {
+            mGooeyMenuInterface.menuLongClicked();
+        }
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         return false;
     }
 
@@ -498,5 +596,7 @@ public class GooeyMenu extends View {
          * @param menuNumber give menu number which clicked.
          */
         void menuItemClicked(int menuNumber);
+
+        void menuLongClicked();
     }
 }

@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -61,6 +62,8 @@ import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import com.zkjinshi.svip.view.GooeyMenu;
 
+import org.apache.log4j.chainsaw.Main;
+
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface {
 
@@ -101,9 +104,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     @Override
     public void menuItemClicked(int menuNumber) {
-
+        Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void menuLongClicked() {
+        Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
+    }
 
 
     private void initView(){
@@ -113,7 +120,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
         mGooeyMenu = (GooeyMenu) findViewById(R.id.gooey_menu);
         mGooeyMenu.setOnMenuListener(this);
+
     }
+
+
 
     private void initData(){
         initDBName();
