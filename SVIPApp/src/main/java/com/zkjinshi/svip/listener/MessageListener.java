@@ -255,7 +255,7 @@ public class MessageListener extends Handler implements IMessageListener {
         Dialog dialog = null;
         sdf = new SimpleDateFormat("HH:mm");
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
-        customBuilder.setTitle("下载通知");
+        customBuilder.setTitle("下线通知");
         customBuilder.setMessage("您的账号于" + sdf.format(new Date()) + "在另一台设备登录");
         customBuilder.setGravity(Gravity.CENTER);
         customBuilder.setNegativeButton("退出", new DialogInterface.OnClickListener() {

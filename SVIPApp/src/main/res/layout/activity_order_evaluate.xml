@@ -125,7 +125,7 @@
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:textColor="#525252"
-                        android:text="\@null"/>
+                        android:text="@null"/>
 
                     <TextView
                         android:id="@+id/order_evaluate_tv_room_info"
@@ -136,7 +136,7 @@
                         android:textSize="14sp"
                         android:layout_marginTop="10dp"
                         android:textColor="#525252"
-                        android:text="\@null"/>
+                        android:text="@null"/>
 
                     <TextView
                         android:id="@+id/order_evaluate_tv_room_total_price"
@@ -148,7 +148,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="50dp"
                         android:textColor="#525252"
-                        android:text="\@null"/>
+                        android:text="@null"/>
 
                 </RelativeLayout>
 
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:textSize="14sp"
-                        android:text="\@null"/>
+                        android:text="@null"/>
 
                 </LinearLayout>
 
@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="#828282"
                         android:textSize="14sp"
-                        android:text="\@null"/>
+                        android:text="@null"/>
 
                 </LinearLayout>
 
