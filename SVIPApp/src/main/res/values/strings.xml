@@ -81,4 +81,7 @@
     <string name="please_choose_sex">请选择性别</string>
     <string name="net_exception">网络异常</string>
     <string name="request_cancel">请求取消</string>
+    <string name="service_center">服务中心</string>
+    <string name="add">新增</string>
+    <string name="search">搜索</string>
 </resources>

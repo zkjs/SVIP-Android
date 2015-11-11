@@ -13,7 +13,7 @@
         android:id="@+id/itv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:leftImage="@mipmap/ic_fanhui"
         zkjinshi:itemTitleColor="#FFFFFF" />
 
     <RelativeLayout

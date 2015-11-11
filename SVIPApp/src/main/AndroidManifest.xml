@@ -211,7 +211,10 @@
             android:name=".activity.mine.AboutActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name">
+
+        </activity>
+
         <activity
             android:name=".activity.order.PayOrderActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -285,6 +288,12 @@
         <activity android:name="com.tencent.connect.common.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".activity.common.ServiceCenterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
         <!-- 微信回调activity -->

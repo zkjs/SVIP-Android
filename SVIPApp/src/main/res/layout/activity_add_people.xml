@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#191223"
         zkjinshi:itemTitle="添加入住人"
-        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:leftImage="@mipmap/ic_fanhui"
         zkjinshi:itemTitleColor="#FFFFFF"
         />
 
@@ -30,8 +30,7 @@
             android:hint="输入入住人姓名"
             android:background="@android:color/transparent"
             android:ems="10"
-            android:id="@+id/et_setting_input"
-            />
+            android:id="@+id/et_setting_input" />
 
         <View
             android:background="#bbbbbb"

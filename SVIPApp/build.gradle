@@ -25,7 +25,6 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.mcxiaoke.volley:library:1.0.17'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'de.greenrobot:eventbus:3.0.0-beta1'
     compile 'com.google.code.gson:gson:2.3.1'
     compile project(':multi-image-selector')
     compile project(':ZKJinShiBaseClass')
@@ -33,4 +32,5 @@ dependencies {
     compile project(':CalendarListView')
     compile project(':social_sdk_library_project')
     compile project(':Cloud_TagView')
+    compile 'de.greenrobot:eventbus:3.0.0-beta1'
 }

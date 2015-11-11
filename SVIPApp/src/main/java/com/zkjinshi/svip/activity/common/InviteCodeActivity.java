@@ -29,9 +29,8 @@ import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.bean.jsonbean.InviteCodeBean;
+import com.zkjinshi.svip.bean.jsonbean.InviteCodeEntity;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
-import com.zkjinshi.svip.bean.jsonbean.MsgUserDefineRSP;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -58,6 +57,7 @@ public class InviteCodeActivity extends Activity {
 
     private Context       mContext;
     private String        mUserID;
+    private String        mPhoneNum;
     private String        mToken;
     private String        mUserName;
 
@@ -98,6 +98,7 @@ public class InviteCodeActivity extends Activity {
     private void initData() {
         mContext  = InviteCodeActivity.this;
         mUserID   = CacheUtil.getInstance().getUserId();
+        mPhoneNum = CacheUtil.getInstance().getUserPhone();
         mToken    = CacheUtil.getInstance().getToken();
         mUserName = CacheUtil.getInstance().getUserName();
 
@@ -196,15 +197,16 @@ public class InviteCodeActivity extends Activity {
                     JSONObject responseObj = new JSONObject(jsonResult);
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
-//                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-//                                     "恭喜，成功使用邀请码并绑定专属客服。", Gravity.CENTER);
 
+                        //发送自定义协议通知被绑定的服务员
                         Gson gson = new Gson();
-                        InviteCodeBean codeBean = new InviteCodeBean();
+                        InviteCodeEntity codeBean = new InviteCodeEntity();
+
+                        codeBean.setPhone_number(mPhoneNum);
                         codeBean.setDate(System.currentTimeMillis());
                         codeBean.setUserid(mUserID);
                         codeBean.setUsername(mUserName);
-                        String codeBeanJson = gson.toJson(codeBean, InviteCodeBean.class);
+                        String codeBeanJson = gson.toJson(codeBean, InviteCodeEntity.class);
 
                         if(!TextUtils.isEmpty(mSalesID)){
                             sendMsgBindInviteCodeSuccess(codeBeanJson, mSalesID);
@@ -314,7 +316,7 @@ public class InviteCodeActivity extends Activity {
         msgUserDefine.setContent(content);
         msgUserDefine.setFromid(mUserID);
         //        msgUserDefine.setProtover();
-        msgUserDefine.setPushalert("绑定邀请码成功");
+        msgUserDefine.setPushalert("绑定邀请码");
         msgUserDefine.setPushofflinemsg(PushOfflineMsg.PUSH_MSG.getValue());
         msgUserDefine.setToid(toID);
 

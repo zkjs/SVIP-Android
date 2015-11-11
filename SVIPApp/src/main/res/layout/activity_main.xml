@@ -82,8 +82,7 @@
                 android:text="VIP 1 (未激活)"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
-                android:layout_marginRight="10dp"
-                />
+                android:layout_marginRight="10dp" />
 
             <TextView
                 android:id="@+id/distance_tv"
@@ -221,8 +220,6 @@
             android:textSize="16sp"/>
     </LinearLayout>
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -278,6 +275,5 @@
         app:menu_radius="@dimen/small_circle_radius"
         app:no_of_menu="3"
         app:menu_drawable="@array/drawable_array"/>
-
 
 </RelativeLayout>

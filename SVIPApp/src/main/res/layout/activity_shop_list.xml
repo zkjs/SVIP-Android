@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#191223"
-        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:leftImage="@mipmap/ic_fanhui"
         zkjinshi:rightImage="@mipmap/ic_sousuo"
         zkjinshi:itemTitleColor="#FFFFFF"
         />

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="#191223"
         zkjinshi:itemTitle="偏好标签"
-        zkjinshi:leftImage="@mipmap/icon_white_img_back"
+        zkjinshi:leftImage="@mipmap/ic_fanhui"
         zkjinshi:itemTitleColor="#FFFFFF"
         />
 

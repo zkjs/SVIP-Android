@@ -19,7 +19,7 @@
                 android:layout_marginLeft="0dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/icon_white_img_back"
+                android:src="@mipmap/ic_fanhui"
                 android:scaleType="centerInside"/>
         </LinearLayout>
 
@@ -30,7 +30,7 @@
             android:layout_marginRight="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_search_shouye"
+            android:src="@mipmap/ic_fanhui"
             android:scaleType="centerInside"/>
 
         <RadioGroup

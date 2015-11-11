@@ -1,7 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,12 +27,10 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
-import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
-import com.zkjinshi.svip.fragment.MenuRightFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
@@ -52,19 +49,12 @@ import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.vo.MessageVo;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import de.greenrobot.event.EventBus;
-import de.greenrobot.event.Subscribe;
 import com.zkjinshi.svip.view.GooeyMenu;
-
-import org.apache.log4j.chainsaw.Main;
-
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface {
 
@@ -105,27 +95,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     @Override
     public void menuItemClicked(int menuNumber) {
-        if(mGooeyMenu.isMenuVisible){
-            mGooeyMenu.hide();
-        }
         Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void menuLongClicked() {
-        if(mGooeyMenu.isMenuVisible){
-            mGooeyMenu.hide();
-        }
-        //Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
-        if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
-            IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
-        } else if (svipApplication.mRegionList.size() > 0) {
-            int index = svipApplication.mRegionList.size() - 1;
-            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-            String phone = ShopListManager.getInstance().getShopPhone(shopid);
-            IntentUtil.callPhone(MainActivity.this, phone);
-        }
-
+        Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -139,11 +114,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     }
 
-
-
     private void initData(){
         initDBName();
-        EventBus.getDefault().register(this);
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
         MainController.getInstance().initServerPersonal();
@@ -152,8 +124,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         initService(messageListener);
         //设置消息未读个数
         setBadgeNum();
-
-
     }
 
     private void setBadgeNum(){
@@ -177,8 +147,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         slidingMenu.setMenu(getLayoutInflater().inflate(R.layout.left_menu_frame, null));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.id_left_menu_frame, leftMenuFragment).commit();
-        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
         // 设置触摸屏幕的模式
+        /** 修改触摸屏幕模式为左侧单独划出 add by winkyqin 2015/11/11 */
+        slidingMenu.setMode(SlidingMenu.LEFT);
+//        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
         /** 去除侧滑阴影效果 add by winkyqin */
@@ -189,11 +161,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         // 设置渐入渐出效果的值
         slidingMenu.setFadeDegree(0.35f);
         slidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
+
+        /** 取消右侧菜单滑出显示 add by winkyqin 2015/11/11 */
         //设置右边（二级）侧滑菜单
-        slidingMenu.setSecondaryMenu(R.layout.right_menu_frame);
-        Fragment rightMenuFragment = new MenuRightFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.id_right_menu_frame, rightMenuFragment).commit();
+//        slidingMenu.setSecondaryMenu(R.layout.right_menu_frame);
+//        Fragment rightMenuFragment = new MenuRightFragment();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.id_right_menu_frame, rightMenuFragment).commit();
     }
 
     @Override
@@ -310,11 +284,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         });
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
-
     }
 
     private void initListeners() {
-
         //头像
         findViewById(R.id.main_user_photo_civ).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,7 +309,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         findViewById(R.id.main_msg).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                slidingMenu.showSecondaryMenu();
+
+                // slidingMenu.showSecondaryMenu();
+
+                // TODO: 进入右侧服务中心界面
+                Intent goServiceCenter = new Intent(MainActivity.this, ServiceCenterActivity.class);
+                MainActivity.this.startActivity(goServiceCenter);
+                //左出又进
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -379,10 +358,65 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         findViewById(R.id.main_shop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShopActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
+            }
+        });
+
+        findViewById(R.id.main_logo_ibtn).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
+                    IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
+                    return true;
+                } else if (svipApplication.mRegionList.size() > 0) {
+                    int index = svipApplication.mRegionList.size() - 1;
+                    String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                    String phone = ShopListManager.getInstance().getShopPhone(shopid);
+                    IntentUtil.callPhone(MainActivity.this, phone);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        //智能键
+        findViewById(R.id.main_logo_ibtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                switch (mainTextStatus) {
+                    case NO_ORDER_NOT_IN:
+                        intent = new Intent(MainActivity.this, ShopListActivity.class);
+                        intent.putExtra("click_to_talk", true);
+                        break;
+                    default:
+                        if (lastOrderInfo != null && lastOrderInfo.getShopid() != null) {
+                            intent = new Intent(MainActivity.this, ChatActivity.class);
+                            intent.putExtra("shop_id", lastOrderInfo.getShopid());
+                            intent.putExtra("shop_name", lastOrderInfo.getFullname());
+                        } else if (svipApplication.mRegionList.size() > 0) {
+                            int index = svipApplication.mRegionList.size() - 1;
+                            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                            String fullname = ShopListManager.getInstance().getShopName(shopid);
+
+                            intent = new Intent(MainActivity.this, ChatActivity.class);
+                            intent.putExtra("shop_id", shopid);
+                            intent.putExtra("shop_name", fullname);
+                        } else {
+                            intent = new Intent(MainActivity.this, ShopListActivity.class);
+                            intent.putExtra("click_to_talk", true);
+                        }
+
+                        break;
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
             }
         });
 
@@ -404,7 +438,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     protected void onDestroy() {
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
-        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -415,8 +448,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             DBOpenHelper.DB_NAME = CacheUtil.getInstance().getUserId() + ".db";
         }
     }
-
-
 
     @Override
     public void intoRegion(RegionVo regionVo) {
@@ -477,8 +508,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         String msgPushStr = new Gson().toJson(msgPushLocA2M,MsgPushLocA2M.class);
         WebSocketManager.getInstance().sendMessage(msgPushStr);
     }
-
-
 
     /**
      * 改变位置提示信息。
@@ -650,13 +679,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         WebSocketManager.getInstance().initService(this).setMessageListener(messageListener);
     }
 
-    @Subscribe
-    public void onEvent(MessageVo messageVo){
-        Message message = new Message();
-        message.what = NOTIFY_UPDATE_VIEW;
-        handler.sendMessage(message);
-    }
-
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -671,8 +693,5 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             }
         }
     };
-
-
-
 
 }

@@ -9,7 +9,7 @@
         android:id="@+id/itv_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        zkjinshi:leftImage="@mipmap/icon_white_img_back">
+        zkjinshi:leftImage="@mipmap/ic_fanhui">
     </com.zkjinshi.svip.view.ItemTitleView>
 
     <RelativeLayout

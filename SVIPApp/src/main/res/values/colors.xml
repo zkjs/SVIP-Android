@@ -29,5 +29,6 @@
 	<color name="default_color">@android:color/black</color>
 	<color name="default_color_dark">@android:color/black</color>
 	<color name="color_red">#FF0000</color>
+	<color name="Gray252628">#252628</color>
 
 </resources>
