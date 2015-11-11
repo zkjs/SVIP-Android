@@ -98,6 +98,7 @@
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/white_llt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/info_layout"
@@ -205,20 +206,31 @@
                     android:focusableInTouchMode="true" />
             </LinearLayout>
         </LinearLayout>
-        <ListView
-            android:layout_marginTop="10dp"
-            android:id="@+id/ad_listview"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"></ListView>
-        <TextView
-            android:id="@+id/empty_listview"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="center"
-            android:text="暂无数据"
-            android:textColor="#828282"
-            android:textSize="16sp"/>
+        <!--<ListView-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:id="@+id/ad_listview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"></ListView>-->
+        <!--<TextView-->
+            <!--android:id="@+id/empty_listview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="暂无数据"-->
+            <!--android:textColor="#828282"-->
+            <!--android:textSize="16sp"/>-->
+
     </LinearLayout>
+
+    <WebView
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/white_llt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView"
+        />
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -275,5 +287,6 @@
         app:menu_radius="@dimen/small_circle_radius"
         app:no_of_menu="3"
         app:menu_drawable="@array/drawable_array"/>
+
 
 </RelativeLayout>

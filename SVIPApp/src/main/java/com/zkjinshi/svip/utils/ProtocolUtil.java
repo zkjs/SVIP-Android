@@ -296,4 +296,20 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"order/v10list";
     }
 
+    /**
+     * 固定链接获取推送广告
+     * @return
+     */
+    public static String getAdPush(){
+        return ConfigUtil.getInst().getHttpDomain()+"ad/push";
+    }
+
+    /**
+     * 获取广告列表
+     * @return
+     */
+    public static String getAdList(){
+        return ConfigUtil.getInst().getHttpDomain()+"ad/list";
+    }
+
 }
