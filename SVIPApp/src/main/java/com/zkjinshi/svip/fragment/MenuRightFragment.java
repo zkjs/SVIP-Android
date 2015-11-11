@@ -64,12 +64,12 @@ public class MenuRightFragment extends Fragment {
         initListener();
     }
 
-    public void onResume(){
-        super.onResume();
-        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
-        mChatRoomAdapter.setData(mChatRoomLists);
-        mListViewChatRoom.invalidate();
-    }
+//    public void onResume(){
+//        super.onResume();
+//        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
+//        mChatRoomAdapter.setData(mChatRoomLists);
+//        mListViewChatRoom.invalidate();
+//    }
 
     private void initView(LayoutInflater inflater, ViewGroup container){
         mRightFragment    = (LinearLayout) inflater.inflate(R.layout.activity_message_center, container, false);
@@ -80,11 +80,11 @@ public class MenuRightFragment extends Fragment {
 
     private void initData() {
         //获得当前Fragment宿主Activity
-        mChatRoomLists = new ArrayList<MessageVo>();
-        //查询所有可显示的聊天室
-        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
-        mChatRoomAdapter = new ChatRoomAdapter(mChatRoomLists, mActivity);
-        mListViewChatRoom.setAdapter(mChatRoomAdapter);
+//        mChatRoomLists = new ArrayList<MessageVo>();
+//        //查询所有可显示的聊天室
+//        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
+//        mChatRoomAdapter = new ChatRoomAdapter(mChatRoomLists, mActivity);
+//        mListViewChatRoom.setAdapter(mChatRoomAdapter);
     }
 
     private void initListener() {
@@ -114,27 +114,27 @@ public class MenuRightFragment extends Fragment {
         });
     }
 
-    @Subscribe
-    public void onEvent(MessageVo messageVo){
-        Message message = new Message();
-        message.what = NOTIFY_UPDATE_VIEW;
-        handler.sendMessage(message);
-    }
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case NOTIFY_UPDATE_VIEW:
-                    mChatRoomLists = MessageDBUtil.getInstance().queryHistoryMessageList();
-                    if(null != mChatRoomAdapter){
-                        mChatRoomAdapter.setData(mChatRoomLists);
-                    }
-                    break;
-            }
-        }
-    };
+//    @Subscribe
+//    public void onEvent(MessageVo messageVo){
+//        Message message = new Message();
+//        message.what = NOTIFY_UPDATE_VIEW;
+//        handler.sendMessage(message);
+//    }
+//
+//    Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what){
+//                case NOTIFY_UPDATE_VIEW:
+//                    mChatRoomLists = MessageDBUtil.getInstance().queryHistoryMessageList();
+//                    if(null != mChatRoomAdapter){
+//                        mChatRoomAdapter.setData(mChatRoomLists);
+//                    }
+//                break;
+//            }
+//        }
+//    };
 
     public void onDestroy() {
         super.onDestroy();

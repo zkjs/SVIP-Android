@@ -1,8 +1,21 @@
 package com.zkjinshi.svip.fragment;
 
+import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
+import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
+import com.zkjinshi.svip.ext.ShopListManager;
+import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.vo.ChatRoomVo;
+import com.zkjinshi.svip.vo.MessageVo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 采用toolbar显示的服务中心效果界面
@@ -13,14 +26,45 @@ import com.zkjinshi.svip.base.BaseFragment;
  */
 public class MessageCenterFragment extends BaseFragment{
 
+    private RecyclerView        mRcvMsgCenter;
+    private LinearLayoutManager mLayoutManager;
+    private ChatRoomAdapter     mChatRoomAdapter;
+    private List<MessageVo>     mChatRoomLists;
+
     @Override
     protected View initView() {
+
         View view = View.inflate(mContext, R.layout.fragment_message_center, null);
+        mRcvMsgCenter = (RecyclerView) view.findViewById(R.id.rcv_message_center);
+        mRcvMsgCenter.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(mActivity);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRcvMsgCenter.setLayoutManager(mLayoutManager);
         return view;
     }
 
     @Override
     protected void initData() {
         super.initData();
+        mChatRoomLists   = MessageDBUtil.getInstance().queryHistoryMessageList();
+        mChatRoomAdapter = new ChatRoomAdapter(mActivity, mChatRoomLists);
+        mRcvMsgCenter.setAdapter(mChatRoomAdapter);
+
+        //条目点击事件，进入聊天界面
+        mChatRoomAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                MessageVo messageVo = mChatRoomLists.get(position);
+                String shopId = messageVo.getShopId();
+                String shopName = ShopListManager.getInstance().getShopName(shopId);
+                Intent goChat = new Intent(mActivity, ChatActivity.class);
+                goChat.putExtra("shop_id", shopId);
+                goChat.putExtra("shop_name", shopName);
+                mActivity.startActivity(goChat);
+                mActivity.overridePendingTransition(R.anim.slide_in_right,
+                                                   R.anim.slide_out_left);
+            }
+        });
     }
 }

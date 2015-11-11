@@ -5,25 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_contacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="通讯录"
-        />
+        android:cacheColorHint="#000000"
+        android:divider="#e3e3e3"
+        android:dividerHeight="1.0dp"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:visibility="visible" >
 
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_message_center"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:cacheColorHint="#000000"-->
-        <!--android:divider="#e3e3e3"-->
-        <!--android:dividerHeight="1.0dp"-->
-        <!--android:fadingEdge="none"-->
-        <!--android:scrollbars="none"-->
-        <!--android:scrollingCache="false"-->
-        <!--android:visibility="visible" >-->
-
-    <!--</android.support.v7.widget.RecyclerView>-->
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
