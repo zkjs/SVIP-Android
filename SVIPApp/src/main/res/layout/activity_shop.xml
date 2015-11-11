@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#000000">
+
+        <LinearLayout
+            android:id="@+id/back_llt"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_marginLeft="0dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_white_img_back"
+                android:scaleType="centerInside"/>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_search_shouye"
+            android:scaleType="centerInside"/>
+
+        <RadioGroup
+            android:layout_width="202dp"
+            android:layout_height="28dp"
+            android:orientation="horizontal"
+            android:id="@+id/radio_group"
+            android:layout_centerInParent="true"
+            android:background="@drawable/radio_black_bg">
+            <RadioButton
+                android:id="@+id/rbtn_jiudian"
+                style="@style/shop_radio_item"
+                android:checked="true"
+                android:text="酒店"/>
+            <RadioButton
+                android:id="@+id/rbtn_xiuxian"
+                style="@style/shop_radio_item"
+                android:text="休闲"/>
+            <RadioButton
+                android:id="@+id/rbtn_canyin"
+                style="@style/shop_radio_item"
+                android:text="餐饮"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="#ffffff"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>

@@ -28,6 +28,7 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.ext.ShopListManager;
@@ -104,12 +105,27 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     @Override
     public void menuItemClicked(int menuNumber) {
+        if(mGooeyMenu.isMenuVisible){
+            mGooeyMenu.hide();
+        }
         Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void menuLongClicked() {
-        Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
+        if(mGooeyMenu.isMenuVisible){
+            mGooeyMenu.hide();
+        }
+        //Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
+        if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
+            IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
+        } else if (svipApplication.mRegionList.size() > 0) {
+            int index = svipApplication.mRegionList.size() - 1;
+            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+            String phone = ShopListManager.getInstance().getShopPhone(shopid);
+            IntentUtil.callPhone(MainActivity.this, phone);
+        }
+
     }
 
 
@@ -363,69 +379,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         findViewById(R.id.main_shop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ShopListActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShopActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
-            }
-        });
-
-        findViewById(R.id.main_logo_ibtn).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
-                    IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
-                    return true;
-                } else if (svipApplication.mRegionList.size() > 0) {
-                    int index = svipApplication.mRegionList.size() - 1;
-                    String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                    String phone = ShopListManager.getInstance().getShopPhone(shopid);
-                    IntentUtil.callPhone(MainActivity.this, phone);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-
-
-        //智能键
-        findViewById(R.id.main_logo_ibtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = null;
-                switch (mainTextStatus) {
-                    case NO_ORDER_NOT_IN:
-                        intent = new Intent(MainActivity.this, ShopListActivity.class);
-                        intent.putExtra("click_to_talk", true);
-                        break;
-                    default:
-                        if (lastOrderInfo != null && lastOrderInfo.getShopid() != null) {
-                            intent = new Intent(MainActivity.this, ChatActivity.class);
-                            intent.putExtra("shop_id", lastOrderInfo.getShopid());
-                            intent.putExtra("shop_name", lastOrderInfo.getFullname());
-                        } else if (svipApplication.mRegionList.size() > 0) {
-                            int index = svipApplication.mRegionList.size() - 1;
-                            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                            String fullname = ShopListManager.getInstance().getShopName(shopid);
-
-                            intent = new Intent(MainActivity.this, ChatActivity.class);
-                            intent.putExtra("shop_id", shopid);
-                            intent.putExtra("shop_name", fullname);
-                        } else {
-                            intent = new Intent(MainActivity.this, ShopListActivity.class);
-                            intent.putExtra("click_to_talk", true);
-                        }
-
-                        break;
-                }
-                if (intent != null) {
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
-
-
             }
         });
 

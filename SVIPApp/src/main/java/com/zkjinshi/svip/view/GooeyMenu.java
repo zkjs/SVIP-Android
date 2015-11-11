@@ -49,7 +49,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     private ArrayList<ObjectAnimator> mShowAnimation = new ArrayList<>();
     private ArrayList<ObjectAnimator> mHideAnimation = new ArrayList<>();
     private ValueAnimator mBezierAnimation, mBezierEndAnimation, mRotationAnimation;
-    private boolean isMenuVisible = true;
+    public boolean isMenuVisible = true;
     private Float bezierConstant = BEZIER_CONSTANT;
     private Bitmap mPlusBitmap;
     private float mRotationAngle;
@@ -66,6 +66,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                     android.R.attr.state_pressed};
 
     private GestureDetector detector;
+    private boolean isLongClick = false;
 
     public GooeyMenu(Context context) {
         super(context);
@@ -294,7 +295,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //detector.onTouchEvent(event);
+        detector.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if (isGooeyMenuTouch(event)) {
@@ -312,6 +313,10 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                 return false;
 
             case MotionEvent.ACTION_UP:
+                if(isLongClick){
+                    isLongClick = false;
+                    return false;
+                }
                 if (isGooeyMenuTouch(event)) {
                     mBezierAnimation.start();
                     cancelAllAnimation();
@@ -347,8 +352,8 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                 return false;
 
         }
-       // return true;
-       return super.onTouchEvent(event);
+        return true;
+       //return super.onTouchEvent(event);
     }
 
     public void hide(){
@@ -395,18 +400,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
     @Override
     public boolean onDown(MotionEvent event) {
-        if (isGooeyMenuTouch(event)) {
-            return true;
-        }
-        int menuItem = isMenuItemTouched(event);
-        if (isMenuVisible && menuItem > 0) {
-            if (menuItem <= mDrawableArray.size()) {
-                mDrawableArray.get(mMenuPoints.size() - menuItem).setState(STATE_PRESSED);
-                invalidate();
-            }
 
-            return true;
-        }
         return false;
     }
 
@@ -417,39 +411,6 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
     @Override
     public boolean onSingleTapUp(MotionEvent event) {
-        int menuItem = isMenuItemTouched(event);
-        if (isGooeyMenuTouch(event)) {
-            mBezierAnimation.start();
-            cancelAllAnimation();
-            if (isMenuVisible) {
-                startHideAnimate();
-                if (mGooeyMenuInterface != null) {
-                    mGooeyMenuInterface.menuClose();
-                }
-            } else {
-                startShowAnimate();
-                if (mGooeyMenuInterface != null) {
-                    mGooeyMenuInterface.menuOpen();
-                }
-            }
-            isMenuVisible = !isMenuVisible;
-            return true;
-        }
-
-        if (isMenuVisible) {
-            menuItem = isMenuItemTouched(event);
-            invalidate();
-            if (menuItem > 0) {
-                if (menuItem <= mDrawableArray.size()) {
-                    mDrawableArray.get(mMenuPoints.size() - menuItem).setState(STATE_ACTIVE);
-                    postInvalidateDelayed(1000);
-                }
-                if (mGooeyMenuInterface != null) {
-                    mGooeyMenuInterface.menuItemClicked(menuItem);
-                }
-                return true;
-            }
-        }
         return false;
     }
 
@@ -461,7 +422,10 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     @Override
     public void onLongPress(MotionEvent event) {
         if (isGooeyMenuTouch(event)) {
+            isLongClick = true;
             mGooeyMenuInterface.menuLongClicked();
+        }else{
+            isLongClick = false;
         }
 
     }

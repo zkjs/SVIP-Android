@@ -49,6 +49,17 @@
         <item name="android:textColor">@color/set_radio_textcolor</item>
     </style>
 
+    <style name="shop_radio_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/shop_radio_btn</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/shop_radio_textcolor</item>
+    </style>
+
     <style name="tags_check_item">
         <item name="android:paddingLeft">0dp</item>
         <item name="android:drawableLeft">@null</item>

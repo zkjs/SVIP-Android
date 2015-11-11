@@ -193,6 +193,13 @@
             android:label="@string/app_name"
             >
         </activity>
+
+        <activity
+            android:name=".activity.order.ShopActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/app_name"/>
+
         <activity
             android:name=".activity.order.GoodListActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
