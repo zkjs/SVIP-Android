@@ -80,6 +80,9 @@ public class ServiceCenterActivity extends AppCompatActivity{
         };
 
         mViewPager.setAdapter(mFragmentPagerAdapter);
+
+        //默认选中消息中心界面
+        mRgOperation.check(R.id.rb_liaotian);
     }
 
     private void initListener() {
