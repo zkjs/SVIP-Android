@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,9 +11,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +36,7 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
@@ -50,11 +56,13 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.AdPushResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.MessageVo;
 
@@ -87,6 +95,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     private RatingBar ratingBar;
     private TextView majorTv,minorTv;
     private CircleImageView shopIcon;
+    private LinearLayout containerLlt;
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -119,7 +128,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         if(mGooeyMenu.isMenuVisible){
             mGooeyMenu.hide();
         }
-        Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
+        BookingDialog bookingDialog = new BookingDialog(this);
+        bookingDialog.pageIndex = menuNumber -1;
+        bookingDialog.show();
     }
 
     @Override
@@ -128,14 +140,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             mGooeyMenu.hide();
         }
         //Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
-        if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
-            IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
-        } else if (svipApplication.mRegionList.size() > 0) {
-            int index = svipApplication.mRegionList.size() - 1;
-            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-            String phone = ShopListManager.getInstance().getShopPhone(shopid);
-            IntentUtil.callPhone(MainActivity.this, phone);
-        }
+//        if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
+//            IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
+//        } else if (svipApplication.mRegionList.size() > 0) {
+//            int index = svipApplication.mRegionList.size() - 1;
+//            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+//            String phone = ShopListManager.getInstance().getShopPhone(shopid);
+//            IntentUtil.callPhone(MainActivity.this, phone);
+//        }
+        BookingDialog bookingDialog = new BookingDialog(this);
+        bookingDialog.pageIndex = 0;
+        bookingDialog.show();
 
     }
 
@@ -167,6 +182,21 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         webView.getSettings().setDatabaseEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.getSettings().setSaveFormData(true);
+        findViewById(R.id.progressBar).setVisibility(View.GONE);
+//        webView.setWebViewClient(new WebViewClient() {
+//
+//
+//            /**
+//             * 载入页面完成的事件 |同样道理，我们知道一个页面载入完成，于是我们可以关闭loading条，切换程序动作
+//             */
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//
+//                findViewById(R.id.progressBar).setVisibility(View.GONE);
+//                super.onPageFinished(view, url);
+//            }
+//
+//        });
 
     }
 
@@ -260,7 +290,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
      * 固定链接获取推送广告
      */
     private void loadAdPush() {
-        String url = ProtocolUtil.getAdPush();
+        String url = ProtocolUtil.getAdList();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
@@ -435,10 +465,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 Intent intent = null;
                 switch (mainTextStatus) {
                     case DEFAULT_NULL:
-                        intent = new Intent(MainActivity.this, ShopListActivity.class);
+                        intent = new Intent(MainActivity.this, ShopActivity.class);
                         break;
                     case NO_ORDER_NOT_IN:
-                        intent = new Intent(MainActivity.this, ShopListActivity.class);
+                        intent = new Intent(MainActivity.this, ShopActivity.class);
                         break;
                     case NO_ORDER_IN:
                         if (svipApplication.mRegionList.size() > 0) {
@@ -447,6 +477,18 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                             intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
                         }
 
+                        break;
+                    case ORDER_FINISH:
+                        intent = new Intent(MainActivity.this, OrderEvaluateActivity.class);
+                        OrderConsumeResponse bookOrder = new OrderConsumeResponse();
+                        bookOrder.setReservation_no(lastOrderInfo.getReservation_no());
+                        bookOrder.setShopid(lastOrderInfo.getShopid());
+                        bookOrder.setRoom_type(lastOrderInfo.getRoom_type());
+                        bookOrder.setRooms(lastOrderInfo.getRooms());
+                        bookOrder.setRoom_rate(lastOrderInfo.getRoom_rate());
+                        bookOrder.setArrival_date(lastOrderInfo.getArrival_date());
+                        bookOrder.setDeparture_date(lastOrderInfo.getDeparture_date());
+                        intent.putExtra("bookOrder",bookOrder);
                         break;
                     default:
                         if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {

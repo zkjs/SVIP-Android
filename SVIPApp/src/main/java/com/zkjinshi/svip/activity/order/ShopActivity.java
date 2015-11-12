@@ -67,7 +67,8 @@ public class ShopActivity extends FragmentActivity {
     }
 
     private void initData(){
-
+        int pageIndex = getIntent().getIntExtra("pageIndex",0);
+        mViewPager.setCurrentItem(pageIndex);
     }
 
     private void initListener(){

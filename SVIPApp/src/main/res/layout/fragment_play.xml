@@ -3,16 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE">
+    android:background="#ffffff">
 
     <ListView
         android:id="@+id/play_list_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.0"
-        android:listSelector="@android:color/transparent"
-        android:divider="@android:color/transparent"
-        android:cacheColorHint="@android:color/transparent"
-        android:background="@android:color/white"/>
+        android:layout_height="match_parent"
+        android:divider="#e8e8e8"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fadeScrollbars="true"/>
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,6 +62,11 @@ public class HotelFragment  extends Fragment {
 
     private void initView(){
         shopListView = (ListView)view.findViewById(R.id.shop_list_view);
+        View emptyView = getActivity().getLayoutInflater().inflate(R.layout.empty_layout, null);
+        TextView tips = (TextView)emptyView.findViewById(R.id.empty_tips);
+        tips.setText("暂无商家");
+        ((ViewGroup)shopListView.getParent()).addView(emptyView);
+        shopListView.setEmptyView(emptyView);
     }
 
     private void initData(){

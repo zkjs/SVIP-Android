@@ -8,29 +8,22 @@
         android:layout_height="40dp"
         android:background="#000000">
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/back_llt"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:gravity="center">
-            <ImageView
-                android:layout_marginLeft="0dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@mipmap/ic_fanhui"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
+            android:src="@drawable/ic_lef_jiudian"
+            android:scaleType="centerInside"/>
 
 
         <ImageView
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_fanhui"
+            android:src="@drawable/ic_search_shouye"
             android:scaleType="centerInside"/>
 
         <RadioGroup
