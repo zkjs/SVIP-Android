@@ -71,8 +71,7 @@ public class InviteCodeActivity extends Activity {
     private TextView      mTvSalerName;
 
     private DisplayImageOptions mOptions;
-
-    private String        mSalesID;
+    private String              mSalesID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

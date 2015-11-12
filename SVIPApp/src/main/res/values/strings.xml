@@ -84,4 +84,8 @@
     <string name="service_center">服务中心</string>
     <string name="add">新增</string>
     <string name="search">搜索</string>
+    <string name="add_contact">添加好友</string>
+    <string name="ignore_all_msg">忽略所有信息</string>
+    <string name="clear_all_msg">清空所有聊天</string>
+    <string name="edit_contacts">编辑通讯录</string>
 </resources>

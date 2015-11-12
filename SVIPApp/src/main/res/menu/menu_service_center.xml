@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.set.TeamContactsActivity">
+    tools:context=".activity.common.ServiceCenterActivity">
 
     <item
-        android:id="@+id/menu_client_search"
+        android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         android:title="@string/search"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menu_client_jia"
+        android:id="@+id/action_jia"
         android:icon="@drawable/bg_ic_tianjia"
         android:title="@string/add"
         app:showAsAction="always" />

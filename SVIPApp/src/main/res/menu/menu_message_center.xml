@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/add_contact"
+        android:orderInCategory="100"
+        android:title="@string/add_contact" />
+
+    <item
+        android:id="@+id/ignore_all"
+        android:orderInCategory="100"
+        android:title="@string/ignore_all_msg" />
+
+    <item
+        android:id="@+id/clear_all"
+        android:orderInCategory="100"
+        android:title="@string/clear_all_msg" />
+
+</menu>
