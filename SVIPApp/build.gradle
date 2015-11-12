@@ -8,8 +8,8 @@ android {
         applicationId "com.zkjinshi.svip"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 27
-        versionName "1.2.6"
+        versionCode 28
+        versionName "1.2.7"
     }
     buildTypes {
         release {
