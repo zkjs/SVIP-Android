@@ -50,16 +50,10 @@ public class SVIPApplication extends Application {
         initFace();
         initTest();
         initChecker();
-        //initShop();
 
     }
 
-    /**
-     * 初始化商家列表信息
-     */
-    private void initShop() {
-        ShopListManager.getInstance().init(this);
-    }
+
 
     /**
      * 初始化上下文

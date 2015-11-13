@@ -58,6 +58,19 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 设置激活状态
+	 * @param isActivate
+	 */
+	public void setActivate(boolean isActivate) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("is_activate", isActivate).commit();
+	}
+
+	/**
 	 * 获取用户登录状态
 	 * @return
 	 */
@@ -68,6 +81,19 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("is_login", false);
+	}
+
+	/**
+	 * 获取激活状态
+	 * @return
+	 */
+	public boolean isActivate() {
+		if (null == context) {
+			return false;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("is_activate", false);
 	}
 
 	/**
@@ -162,6 +188,19 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 保存用户等级
+	 * @param userApplevel
+	 */
+	public void setUserApplevel(String userApplevel) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString("user_applevel", userApplevel).commit();
+	}
+
+	/**
 	 * 获取用户手机号
 	 * @return
 	 */
@@ -172,6 +211,19 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getString("mobilePhone","");
+	}
+
+	/**
+	 * 获取用户等级
+	 * @return
+	 */
+	public String getUserApplevel() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getString("user_applevel","0");
 	}
 
 	public void savePicName( String picName) {

@@ -52,6 +52,8 @@ import java.util.HashMap;
  */
 public class OrderEvaluateActivity extends Activity{
 
+    private final static String TAG = OrderEvaluateActivity.class.getSimpleName();
+
     private CheckBox poorCb,commonCb,gratifyCb,greatGratifyCb,highlyRecommendCb;
     private CheckBox poorResultCb,commonResultCb,gratifyResultCb,greatGratifyResultCb,highlyRecommendResultCb;
     private EditText inputEvaluateEtv;

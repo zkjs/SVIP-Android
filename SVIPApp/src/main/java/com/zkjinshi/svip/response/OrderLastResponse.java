@@ -20,6 +20,44 @@ public class OrderLastResponse extends BaseResponse{
    private String status;// 订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单
    private String pay_status;// 支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账
 
+    private int score;
+    private int star;
+
+    private double map_longitude;
+    private double map_latitude;
+
+    public double getMap_longitude() {
+        return map_longitude;
+    }
+
+    public void setMap_longitude(double map_longitude) {
+        this.map_longitude = map_longitude;
+    }
+
+    public double getMap_latitude() {
+        return map_latitude;
+    }
+
+    public void setMap_latitude(double map_latitude) {
+        this.map_latitude = map_latitude;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
+
     public String getReservation_no() {
         return reservation_no;
     }

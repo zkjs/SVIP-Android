@@ -47,6 +47,15 @@ public class UserDetailVo {
     private String real_name;//真实姓名
     private String english_name;//英文名称
     private String idcard;//身份证号
+    private String user_applevel;
+
+    public String getUser_applevel() {
+        return user_applevel;
+    }
+
+    public void setUser_applevel(String user_applevel) {
+        this.user_applevel = user_applevel;
+    }
 
     public String getUserid() {
         return userid;
