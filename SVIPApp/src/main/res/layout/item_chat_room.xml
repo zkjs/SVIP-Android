@@ -5,74 +5,85 @@
 
     <RelativeLayout
         android:id="@+id/rl_shop_icon"
-        android:padding="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dp">
 
         <com.zkjinshi.svip.view.CircleImageView
             android:id="@+id/iv_shop_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_jiqiren_pre"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/tv_unread_message_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/red_round_select"
-            android:textSize="18sp"
-            android:layout_alignTop="@+id/iv_shop_icon"
-            android:layout_alignRight="@+id/iv_shop_icon"
-            android:visibility="invisible"/>
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_chat_room_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:weightSum="3"
-        android:padding="5dp"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/rl_shop_icon"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/rl_shop_icon"
+        android:layout_alignTop="@id/rl_shop_icon"
         android:layout_toRightOf="@+id/rl_shop_icon"
-        android:layout_alignBottom="@+id/rl_shop_icon">
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tv_shop_name"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="12121"
-            android:gravity="center_vertical|left"
-            android:textColor="@color/Black"
-            android:textSize="16sp" />
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_chat_content"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            android:text="12121"
-            android:singleLine="true"
-            android:gravity="center_vertical|left"
-            android:layout_marginRight="15dp"
-            android:ellipsize="end"
-            android:textColor="@color/Gray7C7C7C"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:textColor="@color/Black"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_latest_chat_time"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
+            <TextView
+                android:id="@+id/tv_latest_chat_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/Gray9A9A9A"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="12121"
-            android:gravity="center_vertical|left"
-            android:textColor="@color/Gray9A9A9A"
-            android:textSize="12sp" />
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_chat_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical|left"
+                android:singleLine="true"
+                android:textColor="@color/Gray7C7C7C"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_unread_message_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_round_select"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
