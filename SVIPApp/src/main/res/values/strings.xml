@@ -88,4 +88,5 @@
     <string name="ignore_all_msg">忽略所有信息</string>
     <string name="clear_all_msg">清空所有聊天</string>
     <string name="edit_contacts">编辑通讯录</string>
+    <string name="current_none">暂无</string>
 </resources>

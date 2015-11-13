@@ -33,4 +33,5 @@ dependencies {
     compile project(':social_sdk_library_project')
     compile project(':Cloud_TagView')
     compile 'de.greenrobot:eventbus:3.0.0-beta1'
+    compile project(':MaterialSearchViewLibrary')
 }

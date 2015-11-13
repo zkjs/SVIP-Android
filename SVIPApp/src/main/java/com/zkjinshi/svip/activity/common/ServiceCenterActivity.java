@@ -1,12 +1,15 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,13 +17,12 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseFragment;
@@ -45,13 +47,15 @@ public class ServiceCenterActivity extends AppCompatActivity {
     private RelativeLayout mRlSearch;
     private RelativeLayout mRlTianJia;
 
-    private TextView mTvTitle;
-    private Spinner  mSpinnerCities;
+    private TextView     mTvTitle;
+    private Spinner      mSpinnerCities;
     private ArrayAdapter mCitiesAdapter;
 
-    private NoScrollViewPager mViewPager;
-    private RadioGroup mRgOperation;
-    private List<BaseFragment> mFragmentList;
+    private MaterialSearchView   mSearchView;
+
+    private NoScrollViewPager    mViewPager;
+    private RadioGroup           mRgOperation;
+    private List<BaseFragment>   mFragmentList;
     private FragmentPagerAdapter mFragmentPagerAdapter;
 
     private Animation rotateAnimation;
@@ -74,13 +78,52 @@ public class ServiceCenterActivity extends AppCompatActivity {
         mRlTianJia = (RelativeLayout) findViewById(R.id.rl_tianjia);
 
         mTvTitle       = (TextView) findViewById(R.id.tv_title);
-        mSpinnerCities = (Spinner) findViewById(R.id.spinner_cities);
+        mSpinnerCities = (Spinner)  findViewById(R.id.spinner_cities);
+        mSearchView    = (MaterialSearchView) findViewById(R.id.sv_search_view);
 
-        mViewPager = (NoScrollViewPager) findViewById(R.id.nsvp_scroll_view_pager);
+        mViewPager   = (NoScrollViewPager) findViewById(R.id.nsvp_scroll_view_pager);
         mRgOperation = (RadioGroup) findViewById(R.id.rg_operation);
     }
 
     private void initData() {
+        //是否加入语音设置
+        mSearchView.setVoiceSearch(true);
+        mSearchView.setCursorDrawable(R.drawable.custom_cursor);
+        //设置搜索键入搜索框 此处本地联系人
+        mSearchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                DialogUtil.getInstance().showToast(ServiceCenterActivity.this, "Query: " + query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
+        //搜索选中框
+        mSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DialogUtil.getInstance().showToast(ServiceCenterActivity.this, "TODO");
+            }
+        });
 
         rotateAnimation = new RotateAnimation(0f, 45f,
                      Animation.RELATIVE_TO_SELF, 0.5f,
@@ -144,8 +187,8 @@ public class ServiceCenterActivity extends AppCompatActivity {
         mRlSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtil.getInstance().showToast(ServiceCenterActivity.this, "to do search");
-                //TODO: 进去搜索
+                mSearchView.setVisibility(View.VISIBLE);
+                mSearchView.showSearch();
             }
         });
 
@@ -271,4 +314,35 @@ public class ServiceCenterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_default_search, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(item);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0) {
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    mSearchView.setQuery(searchWrd, false);
+                }
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

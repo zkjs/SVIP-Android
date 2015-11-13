@@ -1,84 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <include layout="@layout/title_activity_service_center"></include>
-
-    <com.zkjinshi.svip.view.NoScrollViewPager
-        android:id="@+id/nsvp_scroll_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_above="@+id/ll_tab_operation"
-        android:layout_weight="1"></com.zkjinshi.svip.view.NoScrollViewPager>
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_tab_operation"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/rg_operation"
+        <include layout="@layout/title_activity_service_center"></include>
+
+        <com.zkjinshi.svip.view.NoScrollViewPager
+            android:id="@+id/nsvp_scroll_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_height="0dp"
+            android:layout_above="@+id/ll_tab_operation"
+            android:layout_weight="1"></com.zkjinshi.svip.view.NoScrollViewPager>
 
-            <RadioButton
-                android:padding="5dp"
-                android:id="@+id/rb_liaotian"
-                android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_tab_operation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/rg_operation"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="2dp"
-                android:drawableTop="@drawable/bg_ic_liaotian"
-                android:gravity="center"
-                android:text="聊天"
-                android:textColor="@drawable/bg_rb_text_color"
-                android:textSize="12sp"
-                android:checked="false">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_liaotian"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/bg_ic_liaotian"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="聊天"
+                    android:textColor="@drawable/bg_rb_text_color"
+                    android:textSize="12sp">
 
-            <RadioButton
-                android:padding="5dp"
-                android:id="@+id/rb_tongxunlu"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawablePadding="2dp"
-                android:drawableTop="@drawable/bg_ic_tongxunlu"
-                android:gravity="center"
-                android:text="联系人"
-                android:textSize="12sp"
-                android:textColor="@drawable/bg_rb_text_color">
+                </RadioButton>
 
-            </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_tongxunlu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/bg_ic_tongxunlu"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="联系人"
+                    android:textColor="@drawable/bg_rb_text_color"
+                    android:textSize="12sp">
 
-            <RadioButton
-                android:padding="5dp"
-                android:id="@+id/rb_faxian"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawablePadding="2dp"
-                android:drawableTop="@drawable/bg_ic_faxian"
-                android:gravity="center"
-                android:text="发现"
-                android:textSize="12sp"
-                android:textColor="@drawable/bg_rb_text_color">
+                </RadioButton>
 
-            </RadioButton>
+                <RadioButton
+                    android:id="@+id/rb_faxian"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/bg_ic_faxian"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="发现"
+                    android:textColor="@drawable/bg_rb_text_color"
+                    android:textSize="12sp">
 
-        </RadioGroup>
+                </RadioButton>
 
+            </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/sv_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+</FrameLayout>
