@@ -28,6 +28,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取客服列表 URL
+     * @return
+     */
+    public static String getCustomerServiceUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/mysemplist";
+    }
+
+    /**
      * 获取订单详细信息
      * @return
      */

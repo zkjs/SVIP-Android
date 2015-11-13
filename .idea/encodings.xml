@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/MaterialSearchViewLibrary" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/CLogUtils.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/CharacterParser.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/Contact.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/ContactsActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/ContactsSortAdapter.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/GetContactsInfo.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/PinyinComparator.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/SideBar.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/SortModel.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/SortToken.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bg_btn_default.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/sidebar_background.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/divider_line.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/check_false.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/check_true.png" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

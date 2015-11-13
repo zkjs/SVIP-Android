@@ -40,9 +40,11 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GoodInfoResponse;
@@ -82,6 +84,7 @@ import me.kaede.tagview.TagView;
  * 版权所有
  */
 public class OrderBookingActivity extends Activity{
+
     private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
     private ItemTitleView   mTitle;
@@ -494,6 +497,29 @@ public class OrderBookingActivity extends Activity{
             public void onClick(View view) {
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
+                    String shopId = orderDetailResponse.getRoom().getShopid();
+                    CustomerServicesManager.getInstance().requestServiceListTask(OrderBookingActivity.this, shopId, new NetRequestListener() {
+                        @Override
+                        public void onNetworkRequestError(int errorCode, String errorMessage) {
+                            Log.i(TAG, "errorCode:" + errorCode);
+                            Log.i(TAG, "errorMessage:" + errorMessage);
+                        }
+
+                        @Override
+                        public void onNetworkRequestCancelled() {
+
+                        }
+
+                        @Override
+                        public void onNetworkResponseSucceed(NetResponse result) {
+                            Log.i(TAG, "result:" + result.rawResult);
+                        }
+
+                        @Override
+                        public void beforeNetworkRequestStart() {
+
+                        }
+                    });
                     ArrayList<OrderUsersResponse> userslist = new ArrayList<OrderUsersResponse>();
                     for(int i=0;i<orderRoomResponse.getRooms();i++){
                         OrderUsersResponse user = users.get(i);
