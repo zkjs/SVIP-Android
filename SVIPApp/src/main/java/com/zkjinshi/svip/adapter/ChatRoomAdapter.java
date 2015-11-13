@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.ext.ShopListManager;
+import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.menu.vo.Menu;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -139,4 +143,17 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mRecyclerItemClickListener = listener;
     }
 
+
+    /**
+     * 当ListView数据发生变化时,调用此方法来更新ListView
+     * @param list
+     */
+    public void updateListView(List<MessageVo> list) {
+        if (list == null) {
+            this.mDatas = new ArrayList<>();
+        } else {
+            this.mDatas = list;
+        }
+        this.notifyDataSetChanged();
+    }
 }

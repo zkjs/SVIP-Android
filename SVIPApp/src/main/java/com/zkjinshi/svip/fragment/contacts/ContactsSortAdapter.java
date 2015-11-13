@@ -1,7 +1,6 @@
 package com.zkjinshi.svip.fragment.contacts;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.utils.RandomDrawbleUtil;

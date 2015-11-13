@@ -4,17 +4,21 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.ext.ShopListManager;
+import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.vo.ChatRoomVo;
 import com.zkjinshi.svip.vo.MessageVo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,12 +34,14 @@ public class MessageCenterFragment extends BaseFragment{
     private LinearLayoutManager mLayoutManager;
     private ChatRoomAdapter     mChatRoomAdapter;
     private List<MessageVo>     mChatRoomLists;
+    private TextView            mTvDialog;
 
     @Override
     protected View initView() {
 
         View view = View.inflate(mContext, R.layout.fragment_message_center, null);
         mRcvMsgCenter = (RecyclerView) view.findViewById(R.id.rcv_message_center);
+        mTvDialog     = (TextView)     view.findViewById(R.id.tv_dialog);
         mRcvMsgCenter.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mActivity);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -63,8 +69,23 @@ public class MessageCenterFragment extends BaseFragment{
                 goChat.putExtra("shop_name", shopName);
                 mActivity.startActivity(goChat);
                 mActivity.overridePendingTransition(R.anim.slide_in_right,
-                                                   R.anim.slide_out_left);
+                        R.anim.slide_out_left);
             }
         });
+    }
+
+    /**
+     * 更新listview界面展示
+     * @param messageVos
+     */
+    private void updateListView(List<MessageVo> messageVos) {
+        if(null == messageVos || messageVos.isEmpty()){
+            mTvDialog.setVisibility(View.VISIBLE);
+            mTvDialog.setText(mActivity.getString(R.string.current_none));
+        }else {
+            // 根据a-z进行排序源数据
+            mTvDialog.setVisibility(View.GONE);
+            mChatRoomAdapter.updateListView(messageVos);
+        }
     }
 }
