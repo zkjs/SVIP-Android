@@ -20,7 +20,7 @@ import com.zkjinshi.svip.utils.CacheUtil;
  */
 public abstract class ExtNetRequestListener  implements NetRequestListener{
 
-    public static final String TAG = ExtNetRequestListener.class.getSimpleName();
+    //public static final String TAG = ExtNetRequestListener.class.getSimpleName();
 
     private Context context;
 
@@ -30,13 +30,13 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
 
     @Override
     public void onNetworkRequestError(int errorCode, String errorMessage) {
-        Log.i(TAG,"errorCode:"+errorCode);
-        Log.i(TAG,"errorMessage:"+errorMessage);
+        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorCode:"+errorCode);
+        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorMessage:"+errorMessage);
     }
 
     @Override
     public void onNetworkRequestCancelled() {
-        Log.i(TAG,"onNetworkRequestCancelled");
+        Log.i(ExtNetRequestListener.class.getSimpleName(),"onNetworkRequestCancelled");
     }
 
     @Override
@@ -55,6 +55,6 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
 
     @Override
     public void beforeNetworkRequestStart() {
-        Log.i(TAG,"beforeNetworkRequestStart");
+        Log.i(ExtNetRequestListener.class.getSimpleName(),"beforeNetworkRequestStart");
     }
 }

@@ -33,6 +33,17 @@ public class LocationManager{
     private static LocationManager instance;
     private LocationManagerProxy mLocationManagerProxy;
     private AMapLocationListener aMapLocationListener;
+
+    private LocationChangeListener locationChangeListener = null;
+
+    public interface LocationChangeListener{
+        public void onLocationChanged(AMapLocation aMapLocation);
+    }
+
+    public void setLocationChangeListener(LocationChangeListener locationChangeListener) {
+        this.locationChangeListener = locationChangeListener;
+    }
+
     public static synchronized LocationManager getInstance(){
         if(null == instance){
             instance = new LocationManager();
@@ -45,6 +56,11 @@ public class LocationManager{
         aMapLocationListener =  new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
+
+                if(aMapLocation != null ){
+                    Log.i(TAG,"aMapLocation.getAMapException().getErrorCode()="+aMapLocation.getAMapException().getErrorCode());
+                }
+
                 if(aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0) {
                     //获取位置信息
                     Double geoLat = aMapLocation.getLatitude();//经度
@@ -70,6 +86,9 @@ public class LocationManager{
                     requestMap.put("map_longitude",geoLng+"");
                     requestMap.put("trace_time",sdf.format(new Date()));
                     LocationController.getInstance().requestAddGpsInfoTask(requestMap);
+                    if(locationChangeListener != null){
+                        locationChangeListener.onLocationChanged(aMapLocation);
+                    }
                 }
             }
 

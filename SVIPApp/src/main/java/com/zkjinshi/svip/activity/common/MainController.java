@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -128,7 +130,7 @@ public class MainController {
      */
     public void initServerPersonal(){
         String url = ProtocolUtil.getUserMysemp();
-        Log.i(TAG,url);
+        Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", CacheUtil.getInstance().getUserId());
@@ -152,10 +154,22 @@ public class MainController {
             public void onNetworkResponseSucceed(NetResponse result) {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<List<ServerPersonalVo>>(){}.getType();
+                    Type listType = new TypeToken<List<ServerPersonalVo>>() {
+                    }.getType();
                     Gson gson = new Gson();
-                    List<ServerPersonalVo> serverPersonalVoList = gson.fromJson( result.rawResult, listType);
-                    ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
+                    List<ServerPersonalVo> serverPersonalVoList = gson.fromJson(result.rawResult, listType);
+                    TextView activateTv = (TextView)activity.findViewById(R.id.activate_tv);
+                    if (serverPersonalVoList != null && serverPersonalVoList.size() > 0) {
+                        CacheUtil.getInstance().setActivate(true);
+                        activateTv.setText("（已激活）");
+                        activity.findViewById(R.id.tips_layout).setVisibility(View.GONE);
+                        ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
+                    } else {
+                        activateTv.setText("（未激活）");
+                        activity.findViewById(R.id.tips_layout).setVisibility(View.VISIBLE);
+                        CacheUtil.getInstance().setActivate(false);
+                    }
+
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());

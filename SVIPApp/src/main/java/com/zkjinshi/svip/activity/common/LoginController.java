@@ -72,8 +72,8 @@ public class LoginController {
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
+                Log.i(LoginController.class.getSimpleName(), "errorCode:" + errorCode);
+                Log.i(LoginController.class.getSimpleName(), "errorMessage:" + errorMessage);
             }
 
             @Override
@@ -83,7 +83,7 @@ public class LoginController {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                Log.i(LoginController.class.getSimpleName(), "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
                     UserInfoResponse userInfoResponse =  gson.fromJson(result.rawResult, UserInfoResponse.class);
@@ -98,6 +98,7 @@ public class LoginController {
                             CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
                             CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                             CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
+                            CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                         }
 
                        /* Intent intent = new Intent(activity, CompleteInfoActivity.class);

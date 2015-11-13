@@ -55,6 +55,8 @@ import java.util.HashMap;
  */
 public class InviteCodeActivity extends Activity {
 
+    private final static String TAG = InviteCodeActivity.class.getSimpleName();
+
     private Context       mContext;
     private String        mUserID;
     private String        mPhoneNum;

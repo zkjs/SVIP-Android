@@ -22,6 +22,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -61,6 +62,7 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -78,7 +80,7 @@ import com.zkjinshi.svip.view.GooeyMenu;
 
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface {
+public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -96,6 +98,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     private TextView majorTv,minorTv;
     private CircleImageView shopIcon;
     private LinearLayout containerLlt;
+    public TextView haveOrderTv,distanceTv;
+
+
+
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -112,6 +118,27 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     }
 
     private MainTextStatus mainTextStatus = MainTextStatus.DEFAULT_NULL;
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        //获取位置信息
+        Double geoLat = aMapLocation.getLatitude();//经度
+        Double geoLng = aMapLocation.getLongitude();//纬度
+
+        Double testLat = 22.543283;
+        Double testLng = 113.981359;
+
+        if(lastOrderInfo != null){
+            testLat = lastOrderInfo.getMap_latitude();
+            testLng = lastOrderInfo.getMap_longitude();
+        }
+
+        double distancedouble =  MapUtil.GetDistance(geoLat,geoLng,testLat,testLng);
+        Log.i(TAG, "distancedouble=" + distancedouble);
+
+        distanceTv.setText("距离"+distancedouble+"KM");
+
+    }
 
     @Override
     public void menuOpen() {
@@ -159,6 +186,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         initMenu();
         TextView nameTv = (TextView)findViewById(R.id.name_tv);
         nameTv.setText(CacheUtil.getInstance().getUserName());
+        TextView appLevelTv = (TextView)findViewById(R.id.level_tv);
+        appLevelTv.setText("VIP "+CacheUtil.getInstance().getUserApplevel());
+
+
 
         mGooeyMenu = (GooeyMenu) findViewById(R.id.gooey_menu);
         mGooeyMenu.setOnMenuListener(this);
@@ -168,6 +199,16 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         majorTv = (TextView)findViewById(R.id.tv_order_status);
         minorTv = (TextView)findViewById(R.id.tv_book_info);
         shopNameTv = (TextView)findViewById(R.id.shop_name_tv);
+        haveOrderTv = (TextView)findViewById(R.id.have_order_tv);
+        distanceTv = (TextView)findViewById(R.id.distance_tv);
+
+
+        ratingBar.setVisibility(View.INVISIBLE);
+        majorTv.setText("");
+        minorTv.setText("");
+        shopNameTv.setText("");
+        haveOrderTv.setText("没订单");
+        distanceTv.setText("距离未知");
 
 
         webView = (WebView)findViewById(R.id.webView);
@@ -209,6 +250,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         MainController.getInstance().initShop();
         MainController.getInstance().initServerPersonal();
         LocationManager.getInstance().registerLocation(this);
+        LocationManager.getInstance().setLocationChangeListener(this);
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         //设置消息未读个数
@@ -407,6 +449,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
                     minorTv.setVisibility(View.VISIBLE);
                     minorTv.setText("" + roomType + "  |  " + arriveDateStr + "入住  |  " + dayNum + "晚" + "  |  ￥" + roomRate);
+                    ratingBar.setRating(lastOrderInfo.getStar());
+                    haveOrderTv.setText("有订单");
                     handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -488,7 +532,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                         bookOrder.setRoom_rate(lastOrderInfo.getRoom_rate());
                         bookOrder.setArrival_date(lastOrderInfo.getArrival_date());
                         bookOrder.setDeparture_date(lastOrderInfo.getDeparture_date());
-                        intent.putExtra("bookOrder",bookOrder);
+                        intent.putExtra("bookOrder", bookOrder);
                         break;
                     default:
                         if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
@@ -570,10 +614,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
 
         removeRegionVo(regionVo);
-        if(svipApplication.mRegionList.size() <= 0){
-            TextView locationTv = (TextView)findViewById(R.id.distance_tv);
-            locationTv.setText("不在酒店");
-        }
         handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
     }
 
@@ -615,15 +655,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
      * 改变位置提示信息。
      */
     private void changLocationTips(){
-        TextView locationTv = (TextView)findViewById(R.id.distance_tv);
+
         if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
-            locationTv.setText("没订单  在" +region.getiBeacon().getLocdesc());
+            haveOrderTv.setText("没订单");
+            distanceTv.setText("在"+region.getiBeacon().getLocdesc());
         }else if(checkIfInOrderShop()){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
-            locationTv.setText("有订单  在" +region.getiBeacon().getLocdesc());
+            haveOrderTv.setText("有订单");
+            distanceTv.setText("在"+region.getiBeacon().getLocdesc());
         }else{
-            locationTv.setText("不在酒店");
+            distanceTv.setText("不在酒店");
         }
     }
 
@@ -634,6 +676,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         switch (getMainTextStatus()){
             //其他状态
             case DEFAULT_NULL:
+                shopNameTv.setVisibility(View.INVISIBLE);
+                ratingBar.setVisibility(View.INVISIBLE);
                 majorTv.setText("如有疑问，请和客服联系!");
                 minorTv.setText("长按或点击智键开始快速预定");
                 break;
@@ -648,7 +692,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             //没订单，在酒店
             case NO_ORDER_IN:
                 shopNameTv.setVisibility(View.VISIBLE);
-                ratingBar.setVisibility(View.VISIBLE);
+                ratingBar.setVisibility(View.INVISIBLE);
                 int index = svipApplication.mRegionList.size()-1;
                 String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
                 String fullname = ShopListManager.getInstance().getShopName(shopid);
@@ -692,6 +736,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 int offsetDay = TimeUtil.daysBetween(today,arrivelDay);
                 if(offsetDay != 0){
                     majorTv.setText(offsetDay+"天后入住酒店");
+                    if(offsetDay < 0){
+                        majorTv.setText("订单已经过期。");
+                    }
                 }else{
                     majorTv.setText("今天入住酒店");
                 }
@@ -724,7 +771,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             case ORDER_FINISH:
                 shopNameTv.setVisibility(View.VISIBLE);
                 ratingBar.setVisibility(View.VISIBLE);
-                majorTv.setText("行程结束，请评价");
+                if(lastOrderInfo.getScore() == 0){
+                    majorTv.setText("行程结束，请评价");
+                }else{
+                    majorTv.setText("行程结束，已评价");
+                }
+
                 break;
         }
     }
