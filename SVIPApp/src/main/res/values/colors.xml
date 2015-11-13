@@ -492,7 +492,7 @@
 
     <drawable name="pressed_color">#48000000</drawable>
     <drawable name="focused_color">#48000000</drawable>
-    <drawable name="normal_color">#ffffffff</drawable>
+    <drawable name="normal_color">@android:color/transparent</drawable>
 
     <drawable name="btn_pressed_color">#58ffffff</drawable>
     <drawable name="btn_normal_color">#00000000</drawable>
