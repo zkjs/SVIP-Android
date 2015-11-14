@@ -5,12 +5,13 @@
     android:background="#ffffff">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="56dp"
         android:background="#000000">
 
         <ImageView
             android:id="@+id/back_llt"
             android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_lef_jiudian"
@@ -28,7 +29,7 @@
 
         <RadioGroup
             android:layout_width="202dp"
-            android:layout_height="28dp"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:id="@+id/radio_group"
             android:layout_centerInParent="true"
