@@ -33,7 +33,6 @@ import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
-import com.zkjinshi.svip.ext.ShopListManager;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
@@ -50,6 +49,7 @@ import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -491,7 +491,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             case NO_ORDER_IN:
                 int index = svipApplication.mRegionList.size()-1;
                 String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                String fullname = ShopListManager.getInstance().getShopName(shopid);
+                String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
                 orderStatusTv1.setText(fullname + "欢迎您，点击马上预订酒店");
                 break;
             //有预定状态订单，不在酒店
@@ -616,7 +616,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
      */
     private void initIBeaconList(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init();
+            IBeaconController.getInstance().init(this);
         }
     }
 
