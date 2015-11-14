@@ -35,6 +35,8 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -43,6 +45,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
@@ -50,6 +53,7 @@ import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -495,6 +499,15 @@ public class OrderBookingActivity extends Activity{
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
                     String shopId = orderDetailResponse.getRoom().getShopid();
+                    ArrayList<OrderUsersResponse> userslist = new ArrayList<OrderUsersResponse>();
+                    for(int i=0;i<orderRoomResponse.getRooms();i++){
+                        OrderUsersResponse user = users.get(i);
+                        if(!TextUtils.isEmpty(user.getRealname())){
+                            userslist.add(user);
+                        }
+                    }
+                    orderDetailResponse.setUsers(userslist);
+                    orderDetailResponse.setContent("您好，帮我预定这间房");
                     CustomerServicesManager.getInstance().requestServiceListTask(OrderBookingActivity.this, shopId, new NetRequestListener() {
                         @Override
                         public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -510,6 +523,38 @@ public class OrderBookingActivity extends Activity{
                         @Override
                         public void onNetworkResponseSucceed(NetResponse result) {
                             Log.i(TAG, "result:" + result.rawResult);
+                            CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                            if (null != customerServiceListResponse) {
+                                HeadBean head = customerServiceListResponse.getHead();
+                                if (null != head) {
+                                    boolean isSet = head.isSet();
+                                    if (isSet) {
+                                        ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                                        String salesId = head.getExclusive_salesid();
+                                        CustomerServiceBean customerService = null;
+                                        if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                            if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                            } else {//无专属客服
+                                                customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                if(null != salesId){
+                                                    salesId = customerService.getSalesid();
+                                                }
+                                            }
+                                        }
+                                        if (null != customerService) {
+                                            Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
+                                            intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                                            intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                                            intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                                            intent.putExtra("orderDetailResponse", orderDetailResponse);
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_in_right,
+                                                    R.anim.slide_out_left);
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         @Override
@@ -517,23 +562,6 @@ public class OrderBookingActivity extends Activity{
 
                         }
                     });
-                    ArrayList<OrderUsersResponse> userslist = new ArrayList<OrderUsersResponse>();
-                    for(int i=0;i<orderRoomResponse.getRooms();i++){
-                        OrderUsersResponse user = users.get(i);
-                        if(!TextUtils.isEmpty(user.getRealname())){
-                            userslist.add(user);
-                        }
-                    }
-                    orderDetailResponse.setUsers(userslist);
-                    orderDetailResponse.setContent("您好，帮我预定这间房");
-                    Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
-                    intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                    intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                    intent.putExtra("orderDetailResponse", orderDetailResponse);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-
                 }
             }
         });
