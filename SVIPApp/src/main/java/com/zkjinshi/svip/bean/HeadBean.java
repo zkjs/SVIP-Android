@@ -13,6 +13,7 @@ public class HeadBean implements Serializable {
 
     private boolean set = true;
     private String err;
+    private String exclusive_salesid;
 
     public boolean isSet() {
         return set;
@@ -28,5 +29,13 @@ public class HeadBean implements Serializable {
 
     public void setErr(String err) {
         this.err = err;
+    }
+
+    public String getExclusive_salesid() {
+        return exclusive_salesid;
+    }
+
+    public void setExclusive_salesid(String exclusive_salesid) {
+        this.exclusive_salesid = exclusive_salesid;
     }
 }

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -29,20 +28,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.easemob.chat.EMMessage;
+import com.easemob.chat.ImageMessageBody;
+import com.easemob.chat.TextMessageBody;
+import com.easemob.chat.VoiceMessageBody;
+import com.easemob.exceptions.EaseMobException;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zkjinshi.base.util.ClipboardUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.http.get.DownloadRequestListener;
 import com.zkjinshi.svip.http.get.DownloadTask;
-import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.EmotionType;
@@ -57,7 +60,10 @@ import com.zkjinshi.svip.view.QuickAction;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.SendStatus;
+import com.zkjinshi.svip.vo.TxtExtType;
+
 import java.io.File;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +87,7 @@ public class ChatAdapter extends BaseAdapter {
     DisplayImageOptions options, imageOptions, cardOptions; // DisplayImageOptions是用于设置图片显示的类
     private Context context;
     private LayoutInflater inflater;
-    private List<MessageVo> messageList;
+    private List<EMMessage> messageList;
     private Map<String, Object> msgCacheMap = new HashMap<String, Object>();
     private boolean isDelEnabled; // ture：启用删除状态，false：不启用
     private String keyWord = "";
@@ -91,10 +97,10 @@ public class ChatAdapter extends BaseAdapter {
         mResendListener = listener;
     }
 
-    public ChatAdapter(Context context, List<MessageVo> messageChatList) {
+    public ChatAdapter(Context context, ArrayList<EMMessage> messageList) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.setData(messageChatList);
+        this.setMessageList(messageList);
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_launcher)
                 .cacheInMemory(true)
@@ -112,54 +118,18 @@ public class ChatAdapter extends BaseAdapter {
                 .build();
     }
 
-    public ChatAdapter(Context context, List<MessageVo> messageChatList,
+    public ChatAdapter(Context context, ArrayList<EMMessage> messageChatList,
                        String keyWord) {
         this(context, messageChatList);
         this.keyWord = keyWord;
     }
 
-    public void setData(List<MessageVo> messageChatList) {
-        if (null == messageChatList) {
-            this.messageList = new ArrayList<>();
+    public void setMessageList(List<EMMessage> messageList) {
+        if (null == messageList) {
+            this.messageList = new ArrayList<EMMessage>();
         } else {
-            this.messageList = messageChatList;
+            this.messageList = messageList;
         }
-        notifyDataSetChanged();
-    }
-
-    // 获得图片位置
-    public int getPicPositon(MessageVo vo, ArrayList<String> urls) {
-        String url = vo.getContent();
-        String mUrl = "";
-        int picPostion = 0;
-        for (int i = 0; i < urls.size(); i++) {
-            mUrl = urls.get(i);
-            if (mUrl.equals(url)) {
-                picPostion = i;
-                break;
-            }
-        }
-        return picPostion;
-    }
-
-    // 获得图片集合
-    public ArrayList<String> getImageUrls(List<MessageVo> messageChatList) {
-        ArrayList<String> urls = new ArrayList<String>();
-        MimeType mimeType = null;
-        for (MessageVo messageChatVo : messageChatList) {
-            String attachId = messageChatVo.getAttachId();
-            if (!TextUtils.isEmpty(attachId)) {
-                mimeType = messageChatVo.getMimeType();
-                if (MimeType.IMAGE.equals(mimeType)) {
-                    urls.add(attachId);
-                }
-            }
-        }
-        return urls;
-    }
-
-    public void upDateMsg(MessageVo msg) {
-        messageList.add(msg);
         notifyDataSetChanged();
     }
 
@@ -188,10 +158,10 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        MessageVo messageVo = messageList.get(position);
-        String contactId = messageVo.getContactId();
+        EMMessage messageVo = messageList.get(position);
+        String userId = messageVo.getFrom();
         boolean isComMsg = !CacheUtil.getInstance().getUserId()
-                .equals(contactId);
+                .equals(userId);
         return isComMsg ? TYPE_RECV_ITEM : TYPE_SEND_ITEM;
     }
 
@@ -202,7 +172,7 @@ public class ChatAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final MessageVo item = messageList.get(position);
+        final EMMessage message = messageList.get(position);
         RecvViewHolder rvh = null;
         SendViewHolder svh = null;
         TipsViewHolder tvh = null;
@@ -243,13 +213,13 @@ public class ChatAdapter extends BaseAdapter {
             }
         }
 
-        String contactName = item.getContactName();
+        String userName = message.getFrom();
 
         switch (itemType) {
             case TYPE_RECV_ITEM: // 别人发送的布局
                 setViewValues(rvh, position, true);
-                if (!TextUtils.isEmpty(contactName)) {
-                    rvh.name.setText(contactName + "：");
+                if (!TextUtils.isEmpty(userName)) {
+                    rvh.name.setText(userName + "：");
                     rvh.name.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -258,18 +228,18 @@ public class ChatAdapter extends BaseAdapter {
                 setViewValues(svh, position, false);
                 svh.name.setText("我：");
                 svh.name.setVisibility(View.VISIBLE);
-                SendStatus sendStatus = item.getSendStatus();
-                if (SendStatus.SENDING.equals(sendStatus)) { // 正在发送
+                EMMessage.Status sendStatus = message.status;
+                if (EMMessage.Status.INPROGRESS.equals(sendStatus)) { // 正在发送
                     svh.progressBar.setVisibility(View.VISIBLE);
                     svh.errIconIv.setVisibility(View.GONE);
-                } else if (SendStatus.SEND_FAIL.equals(sendStatus)) { // 发送失败
+                } else if (EMMessage.Status.FAIL.equals(sendStatus)) { // 发送失败
                     svh.progressBar.setVisibility(View.GONE);
                     svh.errIconIv.setVisibility(View.VISIBLE);
                     svh.errIconIv.setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
-                            showResendDialog(item);
+                            showResendDialog(message);
                         }
                     });
                 } else { // 发送成功
@@ -311,86 +281,126 @@ public class ChatAdapter extends BaseAdapter {
      */
     private void setViewValues(final ViewHolder vh, final int position,
                                final boolean isComMsg) {
-        final MessageVo item = messageList.get(position);
+        final EMMessage message = messageList.get(position);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1);
         vh.contentLayout.setLayoutParams(params);
-        vh.contentLayout.setTag(item);
-        vh.date.setText(TimeUtil.getChatTime(item.getSendTime()));
+        vh.contentLayout.setTag(message);
+        vh.date.setText(TimeUtil.getChatTime(message.getMsgTime()));
         long lastSendDate = position > 0 ? messageList.get(position - 1)
-                .getSendTime() : 0; // 上一条消息的发送时间戳
-        boolean isShowDate = (item.getSendTime() - lastSendDate) > 5 * 60 * 1000;
+                .getMsgTime() : 0; // 上一条消息的发送时间戳
+        boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
-
-        /** 根据userid获取个人头像链接 */
-        String avatarUrl = null;
-        if(isComMsg){
-            avatarUrl = Constants.GET_USER_AVATAR + item.getContactId() + ".jpg";
-        } else {
-            String userID = CacheUtil.getInstance().getUserId();
-            avatarUrl = Constants.GET_USER_AVATAR + userID + ".jpg";
-        }
-
-        ImageLoader.getInstance().displayImage(avatarUrl, vh.head, options);
-        final String attachId = item.getAttachId();
-        MimeType mimeType = item.getMimeType();
-        if (mimeType.equals(MimeType.TEXT)) {// 文本消息
-            String recent = item.getContent();
-            if (null != recent && !"".equals(recent)) {
-                String key = item.getMessageId();
-                CharSequence charSequence = (CharSequence) msgCacheMap
-                        .get(key);
-                if (charSequence == null) {
-                    String content = item.getContent();
-                    String keyWord = getKeyWord();
-                    if (content.contains("[") && content.contains("]")) {
-                        charSequence = EmotionUtil.getInstance()
-                                .convertStringToSpannable(context,
-                                        item.getContent(),
-                                        EmotionType.MESSAGE_LIST);
-                    } else {
-                        charSequence = EmotionUtil.getInstance()
-                                .getTextStringBuilder(content, keyWord);
-                    }
-                    msgCacheMap.put(key, charSequence);// 缓存起来
-                }
-                vh.msg.setTag(item);
-                vh.msg.setText(charSequence, TextView.BufferType.SPANNABLE);
-                vh.msg.setOnLongClickListener(new View.OnLongClickListener() {
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        showChildQuickActionBar(v, isComMsg, position);
-                        return true;
-                    }
-                });
-                // 最新添加
-                vh.msg.setMovementMethod(LinkMovementMethod.getInstance());
-                CharSequence text = vh.msg.getText();
-                if (text instanceof Spannable) {
-                    int end = text.length();
-                    Spannable sp = (Spannable) vh.msg.getText();
-                    URLSpan[] urls = sp.getSpans(0, end, URLSpan.class);
-                    SpannableStringBuilder style = new SpannableStringBuilder(
-                            text);
-                    style.clearSpans();// should clear old spans
-                    // 循环把链接发过去
-                    if (null != urls && urls.length > 0) {
-                        for (URLSpan spUrl : urls) {
-                            MessageSpanURL myURLSpan = new MessageSpanURL(
-                                    context, spUrl.getURL());
-                            style.setSpan(myURLSpan, sp.getSpanStart(spUrl),
-                                    sp.getSpanEnd(spUrl),
-                                    Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        String userId = message.getFrom();
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(userId), vh.head, options);
+        EMMessage.Type mimeType = message.getType();
+        if (mimeType.equals(EMMessage.Type.TXT)) {// 文本消息
+            try {
+                int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
+                TextMessageBody txtBody = (TextMessageBody) message.getBody();
+                String content = txtBody.getMessage();
+                if(TxtExtType.DEFAULT.getVlaue() == extType){//普通文本消息
+                    if (!TextUtils.isEmpty(content)) {
+                        String key = message.getMsgId();
+                        CharSequence charSequence = (CharSequence) msgCacheMap
+                                .get(key);
+                        if (charSequence == null) {
+                            String keyWord = getKeyWord();
+                            if (content.contains("[") && content.contains("]")) {
+                                charSequence = EmotionUtil.getInstance()
+                                        .convertStringToSpannable(context,
+                                                content,
+                                                EmotionType.MESSAGE_LIST);
+                            } else {
+                                charSequence = EmotionUtil.getInstance()
+                                        .getTextStringBuilder(content, keyWord);
+                            }
+                            msgCacheMap.put(key, charSequence);// 缓存起来
                         }
-                        if (!(text.toString().contains("[") && text.toString()
-                                .contains("]"))) {
-                            vh.msg.setText(style);
+                        vh.msg.setTag(message);
+                        vh.msg.setText(charSequence, TextView.BufferType.SPANNABLE);
+                        vh.msg.setOnLongClickListener(new View.OnLongClickListener() {
+
+                            @Override
+                            public boolean onLongClick(View v) {
+                                showChildQuickActionBar(v, isComMsg, position);
+                                return true;
+                            }
+                        });
+                        // 最新添加
+                        vh.msg.setMovementMethod(LinkMovementMethod.getInstance());
+                        CharSequence text = vh.msg.getText();
+                        if (text instanceof Spannable) {
+                            int end = text.length();
+                            Spannable sp = (Spannable) vh.msg.getText();
+                            URLSpan[] urls = sp.getSpans(0, end, URLSpan.class);
+                            SpannableStringBuilder style = new SpannableStringBuilder(
+                                    text);
+                            style.clearSpans();// should clear old spans
+                            // 循环把链接发过去
+                            if (null != urls && urls.length > 0) {
+                                for (URLSpan spUrl : urls) {
+                                    MessageSpanURL myURLSpan = new MessageSpanURL(
+                                            context, spUrl.getURL());
+                                    style.setSpan(myURLSpan, sp.getSpanStart(spUrl),
+                                            sp.getSpanEnd(spUrl),
+                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                                }
+                                if (!(text.toString().contains("[") && text.toString()
+                                        .contains("]"))) {
+                                    vh.msg.setText(style);
+                                }
+                            }
                         }
                     }
+                    if (!isDelEnabled) {
+                        vh.contentLayout
+                                .setOnLongClickListener(new View.OnLongClickListener() {
+
+                                    @Override
+                                    public boolean onLongClick(View v) {
+                                        showChildQuickActionBar(v, isComMsg, position);
+                                        return true;
+                                    }
+                                });
+                    }
+                    vh.msg.setVisibility(View.VISIBLE);
+                    vh.img.setVisibility(View.GONE);
+                    vh.voice.setVisibility(View.GONE);
+                    vh.time.setVisibility(View.GONE);
+                    vh.cardLayout.setVisibility(View.GONE);
+                }else{//卡片类型消息
+                    BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
+                    if (null != bookOrder) {
+                        String roomType = bookOrder.getRoomType();
+                        String arrivaDate = bookOrder.getArrivalDate();
+                        String departureDate = bookOrder.getDepartureDate();
+                        String imageUrl = bookOrder.getImage();
+                        int dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
+                        vh.contentTip.setText(bookOrder.getContent());
+                        vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
+                        if (!TextUtils.isEmpty(imageUrl)) {
+                            String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
+                        }
+                    }
+                    vh.msg.setVisibility(View.GONE);
+                    vh.img.setVisibility(View.GONE);
+                    vh.voice.setVisibility(View.GONE);
+                    vh.time.setVisibility(View.GONE);
+                    vh.cardLayout.setVisibility(View.VISIBLE);
                 }
+            } catch (EaseMobException e) {
+                e.printStackTrace();
+            }catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            } catch (ParseException e){
+                e.printStackTrace();
             }
+
+        } else if (mimeType.equals(EMMessage.Type.IMAGE)) {// 图片
+            ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
             if (!isDelEnabled) {
                 vh.contentLayout
                         .setOnLongClickListener(new View.OnLongClickListener() {
@@ -401,14 +411,76 @@ public class ChatAdapter extends BaseAdapter {
                                 return true;
                             }
                         });
+                vh.contentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO Jimmy 跳转到图片浏览页面
+                    }
+                });
             }
-            vh.msg.setVisibility(View.VISIBLE);
-            vh.img.setVisibility(View.GONE);
+            vh.msg.setText("");
+            vh.msg.setVisibility(View.GONE);
+            String key = message.getMsgId();
+            Bitmap displayBitmap = null;
+            Bitmap bitmapCache = (Bitmap) msgCacheMap.get(key);
+            final String fileName = imgBody.getFileName();
+            String filePath = imgBody.getLocalUrl();
+            if (bitmapCache == null) {
+                if(!TextUtils.isEmpty(filePath)){
+                    displayBitmap = BitmapFactory.decodeFile(filePath);
+                }
+                if(null == displayBitmap){
+                    displayBitmap = BitmapFactory.decodeFile(FileUtil.getInstance()
+                            .getImagePath() + fileName);
+                }
+                if (displayBitmap != null) {// 本地取
+                    displayBitmap = ImageUtil.cropThumbBitmap(displayBitmap);
+                    displayBitmap = ImageUtil.loadThumbBitmap(context,
+                            displayBitmap);
+                    vh.img.setImageBitmap(displayBitmap);
+                } else {// 从网络取
+                    //ToDo Jimmy 获取图片链接
+                    String thumbUrl =  imgBody.getThumbnailUrl();
+                    if(!TextUtils.isEmpty(thumbUrl)){
+                        ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
+                                imageOptions, new ImageLoadingListener() {
+
+                                    @Override
+                                    public void onLoadingStarted(String imageUri,
+                                                                 View view) {
+                                    }
+
+                                    @Override
+                                    public void onLoadingFailed(String imageUri,
+                                                                View view, FailReason failReason) {
+                                    }
+
+                                    @Override
+                                    public void onLoadingComplete(String imageUri,
+                                                                  View view, Bitmap loadedImage) {
+                                        File file = new File(
+                                                FileUtil.getInstance().getImagePath()
+                                                        + fileName);
+                                        ImageUtil.saveBitmap(loadedImage,
+                                                file.getPath());
+                                    }
+
+                                    @Override
+                                    public void onLoadingCancelled(String imageUri,
+                                                                   View view) {
+                                    }
+                                });
+                    }
+                }
+            } else {
+                vh.img.setImageBitmap(bitmapCache);
+            }
+            vh.msg.setVisibility(View.GONE);
+            vh.img.setVisibility(View.VISIBLE);
             vh.voice.setVisibility(View.GONE);
             vh.time.setVisibility(View.GONE);
             vh.cardLayout.setVisibility(View.GONE);
-        } else if (mimeType.equals(MimeType.AUDIO)) {// 语音
-            final String voiceTime = item.getVoiceTime();
+        } else if (mimeType.equals(EMMessage.Type.VOICE)) {// 语音
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
             if (!isDelEnabled) {
                 vh.contentLayout
@@ -423,10 +495,11 @@ public class ChatAdapter extends BaseAdapter {
                 if (isComMsg) {// 别人
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            MessageVo vo = (MessageVo) v.getTag();
+                            EMMessage message = (EMMessage) v.getTag();
+                            VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
                             //播放语音文件
-                            String mediaName = vo.getFileName();
-                            String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
+                            String mediaName = voiceBody.getFileName();
+                            String mediaPath = FileUtil.getInstance().getAudioPath() + mediaName;
                             vh.voice = (ImageView) v
                                     .getTag(R.id.content_layout);
                             vh.voice.setImageResource(R.drawable.other_record_animation_list);
@@ -436,9 +509,9 @@ public class ChatAdapter extends BaseAdapter {
                             if (animation.isRunning()) {
                                 animation.stop();
                             }
-                            if(!TextUtils.isEmpty(mediaPath)){
+                            if (!TextUtils.isEmpty(mediaPath)) {
                                 File mediaFile = new File(mediaPath);
-                                if(mediaFile.exists() && mediaFile.length() > 0){
+                                if (mediaFile.exists() && mediaFile.length() > 0) {
                                     animation.start();
                                     MediaPlayerUtil.play(context, mediaPath, new MediaPlayer.OnCompletionListener() {
                                         @Override
@@ -453,9 +526,9 @@ public class ChatAdapter extends BaseAdapter {
                                             handler.sendMessage(messge);
                                         }
                                     });
-                                }else{
-                                    String downloadUrl = vo.getUrl();
-                                    DownloadTask downloadTask = new DownloadTask(context,downloadUrl,mediaPath);
+                                } else {
+                                    String downloadUrl = voiceBody.getRemoteUrl();
+                                    DownloadTask downloadTask = new DownloadTask(context, downloadUrl, mediaPath);
                                     downloadTask.setDownloadRequestListener(new DownloadRequestListener() {
                                         @Override
                                         public void onDownloadRequestError(String errorMessage) {
@@ -500,9 +573,10 @@ public class ChatAdapter extends BaseAdapter {
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
 
-                            MessageVo vo = (MessageVo) v.getTag();
+                            EMMessage message = (EMMessage) v.getTag();
+                            VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
                             //播放语音文件
-                            String mediaName = vo.getFileName();
+                            String mediaName = voiceBody.getFileName();
                             String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
                             vh.voice = (ImageView) v
                                     .getTag(R.id.content_layout);
@@ -531,7 +605,7 @@ public class ChatAdapter extends BaseAdapter {
                                         }
                                     });
                                 }else{
-                                    String downloadUrl = vo.getUrl();
+                                    String downloadUrl = voiceBody.getRemoteUrl();
                                     DownloadTask downloadTask = new DownloadTask(context,downloadUrl,mediaPath);
                                     downloadTask.setDownloadRequestListener(new DownloadRequestListener() {
                                         @Override
@@ -574,120 +648,14 @@ public class ChatAdapter extends BaseAdapter {
                     });
                 }
             }
+            VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
+            int voiceTime = voiceBody.getLength();
             setTimeView(voiceTime, vh.time, vh.contentLayout);
             vh.msg.setVisibility(View.GONE);
             vh.img.setVisibility(View.GONE);
             vh.voice.setVisibility(View.VISIBLE);
             vh.time.setVisibility(View.VISIBLE);
             vh.cardLayout.setVisibility(View.GONE);
-        } else if (mimeType.equals(MimeType.IMAGE)) {// 图片
-
-            if (!isDelEnabled) {
-                vh.contentLayout
-                        .setOnLongClickListener(new View.OnLongClickListener() {
-
-                            @Override
-                            public boolean onLongClick(View v) {
-                                showChildQuickActionBar(v, isComMsg, position);
-                                return true;
-                            }
-                        });
-                vh.contentLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO Jimmy 跳转到图片浏览页面
-
-                    }
-                });
-            }
-            vh.msg.setText("");
-            vh.msg.setVisibility(View.GONE);
-            String key = item.getMessageId();
-            Bitmap displayBitmap = null;
-            Bitmap bitmapCache = (Bitmap) msgCacheMap.get(key);
-            final String fileName = item.getFileName();
-            String filePath = item.getFilePath();
-            if (bitmapCache == null) {
-                if(!TextUtils.isEmpty(filePath)){
-                    displayBitmap = BitmapFactory.decodeFile(filePath);
-                }
-                if(null == displayBitmap){
-                    displayBitmap = BitmapFactory.decodeFile(FileUtil.getInstance()
-                            .getImagePath() + fileName);
-                }
-                if (displayBitmap != null) {// 本地取
-                    displayBitmap = ImageUtil.cropThumbBitmap(displayBitmap);
-                    displayBitmap = ImageUtil.loadThumbBitmap(context,
-                            displayBitmap);
-                    vh.img.setImageBitmap(displayBitmap);
-                } else {// 从网络取
-                    //ToDo Jimmy 获取图片链接
-                    String thumbUrl = item.getScaleUrl();
-                    if(!TextUtils.isEmpty(thumbUrl)){
-                        ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
-                                imageOptions, new ImageLoadingListener() {
-
-                                    @Override
-                                    public void onLoadingStarted(String imageUri,
-                                                                 View view) {
-                                    }
-
-                                    @Override
-                                    public void onLoadingFailed(String imageUri,
-                                                                View view, FailReason failReason) {
-                                    }
-
-                                    @Override
-                                    public void onLoadingComplete(String imageUri,
-                                                                  View view, Bitmap loadedImage) {
-                                        File file = new File(
-                                                FileUtil.getInstance().getImagePath()
-                                                        + fileName);
-                                        ImageUtil.saveBitmap(loadedImage,
-                                                file.getPath());
-                                    }
-
-                                    @Override
-                                    public void onLoadingCancelled(String imageUri,
-                                                                   View view) {
-                                    }
-                                });
-                    }
-                    vh.img.setTag(attachId);
-                }
-            } else {
-                vh.img.setImageBitmap(bitmapCache);
-            }
-            vh.msg.setVisibility(View.GONE);
-            vh.img.setVisibility(View.VISIBLE);
-            vh.voice.setVisibility(View.GONE);
-            vh.time.setVisibility(View.GONE);
-            vh.cardLayout.setVisibility(View.GONE);
-        } else if (mimeType.equals(MimeType.CARD)) {// 卡片布局
-            BookOrder bookOrder = new Gson().fromJson(item.getContent(), BookOrder.class);
-            if (null != bookOrder) {
-                String roomType = bookOrder.getRoomType();
-                String arrivaDate = bookOrder.getArrivalDate();
-                String departureDate = bookOrder.getDepartureDate();
-                String imageUrl = bookOrder.getImage();
-                int dayNum = 1;
-                try {
-                   dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
-                }catch (Exception e){
-
-                }
-                vh.contentTip.setText(bookOrder.getContent());
-                vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
-                if (!TextUtils.isEmpty(imageUrl)) {
-                    String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
-                    ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
-                }
-            }
-            vh.msg.setVisibility(View.GONE);
-            vh.img.setVisibility(View.GONE);
-            vh.voice.setVisibility(View.GONE);
-            vh.time.setVisibility(View.GONE);
-            vh.cardLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -695,7 +663,6 @@ public class ChatAdapter extends BaseAdapter {
 
         @Override
         public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
             ImageView iv = (ImageView) msg.obj;
             switch (msg.what) {
                 case 0:// 别人
@@ -714,42 +681,41 @@ public class ChatAdapter extends BaseAdapter {
 
     /**
      * 显示操作条
-     *
      * @param view
-     *            显示在该view上
      * @param isComMsg
-     *            是否对方的消息
      * @param position
-     *            item位置
      */
     private void showChildQuickActionBar(final View view,
                                          final boolean isComMsg, final int position) {
         QuickAction quickAction = new QuickAction(context,
                 QuickAction.HORIZONTAL);
-        String attachId = messageList.get(position).getAttachId();
-        if (TextUtils.isEmpty(attachId)) {
-            quickAction.addActionItem(new ActionItem(0, "复制"));
-            // quickAction.addActionItem(new ActionItem(1, "删除"));
-            quickAction
-                    .setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+        EMMessage message = messageList.get(position);
+        if(null != message){
+            EMMessage.Type msgType = message.getType();
+            if (msgType.equals(EMMessage.Type.TXT)) {
+                quickAction.addActionItem(new ActionItem(0, "复制"));
+                // quickAction.addActionItem(new ActionItem(1, "删除"));
+                quickAction
+                        .setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
 
-                        @Override
-                        public void onItemClick(QuickAction source, int pos,
-                                                int actionId) {
-                            MessageVo messageChatVo = (MessageVo) view
-                                    .getTag();
-                            switch (actionId) {
-                                case 0:// 复制
-                                    ClipboardUtil.copy(
-                                            messageChatVo.getContent(), context);
-                                    break;
-                                case 1:// 删除
+                            @Override
+                            public void onItemClick(QuickAction source, int pos,
+                                                    int actionId) {
+                                MessageVo messageChatVo = (MessageVo) view
+                                        .getTag();
+                                switch (actionId) {
+                                    case 0:// 复制
+                                        ClipboardUtil.copy(
+                                                messageChatVo.getContent(), context);
+                                        break;
+                                    case 1:// 删除
 
-                                    break;
+                                        break;
+                                }
                             }
-                        }
-                    });
-            quickAction.show(view);
+                        });
+                quickAction.show(view);
+            }
         }
     }
 
@@ -788,7 +754,7 @@ public class ChatAdapter extends BaseAdapter {
      * @param timeTv
      * @param layout
      */
-    public void setTimeView(String time, TextView timeTv, LinearLayout layout) {;
+    public void setTimeView(int time, TextView timeTv, LinearLayout layout) {;
         int minWidth = 66; // 最小宽度
         int maxWidth = 186; // 最大宽度
         int secWidth = 2; // 每秒宽度
@@ -799,7 +765,7 @@ public class ChatAdapter extends BaseAdapter {
         DisplayMetrics dm = new DisplayMetrics();
         dm = context.getResources().getDisplayMetrics();
         float density = dm.density; // 屏幕密度（像素比例）
-        curWidth = minWidth + secWidth * Integer.parseInt(time);
+        curWidth = minWidth + secWidth * time;
         if (curWidth < maxWidth)
             scaleWidth = (int) (curWidth * density);
         else
@@ -812,7 +778,7 @@ public class ChatAdapter extends BaseAdapter {
     /**
      * 显示消息重新发送对话框
      */
-    private void showResendDialog(final MessageVo messageVo) {
+    private void showResendDialog(final EMMessage messageVo) {
         final Dialog dlg = new Dialog(context, R.style.MMTheme_DataSheet);
         LinearLayout layout = (LinearLayout) inflater.inflate(
                 R.layout.resendrsheet_dialog, null);
@@ -853,7 +819,7 @@ public class ChatAdapter extends BaseAdapter {
      * 重新发送回调
      */
     public interface ResendListener {
-        public void onResend(MessageVo messageChatVo);
+        public void onResend(EMMessage messageChatVo);
     }
 
     public String getKeyWord() {
