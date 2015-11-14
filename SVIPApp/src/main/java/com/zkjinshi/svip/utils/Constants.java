@@ -11,6 +11,14 @@ import com.zkjinshi.base.config.ConfigUtil;
  */
 public class Constants {
 
+    public static final int CHATTYPE_SINGLE = 1;
+    public static final int CHATTYPE_GROUP = 2;
+    public static final int CHATTYPE_CHATROOM = 3;
+
+    public static final String EXTRA_CHAT_TYPE = "chatType";
+    public static final String EXTRA_USER_ID = "userId";
+    public static final String MSG_TXT_EXT_TYPE= "extType";
+
     //应用唯一标识，在微信开放平台提交应用审核通过后获得
     public static final String WX_APP_ID = "wxe09e14fcb69825cc";
     //应用密钥AppSecret，在微信开放平台提交应用审核通过后获得

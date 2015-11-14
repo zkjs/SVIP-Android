@@ -52,8 +52,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-
 /**
  * 开发者：JimmyZhang
  * 日期：2015/8/18
@@ -170,8 +168,6 @@ public class MessageListener extends Handler implements IMessageListener {
                         }
                     }
                     NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVo);
-                    /** 静默处理 */
-                    EventBus.getDefault().post(messageVo);
                 }
             }
 
@@ -200,8 +196,6 @@ public class MessageListener extends Handler implements IMessageListener {
                         }
                     }
                     NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), messageVO);
-                    /** post the message to chatActivity */
-                    EventBus.getDefault().post(messageVO);
                 }
             }
 
@@ -226,7 +220,6 @@ public class MessageListener extends Handler implements IMessageListener {
                         }
                     }
                     NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(), imageMessageVo);
-                    EventBus.getDefault().post(imageMessageVo);
                 }
             }
 

@@ -39,13 +39,11 @@ import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
-import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
-import com.zkjinshi.svip.vo.ChatRoomVo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -64,17 +62,15 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
     private final static String TAG = ChatActivity.class.getSimpleName();
 
-    private String  mUserID;
-    private String  mShopID;
-    private String  mShopName;
-    private String  mSessionID;
+    private String shopId;
     private String  textContext;
     private OrderDetailResponse orderDetailResponse;
     private OrderRoomResponse orderRoomResponse;
 
-    private ItemTitleView mTitle;
+    private ItemTitleView titleIv;
     private EditText      mMsgTextInput;
     private Button        mBtnMsgSend;
+    private String userId;
 
     private MessageListViewManager messageListViewManager;
     private boolean                isShowSoftInput;//是否展示软件盘
@@ -95,7 +91,6 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private int            flag = 1; // 1：正常 2：语音录音中
     private long           startVoiceT, endVoiceT; // 语音开始时间，结束时间
 
-    private String            mRuleType;
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
     private String bookOrderStr;
@@ -112,7 +107,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     }
 
     private void initView() {
-        mTitle = (ItemTitleView) findViewById(R.id.Itv_title);
+        titleIv = (ItemTitleView) findViewById(R.id.Itv_title);
         mMsgTextInput = (EditText) findViewById(R.id.et_msg_text_input);
         mBtnMsgSend   = (Button)   findViewById(R.id.btn_msg_send);
         faceLinearLayout = (LinearLayout) findViewById(R.id.face_ll);
@@ -126,23 +121,14 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     }
 
     private void initData() {
-        mTitle.setTextTitle("聊天");
-        mTitle.setTextColor(this, R.color.Black);
 
-        mShopID    = getIntent().getStringExtra("shop_id");
-        mShopName  = getIntent().getStringExtra("shop_name");
-        textContext = getIntent().getStringExtra("text_context");
-        orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
-        mUserID    = CacheUtil.getInstance().getUserId();
-        mRuleType  = getString(R.string.default_rule_type);
-        mSessionID = generateSessionID(mUserID, mShopID, mRuleType);
-
-        mTitle.setTextTitle(mShopName);
-
+        titleIv.setTextTitle("聊天");
+        titleIv.setTextColor(this, R.color.Black);
+        userId = getIntent().getStringExtra(Constants.EXTRA_USER_ID);
         //初始化消息ListView管理器
-        messageListViewManager = new MessageListViewManager(this, mShopID, mSessionID);
+        messageListViewManager = new MessageListViewManager(this, userId);
         messageListViewManager.init();
-
+        messageListViewManager.setTitle(titleIv);
         //初始化表情框
         facePagerManager = new FaceViewPagerManager(this, faceLinearLayout, mMsgTextInput);
         facePagerManager.init();
@@ -157,74 +143,80 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         netCheckManager.init(this);
         netCheckManager.registernetCheckReceiver();
         //初始化快捷菜单
-        QuickMenuManager.getInstance().init(this).setShopId(mShopID).setMessageListViewManager(messageListViewManager);
-        if (null != orderDetailResponse) {
-            orderRoomResponse = orderDetailResponse.getRoom();
-            users = orderDetailResponse.getUsers();
-            if(null != orderRoomResponse){
-                bookOrder = new BookOrder();
-                String arrivalDate = orderRoomResponse.getArrival_date();
-                String departureDate = orderRoomResponse.getDeparture_date();
-                bookOrder.setArrivalDate(arrivalDate);
-                bookOrder.setDepartureDate(departureDate);
-                bookOrder.setFullame(orderRoomResponse.getFullname());
-                bookOrder.setContent("您好，帮我预定这间房");
-                bookOrder.setImage(orderRoomResponse.getImgurl());
-                bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
-                bookOrder.setGuest(CacheUtil.getInstance().getUserName());
-                StringBuffer usersStr = new StringBuffer();
-                if(null != users && !users.isEmpty()){
-                    for(OrderUsersResponse user : users){
-                        usersStr.append(user.getRealname()).append(",");
+        QuickMenuManager.getInstance().init(this).setShopId(shopId).setMessageListViewManager(messageListViewManager);
+        if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailResponse")){
+            orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
+            if (null != orderDetailResponse) {
+                orderRoomResponse = orderDetailResponse.getRoom();
+                users = orderDetailResponse.getUsers();
+                if(null != orderRoomResponse){
+                    bookOrder = new BookOrder();
+                    String arrivalDate = orderRoomResponse.getArrival_date();
+                    String departureDate = orderRoomResponse.getDeparture_date();
+                    bookOrder.setArrivalDate(arrivalDate);
+                    bookOrder.setDepartureDate(departureDate);
+                    bookOrder.setFullame(orderRoomResponse.getFullname());
+                    bookOrder.setContent("您好，帮我预定这间房");
+                    bookOrder.setImage(orderRoomResponse.getImgurl());
+                    bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
+                    bookOrder.setGuest(CacheUtil.getInstance().getUserName());
+                    StringBuffer usersStr = new StringBuffer();
+                    if(null != users && !users.isEmpty()){
+                        for(OrderUsersResponse user : users){
+                            usersStr.append(user.getRealname()).append(",");
+                        }
+                        if(!TextUtils.isEmpty(usersStr)){
+                            String usersString = usersStr.subSequence(0,usersStr.length()-1).toString();
+                            bookOrder.setManInStay(usersString);
+                        }
                     }
-                    if(!TextUtils.isEmpty(usersStr)){
-                        String usersString = usersStr.subSequence(0,usersStr.length()-1).toString();
-                        bookOrder.setManInStay(usersString);
+                    bookOrder.setRoomType(orderRoomResponse.getRoom_type());
+                    bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
+                    bookOrder.setRooms("" + orderRoomResponse.getRooms());
+                    bookOrder.setShopID(orderRoomResponse.getShopid());
+                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
+                    try {
+                        int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
+                        bookOrder.setDayNum(dayNum);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+
                 }
-                bookOrder.setRoomType(orderRoomResponse.getRoom_type());
-                bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
-                bookOrder.setRooms("" + orderRoomResponse.getRooms());
-                bookOrder.setShopID(orderRoomResponse.getShopid());
-                bookOrder.setUserID(CacheUtil.getInstance().getUserId());
                 try {
-                    int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
-                    bookOrder.setDayNum(dayNum);
+                    bookOrderStr = new Gson().toJson(bookOrder);
+                    if (!TextUtils.isEmpty(bookOrderStr)) {
+                        messageListViewManager.sendCardMessage(bookOrderStr);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-            }
-            bookOrderStr = new Gson().toJson(bookOrder);
-            if (!TextUtils.isEmpty(bookOrderStr)) {
-                messageListViewManager.sendBookTextMessage(bookOrderStr);
             }
         }
-
         //自动发送文本消息
-        if(!TextUtils.isEmpty(textContext)){
-            messageListViewManager.sendTextMessage(textContext);
+        if(null != getIntent() && null != getIntent().getStringExtra("text_context")){
+            textContext = getIntent().getStringExtra("text_context");
+            if(!TextUtils.isEmpty(textContext)){
+                messageListViewManager.sendTextMessage(textContext);
+            }
         }
     }
 
     private void initListener() {
-        mTitle.getmLeft().setOnClickListener(new OnClickListener() {
+        titleIv.getmLeft().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChatActivity.this.finish();
             }
         });
-
-        mTitle.getmRight().setOnClickListener(new OnClickListener() {
+        titleIv.getmRight().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChatActivity.this.finish();
             }
         });
-
         faceCb.setOnCheckedChangeListener(this);
         moreCb.setOnCheckedChangeListener(this);
-
         //输入文本控件touch监听
         mMsgTextInput.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -235,7 +227,6 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 return false;
             }
         });
-
         //语音键盘切换监听
         toggleAudioBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -258,7 +249,6 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                                 restdrawable.getMinimumHeight());
                         faceCb.setCompoundDrawables(restdrawable, null, null, null);
                     }
-
                     mMsgTextInput.setVisibility(View.GONE);
                     faceCb.setVisibility(View.VISIBLE);
                     startAudioBtn.setVisibility(View.VISIBLE);
@@ -276,7 +266,6 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 }
             }
         });
-
         //文本控件输入监听
         mMsgTextInput.addTextChangedListener(new TextWatcher() {
 
@@ -303,20 +292,18 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 }
             }
         });
-
         mBtnMsgSend.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = mMsgTextInput.getText().toString();
                 if (!TextUtils.isEmpty(msg) && msg.length() < 200) {
-                    messageListViewManager.sendTextMessage(mShopID, msg, mRuleType);
+                    messageListViewManager.sendTextMessage(msg);
                     mMsgTextInput.setText("");
                 } else {
                     DialogUtil.getInstance().showCustomToast(ChatActivity.this, "发送消息不能超过200字符!", Gravity.CENTER);
                 }
             }
         });
-
         // 触摸ListView隐藏表情和输入法
         messageListViewManager.getMessageListView().setOnTouchListener(new OnTouchListener() {
             @Override
@@ -327,7 +314,6 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                 return false;
             }
         });
-
         //录音事件交给父控件处理
         startAudioBtn.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -411,14 +397,14 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                     for (String imagePath : chooseImageList) {
                         Log.i(TAG, "imagePath:" + imagePath);
                         String imageName = FileUtil.getInstance().getFileName(imagePath);
-                        messageListViewManager.sendImageMessage(mShopID, imageName,imagePath, mRuleType);
+                        messageListViewManager.sendImageMessage(imagePath);
                     }
                 }
             } else if (requestCode == Constants.FLAG_CHOOSE_PHOTO) {//拍照上传
                 choosePicName = CacheUtil.getInstance().getPicName();
                 String imageTempPath = FileUtil.getInstance().getImageTempPath();
-                messageListViewManager.sendImageMessage(mShopID, choosePicName,
-                        imageTempPath + choosePicName, mRuleType);
+                messageListViewManager.sendImageMessage(
+                        imageTempPath + choosePicName);
                 Log.i(TAG, "imagePath:" + FileUtil.getInstance().getImageTempPath() + choosePicName);
             }
         }
@@ -588,8 +574,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                             MediaPlayerUtil.playSendOverRecordVoice(ChatActivity.this);// 录音结束提示音
                             //开始文件写入
                             String mediaPath = voiceRecordManager.getMediaPath();//音频文件路径
-                            String mediaName = FileUtil.getInstance().getFileName(mediaPath);//音频文件名
-                            messageListViewManager.sendAudioMessage(mShopID, mediaName, mediaPath, voiceTime, mRuleType);
+                            messageListViewManager.sendVoiceMessage(mediaPath, voiceTime);
                         }
                     } else {
                         CacheUtil.getInstance().setCountDown(false);

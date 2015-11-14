@@ -89,18 +89,17 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
-    <orderEntry type="library" exported="" name="library-1.0.17" level="project" />
+    <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="easemobchat_2.2.3" level="project" />
     <orderEntry type="library" exported="" name="testinagent" level="project" />
     <orderEntry type="library" exported="" name="alipaySDK-20150610" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="CCP_REST_SMS_SDK_JAVA_v2.6.3r" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="eventbus-3.0.0-beta1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
-    <orderEntry type="library" exported="" name="CCP_REST_SMS_SDK_JAVA_v2.6.3r" level="project" />
     <orderEntry type="library" exported="" name="MapApiLocation_1.3.3" level="project" />
     <orderEntry type="module" module-name="MaterialSearchViewLibrary" exported="" />
     <orderEntry type="module" module-name="social_sdk_library_project" exported="" />
