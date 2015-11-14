@@ -15,17 +15,9 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
-import com.zkjinshi.svip.ext.ShopListManager;
-import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
-import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.vo.ChatRoomVo;
-import com.zkjinshi.svip.vo.MessageVo;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * 采用toolbar显示的服务中心效果界面

@@ -3,6 +3,8 @@ package com.zkjinshi.svip;
 import android.app.Application;
 import android.os.Environment;
 import android.util.Log;
+
+import com.easemob.chat.EMChat;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -41,6 +43,7 @@ public class SVIPApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initContext();
+        initEmchat();
         saveConfig();
         initLog();
         initCache();
@@ -62,6 +65,15 @@ public class SVIPApplication extends Application {
         VIPContext.getInstance().init(this);
         BaseContext.getInstance().init(this);
     }
+
+    /**
+     * 设置环信ios推送昵称
+     */
+    private void initEmchat(){
+        EMChat.getInstance().init(this);
+        EMChat.getInstance().setDebugMode(true);
+    }
+
 
     /**
      * 初始化配置

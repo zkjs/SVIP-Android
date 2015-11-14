@@ -10,6 +10,7 @@ android {
         targetSdkVersion 22
         versionCode 29
         versionName "1.2.8"
+        multiDexEnabled true
     }
     buildTypes {
         release {
