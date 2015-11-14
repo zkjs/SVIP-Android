@@ -894,23 +894,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
                 EMGroupManager.getInstance().loadAllGroups();
                 EMChatManager.getInstance().loadAllConversations();
-                EMConversationHelper.getInstance().sendTxtMessage("你好！测试一下!", "55b0c0519c4f5", new EMCallBack() {
-                    @Override
-                    public void onSuccess() {
-                        Log.i(TAG,"发送成功");
-                    }
-
-                    @Override
-                    public void onError(int i, String s) {
-                        Log.i(TAG,"errorCode:"+i);
-                        Log.i(TAG,"errorMessage:"+s);
-                    }
-
-                    @Override
-                    public void onProgress(int i, String s) {
-
-                    }
-                });
                 // EasemobIMHelper.getInstance().getFriendList();
                 //  EasemobIMHelper.getInstance().addFriend("hanton","jimmy add you to friend");
                 // EasemobIMHelper.getInstance().acceptInvitation("jimmyzhang");
