@@ -31,7 +31,7 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.android.volley.Response;
+
 
 import com.google.gson.Gson;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -103,10 +103,7 @@ public class LoginActivity extends Activity{
     private ImageButton mIbtnQQ;
     //    private String    mStrVerifyCode;                       //自定义的短信验证码
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
-    private Response.Listener<String> registerListener;     //注册成功监听事件
-    private Response.ErrorListener    registerErrorListener;//注册失败监听事件
-    private Response.Listener<String> getUserListener;     //获取用户成功监听事件
-    private Response.ErrorListener    getUserErrorListener;//获取用户失败监听事件
+
     private Map<String, String>       mPhoneVerifyMap;//指定手机对应验证码
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;

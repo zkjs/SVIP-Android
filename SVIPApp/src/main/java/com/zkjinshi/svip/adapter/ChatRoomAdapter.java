@@ -11,11 +11,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.menu.vo.Menu;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.MessageVo;
@@ -72,7 +73,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageLoader.getInstance().displayImage(shopLogoUrl, ((ChatRoomViewHolder)holder).shopIcon, options);
 
         //查询出最后一条聊天对象
-        ((ChatRoomViewHolder)holder).shopName.setText(ShopListManager.getInstance().getShopName(shopID));//暂时显示shopID
+        ((ChatRoomViewHolder)holder).shopName.setText(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopID));//暂时显示shopID
         //设置消息未读条数
         long unReadCount = MessageDBUtil.getInstance().queryNotifyCountByShopID(shopID);
         if(unReadCount <= 0){

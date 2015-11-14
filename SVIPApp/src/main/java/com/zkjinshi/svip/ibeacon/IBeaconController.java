@@ -1,24 +1,26 @@
 package com.zkjinshi.svip.ibeacon;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 开发者：JimmyZhang
@@ -28,11 +30,15 @@ import java.util.ArrayList;
  */
 public class IBeaconController {
 
+    public static final String TAG = IBeaconController.class.getSimpleName();
+
+
+    private Context context;
+
     private IBeaconController(){}
 
     private static IBeaconController instance;
-    private StringRequest stringRequest;
-    private RequestQueue requestQueue;
+
     private ArrayList<IBeaconEntity> beaconList;
 
     public synchronized static IBeaconController getInstance(){
@@ -42,8 +48,8 @@ public class IBeaconController {
         return  instance;
     }
 
-    public void init(){
-        requestQueue = Volley.newRequestQueue(VIPContext.getInstance().getContext());
+    public void init(Context context){
+        this.context = context;
         requestIBeanconList();
     }
 
@@ -51,33 +57,16 @@ public class IBeaconController {
      * 请求蓝牙区域信息
      */
     private void requestIBeanconList(){
-        stringRequest = new StringRequest(Request.Method.GET, ProtocolUtil.getLocationListUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取蓝牙列表响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
-                                Gson gson = new Gson();
-                                beaconList = gson.fromJson(response, listType);
-                                if(null != beaconList && !beaconList.isEmpty()){
-                                    //将List转为成Map
-                                    for (IBeaconEntity beancon:beaconList ) {
-                                        IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(),beancon);
-                                    }
-                                    startBeaconService();
-                                    CacheUtil.getInstance().saveListCache(IBeaconController.class.getSimpleName(), beaconList);
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url = ProtocolUtil.getLocationListUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtil.getInstance().info(LogLevel.INFO, "获取蓝牙列表错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
                 String listStr =  CacheUtil.getInstance().getListStrCache(IBeaconController.class.getSimpleName());
                 if(!TextUtils.isEmpty(listStr)){
                     Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
@@ -91,8 +80,41 @@ public class IBeaconController {
                     }
                 }
             }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
+                    Gson gson = new Gson();
+                    beaconList = gson.fromJson( result.rawResult, listType);
+                    if(null != beaconList && !beaconList.isEmpty()) {
+                        //将List转为成Map
+                        for (IBeaconEntity beancon : beaconList) {
+                            IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                        }
+                        startBeaconService();
+                        CacheUtil.getInstance().saveListCache(IBeaconController.class.getSimpleName(), beaconList);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
         });
-        requestQueue.add(stringRequest);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     /**

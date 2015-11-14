@@ -14,10 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -73,8 +70,7 @@ public class SettingTagsActivity extends Activity{
     private TagView mUnCheckTagView;
 
     private boolean mIsTagOpen;
-    private Response.ErrorListener saveTagsErrorListener;
-    private Response.Listener<String> saveTagsListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,82 +118,109 @@ public class SettingTagsActivity extends Activity{
 
    //加载用户选择的标签
     private void loadUserTagsInfo() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ProtocolUtil.getUserTagsUrl(CacheUtil.getInstance().getToken(),
-                        CacheUtil.getInstance().getUserId()),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取用户标签信息响应结果" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                GsonBuilder gsonb = new GsonBuilder();
-                                Gson gson = gsonb.create();
-                                ArrayList<TagInfoVo> responseList = gson.fromJson(response, new TypeToken<ArrayList<TagInfoVo>>() {
-                                }.getType());
-                                if(responseList.size() > 0){
-                                    mContainerCheckedLlt.setVisibility(View.VISIBLE);
-                                    findViewById(R.id.white_line).setVisibility(View.GONE);
-                                    for(TagInfoVo item : responseList){
-                                        LogUtil.getInstance().info(LogLevel.INFO, item.toString());
-                                        mCheckedTagView.addTag(createTag(item.getTagid(),item.getTag()));
-                                    }
-                                } else{
-                                    mContainerCheckedLlt.setVisibility(View.GONE);
-                                    findViewById(R.id.white_line).setVisibility(View.VISIBLE);
-                                }
 
-
-                            }catch (Exception e){
-                                e.printStackTrace();
-                                mContainerCheckedLlt.setVisibility(View.GONE);
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url = ProtocolUtil.getUserTagsUrl(CacheUtil.getInstance().getToken(), CacheUtil.getInstance().getUserId());
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取用户标签信息错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    GsonBuilder gsonb = new GsonBuilder();
+                    Gson gson = gsonb.create();
+                    ArrayList<TagInfoVo> responseList = gson.fromJson(result.rawResult, new TypeToken<ArrayList<TagInfoVo>>() {
+                    }.getType());
+                    if(responseList.size() > 0){
+                        mContainerCheckedLlt.setVisibility(View.VISIBLE);
+                        findViewById(R.id.white_line).setVisibility(View.GONE);
+                        for(TagInfoVo item : responseList){
+                            LogUtil.getInstance().info(LogLevel.INFO, item.toString());
+                            mCheckedTagView.addTag(createTag(item.getTagid(),item.getTag()));
+                        }
+                    } else {
+                        mContainerCheckedLlt.setVisibility(View.GONE);
+                        findViewById(R.id.white_line).setVisibility(View.VISIBLE);
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    mContainerCheckedLlt.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
             }
         });
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
+
+
     }
 
     //加载随机选择的标签
     private void loadRandTagsInfo() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ProtocolUtil.getRandTagsUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取随机标签信息响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                GsonBuilder gsonb = new GsonBuilder();
-                                Gson gson = gsonb.create();
-                                ArrayList<TagInfoVo> responseList = gson.fromJson(response, new TypeToken<ArrayList<TagInfoVo>>() {
-                                }.getType());
-                                for(TagInfoVo item : responseList){
-                                    LogUtil.getInstance().info(LogLevel.INFO, item.toString());
-                                    mUnCheckTagView.addTag(createTag(item.getTagid(),item.getTag()));
-                                }
-
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        String url =  ProtocolUtil.getRandTagsUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取随机标签信息错误信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    GsonBuilder gsonb = new GsonBuilder();
+                    Gson gson = gsonb.create();
+                    ArrayList<TagInfoVo> responseList = gson.fromJson( result.rawResult, new TypeToken<ArrayList<TagInfoVo>>() {
+                    }.getType());
+                    for(TagInfoVo item : responseList){
+                        LogUtil.getInstance().info(LogLevel.INFO, item.toString());
+                        mUnCheckTagView.addTag(createTag(item.getTagid(),item.getTag()));
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
             }
         });
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     private void initListener() {

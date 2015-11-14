@@ -13,7 +13,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -64,7 +63,7 @@ public class MineActivity extends Activity{
     private Map<String,String> stringMap;
     private Map<String,File> fileMap;
     private HttpRequest httpRequest;
-    private StringRequest stringRequest;
+
     private UserInfoVo userInfoVo;
     private UserInfoResponse userInfoResponse;
     private String mobilePhoneStr;

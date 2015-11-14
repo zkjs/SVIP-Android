@@ -11,10 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
@@ -53,7 +50,7 @@ public class ShopListActivity extends Activity{
 //    private ImageButton backIBtn;
 //    private TextView searchTv;
     private ItemTitleView mTitle;
-    private StringRequest stringRequest;
+
     private ListView shopListView;
     private List<ShopInfoResponse> shopResponseList;
     private List<ShopInfoVo> shopInfoList;

@@ -2,9 +2,7 @@ package com.zkjinshi.svip.activity.mine;
 
 import android.content.Context;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.http.post.HttpAsyncTask;
 import com.zkjinshi.svip.http.post.HttpRequest;
@@ -21,7 +19,7 @@ import com.zkjinshi.svip.http.post.HttpRequestListener;
 public class MineNetController {
     private static MineNetController instance;
     private Context context;
-    private RequestQueue requestQueue;
+
     private MineNetController(){}
     public synchronized static MineNetController getInstance(){
         if(null == instance){
@@ -32,7 +30,6 @@ public class MineNetController {
 
     public void init(Context context){
         this.context = context;
-        this.requestQueue = Volley.newRequestQueue(context);
     }
 
     public void requestSetInfoTask(HttpRequest request,HttpRequestListener requestListener){
@@ -42,12 +39,4 @@ public class MineNetController {
         httpAsyncTask.execute();
     }
 
-    public void requestGetUserInfoTask(StringRequest stringRequest){
-        DialogUtil.getInstance().showProgressDialog(context);
-        requestQueue.add(stringRequest);
-    }
-
-    public RequestQueue getRequestQueue() {
-        return requestQueue;
-    }
 }

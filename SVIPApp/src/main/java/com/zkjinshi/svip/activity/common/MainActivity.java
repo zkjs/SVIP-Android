@@ -41,7 +41,7 @@ import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.activity.order.ShopListActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.fragment.MenuRightFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
@@ -61,6 +61,7 @@ import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -695,7 +696,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 ratingBar.setVisibility(View.INVISIBLE);
                 int index = svipApplication.mRegionList.size()-1;
                 String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                String fullname = ShopListManager.getInstance().getShopName(shopid);
+                String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
                 shopNameTv.setText(fullname);
                 majorTv.setText("欢迎光临");
                 minorTv.setText("长按或点击智键开始快速预定");
@@ -853,7 +854,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
      */
     private void initIBeaconList(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init();
+            IBeaconController.getInstance().init(this);
         }
     }
 

@@ -15,27 +15,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.NetWorkUtil;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.GoodAdapter;
-import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.factory.GoodInfoFactory;
-import com.zkjinshi.svip.response.GoodInfoResponse;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
+
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
 
-import java.lang.reflect.Type;
+
 import java.util.List;
 
 /**

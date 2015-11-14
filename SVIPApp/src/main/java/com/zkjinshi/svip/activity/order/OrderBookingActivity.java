@@ -20,11 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,7 +34,7 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -52,6 +48,7 @@ import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
@@ -94,7 +91,7 @@ public class OrderBookingActivity extends Activity{
     private TextView        mTvDateTips;
     private LinearLayout    mLltDateContainer;
     private ImageView       mIvRoomImg;
-    private StringRequest stringRequest;
+
 
     private Button          mBtnSendOrder;
     private Button          mBtnCancelOrder;
@@ -193,7 +190,7 @@ public class OrderBookingActivity extends Activity{
         mBtnCancelOrder.setVisibility(View.GONE);
 
         calendarList = new ArrayList<Calendar>();
-        mTitle.setTextTitle(ShopListManager.getInstance().getShopName(shopId));
+        mTitle.setTextTitle(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
 
@@ -613,7 +610,7 @@ public class OrderBookingActivity extends Activity{
         mRoomType.setText(goodInfoVo.getRoom()+goodInfoVo.getType());
         orderRoomResponse.setRoom_type(goodInfoVo.getRoom() + goodInfoVo.getType());
         orderRoomResponse.setShopid(shopId);
-        orderRoomResponse.setFullname(ShopListManager.getInstance().getShopName(shopId));
+        orderRoomResponse.setFullname(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
 
     }

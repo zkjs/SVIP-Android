@@ -20,7 +20,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -30,7 +29,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -42,6 +41,7 @@ import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.response.OrderPrivilegeResponse;
 import com.zkjinshi.svip.response.OrderRoomTagResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
@@ -82,7 +82,7 @@ public class OrderDetailActivity extends Activity{
     private TextView        mTvDateTips;
     private LinearLayout    mLltDateContainer;
     private ImageView       mIvRoomImg;
-    private StringRequest stringRequest;
+
 
     private Button          mBtnSendOrder;
     private Button          mBtnCancelOrder;
@@ -230,7 +230,7 @@ public class OrderDetailActivity extends Activity{
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
 
         mBtnSendOrder.setText("确认订单");
-        mTitle.setTextTitle(ShopListManager.getInstance().getShopName(shopId));
+        mTitle.setTextTitle(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
     }

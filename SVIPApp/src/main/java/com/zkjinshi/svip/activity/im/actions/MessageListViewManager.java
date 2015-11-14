@@ -39,7 +39,7 @@ import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChatRSP;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2S;
 import com.zkjinshi.svip.bean.jsonbean.MsgRequestWaiterC2SRSP;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.sqlite.ChatRoomDBUtil;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
@@ -48,6 +48,7 @@ import com.zkjinshi.svip.http.post.MediaRequestListener;
 import com.zkjinshi.svip.http.post.MediaRequestTask;
 import com.zkjinshi.svip.http.post.MediaResponse;
 import com.zkjinshi.svip.sqlite.ServerPeronalDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.UUIDBuilder;
@@ -1133,7 +1134,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                String phoneNum = ShopListManager.getInstance().getShopPhone(shopId);
+                String phoneNum = ShopDetailDBUtil.getInstance().queryShopPhoneByShopID(shopId);
                 if (!TextUtils.isEmpty(phoneNum)) {
                     Intent intent = new Intent(Intent.ACTION_CALL,
                             Uri.parse("tel:" + phoneNum));

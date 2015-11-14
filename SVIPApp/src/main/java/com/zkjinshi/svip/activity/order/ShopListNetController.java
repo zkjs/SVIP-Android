@@ -2,9 +2,7 @@ package com.zkjinshi.svip.activity.order;
 
 import android.content.Context;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.zkjinshi.base.util.DialogUtil;
 
 /**
@@ -17,7 +15,7 @@ public class ShopListNetController {
     private ShopListNetController(){}
     private static ShopListNetController instance;
     private Context context;
-    private RequestQueue requestQueue;
+
     public static synchronized ShopListNetController getInstance(){
         if(null ==  instance){
             instance = new ShopListNetController();
@@ -27,11 +25,7 @@ public class ShopListNetController {
 
     public void init(Context context){
         this.context = context;
-        this.requestQueue = Volley.newRequestQueue(context);
+
     }
 
-    public void requestGetShopListTask(StringRequest stringRequest){
-        DialogUtil.getInstance().showProgressDialog(context);
-        requestQueue.add(stringRequest);
-    }
 }

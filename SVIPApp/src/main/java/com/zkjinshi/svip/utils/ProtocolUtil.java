@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.utils;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.zkjinshi.base.config.ConfigUtil;
 
 /**
@@ -16,16 +15,7 @@ public class ProtocolUtil {
     public static int DEFAULT_MAX_RETRIES = 0; //增加重试次数
     public static float DEFAULT_BACKOFF_MULT = 1f;//它允许你指定一个退避乘数可以用来实现“指数退避”来从RESTful服务器请求数据。
 
-    /**
-     * 获取默认的重连超时参数
-     * @return
-     */
-    public static DefaultRetryPolicy getDefaultRetryPolicy(){
-        return new DefaultRetryPolicy(
-                MY_SOCKET_TIMEOUT_MS,
-                DEFAULT_MAX_RETRIES,
-                DEFAULT_BACKOFF_MULT);
-    }
+
 
     /**
      * 获取客服列表 URL

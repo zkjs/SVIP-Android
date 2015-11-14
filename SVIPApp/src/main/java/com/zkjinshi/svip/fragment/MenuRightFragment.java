@@ -17,8 +17,9 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.vo.MessageVo;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,7 @@ public class MenuRightFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MessageVo messageVo = mChatRoomLists.get(position);
                 String shopId = messageVo.getShopId();
-                String shopName = ShopListManager.getInstance().getShopName(shopId);
+                String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
                 Intent goChat = new Intent(mActivity, ChatActivity.class);
                 goChat.putExtra("shop_id", shopId);
                 goChat.putExtra("shop_name", shopName);

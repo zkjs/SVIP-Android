@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -14,10 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.config.ConfigUtil;
@@ -33,6 +30,11 @@ import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.http.post.HttpRequest;
 import com.zkjinshi.svip.http.post.HttpRequestListener;
 import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -51,6 +53,8 @@ import java.util.HashMap;
  * Created by djd on 2015/8/17.
  */
 public class SettingActivity extends Activity implements View.OnClickListener {
+
+    public static final String TAG = SettingActivity.class.getSimpleName();
 
     private ItemTitleView mTitle;//返回
     private CircleImageView mUserIcon;//用户头像
@@ -113,36 +117,50 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mTitle.getmRight().setVisibility(View.INVISIBLE);
         mTitle.setTextTitle("设置");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),
-                        CacheUtil.getInstance().getUserId()),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        DialogUtil.getInstance().cancelProgressDialog();
-                        LogUtil.getInstance().info(LogLevel.INFO, "获取用户信息响应结果:" + response);
-                        if(!TextUtils.isEmpty(response)){
-                            try {
-                                UserInfoResponse userInfoResponse =  new Gson().fromJson(response, UserInfoResponse.class);
-                                if(null != userInfoResponse){
-                                    UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
-                                    if(null != userInfoVo){
-                                       setViewData(userInfoVo);
-                                    }
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();;
-                            }
+
+        String url = ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),CacheUtil.getInstance().getUserId());
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    UserInfoResponse userInfoResponse =  new Gson().fromJson(result.rawResult, UserInfoResponse.class);
+                    if(null != userInfoResponse){
+                        UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
+                        if(null != userInfoVo){
+                            setViewData(userInfoVo);
                         }
                     }
-                }, new Response.ErrorListener() {
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                DialogUtil.getInstance().cancelProgressDialog();
-                LogUtil.getInstance().info(LogLevel.INFO, "获取用户信息错误信息:" +  error.getMessage());
+            public void beforeNetworkRequestStart() {
+
             }
         });
-        MineNetController.getInstance().requestGetUserInfoTask(stringRequest);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
     /**

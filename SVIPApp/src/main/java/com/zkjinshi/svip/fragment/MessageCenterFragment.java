@@ -10,10 +10,11 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.vo.ChatRoomVo;
 import com.zkjinshi.svip.vo.MessageVo;
 
@@ -63,7 +64,7 @@ public class MessageCenterFragment extends BaseFragment{
 
                 MessageVo messageVo = mChatRoomLists.get(position);
                 String shopId = messageVo.getShopId();
-                String shopName = ShopListManager.getInstance().getShopName(shopId);
+                String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
                 Intent goChat = new Intent(mActivity, ChatActivity.class);
                 goChat.putExtra("shop_id", shopId);
                 goChat.putExtra("shop_name", shopName);

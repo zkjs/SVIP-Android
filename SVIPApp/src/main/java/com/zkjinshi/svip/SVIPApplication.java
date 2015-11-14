@@ -16,7 +16,7 @@ import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
-import com.zkjinshi.svip.ext.ShopListManager;
+
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;

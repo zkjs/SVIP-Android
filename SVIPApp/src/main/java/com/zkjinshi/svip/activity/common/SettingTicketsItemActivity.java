@@ -11,9 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 
-import com.android.volley.Response;
 import com.google.gson.Gson;
-
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
@@ -50,11 +48,7 @@ public class SettingTicketsItemActivity extends Activity {
     private CheckBox mDefaultRbtn;
     private Button mSaveBtn;
 
-    private Response.Listener<String> addTicketListener;
-    private Response.ErrorListener    addTicketErrorListener;
 
-    private Response.Listener<String> updateTicketListener;
-    private Response.ErrorListener    updateTicketErrorListener;
 
 
     @Override

@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.Response;
+
 import com.google.gson.Gson;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
@@ -86,8 +86,7 @@ public class SettingPhoneActivity extends Activity {
 
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
-    private Response.Listener<String> getPhoneListener;     //获取用户成功监听事件
-    private Response.ErrorListener getPhoneErrorListener;//获取用户失败监听事件
+
     private Map<String, String> mPhoneVerifyMap;//指定手机对应验证码
     private Map<String, Object>       mResultMap;
 

@@ -4,14 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -19,6 +13,11 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.order.PayOrderActivity;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.OrderInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -37,46 +36,68 @@ import java.util.Map;
  */
 public class LocationController {
 
+    private final static String TAG = LocationController.class.getSimpleName();
+
     private LocationController (){}
 
     private static LocationController instance;
+    private Context context;
 
-    private StringRequest stringRequest;
-    private RequestQueue requestQueue;
 
-    private void init(){
-        this.requestQueue = Volley.newRequestQueue(VIPContext.getInstance().getContext());
+
+    public void init(Context context){
+        this.context = context;
     }
 
     public synchronized static LocationController getInstance(){
         if(null == instance){
             instance = new LocationController();
-            instance.init();
         }
         return instance;
     }
 
     public void requestAddGpsInfoTask(final HashMap<String,String> requestMap){
-        stringRequest = new StringRequest(Request.Method.POST, ProtocolUtil.getAddGpdInfoUrl(),
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        if(!TextUtils.isEmpty(response)){
-                            LogUtil.getInstance().info(LogLevel.INFO, "成功添加用户gps信息:" + response);
-                        }
-                    }
-                }, new Response.ErrorListener() {
+
+        String url = ProtocolUtil.getAddGpdInfoUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        netRequest.setBizParamMap(requestMap);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                LogUtil.getInstance().info(LogLevel.INFO, "添加用户gps信息异常信息:" +  error.getMessage());
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                LogUtil.getInstance().info(LogLevel.INFO, "添加用户gps信息异常信息" );
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+
             }
-        }){
+
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return requestMap;
+            public void onNetworkRequestCancelled() {
+
             }
-        };
-        requestQueue.add(stringRequest);
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    LogUtil.getInstance().info(LogLevel.INFO, "成功添加用户gps信息:" +  result.rawResult);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+
     }
 
 }

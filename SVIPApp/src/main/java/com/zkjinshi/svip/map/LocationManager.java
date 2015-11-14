@@ -51,7 +51,7 @@ public class LocationManager{
         return instance;
     }
 
-    public void registerLocation(Context context){
+    public void registerLocation(final Context context){
         mLocationManagerProxy = LocationManagerProxy.getInstance(context);
         aMapLocationListener =  new AMapLocationListener() {
             @Override
@@ -71,13 +71,13 @@ public class LocationManager{
                     if (locBundle != null) {
                         desc = locBundle.getString("desc");
                     }
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"高德定位信息");
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"经度:"+geoLat);
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"纬度:"+geoLng);
+                    LogUtil.getInstance().info(LogLevel.DEBUG, "高德定位信息");
+                    LogUtil.getInstance().info(LogLevel.DEBUG, "经度:" + geoLat);
+                    LogUtil.getInstance().info(LogLevel.DEBUG, "纬度:" + geoLng);
                     LogUtil.getInstance().info(LogLevel.DEBUG, "街道:" + desc);
-                    Log.i(TAG,"高德定位信息");
-                    Log.i(TAG,"经度"+geoLat);
-                    Log.i(TAG,"纬度"+geoLng);
+                    Log.i(TAG, "高德定位信息");
+                    Log.i(TAG, "经度" + geoLat);
+                    Log.i(TAG, "纬度" + geoLng);
                     Log.i(TAG, "街道" + desc);
                     HashMap<String,String> requestMap = new HashMap<String,String>();
                     requestMap.put("userid", CacheUtil.getInstance().getUserId());
@@ -85,6 +85,7 @@ public class LocationManager{
                     requestMap.put("map_latitude",geoLat+"");
                     requestMap.put("map_longitude",geoLng+"");
                     requestMap.put("trace_time",sdf.format(new Date()));
+                    LocationController.getInstance().init(context);
                     LocationController.getInstance().requestAddGpsInfoTask(requestMap);
                     if(locationChangeListener != null){
                         locationChangeListener.onLocationChanged(aMapLocation);
