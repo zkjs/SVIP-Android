@@ -542,16 +542,14 @@ public class OrderBookingActivity extends Activity{
                                                 }
                                             }
                                         }
-                                        if (null != customerService) {
-                                            Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
-                                            intent.putExtra(Constants.EXTRA_USER_ID, salesId);
-                                            intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                                            intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                                            intent.putExtra("orderDetailResponse", orderDetailResponse);
-                                            startActivity(intent);
-                                            overridePendingTransition(R.anim.slide_in_right,
-                                                    R.anim.slide_out_left);
-                                        }
+                                        Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
+                                        intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                                        intent.putExtra("orderDetailResponse", orderDetailResponse);
+                                        startActivity(intent);
+                                        overridePendingTransition(R.anim.slide_in_right,
+                                                R.anim.slide_out_left);
                                     }
                                 }
                             }
