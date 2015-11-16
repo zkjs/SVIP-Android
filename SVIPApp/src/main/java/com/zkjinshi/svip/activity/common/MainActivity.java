@@ -338,6 +338,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
 
@@ -390,6 +391,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
 

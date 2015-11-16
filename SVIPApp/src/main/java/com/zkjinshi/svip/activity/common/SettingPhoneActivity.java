@@ -478,6 +478,7 @@ public class SettingPhoneActivity extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);

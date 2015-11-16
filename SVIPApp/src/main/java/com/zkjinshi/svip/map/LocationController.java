@@ -80,6 +80,7 @@ public class LocationController {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     LogUtil.getInstance().info(LogLevel.INFO, "成功添加用户gps信息:" +  result.rawResult);

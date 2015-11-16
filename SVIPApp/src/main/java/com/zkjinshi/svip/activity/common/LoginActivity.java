@@ -597,6 +597,7 @@ public class LoginActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     if(JsonUtil.isJsonNull(result.rawResult))
@@ -659,6 +660,7 @@ public class LoginActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();

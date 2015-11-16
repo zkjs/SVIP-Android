@@ -383,6 +383,7 @@ public class OauthLoginActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     //解析json数据
@@ -491,6 +492,7 @@ public class OauthLoginActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     //解析json数据

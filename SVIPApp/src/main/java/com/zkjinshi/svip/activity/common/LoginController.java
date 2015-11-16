@@ -83,6 +83,7 @@ public class LoginController {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(LoginController.class.getSimpleName(), "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();

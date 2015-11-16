@@ -42,7 +42,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
     @Override
     public void onNetworkResponseSucceed(NetResponse result) {
         BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
-        if(baseBean!= null && baseBean.isSet() && baseBean.getErr().equals("400")){
+        if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
             if(context instanceof Activity){
                 DialogUtil.getInstance().showToast(context, "Token失效，请重新登录!");
                 CacheUtil.getInstance().setLogin(false);

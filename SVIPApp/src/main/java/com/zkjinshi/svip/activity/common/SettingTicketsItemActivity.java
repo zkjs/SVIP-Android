@@ -142,6 +142,7 @@ public class SettingTicketsItemActivity extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
@@ -202,6 +203,7 @@ public class SettingTicketsItemActivity extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();

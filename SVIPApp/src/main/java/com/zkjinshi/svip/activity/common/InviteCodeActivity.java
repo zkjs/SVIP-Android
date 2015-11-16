@@ -192,6 +192,7 @@ public class InviteCodeActivity extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 String jsonResult = result.rawResult;
                 try {
@@ -272,6 +273,7 @@ public class InviteCodeActivity extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 String jsonResult = result.rawResult;
                 try {

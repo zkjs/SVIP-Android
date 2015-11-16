@@ -137,6 +137,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     UserInfoResponse userInfoResponse =  new Gson().fromJson(result.rawResult, UserInfoResponse.class);

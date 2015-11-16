@@ -252,6 +252,7 @@ public class OrderBookingActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<List<GoodInfoResponse>>(){}.getType();
