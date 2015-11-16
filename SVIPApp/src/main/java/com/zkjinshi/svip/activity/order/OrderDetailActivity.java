@@ -30,12 +30,17 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.bean.HeadBean;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.response.OrderPrivilegeResponse;
@@ -43,6 +48,7 @@ import com.zkjinshi.svip.response.OrderRoomTagResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -721,7 +727,7 @@ public class OrderDetailActivity extends Activity{
         bizMap.put("userid", CacheUtil.getInstance().getUserId());
         bizMap.put("token", CacheUtil.getInstance().getToken());
         bizMap.put("reservation_no", reservationNo);
-        bizMap.put("status","1");
+        bizMap.put("status", "1");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;
@@ -744,14 +750,58 @@ public class OrderDetailActivity extends Activity{
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
                     if(baseResponse.isSet()){
-                        Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
-                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                        intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
-                        finish();
+                        CustomerServicesManager.getInstance().requestServiceListTask(OrderDetailActivity.this, shopId, new NetRequestListener() {
+                            @Override
+                            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                                Log.i(TAG, "errorCode:" + errorCode);
+                                Log.i(TAG, "errorMessage:" + errorMessage);
+                            }
+
+                            @Override
+                            public void onNetworkRequestCancelled() {
+
+                            }
+
+                            @Override
+                            public void onNetworkResponseSucceed(NetResponse result) {
+                                Log.i(TAG, "result:" + result.rawResult);
+                                CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                                if (null != customerServiceListResponse) {
+                                    HeadBean head = customerServiceListResponse.getHead();
+                                    if (null != head) {
+                                        boolean isSet = head.isSet();
+                                        if (isSet) {
+                                            ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                                            String salesId = head.getExclusive_salesid();
+                                            CustomerServiceBean customerService = null;
+                                            if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                                if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                                    customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                                } else {//无专属客服
+                                                    customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                    if(null != salesId){
+                                                        salesId = customerService.getSalesid();
+                                                    }
+                                                }
+                                            }
+                                            Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                                            intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                                            intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                                            intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                                            intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_in_right,
+                                                    R.anim.slide_out_left);
+                                            finish();
+                                        }
+                                    }
+                                }
+                            }
+                            @Override
+                            public void beforeNetworkRequestStart() {
+
+                            }
+                        });
                     }
 
                 } catch (Exception e) {
@@ -773,7 +823,7 @@ public class OrderDetailActivity extends Activity{
     //确认订单
     private void confirmOrder() {
         String url =  ProtocolUtil.updateOrderUrl();
-        Log.i(TAG,url);
+        Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = generatedPostParm();
         bizMap.put("status","2");
@@ -799,14 +849,59 @@ public class OrderDetailActivity extends Activity{
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
                     if(baseResponse.isSet()){
-                        Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
-                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
-                        intent.putExtra("text_context", "您好，我已确认该订单，请跟进。");
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
-                        finish();
+                        CustomerServicesManager.getInstance().requestServiceListTask(OrderDetailActivity.this, shopId, new NetRequestListener() {
+                            @Override
+                            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                                Log.i(TAG, "errorCode:" + errorCode);
+                                Log.i(TAG, "errorMessage:" + errorMessage);
+                            }
+
+                            @Override
+                            public void onNetworkRequestCancelled() {
+
+                            }
+
+                            @Override
+                            public void onNetworkResponseSucceed(NetResponse result) {
+                                Log.i(TAG, "result:" + result.rawResult);
+                                CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                                if (null != customerServiceListResponse) {
+                                    HeadBean head = customerServiceListResponse.getHead();
+                                    if (null != head) {
+                                        boolean isSet = head.isSet();
+                                        if (isSet) {
+                                            ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                                            String salesId = head.getExclusive_salesid();
+                                            CustomerServiceBean customerService = null;
+                                            if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                                if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                                    customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                                } else {//无专属客服
+                                                    customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                    if(null != salesId){
+                                                        salesId = customerService.getSalesid();
+                                                    }
+                                                }
+                                            }
+                                            Intent intent = new Intent(OrderDetailActivity.this, ChatActivity.class);
+                                            intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                                            intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
+                                            intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
+                                            intent.putExtra("text_context", "您好，我已确认该订单，请跟进。");
+                                            startActivity(intent);
+                                            overridePendingTransition(R.anim.slide_in_right,
+                                                    R.anim.slide_out_left);
+                                            finish();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void beforeNetworkRequestStart() {
+
+                            }
+                        });
                     }
 
                 } catch (Exception e) {
