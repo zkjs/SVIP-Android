@@ -71,7 +71,6 @@ public class SVIPApplication extends Application {
      */
     private void initEmchat(){
         EMChat.getInstance().init(this);
-        EMChat.getInstance().setDebugMode(true);
     }
 
 
