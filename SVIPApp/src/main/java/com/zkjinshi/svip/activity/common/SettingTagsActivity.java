@@ -138,6 +138,7 @@ public class SettingTagsActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     GsonBuilder gsonb = new GsonBuilder();
@@ -196,6 +197,7 @@ public class SettingTagsActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     GsonBuilder gsonb = new GsonBuilder();
@@ -313,6 +315,7 @@ public class SettingTagsActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     //解析json数据

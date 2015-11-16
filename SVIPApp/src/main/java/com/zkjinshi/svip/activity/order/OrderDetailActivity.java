@@ -168,6 +168,7 @@ public class OrderDetailActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     orderDetailResponse = new Gson().fromJson( result.rawResult,OrderDetailResponse.class);
@@ -738,6 +739,7 @@ public class OrderDetailActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
@@ -792,6 +794,7 @@ public class OrderDetailActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);

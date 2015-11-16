@@ -425,6 +425,7 @@ public class OrderEvaluateActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 if (null != result && !TextUtils.isEmpty(result.rawResult)) {
                     Log.i(TAG, "result.rawResult:" + result.rawResult);
                     try {
@@ -535,6 +536,7 @@ public class OrderEvaluateActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 if (null != result && !TextUtils.isEmpty(result.rawResult)) {
                     Log.i(TAG, "result.rawResult:" + result.rawResult);
                     try {
@@ -623,6 +625,7 @@ public class OrderEvaluateActivity extends Activity{
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 if (null != result && !TextUtils.isEmpty(result.rawResult)) {
                     Log.i(TAG, "result.rawResult:" + result.rawResult);
                     try {

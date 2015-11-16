@@ -89,6 +89,7 @@ public class HotelFragment  extends Fragment {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<List<ShopInfoResponse>>(){}.getType();

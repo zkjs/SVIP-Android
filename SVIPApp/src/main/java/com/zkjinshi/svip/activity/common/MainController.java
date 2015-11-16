@@ -102,6 +102,7 @@ public class MainController {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<List<ShopDetailVo>>(){}.getType();
@@ -152,6 +153,7 @@ public class MainController {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<List<ServerPersonalVo>>() {

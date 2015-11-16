@@ -238,6 +238,7 @@ public class ConsumeRecordActivtiy extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     mSlvBookOrder.refreshFinish();//结束刷新状态
@@ -305,6 +306,7 @@ public class ConsumeRecordActivtiy extends Activity {
 
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
