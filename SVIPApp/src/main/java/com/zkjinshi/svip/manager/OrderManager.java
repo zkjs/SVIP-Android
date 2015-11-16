@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.manager;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -70,7 +71,6 @@ public class OrderManager {
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
         customBuilder.setTitle("订单通知");
         customBuilder.setMessage("您的订单已经生成，请尽快确认");
-        customBuilder.setGravity(Gravity.CENTER);
         customBuilder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
 
             @Override
