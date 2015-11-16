@@ -363,7 +363,7 @@ public class OrderDetailActivity extends Activity{
             mTvPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(OrderDetailActivity.this,PayOrderActivity.class);
+                    Intent intent = new Intent(OrderDetailActivity.this,OrderPayActivity.class);
                     intent.putExtra("orderDetailResponse",orderDetailResponse);
                     startActivity(intent);
                     finish();
