@@ -560,14 +560,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         initData();
         loginUser();
         initListeners();
-       // initIBeaconList();
-      //  IBeaconSubject.getInstance().addObserver(this);
+        initIBeaconList();
+        IBeaconSubject.getInstance().addObserver(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-     //   IBeaconSubject.getInstance().removeObserver(this);
+        IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
     }
 
