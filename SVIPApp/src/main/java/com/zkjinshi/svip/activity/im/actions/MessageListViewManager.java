@@ -21,6 +21,8 @@ import com.easemob.chat.EMMessage;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ChatAdapter;
+import com.zkjinshi.svip.emchat.observer.EMessageSubject;
+import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
@@ -41,7 +43,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 版权所有
  */
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
-        ChatAdapter.ResendListener,EMEventListener {
+        ChatAdapter.ResendListener,IEMessageObserver {
 
     private static final String TAG = MessageListViewManager.class.getSimpleName();
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
@@ -89,11 +91,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         currentMessageList = conversation.getAllMessages();
         chatAdapter.setMessageList(currentMessageList);
         scrollBottom();
-        EMChatManager.getInstance().registerEventListener(
-                this,
-                new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewMessage,
-                        EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventDeliveryAck,
-                        EMNotifierEvent.Event.EventReadAck});
+        addAllObserver();
     }
 
     private void initListeners() {
@@ -103,7 +101,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     public synchronized void destoryMessageListViewManager() {
         messageVector.clear();
         clearChatRoomBadgeNum();
-        EMChatManager.getInstance().unregisterEventListener(this);
+        removeAllObserver();
     }
 
     /**
@@ -264,8 +262,28 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         }
     }
 
+    /**
+     * 添加观察者
+     */
+    private void addAllObserver(){
+        EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
+        EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventReadAck);
+        EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+    }
+
+    /**
+     * 移除观察者
+     */
+    private void removeAllObserver(){
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventReadAck);
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+    }
+
     @Override
-    public void onEvent(EMNotifierEvent event) {
+    public void receive(EMNotifierEvent event) {
         switch (event.getEvent()) {
             case EventNewMessage:
                 // 获取到message
@@ -313,5 +331,4 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 break;
         }
     }
-
 }

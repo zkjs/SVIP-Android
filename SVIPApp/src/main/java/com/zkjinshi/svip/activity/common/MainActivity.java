@@ -1,8 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,40 +9,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
-import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.emchat.ReceiverHelper;
+import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
@@ -69,7 +61,6 @@ import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.vo.MessageVo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -565,7 +556,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         svipApplication = (SVIPApplication)getApplication();
         initView();
         initData();
-       // registerUser();
         loginUser();
         initListeners();
         initIBeaconList();
@@ -576,6 +566,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     protected void onDestroy() {
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
+        EMessageListener.getInstance().unregisterEventListener();
     }
 
     /**
@@ -875,19 +866,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         }
     };
 
-
     /**
-     * 注册环信IM
-     */
-    private void registerUser(){
-        // EasemobIMHelper.getInstance().registerUser("JimmyZhang","123456");
-        // EasemobIMHelper.getInstance().registerUser("hanton","123456");
-    }
-
-    /**
-     * 登录环形IM
+     * 登录环信IM
      */
     private void loginUser(){
+        Log.i(TAG,"userId:"+CacheUtil.getInstance().getUserId());
         EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
             @Override
             public void onSuccess() {
@@ -897,10 +880,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 // EasemobIMHelper.getInstance().getFriendList();
                 //  EasemobIMHelper.getInstance().addFriend("hanton","jimmy add you to friend");
                 // EasemobIMHelper.getInstance().acceptInvitation("jimmyzhang");
-                // ReceiverHelper.getInstance().init(MainActivity.this);
+                //ReceiverHelper.getInstance().init(MainActivity.this);
                 // ReceiverHelper.getInstance().regiserNewMessageReceiver();
                 //  ReceiverHelper.getInstance().regiserAckMessageReceiver();
                 // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
+                //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
+                EMessageListener.getInstance().registerEventListener();;
             }
 
             @Override
