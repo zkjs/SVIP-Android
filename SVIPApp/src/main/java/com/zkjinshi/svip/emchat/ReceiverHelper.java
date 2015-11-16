@@ -1,14 +1,23 @@
 package com.zkjinshi.svip.emchat;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.WindowManager;
 
+import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMMessage;
+import com.easemob.exceptions.EaseMobException;
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 
 /**
  * 消息广播接收帮助类
@@ -134,6 +143,76 @@ public class ReceiverHelper {
                 return;
             }
         }
+    }
+
+    /**
+     * 注册命令消息广播
+     *
+     */
+    public void regiserCmdMessageReceiver(){
+        // 注册一个cmd消息的BroadcastReceiver
+        IntentFilter cmdIntentFilter = new IntentFilter(EMChatManager.getInstance().getCmdMessageBroadcastAction());
+        context.registerReceiver(cmdMessageReceiver, cmdIntentFilter);
+        EMChat.getInstance().setAppInited();
+    }
+
+
+    /**
+     * cmd消息BroadcastReceiver
+     */
+    private BroadcastReceiver cmdMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                //获取cmd message对象
+                String msgId = intent.getStringExtra("msgid");
+                EMMessage message = intent.getParcelableExtra("message");
+                //获取消息body
+                CmdMessageBody cmdMsgBody = (CmdMessageBody) message.getBody();
+                String aciton = cmdMsgBody.action;//获取自定义action
+                //获取扩展属性
+                if(!TextUtils.isEmpty(aciton) && "sureOrder".equals(aciton)){
+                    String shopId = message.getStringAttribute("shopId");
+                    String orderNo = message.getStringAttribute("orderNo");
+                    showBookHotelSuccDialog(context,shopId,orderNo);
+                }
+            } catch (EaseMobException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private synchronized void showBookHotelSuccDialog(final Context context, final String shopId,final String orderNo) {
+        Dialog dialog = null;
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
+        customBuilder.setTitle("订单通知");
+        customBuilder.setMessage("您的订单已经生成，请尽快确认");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        customBuilder.setPositiveButton("查看", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent(context, OrderDetailActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("reservation_no", orderNo);
+                intent.putExtra("shopid", shopId);
+                context.startActivity(intent);
+            }
+        });
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
     }
 
 }

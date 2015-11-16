@@ -15,6 +15,8 @@ import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
+import com.zkjinshi.svip.emchat.observer.EMessageSubject;
+import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.utils.Constants;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class MessageCenterFragment extends BaseFragment implements EMEventListener {
+public class MessageCenterFragment extends BaseFragment implements IEMessageObserver {
 
     private RecyclerView mRcvMsgCenter;
     private LinearLayoutManager mLayoutManager;
@@ -49,7 +51,7 @@ public class MessageCenterFragment extends BaseFragment implements EMEventListen
     @Override
     protected void initData() {
         super.initData();
-        EMChatManager.getInstance().registerEventListener(this);
+        addAllObserver();
         mChatRoomAdapter = new ChatRoomAdapter(conversationList,mActivity);
         mRcvMsgCenter.setAdapter(mChatRoomAdapter);
         //条目点击事件，进入聊天界面
@@ -77,6 +79,10 @@ public class MessageCenterFragment extends BaseFragment implements EMEventListen
         super.onResume();
         conversationList = (ArrayList<EMConversation>) EMConversationHelper.getInstance().loadConversationList();
         mChatRoomAdapter.setConversationList(conversationList);
+        if(null == conversationList || conversationList.isEmpty()){
+            mTvDialog.setVisibility(View.VISIBLE);
+            mTvDialog.setText(mActivity.getString(R.string.current_none));
+        }
     }
 
     /**
@@ -93,27 +99,40 @@ public class MessageCenterFragment extends BaseFragment implements EMEventListen
         });
     }
 
+    /**
+     * 添加观察者
+     */
+    private void addAllObserver(){
+        EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventOfflineMessage);
+        EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventConversationListChanged);
+    }
+
+    /**
+     * 移除观察者
+     */
+    private void removeAllObserver(){
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+        EMessageSubject.getInstance().removeObserver(this,EMNotifierEvent.Event.EventConversationListChanged);
+    }
+
     @Override
-    public void onEvent(EMNotifierEvent event) {
+    public void receive(EMNotifierEvent event) {
         switch (event.getEvent()) {
             case EventNewMessage:
-            {
+            case EventOfflineMessage:
+            case EventConversationListChanged:
                 refresh();
                 break;
-            }
-
-            case EventOfflineMessage: {
-                refresh();
-                break;
-            }
-
-            case EventConversationListChanged: {
-                refresh();
-                break;
-            }
-
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        removeAllObserver();
     }
 }
