@@ -124,6 +124,32 @@ public class CacheUtil {
 
 	/**
 	 * 保存用户id
+	 * @param userCheckInId
+	 */
+	public void setUserCheckInId(int userCheckInId) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putInt("userCheckInId", userCheckInId).commit();
+	}
+
+	/**
+	 * 获取用户id
+	 * @return
+	 */
+	public int getUserCheckInId() {
+		if (null == context) {
+			return 0;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getInt("userCheckInId", 0);
+	}
+
+	/**
+	 * 保存用户id
 	 * @param userId
 	 */
 	public void setUserId(String userId) {
@@ -146,6 +172,32 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getString("userId", null);
+	}
+
+	/**
+	 * 保存用户真实姓名
+	 * @param realName
+	 */
+	public void setUserRealName(String realName) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString("realName", realName).commit();
+	}
+
+	/**
+	 * 获取用户真实姓名
+	 * @return
+	 */
+	public String getUserRealName() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getString("realName","");
 	}
 
 	/**

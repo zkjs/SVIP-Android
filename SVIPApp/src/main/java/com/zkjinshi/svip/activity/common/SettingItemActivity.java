@@ -147,6 +147,8 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
                         setResult(RESULT_OK, data);
                         if(fieldKey.equals("username")){
                             CacheUtil.getInstance().setUserName(fieldValue);
+                        } else if(fieldKey.equals("real_name")){
+                            CacheUtil.getInstance().setUserRealName(fieldValue);
                         }
                         finish();
                     } else {

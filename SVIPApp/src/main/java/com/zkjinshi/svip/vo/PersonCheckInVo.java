@@ -1,15 +1,18 @@
-package com.zkjinshi.svip.response;
-
-import com.zkjinshi.svip.http.post.HttpResponse;
+package com.zkjinshi.svip.vo;
 
 /**
- * Created by djd on 2015/9/6.
+ * 表语句操作帮助类
+ * 开发者：WinkyQin
+ * 日期： 2015/11/16
+ * Copyright (C) 2015 深圳中科金石科技有限公司
+ * 版权所有
  */
-public class OrderUsersResponse extends HttpResponse {
-    private int id;//       联系人id int
-    private String realname;//  真实姓名
-    private String idcard;//   证件号
-    private String phone;//    联系电话 phone
+public class PersonCheckInVo {
+
+    private int    id;          //  联系人   id
+    private String realname;    //  真实姓名 realname
+    private String idcard;      //  证件号   realname
+    private String phone;       //  联系电话 phone
 
     public int getId() {
         return id;

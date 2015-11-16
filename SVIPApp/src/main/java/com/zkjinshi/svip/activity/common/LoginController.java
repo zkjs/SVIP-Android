@@ -99,15 +99,12 @@ public class LoginController {
                             CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
                             CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
                             CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
+                            CacheUtil.getInstance().setUserRealName(userInfoVo.getRealName());
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                         }
 
-                       /* Intent intent = new Intent(activity, CompleteInfoActivity.class);
-                        activity.startActivity(intent);
-                        activity.finish();*/
-
+                        //判读是否新注册用户
                         if(isNewRegister){
-                            //TODO:进行完善资料的填写
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);
                             if(thirdBundleData != null){
                                 intent.putExtra("from_third", true);

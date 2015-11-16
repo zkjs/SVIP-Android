@@ -25,6 +25,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 
+import com.zkjinshi.svip.factory.PersonCheckInFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -32,11 +33,13 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.InsertResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
+import com.zkjinshi.svip.sqlite.PersonCheckInDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.PersonCheckInVo;
 
 
 import java.util.ArrayList;
@@ -158,11 +161,12 @@ public class ChoosePeopleActivity extends Activity {
         mBtnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (StringUtil.isEmpty(mEtInput.getText().toString())) {
+                String nameInput = mEtInput.getText().toString();
+                if (StringUtil.isEmpty(nameInput)) {
                     DialogUtil.getInstance().showToast(ChoosePeopleActivity.this, "内容不能为空。");
                     return;
                 }
-               addPeople(mEtInput.getText().toString());
+               addPeople(nameInput);
             }
         });
 
@@ -170,7 +174,6 @@ public class ChoosePeopleActivity extends Activity {
 
     //添加入住人
     private void addPeople(final String realname){
-
         String url = ProtocolUtil.addPeopleListUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -198,14 +201,20 @@ public class ChoosePeopleActivity extends Activity {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    InsertResponse insertResponse = new Gson().fromJson(result.rawResult,InsertResponse.class);
+                    InsertResponse insertResponse = new Gson().fromJson(result.rawResult, InsertResponse.class);
                     if(insertResponse.isSet()){
+                        String inputName = mEtInput.getText().toString();
                         Intent intent = new Intent();
                         OrderUsersResponse orderUsersResponse = new OrderUsersResponse();
                         orderUsersResponse.setId(insertResponse.getId());
-                        orderUsersResponse.setRealname(mEtInput.getText().toString());
+                        orderUsersResponse.setRealname(inputName);
+
+                        PersonCheckInVo personCheckInVo = PersonCheckInFactory.getInstance().
+                                         buildPersonCheckInVoByOrderUser(orderUsersResponse);
+                        PersonCheckInDBUtil.getInstance().addNewPersonCheckIn(personCheckInVo);
+
                         intent.putExtra("selectPeople", orderUsersResponse);
-                        intent.putExtra("index",mIndex);
+                        intent.putExtra("index", mIndex);
                         setResult(RESULT_OK, intent);
                         finish();
                     }else{

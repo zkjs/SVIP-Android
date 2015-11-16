@@ -148,7 +148,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
             if (null != orderDetailResponse) {
                 orderRoomResponse = orderDetailResponse.getRoom();
-                users = orderDetailResponse.getUsers();
+
                 if(null != orderRoomResponse){
                     bookOrder = new BookOrder();
                     String arrivalDate = orderRoomResponse.getArrival_date();
@@ -161,15 +161,20 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
                     bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
                     bookOrder.setGuest(CacheUtil.getInstance().getUserName());
                     StringBuffer usersStr = new StringBuffer();
+
+                    //设置入住人信息
+                    users = orderDetailResponse.getUsers();
+                    String usersString = null;
                     if(null != users && !users.isEmpty()){
                         for(OrderUsersResponse user : users){
                             usersStr.append(user.getRealname()).append(",");
                         }
                         if(!TextUtils.isEmpty(usersStr)){
-                            String usersString = usersStr.subSequence(0,usersStr.length()-1).toString();
+                            usersString = usersStr.subSequence(0, usersStr.length()-1).toString();
                             bookOrder.setManInStay(usersString);
                         }
                     }
+                    bookOrder.setManInStay(usersString);
                     bookOrder.setRoomType(orderRoomResponse.getRoom_type());
                     bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
                     bookOrder.setRooms("" + orderRoomResponse.getRooms());

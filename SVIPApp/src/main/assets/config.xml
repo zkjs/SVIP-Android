@@ -4,10 +4,13 @@
     <!--http相关ip-->
     <http-host>120.25.241.196</http-host>
 
+    <!-- 测试用环境 IM相关ip和端口-->
+    <im-host>112.74.38.81</im-host><!-- ip地址  -->
+    <im-port>6666</im-port><!-- ip端口  -->
 
-    <!--IM相关ip和端口-->
-    <im-host>im.zkjinshi.com</im-host><!-- ip地址  -->
-	<im-port>6666</im-port><!-- im ip端口  -->
+    <!-- 正式用环境 IM相关ip和端口-->
+    <!--<im-host>im.zkjinshi.com</im-host>&lt;!&ndash; ip地址  &ndash;&gt;-->
+	<!--<im-port>6666</im-port>&lt;!&ndash; im ip端口  &ndash;&gt;-->
 
     <!--媒体服务器-->
     <media-host>112.74.205.31</media-host>

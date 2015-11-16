@@ -175,6 +175,19 @@ public class TableOpenHelper {
                         + " salesid text" //商家标语
                         + " )";
 
+        /**
+         * 入住人信息表
+         */
+        public static String PERSON_CHECK_IN_TBL_SQL =
+                "create table if not exists "
+                        + DBOpenHelper.PERSON_CHECK_IN_TBL
+                        + "("
+                        + " id       int  primary key," //入住人ID
+                        + " realname text ," //真实姓名
+                        + " idcard   text " //证件号
+                        + " phone    text ," //联系电话
+                        + " )";
+
     /**
      * 获取数据库所有表名
      * @return
@@ -186,7 +199,8 @@ public class TableOpenHelper {
                 DBOpenHelper.CHAT_MEMBER_TBL, //聊天成员表
                 DBOpenHelper.USER_INFO_TBL,   //详细用户信息表
                 DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
-                DBOpenHelper.SERVER_PERSONAL_TBL    //专属客服表
+                DBOpenHelper.SERVER_PERSONAL_TBL,    //专属客服表
+                DBOpenHelper.PERSON_CHECK_IN_TBL     //入住人信息表
         };
     }
 }
