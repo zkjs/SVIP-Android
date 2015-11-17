@@ -309,6 +309,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         if(!TextUtils.isEmpty(userPhotoUrl)){
             MainController.getInstance().setPhoto(userPhotoUrl, photoCtv);
         }
+
+        TextView nameTv = (TextView)findViewById(R.id.name_tv);
+        nameTv.setText(CacheUtil.getInstance().getUserName());
+        TextView appLevelTv = (TextView)findViewById(R.id.level_tv);
+        appLevelTv.setText("VIP "+CacheUtil.getInstance().getUserApplevel());
+
         setBadgeNum();
         loadLastOrderInfo();
         loadAdPush();
