@@ -18,6 +18,7 @@ import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.utils.Constants;
 import java.util.ArrayList;
 
@@ -135,4 +136,5 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         super.onDestroy();
         removeAllObserver();
     }
+
 }
