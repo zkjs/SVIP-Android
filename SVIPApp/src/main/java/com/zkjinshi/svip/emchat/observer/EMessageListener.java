@@ -7,6 +7,8 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMNotifier;
 import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.svip.manager.OrderManager;
+import com.zkjinshi.svip.notification.NotificationHelper;
+import com.zkjinshi.svip.utils.VIPContext;
 
 /**
  *
@@ -46,6 +48,7 @@ public class EMessageListener implements EMEventListener {
 
     @Override
     public void onEvent(EMNotifierEvent event) {
+        NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(),event);
         EMessageSubject.getInstance().notifyObservers(event);
     }
 
