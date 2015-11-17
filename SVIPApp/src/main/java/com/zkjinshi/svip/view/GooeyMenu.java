@@ -58,6 +58,8 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     private boolean gooeyMenuTouch;
     private Paint mCircleBorder;
     private List<Drawable> mDrawableArray;
+    private boolean isHideDrawable;
+
 
     public static final int[] STATE_ACTIVE =
             {android.R.attr.state_enabled, android.R.attr.state_active};
@@ -158,7 +160,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        isHideDrawable = true;
         int desiredWidth;
         int desiredHeight;
         desiredWidth = getMeasuredWidth();
@@ -223,7 +225,6 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                     drawable.setBounds(0,0, 2*mMenuButtonRadius, 2*mMenuButtonRadius);
             }
         }
-
         hide();
 
     }
@@ -253,8 +254,11 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
             CirclePoint circlePoint = mMenuPoints.get(i);
             float x = (float) (circlePoint.radius * Math.cos(circlePoint.angle));
             float y = (float) (circlePoint.radius * Math.sin(circlePoint.angle));
-//            float x = 0;
-//            float y = 0;
+            if(isHideDrawable){
+                x = 0;
+                y = 0;
+            }
+
             canvas.drawCircle(x + mCenterX, mCenterY - y, mMenuButtonRadius, mCirclePaint);
             if (i < mDrawableArray.size()) {
                 canvas.save();
@@ -263,6 +267,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                 canvas.restore();
             }
         }
+        isHideDrawable = false;
         canvas.save();
         canvas.translate(mCenterX, mCenterY);
         Path path = createPath();
@@ -359,7 +364,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     public void hide(){
         mBezierAnimation.start();
         cancelAllAnimation();
-        if (isMenuVisible) {
+        if(isMenuVisible){
             startHideAnimate();
         }
         isMenuVisible = false;
