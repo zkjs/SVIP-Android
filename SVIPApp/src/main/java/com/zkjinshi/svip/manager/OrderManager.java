@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.manager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,8 +39,6 @@ public class OrderManager {
 
     private EMMessage message;
 
-    public static final int BOOK_HOTEL_SUCC_FLAG = 1003;
-
     public synchronized static OrderManager getInstance(){
         if(null == instance){
             instance = new OrderManager();
@@ -47,7 +46,7 @@ public class OrderManager {
         return instance;
     }
 
-    public void receiveCmdMessage(EMNotifierEvent event){
+    public synchronized void receiveCmdMessage(EMNotifierEvent event,final Context context){
         switch (event.getEvent()) {
             case EventNewCMDMessage:{//接收透传消息
                 try {
@@ -55,9 +54,14 @@ public class OrderManager {
                     CmdMessageBody cmdMsgBody = (CmdMessageBody) message.getBody();
                     String aciton = cmdMsgBody.action;
                     if(!TextUtils.isEmpty(aciton) && "sureOrder".equals(aciton)){
-                        String shopId = message.getStringAttribute("shopId");
-                        String orderNo = message.getStringAttribute("orderNo");
-                        showBookHotelSuccDialog(VIPContext.getInstance().getContext(), shopId, orderNo);
+                        final String shopId = message.getStringAttribute("shopId");
+                        final String orderNo = message.getStringAttribute("orderNo");
+                        ((Activity)context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showBookHotelSuccDialog(context, shopId, orderNo);
+                            }
+                        });
                     }
                 } catch (EaseMobException e) {
                     e.printStackTrace();
@@ -93,7 +97,6 @@ public class OrderManager {
         });
         Dialog dialog = customBuilder.create();
         dialog.setCancelable(false);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
     }
 
