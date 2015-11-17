@@ -23,6 +23,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
+import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
@@ -43,7 +44,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 版权所有
  */
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
-        ChatAdapter.ResendListener,IEMessageObserver {
+        ChatAdapter.ResendListener,IEMessageObserver,EMEventListener {
 
     private static final String TAG = MessageListViewManager.class.getSimpleName();
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
@@ -270,6 +271,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventReadAck);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+        EMChatManager.getInstance().registerEventListener(this, new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewCMDMessage});
     }
 
     /**
@@ -280,6 +282,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventReadAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+        EMChatManager.getInstance().unregisterEventListener(this);
     }
 
     @Override
@@ -330,5 +333,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 scrollBottom();
                 break;
         }
+    }
+
+    @Override
+    public void onEvent(EMNotifierEvent event) {
+        OrderManager.getInstance().receiveCmdMessage(event,context);
     }
 }

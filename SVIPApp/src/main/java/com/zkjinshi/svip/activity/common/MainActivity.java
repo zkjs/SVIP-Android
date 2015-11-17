@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.easemob.EMCallBack;
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
@@ -37,12 +39,14 @@ import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.ReceiverHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
+import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
+import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -72,7 +76,7 @@ import com.zkjinshi.svip.view.GooeyMenu;
 
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
+public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener,EMEventListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -243,6 +247,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         setBadgeNum();
+        addAllObserver();
     }
 
     private void setBadgeNum(){
@@ -342,8 +347,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
 
-                    AdPushResponse adPushResponse = new Gson().fromJson(result.rawResult,AdPushResponse.class);
-                    if(adPushResponse != null && !TextUtils.isEmpty(adPushResponse.getUrl())){
+                    AdPushResponse adPushResponse = new Gson().fromJson(result.rawResult, AdPushResponse.class);
+                    if (adPushResponse != null && !TextUtils.isEmpty(adPushResponse.getUrl())) {
                         initWebView(adPushResponse.getUrl());
                     }
 
@@ -569,6 +574,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
+        removeAllObserver();
     }
 
     /**
@@ -901,6 +907,25 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
             }
         });
+    }
+
+    /**
+     * 添加观察者
+     */
+    private void addAllObserver(){
+        EMChatManager.getInstance().registerEventListener(this, new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewCMDMessage});
+    }
+
+    /**
+     * 移除观察者
+     */
+    private void removeAllObserver(){
+        EMChatManager.getInstance().unregisterEventListener(this);
+    }
+
+    @Override
+    public void onEvent(EMNotifierEvent event) {
+        OrderManager.getInstance().receiveCmdMessage(event, this);
     }
 
 }

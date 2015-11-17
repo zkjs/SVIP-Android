@@ -46,7 +46,6 @@ public class EMessageListener implements EMEventListener {
 
     @Override
     public void onEvent(EMNotifierEvent event) {
-        OrderManager.getInstance().receiveCmdMessage(event);
         EMessageSubject.getInstance().notifyObservers(event);
     }
 
