@@ -108,6 +108,8 @@ public class OrderBookingActivity extends Activity {
     private GoodInfoVo lastGoodInfoVo;
     private TicketVo tickeVo;
 
+    private String shopName;
+
     private OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
     private OrderRoomResponse orderRoomResponse = new OrderRoomResponse();
 
@@ -174,8 +176,10 @@ public class OrderBookingActivity extends Activity {
         mBtnSendOrder.setText("发送订单给客服");
         mBtnCancelOrder.setVisibility(View.GONE);
 
+        shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+
         calendarList = new ArrayList<Calendar>();
-        mTitle.setTextTitle(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
+        mTitle.setTextTitle(shopName);
         mTitle.setTextColor(this, R.color.White);
         mTitle.getmRight().setVisibility(View.GONE);
 
@@ -526,7 +530,7 @@ public class OrderBookingActivity extends Activity {
         mRoomType.setText(goodInfoVo.getRoom() + goodInfoVo.getType());
         orderRoomResponse.setRoom_type(goodInfoVo.getRoom() + goodInfoVo.getType());
         orderRoomResponse.setShopid(shopId);
-        orderRoomResponse.setFullname(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
+        orderRoomResponse.setFullname(shopName);
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
     }
 

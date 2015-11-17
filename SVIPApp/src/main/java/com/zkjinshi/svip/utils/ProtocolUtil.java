@@ -193,7 +193,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String updateOrderUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/update";
+        return ConfigUtil.getInst().getHttpDomain()+"order/update2";
     }
 
     /**

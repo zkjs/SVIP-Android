@@ -185,7 +185,7 @@ public class TableOpenHelper {
                         + " id       int  primary key," //入住人ID
                         + " realname text ," //真实姓名
                         + " idcard   text " //证件号
-                        + " phone    text ," //联系电话
+                        + " phone    text " //联系电话
                         + " )";
 
     /**

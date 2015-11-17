@@ -3,8 +3,8 @@
 
     <!--正式用环境-->
     <!--<http-host>120.25.241.196</http-host>-->
-    <!--<im-host>im.zkjinshi.com</im-host>--><!-- ip地址  -->
-    <!--<im-port>6666</im-port>--><!-- im ip端口  -->
+    <!--<im-host>im.zkjinshi.com</im-host>-->
+    <!--<im-port>6666</im-port>-->
 
     <!--测试环境-->
     <http-host>112.74.38.81</http-host>
