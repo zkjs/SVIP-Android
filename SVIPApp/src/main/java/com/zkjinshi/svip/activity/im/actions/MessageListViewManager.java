@@ -221,7 +221,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     public void scrollBottom() {
         if (currentMessageList != null && !currentMessageList.isEmpty()) {
             if (currentMessageList != null && currentMessageList.size() > 0) {
-                messageListView.requestFocusFromTouch();
                 messageListView.setSelection(currentMessageList.size() - 1);
             }
         }
