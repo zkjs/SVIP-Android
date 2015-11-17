@@ -310,4 +310,16 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"ad/list";
     }
 
+    /**
+     * 获取商家列表 new 带行业分类和扩展属性的
+     *
+     *page  翻页 页数 默认每页10条
+     *type  类型 酒店1, 休闲2, 餐饮3  后期会有接口列表
+     *
+     * @return
+     */
+    public static String getShopList(int page,int type){
+        return ConfigUtil.getInst().getHttpDomain()+"shop/list?page="+page+"&type="+type;
+    }
+
 }

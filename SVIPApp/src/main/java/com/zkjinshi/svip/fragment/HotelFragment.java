@@ -23,7 +23,9 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.ShopInfoResponse;
+import com.zkjinshi.svip.response.ShopListResponse;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ShopInfoVo;
 
 import java.lang.reflect.Type;
@@ -40,8 +42,7 @@ public class HotelFragment  extends Fragment {
     public View view = null;
 
     private ListView shopListView;
-    private List<ShopInfoResponse> shopResponseList;
-    private List<ShopInfoVo> shopInfoList;
+    private List<ShopListResponse> shopResponseList;
     private ShopAdapter shopAdapter;
 
     public HotelFragment(){
@@ -70,7 +71,7 @@ public class HotelFragment  extends Fragment {
     }
 
     private void initData(){
-        String url = Constants.GET_SHOP_LIST;
+        String url = ProtocolUtil.getShopList(1,1);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
@@ -92,12 +93,11 @@ public class HotelFragment  extends Fragment {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<List<ShopInfoResponse>>(){}.getType();
+                    Type listType = new TypeToken<List<ShopListResponse>>(){}.getType();
                     Gson gson = new Gson();
                     shopResponseList = gson.fromJson(result.rawResult, listType);
                     if(null != shopResponseList && !shopResponseList.isEmpty()){
-                        shopInfoList = ShopInfoFactory.getInstance().bulidShopList(shopResponseList);
-                        shopAdapter = new ShopAdapter(shopInfoList,getActivity());
+                        shopAdapter = new ShopAdapter(shopResponseList,getActivity());
                         shopListView.setAdapter(shopAdapter);
                     }
 
@@ -122,7 +122,7 @@ public class HotelFragment  extends Fragment {
         shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShopInfoVo shopInfoVo = (ShopInfoVo) shopAdapter.getItem(position);
+                ShopListResponse shopInfoVo = (ShopListResponse) shopAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), OrderBookingActivity.class);
                 intent.putExtra("shopid", shopInfoVo.getShopid());
                 startActivity(intent);

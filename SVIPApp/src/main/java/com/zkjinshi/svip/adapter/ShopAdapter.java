@@ -2,6 +2,7 @@ package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
 import android.media.Image;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
+import com.zkjinshi.svip.response.ShopListResponse;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ShopInfoVo;
@@ -25,7 +27,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopAdapter  extends SvipBaseAdapter<ShopInfoVo> {
+public class ShopAdapter  extends SvipBaseAdapter<ShopListResponse> {
 
     private DisplayImageOptions options;
 
@@ -48,11 +50,14 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopInfoVo> {
             viewHolder = new ViewHolder();
             viewHolder.shopLogoIv = (ImageView)convertView.findViewById(R.id.list_hotel_logo_civ);
             viewHolder.shopNamtTv = (TextView)convertView.findViewById(R.id.list_hotel_name_tv);
+            viewHolder.park = (ImageView)convertView.findViewById(R.id.list_hotel_park_iv);
+            viewHolder.wifi = (ImageView)convertView.findViewById(R.id.list_hotel_wifi_iv);
+            viewHolder.shopStar = (TextView)convertView.findViewById(R.id.list_hotel_level_tv);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        ShopInfoVo shopInfoVo = mDatas.get(position);
+        ShopListResponse shopInfoVo = mDatas.get(position);
         String shopName = shopInfoVo.getFullname();
         if(!TextUtils.isEmpty(shopName)){
             viewHolder.shopNamtTv.setText(shopName);
@@ -62,11 +67,29 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopInfoVo> {
             String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
             ImageLoader.getInstance().displayImage(logoUrl,viewHolder.shopLogoIv,options);
         }
+
+        if(shopInfoVo.getPark() == 1){
+            viewHolder.park.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.park.setVisibility(View.INVISIBLE);
+        }
+
+        if(shopInfoVo.getWifi() == 1){
+            viewHolder.wifi.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.wifi.setVisibility(View.INVISIBLE);
+        }
+        viewHolder.shopStar.setText(shopInfoVo.getStar()+"星级");
+
         return convertView;
     }
 
     static class ViewHolder{
         ImageView shopLogoIv;
         TextView shopNamtTv;
+
+        TextView shopStar;
+        ImageView wifi;
+        ImageView park;
     }
 }

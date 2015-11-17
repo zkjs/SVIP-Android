@@ -57,6 +57,7 @@
             android:textColor="#9B9B9B"
             android:textStyle="normal"
             android:text="¥1288起"
+            android:visibility="invisible"
             />
 
         <ImageView
