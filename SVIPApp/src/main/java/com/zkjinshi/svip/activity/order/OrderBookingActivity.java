@@ -62,7 +62,6 @@ import java.util.List;
 
 /**
  * 预订中的订单详情页面
- * <p/>
  * 开发者：dujiande
  * 日期：2015/8/27
  * Copyright (C) 2015 深圳中科金石科技有限公司

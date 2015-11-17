@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -82,6 +83,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     public static final int NOTIFY_UPDATE_VIEW = 0x0001;
     public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
+    private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
 
     SVIPApplication svipApplication;
     private OrderLastResponse lastOrderInfo = null;
@@ -95,9 +97,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     private CircleImageView shopIcon;
     private LinearLayout containerLlt;
     public TextView haveOrderTv,distanceTv;
-
-
-
+    public TextView mTvActivate;
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -195,7 +195,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         shopNameTv = (TextView)findViewById(R.id.shop_name_tv);
         haveOrderTv = (TextView)findViewById(R.id.have_order_tv);
         distanceTv = (TextView)findViewById(R.id.distance_tv);
-
+        mTvActivate = (TextView)findViewById(R.id.tv_activate_immediately);
 
         ratingBar.setVisibility(View.INVISIBLE);
         majorTv.setText("");
@@ -272,7 +272,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.id_left_menu_frame, leftMenuFragment).commit();
         slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
-        // 设置触摸屏幕的模式
+        // 设置触摸屏幕的模式f
         /** 修改触摸屏幕模式为左侧单独划出 add by winkyqin 2015/11/11 */
         slidingMenu.setMode(SlidingMenu.LEFT);
 //        slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
@@ -301,7 +301,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         LocationManager.getInstance().removeLocation();
     }
 
-    protected  void onResume(){
+    @Override
+    protected void onResume(){
         super.onResume();
         CircleImageView photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
         String userId = CacheUtil.getInstance().getUserId();
@@ -320,9 +321,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         loadAdPush();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_ACTIVATE_INVITE_CODE){
+                onResume();
+            }
+        }
+    }
+
     private void initWebView(String webViewURL){
-
-
         webView.loadUrl(webViewURL);
     }
 
@@ -560,6 +569,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             }
         });
 
+        mTvActivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goInvitesCode = new Intent(MainActivity.this, InviteCodeActivity.class);
+                startActivityForResult(goInvitesCode, REQUEST_ACTIVATE_INVITE_CODE);
+            }
+        });
+
     }
 
     @Override
@@ -591,8 +608,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             DBOpenHelper.DB_NAME = CacheUtil.getInstance().getUserId() + ".db";
         }
     }
-
-
 
     @Override
     public void intoRegion(RegionVo regionVo) {

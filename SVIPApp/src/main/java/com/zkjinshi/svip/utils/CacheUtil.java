@@ -448,6 +448,31 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 保存设置邀请码
+	 * @param inviteCode
+	 */
+	public void saveInviteCode(String inviteCode) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putString("inviteCode", inviteCode).commit();
+	}
+
+	/**
+	 * 获取邀请码
+	 */
+	public String getInviteCode() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getString("inviteCode", "");
+	}
+
+	/**
 	 * 加密存入缓存
 	 *
 	 * @param cacheObj

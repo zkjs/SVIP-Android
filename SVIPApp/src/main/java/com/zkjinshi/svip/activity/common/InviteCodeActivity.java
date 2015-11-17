@@ -74,11 +74,14 @@ public class InviteCodeActivity extends Activity {
 
     private DisplayImageOptions mOptions;
     private String              mSalesID;
+    private String              mInviteCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_code);
+
+        mInviteCode = CacheUtil.getInstance().getInviteCode();
 
         initView();
         initData();
@@ -94,6 +97,12 @@ public class InviteCodeActivity extends Activity {
         mLlSalerInfo    = (LinearLayout)  findViewById(R.id.ll_saler_info);
         mCivSalerAvatar = (ImageView)     findViewById(R.id.civ_saler_avatar);
         mTvSalerName    = (TextView)      findViewById(R.id.tv_saler_name);
+
+        if(!TextUtils.isEmpty(mInviteCode)){
+            mEtInviteCode.setText(mInviteCode);
+            mEtInviteCode.setEnabled(false);
+            mIbtnQianJin.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initData() {
@@ -103,7 +112,13 @@ public class InviteCodeActivity extends Activity {
         mToken    = CacheUtil.getInstance().getToken();
         mUserName = CacheUtil.getInstance().getUserName();
 
+
         mTitle.setTextTitle("");
+        mOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_main_user_default_photo_press)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
     }
 
     private void initListener() {
@@ -153,6 +168,7 @@ public class InviteCodeActivity extends Activity {
                 String inviteCode = mEtInviteCode.getText().toString().trim();
                 if (!TextUtils.isEmpty(inviteCode) && (mLlSalerInfo.getVisibility() == View.VISIBLE)) {
                     //邀请码验证成功 开始确认并绑定邀请码
+                    CacheUtil.getInstance().saveInviteCode(inviteCode);
                     bindTheSalerWithCode(inviteCode);
 
                 } else {
@@ -162,6 +178,11 @@ public class InviteCodeActivity extends Activity {
                 }
             }
         });
+
+        if(!TextUtils.isEmpty(mInviteCode)){
+            mEtInviteCode.setText(mInviteCode);
+            findSalerByInviteCode(mInviteCode);
+        }
     }
 
     /**
@@ -247,6 +268,7 @@ public class InviteCodeActivity extends Activity {
      * @param inviteCodeStr
      */
     private void findSalerByInviteCode(final String inviteCodeStr) {
+
         NetRequest netRequest = new NetRequest(ProtocolUtil.getEmpByInviteCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("salesid", mUserID);
