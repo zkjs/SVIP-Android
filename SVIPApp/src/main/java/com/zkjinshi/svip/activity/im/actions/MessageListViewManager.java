@@ -87,7 +87,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     private void initData() {
-        conversation = EMChatManager.getInstance().getConversation(userId);
+        if(!TextUtils.isEmpty(userId)){
+            conversation = EMChatManager.getInstance().getConversation(userId);
+        }
         clearChatRoomBadgeNum();
         setOverScrollMode(messageListView);
         messageQueue = new LinkedBlockingQueue<MessageVo>();
