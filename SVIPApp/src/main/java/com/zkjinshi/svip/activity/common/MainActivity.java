@@ -77,7 +77,7 @@ import com.zkjinshi.svip.view.GooeyMenu;
 
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener,EMEventListener {
+public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -247,7 +247,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         setBadgeNum();
-        addAllObserver();
     }
 
     private void setBadgeNum(){
@@ -597,7 +596,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
-        removeAllObserver();
     }
 
     /**
@@ -928,25 +926,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
             }
         });
-    }
-
-    /**
-     * 添加观察者
-     */
-    private void addAllObserver(){
-        EMChatManager.getInstance().registerEventListener(this, new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewCMDMessage});
-    }
-
-    /**
-     * 移除观察者
-     */
-    private void removeAllObserver(){
-        EMChatManager.getInstance().unregisterEventListener(this);
-    }
-
-    @Override
-    public void onEvent(EMNotifierEvent event) {
-        OrderManager.getInstance().receiveCmdMessage(event, this);
     }
 
 }

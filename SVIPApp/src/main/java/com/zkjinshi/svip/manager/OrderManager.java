@@ -56,12 +56,17 @@ public class OrderManager {
                     if(!TextUtils.isEmpty(aciton) && "sureOrder".equals(aciton)){
                         final String shopId = message.getStringAttribute("shopId");
                         final String orderNo = message.getStringAttribute("orderNo");
-                        ((Activity)context).runOnUiThread(new Runnable() {
+                        Intent intent = new Intent();
+                        intent.setAction("com.zkjinshi.svip.ACTION_EMessage");
+                        intent.putExtra("shopId", shopId);
+                        intent.putExtra("orderNo",orderNo);
+                        context.sendBroadcast(intent);
+                       /* ((Activity)context).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 showBookHotelSuccDialog(context, shopId, orderNo);
                             }
-                        });
+                        });*/
                     }
                 } catch (EaseMobException e) {
                     e.printStackTrace();

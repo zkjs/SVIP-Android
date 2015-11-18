@@ -44,7 +44,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 版权所有
  */
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
-        ChatAdapter.ResendListener,IEMessageObserver,EMEventListener {
+        ChatAdapter.ResendListener,IEMessageObserver {
 
     private static final String TAG = MessageListViewManager.class.getSimpleName();
 
@@ -298,7 +298,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventReadAck);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
-        EMChatManager.getInstance().registerEventListener(this, new EMNotifierEvent.Event[]{EMNotifierEvent.Event.EventNewCMDMessage});
     }
 
     /**
@@ -309,7 +308,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventReadAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
-        EMChatManager.getInstance().unregisterEventListener(this);
     }
 
     @Override
@@ -364,8 +362,4 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         }
     }
 
-    @Override
-    public void onEvent(EMNotifierEvent event) {
-        OrderManager.getInstance().receiveCmdMessage(event,context);
-    }
 }

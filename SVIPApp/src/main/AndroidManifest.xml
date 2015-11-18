@@ -399,6 +399,12 @@
             android:exported="true"
             />
 
+        <receiver android:name=".receiver.EMessageReceiver">
+            <intent-filter>
+                <action android:name="com.zkjinshi.svip.ACTION_EMessage"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
