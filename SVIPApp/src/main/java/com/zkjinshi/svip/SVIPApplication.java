@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMChatOptions;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -71,6 +73,17 @@ public class SVIPApplication extends Application {
      */
     private void initEmchat(){
         EMChat.getInstance().init(this);
+        EMChatOptions options = EMChatManager.getInstance().getChatOptions();
+        // 默认添加好友时，是不需要验证的，改成需要验证
+        options.setAcceptInvitationAlways(false);
+        // 默认环信是不维护好友关系列表的，如果app依赖环信的好友关系，把这个属性设置为true
+        options.setUseRoster(false);
+        // 设置是否需要已读回执
+        options.setRequireAck(true);
+        // 设置是否需要已送达回执
+        options.setRequireDeliveryAck(true);
+        // 设置从db初始化加载时, 每个conversation需要加载msg的个数
+        options.setNumberOfMessagesLoaded(1);
     }
 
 

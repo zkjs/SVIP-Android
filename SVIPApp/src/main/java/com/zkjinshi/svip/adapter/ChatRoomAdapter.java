@@ -123,7 +123,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
                     content = "["+fromName+"]";
                 }else {
-                    content = "["+toName+"]";
+                    if(!TextUtils.isEmpty(toName)){
+                        content = "["+toName+"]";
+                    }
                 }
                 if (msgType == EMMessage.Type.IMAGE) {
                     ((ChatRoomViewHolder)holder).chatContent.setText(content+"[图片]");

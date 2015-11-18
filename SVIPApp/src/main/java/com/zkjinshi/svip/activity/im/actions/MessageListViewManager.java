@@ -338,6 +338,8 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 }
                 break;
             case EventDeliveryAck:
+                EMChatManager.getInstance().getChatOptions().setRequireDeliveryAck(true);
+                break;
             case EventReadAck:
                 // 获取到message
                 break;
