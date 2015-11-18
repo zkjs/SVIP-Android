@@ -1,27 +1,13 @@
 package com.zkjinshi.svip.manager;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.WindowManager;
 
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
-import com.zkjinshi.base.util.BaseContext;
-import com.zkjinshi.base.view.CustomDialog;
-import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
-import com.zkjinshi.svip.utils.VIPContext;
-import com.zkjinshi.svip.vo.OrderVo;
 
 /**
  * 订单管理器
