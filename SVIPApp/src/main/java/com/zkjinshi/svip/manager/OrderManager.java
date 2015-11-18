@@ -46,7 +46,7 @@ public class OrderManager {
         return instance;
     }
 
-    public synchronized void receiveCmdMessage(EMNotifierEvent event,final Context context){
+    public synchronized void receiveOrderCmdMessage(EMNotifierEvent event,final Context context){
         switch (event.getEvent()) {
             case EventNewCMDMessage:{//接收透传消息
                 try {
@@ -57,16 +57,10 @@ public class OrderManager {
                         final String shopId = message.getStringAttribute("shopId");
                         final String orderNo = message.getStringAttribute("orderNo");
                         Intent intent = new Intent();
-                        intent.setAction("com.zkjinshi.svip.ACTION_EMessage");
+                        intent.setAction("com.zkjinshi.svip.ACTION_ORDER");
                         intent.putExtra("shopId", shopId);
                         intent.putExtra("orderNo",orderNo);
                         context.sendBroadcast(intent);
-                       /* ((Activity)context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showBookHotelSuccDialog(context, shopId, orderNo);
-                            }
-                        });*/
                     }
                 } catch (EaseMobException e) {
                     e.printStackTrace();
@@ -75,34 +69,4 @@ public class OrderManager {
             }
         }
     }
-
-    private void showBookHotelSuccDialog(final Context context, final String shopId,final String orderNo) {
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
-        customBuilder.setTitle("订单通知");
-        customBuilder.setMessage("您的订单已经生成，请尽快确认");
-        customBuilder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-
-            }
-        });
-        customBuilder.setPositiveButton("查看", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent(context, OrderDetailActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("reservation_no", orderNo);
-                intent.putExtra("shopid", shopId);
-                context.startActivity(intent);
-            }
-        });
-        Dialog dialog = customBuilder.create();
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
 }
