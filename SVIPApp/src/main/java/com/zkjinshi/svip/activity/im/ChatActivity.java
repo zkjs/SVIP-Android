@@ -62,35 +62,33 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
     private final static String TAG = ChatActivity.class.getSimpleName();
 
-    private String shopId;
     private String  textContext;
     private OrderDetailResponse orderDetailResponse;
     private OrderRoomResponse orderRoomResponse;
 
     private ItemTitleView titleIv;
-    private EditText      mMsgTextInput;
-    private Button        mBtnMsgSend;
+    private EditText mMsgTextInput;
+    private Button mBtnMsgSend;
     private String userId;
+    private String toName;// 接收者姓名
+    private String fromName;// 发送者姓名
+    private String shopId;// 商店id
+    private String shopName;// 商店名称
 
     private MessageListViewManager messageListViewManager;
     private boolean                isShowSoftInput;//是否展示软件盘
-
     private boolean isVoiceShow = false;//是否显示语音
-
     private LinearLayout faceLinearLayout, moreLinearLayout;
     private FaceViewPagerManager facePagerManager;
     private MoreViewPagerManager moreViewPagerManager;
     private VoiceRecordManager   voiceRecordManager;
     private NetCheckManager netCheckManager;
     private CheckBox             faceCb, moreCb;
-
-    //音频操作
     private ImageButton    toggleAudioBtn;//切换到录音按钮
     private TextView       startAudioBtn;//开始录音
     private RelativeLayout animAreaLayout, cancelAreaLayout; // 录音中View，取消录音View
     private int            flag = 1; // 1：正常 2：语音录音中
     private long           startVoiceT, endVoiceT; // 语音开始时间，结束时间
-
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
     private String bookOrderStr;
@@ -124,9 +122,23 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
         titleIv.setTextTitle("聊天");
         titleIv.setTextColor(this, R.color.Black);
-        userId = getIntent().getStringExtra(Constants.EXTRA_USER_ID);
+        if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_USER_ID))){
+            userId = getIntent().getStringExtra(Constants.EXTRA_USER_ID);
+        }
+        if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_TO_NAME))){
+            toName = getIntent().getStringExtra(Constants.EXTRA_TO_NAME);
+        }
+        if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_FROM_NAME))){
+            fromName = getIntent().getStringExtra(Constants.EXTRA_FROM_NAME);
+        }
+        if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_SHOP_ID))){
+            shopId = getIntent().getStringExtra(Constants.EXTRA_SHOP_ID);
+        }
+        if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_SHOP_NAME))){
+            shopName = getIntent().getStringExtra(Constants.EXTRA_SHOP_NAME);
+        }
         //初始化消息ListView管理器
-        messageListViewManager = new MessageListViewManager(this, userId);
+        messageListViewManager = new MessageListViewManager(this, userId,fromName,toName,shopId,shopName);
         messageListViewManager.init();
         messageListViewManager.setTitle(titleIv);
         //初始化表情框

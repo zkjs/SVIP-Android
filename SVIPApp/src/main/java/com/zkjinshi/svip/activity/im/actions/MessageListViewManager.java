@@ -47,23 +47,32 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         ChatAdapter.ResendListener,IEMessageObserver,EMEventListener {
 
     private static final String TAG = MessageListViewManager.class.getSimpleName();
+
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
 
     private Context context;
     private MsgListView messageListView;
     private ChatAdapter chatAdapter;
     private EMConversation conversation;
-    private Vector<String> messageVector = new Vector<String>();//存储页面发送的消息ID
+    private Vector<String> messageVector = new Vector<String>();
     private List<EMMessage> currentMessageList = new ArrayList<EMMessage>();
     private ArrayList<EMMessage> requestMessageList;
     private static final int PRE_LOAD_PAGE_SIZE = 20;// 每次预加载20条记录
-    private String userId;
+    private String userId;// 回话id or 用户id(对方)
+    private String fromName;// 聊天对象
+    private String toName;// 聊天对象
+    private String shopId;// 商店id
+    private String shopName;// 商店名称
 
     private LinkedBlockingQueue<MessageVo> messageQueue = new LinkedBlockingQueue<MessageVo>();
 
-    public MessageListViewManager(Context context, String userId) {
+    public MessageListViewManager(Context context, String userId,String fromName,String toName,String shopId,String shopName) {
         this.context    = context;
         this.userId = userId;
+        this.fromName = fromName;
+        this.toName = toName;
+        this.shopId = shopId;
+        this.shopName = shopName;
     }
 
     public void init() {
@@ -128,7 +137,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      */
     public void sendCardMessage(String content){
         EMMessage message = EMMessage.createTxtSendMessage(content, userId);
-        message.setAttribute(Constants.MSG_TXT_EXT_TYPE,TxtExtType.CARD.getVlaue());
+        message.setAttribute(Constants.MSG_TXT_EXT_TYPE, TxtExtType.CARD.getVlaue());
         sendMessage(message);
     }
 
@@ -152,6 +161,21 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     protected void sendMessage(final EMMessage message){
+        message.setAttribute("toName","");
+        if(!TextUtils.isEmpty(toName)){
+            message.setAttribute("toName",toName);
+        }
+        message.setAttribute("fromName","");
+        if(!TextUtils.isEmpty(fromName)){
+            message.setAttribute("fromName",fromName);
+        }
+        if(!TextUtils.isEmpty(shopId)){
+            message.setAttribute("shopId",shopId);
+        }
+
+        if(!TextUtils.isEmpty(shopName)){
+            message.setAttribute("shopName",shopName);
+        }
         message.setChatType(EMMessage.ChatType.Chat);
         message.status = EMMessage.Status.INPROGRESS;
         currentMessageList.add(message);
@@ -256,6 +280,10 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     EMGroup group = EMGroupManager.getInstance().getGroup(userId);
                     if (group != null){
                         titleTv.setTextTitle(group.getGroupName());
+                    }
+                }else {
+                    if(!TextUtils.isEmpty(shopName)){
+                        titleTv.setTextTitle(shopName);
                     }
                 }
             }

@@ -447,10 +447,23 @@ public class OrderBookingActivity extends Activity {
                                             }
                                         }
                                         Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
-                                        intent.putExtra(Constants.EXTRA_USER_ID, salesId);
-                                        intent.putExtra("shop_id", orderDetailResponse.getRoom().getShopid());
-                                        intent.putExtra("shop_name", orderDetailResponse.getRoom().getFullname());
                                         intent.putExtra("orderDetailResponse", orderDetailResponse);
+                                        String shopId = orderDetailResponse.getRoom().getShopid();
+                                        intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                                        intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
+                                        if(null != customerService){
+                                            String userName = customerService.getName();
+                                            if (!TextUtils.isEmpty(userName)) {
+                                                intent.putExtra(Constants.EXTRA_TO_NAME,userName);
+                                            }
+                                        }
+                                        if (!TextUtils.isEmpty(shopId)) {
+                                            intent.putExtra(Constants.EXTRA_SHOP_ID,shopId);
+                                        }
+                                        String shopName = orderDetailResponse.getRoom().getFullname();
+                                        if (!TextUtils.isEmpty(shopName)) {
+                                            intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
+                                        }
                                         startActivity(intent);
                                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     }

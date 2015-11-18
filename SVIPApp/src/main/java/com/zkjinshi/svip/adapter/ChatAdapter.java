@@ -212,9 +212,12 @@ public class ChatAdapter extends BaseAdapter {
                     break;
             }
         }
-
         String userName = message.getFrom();
-
+        try {
+            userName = message.getStringAttribute("fromName");
+        } catch (EaseMobException e) {
+            e.printStackTrace();
+        }
         switch (itemType) {
             case TYPE_RECV_ITEM: // 别人发送的布局
                 setViewValues(rvh, position, true);

@@ -17,10 +17,13 @@ import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EaseMobException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.TxtExtType;
@@ -68,8 +71,8 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View view = View.inflate(context, R.layout.item_chat_room, null);
         //设置条目宽度满足屏幕
         view.setLayoutParams(new LinearLayout.LayoutParams(
-                     LinearLayout.LayoutParams.MATCH_PARENT,
-                     LinearLayout.LayoutParams.WRAP_CONTENT));
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
         ChatRoomViewHolder chatRoomHolder = new ChatRoomViewHolder(view,
                                             mRecyclerItemClickListener);
         return chatRoomHolder;
@@ -78,7 +81,6 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EMConversation conversation = conversationList.get(position);
         String username = conversation.getUserName();
-        //ImageLoader.getInstance().displayImage(shopLogoUrl, holder.shopIcon, options);
         if (conversation.getType() == EMConversation.EMConversationType.GroupChat) {
             EMGroup group = EMGroupManager.getInstance().getGroup(username);
             ((ChatRoomViewHolder)holder).shopName.setText(group != null ? group.getGroupName() : username);
@@ -102,27 +104,49 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (conversation.getMsgCount() != 0) {
             EMMessage message = conversation.getLastMessage();
             EMMessage.Type msgType = message.getType();
-            if (msgType == EMMessage.Type.IMAGE) {
-                ((ChatRoomViewHolder)holder).chatContent.setText("[图片]");
-            } else if (msgType ==  EMMessage.Type.VOICE) {
-                ((ChatRoomViewHolder)holder).chatContent.setText("[语音]");
-            } else if(msgType == EMMessage.Type.TXT){
-                try {
-                    int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
-                    if(TxtExtType.DEFAULT.getVlaue() == extType){
-                        TextMessageBody txtBody = (TextMessageBody) message.getBody();
-                        String content = txtBody.getMessage();
-                        ((ChatRoomViewHolder)holder).chatContent.setText(content);
-                    }else{
-                        ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
-                    }
-                } catch (EaseMobException e) {
-                    e.printStackTrace();
-                }
-            }
             long chatTime = message.getMsgTime();
             String strChatTime = TimeUtil.getChatTime(chatTime);
             ((ChatRoomViewHolder)holder).latestChatTime.setText(strChatTime);
+            try {
+                String shopId = message.getStringAttribute("shopId");
+                if(!TextUtils.isEmpty(shopId)){
+                    String shopLogoUrl = ProtocolUtil.getShopIconUrl(shopId);
+                    ImageLoader.getInstance().displayImage(shopLogoUrl, ((ChatRoomViewHolder)holder).shopIcon, options);
+                }
+                String shopName = message.getStringAttribute("shopName");
+                if(!TextUtils.isEmpty(shopName)){
+                    ((ChatRoomViewHolder)holder).shopName.setText(shopName);
+                }
+                String fromName = message.getStringAttribute("fromName");
+                String toName = message.getStringAttribute("toName");
+                String content = null;
+                if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
+                    content = "["+fromName+"]";
+                }else {
+                    content = "["+toName+"]";
+                }
+                if (msgType == EMMessage.Type.IMAGE) {
+                    ((ChatRoomViewHolder)holder).chatContent.setText(content+"[图片]");
+                } else if (msgType ==  EMMessage.Type.VOICE) {
+                    ((ChatRoomViewHolder)holder).chatContent.setText(content+"[语音]");
+                } else if(msgType == EMMessage.Type.TXT){
+                    try {
+                        int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
+                        if(TxtExtType.DEFAULT.getVlaue() == extType){
+                            TextMessageBody txtBody = (TextMessageBody) message.getBody();
+                            content = content + txtBody.getMessage();
+                            ((ChatRoomViewHolder)holder).chatContent.setText(content);
+                        }else{
+                            ((ChatRoomViewHolder)holder).chatContent.setText(content+"[订单]");
+                        }
+                    } catch (EaseMobException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } catch (EaseMobException e) {
+                e.printStackTrace();
+            }
         }
     }
 

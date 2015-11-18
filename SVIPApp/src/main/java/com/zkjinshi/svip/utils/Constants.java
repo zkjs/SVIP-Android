@@ -17,6 +17,10 @@ public class Constants {
 
     public static final String EXTRA_CHAT_TYPE = "chatType";
     public static final String EXTRA_USER_ID = "userId";
+    public static final String EXTRA_FROM_NAME = "fromName";
+    public static final String EXTRA_TO_NAME = "toName";
+    public static final String EXTRA_SHOP_ID = "shopId";
+    public static final String EXTRA_SHOP_NAME = "shopName";
     public static final String MSG_TXT_EXT_TYPE= "extType";
 
     //应用唯一标识，在微信开放平台提交应用审核通过后获得

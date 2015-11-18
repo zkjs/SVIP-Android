@@ -241,7 +241,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
         if(!TextUtils.isEmpty(picPath)){
             fileMap.put("UploadForm[file]", new File(picPath));
-            LogUtil.getInstance().info(LogLevel.INFO, "picPath:" + picPath);
         }
         stringMap.put("userid",CacheUtil.getInstance().getUserId());
         stringMap.put("token", CacheUtil.getInstance().getToken());
