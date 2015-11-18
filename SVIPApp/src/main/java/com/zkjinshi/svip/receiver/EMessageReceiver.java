@@ -22,7 +22,7 @@ public class EMessageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if(!TextUtils.isEmpty(action) && action.equals("com.zkjinshi.svip.ACTION_EMessage")){
+        if(!TextUtils.isEmpty(action) && action.equals("com.zkjinshi.svip.ACTION_ORDER")){
             String shopId = intent.getStringExtra("shopId");
             String orderNo = intent.getStringExtra("shopId");
             showBookHotelSuccDialog(context,shopId,orderNo);

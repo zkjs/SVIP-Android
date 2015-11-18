@@ -4,6 +4,7 @@ import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.easemob.EMCallBack;
+import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMMessage;
@@ -37,6 +38,28 @@ public class EMConversationHelper {
             instance = new EMConversationHelper();
         }
         return instance;
+    }
+
+    /**
+     * 发送命令消息(邀请加入)
+     * @param userId
+     * @param userName
+     * @param mobileNo
+     * @param date
+     * @param emCallBack
+     */
+    public void sendInviteCmdMessage(String userId,String userName,String mobileNo,long date, EMCallBack emCallBack){
+        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+        cmdMsg.setChatType(EMMessage.ChatType.Chat);
+        cmdMsg.setAttribute("userId", userId);
+        cmdMsg.setAttribute("userName", userName);
+        cmdMsg.setAttribute("mobileNo", mobileNo);
+        cmdMsg.setAttribute("date", "" + date);
+        String action="inviteAdd";
+        CmdMessageBody cmdBody=new CmdMessageBody(action);
+        cmdMsg.addBody(cmdBody);
+        cmdMsg.setReceipt(userId);
+        EMChatManager.getInstance().sendMessage(cmdMsg, emCallBack);
     }
 
     /**

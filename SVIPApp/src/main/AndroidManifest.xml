@@ -401,7 +401,7 @@
 
         <receiver android:name=".receiver.EMessageReceiver">
             <intent-filter>
-                <action android:name="com.zkjinshi.svip.ACTION_EMessage"/>
+                <action android:name="com.zkjinshi.svip.ACTION_ORDER"/>
             </intent-filter>
         </receiver>
 
