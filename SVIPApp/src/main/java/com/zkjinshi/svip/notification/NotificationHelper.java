@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.text.TextUtils;
 
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
@@ -115,6 +116,19 @@ public class NotificationHelper {
                                 titleName = message.getTo();
                             } else {
                                 titleName = message.getFrom();
+                            }
+                            try {
+                                String fromName = message.getStringAttribute("fromName");
+                                String toName = message.getStringAttribute("toName");
+                                if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
+                                    titleName = fromName;
+                                }else{
+                                    if(!TextUtils.isEmpty(toName)){
+                                        titleName = toName;
+                                    }
+                                }
+                            } catch (EaseMobException e) {
+                                e.printStackTrace();
                             }
                             notificationBuilder.setContentTitle("" + titleName);
                             if (msgType == EMMessage.Type.TXT) {
