@@ -35,6 +35,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
 
+
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
         android:targetPackage="com.zkjinshi.svip" />

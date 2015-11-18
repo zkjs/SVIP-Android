@@ -322,4 +322,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"shop/list?page="+page+"&type="+type;
     }
 
+    /**
+     * 请求Charge 支付凭据 发起支付
+     * @return
+     */
+    public static String getPingPayUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"ping/paycharge";
+    }
+
 }

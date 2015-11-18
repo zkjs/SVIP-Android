@@ -379,7 +379,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ius_about_us:
                 intent = new Intent(SettingActivity.this, WebViewActivity.class);
-                intent.putExtra("webview_url","http://iwxy.cc/mqt/");
+                intent.putExtra("webview_url","http://zkjinshi.com/about_us/");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
