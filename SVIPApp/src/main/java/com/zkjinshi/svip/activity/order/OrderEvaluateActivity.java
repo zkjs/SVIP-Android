@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.EvaluateBean;
@@ -227,7 +229,18 @@ public class OrderEvaluateActivity extends Activity{
             @Override
             public void onClick(View v) {
                 String evaluateContent = inputEvaluateEtv.getText().toString();
-                requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, reservationNo);
+                if(TextUtils.isEmpty(evaluateContent)){
+                    DialogUtil.getInstance().showCustomToast(OrderEvaluateActivity.this,"评价内容不能为空", Gravity.CENTER);
+                    return;
+                }
+                if(!TextUtils.isEmpty(evaluateContent) && evaluateContent.length() < 10){
+                    DialogUtil.getInstance().showCustomToast(OrderEvaluateActivity.this,"评价内容不能少于10个字", Gravity.CENTER);
+                    return;
+                }
+                if(!TextUtils.isEmpty(evaluateContent)){
+                    requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, reservationNo);
+                }
+
             }
         });
 

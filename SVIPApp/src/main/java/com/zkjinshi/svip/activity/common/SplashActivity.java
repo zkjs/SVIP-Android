@@ -1,11 +1,14 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +19,8 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -83,7 +88,7 @@ public class SplashActivity extends Activity {
      * 初始化界面元素
      */
     private void initData() {
-
+        showNetDialog();
         //背景星空下移动画
         skyDropOutAnim = AnimationUtils.loadAnimation(this, R.anim.translate_drop_out);
         bodyLayout.startAnimation(skyDropOutAnim);
@@ -138,12 +143,17 @@ public class SplashActivity extends Activity {
 
         SharedPreferences preferences = getSharedPreferences(
                 SPLASH_PREF, MODE_PRIVATE);
-        // 判断用户是否登录，如果登录则进入主页面
-        if (CacheUtil.getInstance().isLogin()) {
-            // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
-            handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
-        } else {
-            handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
+        //判断当前网络状态
+        if(NetWorkUtil.isNetworkConnected(this)){
+            // 判断用户是否登录，如果登录则进入主页面
+            if (CacheUtil.getInstance().isLogin()) {
+                // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
+                handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
+            } else {
+                handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
+            }
+        }else{
+            showNetDialog();
         }
     }
 
@@ -180,5 +190,23 @@ public class SplashActivity extends Activity {
             super.handleMessage(msg);
         }
     };
+
+    private void showNetDialog(){
+
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        customBuilder.setTitle("提示");
+        customBuilder.setMessage("网络状态不好，稍后再试?");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        customBuilder.create().show();
+
+    }
 
 }
