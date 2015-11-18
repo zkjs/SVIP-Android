@@ -20,10 +20,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.easemob.EMCallBack;
 import com.google.gson.Gson;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DialogUtil;
@@ -31,6 +34,7 @@ import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.jsonbean.InviteCodeEntity;
 import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
+import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -221,20 +225,31 @@ public class InviteCodeActivity extends Activity {
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
 
-                        //发送自定义协议通知被绑定的服务员
-                        Gson gson = new Gson();
-                        InviteCodeEntity codeBean = new InviteCodeEntity();
+                        if(!TextUtils.isEmpty(mSalesID)) {
+                            EMConversationHelper.getInstance().sendInviteCmdMessage(
+                                    mUserID,
+                                    mUserName,
+                                    mPhoneNum,
+                                    System.currentTimeMillis(),
+                                    mSalesID,
+                                    new EMCallBack() {
+                                        @Override
+                                        public void onSuccess() {
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送成功");
+                                        }
 
-                        codeBean.setPhone_number(mPhoneNum);
-                        codeBean.setDate(System.currentTimeMillis());
-                        codeBean.setUserid(mUserID);
-                        codeBean.setUsername(mUserName);
-                        String codeBeanJson = gson.toJson(codeBean, InviteCodeEntity.class);
+                                        @Override
+                                        public void onError(int i, String s) {
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送失败");
+                                        }
 
-                        if(!TextUtils.isEmpty(mSalesID)){
-                            sendMsgBindInviteCodeSuccess(codeBeanJson, mSalesID);
+                                        @Override
+                                        public void onProgress(int i, String s) {
+
+                                        }
+                                    }
+                            );
                         }
-
                         Intent mainIntent = new Intent(InviteCodeActivity.this, MainActivity.class);
                         InviteCodeActivity.this.startActivity(mainIntent);
                         InviteCodeActivity.this.finish();
@@ -326,29 +341,29 @@ public class InviteCodeActivity extends Activity {
         netRequestTask.execute();
     }
 
-    /**
-     * 绑定邀请码
-     */
-    private void sendMsgBindInviteCodeSuccess(String content, String toID) {
-
-        //确认绑定邀请码的通知是由何种协议
-        //1.MsgUserDefine
-        MsgUserDefine msgUserDefine = new MsgUserDefine();
-        msgUserDefine.setType(ProtocolMSG.MSG_UserDefine);
-        msgUserDefine.setTimestamp(System.currentTimeMillis());
-
-        msgUserDefine.setChildtype(ProtocolMSG.MSG_ChildType_BindInviteCode);
-        msgUserDefine.setContent(content);
-        msgUserDefine.setFromid(mUserID);
-        //        msgUserDefine.setProtover();
-        msgUserDefine.setPushalert("绑定邀请码");
-        msgUserDefine.setPushofflinemsg(PushOfflineMsg.PUSH_MSG.getValue());
-        msgUserDefine.setToid(toID);
-
-        Gson gson = new Gson();
-        String msgJson = gson.toJson(msgUserDefine, MsgUserDefine.class);
-        WebSocketManager.getInstance().sendMessage(msgJson);
-    }
+//    /**
+//     * 绑定邀请码
+//     */
+//    private void sendMsgBindInviteCodeSuccess(String content, String toID) {
+//
+//        //确认绑定邀请码的通知是由何种协议
+//        //1.MsgUserDefine
+//        MsgUserDefine msgUserDefine = new MsgUserDefine();
+//        msgUserDefine.setType(ProtocolMSG.MSG_UserDefine);
+//        msgUserDefine.setTimestamp(System.currentTimeMillis());
+//
+//        msgUserDefine.setChildtype(ProtocolMSG.MSG_ChildType_BindInviteCode);
+//        msgUserDefine.setContent(content);
+//        msgUserDefine.setFromid(mUserID);
+//        //        msgUserDefine.setProtover();
+//        msgUserDefine.setPushalert("绑定邀请码");
+//        msgUserDefine.setPushofflinemsg(PushOfflineMsg.PUSH_MSG.getValue());
+//        msgUserDefine.setToid(toID);
+//
+//        Gson gson = new Gson();
+//        String msgJson = gson.toJson(msgUserDefine, MsgUserDefine.class);
+//        WebSocketManager.getInstance().sendMessage(msgJson);
+//    }
 
     /**
      * show the saler info when input the invite code correctly
