@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 import com.zkjinshi.base.config.ConfigUtil;
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -102,7 +108,7 @@ public class LoginController {
                             CacheUtil.getInstance().setUserRealName(userInfoVo.getRealName());
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                         }
-
+                        loginUser();
                         //判读是否新注册用户
                         if(isNewRegister){
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);
@@ -132,6 +138,40 @@ public class LoginController {
         netRequestTask.execute();
 
     }
+    /**
+     * 登录环信IM
+     */
+    private void loginUser(){
+        EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                EMGroupManager.getInstance().loadAllGroups();
+                EMChatManager.getInstance().loadAllConversations();
+                // EasemobIMHelper.getInstance().getFriendList();
+                //  EasemobIMHelper.getInstance().addFriend("hanton","jimmy add you to friend");
+                // EasemobIMHelper.getInstance().acceptInvitation("jimmyzhang");
+                //ReceiverHelper.getInstance().init(MainActivity.this);
+                // ReceiverHelper.getInstance().regiserNewMessageReceiver();
+                //  ReceiverHelper.getInstance().regiserAckMessageReceiver();
+                // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
+                //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
+                EMessageListener.getInstance().registerEventListener();
+                ;
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Log.i(TAG, "errorCode:" + i);
+                Log.i(TAG, "errorMessage:" + s);
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+    }
+
 
     private void goHome() {
         Intent mainIntent = new Intent(activity, MainActivity.class);
