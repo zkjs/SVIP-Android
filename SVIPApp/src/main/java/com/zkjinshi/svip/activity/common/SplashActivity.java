@@ -88,7 +88,6 @@ public class SplashActivity extends Activity {
      * 初始化界面元素
      */
     private void initData() {
-        showNetDialog();
         //背景星空下移动画
         skyDropOutAnim = AnimationUtils.loadAnimation(this, R.anim.translate_drop_out);
         bodyLayout.startAnimation(skyDropOutAnim);
