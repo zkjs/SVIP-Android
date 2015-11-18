@@ -48,7 +48,7 @@ public class EMConversationHelper {
      * @param date
      * @param emCallBack
      */
-    public void sendInviteCmdMessage(String userId,String userName,String mobileNo,long date, EMCallBack emCallBack){
+    public void sendInviteCmdMessage(String userId,String userName,String mobileNo,long date,String toId, EMCallBack emCallBack){
         EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
         cmdMsg.setChatType(EMMessage.ChatType.Chat);
         cmdMsg.setAttribute("userId", userId);
@@ -58,7 +58,7 @@ public class EMConversationHelper {
         String action="inviteAdd";
         CmdMessageBody cmdBody=new CmdMessageBody(action);
         cmdMsg.addBody(cmdBody);
-        cmdMsg.setReceipt(userId);
+        cmdMsg.setReceipt(toId);
         EMChatManager.getInstance().sendMessage(cmdMsg, emCallBack);
     }
 

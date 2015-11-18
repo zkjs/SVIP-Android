@@ -585,7 +585,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         svipApplication = (SVIPApplication)getApplication();
         initView();
         initData();
-        loginUser();
         initListeners();
         initIBeaconList();
         IBeaconSubject.getInstance().addObserver(this);
@@ -892,40 +891,5 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             }
         }
     };
-
-    /**
-     * 登录环信IM
-     */
-    private void loginUser(){
-        Log.i(TAG,"userId:"+CacheUtil.getInstance().getUserId());
-        EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                // ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
-                EMGroupManager.getInstance().loadAllGroups();
-                EMChatManager.getInstance().loadAllConversations();
-                // EasemobIMHelper.getInstance().getFriendList();
-                //  EasemobIMHelper.getInstance().addFriend("hanton","jimmy add you to friend");
-                // EasemobIMHelper.getInstance().acceptInvitation("jimmyzhang");
-                //ReceiverHelper.getInstance().init(MainActivity.this);
-                // ReceiverHelper.getInstance().regiserNewMessageReceiver();
-                //  ReceiverHelper.getInstance().regiserAckMessageReceiver();
-                // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
-                //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
-                EMessageListener.getInstance().registerEventListener();;
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                Log.i(TAG, "errorCode:" + i);
-                Log.i(TAG, "errorMessage:" + s);
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-
-            }
-        });
-    }
 
 }
