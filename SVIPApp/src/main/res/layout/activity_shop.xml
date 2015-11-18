@@ -3,52 +3,65 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff">
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#000000">
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#000000">
 
-        <ImageView
-            android:id="@+id/back_llt"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_lef_jiudian"
-            android:scaleType="centerInside"/>
+            <ImageView
+                android:id="@+id/back_llt"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_lef_jiudian"
+                android:scaleType="centerInside"/>
 
 
-        <ImageView
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_search_shouye"
-            android:scaleType="centerInside"/>
+            <ImageView
+                android:id="@+id/search_iv"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_search_shouye"
+                android:scaleType="centerInside"/>
 
-        <RadioGroup
-            android:layout_width="202dp"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:id="@+id/radio_group"
-            android:layout_centerInParent="true"
-            android:background="@drawable/radio_black_bg">
-            <RadioButton
-                android:id="@+id/rbtn_jiudian"
-                style="@style/shop_radio_item"
-                android:checked="true"
-                android:text="酒店"/>
-            <RadioButton
-                android:id="@+id/rbtn_xiuxian"
-                style="@style/shop_radio_item"
-                android:text="休闲"/>
-            <RadioButton
-                android:id="@+id/rbtn_canyin"
-                style="@style/shop_radio_item"
-                android:text="餐饮"/>
-        </RadioGroup>
-    </RelativeLayout>
+            <RadioGroup
+                android:layout_width="202dp"
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:id="@+id/radio_group"
+                android:layout_centerInParent="true"
+                android:background="@drawable/radio_black_bg">
+                <RadioButton
+                    android:id="@+id/rbtn_jiudian"
+                    style="@style/shop_radio_item"
+                    android:checked="true"
+                    android:text="酒店"/>
+                <RadioButton
+                    android:id="@+id/rbtn_xiuxian"
+                    style="@style/shop_radio_item"
+                    android:text="休闲"/>
+                <RadioButton
+                    android:id="@+id/rbtn_canyin"
+                    style="@style/shop_radio_item"
+                    android:text="餐饮"/>
+            </RadioGroup>
+        </RelativeLayout>
+
+
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/sv_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </FrameLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"

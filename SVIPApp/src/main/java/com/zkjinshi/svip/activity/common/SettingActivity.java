@@ -378,7 +378,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 MineUiController.getInstance().showChoosePhotoDialog();
                 break;
             case R.id.ius_about_us:
-                intent = new Intent(SettingActivity.this, AboutActivity.class);
+                intent = new Intent(SettingActivity.this, WebViewActivity.class);
+                intent.putExtra("webview_url","http://iwxy.cc/mqt/");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);

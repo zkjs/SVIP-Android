@@ -56,7 +56,8 @@
         <activity
             android:name=".activity.common.SplashActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -85,21 +86,25 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.OauthLoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name"
             >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name="com.zkjinshi.base.config.ConfigActivity"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.CutActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name"
@@ -108,6 +113,7 @@
 
         <!-- 设置模块 -->
         <activity
+            android:screenOrientation="portrait"
         android:name=".activity.mine.MineActivity"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         android:windowSoftInputMode="adjustResize|stateHidden"
@@ -115,6 +121,7 @@
         >
     </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -122,6 +129,7 @@
             >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingItemActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -129,6 +137,7 @@
             >
         </activity>
         <activity
+            android:screenOrientation="portrait"
         android:name=".activity.common.SettingPhoneActivity"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         android:windowSoftInputMode="adjustResize|stateHidden"
@@ -137,6 +146,7 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingTagsActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -145,6 +155,7 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingTicketsActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -153,6 +164,7 @@
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingTicketsItemActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -160,6 +172,7 @@
             >
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.common.SettingNologinActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
@@ -169,40 +182,50 @@
 
         <!-- 订单模块 -->
         <activity android:name=".activity.order.OrderEvaluateActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.ConsumeRecordActivtiy"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.HistoryOrderActivtiy"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 
         <activity android:name=".activity.order.OrderBookingActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.OrderDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 
         <activity android:name=".activity.order.ChoosePeopleActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.AddRemarkActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".activity.order.ChooseInvoiceActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 
         <activity
             android:name=".activity.order.ShopActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name"/>
 
         <activity
             android:name=".activity.order.GoodListActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name"
@@ -210,6 +233,7 @@
         </activity>
         <activity
             android:name=".activity.mine.AboutActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name">
@@ -218,6 +242,7 @@
 
         <activity
             android:name=".activity.order.PayOrderActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name"
@@ -226,6 +251,7 @@
 
         <activity
             android:name=".activity.order.OrderPayActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name"
@@ -233,6 +259,7 @@
         </activity>
         <activity
             android:name=".activity.order.CalendarActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="@string/app_name"
@@ -242,6 +269,7 @@
 
         <activity
             android:name=".activity.common.CompleteInfoActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name">
 
@@ -249,22 +277,26 @@
 
         <activity
             android:name=".activity.common.InviteCodeActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name">
 
         </activity>
 
         <activity android:name=".activity.im.ChatActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
         <activity
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
 
         <activity
             android:name=".test.QuickMenuTestActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
 
         </activity>
