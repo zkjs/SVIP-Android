@@ -34,9 +34,10 @@
                         android:src="@drawable/ic_caidan"
                         android:background="@android:color/transparent" />
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/city_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="长沙"
                         android:textColor="#ffffff"
                         android:textSize="14sp"

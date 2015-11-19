@@ -73,8 +73,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.zkjinshi.svip.view.GooeyMenu;
-
-
+import com.zkjinshi.svip.view.zoomview.CityDialog;
 
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
@@ -515,10 +514,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         findViewById(R.id.city_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goServiceCenter = new Intent(MainActivity.this, CityActivity.class);
-                MainActivity.this.startActivity(goServiceCenter);
-                //左出又进
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                Intent goServiceCenter = new Intent(MainActivity.this, CityActivity.class);
+//                MainActivity.this.startActivity(goServiceCenter);
+//                //左出又进
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                new CityDialog(MainActivity.this).show();
             }
         });
 
