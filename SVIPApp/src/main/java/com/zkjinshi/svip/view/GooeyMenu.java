@@ -364,9 +364,10 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     public void hide(){
         mBezierAnimation.start();
         cancelAllAnimation();
-        if(isMenuVisible){
-            startHideAnimate();
-        }
+        startHideAnimate();
+//        if(isMenuVisible){
+//            startHideAnimate();
+//        }
         isMenuVisible = false;
     }
 

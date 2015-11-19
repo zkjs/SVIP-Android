@@ -729,7 +729,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             case BOOKING_NOT_IN:
                 shopNameTv.setVisibility(View.VISIBLE);
                 ratingBar.setVisibility(View.VISIBLE);
-                majorTv.setText("订单已生成，请确定");
+                majorTv.setText("订单已生成，请尽快确定");
                 break;
             //有预定状态订单，在酒店
             case BOOKING_IN:
