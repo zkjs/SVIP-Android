@@ -953,7 +953,7 @@ public class OrderDetailActivity extends Activity{
         String userids = "";
         if(orderDetailResponse.getUsers() != null && orderDetailResponse.getUsers().size() > 0){
             boolean isFirst = true;
-            for(int i=0;i<orderDetailResponse.getRoom().getRooms();i++){
+            for(int i=0;i<orderDetailResponse.getUsers().size();i++){
 
                 if(orderDetailResponse.getUsers().get(i) != null){
                     if(isFirst){
