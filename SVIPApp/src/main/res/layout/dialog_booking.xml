@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp">
-        <ImageView
+        <com.zkjinshi.svip.view.CircleImageView
             android:id="@+id/server_icon_iv"
             android:layout_marginLeft="10dp"
             android:layout_width="49dp"

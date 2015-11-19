@@ -32,10 +32,13 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.ReceiverHelper;
@@ -47,27 +50,32 @@ import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
 import com.zkjinshi.svip.response.AdPushResponse;
+import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -151,8 +159,15 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             mGooeyMenu.hide();
         }
         //Toast.makeText(MainActivity.this,"click"+menuNumber,Toast.LENGTH_SHORT).show();
+       loadCleverServer(menuNumber);
+    }
+
+    public void showBookingDailog(int menuNumber,String shopId,CustomerServiceBean customerServiceBean){
         BookingDialog bookingDialog = new BookingDialog(this);
         bookingDialog.pageIndex = menuNumber -1;
+        bookingDialog.shopId = shopId;
+        bookingDialog.customerService = customerServiceBean;
+        bookingDialog.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
         bookingDialog.show();
     }
 
@@ -170,11 +185,72 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 //            String phone = ShopListManager.getInstance().getShopPhone(shopid);
 //            IntentUtil.callPhone(MainActivity.this, phone);
 //        }
-        BookingDialog bookingDialog = new BookingDialog(this);
-        bookingDialog.pageIndex = 0;
-        bookingDialog.show();
+        loadCleverServer(1);
 
     }
+
+    //智能选择酒店
+    public String getCleverShopId(){
+        if(lastOrderInfo != null){
+            return lastOrderInfo.getShopid();
+        }else if(svipApplication.mRegionList.size() > 0){
+            RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
+            return  region.getiBeacon().getShopid();
+        }
+        return "120";
+    }
+
+    //智能选择客服
+    public void loadCleverServer(final int menuNumber){
+        final String shopid = getCleverShopId();
+        CustomerServicesManager.getInstance().requestServiceListTask(this,shopid , new NetRequestListener() {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result:" + result.rawResult);
+                CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                if (null != customerServiceListResponse) {
+                    HeadBean head = customerServiceListResponse.getHead();
+                    if (null != head) {
+                        boolean isSet = head.isSet();
+                        if (isSet) {
+                            ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                            String salesId = head.getExclusive_salesid();
+                            CustomerServiceBean customerService = null;
+                            if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                    customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                } else {//无专属客服
+                                    customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                }
+                                showBookingDailog(menuNumber,shopid,customerService);
+                            }
+
+
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+    }
+
+
 
 
     private void initView(){

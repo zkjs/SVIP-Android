@@ -5,16 +5,25 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 
 /**
  * 开发者：dujiande
@@ -27,12 +36,22 @@ import com.zkjinshi.svip.activity.order.ShopActivity;
 
  public class BookingDialog extends Dialog implements View.OnClickListener{
 
+     private DisplayImageOptions options;
      private Activity activity;
      public int pageIndex = 0;
+     public String shopId,shopName;
+     public CustomerServiceBean customerService = null;
 
      public BookingDialog(Context context) {
          super(context);
          this.activity = (Activity)context;
+         this.options = new DisplayImageOptions.Builder()
+                 .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
+                 .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
+                 .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
+                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                 .build();
 
      }
 
@@ -52,6 +71,24 @@ import com.zkjinshi.svip.activity.order.ShopActivity;
          setContentView(view);
          view.findViewById(R.id.ok_btn).setOnClickListener(this);
          view.findViewById(R.id.choose_btn).setOnClickListener(this);
+
+         TextView name = (TextView)view.findViewById(R.id.server_name_tv);
+         CircleImageView icon = (CircleImageView)view.findViewById(R.id.server_icon_iv);
+         TextView rating = (TextView)view.findViewById(R.id.server_rating_tv);
+
+         if(customerService != null){
+             if(!TextUtils.isEmpty(customerService.getName())){
+                 name.setText(customerService.getName());
+             }
+
+             if(!TextUtils.isEmpty(customerService.getSalesid())){
+                 ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(customerService.getSalesid()), icon, options);
+             }
+
+         }
+
+
+
 //
 //         Window dialogWindow = getWindow();
 //         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
@@ -65,9 +102,29 @@ import com.zkjinshi.svip.activity.order.ShopActivity;
         Intent intent = null;
         switch (view.getId()){
             case R.id.ok_btn:
-//                intent = new Intent(activity, ShopActivity.class);
-//                activity.startActivity(intent);
-//                activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                if(customerService != null){
+                    intent = new Intent(activity, ChatActivity.class);
+                    intent.putExtra(Constants.EXTRA_USER_ID, customerService.getSalesid());
+                    intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
+                    if(null != customerService){
+                        String userName = customerService.getName();
+                        if (!TextUtils.isEmpty(userName)) {
+                            intent.putExtra(Constants.EXTRA_TO_NAME,userName);
+                        }
+                    }
+                    if (!TextUtils.isEmpty(shopId)) {
+                        intent.putExtra(Constants.EXTRA_SHOP_ID,shopId);
+                    }
+                    if (!TextUtils.isEmpty(shopName)) {
+                        intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
+                    }
+                    intent.putExtra("text_context", "您好，很荣幸能为你服务，请问有什么可以帮到你的呢？");
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
+
+
                 break;
             case R.id.choose_btn:
                 intent = new Intent(activity, ShopActivity.class);
