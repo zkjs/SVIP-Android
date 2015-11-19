@@ -61,7 +61,8 @@
                 android:layout_height="39dp"
                 android:background="@android:color/transparent"
                 android:textSize="12sp"
-                android:text="城市/行政区/拼音"
+                android:text=""
+                android:hint="城市/行政区/拼音"
                 android:textColor="#707070"
                 android:textColorHint="#e3e3e3"/>
 
@@ -96,12 +97,12 @@
                 android:id="@+id/tagview_gps_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="0dp"
                 app:lineMargin="10dp"
                 app:tagMargin="20dp"
                 app:textPaddingBottom="10dp"
-                app:textPaddingLeft="20dp"
-                app:textPaddingRight="20dp"
+                app:textPaddingLeft="30dp"
+                app:textPaddingRight="30dp"
                 app:textPaddingTop="10dp">
             </me.kaede.tagview.TagView>
 
@@ -118,12 +119,12 @@
                 android:id="@+id/tagview_last_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="0dp"
                 app:lineMargin="10dp"
                 app:tagMargin="20dp"
                 app:textPaddingBottom="10dp"
-                app:textPaddingLeft="20dp"
-                app:textPaddingRight="20dp"
+                app:textPaddingLeft="30dp"
+                app:textPaddingRight="30dp"
                 app:textPaddingTop="10dp">
             </me.kaede.tagview.TagView>
             <TextView
@@ -139,12 +140,12 @@
                 android:id="@+id/tagview_hot_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="0dp"
                 app:lineMargin="10dp"
                 app:tagMargin="20dp"
                 app:textPaddingBottom="10dp"
-                app:textPaddingLeft="20dp"
-                app:textPaddingRight="20dp"
+                app:textPaddingLeft="30dp"
+                app:textPaddingRight="30dp"
                 app:textPaddingTop="10dp">
             </me.kaede.tagview.TagView>
 

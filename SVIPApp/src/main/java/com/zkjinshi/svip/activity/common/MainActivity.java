@@ -511,6 +511,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             }
         });
 
+        //城市列表
+        findViewById(R.id.city_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goServiceCenter = new Intent(MainActivity.this, CityActivity.class);
+                MainActivity.this.startActivity(goServiceCenter);
+                //左出又进
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
         findViewById(R.id.order_llt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -718,13 +729,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             case BOOKING_NOT_IN:
                 shopNameTv.setVisibility(View.VISIBLE);
                 ratingBar.setVisibility(View.VISIBLE);
-                majorTv.setText("订单已提交，请等待酒店确定");
+                majorTv.setText("订单已生成，请确定");
                 break;
             //有预定状态订单，在酒店
             case BOOKING_IN:
                 shopNameTv.setVisibility(View.VISIBLE);
                 ratingBar.setVisibility(View.VISIBLE);
-                majorTv.setText("订单已提交，请等待酒店确定");
+                majorTv.setText("订单已生成，请确定");
                 break;
             //有确认状态的订单，在酒店，有免前台特权
             case SURE_IN_HAVE_NOLOGIN:

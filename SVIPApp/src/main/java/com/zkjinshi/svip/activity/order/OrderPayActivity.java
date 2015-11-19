@@ -2,26 +2,33 @@ package com.zkjinshi.svip.activity.order;
 
 
 
+import com.zkjinshi.base.util.DeviceUtils;
+import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
@@ -32,7 +39,14 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 
@@ -46,6 +60,8 @@ import com.zkjinshi.svip.view.ItemTitleView;
  */
 public class OrderPayActivity extends Activity implements View.OnClickListener{
 
+    private final static String TAG = OrderPayActivity.class.getSimpleName();
+
     /**
      *开发者需要填一个服务端URL 该URL是用来请求支付需要的charge。务必确保，URL能返回json格式的charge对象。
      *服务端生成charge 的方式可以参考ping++官方文档，地址 https://pingxx.com/guidance/server/import
@@ -54,7 +70,7 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
      * 改 url 仅能调用【模拟支付控件】，开发者需要改为自己服务端的 url 。
      */
     private static String YOUR_URL ="http://218.244.151.190/demo/charge";
-    public static final String URL = YOUR_URL;
+    public static final String URL = ProtocolUtil.getPingPayUrl();
 
     private static final int REQUEST_CODE_PAYMENT = 1;
 
@@ -122,10 +138,21 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
 
         // 支付宝，微信支付 按键的点击响应处理
        if (view.getId() == R.id.pay_order_ali_pay_ibtn) {
-            new PaymentTask().execute(new PaymentRequest(CHANNEL_ALIPAY, amount));
+            //new PaymentTask().execute(getRequest(CHANNEL_ALIPAY, amount));
+           submitPay(CHANNEL_ALIPAY, amount);
         } else if (view.getId() == R.id.pay_order_we_chat_pay_ibtn) {
-            new PaymentTask().execute(new PaymentRequest(CHANNEL_WECHAT, amount));
+           // new PaymentTask().execute(getRequest(CHANNEL_WECHAT, amount));
+           submitPay(CHANNEL_WECHAT, amount);
         }
+    }
+
+    private PaymentRequest getRequest(String channel,int amount){
+        PaymentRequest paymentRequest = new PaymentRequest(channel, amount);
+        paymentRequest.setOrder_no(orderDetailResponse.getRoom().getReservation_no());
+        paymentRequest.setClient_ip(NetWorkUtil.getLocalIpAddress(this));
+       paymentRequest.setSubject(orderDetailResponse.getRoom().getRoom_type() + "*" + orderDetailResponse.getRoom().getRooms());
+       paymentRequest.setBody(orderDetailResponse.getRoom().getFullname());
+        return paymentRequest;
     }
 
     class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
@@ -192,11 +219,56 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
                  * "cancel"  - user canceld
                  * "invalid" - payment plugin not installed
                  */
-                String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
-                String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
-                showMsg(result, errorMsg, extraMsg);
+               String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
+               String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
+
+                if(result.equals("success")){
+                    showPaySuccessDialog();
+                    finish();
+                }else if(result.equals("fail")){
+                    showPayFailsDialog();
+                }else if(result.equals("invalid")){
+                    showMsg(result, errorMsg, extraMsg);
+                }
+
             }
         }
+    }
+
+    /**
+     * 支付失败对话框
+     */
+    private void showPaySuccessDialog(){
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        customBuilder.setTitle("温馨提示");
+        customBuilder.setMessage("支付成功！");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        customBuilder.create().show();
+    }
+
+    /**
+     * 支付失败对话框
+     */
+    private void showPayFailsDialog(){
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        customBuilder.setTitle("温馨提示");
+        customBuilder.setMessage("支付失败，请重新支付！");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        customBuilder.create().show();
     }
 
     @Override
@@ -235,13 +307,136 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
     }
 
     class PaymentRequest {
+        /*
+        order_no: string订单号
+        channel:       string  支付平台    alipay:支付宝手机支 wx:微信支付
+        amount :      int  人民币分单位  2元=200
+        client_ip:     string    IP
+        subject:       string    商店名+商品名+数量+单位   max 32 个 Unicode 字符
+        body:           string    商品属性+简介+发票+其他描述+订单人  max 128 个 Unicode 字符
+         */
+        String order_no;
         String channel;
         int amount;
+        String client_ip;
+        String subject;
+        String body;
 
         public PaymentRequest(String channel, int amount) {
             this.channel = channel;
             this.amount = amount;
         }
+
+        public String getOrder_no() {
+            return order_no;
+        }
+
+        public void setOrder_no(String order_no) {
+            this.order_no = order_no;
+        }
+
+        public String getChannel() {
+            return channel;
+        }
+
+        public void setChannel(String channel) {
+            this.channel = channel;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
+
+        public String getClient_ip() {
+            return client_ip;
+        }
+
+        public void setClient_ip(String client_ip) {
+            this.client_ip = client_ip;
+        }
+
+        public String getSubject() {
+            return subject;
+        }
+
+        public void setSubject(String subject) {
+            this.subject = subject;
+        }
+
+        public String getBody() {
+            return body;
+        }
+
+        public void setBody(String body) {
+            this.body = body;
+        }
+    }
+
+    private void submitPay(String channal,int amount){
+        /*
+        order_no: string订单号
+        channel:       string  支付平台    alipay:支付宝手机支 wx:微信支付
+        amount :      int  人民币分单位  2元=200
+        client_ip:     string    IP
+        subject:       string    商店名+商品名+数量+单位   max 32 个 Unicode 字符
+        body:           string    商品属性+简介+发票+其他描述+订单人  max 128 个 Unicode 字符
+         */
+        PaymentRequest paymentRequest = getRequest(channal,amount);
+        String url = ProtocolUtil.getPingPayUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("order_no", paymentRequest.getOrder_no());
+        bizMap.put("channel", paymentRequest.getChannel());
+        bizMap.put("amount", paymentRequest.getAmount()+"");
+        bizMap.put("client_ip", paymentRequest.getClient_ip());
+        bizMap.put("subject", paymentRequest.getSubject());
+        bizMap.put("body", paymentRequest.getBody());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Intent intent = new Intent();
+                    String packageName = getPackageName();
+                    ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
+                    intent.setComponent(componentName);
+                    intent.putExtra(PaymentActivity.EXTRA_CHARGE,  result.rawResult);
+                    startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+
     }
 
 }
