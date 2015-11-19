@@ -46,25 +46,20 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
         ChatAdapter.ResendListener,IEMessageObserver {
 
-    private static final String TAG = MessageListViewManager.class.getSimpleName();
-
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
 
     private Context context;
     private MsgListView messageListView;
     private ChatAdapter chatAdapter;
     private EMConversation conversation;
-    private Vector<String> messageVector = new Vector<String>();
     private List<EMMessage> currentMessageList = new ArrayList<EMMessage>();
-    private ArrayList<EMMessage> requestMessageList;
-    private static final int PRE_LOAD_PAGE_SIZE = 20;// 每次预加载20条记录
+    private List<EMMessage> requestMessageList = new ArrayList<EMMessage>();
+    public static final int PAGE_SIZE = 10;
     private String userId;// 回话id or 用户id(对方)
     private String fromName;// 聊天对象
     private String toName;// 聊天对象
     private String shopId;// 商店id
     private String shopName;// 商店名称
-
-    private LinkedBlockingQueue<MessageVo> messageQueue = new LinkedBlockingQueue<MessageVo>();
 
     public MessageListViewManager(Context context, String userId,String fromName,String toName,String shopId,String shopName) {
         this.context    = context;
@@ -92,7 +87,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         }
         clearChatRoomBadgeNum();
         setOverScrollMode(messageListView);
-        messageQueue = new LinkedBlockingQueue<MessageVo>();
         chatAdapter = new ChatAdapter(context, null);
         chatAdapter.setResendListener(this);
         messageListView.setPullLoadEnable(false);
@@ -111,7 +105,6 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     }
 
     public synchronized void destoryMessageListViewManager() {
-        messageVector.clear();
         clearChatRoomBadgeNum();
         removeAllObserver();
     }
@@ -211,12 +204,20 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
 
     @Override
     public void onRefresh() {
-        if (null == currentMessageList) {
-            currentMessageList = new ArrayList<>();
-        }
-        currentMessageList = conversation.getAllMessages();
-        if(null != chatAdapter){
+        if(null != currentMessageList && !currentMessageList.isEmpty()){
+            EMMessage emMessage = currentMessageList.get(0);
+            String startMsgId = emMessage.getMsgId();
+            requestMessageList = conversation.loadMoreMsgFromDB(startMsgId, PAGE_SIZE);
+            if(null != requestMessageList && !requestMessageList.isEmpty()){
+                if(!currentMessageList.containsAll(requestMessageList)){
+                    currentMessageList.addAll(0, requestMessageList);
+                }
+            }
             chatAdapter.setMessageList(currentMessageList);
+            int count = requestMessageList != null ? requestMessageList
+                    .size() : 0;
+            messageListView.setSelection(count > 0 ? count - 1 : 0);
+            messageListView.stopRefresh();
         }
     }
 
