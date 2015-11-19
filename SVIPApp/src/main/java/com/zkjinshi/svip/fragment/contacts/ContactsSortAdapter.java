@@ -32,7 +32,6 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<SortModel> mList;
     private Context         mContext;
 
-
     private RecyclerItemClickListener mRecyclerItemClickListener;
 
     public ContactsSortAdapter(Context mContext, List<SortModel> list) {
@@ -73,7 +72,7 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         //根据position获取分类的首字母的Char ascii值
         final SortModel sortModel = mList.get(position);
-        int section = getSectionForPosition(position);
+        int   section = getSectionForPosition(position);
 
         //是否显示首字母
         if (position == getPositionForSection(section)) {

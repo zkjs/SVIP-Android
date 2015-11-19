@@ -19,7 +19,6 @@ public class Contact {
 	public String simpleNumber;
 	public String sortKey;
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -19,6 +19,7 @@ import com.zkjinshi.svip.fragment.contacts.SideBar;
 import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.fragment.contacts.SortToken;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +52,7 @@ public class ContactsFragment extends BaseFragment{
 
         View view = View.inflate(mContext, R.layout.fragment_contacts, null);
 
-        mRcvContacts  = (RecyclerView) view.findViewById(R.id.rcv_contacts);
+        mRcvContacts   = (RecyclerView) view.findViewById(R.id.rcv_contacts);
         mLayoutManager = new LinearLayoutManager(mActivity);
         mRcvContacts.setHasFixedSize(true);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -74,7 +75,6 @@ public class ContactsFragment extends BaseFragment{
         Collections.sort(mSortList, mPinyinComparator);
 
         mContactsAdapter  = new ContactsSortAdapter(mActivity, mSortList);
-        mLayoutManager    = new LinearLayoutManager(mActivity);
         mContactsAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
@@ -82,8 +82,6 @@ public class ContactsFragment extends BaseFragment{
         });
 
         mRcvContacts.setHasFixedSize(true);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRcvContacts.setLayoutManager(mLayoutManager);
         mRcvContacts.setAdapter(mContactsAdapter);
 
         //设置右侧[A-Z]快速导航栏触摸监听
@@ -100,6 +98,18 @@ public class ContactsFragment extends BaseFragment{
 
         //载入联系人
         loadContacts();
+
+        //网络获取我的客服列表 包含专属客服
+        loadHttpContacts();
+    }
+
+    /**
+     * 获取网络联系人数据
+     */
+    private void loadHttpContacts() {
+        //TODO: 临时获取网络数据显示
+//        CustomerServicesManager.getInstance().requestServiceListTask(mContext, "120");
+
     }
 
     /**
