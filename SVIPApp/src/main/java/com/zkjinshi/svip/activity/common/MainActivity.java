@@ -176,15 +176,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         if(mGooeyMenu.isMenuVisible){
             mGooeyMenu.hide();
         }
-        //Toast.makeText(MainActivity.this,"long click",Toast.LENGTH_SHORT).show();
-//        if (lastOrderInfo != null && lastOrderInfo.getPhone() != null) {
-//            IntentUtil.callPhone(MainActivity.this, lastOrderInfo.getPhone());
-//        } else if (svipApplication.mRegionList.size() > 0) {
-//            int index = svipApplication.mRegionList.size() - 1;
-//            String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-//            String phone = ShopListManager.getInstance().getShopPhone(shopid);
-//            IntentUtil.callPhone(MainActivity.this, phone);
-//        }
         loadCleverServer(1);
 
     }

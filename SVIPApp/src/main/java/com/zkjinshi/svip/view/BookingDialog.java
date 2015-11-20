@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
@@ -76,6 +77,9 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
          CircleImageView icon = (CircleImageView)view.findViewById(R.id.server_icon_iv);
          TextView rating = (TextView)view.findViewById(R.id.server_rating_tv);
 
+         findViewById(R.id.server_chat).setOnClickListener(this);
+         findViewById(R.id.server_tel).setOnClickListener(this);
+
          if(customerService != null){
              if(!TextUtils.isEmpty(customerService.getName())){
                  name.setText(customerService.getName());
@@ -123,16 +127,27 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
                     activity.overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_out_left);
                 }
-
+                cancel();
 
                 break;
             case R.id.choose_btn:
                 intent = new Intent(activity, ShopActivity.class);
                 intent.putExtra("pageIndex",pageIndex);
                 activity.startActivity(intent);
-                activity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                cancel();
+                break;
+            case R.id.server_chat:
+                if (customerService != null && !TextUtils.isEmpty(customerService.getPhone())) {
+                    IntentUtil.sendMessage("", customerService.getPhone(), activity);
+                }
+                break;
+            case R.id.server_tel:
+                if (customerService != null && !TextUtils.isEmpty(customerService.getPhone())) {
+                    IntentUtil.callPhone(activity, customerService.getPhone());
+                }
                 break;
         }
-        cancel();
+
     }
 }
