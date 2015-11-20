@@ -23,7 +23,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
     private ArrayList<String> data;
 
-    private String[] typeAheadData;
+    public String[] typeAheadData;
 
     private Drawable suggestionIcon;
 

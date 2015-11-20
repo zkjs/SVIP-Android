@@ -1,20 +1,38 @@
 package com.zkjinshi.svip.activity.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.adapter.ShopPagerAdapter;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.ShopListResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 开发者：dujiande
@@ -24,10 +42,14 @@ import com.zkjinshi.svip.adapter.ShopPagerAdapter;
  */
 public class ShopActivity extends AppCompatActivity {
 
+    public static final String TAG = ShopActivity.class.getSimpleName();
+
     private ViewPager mViewPager;
     private ShopPagerAdapter mShopPagerAdapter;
     private RadioButton hotelRbtn,playRbtn,foodRbtn;
     private MaterialSearchView mSearchView;
+
+    HashMap<String,String> datamap;
 
 
     @Override
@@ -57,11 +79,11 @@ public class ShopActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 0){
+                if (position == 0) {
                     hotelRbtn.setChecked(true);
-                }else if(position == 1){
+                } else if (position == 1) {
                     playRbtn.setChecked(true);
-                }else if(position == 2){
+                } else if (position == 2) {
                     foodRbtn.setChecked(true);
                 }
             }
@@ -75,6 +97,7 @@ public class ShopActivity extends AppCompatActivity {
     }
 
     private void initData(){
+        datamap = ShopDetailDBUtil.getInstance().queryShopNames();
         int pageIndex = getIntent().getIntExtra("pageIndex",0);
         mViewPager.setCurrentItem(pageIndex);
 
@@ -82,11 +105,15 @@ public class ShopActivity extends AppCompatActivity {
         mSearchView.setVoiceSearch(true);
         mSearchView.setCursorDrawable(R.drawable.custom_cursor);
         //设置搜索键入搜索框 此处本地联系人
-        mSearchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+       // mSearchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        mSearchView.setSuggestions(datamap);
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                DialogUtil.getInstance().showToast(ShopActivity.this, "Query: " + query);
+                //DialogUtil.getInstance().showToast(ShopActivity.this, "Query: " + query);
+                Intent intent = new Intent(ShopActivity.this,ShopSearchActivity.class);
+                intent.putExtra("key",query);
+                startActivity(intent);
                 return false;
             }
 
@@ -113,7 +140,13 @@ public class ShopActivity extends AppCompatActivity {
         mSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogUtil.getInstance().showToast(ShopActivity.this, "TODO");
+                TextView textView = (TextView) view.findViewById(com.miguelcatalan.materialsearchview.R.id.suggestion_text);
+                Intent intent = new Intent(ShopActivity.this, OrderBookingActivity.class);
+                String fullname = textView.getText().toString();
+                intent.putExtra("shopid", mSearchView.mapData.get(fullname));
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
     }
@@ -134,7 +167,7 @@ public class ShopActivity extends AppCompatActivity {
         playRbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewPager.setCurrentItem(1,true);
+                mViewPager.setCurrentItem(1, true);
             }
         });
         foodRbtn.setOnClickListener(new View.OnClickListener() {
@@ -169,4 +202,6 @@ public class ShopActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 }

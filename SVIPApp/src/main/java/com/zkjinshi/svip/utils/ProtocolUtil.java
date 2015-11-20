@@ -330,4 +330,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"ping/paycharge";
     }
 
+    /**
+     * 搜索商家信息
+     * @return
+     */
+    public static String getUserSearch(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/search";
+    }
+
 }

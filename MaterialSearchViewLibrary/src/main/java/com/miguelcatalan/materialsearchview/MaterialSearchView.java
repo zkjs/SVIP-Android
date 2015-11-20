@@ -36,7 +36,10 @@ import android.widget.TextView;
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Miguel Catalan Bañuls
@@ -394,7 +397,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     public void setSuggestions(String[] suggestions) {
         if (suggestions != null && suggestions.length > 0) {
             mTintView.setVisibility(VISIBLE);
-            final SearchAdapter adapter = new SearchAdapter(mContext, suggestions, suggestionIcon);
+            adapter = new SearchAdapter(mContext, suggestions, suggestionIcon);
             setAdapter(adapter);
 
             setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -407,6 +410,45 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
             mTintView.setVisibility(GONE);
         }
     }
+
+    public HashMap<String,String> mapData = null;
+    public SearchAdapter adapter = null;
+    public void setSuggestions(HashMap<String,String> suggestions) {
+        mapData = suggestions;
+        String[] data = null;
+        int length = 0;
+        String namestr = "";
+        Iterator iterator = suggestions.entrySet().iterator();
+        while (iterator.hasNext()){
+
+            Map.Entry entry = ( Map.Entry)iterator.next();
+            String shopid = (String)entry.getValue();
+            String fullname = (String)entry.getKey();
+            if(length == 0){
+                namestr = namestr + fullname;
+            }else{
+                namestr = namestr + ","+fullname;
+            }
+            length++;
+
+        }
+        if(length == 0){
+            mTintView.setVisibility(GONE);
+        }else{
+            data = namestr.split(",");
+            mTintView.setVisibility(VISIBLE);
+            adapter = new SearchAdapter(mContext, data, suggestionIcon);
+            setAdapter(adapter);
+
+            setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    setQuery((String) adapter.getItem(position), false);
+                }
+            });
+        }
+    }
+
 
     /**
      * Dismiss the suggestions list.

@@ -16,6 +16,7 @@ import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 import com.zkjinshi.svip.vo.UserDetailVo;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -213,5 +214,33 @@ public class ShopDetailDBUtil {
 
         }
         return shopValue;
+    }
+
+    public HashMap<String,String> queryShopNames(){
+        HashMap<String,String> dateMap = new HashMap<String,String>();
+        String shopValue = null;
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = helper.getReadableDatabase();
+            cursor = db.query(DBOpenHelper.SHOP_INFO_TBL, new String[]{"fullname","shopid"},null, null, null, null, null);
+
+            if(null != cursor && cursor.getCount() > 0){
+                while(cursor.moveToNext()){
+                    dateMap.put(cursor.getString(0),cursor.getString(1));
+                }
+            }
+
+        } catch (Exception e){
+            LogUtil.getInstance().info(LogLevel.ERROR, TAG + ".queryShopValueByShopID->" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if(null != cursor)
+                cursor.close();
+            if(null != db)
+                db.close();
+
+        }
+        return dateMap;
     }
 }

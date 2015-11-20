@@ -122,7 +122,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
                     if (!TextUtils.isEmpty(shopName)) {
                         intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
                     }
-                    intent.putExtra("text_context", "您好，很荣幸能为你服务，请问有什么可以帮到你的呢？");
+                    //intent.putExtra("text_context", "您好，很荣幸能为你服务，请问有什么可以帮到你的呢？");
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_out_left);
