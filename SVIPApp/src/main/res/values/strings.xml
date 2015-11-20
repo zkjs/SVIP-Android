@@ -75,7 +75,7 @@
     <string name="nickname">昵称</string>
     <string name="invite_code">邀请码</string>
     <string name="what_is_invite_code">什么是邀请码？</string>
-    <string name="please_be_none_if_not_exists">没有请为空</string>
+    <string name="get_into_next_step_if_not_exists">若无邀请码，请进入下一步</string>
     <string name="update_user_info_success">更新用户信息成功</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="please_choose_sex">请选择性别</string>

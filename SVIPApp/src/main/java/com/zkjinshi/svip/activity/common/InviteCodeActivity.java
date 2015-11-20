@@ -78,6 +78,7 @@ public class InviteCodeActivity extends Activity {
 
     private DisplayImageOptions mOptions;
     private String              mSalesID;
+    private String              mShopID;
     private String              mInviteCode;
 
     @Override
@@ -169,12 +170,14 @@ public class InviteCodeActivity extends Activity {
         mIbtnQianJin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inviteCode = mEtInviteCode.getText().toString().trim();
-                if (!TextUtils.isEmpty(inviteCode) && (mLlSalerInfo.getVisibility() == View.VISIBLE)) {
-                    //邀请码验证成功 开始确认并绑定邀请码
-                    CacheUtil.getInstance().saveInviteCode(inviteCode);
-                    bindTheSalerWithCode(inviteCode);
-
+                mInviteCode = mEtInviteCode.getText().toString().trim();
+                if (!TextUtils.isEmpty(mInviteCode) && (mLlSalerInfo.getVisibility() == View.VISIBLE)) {
+                    if(TextUtils.isEmpty(mInviteCode) || TextUtils.isEmpty(mInviteCode)){
+                        return ;
+                    } else {
+                        //邀请码验证成功 开始确认并绑定邀请码
+                        bindTheSalerWithCode(mInviteCode, mSalesID, mShopID);
+                    }
                 } else {
                     Intent goHome = new Intent(InviteCodeActivity.this, MainActivity.class);
                     startActivity(goHome);
@@ -192,12 +195,16 @@ public class InviteCodeActivity extends Activity {
     /**
      * 根据邀请码绑定客服
      */
-    private void bindTheSalerWithCode(String inviteCode) {
+    private void bindTheSalerWithCode(String inviteCode, String salerID, String shopID) {
         NetRequest netRequest = new NetRequest(ProtocolUtil.getUserBindInviteCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("userid", mUserID);
         bizMap.put("token", mToken);
+        bizMap.put("username", mUserName);
+        bizMap.put("phone", mPhoneNum);
         bizMap.put("code", inviteCode);
+        bizMap.put("user_salesid", salerID);
+        bizMap.put("shopid", shopID);
 
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(mContext, netRequest, NetResponse.class);
@@ -224,7 +231,8 @@ public class InviteCodeActivity extends Activity {
                     JSONObject responseObj = new JSONObject(jsonResult);
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
-
+                        //本地缓存绑定邀请码
+                        CacheUtil.getInstance().saveInviteCode(mInviteCode);
                         if(!TextUtils.isEmpty(mSalesID)) {
                             EMConversationHelper.getInstance().sendInviteCmdMessage(
                                     mUserID,
@@ -318,14 +326,25 @@ public class InviteCodeActivity extends Activity {
                     Boolean isSuccess = responseObj.getBoolean("set");
                     if (isSuccess) {
                         mSalesID = responseObj.getString("salesid");
+                        mShopID  = responseObj.getString("shopid");
                         if (!TextUtils.isEmpty(mSalesID)) {
                             String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
                             String salerName = responseObj.getString("username");
                             showSalerInfo(true, avatarUrl, salerName);
                         }
                     } else {
-                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                "邀请码输入错误，请重新输入！", Gravity.CENTER);
+                        if(responseObj.getInt("err") == 400) {
+                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                                  "token失效, 请重新登录！", Gravity.CENTER);
+                        }
+                        if(responseObj.getInt("err") == 404){
+                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                    "邀请码不存在, 请确认后重新输入！", Gravity.CENTER);
+                        } else {
+                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                                   "查询失败，请稍后再试！", Gravity.CENTER);
+                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -340,30 +359,6 @@ public class InviteCodeActivity extends Activity {
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
-
-//    /**
-//     * 绑定邀请码
-//     */
-//    private void sendMsgBindInviteCodeSuccess(String content, String toID) {
-//
-//        //确认绑定邀请码的通知是由何种协议
-//        //1.MsgUserDefine
-//        MsgUserDefine msgUserDefine = new MsgUserDefine();
-//        msgUserDefine.setType(ProtocolMSG.MSG_UserDefine);
-//        msgUserDefine.setTimestamp(System.currentTimeMillis());
-//
-//        msgUserDefine.setChildtype(ProtocolMSG.MSG_ChildType_BindInviteCode);
-//        msgUserDefine.setContent(content);
-//        msgUserDefine.setFromid(mUserID);
-//        //        msgUserDefine.setProtover();
-//        msgUserDefine.setPushalert("绑定邀请码");
-//        msgUserDefine.setPushofflinemsg(PushOfflineMsg.PUSH_MSG.getValue());
-//        msgUserDefine.setToid(toID);
-//
-//        Gson gson = new Gson();
-//        String msgJson = gson.toJson(msgUserDefine, MsgUserDefine.class);
-//        WebSocketManager.getInstance().sendMessage(msgJson);
-//    }
 
     /**
      * show the saler info when input the invite code correctly

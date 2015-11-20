@@ -78,43 +78,16 @@
             android:layout_alignBottom="@id/ll_invite_code"
             android:layout_height="1px"
             android:background="@android:color/white"
-            android:layout_width="match_parent"/>
-
-        <LinearLayout
-            android:padding="10dp"
-            android:layout_below="@id/ll_invite_code"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:text="@string/please_be_none_if_not_exists"
-                android:textColor="@color/Gray9E9E9E"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tv_what_is_invite_code"
-                android:layout_marginTop="20dp"
-                android:text="@string/what_is_invite_code"
-                android:textColor="@color/Gray9E9E9E"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:padding="30dp"
+    <LinearLayout
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:gravity="center"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <ImageButton
@@ -124,6 +97,37 @@
             android:layout_centerHorizontal="true"
             android:background="@mipmap/ic_qianjin" />
 
-    </RelativeLayout>
+        <TextView
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/get_into_next_step_if_not_exists"
+            android:textColor="@color/Gray9E9E9E"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ibtn_qian_jin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/tv_what_is_invite_code"
+            android:text="@string/what_is_invite_code"
+            android:textColor="@color/Gray9E9E9E"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </LinearLayout>
