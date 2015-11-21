@@ -86,6 +86,7 @@ public class ServiceCenterActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
         //是否加入语音设置
         mSearchView.setVoiceSearch(true);
         mSearchView.setCursorDrawable(R.drawable.custom_cursor);

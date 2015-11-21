@@ -267,8 +267,16 @@ public class InviteCodeActivity extends Activity {
                         int errCode = responseObj.getInt("err");
                         if(400 == errCode){
                             DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "邀请码已经被使用，请勿重复使用。", Gravity.CENTER);
-                        }else {
+                                    "token不对，请勿重复使用。", Gravity.CENTER);
+                        }
+                        if(301 == errCode){
+                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                    "提交信息不足。", Gravity.CENTER);
+                        }
+                        if(300 == errCode){
+                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                    "邀请码已经使用，请勿重复使用。", Gravity.CENTER);
+                        } else {
                             DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
                                     "绑定失败。", Gravity.CENTER);
                         }
