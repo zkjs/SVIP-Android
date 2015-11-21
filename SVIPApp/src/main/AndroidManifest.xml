@@ -422,6 +422,22 @@
             </intent-filter>
         </receiver>
 
+        <!-- 语音通话 -->
+        <activity
+            android:name="com.zkjinshi.svip.activity.im.VoiceCallActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/android:Theme.NoTitleBar" >
+        </activity>
+        <!-- 视频通话 -->
+        <activity
+            android:name="com.zkjinshi.svip.activity.im.VideoCallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:theme="@style/horizontal_slide" >
+        </activity>
+
     </application>
 
 </manifest>

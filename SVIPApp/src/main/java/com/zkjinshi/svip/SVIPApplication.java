@@ -1,7 +1,10 @@
 package com.zkjinshi.svip;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.easemob.chat.EMChat;
@@ -22,6 +25,7 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
 
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.receiver.ECallReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
@@ -37,9 +41,9 @@ import java.util.Vector;
  */
 public class SVIPApplication extends Application {
 
-    public static final String TAG = "SVIPApp";
-
     public Vector<RegionVo> mRegionList = new Vector<RegionVo>();
+
+    private ECallReceiver callReceiver;
 
     @Override
     public void onCreate() {
@@ -58,7 +62,11 @@ public class SVIPApplication extends Application {
 
     }
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
     /**
      * 初始化上下文
@@ -84,6 +92,12 @@ public class SVIPApplication extends Application {
         options.setRequireDeliveryAck(true);
         // 设置从db初始化加载时, 每个conversation需要加载msg的个数
         options.setNumberOfMessagesLoaded(10);
+        IntentFilter callFilter = new IntentFilter(EMChatManager.getInstance().getIncomingCallBroadcastAction());
+        if(callReceiver == null){
+            callReceiver = new ECallReceiver();
+        }
+        //注册通话广播接收者
+        registerReceiver(callReceiver, callFilter);
     }
 
 
@@ -104,7 +118,6 @@ public class SVIPApplication extends Application {
                 ConfigUtil.getInst().save(this);
             }
         } catch (IOException e) {
-            Log.e(TAG, "找不到assets/目录下的config.xml配置文件", e);
             e.printStackTrace();
         }
     }

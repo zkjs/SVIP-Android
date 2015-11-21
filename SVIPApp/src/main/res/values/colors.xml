@@ -536,4 +536,6 @@
         <item>#78909c</item>
     </array>
 
+    <color name="voip_interface_text_color">#bababa</color>
+
 </resources>
