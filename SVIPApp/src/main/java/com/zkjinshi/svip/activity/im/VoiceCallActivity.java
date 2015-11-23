@@ -21,7 +21,11 @@ import android.widget.Toast;
 import com.easemob.chat.EMCallStateChangeListener;
 import com.easemob.chat.EMChatManager;
 import com.easemob.exceptions.EMServiceNotReadyException;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.CircleImageView;
 
 import java.util.UUID;
 
@@ -54,6 +58,8 @@ public class VoiceCallActivity extends CallActivity implements View.OnClickListe
     private boolean isAnswered;
     private LinearLayout voiceContronlLayout;
     public boolean isVoiceCalling;
+    private CircleImageView userPhotoIv;
+    private DisplayImageOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,12 @@ public class VoiceCallActivity extends CallActivity implements View.OnClickListe
         durationTextView = (TextView) findViewById(R.id.tv_calling_duration);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         voiceContronlLayout = (LinearLayout) findViewById(R.id.ll_voice_control);
+        userPhotoIv = (CircleImageView)findViewById(R.id.swing_card);
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_launcher)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
 
         refuseBtn.setOnClickListener(this);
         answerBtn.setOnClickListener(this);
@@ -92,6 +104,7 @@ public class VoiceCallActivity extends CallActivity implements View.OnClickListe
         msgid = UUID.randomUUID().toString();
 
         username = getIntent().getStringExtra("username");
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(username), userPhotoIv, options);
         // 语音电话是否为接收的
         isInComingCall = getIntent().getBooleanExtra("isComingCall", false);
 

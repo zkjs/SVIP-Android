@@ -13,6 +13,7 @@ import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.TxtExtType;
 
 /**
  * 开发者：JimmyZhang
@@ -167,6 +168,8 @@ public class CallActivity extends FragmentActivity {
             message.setAttribute(Constants.MESSAGE_ATTR_IS_VOICE_CALL, true);
         else
             message.setAttribute(Constants.MESSAGE_ATTR_IS_VIDEO_CALL, true);
+
+        message.setAttribute(Constants.MSG_TXT_EXT_TYPE, TxtExtType.DEFAULT.getVlaue());
 
         // 设置消息body
         message.addBody(txtBody);
