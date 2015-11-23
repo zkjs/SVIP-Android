@@ -3,8 +3,8 @@
     android:dither="true">
     <item 
     	android:state_pressed="true"
-        android:drawable="@drawable/ic_hotel_pre"/>
+        android:drawable="@mipmap/ic_hotel_pre"/>
     <item
-        android:drawable="@drawable/ic_hotel_nor"/>
+        android:drawable="@mipmap/ic_hotel_nor"/>
         
 </selector>

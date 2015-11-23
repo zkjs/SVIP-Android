@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,9 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChatManager;
+import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainUiController;
@@ -25,8 +31,16 @@ import com.zkjinshi.svip.activity.mine.MineActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.AdPushResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.view.CircleImageView;
 
 /**
@@ -42,6 +56,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
     private View mView;
     private CircleImageView photoCtv;
     private TextView nameTv;
+    private Activity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +71,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
 
     public void onStart()    {
         super.onStart();
+        this.mActivity = this.getActivity();
         LogUtil.getInstance().info(LogLevel.DEBUG, "onStart...");
-
     }
+
     public void onResume(){
         super.onResume();
         LogUtil.getInstance().info(LogLevel.DEBUG,"onResume...");
@@ -77,6 +93,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
         mView.findViewById(R.id.leftmenu_front_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_order_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_footprint_tv).setOnClickListener(this);
+        mView.findViewById(R.id.tv_exit).setOnClickListener(this);
     }
 
     private void initData()
@@ -145,6 +162,74 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                         R.anim.slide_out_left);
             }
             break;
+
+            //退出
+            case R.id.tv_exit:
+                final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(mActivity);
+                customerBuilder.setTitle("退出");
+                customerBuilder.setMessage("确定退出当前应用？");
+                customerBuilder.setGravity(Gravity.CENTER);
+                customerBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                customerBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //环信接口退出
+                        EasemobIMHelper.getInstance().logout();
+                        //http接口推出
+                        String userID = CacheUtil.getInstance().getUserId();
+                        logoutHttp(userID);
+                        //熊推接口推出
+                        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
+                        //修改登录状态
+                        CacheUtil.getInstance().setLogin(false);
+                        mActivity.finish();
+                    }
+                });
+                customerBuilder.create().show();
+            break;
         }
+    }
+
+    /**
+     * 断开用户登录连接
+     */
+    private void logoutHttp(String userID) {
+        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
+        Log.i(TAG, logoutUrl);
+        NetRequest netRequest = new NetRequest(logoutUrl);
+        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
     }
 }

@@ -34,7 +34,7 @@
                 android:layout_height="250dp"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/bg_biaoqian">
+                android:background="@mipmap/bg_biaoqian">
 
                 <com.zkjinshi.svip.view.CircleImageView
                     android:id="@+id/user_photo_civ"

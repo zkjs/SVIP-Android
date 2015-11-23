@@ -18,11 +18,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
-import com.easemob.EMCallBack;
-import com.easemob.EMEventListener;
-import com.easemob.EMNotifierEvent;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.zkjinshi.base.log.LogLevel;
@@ -32,7 +27,6 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
@@ -40,10 +34,7 @@ import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
-import com.zkjinshi.svip.emchat.ReceiverHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
-import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.fragment.MenuLeftFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
@@ -51,7 +42,6 @@ import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
-import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -68,20 +58,18 @@ import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.MessageDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
+import com.zkjinshi.svip.view.GooeyMenu;
+import com.zkjinshi.svip.view.zoomview.CityDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
-import com.zkjinshi.svip.view.GooeyMenu;
-import com.zkjinshi.svip.view.zoomview.CityDialog;
 
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
