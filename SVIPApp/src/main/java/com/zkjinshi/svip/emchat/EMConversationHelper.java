@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.emchat;
 
+import android.app.Activity;
 import android.support.v4.util.Pair;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.easemob.EMCallBack;
@@ -101,6 +103,38 @@ public class EMConversationHelper {
         message.setReceipt(username);
         conversation.addMessage(message);
         EMChatManager.getInstance().sendMessage(message, emCallBack);
+    }
+
+    /**
+     * 发送语音消息
+     * @param userId
+     * @param fromName
+     * @param toName
+     * @param shopId
+     * @param shopName
+     * @param filePath
+     * @param voiceTime
+     * @param callBack
+     */
+    public void sendVoiceMessage(String userId,String fromName,String toName,String shopId,String shopName,String filePath, int voiceTime,EMCallBack callBack){
+        EMMessage message = EMMessage.createVoiceSendMessage(filePath, voiceTime, userId);
+        message.setAttribute("toName","");
+        if(!TextUtils.isEmpty(toName)){
+            message.setAttribute("toName",toName);
+        }
+        message.setAttribute("fromName","");
+        if(!TextUtils.isEmpty(fromName)){
+            message.setAttribute("fromName",fromName);
+        }
+        if(!TextUtils.isEmpty(shopId)){
+            message.setAttribute("shopId",shopId);
+        }
+
+        if(!TextUtils.isEmpty(shopName)){
+            message.setAttribute("shopName",shopName);
+        }
+        message.setChatType(EMMessage.ChatType.Chat);
+        EMChatManager.getInstance().sendMessage(message,callBack);
     }
 
     /**
