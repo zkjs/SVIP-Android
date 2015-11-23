@@ -6,10 +6,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.utils.CacheUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 开发者：JimmyZhang
@@ -56,6 +63,37 @@ public class EMessageReceiver extends BroadcastReceiver {
         Dialog dialog = customBuilder.create();
         dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    /**
+     * 下线通知
+     * @param context
+     * @param shopId
+     * @param orderNo
+     */
+    private void showOfflineDialog(final Context context, final String shopId,final String orderNo) {
+        Dialog dialog = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
+        customBuilder.setTitle("下线通知");
+        customBuilder.setMessage("您的账号于" + sdf.format(new Date()) + "在另一台设备登录");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                WebSocketManager.getInstance().logoutIM(context);
+                CacheUtil.getInstance().setLogin(false);
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         dialog.show();
     }
 

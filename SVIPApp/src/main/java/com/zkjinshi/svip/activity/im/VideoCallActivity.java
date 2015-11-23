@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -25,7 +27,13 @@ import com.easemob.chat.EMCallStateChangeListener;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMVideoCallHelper;
 import com.easemob.exceptions.EMServiceNotReadyException;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.bean.ShopCallVo;
+import com.zkjinshi.svip.bean.UserCallVo;
+import com.zkjinshi.svip.net.NetRequestListener;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CameraHelper;
 
 import java.util.UUID;
@@ -37,6 +45,8 @@ import java.util.UUID;
  * 版权所有
  */
 public class VideoCallActivity extends CallActivity implements View.OnClickListener {
+
+    public static final String TAG = VideoCallActivity.class.getSimpleName();
 
     private SurfaceView localSurface;
     private SurfaceHolder localSurfaceHolder;
@@ -167,6 +177,52 @@ public class VideoCallActivity extends CallActivity implements View.OnClickListe
             ringtone = RingtoneManager.getRingtone(this, ringUri);
             ringtone.play();
         }
+
+
+        if(isInComingCall){
+            requestUserTask(this, username, new NetRequestListener() {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
+                }
+
+                @Override
+                public void onNetworkRequestCancelled() {
+
+                }
+
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    Log.i(TAG, "rawResult:" + result.rawResult);
+                    try {
+                        UserCallVo userCallVo = new Gson().fromJson(result.rawResult, UserCallVo.class);
+                        if (null != userCallVo) {
+                            boolean isSet = userCallVo.isSet();
+                            if (isSet) {
+                                fromName = userCallVo.getUsername();
+                                if (!TextUtils.isEmpty(fromName)) {
+                                    nickTextView.setText(fromName);
+                                }
+                                ShopCallVo shopCallVo = userCallVo.getShop();
+                                if(null != shopCallVo){
+                                    shopId = shopCallVo.getShopid();
+                                    shopName = shopCallVo.getShop_name();
+                                }
+                            }
+                        }
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+        }
+
     }
 
     /**

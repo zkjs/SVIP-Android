@@ -345,4 +345,13 @@ public class ProtocolUtil {
     public static String getLogoutUrl(String userID) {
         return ConfigUtil.getInst().getHttpDomain()+"user/logout?userid=" + userID;
     }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public static String getUserInfoUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"v10/user";
+    }
+
 }

@@ -13,9 +13,17 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestListener;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.TxtExtType;
+
+import java.util.HashMap;
 
 /**
  * 开发者：JimmyZhang
@@ -35,6 +43,7 @@ public class CallActivity extends FragmentActivity {
     protected int outgoing;
     protected EMCallStateChangeListener callStateListener;
     protected String toName;
+    protected String fromName;
     protected String shopId;
     protected String shopName;
 
@@ -146,13 +155,25 @@ public class CallActivity extends FragmentActivity {
                 message.setAttribute("toName", toName);
             }
             message.setAttribute("fromName", CacheUtil.getInstance().getUserName());
-            message.setAttribute("shopId",shopId);
-            message.setAttribute("shopName",shopName);
+            if(!TextUtils.isEmpty(shopId)){
+                message.setAttribute("shopId",shopId);
+            }
+            if(!TextUtils.isEmpty(shopName)){
+                message.setAttribute("shopName",shopName);
+            }
         } else {
             message = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
             message.setFrom(username);
             message.setAttribute("toName", CacheUtil.getInstance().getUserName());
-            message.setAttribute("fromName", "");
+            if(!TextUtils.isEmpty(fromName)){
+                message.setAttribute("fromName", fromName);
+            }
+            if(!TextUtils.isEmpty(shopId)){
+                message.setAttribute("shopId",shopId);
+            }
+            if(!TextUtils.isEmpty(shopName)){
+                message.setAttribute("shopName",shopName);
+            }
         }
 
         String st1 = getResources().getString(R.string.call_duration);
@@ -200,13 +221,34 @@ public class CallActivity extends FragmentActivity {
         // 设置消息body
         message.addBody(txtBody);
         message.setMsgId(msgid);
-        if(!isInComingCall){
-            // 保存
-            EMChatManager.getInstance().saveMessage(message, false);
-        }
+
+        // 保存
+        EMChatManager.getInstance().saveMessage(message, false);
+
     }
 
     enum CallingState {
         CANCED, NORMAL, REFUESD, BEREFUESD, UNANSWERED, OFFLINE, NORESPONSE, BUSY
     }
+
+    /**
+     * 获取用户信息
+     * @param context
+     * @param userId
+     * @param netRequestListener
+     */
+    protected void requestUserTask(final Context context,String userId,NetRequestListener netRequestListener){
+        HashMap<String,String> bizMap = new HashMap<>();
+        bizMap.put("salesid",CacheUtil.getInstance().getUserId());
+        bizMap.put("token",CacheUtil.getInstance().getToken());
+        bizMap.put("find_userid",userId);
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getUserInfoUrl());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(netRequestListener);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+    }
+
 }
