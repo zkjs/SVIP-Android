@@ -159,15 +159,11 @@ public class OauthLoginActivity extends Activity{
 
         thirdBundleData = getIntent().getExtras();
 
-//        Intent intent = new Intent(OauthLoginActivity.this, MineActivity.class);
-//        intent.putExtra("from_third", true);
-//        intent.putExtras(thirdBundleData);
-//        startActivity(intent);
-//        finish();
-
         initView();
         initData();
         initListener();
+
+
     }
 
     private void initView() {

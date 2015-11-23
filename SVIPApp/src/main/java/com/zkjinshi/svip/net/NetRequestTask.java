@@ -136,6 +136,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
                 }
             } else {
                 this.requestListener.onNetworkRequestError(errorCode, errorLog.toString());
+                cancelTask();
             }
         }
     }
@@ -143,6 +144,13 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
     private void onExceptionThrown(Exception e, String message) {
         e.printStackTrace();
         errorLog.append(message + "\r\n");
+    }
+
+    public void cancelTask(){
+        if(getStatus() != AsyncTask.Status.FINISHED){
+            cancel(true);
+        }
+        onCancelled();
     }
 
     @Override

@@ -34,14 +34,16 @@ import java.util.regex.Pattern;
 
 
 import com.google.gson.Gson;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.bean.SocializeEntity;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.controller.listener.SocializeListeners;
-import com.umeng.socialize.exception.SocializeException;
-import com.umeng.socialize.sso.UMQQSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
+//import com.umeng.socialize.bean.SHARE_MEDIA;
+//import com.umeng.socialize.bean.SocializeEntity;
+//import com.umeng.socialize.controller.UMServiceFactory;
+//import com.umeng.socialize.controller.UMSocialService;
+//import com.umeng.socialize.controller.listener.SocializeListeners;
+//import com.umeng.socialize.exception.SocializeException;
+//import com.umeng.socialize.sso.UMQQSsoHandler;
+//import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
@@ -108,7 +110,7 @@ public class LoginActivity extends Activity{
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;
 
-    private Bundle thirdBundleData = null;   //从第三方或得的用户数据
+    public Bundle thirdBundleData = null;   //从第三方或得的用户数据
 
 
 
@@ -194,12 +196,20 @@ public class LoginActivity extends Activity{
         initListener();
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if(null != smsReceiver){
             unregisterReceiver(smsReceiver);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WXLoginController.getInstance().callback();
     }
 
     private void initView() {
@@ -219,6 +229,7 @@ public class LoginActivity extends Activity{
     }
 
     private void initData() {
+        WXLoginController.getInstance().init(this);
         LoginController.getInstance().init(this);
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.provider.Telephony.SMS_RECEIVED");
@@ -364,179 +375,183 @@ public class LoginActivity extends Activity{
         });
     }
 
-    public void logoutWithWeixin(){
-        Log.d("TestData", "logoutWithWeixin-------");
-        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");       ;
-        mController.deleteOauth(LoginActivity.this, SHARE_MEDIA.WEIXIN,
-                new SocializeListeners.SocializeClientListener() {
-                    @Override
-                    public void onStart() {
-                    }
+//    public void logoutWithWeixin(){
+//        Log.d("TestData", "logoutWithWeixin-------");
+//        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");       ;
+//        mController.deleteOauth(LoginActivity.this, SHARE_MEDIA.WEIXIN,
+//                new SocializeListeners.SocializeClientListener() {
+//                    @Override
+//                    public void onStart() {
+//                    }
+//
+//                    @Override
+//                    public void onComplete(int status, SocializeEntity entity) {
+//                        if (status == 200) {
+//                            Toast.makeText(LoginActivity.this, "删除成功.",
+//                                    Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(LoginActivity.this, "删除失败",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
 
-                    @Override
-                    public void onComplete(int status, SocializeEntity entity) {
-                        if (status == 200) {
-                            Toast.makeText(LoginActivity.this, "删除成功.",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "删除失败",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
+//    public void loginWithWeixin(){
+//       final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
+//        // 添加微信平台
+//        UMWXHandler wxHandler = new UMWXHandler(LoginActivity.this,Constants.WX_APP_ID,Constants.WX_APP_SECRE);
+//        wxHandler.addToSocialSDK();
+//
+//        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMAuthListener() {
+//            @Override
+//            public void onStart(SHARE_MEDIA platform) {
+//                //Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onError(SocializeException e, SHARE_MEDIA platform) {
+//                // Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onComplete(Bundle value, SHARE_MEDIA platform) {
+//                //Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
+//
+//                //获取相关授权信息
+//                mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMDataListener() {
+//                    @Override
+//                    public void onStart() {
+//                        // Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete(int status, Map<String, Object> info) {
+//                        if (status == 200 && info != null) {
+//
+//                            thirdBundleData = new Bundle();
+//                            //StringBuilder sb = new StringBuilder();
+//                            Set<String> keys = info.keySet();
+//                            for (String key : keys) {
+//                                //sb.append(key + "=" + info.get(key).toString() + "\r\n");
+//                                thirdBundleData.putString(key, info.get(key).toString());
+//                            }
+//                            LogUtil.getInstance().info(LogLevel.DEBUG, thirdBundleData.toString());
+//                            getUser(thirdBundleData.getString("openid"));
+//
+//                        } else {
+//
+//                        }
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancel(SHARE_MEDIA platform) {
+//                //Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
+
+//    public void loginWithWeibo(){
+//        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
+//        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.SINA, new SocializeListeners.UMAuthListener() {
+//            @Override
+//            public void onError(SocializeException e, SHARE_MEDIA platform) {
+//            }
+//
+//            @Override
+//            public void onComplete(Bundle value, SHARE_MEDIA platform) {
+//                if (value != null && !TextUtils.isEmpty(value.getString("uid"))) {
+//                    Toast.makeText(LoginActivity.this, "授权成功.", Toast.LENGTH_SHORT).show();
+//                    mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, new SocializeListeners.UMDataListener() {
+//                        @Override
+//                        public void onStart() {
+//                            Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onComplete(int status, Map<String, Object> info) {
+//                            if (status == 200 && info != null) {
+//                                StringBuilder sb = new StringBuilder();
+//                                Set<String> keys = info.keySet();
+//                                for (String key : keys) {
+//                                    sb.append(key + "=" + info.get(key).toString() + "\r\n");
+//                                }
+//                                // Log.d("TestData", sb.toString());
+//                            } else {
+//                                // Log.d("TestData", "发生错误：" + status);
+//                            }
+//                        }
+//                    });
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "授权失败", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancel(SHARE_MEDIA platform) {
+//            }
+//
+//            @Override
+//            public void onStart(SHARE_MEDIA platform) {
+//            }
+//        });
+//    }
+
+//    public void loginWithQQ(){
+//        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
+//        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(LoginActivity.this, Constants.QQ_APP_ID,
+//               Constants.QQ_APP_KEY);
+//        qqSsoHandler.addToSocialSDK();
+//
+//        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.QQ, new SocializeListeners.UMAuthListener() {
+//            @Override
+//            public void onStart(SHARE_MEDIA platform) {
+//                Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onError(SocializeException e, SHARE_MEDIA platform) {
+//                Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onComplete(Bundle value, SHARE_MEDIA platform) {
+//                Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
+//                //获取相关授权信息
+//                mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, new SocializeListeners.UMDataListener() {
+//                    @Override
+//                    public void onStart() {
+//                        Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onComplete(int status, Map<String, Object> info) {
+//                        if (status == 200 && info != null) {
+//                            StringBuilder sb = new StringBuilder();
+//                            Set<String> keys = info.keySet();
+//                            for (String key : keys) {
+//                                sb.append(key + "=" + info.get(key).toString() + "\r\n");
+//                            }
+//                            //Log.d("TestData", sb.toString());
+//                        } else {
+//                            // Log.d("TestData", "发生错误：" + status);
+//                        }
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancel(SHARE_MEDIA platform) {
+//                Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     public void loginWithWeixin(){
-       final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
-        // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(LoginActivity.this,Constants.WX_APP_ID,Constants.WX_APP_SECRE);
-        wxHandler.addToSocialSDK();
-
-        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMAuthListener() {
-            @Override
-            public void onStart(SHARE_MEDIA platform) {
-                //Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(SocializeException e, SHARE_MEDIA platform) {
-                // Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                //Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
-
-                //获取相关授权信息
-                mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, new SocializeListeners.UMDataListener() {
-                    @Override
-                    public void onStart() {
-                        // Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete(int status, Map<String, Object> info) {
-                        if (status == 200 && info != null) {
-
-                            thirdBundleData = new Bundle();
-                            //StringBuilder sb = new StringBuilder();
-                            Set<String> keys = info.keySet();
-                            for (String key : keys) {
-                                //sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                                thirdBundleData.putString(key, info.get(key).toString());
-                            }
-                            LogUtil.getInstance().info(LogLevel.DEBUG, thirdBundleData.toString());
-                            getUser(thirdBundleData.getString("openid"));
-
-                        } else {
-
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA platform) {
-                //Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    public void loginWithWeibo(){
-        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
-        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.SINA, new SocializeListeners.UMAuthListener() {
-            @Override
-            public void onError(SocializeException e, SHARE_MEDIA platform) {
-            }
-
-            @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                if (value != null && !TextUtils.isEmpty(value.getString("uid"))) {
-                    Toast.makeText(LoginActivity.this, "授权成功.", Toast.LENGTH_SHORT).show();
-                    mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.SINA, new SocializeListeners.UMDataListener() {
-                        @Override
-                        public void onStart() {
-                            Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onComplete(int status, Map<String, Object> info) {
-                            if (status == 200 && info != null) {
-                                StringBuilder sb = new StringBuilder();
-                                Set<String> keys = info.keySet();
-                                for (String key : keys) {
-                                    sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                                }
-                                // Log.d("TestData", sb.toString());
-                            } else {
-                                // Log.d("TestData", "发生错误：" + status);
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(LoginActivity.this, "授权失败", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA platform) {
-            }
-
-            @Override
-            public void onStart(SHARE_MEDIA platform) {
-            }
-        });
-    }
-
-    public void loginWithQQ(){
-        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(LoginActivity.this, Constants.QQ_APP_ID,
-               Constants.QQ_APP_KEY);
-        qqSsoHandler.addToSocialSDK();
-
-        mController.doOauthVerify(LoginActivity.this, SHARE_MEDIA.QQ, new SocializeListeners.UMAuthListener() {
-            @Override
-            public void onStart(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(SocializeException e, SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onComplete(Bundle value, SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
-                //获取相关授权信息
-                mController.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, new SocializeListeners.UMDataListener() {
-                    @Override
-                    public void onStart() {
-                        Toast.makeText(LoginActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete(int status, Map<String, Object> info) {
-                        if (status == 200 && info != null) {
-                            StringBuilder sb = new StringBuilder();
-                            Set<String> keys = info.keySet();
-                            for (String key : keys) {
-                                sb.append(key + "=" + info.get(key).toString() + "\r\n");
-                            }
-                            //Log.d("TestData", sb.toString());
-                        } else {
-                            // Log.d("TestData", "发生错误：" + status);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA platform) {
-                Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
-            }
-        });
+        WXLoginController.getInstance().WXLogin();
     }
 
     /**
