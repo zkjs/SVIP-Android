@@ -71,11 +71,6 @@ public class OrderBookingActivity extends Activity {
 
     private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
-    private String mUserID;
-    private String mUserPhone;
-    private String mUserName;
-    private String mUserRealName;
-
     private ItemTitleView mTitle;
     private TextView mRoomType;
     private TextView mTvArriveDate;
@@ -88,7 +83,6 @@ public class OrderBookingActivity extends Activity {
     private LinearLayout mLltYuan;
     private RelativeLayout mrltRoomImg;
 
-    private ItemUserSettingView mIusvRoomPerson;
     private ItemUserSettingView mIusvRoomNumber;
 
     private SimpleDateFormat mSimpleFormat;
@@ -114,8 +108,6 @@ public class OrderBookingActivity extends Activity {
 
     public static final int GOOD_REQUEST_CODE = 6;
     public static final int PEOPLE_REQUEST_CODE = 7;
-//    public static final int TICKET_REQUEST_CODE = 8;
-//    public static final int REMARK_REQUEST_CODE = 9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,29 +138,11 @@ public class OrderBookingActivity extends Activity {
         mIusvRoomNumber = (ItemUserSettingView) findViewById(R.id.aod_room_number);
         mIvRoomImg = (ImageView) findViewById(R.id.iv_room_img);
         mrltRoomImg = (RelativeLayout) findViewById(R.id.rl_order_top);
-
-        mIusvRoomPerson = (ItemUserSettingView) findViewById(R.id.aod_customer1);
-
     }
 
     private void initData() {
 
-        mUserID = CacheUtil.getInstance().getUserId();
-        mUserPhone = CacheUtil.getInstance().getUserPhone();
-        mUserName = CacheUtil.getInstance().getUserName();
-        mUserRealName = CacheUtil.getInstance().getUserRealName();
-
         mUserList = new ArrayList<>();
-        if (!TextUtils.isEmpty(mUserRealName)) {
-            mIusvRoomPerson.setTextContent2(mUserRealName);
-            OrderUsersResponse orderUser = new OrderUsersResponse();
-            orderUser.setRealname(mUserRealName);
-            orderUser.setPhone(mUserPhone);
-            mUserList.add(orderUser);
-        } else {
-            mIusvRoomPerson.setTextContent2(getString(R.string.please_input_real_name));
-        }
-
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
 
@@ -348,20 +322,6 @@ public class OrderBookingActivity extends Activity {
             }
         });
 
-        if (TextUtils.isEmpty(mUserRealName)) {
-            mIusvRoomPerson.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(OrderBookingActivity.this, ChoosePeopleActivity.class);
-                    int userCheckInID = CacheUtil.getInstance().getUserCheckInId();
-                    intent.putExtra("index", userCheckInID);
-                    startActivityForResult(intent, PEOPLE_REQUEST_CODE);
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                }
-            });
-        }
-
         mIusvRoomNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -399,13 +359,6 @@ public class OrderBookingActivity extends Activity {
         mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //判断入住人姓名（用户真实姓名）是否输入
-                if(TextUtils.isEmpty(mUserRealName)){
-                    DialogUtil.getInstance().showToast(OrderBookingActivity.this, getString(
-                                                            R.string.please_input_real_name));
-                    return ;
-                }
-
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
                     String shopId = orderDetailResponse.getRoom().getShopid();
@@ -508,24 +461,6 @@ public class OrderBookingActivity extends Activity {
                 if (null != data) {
                     lastGoodInfoVo = (GoodInfoVo) data.getSerializableExtra("GoodInfoVo");
                     setOrderRoomType(lastGoodInfoVo);
-                }
-            } else if (PEOPLE_REQUEST_CODE == requestCode) {
-                if (null != data) {
-                    OrderUsersResponse orderUsersResponse = (OrderUsersResponse) data.getSerializableExtra("selectPeople");
-                    int   id            = orderUsersResponse.getId();
-                    String userRealName = orderUsersResponse.getRealname();
-                    if (null != orderUsersResponse) {
-                        mUserList.add(orderUsersResponse);
-                        orderDetailResponse.setUsers(mUserList);
-                        mIusvRoomPerson.setTextContent2(userRealName);
-                        if (TextUtils.isEmpty(mUserRealName)) {
-                            CacheUtil.getInstance().setUserCheckInId(id);
-                            CacheUtil.getInstance().setUserRealName(userRealName);
-                            mUserRealName = userRealName;
-                        }
-                    } else {
-                        DialogUtil.getInstance().showToast(OrderBookingActivity.this, "添加入住人失败");
-                    }
                 }
             }
         }

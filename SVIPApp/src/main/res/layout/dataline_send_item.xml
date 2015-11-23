@@ -61,7 +61,7 @@
                     android:layout_height="20.0dip"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:indeterminateDrawable="@drawable/common_loading3"
+                    android:indeterminateDrawable="@drawable/common_loading_bar"
                     android:visibility="gone" />
 
                 <TextView
