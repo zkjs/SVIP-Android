@@ -108,8 +108,13 @@ public class VoiceCallActivity extends CallActivity implements View.OnClickListe
         // 语音电话是否为接收的
         isInComingCall = getIntent().getBooleanExtra("isComingCall", false);
 
-        // 设置通话人
-        nickTextView.setText(username);
+        if(!isInComingCall){
+            // 设置通话人
+            nickTextView.setText(toName);
+        }else {
+
+        }
+
         if (!isInComingCall) {// 拨打电话
             soundPool = new SoundPool(1, AudioManager.STREAM_RING, 0);
             outgoing = soundPool.load(this, R.raw.outgoing, 1);

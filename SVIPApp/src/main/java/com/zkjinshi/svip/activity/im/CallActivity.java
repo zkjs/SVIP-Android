@@ -12,6 +12,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.TxtExtType;
 
@@ -32,12 +33,19 @@ public class CallActivity extends FragmentActivity {
     protected Ringtone ringtone;
     protected int outgoing;
     protected EMCallStateChangeListener callStateListener;
-
+    protected String toName;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        initData();
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    private void initData(){
+        if(null != getIntent() && null != getIntent().getStringExtra("toName")){
+            toName = getIntent().getStringExtra("toName");
+        }
     }
 
     @Override
@@ -124,9 +132,13 @@ public class CallActivity extends FragmentActivity {
         if (!isInComingCall) { // 打出去的通话
             message = EMMessage.createSendMessage(EMMessage.Type.TXT);
             message.setReceipt(username);
+            message.setAttribute("toName", toName);
+            message.setAttribute("fromName",CacheUtil.getInstance().getUserName());
         } else {
             message = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
             message.setFrom(username);
+            message.setAttribute("toName", CacheUtil.getInstance().getUserName());
+            message.setAttribute("fromName", "");
         }
 
         String st1 = getResources().getString(R.string.call_duration);
