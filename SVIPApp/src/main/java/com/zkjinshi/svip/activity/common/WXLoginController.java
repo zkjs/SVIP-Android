@@ -3,14 +3,20 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 
+import com.google.gson.Gson;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.svip.response.WXUserInfoResponse;
 import com.zkjinshi.svip.utils.Constants;
 
 import com.zkjinshi.svip.wxapi.WXEntryActivity;
@@ -72,7 +78,7 @@ public class WXLoginController {
     }
 
     public void callback(){
-        if (WXEntryActivity.resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
+        if (WXEntryActivity.resp!= null && WXEntryActivity.resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
             // code返回
             weixinCode = ((SendAuth.Resp)WXEntryActivity.resp).code;
 			/*
@@ -98,9 +104,9 @@ public class WXLoginController {
         WXapi.registerApp( Constants.WX_APP_ID);
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
-        req.state = "wechat_sdk_demo";
+        req.state = "wechat_sdk_svip";
         WXapi.sendReq(req);
-
+        DialogUtil.getInstance().showProgressDialog(activity);
     }
 
     /**
@@ -220,24 +226,24 @@ public class WXLoginController {
                 }
                 is.close();
                 String josn = sb.toString();
-                JSONObject json1 = new JSONObject(josn);
-                openid = (String) json1.get("openid");
-                nickname = (String) json1.get("nickname");
-                headimgurl=(String)json1.get("headimgurl");
+                WXUserInfoResponse wxUserInfoResponse = new Gson().fromJson(josn,WXUserInfoResponse.class);
 
                 thirdBundleData = new Bundle();
-                thirdBundleData.putString("openid",openid);
-                thirdBundleData.putString("nickname",nickname);
-                thirdBundleData.putString("headimgurl",headimgurl);
-                thirdBundleData.putString("sex",(String)json1.get("sex"));
+                thirdBundleData.putString("openid",wxUserInfoResponse.getOpenid());
+                thirdBundleData.putString("nickname",wxUserInfoResponse.getNickname());
+                thirdBundleData.putString("headimgurl",wxUserInfoResponse.getHeadimgurl());
+                thirdBundleData.putString("sex", wxUserInfoResponse.getSex());
+
+               // LogUtil.getInstance().info(LogLevel.INFO, "thirdBundleData:" + thirdBundleData.toString());
 
                 if(activity instanceof LoginActivity){
-
-                    ((LoginActivity)activity).getUser(openid);
                     ((LoginActivity)activity).thirdBundleData = thirdBundleData;
+                    ((LoginActivity) activity).handler.sendEmptyMessage(LoginActivity.WX_REQUEST_LOGIN);
                 }
 
+
             } else {
+
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -245,7 +251,7 @@ public class WXLoginController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

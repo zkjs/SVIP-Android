@@ -86,6 +86,8 @@ public class LoginActivity extends Activity{
     private final static int SEND_SMS_VERIFY    = 12; //发送短信验证码
     private final static int SEND_SMS_RECEIVE    = 13; //获取短信验证码
 
+    public final static int WX_REQUEST_LOGIN    = 14; //获取微信个人信息后请求登录
+
     private int       mSmsVerifyStatus = SMS_UNSEND;//初始状态
     private int       mSmsCountSeconds = 60;//短信倒计时
     private Timer     mTimer;//计数器
@@ -114,11 +116,14 @@ public class LoginActivity extends Activity{
 
 
 
-    private Handler handler = new Handler(){
+     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch(msg.what){
+                case WX_REQUEST_LOGIN:
+                    getUser(thirdBundleData.getString("openid"));
+                    break;
                 case  SEND_SMS_VERIFY:
                     mResultMap = (Map<String, Object>) msg.obj;
                     String statusCode = (String) mResultMap.get("statusCode");
@@ -209,6 +214,7 @@ public class LoginActivity extends Activity{
     @Override
     protected void onResume() {
         super.onResume();
+        LogUtil.getInstance().info(LogLevel.INFO,"protected void onResume()");
         WXLoginController.getInstance().callback();
     }
 
@@ -657,6 +663,7 @@ public class LoginActivity extends Activity{
      */
     public void getUser(String idValue){
         String url = Constants.POST_GET_USER_URL+"id="+idValue;
+        LogUtil.getInstance().info(LogLevel.INFO, "url:" +url);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
@@ -677,6 +684,7 @@ public class LoginActivity extends Activity{
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.INFO, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
                     GetUserResponse getUserResponse = gson.fromJson(result.rawResult,GetUserResponse.class);
@@ -724,6 +732,7 @@ public class LoginActivity extends Activity{
         });
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
+        LogUtil.getInstance().info(LogLevel.INFO,  " netRequestTask.execute()");
     }
 
     private String strContent;
