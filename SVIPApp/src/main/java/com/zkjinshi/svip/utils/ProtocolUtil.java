@@ -338,4 +338,11 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"user/search";
     }
 
+    /**
+     * 退出appHttp连接
+     * @return
+     */
+    public static String getLogoutUrl(String userID) {
+        return ConfigUtil.getInst().getHttpDomain()+"user/logout?userid=" + userID;
+    }
 }

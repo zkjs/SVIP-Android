@@ -93,6 +93,16 @@
             android:id="@+id/leftmenu_footprint_tv"
             />
 
+        <TextView
+            android:id="@+id/tv_exit"
+            android:layout_width="match_parent"
+            style="@style/LeftMenuText"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:text="@string/exit"
+            android:drawableLeft="@mipmap/ic_guanji"
+            />
+
     </LinearLayout>
 
 </LinearLayout>
