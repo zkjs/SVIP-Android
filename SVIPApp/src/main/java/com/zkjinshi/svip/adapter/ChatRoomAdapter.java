@@ -123,7 +123,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
                     content = "["+fromName+"]";
                 }else {
-                    if(!TextUtils.isEmpty(toName)){
+                    if(!TextUtils.isEmpty(toName)  && !toName.equals(CacheUtil.getInstance().getUserName())){
                         content = "["+toName+"]";
                     }
                 }

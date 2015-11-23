@@ -6,6 +6,7 @@ import android.media.Ringtone;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 
 import com.easemob.chat.EMCallStateChangeListener;
 import com.easemob.chat.EMChatManager;
@@ -34,6 +35,8 @@ public class CallActivity extends FragmentActivity {
     protected int outgoing;
     protected EMCallStateChangeListener callStateListener;
     protected String toName;
+    protected String shopId;
+    protected String shopName;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -45,6 +48,12 @@ public class CallActivity extends FragmentActivity {
     private void initData(){
         if(null != getIntent() && null != getIntent().getStringExtra("toName")){
             toName = getIntent().getStringExtra("toName");
+        }
+        if(null != getIntent() && null != getIntent().getStringExtra("shopId")){
+            shopId = getIntent().getStringExtra("shopId");
+        }
+        if(null != getIntent() && null != getIntent().getStringExtra("shopName")){
+            shopName = getIntent().getStringExtra("shopName");
         }
     }
 
@@ -132,8 +141,13 @@ public class CallActivity extends FragmentActivity {
         if (!isInComingCall) { // 打出去的通话
             message = EMMessage.createSendMessage(EMMessage.Type.TXT);
             message.setReceipt(username);
-            message.setAttribute("toName", toName);
-            message.setAttribute("fromName",CacheUtil.getInstance().getUserName());
+            message.setAttribute("toName", "");
+            if(!TextUtils.isEmpty(toName)){
+                message.setAttribute("toName", toName);
+            }
+            message.setAttribute("fromName", CacheUtil.getInstance().getUserName());
+            message.setAttribute("shopId",shopId);
+            message.setAttribute("shopName",shopName);
         } else {
             message = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
             message.setFrom(username);
@@ -186,9 +200,10 @@ public class CallActivity extends FragmentActivity {
         // 设置消息body
         message.addBody(txtBody);
         message.setMsgId(msgid);
-
-        // 保存
-        EMChatManager.getInstance().saveMessage(message, false);
+        if(!isInComingCall){
+            // 保存
+            EMChatManager.getInstance().saveMessage(message, false);
+        }
     }
 
     enum CallingState {
