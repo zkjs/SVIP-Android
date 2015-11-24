@@ -100,7 +100,6 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                     0, 0);
             try {
 
-
                 mNumberOfMenu = typedArray.getInt(R.styleable.GooeyMenu_no_of_menu, DEFUALT_MENU_NO);
                 mFabButtonRadius = (int) typedArray.getDimension(R.styleable.GooeyMenu_fab_radius, getResources().getDimension(R.dimen.big_circle_radius));
                 mMenuButtonRadius = (int) typedArray.getDimension(R.styleable.GooeyMenu_menu_radius, getResources().getDimension(R.dimen.small_circle_radius));

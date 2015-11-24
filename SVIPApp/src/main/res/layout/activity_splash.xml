@@ -36,7 +36,7 @@
                 android:scaleType="center"
                 android:visibility="visible"
                 android:layout_centerInParent="true"
-                android:src="@drawable/img_logo_zhanwei"/>
+                android:src="@mipmap/img_logo_zhanwei"/>
 
             <ImageView
                 android:id="@+id/guiji01"

@@ -335,7 +335,4 @@
         app:no_of_menu="3"
         app:menu_drawable="@array/drawable_array"/>
 
-
-
-
 </RelativeLayout>

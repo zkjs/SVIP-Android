@@ -12,6 +12,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.OrderUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
 import java.text.ParseException;
@@ -111,29 +112,43 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
                 case BookOrder.ORDER_UNCONFIRMED:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_unconfirmed));
                    holder.shopBookIcon.setVisibility(View.VISIBLE);
+                    checkTimeOut(holder,itemOrder);
                 break;
                 case BookOrder.ORDER_CANCELLED:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_cancelled));
+                    holder.shopBookIcon.setVisibility(View.GONE);
                 break;
                 case BookOrder.ORDER_CONFIRMED:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_confirmed));
+                    holder.shopBookIcon.setVisibility(View.GONE);
+                    checkTimeOut(holder,itemOrder);
                 break;
                 case BookOrder.ORDER_FINISHED:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_finished));
+                    holder.shopBookIcon.setVisibility(View.GONE);
                 break;
                 case BookOrder.ORDER_USING:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_using));
+                    holder.shopBookIcon.setVisibility(View.GONE);
                 break;
                 case BookOrder.ORDER_DELETED:
                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.trade_deleted));
+                    holder.shopBookIcon.setVisibility(View.GONE);
                 break;
            }
-        };
+
+        }
 
         holder.shopName.setText(itemOrder.getFullName() + "");
         float payment = stayDays * Float.parseFloat(itemOrder.getRoomRate());
         holder.costAmount.setText(payment+"元");
         return convertView;
+    }
+
+    public void checkTimeOut(ViewHolder viewHolder, BookOrder itemOrder){
+        if( OrderUtil.isOrderTimeOut(itemOrder.getArrivalDate())){
+            viewHolder.orderStatus.setText("订单已过期");
+        }
     }
 
     static class ViewHolder{
