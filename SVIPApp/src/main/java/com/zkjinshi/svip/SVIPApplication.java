@@ -24,7 +24,6 @@ import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
 
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.receiver.ECallReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -99,7 +98,6 @@ public class SVIPApplication extends Application {
         }
         //注册通话广播接收者
         registerReceiver(callReceiver, callFilter);
-        EasemobIMHelper.getInstance().initConnectionListener();
     }
 
 

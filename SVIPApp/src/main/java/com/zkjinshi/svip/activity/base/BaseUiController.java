@@ -7,8 +7,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 
-import java.io.File;
-
 /**
  * 开发者：JimmyZhang
  * 日期：2015/7/24

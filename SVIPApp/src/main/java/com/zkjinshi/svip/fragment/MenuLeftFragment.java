@@ -166,17 +166,17 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
             //退出
             case R.id.tv_exit:
                 final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(mActivity);
-                customerBuilder.setTitle("退出");
-                customerBuilder.setMessage("确定退出当前应用？");
+                customerBuilder.setTitle(getString(R.string.exit));
+                customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
                 customerBuilder.setGravity(Gravity.CENTER);
-                customerBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
 
-                customerBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //环信接口退出
