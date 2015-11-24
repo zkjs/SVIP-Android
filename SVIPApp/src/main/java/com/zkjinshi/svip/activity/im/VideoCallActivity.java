@@ -125,13 +125,8 @@ public class VideoCallActivity extends CallActivity implements View.OnClickListe
         isInComingCall = getIntent().getBooleanExtra("isComingCall", false);
         username = getIntent().getStringExtra("username");
 
-        if(!isInComingCall){
-            // 设置通话人
-            nickTextView.setText(toName);
-        }else {
-
-        }
-
+        // 设置通话人
+        nickTextView.setText(username);
 
         // 显示本地图像的surfaceview
         localSurface = (SurfaceView) findViewById(R.id.local_surface);

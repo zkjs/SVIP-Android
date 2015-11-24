@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/img_nodate"/>
+            android:src="@drawable/img_nodate"/>
         <TextView
             android:id="@+id/empty_tips"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/img_nodate_bg"
+        android:src="@drawable/img_nodate_bg"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 

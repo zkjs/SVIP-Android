@@ -31,7 +31,7 @@
                         android:id="@+id/menu_ibtn"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@mipmap/ic_caidan"
+                        android:src="@drawable/ic_caidan"
                         android:background="@android:color/transparent" />
                     <TextView
                         android:layout_marginLeft="10dp"
@@ -43,7 +43,7 @@
                         android:textSize="14sp"
                         android:gravity="center"
                         android:drawablePadding="10dp"
-                        android:drawableRight="@mipmap/ic_down"/>
+                        android:drawableRight="@drawable/ic_down"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,7 +163,7 @@
                         android:textColor="#1c74d9"
                         android:textSize="14sp"
                         android:drawablePadding="10dp"
-                        android:drawableRight="@mipmap/ic_right_blue"/>
+                        android:drawableRight="@drawable/ic_right_blue"/>
 
                 </LinearLayout>
                 <View
@@ -334,5 +334,8 @@
         app:menu_radius="@dimen/small_circle_radius"
         app:no_of_menu="3"
         app:menu_drawable="@array/drawable_array"/>
+
+
+
 
 </RelativeLayout>

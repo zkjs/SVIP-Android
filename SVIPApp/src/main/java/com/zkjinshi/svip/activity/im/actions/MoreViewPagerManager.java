@@ -64,20 +64,14 @@ public class MoreViewPagerManager extends Handler {
 	private String picName;
 
 	private String userId;
-	private String toName;
-	private String shopId;
-	private String shopName;
 
 	public MoreViewPagerManager(Context context, LinearLayout moreLinearLayout) {
 		this.context = context;
 		this.moreLinearLayout = moreLinearLayout;
 	}
 
-	public void init(String userId,String toName,String shopId,String shopName) {
+	public void init(String userId) {
 		this.userId = userId;
-		this.toName = toName;
-		this.shopId = shopId;
-		this.shopName = shopName;
 		initView((Activity) context);
 		initMorePage();
 	}
@@ -159,8 +153,8 @@ public class MoreViewPagerManager extends Handler {
 						if (!EMChatManager.getInstance().isConnected()) {
 							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
 						} else {
-							context.startActivity(new Intent(context, VoiceCallActivity.class).putExtra("username", userId).putExtra("toName", toName)
-									.putExtra("shopId", shopId).putExtra("shopName", shopName).putExtra("isComingCall", false));
+							context.startActivity(new Intent(context, VoiceCallActivity.class).putExtra("username", userId)
+									.putExtra("isComingCall", false));
 						}
 					}
 					break;
@@ -168,8 +162,8 @@ public class MoreViewPagerManager extends Handler {
 						if (!EMChatManager.getInstance().isConnected())
 							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
 						else {
-							context.startActivity(new Intent(context, VideoCallActivity.class).putExtra("username", userId).putExtra("toName",toName)
-									.putExtra("shopId",shopId).putExtra("shopName",shopName).putExtra("isComingCall", false));
+							context.startActivity(new Intent(context, VideoCallActivity.class).putExtra("username", userId)
+									.putExtra("isComingCall", false));
 						}
 					}
 					break;

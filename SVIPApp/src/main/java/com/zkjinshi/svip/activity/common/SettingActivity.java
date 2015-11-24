@@ -2,7 +2,6 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,7 +10,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -77,15 +75,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-
-
         initView();//初始化view
         initData();//初始化data加入
         initListener();
-    }
-
-    protected  void onResume(){
-        super.onResume();
     }
 
     private void initView() {

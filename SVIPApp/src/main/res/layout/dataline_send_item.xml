@@ -61,7 +61,7 @@
                     android:layout_height="20.0dip"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:indeterminateDrawable="@drawable/common_loading_bar"
+                    android:indeterminateDrawable="@drawable/common_loading3"
                     android:visibility="gone" />
 
                 <TextView
@@ -121,7 +121,7 @@
                         android:clickable="false"
                         android:gravity="center"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/skin_aio_ptt_record_user_nor"
+                        android:src="@drawable/skin_aio_ptt_record_user_nor"
                         android:visibility="gone" />
 
                     <include
@@ -141,7 +141,7 @@
             android:layout_height="40.0dip"
             android:layout_marginTop="5.0dip"
             android:scaleType="fitXY"
-            android:src="@mipmap/list_img_selfish" />
+            android:src="@drawable/list_img_selfish" />
 
         <CheckBox
             android:id="@+id/cb_select"

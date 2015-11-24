@@ -36,13 +36,13 @@
                 android:scaleType="center"
                 android:visibility="visible"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/img_logo_zhanwei"/>
+                android:src="@drawable/img_logo_zhanwei"/>
 
             <ImageView
                 android:id="@+id/guiji01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_guiji01"/>
+                android:src="@drawable/ic_guiji01"/>
 
             <ImageView
                 android:id="@+id/guiji02"
@@ -51,7 +51,7 @@
                 android:visibility="visible"
                 android:layout_marginTop="2dp"
                 android:layout_marginLeft="10dp"
-                android:src="@mipmap/ic_guiji02"/>
+                android:src="@drawable/ic_guiji02"/>
 
             <ImageView
                 android:id="@+id/guiji03"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/icguiji03"/>
+                android:src="@drawable/icguiji03"/>
 
         </RelativeLayout>
 

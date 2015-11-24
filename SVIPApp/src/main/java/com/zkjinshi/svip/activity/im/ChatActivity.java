@@ -146,7 +146,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         facePagerManager.init();
         //初始化更多框
         moreViewPagerManager = new MoreViewPagerManager(this, moreLinearLayout);
-        moreViewPagerManager.init(userId,toName,shopId,shopName);
+        moreViewPagerManager.init(userId);
         //初始化录音管理器
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();

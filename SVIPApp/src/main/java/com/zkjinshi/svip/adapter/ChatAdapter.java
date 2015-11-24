@@ -669,10 +669,10 @@ public class ChatAdapter extends BaseAdapter {
             ImageView iv = (ImageView) msg.obj;
             switch (msg.what) {
                 case 0:// 别人
-                    iv.setImageResource(R.mipmap.skin_aio_ptt_record_friend_nor);
+                    iv.setImageResource(R.drawable.skin_aio_ptt_record_friend_nor);
                     break;
                 case 1:// 自己
-                    iv.setImageResource(R.mipmap.skin_aio_ptt_record_user_nor);
+                    iv.setImageResource(R.drawable.skin_aio_ptt_record_user_nor);
                     break;
                 default:
                     iv.invalidate();

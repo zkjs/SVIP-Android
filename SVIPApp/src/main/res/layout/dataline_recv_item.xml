@@ -25,7 +25,7 @@
             android:layout_height="40.0dip"
             android:layout_marginTop="5.0dip"
             android:scaleType="fitXY"
-            android:src="@mipmap/list_img_selfish" />
+            android:src="@drawable/list_img_selfish" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -93,7 +93,7 @@
                         android:clickable="false"
                         android:gravity="center"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/skin_aio_ptt_record_friend_nor"
+                        android:src="@drawable/skin_aio_ptt_record_friend_nor"
                         android:visibility="gone" />
 
                     <include
