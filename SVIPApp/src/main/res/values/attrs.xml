@@ -23,4 +23,9 @@
         <attr name="menu_drawable" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="CircleLoadingView">
+        <attr name="center_radius" format="dimension" />
+        <attr name="colorback" format="color"/>
+    </declare-styleable>
+
 </resources>

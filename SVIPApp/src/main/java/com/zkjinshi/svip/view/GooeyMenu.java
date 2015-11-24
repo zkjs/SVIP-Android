@@ -58,7 +58,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     private boolean gooeyMenuTouch;
     private Paint mCircleBorder;
     private List<Drawable> mDrawableArray;
-    private boolean isHideDrawable;
+
 
 
     public static final int[] STATE_ACTIVE =
@@ -68,7 +68,8 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                     android.R.attr.state_pressed};
 
     private GestureDetector detector;
-    private boolean isLongClick = false;
+    public boolean isLongClick = false;
+    public boolean isHideDrawable;
 
     public GooeyMenu(Context context) {
         super(context);
@@ -226,6 +227,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
         }
         hide();
 
+
     }
 
     @Override
@@ -318,7 +320,9 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
             case MotionEvent.ACTION_UP:
                 if(isLongClick){
+                    mGooeyMenuInterface.menuLongClickedUp();
                     isLongClick = false;
+                    isHideDrawable = false;
                     return false;
                 }
                 if (isGooeyMenuTouch(event)) {
@@ -364,9 +368,6 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
         mBezierAnimation.start();
         cancelAllAnimation();
         startHideAnimate();
-//        if(isMenuVisible){
-//            startHideAnimate();
-//        }
         isMenuVisible = false;
     }
 
@@ -428,9 +429,8 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     public void onLongPress(MotionEvent event) {
         if (isGooeyMenuTouch(event)) {
             isLongClick = true;
+            isHideDrawable = true;
             mGooeyMenuInterface.menuLongClicked();
-        }else{
-            isLongClick = false;
         }
 
     }
@@ -567,5 +567,6 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
         void menuItemClicked(int menuNumber);
 
         void menuLongClicked();
+        void menuLongClickedUp();
     }
 }

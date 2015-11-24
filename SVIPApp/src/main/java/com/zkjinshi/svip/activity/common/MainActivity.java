@@ -63,6 +63,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.GooeyMenu;
+import com.zkjinshi.svip.view.ListenerDialog;
 import com.zkjinshi.svip.view.zoomview.CityDialog;
 
 import java.text.SimpleDateFormat;
@@ -93,6 +94,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     private LinearLayout containerLlt;
     public TextView haveOrderTv,distanceTv;
     public TextView mTvActivate;
+
+    private ListenerDialog listenerDialog;
 
     public enum MainTextStatus {
         DEFAULT_NULL,
@@ -164,8 +167,17 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         if(mGooeyMenu.isMenuVisible){
             mGooeyMenu.hide();
         }
-        loadCleverServer(1);
+       if(!listenerDialog.isShowing()){
+           listenerDialog.show();
+       }
 
+    }
+
+    public void menuLongClickedUp(){
+        if(listenerDialog.isShowing()){
+            listenerDialog.cancel();
+        }
+        loadCleverServer(1);
     }
 
     //智能选择酒店
@@ -233,6 +245,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
 
     private void initView(){
+        listenerDialog = new ListenerDialog(this);
         initMenu();
         TextView nameTv = (TextView)findViewById(R.id.name_tv);
         nameTv.setText(CacheUtil.getInstance().getUserName());
@@ -661,6 +674,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
+        if(listenerDialog != null){
+            listenerDialog.stopAnimation();
+        }
+
     }
 
     /**

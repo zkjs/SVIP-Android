@@ -63,7 +63,7 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
-
+import com.zkjinshi.svip.wxapi.WXEntryActivity;
 
 
 /**
@@ -195,6 +195,7 @@ public class LoginActivity extends Activity{
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        WXEntryActivity.resp = null;
 
         initView();
         initData();
