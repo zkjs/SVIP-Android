@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
-import com.zkjinshi.base.config.ConfigUtil;
 
 import com.zkjinshi.svip.R;
 
@@ -156,6 +154,7 @@ public class LoginController {
                 // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
                 //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
                 EMessageListener.getInstance().registerEventListener();
+                EasemobIMHelper.getInstance().initConnectionListener();
                 ;
             }
 

@@ -2,6 +2,7 @@ package com.zkjinshi.svip.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
@@ -375,6 +376,17 @@ public class ChatAdapter extends BaseAdapter {
                     vh.cardLayout.setVisibility(View.GONE);
                 }else{//卡片类型消息
                     BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
+                    if (!isDelEnabled) {
+                        vh.contentLayout
+                                .setOnLongClickListener(new View.OnLongClickListener() {
+
+                                    @Override
+                                    public boolean onLongClick(View v) {
+                                        showChildQuickActionBar(v, isComMsg, position);
+                                        return true;
+                                    }
+                                });
+                    }
                     if (null != bookOrder) {
                         String roomType = bookOrder.getRoomType();
                         String arrivaDate = bookOrder.getArrivalDate();
@@ -692,32 +704,36 @@ public class ChatAdapter extends BaseAdapter {
                                          final boolean isComMsg, final int position) {
         QuickAction quickAction = new QuickAction(context,
                 QuickAction.HORIZONTAL);
-        EMMessage message = messageList.get(position);
+        EMMessage message = (EMMessage) view
+                .getTag();
+        int extType = 0;
         if(null != message){
             EMMessage.Type msgType = message.getType();
+            try {
+                extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
+            } catch (EaseMobException e) {
+                e.printStackTrace();
+            }
+            TextMessageBody txtBody = (TextMessageBody) message.getBody();
+            final String content = txtBody.getMessage();
             if (msgType.equals(EMMessage.Type.TXT)) {
-                quickAction.addActionItem(new ActionItem(0, "复制"));
-                // quickAction.addActionItem(new ActionItem(1, "删除"));
-                quickAction
-                        .setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+                if(TxtExtType.DEFAULT.getVlaue() == extType) {//普通文本消息
+                    quickAction.addActionItem(new ActionItem(0, "复制"));
+                    quickAction
+                            .setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
 
-                            @Override
-                            public void onItemClick(QuickAction source, int pos,
-                                                    int actionId) {
-                                MessageVo messageChatVo = (MessageVo) view
-                                        .getTag();
-                                switch (actionId) {
-                                    case 0:// 复制
-                                        ClipboardUtil.copy(
-                                                messageChatVo.getContent(), context);
-                                        break;
-                                    case 1:// 删除
-
-                                        break;
+                                @Override
+                                public void onItemClick(QuickAction source, int pos,
+                                                        int actionId) {
+                                    switch (actionId) {
+                                        case 0:// 复制
+                                            ClipboardUtil.copy(content, context);
+                                            break;
+                                    }
                                 }
-                            }
-                        });
-                quickAction.show(view);
+                            });
+                    quickAction.show(view);
+                }
             }
         }
     }

@@ -239,42 +239,6 @@ public class MessageListener extends Handler implements IMessageListener {
         LoginRequestManager.getInstance().init().sendLoginRequest(webSocketClient);
     }
 
-    /**
-     * 显示重复登录提示框
-     *
-     * @param context
-     */
-    private synchronized void showReLoginDialog(final Context context) {
-        Dialog dialog = null;
-        sdf = new SimpleDateFormat("HH:mm");
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
-        customBuilder.setTitle("下线通知");
-        customBuilder.setMessage("您的账号于" + sdf.format(new Date()) + "在另一台设备登录");
-        customBuilder.setGravity(Gravity.CENTER);
-        customBuilder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent(context, LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-        customBuilder.setPositiveButton("重新登录", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                WebSocketManager.getInstance().initClient();
-            }
-        });
-        dialog = customBuilder.create();
-        dialog.setCancelable(false);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        dialog.show();
-    }
-
     private synchronized void showBookHotelSuccDialog(final Context context, final OrderVo orderVo) {
         Dialog dialog = null;
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
@@ -342,7 +306,7 @@ public class MessageListener extends Handler implements IMessageListener {
                 break;
 
             case RELOGIN_MSG_FLAG:
-                showReLoginDialog(VIPContext.getInstance().getContext());
+                Log.i(TAG,"多设备通账号登录异常");
                 break;
 
             default:

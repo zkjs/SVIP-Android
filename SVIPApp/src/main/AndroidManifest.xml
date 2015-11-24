@@ -425,6 +425,7 @@
         <receiver android:name=".receiver.EMessageReceiver">
             <intent-filter>
                 <action android:name="com.zkjinshi.svip.ACTION_ORDER"/>
+                <action android:name="com.zkjinshi.svip.CONNECTION_CONFLICT"/>
             </intent-filter>
         </receiver>
 

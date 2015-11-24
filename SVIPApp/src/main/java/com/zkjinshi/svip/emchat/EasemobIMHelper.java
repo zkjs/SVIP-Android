@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.emchat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContactManager;
 import com.easemob.exceptions.EaseMobException;
 import com.easemob.util.NetUtils;
+import com.zkjinshi.svip.utils.VIPContext;
 
 import java.util.ArrayList;
 
@@ -103,7 +105,7 @@ public class EasemobIMHelper {
     /**
      * 网络重连监听
      */
-    public void reconnect(){
+    public void initConnectionListener(){
         EMChatManager.getInstance().addConnectionListener(new EMConnectionListener() {
             @Override
             public void onConnected() {
@@ -118,6 +120,9 @@ public class EasemobIMHelper {
                 } else if (error == EMError.CONNECTION_CONFLICT) {
                     // 显示帐号在其他设备登陆
                     Log.i(TAG, "环信重连异常-帐号在其他设备登陆");
+                    Intent intent = new Intent();
+                    intent.setAction("com.zkjinshi.svip.CONNECTION_CONFLICT");
+                    VIPContext.getInstance().getContext().sendBroadcast(intent);
                 } else {
                     if (NetUtils.hasNetwork(context)) {
                         //连接不到聊天服务器
