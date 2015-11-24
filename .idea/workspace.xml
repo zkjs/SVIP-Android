@@ -20,284 +20,65 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_bottom_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_bottom_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_middle_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_middle_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_single_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_single_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_top_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\actionsheet_top_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\aio_favorite.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\aio_fold.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\aio_speaker_phone_bg.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\aio_voice.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\btn_room_list_book_right_now_nor.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\btn_room_list_book_right_now_press.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\btn_white_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\btn_white_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\bubble_popup_bg.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\bubble_popup_bg_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\bubble_popup_bg_space.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\cm_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\cm_send_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\cm_send_btn_bg_normal.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\cm_send_btn_bg_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\common_loading.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\common_loading_bar.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\list_img_selfish.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\progress_medium_holo.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\scrollbar_handle_vertical.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_friend_bubble_nor.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_friend_bubble_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_input_bar_bg.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_ptt_record_friend_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_ptt_record_user_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_user_bubble_nor.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\skin_aio_user_bubble_pressed.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\drawable\voice_rcd_hint_bg.9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\bg_chat.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\common_loading_9.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_canyin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_clock.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_down.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_guiji01.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_guiji02.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_hotel_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_hotel_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_jiqiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_jiqiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_jiudian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_lianxiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_lianxiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_right.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_right_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_search_shouye.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_sousuo.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_star_shouye_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_star_shouye_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_tingchechang.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_tuijian_dianhua.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_tuijian_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_wifi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_xingcheng.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_xiuxian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\ic_yuanjiaojuxing.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\icguiji03.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\img_nodate.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\img_nodate_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\umeng_socialize_wechat.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\umeng_socialize_wechat_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\umeng_socialize_wxcircle.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-hdpi\umeng_socialize_wxcircle_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\aio_send_fail_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\aio_send_fail_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bar_light_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bg_biaoqian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bubble_popup_arrow_down.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bubble_popup_arrow_down_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bubble_popup_arrow_up.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\bubble_popup_arrow_up_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\common_loading3_0.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\common_loading6_0.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\header_bar_btn_more_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\header_bar_btn_more_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_caidan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_canyin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_clock.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_dingdan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_down.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_fuxuankuang_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_fuxuankuang_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_guiji01.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_guiji02.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_home.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_hotel_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_hotel_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_ic_kaiguan_guan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_jiahao.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_jiqiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_jiqiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_jiudian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_kaiguan_kai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_lianxiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_lianxiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_map.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_mianqiantai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_mianqiantai2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_qq.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_qq_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_right.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_right_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_search_shouye.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_shezhi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_star_shouye_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_star_shouye_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_tuijian_dianhua.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_tuijian_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_weibo.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_weibo_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_weixin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_weixin_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_xingcheng.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_xiuxian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_yuanjiaojuxing.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_zhuanshuqiantai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ic_zuji.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\icguiji03.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow1_disable.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow1_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow1_press.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow_disable.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_arrow_press.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_refreash_disable.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_refreash_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\ie_refreash_press.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\img_nodate.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\img_nodate_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\img_touxiang_anli2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\list_img_selfish.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_l_1.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_l_2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_l_3.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_r_1.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_r_2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_action_r_3.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_record_friend_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\skin_aio_ptt_record_user_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_canting.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_dating.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_dengdai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_jiesu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_likai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_ruzhu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_tijiao.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_tuifang.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_wu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_yuding.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\sl_zhuyi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\text_svip.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xhdpi\zhijian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\bg_biaoqian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\header_bar_btn_more_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\header_bar_btn_more_pressed.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_caidan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_canyin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_clock.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_dingdan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_down.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_fuxuankuang_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_fuxuankuang_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_guiji01.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_guiji02.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_home.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_hotel_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_hotel_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_ic_kaiguan_guan.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_jiahao.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_jiqiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_jiqiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_jiudian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_kaiguan_kai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_lianxiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_lianxiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_logo_about.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_map.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_mianqiantai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_mianqiantai2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_qq.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_qq_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_right.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_right_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_search_shouye.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_shezhi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_sousuo.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_star_shouye_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_star_shouye_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_tingchechang.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_tuijian_dianhua.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_tuijian_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_weibo.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_weibo_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_weixin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_weixin_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_wifi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_xingcheng.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_xiuxian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_yuanjiaojuxing.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_zhuanshuqiantai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\ic_zuji.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\icguiji03.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\img_nodate.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\img_nodate_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\img_touxiang_anli2.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_canting.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_dating.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_dengdai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_jiesu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_likai.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_ruzhu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_tijiao.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_tuifang.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_wu.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_yuding.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\sl_zhuyi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\text_svip.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxhdpi\zhijian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_canyin.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_clock.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_down.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_guiji01.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_guiji02.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_hotel_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_hotel_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_jiqiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_jiqiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_jiudian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_lianxiren_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_lianxiren_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_right.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_right_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_search_shouye.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_sousuo.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_star_shouye_nor.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_star_shouye_pre.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_tingchechang.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_tuijian_dianhua.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_tuijian_xiaoxi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_wifi.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_xingcheng.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_xiuxian.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\ic_yuanjiaojuxing.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\icguiji03.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\img_nodate.png" afterPath="" />
-      <change type="DELETED" beforePath="F:\zkjs_github\SVIP-1.0-Android\SVIPApp\src\main\res\mipmap-xxxhdpi\img_nodate_bg.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/BookOrderAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/BookOrderAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/EMessageReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/EMessageReceiver.java" />
+    <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="1.更新drawable图片到mipmap文件夹中">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_more.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_more.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_sousuo.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_sousuo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tingchechang.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tingchechang.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_nor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_pre.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_wifi.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_wifi.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_avatar_hotel.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_avatar_hotel.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_dingdanxiangqing.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_dingdanxiangqing.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_logo_zhanwei.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_logo_zhanwei.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/VideoCallActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/VideoCallActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/VoiceCallActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/VoiceCallActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/action_item_horizontal.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/action_item_horizontal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_about.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_about.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_booking.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_booking.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_evaluate.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_evaluate.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_webview.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_webview.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/build.gradle" afterPath="$PROJECT_DIR$/SVIPApp/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_consume_record.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_consume_record.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
@@ -5153,7 +4934,7 @@
         <entry key="F:/native/RecyclerViewHeader" value="7224488368766" />
         <entry key="$PROJECT_DIR$/../SuperService-1.0-Android" value="13018032463652" />
         <entry key="$PROJECT_DIR$/../material-sheet-fab" value="8658379405683" />
-        <entry key="F:\zkjs_github\SVIP-1.0-Android" value="13032598081971" />
+        <entry key="F:\zkjs_github\SVIP-1.0-Android" value="13032601765163" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -6161,28 +5942,41 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MenuLeftFragment.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading3.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_bg_white_seletor.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_evaluate.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/action_item_horizontal.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_booking.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_message_center.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_about.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_friend_bg.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_chat.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/build/generated/source/r/debug/com/zkjinshi/svip/R.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_webview.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_jiqiren.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading3.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml" />
@@ -6190,28 +5984,15 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_friend_bg.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_chat.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_jiqiren.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading6.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/build/generated/source/r/debug/com/zkjinshi/svip/R.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_webview.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_consume_record.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
       </list>
     </option>
   </component>
@@ -6245,7 +6026,7 @@
     <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -6490,20 +6271,6 @@
               <option name="myItemId" value="SVIPApp" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -6515,96 +6282,8 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -7033,7 +6712,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448280842281</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="1.更新drawable图片到mipmap文件夹中">
+      <created>1448329278457</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1448329278457</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7057,7 +6742,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32216215" sideWeight="0.5042644" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5772973" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5210811" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616216" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3318919" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -7066,7 +6751,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20726496" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20726496" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -7088,7 +6773,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32216215" sideWeight="0.5042644" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5772973" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5210811" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
@@ -7097,12 +6782,12 @@
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55783784" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.4968017" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.7189189" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7189189" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4691892" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616216" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3318919" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -7224,78 +6909,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/im_styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="20.107143">
-          <caret line="3" column="81" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle_bg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="80" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.714286">
-          <caret line="56" column="64" selection-start-line="56" selection-start-column="50" selection-end-line="56" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/shop_radio_btn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="50" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="340" column="64" selection-start-line="340" selection-start-column="58" selection-end-line="340" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ServiceCenterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="62" selection-start-line="91" selection-start-column="49" selection-end-line="91" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/im/ChatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="467" column="34" selection-start-line="467" selection-start-column="34" selection-end-line="467" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/RandomDrawbleUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.421875">
-          <caret line="16" column="64" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/MoreAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="56" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/SideBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="63" selection-start-line="120" selection-start-column="45" selection-end-line="120" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/FaceAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3314732">
@@ -7318,6 +6931,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.4452424">
           <caret line="391" column="86" selection-start-line="391" selection-start-column="86" selection-end-line="392" selection-end-column="84" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -7329,13 +6943,6 @@
         <state vertical-scroll-proportion="-0.091224015">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-31.5">
-          <caret line="486" column="34" selection-start-line="486" selection-start-column="34" selection-end-line="486" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -7361,55 +6968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="64" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="64" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -7421,32 +6979,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="95" column="44" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="143" column="32" selection-start-line="143" selection-start-column="32" selection-end-line="143" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_friend_bg.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="11" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -7479,61 +7016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="165" column="56" selection-start-line="165" selection-start-column="56" selection-end-line="165" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_webview.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -7545,13 +7027,87 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6712707">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="165" column="54" selection-start-line="165" selection-start-column="54" selection-end-line="165" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="30" column="36" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="61" column="36" selection-start-line="61" selection-start-column="36" selection-end-line="61" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="95" column="44" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="143" column="32" selection-start-line="143" selection-start-column="32" selection-end-line="143" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.3333334">
-          <caret line="77" column="38" selection-start-line="77" selection-start-column="38" selection-end-line="77" selection-end-column="38" />
+          <caret line="77" column="36" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -7562,53 +7118,7 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.3333334">
-          <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9578314">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29834256">
-          <caret line="4" column="41" selection-start-line="4" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21270718">
-          <caret line="233" column="77" selection-start-line="233" selection-start-column="77" selection-end-line="233" selection-end-column="77" />
-          <folding>
-            <element signature="e#3671#3725#0" expanded="true" />
-            <element signature="e#3829#3885#0" expanded="true" />
-            <element signature="e#3985#4038#0" expanded="true" />
-            <element signature="e#6889#6958#0" expanded="true" />
-            <element signature="e#18328#18501#0" expanded="true" />
-            <element signature="e#18500#18501#0" expanded="true" />
-            <element signature="e#18569#18813#0" expanded="true" />
-            <element signature="e#18812#18813#0" expanded="true" />
-            <element signature="e#18882#19126#0" expanded="true" />
-            <element signature="e#19125#19126#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3425415">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -7618,8 +7128,174 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12048193">
-          <caret line="91" column="52" selection-start-line="91" selection-start-column="52" selection-end-line="91" selection-end-column="52" />
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="91" column="41" selection-start-line="91" selection-start-column="41" selection-end-line="91" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_jiqiren.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="64" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading6.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07458564">
+          <caret line="1" column="42" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="59" selection-start-line="3" selection-start-column="59" selection-end-line="3" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -7629,16 +7305,72 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20180723">
-          <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+        <state vertical-scroll-proportion="-1.3333334">
+          <caret line="87" column="40" selection-start-line="87" selection-start-column="40" selection-end-line="87" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37292817">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21270718">
+          <caret line="233" column="75" selection-start-line="233" selection-start-column="75" selection-end-line="233" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4364641">
+          <caret line="674" column="48" selection-start-line="674" selection-start-column="48" selection-end-line="674" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6104972">
+          <caret line="51" column="46" selection-start-line="51" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading3.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14917128">
+          <caret line="2" column="36" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.69948184">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44751382">
-          <caret line="6" column="64" selection-start-line="6" selection-start-column="64" selection-end-line="6" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.34974092">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>

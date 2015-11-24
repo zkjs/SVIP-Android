@@ -231,7 +231,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mPlusBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_jiqiren_nor);
+        mPlusBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_jiqiren_nor);
     }
 
     @Override

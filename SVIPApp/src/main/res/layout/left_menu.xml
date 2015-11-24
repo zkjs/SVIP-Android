@@ -51,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:text="设置"
-            android:drawableLeft="@drawable/ic_shezhi"
+            android:drawableLeft="@mipmap/ic_shezhi"
             android:id="@+id/leftmenu_set_tv"
             />
 
@@ -61,7 +61,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:text="免前台"
-            android:drawableLeft="@drawable/ic_mianqiantai"
+            android:drawableLeft="@mipmap/ic_mianqiantai"
             android:id="@+id/leftmenu_front_tv"
             />
 
@@ -77,7 +77,7 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:text="行程"
-                android:drawableLeft="@drawable/ic_xingcheng"
+                android:drawableLeft="@mipmap/ic_xingcheng"
                 android:id="@+id/leftmenu_order_tv"
                 />
 
@@ -89,7 +89,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:text="已消费"
-            android:drawableLeft="@drawable/ic_zuji"
+            android:drawableLeft="@mipmap/ic_zuji"
             android:id="@+id/leftmenu_footprint_tv"
             />
 

@@ -85,7 +85,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_clock"/>
+                    android:src="@mipmap/ic_clock"/>
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/ic_yuanjiaojuxing">
+                    android:background="@mipmap/ic_yuanjiaojuxing">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

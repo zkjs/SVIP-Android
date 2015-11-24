@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="false" android:drawable="@drawable/ic_ic_kaiguan_guan" />
-    <item android:state_checked="true" android:drawable="@drawable/ic_kaiguan_kai" />
+    <item android:state_checked="false" android:drawable="@mipmap/ic_ic_kaiguan_guan" />
+    <item android:state_checked="true" android:drawable="@mipmap/ic_kaiguan_kai" />
 </selector>
