@@ -154,8 +154,6 @@ public class LoginController {
                 // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
                 //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
                 EMessageListener.getInstance().registerEventListener();
-                EasemobIMHelper.getInstance().initConnectionListener();
-                ;
             }
 
             @Override

@@ -74,7 +74,7 @@ public class EMessageReceiver extends BroadcastReceiver {
      * 下线通知
      * @param context
      */
-    private void showOfflineDialog(final Context context) {
+    private synchronized void showOfflineDialog(final Context context) {
         Dialog dialog = null;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
