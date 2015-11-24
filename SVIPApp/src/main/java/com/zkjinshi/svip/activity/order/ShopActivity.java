@@ -156,6 +156,7 @@ public class ShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
         hotelRbtn.setOnClickListener(new View.OnClickListener() {

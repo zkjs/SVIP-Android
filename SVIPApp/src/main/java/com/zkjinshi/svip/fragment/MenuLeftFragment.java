@@ -28,6 +28,7 @@ import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.common.SettingNologinActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.mine.MineActivity;
+import com.zkjinshi.svip.activity.mine.PrivilegeActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
@@ -132,11 +133,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                         R.anim.slide_out_left);
             }
             break;
-            //免前台
+            //特权
             case R.id.leftmenu_front_tv:
             {
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                intent.putExtra("webview_url","http://iwxy.cc/mqt/");
+                Intent intent = new Intent(getActivity(), PrivilegeActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);

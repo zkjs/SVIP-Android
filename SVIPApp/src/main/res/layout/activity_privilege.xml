@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:background="@color/White"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.zkjinshi.svip.view.ItemTitleView
+        android:id="@+id/Itv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#191223"
+        zkjinshi:leftImage="@mipmap/ic_fanhui"
+        zkjinshi:rightImage="@mipmap/ic_gengduo"
+        zkjinshi:itemTitleColor="#FFFFFF">
+
+    </com.zkjinshi.svip.view.ItemTitleView>
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="40dp"
+        android:gravity="center"/>
+
+</LinearLayout>
