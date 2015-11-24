@@ -61,7 +61,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:text="特权"
-            android:drawableLeft="@mipmap/ic_xingcheng"
+            android:drawableLeft="@mipmap/ic_tequan"
             android:id="@+id/leftmenu_front_tv"
             />
 
@@ -89,7 +89,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:text="已消费"
-            android:drawableLeft="@mipmap/ic_zuji"
+            android:drawableLeft="@mipmap/ic_yixiaofei"
             android:id="@+id/leftmenu_footprint_tv"
             />
 
