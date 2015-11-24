@@ -21,64 +21,276 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="1.更新drawable图片到mipmap文件夹中">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_faxian_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_liaotian_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_more.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_more.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_sousuo.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_sousuo.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tingchechang.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tingchechang.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_nor.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_nor.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_pre.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tongxunlu_pre.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_wifi.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_wifi.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_avatar_hotel.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_avatar_hotel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_dingdanxiangqing.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_dingdanxiangqing.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_logo_zhanwei.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_logo_zhanwei.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GooeyMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting_tags.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_shop_search.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_splash.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/aio_send_fail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/values/array.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bottom_bar_btn_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_arrow_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/browser_icon_refresh.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_hotel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_lianxiren.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_toggle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/build.gradle" afterPath="$PROJECT_DIR$/SVIPApp/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_recv_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dataline_send_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/dialog_booking.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/empty_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_qq_ibtn.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weibo_ibtn.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/enter_weixin_ibtn.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/header_bar_btn_more.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_consume_record.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_consume_record.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/left_menu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/other_record_animation_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/popup_horizontal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/rating_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/self_record_animation_list.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_bottom_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_bottom_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_middle_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_middle_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_single_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_single_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_top_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/actionsheet_top_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/aio_send_fail_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/aio_send_fail_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/aio_speaker_phone_bg.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bar_light_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bg_biaoqian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/bg_biaoqian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bg_chat.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bt_02.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bt_02_pre.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/btn_room_list_book_right_now_nor.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/btn_room_list_book_right_now_press.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/btn_white_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/btn_white_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bubble_popup_arrow_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bubble_popup_arrow_down_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bubble_popup_arrow_up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/bubble_popup_arrow_up_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/bubble_popup_bg.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/bubble_popup_bg_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/bubble_popup_bg_space.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/cm_send_btn_bg_normal.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/cm_send_btn_bg_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/common_loading3_0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/common_loading6_0.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/common_loading_9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/header_bar_btn_more_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/header_bar_btn_more_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/header_bar_btn_more_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/header_bar_btn_more_pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_caidan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_caidan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_canyin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_canyin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_canyin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_canyin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_clock.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_clock.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_clock.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_clock.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_dingdan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_dingdan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_fuxuankuang_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_fuxuankuang_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_fuxuankuang_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_fuxuankuang_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_guiji01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_guiji01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_guiji01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_guiji01.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_guiji02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_guiji02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_guiji02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_guiji02.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_home.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_home.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_hotel_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_hotel_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_hotel_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_hotel_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_hotel_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_hotel_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_hotel_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_hotel_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_ic_kaiguan_guan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_ic_kaiguan_guan.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_jiahao.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_jiahao.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_jiqiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_jiqiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_jiqiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_jiqiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_jiqiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_jiqiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_jiqiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_jiqiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_kaiguan_kai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_kaiguan_kai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_lef_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_lef_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_lef_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_lef_jiudian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_lianxiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_lianxiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_lianxiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_lianxiren_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_lianxiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_lianxiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_lianxiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_lianxiren_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_logo_about.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_map.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_map.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_mianqiantai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_mianqiantai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_mianqiantai2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_mianqiantai2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_order_fanhui.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_order_fanhui.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_order_fanhui.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_order_fanhui.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_qq.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_qq.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_qq_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_qq_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_right.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_right_blue.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_right_blue.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_right_blue.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_right_blue.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_search_shouye.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_search_shouye.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_search_shouye.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_search_shouye.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_shezhi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_shezhi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_sousuo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_sousuo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_sousuo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_shouye_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_shouye_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_shouye_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_shouye_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_star_shouye_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_star_shouye_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_star_shouye_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_star_shouye_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_tingchechang.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_tingchechang.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tingchechang.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_tuijian_dianhua.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tuijian_dianhua.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_tuijian_dianhua.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tuijian_dianhua.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_tuijian_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_tuijian_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_tuijian_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_tuijian_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_weibo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_weibo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_weibo_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_weibo_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_weixin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_weixin.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_weixin_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_weixin_pre.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_wifi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_wifi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_wifi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_xiaoxi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_xingcheng.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_xingcheng.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_xingcheng.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_xingcheng.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_xiuxian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_xiuxian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_xiuxian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_xiuxian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_yuanjiaojuxing.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_yuanjiaojuxing.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_yuanjiaojuxing.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/ic_yuanjiaojuxing.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_zhuanshuqiantai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_zhuanshuqiantai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_zuji.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_zuji.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/icguiji03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/icguiji03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/icguiji03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/icguiji03.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow1_disable.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow1_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow1_press.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow_disable.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_arrow_press.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_refreash_disable.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_refreash_normal.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ie_refreash_press.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/img_nodate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/img_nodate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/img_nodate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_nodate.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/img_nodate_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/img_nodate_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/img_nodate_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/img_nodate_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/list_img_selfish.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/list_tv_newmessage.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/scrollbar_handle_vertical.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/skin_aio_friend_bubble_nor.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/skin_aio_friend_bubble_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/skin_aio_input_bar_bg.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_l_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_l_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_l_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_r_1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_r_2.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_action_r_3.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_record_friend_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/skin_aio_ptt_record_user_nor.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/skin_aio_user_bubble_nor.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/skin_aio_user_bubble_pressed.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_canting.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_canting.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_dating.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_dating.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_dengdai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_dengdai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_jiesu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_jiesu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_likai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_likai.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_ruzhu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_ruzhu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_tijiao.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_tijiao.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_tuifang.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_tuifang.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_wu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_wu.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_yuding.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_yuding.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/sl_zhuyi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/sl_zhuyi.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/text_svip.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/text_svip.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/umeng_socialize_wechat.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/umeng_socialize_wechat_gray.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/umeng_socialize_wxcircle.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/umeng_socialize_wxcircle_gray.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/voice_rcd_hint_bg.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/zhijian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/zhijian.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi/aio_favorite.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/aio_fold.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/aio_voice.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/bg_get_into.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/btn_jiqiren.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/cm_btn_bg.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/cm_send_btn_bg.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/common_loading.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/layout_bg_bottom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/layout_bg_middle.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/layout_bg_top.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/main_foot_print_btn_selector.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/main_logo_btn_selector.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable/main_msg_list_btn_selector.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xhdpi/progress_medium_holo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
@@ -6026,7 +6238,7 @@
     <option name="STATE" value="2" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -6262,30 +6474,6 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-1.0-Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -6297,7 +6485,7 @@
     <property name="recentsLimit" value="5" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71UBBLH22C4C" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_10_API_21" />
-    <property name="SearchEverywhereHistoryKey" value="chat&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;ic&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xhdpi/ic_clock.png&#10;ic_logo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xxhdpi/ic_logo_about.png&#10;lock&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xhdpi/ic_clock.png&#10;OrderBo&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.OrderBookingActivity&#10;ic_lef&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-hdpi/ic_lef_jiudian.png&#10;MainA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MSgPus&#9;PSI&#9;JAVA://com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M&#10;MessageLI&#9;PSI&#9;JAVA://com.zkjinshi.svip.listener.MessageListener&#10;Service&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ServiceCenterActivity.java&#10;INvi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;string&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/strings.xml&#10;String&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/strings.xml&#10;Invi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Comp&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;ServiceC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ServiceCenterActivity.java&#10;Pro&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Manager&#9;PSI&#9;JAVA://com.zkjinshi.svip.request.login.LoginRequestManager&#10;ContactA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsActivity&#10;Ada&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/BookOrderAdapter.java&#10;C&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/ContactsSortAdapter.java&#10;COntactA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsSortAdapter.ClientViewHolder#civContactAvatar&#10;Ser&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java&#10;Con&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ContactsFragment.java&#10;MainActivity&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;Re&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/EMessageReceiver.java&#10;Order&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderDetailActivity.java&#10;REcei&#9;PSI&#9;JAVA://com.zkjinshi.svip.receiver.EMessageReceiver&#10;OrderM&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/OrderManager.java&#10;LoginC&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.LoginController&#10;EMess&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/emchat/observer/EMessageListener.java&#10;orderM&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/OrderManager.java&#10;Svi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/SVIPApplication.java&#10;Me&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/emchat/observer/EMessageListener.java&#10;mani&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/AndroidManifest.xml&#10;INv&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Spa&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;ChatA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;Cache&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/CacheUtil.java&#10;Person&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/PersonCheckInDBUtil.java&#10;Table&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/TableOpenHelper.java&#10;PRo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Main&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;M&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MessageL&#9;PSI&#9;JAVA://com.zkjinshi.svip.listener.MessageListener&#10;CHatada&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;OrderB&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java&#10;Inv&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Lo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Setting&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" />
+    <property name="SearchEverywhereHistoryKey" value="C&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/drawable/common_loading6.xml&#10;chat&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;ic&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xhdpi/ic_clock.png&#10;ic_logo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xxhdpi/ic_logo_about.png&#10;lock&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-xhdpi/ic_clock.png&#10;OrderBo&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.OrderBookingActivity&#10;ic_lef&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/mipmap-hdpi/ic_lef_jiudian.png&#10;MainA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MSgPus&#9;PSI&#9;JAVA://com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M&#10;MessageLI&#9;PSI&#9;JAVA://com.zkjinshi.svip.listener.MessageListener&#10;Service&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ServiceCenterActivity.java&#10;INvi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;string&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/strings.xml&#10;String&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/strings.xml&#10;Invi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Comp&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;ServiceC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ServiceCenterActivity.java&#10;Pro&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Manager&#9;PSI&#9;JAVA://com.zkjinshi.svip.request.login.LoginRequestManager&#10;ContactA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsActivity&#10;Ada&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/BookOrderAdapter.java&#10;COntactA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsSortAdapter.ClientViewHolder#civContactAvatar&#10;Ser&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ServerAdapter.java&#10;Con&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ContactsFragment.java&#10;MainActivity&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;Re&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/EMessageReceiver.java&#10;Order&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderDetailActivity.java&#10;REcei&#9;PSI&#9;JAVA://com.zkjinshi.svip.receiver.EMessageReceiver&#10;OrderM&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/OrderManager.java&#10;LoginC&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.LoginController&#10;EMess&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/emchat/observer/EMessageListener.java&#10;orderM&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/OrderManager.java&#10;Svi&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/SVIPApplication.java&#10;Me&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/emchat/observer/EMessageListener.java&#10;mani&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/AndroidManifest.xml&#10;INv&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Spa&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;ChatA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;Cache&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/CacheUtil.java&#10;Person&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/PersonCheckInDBUtil.java&#10;Table&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/TableOpenHelper.java&#10;PRo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Main&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;M&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MessageL&#9;PSI&#9;JAVA://com.zkjinshi.svip.listener.MessageListener&#10;CHatada&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;OrderB&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java&#10;Inv&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;Lo&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Setting&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" />
     <property name="android.project.structure.last.selected" value="ZKJinShiBaseClass" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="252" />
@@ -6718,7 +6906,13 @@
       <option name="project" value="LOCAL" />
       <updated>1448329278457</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="1.更新drawable图片到mipmap文件夹中">
+      <created>1448331968943</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1448331968943</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -6742,7 +6936,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32216215" sideWeight="0.5042644" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5210811" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5210811" sideWeight="0.49573562" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4616216" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3318919" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -6751,7 +6945,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20726496" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20726496" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -7265,14 +7459,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading6.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07458564">
-          <caret line="1" column="42" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/checkbox_ticket_selector.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -7371,6 +7557,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34974092">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/drawable/common_loading6.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11513859">
+          <caret line="2" column="56" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="57" />
           <folding />
         </state>
       </provider>
