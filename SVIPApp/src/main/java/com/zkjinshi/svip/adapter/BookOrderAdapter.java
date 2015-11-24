@@ -108,34 +108,34 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
 
         //计算订单状态
         if(!TextUtils.isEmpty(itemOrder.getStatus())) {
-           switch (Integer.valueOf(itemOrder.getStatus())){
+            switch (Integer.valueOf(itemOrder.getStatus())){
                 case BookOrder.ORDER_UNCONFIRMED:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_unconfirmed));
-                   holder.shopBookIcon.setVisibility(View.VISIBLE);
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_unconfirmed));
+                    holder.shopBookIcon.setVisibility(View.VISIBLE);
                     checkTimeOut(holder,itemOrder);
-                break;
+                    break;
                 case BookOrder.ORDER_CANCELLED:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_cancelled));
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_cancelled));
                     holder.shopBookIcon.setVisibility(View.GONE);
-                break;
+                    break;
                 case BookOrder.ORDER_CONFIRMED:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_confirmed));
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_confirmed));
                     holder.shopBookIcon.setVisibility(View.GONE);
                     checkTimeOut(holder,itemOrder);
-                break;
+                    break;
                 case BookOrder.ORDER_FINISHED:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_finished));
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_finished));
                     holder.shopBookIcon.setVisibility(View.GONE);
-                break;
+                    break;
                 case BookOrder.ORDER_USING:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_using));
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.order_using));
                     holder.shopBookIcon.setVisibility(View.GONE);
-                break;
+                    break;
                 case BookOrder.ORDER_DELETED:
-                   holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.trade_deleted));
+                    holder.orderStatus.setText("状态: "+ mActivity.getString(R.string.trade_deleted));
                     holder.shopBookIcon.setVisibility(View.GONE);
-                break;
-           }
+                    break;
+            }
 
         }
 

@@ -6,14 +6,24 @@ import android.media.Ringtone;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 
 import com.easemob.chat.EMCallStateChangeListener;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestListener;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.TxtExtType;
+
+import java.util.HashMap;
 
 /**
  * 开发者：JimmyZhang
@@ -32,12 +42,28 @@ public class CallActivity extends FragmentActivity {
     protected Ringtone ringtone;
     protected int outgoing;
     protected EMCallStateChangeListener callStateListener;
-
+    protected String toName;
+    protected String fromName;
+    protected String shopId;
+    protected String shopName;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+        initData();
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    private void initData(){
+        if(null != getIntent() && null != getIntent().getStringExtra("toName")){
+            toName = getIntent().getStringExtra("toName");
+        }
+        if(null != getIntent() && null != getIntent().getStringExtra("shopId")){
+            shopId = getIntent().getStringExtra("shopId");
+        }
+        if(null != getIntent() && null != getIntent().getStringExtra("shopName")){
+            shopName = getIntent().getStringExtra("shopName");
+        }
     }
 
     @Override
@@ -124,9 +150,30 @@ public class CallActivity extends FragmentActivity {
         if (!isInComingCall) { // 打出去的通话
             message = EMMessage.createSendMessage(EMMessage.Type.TXT);
             message.setReceipt(username);
+            message.setAttribute("toName", "");
+            if(!TextUtils.isEmpty(toName)){
+                message.setAttribute("toName", toName);
+            }
+            message.setAttribute("fromName", CacheUtil.getInstance().getUserName());
+            if(!TextUtils.isEmpty(shopId)){
+                message.setAttribute("shopId",shopId);
+            }
+            if(!TextUtils.isEmpty(shopName)){
+                message.setAttribute("shopName",shopName);
+            }
         } else {
             message = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
             message.setFrom(username);
+            message.setAttribute("toName", CacheUtil.getInstance().getUserName());
+            if(!TextUtils.isEmpty(fromName)){
+                message.setAttribute("fromName", fromName);
+            }
+            if(!TextUtils.isEmpty(shopId)){
+                message.setAttribute("shopId",shopId);
+            }
+            if(!TextUtils.isEmpty(shopName)){
+                message.setAttribute("shopName",shopName);
+            }
         }
 
         String st1 = getResources().getString(R.string.call_duration);
@@ -177,9 +224,31 @@ public class CallActivity extends FragmentActivity {
 
         // 保存
         EMChatManager.getInstance().saveMessage(message, false);
+
     }
 
     enum CallingState {
         CANCED, NORMAL, REFUESD, BEREFUESD, UNANSWERED, OFFLINE, NORESPONSE, BUSY
     }
+
+    /**
+     * 获取用户信息
+     * @param context
+     * @param userId
+     * @param netRequestListener
+     */
+    protected void requestUserTask(final Context context,String userId,NetRequestListener netRequestListener){
+        HashMap<String,String> bizMap = new HashMap<>();
+        bizMap.put("salesid",CacheUtil.getInstance().getUserId());
+        bizMap.put("token",CacheUtil.getInstance().getToken());
+        bizMap.put("find_userid",userId);
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getUserInfoUrl());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(netRequestListener);
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+    }
+
 }

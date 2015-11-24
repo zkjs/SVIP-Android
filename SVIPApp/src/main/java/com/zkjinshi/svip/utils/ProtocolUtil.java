@@ -185,7 +185,7 @@ public class ProtocolUtil {
      */
     public static String getOneOrderUrl(){
         return ConfigUtil.getInst().getHttpDomain()+"order/show";
-       // return "http://172.21.7.54/order/show";
+        // return "http://172.21.7.54/order/show";
     }
 
     /**
@@ -345,4 +345,13 @@ public class ProtocolUtil {
     public static String getLogoutUrl(String userID) {
         return ConfigUtil.getInst().getHttpDomain()+"user/logout?userid=" + userID;
     }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public static String getUserInfoUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"v10/user";
+    }
+
 }
