@@ -18,6 +18,18 @@
             <option value="$PROJECT_DIR$/multi-image-selector" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/CalendarListView" />
+            <option value="$PROJECT_DIR$/Cloud_TagView" />
+            <option value="$PROJECT_DIR$/MaterialSearchViewLibrary" />
+            <option value="$PROJECT_DIR$/SVIPApp" />
+            <option value="$PROJECT_DIR$/SlidingMenu" />
+            <option value="$PROJECT_DIR$/ZKJinShiBaseClass" />
+            <option value="$PROJECT_DIR$/multi-image-selector" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
