@@ -156,6 +156,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         //初始化录音管理器
         voiceRecordManager = new VoiceRecordManager(this, animAreaLayout, cancelAreaLayout);
         voiceRecordManager.init();
+        voiceRecordManager.setMessageListViewManager(messageListViewManager);
         //初始化网络状态管理器
         netCheckManager = new NetCheckManager();
         netCheckManager.init(this);
