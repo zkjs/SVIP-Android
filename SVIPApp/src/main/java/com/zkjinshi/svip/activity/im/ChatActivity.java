@@ -94,6 +94,8 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private String bookOrderStr;
     private BookOrder bookOrder;
     private ArrayList<OrderUsersResponse> users;
+    private String filePath;
+    private int voiceTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,10 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         if(!TextUtils.isEmpty(getIntent().getStringExtra(Constants.EXTRA_SHOP_NAME))){
             shopName = getIntent().getStringExtra(Constants.EXTRA_SHOP_NAME);
         }
+        if(!TextUtils.isEmpty(getIntent().getStringExtra("filePath"))){
+            filePath = getIntent().getStringExtra("filePath");
+        }
+        voiceTime = getIntent().getIntExtra("voiceTime",1);
         //初始化消息ListView管理器
         messageListViewManager = new MessageListViewManager(this, userId,fromName,toName,shopId,shopName);
         messageListViewManager.init();
@@ -216,6 +222,10 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             if(!TextUtils.isEmpty(textContext)){
                 messageListViewManager.sendTextMessage(textContext);
             }
+        }
+        //发送语音消息
+        if(!TextUtils.isEmpty(filePath)){
+            messageListViewManager.sendVoiceMessage(filePath,voiceTime);
         }
     }
 
