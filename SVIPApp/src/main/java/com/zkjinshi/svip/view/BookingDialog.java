@@ -43,6 +43,9 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
      public String shopId,shopName;
      public CustomerServiceBean customerService = null;
 
+     public String recordFileName;// 录音文件名称
+     public int 	recordSecond;// 录音总长度
+
      public BookingDialog(Context context) {
          super(context);
          this.activity = (Activity)context;
@@ -122,7 +125,10 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
                     if (!TextUtils.isEmpty(shopName)) {
                         intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
                     }
-                    //intent.putExtra("text_context", "您好，很荣幸能为你服务，请问有什么可以帮到你的呢？");
+                    if(!TextUtils.isEmpty(recordFileName)){
+                        intent.putExtra("filePath",recordFileName);
+                        intent.putExtra("voiceTime",recordSecond);
+                    }
                     activity.startActivity(intent);
                     activity.overridePendingTransition(R.anim.slide_in_right,
                             R.anim.slide_out_left);

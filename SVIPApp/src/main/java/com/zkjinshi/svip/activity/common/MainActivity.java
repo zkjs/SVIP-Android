@@ -159,6 +159,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         bookingDialog.shopId = shopId;
         bookingDialog.customerService = customerServiceBean;
         bookingDialog.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+        if(listenerDialog != null && !TextUtils.isEmpty(listenerDialog.getMediaPath())){
+            bookingDialog.recordFileName = listenerDialog.getMediaPath();
+            bookingDialog.recordSecond = listenerDialog.getRecordSecond();
+        }
         bookingDialog.show();
     }
 
@@ -169,12 +173,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         }
        if(!listenerDialog.isShowing()){
            listenerDialog.show();
+           listenerDialog.startRecord();
        }
 
     }
 
     public void menuLongClickedUp(){
         if(listenerDialog.isShowing()){
+            listenerDialog.stopRecord();
             listenerDialog.cancel();
         }
         loadCleverServer(1);
