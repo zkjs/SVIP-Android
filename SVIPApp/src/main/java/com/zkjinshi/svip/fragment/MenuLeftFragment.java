@@ -22,6 +22,7 @@ import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainUiController;
 import com.zkjinshi.svip.activity.common.SettingActivity;
@@ -188,7 +189,10 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                         WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
                         //修改登录状态
                         CacheUtil.getInstance().setLogin(false);
+                        Intent loginActiviy = new Intent(mActivity, LoginActivity.class);
+                        startActivity(loginActiviy);
                         mActivity.finish();
+
                     }
                 });
                 customerBuilder.create().show();
