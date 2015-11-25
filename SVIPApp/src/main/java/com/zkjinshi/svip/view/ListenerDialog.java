@@ -48,7 +48,7 @@ import java.util.TimerTask;
      private Activity activity;
      CircleLoadingView circleLoadingView;
      public ListenerDialog(Context context) {
-         super(context,R.style.dialog_no_title);
+         super(context, R.style.dialog_no_title);
          this.activity = (Activity)context;
 
      }
@@ -72,7 +72,9 @@ import java.util.TimerTask;
      }
 
     public void stopAnimation(){
-        circleLoadingView.destroy();
+        if(circleLoadingView != null){
+            circleLoadingView.destroy();
+        }
     }
 
     public void startRecord(){
