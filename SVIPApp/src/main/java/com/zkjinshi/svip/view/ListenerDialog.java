@@ -98,6 +98,10 @@ import java.util.TimerTask;
         return null;
     }
 
+    public void setRecordFileName(String recordFileName) {
+        this.recordFileName = recordFileName;
+    }
+
     public int getRecordSecond() {
         return recordSecond;
     }

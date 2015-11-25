@@ -162,6 +162,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         if(listenerDialog != null && !TextUtils.isEmpty(listenerDialog.getMediaPath())){
             bookingDialog.recordFileName = listenerDialog.getMediaPath();
             bookingDialog.recordSecond = listenerDialog.getRecordSecond();
+            listenerDialog.setRecordFileName(null);
         }
         bookingDialog.show();
     }
