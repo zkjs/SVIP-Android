@@ -72,12 +72,12 @@ public class LocationManager{
                         desc = locBundle.getString("desc");
                     }
                     LogUtil.getInstance().info(LogLevel.DEBUG, "高德定位信息");
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "经度:" + geoLat);
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "纬度:" + geoLng);
+                    LogUtil.getInstance().info(LogLevel.DEBUG, "纬度:" + geoLat);
+                    LogUtil.getInstance().info(LogLevel.DEBUG, "经度:" + geoLng);
                     LogUtil.getInstance().info(LogLevel.DEBUG, "街道:" + desc);
                     Log.i(TAG, "高德定位信息");
-                    Log.i(TAG, "经度" + geoLat);
-                    Log.i(TAG, "纬度" + geoLng);
+                    Log.i(TAG, "纬度" + geoLat);
+                    Log.i(TAG, "经度" + geoLng);
                     Log.i(TAG, "街道" + desc);
                     HashMap<String,String> requestMap = new HashMap<String,String>();
                     requestMap.put("userid", CacheUtil.getInstance().getUserId());

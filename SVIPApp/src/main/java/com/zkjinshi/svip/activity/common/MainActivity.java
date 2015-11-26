@@ -95,6 +95,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     public TextView haveOrderTv,distanceTv;
     public TextView mTvActivate;
 
+    public static double geoLat = 100;
+    public static double geoLng;
+
     private ListenerDialog listenerDialog;
 
     public enum MainTextStatus {
@@ -116,21 +119,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         //获取位置信息
-        Double geoLat = aMapLocation.getLatitude();//经度
-        Double geoLng = aMapLocation.getLongitude();//纬度
+        geoLat = aMapLocation.getLatitude();//经度
+        geoLng = aMapLocation.getLongitude();//纬度
 
-        Double testLat = 22.543283;
-        Double testLng = 113.981359;
-
-        if(lastOrderInfo != null){
-            testLat = lastOrderInfo.getMap_latitude();
-            testLng = lastOrderInfo.getMap_longitude();
-        }
-
-        double distancedouble =  MapUtil.GetDistance(geoLat,geoLng,testLat,testLng);
-        Log.i(TAG, "distancedouble=" + distancedouble);
-
-        distanceTv.setText("距离"+distancedouble+"KM");
+         changLocationTips();
 
     }
 
@@ -759,6 +751,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
      * 改变位置提示信息。
      */
     private void changLocationTips(){
+//        geoLat = 22.596328;
+//        geoLng = 113.990493;
         if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
             haveOrderTv.setText("没订单");
@@ -767,8 +761,15 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             RegionVo region = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
             haveOrderTv.setText("有订单");
             distanceTv.setText("在"+region.getiBeacon().getLocdesc());
+        }else if(lastOrderInfo != null && geoLat != 100){
+            double shopLat;
+            double shopLng;
+            shopLat = lastOrderInfo.getMap_latitude();
+            shopLng = lastOrderInfo.getMap_longitude();
+            double distancedouble =  MapUtil.GetDistance(geoLat,geoLng,shopLat,shopLng);
+            distanceTv.setText("距离"+distancedouble+"KM");
         }else{
-            //distanceTv.setText("不在酒店");
+            distanceTv.setText("距离未知");
         }
     }
 
