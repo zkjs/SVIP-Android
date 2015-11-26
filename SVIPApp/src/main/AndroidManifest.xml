@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="44"
-    android:versionName="1.4.3">
+    android:versionCode="45"
+    android:versionName="1.4.4">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <!--<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />-->
@@ -260,7 +260,7 @@
         <activity android:name=".activity.mine.PrivilegeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 
         <activity
