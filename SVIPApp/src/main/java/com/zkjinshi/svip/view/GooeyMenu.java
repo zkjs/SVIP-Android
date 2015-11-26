@@ -320,9 +320,9 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
             case MotionEvent.ACTION_UP:
                 if(isLongClick){
-                    mGooeyMenuInterface.menuLongClickedUp();
                     isLongClick = false;
                     isHideDrawable = false;
+                    mGooeyMenuInterface.menuLongClickedUp();
                     return false;
                 }
                 if (isGooeyMenuTouch(event)) {

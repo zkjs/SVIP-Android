@@ -78,15 +78,25 @@ import java.util.TimerTask;
     }
 
     public void startRecord(){
-        recordFileName = System.currentTimeMillis() + ".aac";
-        mSensor   	   = new SoundMeter();
-        mSensor.start(recordFileName);//执行开始录音
-        startRecordCountDown();
+        try{
+            recordFileName = System.currentTimeMillis() + ".aac";
+            mSensor   	   = new SoundMeter();
+            mSensor.start(recordFileName);//执行开始录音
+            startRecordCountDown();
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+
     }
 
     public void stopRecord(){
-        stopRecordCountDown();
-        mSensor.stop();
+        try{
+            stopRecordCountDown();
+            mSensor.stop();
+        }catch (Exception e){
+            e.getStackTrace();
+        }
+
     }
 
     /**

@@ -35,6 +35,9 @@ import java.util.Map;
  */
 public class RequestUtil {
 
+
+    public static int TIMEOUT = 3*1000;  //超时时间
+
     /**
      * 发送Get请求
      * @param requestUrl
@@ -45,6 +48,7 @@ public class RequestUtil {
         StringBuffer buffer = new StringBuffer();
         URL url = new URL(requestUrl);
         HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
+        httpUrlConn.setReadTimeout(TIMEOUT);
         httpUrlConn.setDoOutput(false);
         httpUrlConn.setDoInput(true);
         httpUrlConn.setUseCaches(false);
@@ -127,7 +131,7 @@ public class RequestUtil {
         String CHARSET = "UTF-8";
         URL uri = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
-        conn.setReadTimeout(500 * 1000);
+        conn.setReadTimeout(TIMEOUT);
         conn.setDoInput(true);
         conn.setDoOutput(true);
         conn.setUseCaches(false);

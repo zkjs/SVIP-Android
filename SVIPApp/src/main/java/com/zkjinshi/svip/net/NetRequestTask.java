@@ -3,6 +3,7 @@ package com.zkjinshi.svip.net;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
@@ -136,6 +137,11 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
                 }
             } else {
                 this.requestListener.onNetworkRequestError(errorCode, errorLog.toString());
+                if(errorCode == RESPONSE_ERROR){
+                    Toast.makeText(context.getApplicationContext(),"返回数据异常或者无网络",Toast.LENGTH_SHORT).show();
+                }else if(errorCode == REQ_TIME_OUT){
+                    Toast.makeText(context.getApplicationContext(),"网络异常，请检查网络",Toast.LENGTH_SHORT).show();
+                }
                 cancelTask();
             }
         }
