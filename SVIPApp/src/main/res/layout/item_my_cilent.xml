@@ -58,8 +58,9 @@
                     android:layout_height="match_parent"
                     android:singleLine="true"
                     android:gravity="center_vertical|left"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textColor="#101010"
+                    android:textSize="14sp"
+                    android:text="名字"/>
 
                 <TextView
                     android:id="@+id/tv_contact_des"
@@ -70,7 +71,8 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical|left"
                     android:layout_toRightOf="@+id/tv_contact_name"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text=""/>
 
             </RelativeLayout>
 
@@ -87,18 +89,20 @@
                     android:singleLine="true"
                     android:textColor="@color/blue"
                     android:gravity="center_vertical|left"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text=""/>
 
                 <TextView
                     android:id="@+id/tv_contact_on_shop"
                     android:layout_toRightOf="@+id/tv_contact_on_line"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="0dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|left"
                     android:singleLine="true"
-                    android:textColor="@color/blue"
-                    android:textSize="14sp" />
+                    android:textColor="#949494"
+                    android:textSize="14sp"
+                    android:text="酒店名"/>
 
             </RelativeLayout>
         </RelativeLayout>

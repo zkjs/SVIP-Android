@@ -119,10 +119,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         //获取位置信息
-        geoLat = aMapLocation.getLatitude();//经度
-        geoLng = aMapLocation.getLongitude();//纬度
-
-         changLocationTips();
+        geoLat = aMapLocation.getLatitude();//纬度
+        geoLng = aMapLocation.getLongitude();//经度
+        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
+        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
 
     }
 
@@ -690,10 +690,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     @Override
     public void intoRegion(RegionVo regionVo) {
-        LogUtil.getInstance().info(LogLevel.ERROR,"--欢迎惠顾酒店-----");
-        LogUtil.getInstance().info(LogLevel.ERROR,"inTime:"+regionVo.getInTime());
-        LogUtil.getInstance().info(LogLevel.ERROR, "beacon info:" + regionVo.getiBeacon().toString());
-        LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
+        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎惠顾酒店-----");
+        LogUtil.getInstance().info(LogLevel.DEBUG,"inTime:"+regionVo.getInTime());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + regionVo.getiBeacon().toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
         reginAdPush(regionVo);
         addRegionVo(regionVo);
@@ -702,12 +702,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
     @Override
     public void outRegin(RegionVo regionVo) {
-        LogUtil.getInstance().info(LogLevel.ERROR,"--欢迎下次光临-----");
-        LogUtil.getInstance().info(LogLevel.ERROR,"inTime:"+regionVo.getInTime());
-        LogUtil.getInstance().info(LogLevel.ERROR,"outTime:"+regionVo.getOutTime());
-        LogUtil.getInstance().info(LogLevel.ERROR, "standTime:"+regionVo.getStandTime());
-        LogUtil.getInstance().info(LogLevel.ERROR, "beacon info:" + regionVo.getiBeacon().toString());
-        LogUtil.getInstance().info(LogLevel.ERROR, "---------------------");
+        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎下次光临-----");
+        LogUtil.getInstance().info(LogLevel.DEBUG,"inTime:"+regionVo.getInTime());
+        LogUtil.getInstance().info(LogLevel.DEBUG,"outTime:"+regionVo.getOutTime());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "standTime:"+regionVo.getStandTime());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + regionVo.getiBeacon().toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
         removeRegionVo(regionVo);
         handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
@@ -766,6 +766,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
             double shopLng;
             shopLat = lastOrderInfo.getMap_latitude();
             shopLng = lastOrderInfo.getMap_longitude();
+            LogUtil.getInstance().info(LogLevel.DEBUG,"酒店位置信息("+shopLat+","+shopLng+")");
             double distancedouble =  MapUtil.GetDistance(geoLat,geoLng,shopLat,shopLng);
             distanceTv.setText("距离"+distancedouble+"KM");
         }else{

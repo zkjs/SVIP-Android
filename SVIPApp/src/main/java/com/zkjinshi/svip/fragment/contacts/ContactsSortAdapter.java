@@ -88,8 +88,11 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(!TextUtils.isEmpty(clientName)){
             ((ClientViewHolder) holder).tvContactAvatar.setText(clientName.substring(0, 1));
             ((ClientViewHolder) holder).tvContactAvatar.setBackgroundResource(
-                                         RandomDrawbleUtil.getRandomDrawable());
+                    RandomDrawbleUtil.getRandomDrawable());
             ((ClientViewHolder)holder).tvContactName.setText(clientName);
+        }
+        if(!TextUtils.isEmpty(sortModel.number)){
+            ((ClientViewHolder)holder).tvContactOnShop.setText(sortModel.number);
         }
     }
 

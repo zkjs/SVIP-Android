@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.fragment.contacts.CharacterParser;
@@ -20,9 +23,19 @@ import com.zkjinshi.svip.fragment.contacts.SortModel;
 import com.zkjinshi.svip.fragment.contacts.SortToken;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.HxFriendResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -89,17 +102,17 @@ public class ContactsFragment extends BaseFragment{
             @Override
             public void onTouchingLetterChanged(String s) {
                 //该字母首次出现的位置
-				int position = mContactsAdapter.getPositionForSection(s.charAt(0));
-				if (position != -1) {
+                int position = mContactsAdapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
                     mRcvContacts.scrollToPosition(position);
-				}
+                }
             }
         });
 
         //载入联系人
-        loadContacts();
+        //loadContacts();
 
-        //网络获取我的客服列表 包含专属客服
+        //网络获取环信好友
         loadHttpContacts();
     }
 
@@ -107,9 +120,68 @@ public class ContactsFragment extends BaseFragment{
      * 获取网络联系人数据
      */
     private void loadHttpContacts() {
-        //TODO: 临时获取网络数据显示
-//        CustomerServicesManager.getInstance().requestServiceListTask(mContext, "120");
 
+        String url = ProtocolUtil.gethximFriendUrl();
+        Log.i(TAG,url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("salesid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("fuid", "");
+        bizMap.put("set", "showFriend");
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                mSortList = new ArrayList<>();
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    ArrayList<HxFriendResponse> hxFriendResponses = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<HxFriendResponse>>(){}.getType());
+                    for(HxFriendResponse friendResponse : hxFriendResponses){
+                        String contactName  = friendResponse.getUsername();
+                        String phoneNumber = friendResponse.getPhone();
+                        String sortKey      = contactName;
+                        SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
+                        String sortLetters  = getSortLetterBySortKey(sortKey);
+
+                        if (sortLetters == null ) {
+                            sortLetters = getSortLetter(contactName);
+                        }
+                        sortModel.sortLetters = sortLetters;
+                        sortModel.sortToken   = parseSortKey(sortKey);
+                        mSortList.add(sortModel);
+                    }
+
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }finally {
+                    ContactsFragment.this.updateListView(mSortList);
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     /**

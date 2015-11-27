@@ -354,4 +354,12 @@ public class ProtocolUtil {
         return  ConfigUtil.getInst().getHttpDomain()+"v10/user";
     }
 
+    /**
+     * 环信添加/删除/显示好友
+     * @return
+     */
+    public static String gethximFriendUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"hxim/friend";
+    }
+
 }
