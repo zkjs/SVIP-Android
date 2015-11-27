@@ -362,4 +362,12 @@ public class ProtocolUtil {
         return  ConfigUtil.getInst().getHttpDomain()+"hxim/friend";
     }
 
+    /**
+     * 自建服务器好友维护(添加/删除/显示)
+     * @return
+     */
+    public static String getUserFriendUrl(){
+        return  ConfigUtil.getInst().getHttpDomain()+"user/friend";
+    }
+
 }

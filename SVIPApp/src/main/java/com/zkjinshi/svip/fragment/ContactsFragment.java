@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.fragment;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.ChatActivity;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.fragment.contacts.CharacterParser;
 import com.zkjinshi.svip.fragment.contacts.ContactsSortAdapter;
@@ -30,7 +32,9 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.HxFriendResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.response.UserFriendResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.ArrayList;
@@ -91,6 +95,23 @@ public class ContactsFragment extends BaseFragment{
         mContactsAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
+                SortModel sortModel = mSortList.get(postion);
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                intent.putExtra(Constants.EXTRA_USER_ID,sortModel.fuid);
+                intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
+                if (!TextUtils.isEmpty(sortModel.name)) {
+                    intent.putExtra(Constants.EXTRA_TO_NAME,sortModel.name);
+                }
+                if (!TextUtils.isEmpty(sortModel.shopid)) {
+                    intent.putExtra(Constants.EXTRA_SHOP_ID,sortModel.shopid);
+                }
+                if (!TextUtils.isEmpty(sortModel.shopName)) {
+                    intent.putExtra(Constants.EXTRA_SHOP_NAME,sortModel.shopName);
+                }
+
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
 
@@ -121,14 +142,14 @@ public class ContactsFragment extends BaseFragment{
      */
     private void loadHttpContacts() {
 
-        String url = ProtocolUtil.gethximFriendUrl();
+        String url = ProtocolUtil.getUserFriendUrl();
         Log.i(TAG,url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("salesid", CacheUtil.getInstance().getUserId());
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
         bizMap.put("token", CacheUtil.getInstance().getToken());
-        bizMap.put("fuid", "");
         bizMap.put("set", "showFriend");
+        bizMap.put("fuid", "");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;
@@ -150,12 +171,15 @@ public class ContactsFragment extends BaseFragment{
                 mSortList = new ArrayList<>();
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    ArrayList<HxFriendResponse> hxFriendResponses = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<HxFriendResponse>>(){}.getType());
-                    for(HxFriendResponse friendResponse : hxFriendResponses){
-                        String contactName  = friendResponse.getUsername();
+                    ArrayList<UserFriendResponse> friendResponses = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<UserFriendResponse>>(){}.getType());
+                    for(UserFriendResponse friendResponse : friendResponses){
+                        String contactName  = friendResponse.getFname();
                         String phoneNumber = friendResponse.getPhone();
                         String sortKey      = contactName;
                         SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
+                        sortModel.shopName = friendResponse.getShop_name();
+                        sortModel.fuid = friendResponse.getFuid();
+                        sortModel.shopid = friendResponse.getShopid();
                         String sortLetters  = getSortLetterBySortKey(sortKey);
 
                         if (sortLetters == null ) {

@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.fragment.contacts;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,8 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.RandomDrawbleUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import java.util.ArrayList;
@@ -31,12 +35,22 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<SortModel> mList;
     private Context         mContext;
+    private DisplayImageOptions options;
 
     private RecyclerItemClickListener mRecyclerItemClickListener;
 
     public ContactsSortAdapter(Context mContext, List<SortModel> list) {
         this.mContext = mContext;
         this.mList    = list;
+
+        this.options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(Color.TRANSPARENT)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(Color.TRANSPARENT)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(Color.TRANSPARENT)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .build();
+
     }
 
     /**
@@ -74,25 +88,30 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         final SortModel sortModel = mList.get(position);
         int   section = getSectionForPosition(position);
 
+        ClientViewHolder myHolder = (ClientViewHolder)holder;
+
         //是否显示首字母
         if (position == getPositionForSection(section)) {
-            ((ClientViewHolder)holder).tvLetter.setVisibility(View.VISIBLE);
+            myHolder.tvLetter.setVisibility(View.VISIBLE);
             String sortLetter = sortModel.sortLetters;
-            ((ClientViewHolder)holder).tvLetter.setText(sortLetter);
+            myHolder.tvLetter.setText(sortLetter);
         } else {
-            ((ClientViewHolder)holder).tvLetter.setVisibility(View.GONE);
+            myHolder.tvLetter.setVisibility(View.GONE);
         }
+
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(sortModel.fuid),
+                myHolder.civContactAvatar,options);
 
         //显示客户名称
         String clientName = sortModel.name;
         if(!TextUtils.isEmpty(clientName)){
-            ((ClientViewHolder) holder).tvContactAvatar.setText(clientName.substring(0, 1));
-            ((ClientViewHolder) holder).tvContactAvatar.setBackgroundResource(
-                    RandomDrawbleUtil.getRandomDrawable());
-            ((ClientViewHolder)holder).tvContactName.setText(clientName);
+            myHolder.tvContactAvatar.setText(clientName.substring(0, 1));
+            myHolder.tvContactAvatar.setBackgroundResource(RandomDrawbleUtil.getRandomDrawable());
+            myHolder.tvContactName.setText(clientName);
         }
-        if(!TextUtils.isEmpty(sortModel.number)){
-            ((ClientViewHolder)holder).tvContactOnShop.setText(sortModel.number);
+        //显示酒店名
+        if(!TextUtils.isEmpty(sortModel.shopName)){
+            myHolder.tvContactOnShop.setText(sortModel.shopName);
         }
     }
 
