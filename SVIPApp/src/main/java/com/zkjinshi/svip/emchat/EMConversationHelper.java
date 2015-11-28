@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.emchat;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
@@ -9,10 +10,12 @@ import com.easemob.EMCallBack;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
+import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VoiceMessageBody;
+import com.easemob.exceptions.EaseMobException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -85,6 +88,33 @@ public class EMConversationHelper {
         conversation.addMessage(message);
         //发送消息
         EMChatManager.getInstance().sendMessage(message, emCallBack);
+    }
+
+    public void requestGroupListTask(){
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    EMGroupManager.getInstance().getGroupsFromServer();
+                } catch (EaseMobException e) {
+                    e.printStackTrace();
+                    Log.i(TAG,"errorCode:"+e.getErrorCode());
+                    Log.i(TAG,"errorMessage:"+e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+
     }
 
     /**

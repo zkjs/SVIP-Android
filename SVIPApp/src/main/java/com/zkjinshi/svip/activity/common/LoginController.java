@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.factory.UserInfoFactory;
@@ -154,6 +155,7 @@ public class LoginController {
                 // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
                 //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
                 EMessageListener.getInstance().registerEventListener();
+                EMConversationHelper.getInstance().requestGroupListTask();
             }
 
             @Override
