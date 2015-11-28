@@ -21,19 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.easemob.EMCallBack;
-import com.google.gson.Gson;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.net.core.WebSocketManager;
-import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.bean.jsonbean.InviteCodeEntity;
-import com.zkjinshi.svip.bean.jsonbean.MsgUserDefine;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -43,7 +38,6 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
-import com.zkjinshi.svip.vo.PushOfflineMsg;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +72,7 @@ public class InviteCodeActivity extends Activity {
 
     private DisplayImageOptions mOptions;
     private String              mSalesID;
+    private String              mSalesName;
     private String              mShopID;
     private String              mInviteCode;
 
@@ -116,7 +111,6 @@ public class InviteCodeActivity extends Activity {
         mPhoneNum = CacheUtil.getInstance().getUserPhone();
         mToken    = CacheUtil.getInstance().getToken();
         mUserName = CacheUtil.getInstance().getUserName();
-
 
         mTitle.setTextTitle("");
         mOptions = new DisplayImageOptions.Builder()
@@ -176,7 +170,7 @@ public class InviteCodeActivity extends Activity {
                         return ;
                     } else {
                         //邀请码验证成功 开始确认并绑定邀请码
-                        bindTheSalerWithCode(mInviteCode, mSalesID, mShopID);
+                        bindTheSalerWithCode(mInviteCode, mSalesID, mSalesName, mShopID);
                     }
                 } else {
                     Intent goHome = new Intent(InviteCodeActivity.this, MainActivity.class);
@@ -195,7 +189,7 @@ public class InviteCodeActivity extends Activity {
     /**
      * 根据邀请码绑定客服
      */
-    private void bindTheSalerWithCode(String inviteCode, String salerID, String shopID) {
+    private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID) {
         NetRequest netRequest = new NetRequest(ProtocolUtil.getUserBindInviteCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("userid", mUserID);
@@ -204,6 +198,7 @@ public class InviteCodeActivity extends Activity {
         bizMap.put("phone", mPhoneNum);
         bizMap.put("code", inviteCode);
         bizMap.put("user_salesid", salerID);
+        bizMap.put("sales_name", salerName);
         bizMap.put("shopid", shopID);
 
         netRequest.setBizParamMap(bizMap);
@@ -337,8 +332,8 @@ public class InviteCodeActivity extends Activity {
                         mShopID  = responseObj.getString("shopid");
                         if (!TextUtils.isEmpty(mSalesID)) {
                             String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
-                            String salerName = responseObj.getString("username");
-                            showSalerInfo(true, avatarUrl, salerName);
+                            mSalesName = responseObj.getString("sales_name");
+                            showSalerInfo(true, avatarUrl, mSalesName);
                         }
                     } else {
                         if(responseObj.getInt("err") == 400) {
@@ -347,12 +342,11 @@ public class InviteCodeActivity extends Activity {
                         }
                         if(responseObj.getInt("err") == 404){
                             DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "邀请码不存在, 请确认后重新输入！", Gravity.CENTER);
+                                         "邀请码不存在, 请确认后重新输入！", Gravity.CENTER);
                         } else {
                             DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
                                                    "查询失败，请稍后再试！", Gravity.CENTER);
                         }
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
