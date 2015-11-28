@@ -30,6 +30,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.UserFriendResponse;
+import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -174,7 +175,12 @@ public class ContactsFragment extends BaseFragment{
                         String phoneNumber = friendResponse.getPhone();
                         String sortKey      = contactName;
                         SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
-                        sortModel.shopName = friendResponse.getShop_name();
+                        if(TextUtils.isEmpty( friendResponse.getShop_name()) && !TextUtils.isEmpty(friendResponse.getShopid())){
+                            sortModel.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(friendResponse.getShopid());
+                        }else{
+                            sortModel.shopName = friendResponse.getShop_name();
+                        }
+
                         sortModel.fuid = friendResponse.getFuid();
                         sortModel.shopid = friendResponse.getShopid();
                         String sortLetters  = getSortLetterBySortKey(sortKey);

@@ -112,6 +112,8 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //显示酒店名
         if(!TextUtils.isEmpty(sortModel.shopName)){
             myHolder.tvContactOnShop.setText(sortModel.shopName);
+        }else{
+            myHolder.tvContactOnShop.setText("");
         }
     }
 
