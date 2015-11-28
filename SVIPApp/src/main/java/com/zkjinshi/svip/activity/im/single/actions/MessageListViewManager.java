@@ -108,7 +108,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
      * 将消息设置为已读
      */
     private void clearChatRoomBadgeNum(){
-        conversation.markAllMessagesAsRead();
+        if(null != conversation && conversation.getAllMsgCount() > 0){
+            conversation.markAllMessagesAsRead();
+        }
     }
 
     /**
