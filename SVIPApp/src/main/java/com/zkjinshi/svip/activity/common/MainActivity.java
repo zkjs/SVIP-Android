@@ -308,8 +308,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
         MainController.getInstance().initServerPersonal();
-        LocationManager.getInstance().registerLocation(this);
-        LocationManager.getInstance().setLocationChangeListener(this);
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         setBadgeNum();
@@ -369,6 +367,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     @Override
     protected void onResume(){
         super.onResume();
+        LocationManager.getInstance().registerLocation(this);
+        LocationManager.getInstance().setLocationChangeListener(this);
+
         CircleImageView photoCtv = (CircleImageView)findViewById(R.id.main_user_photo_civ);
         String userId = CacheUtil.getInstance().getUserId();
         String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
