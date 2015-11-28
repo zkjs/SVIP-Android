@@ -14,7 +14,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@mipmap/ic_launcher" />
 
     </RelativeLayout>
 
@@ -40,6 +40,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical|left"
                 android:textColor="@color/Black"
                 android:textSize="16sp" />

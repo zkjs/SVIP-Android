@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.single.actions;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -7,20 +7,17 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.NetWorkUtil;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
-import com.zkjinshi.svip.utils.UUIDBuilder;
 
 /**
  * 语音录制管理器
@@ -196,13 +193,13 @@ public class VoiceRecordManager extends Handler {
                 if (recordSecond == 60) {
                     // 录音结束
                     CacheUtil.getInstance().setCountDown(false);
-                    android.os.Message message = new android.os.Message();
+                    Message message = new Message();
                     message.what = 0x0100;
                     sendMessage(message);
                 } else if (recordSecond >= 50) {
                     // 倒计时开始
                     CacheUtil.getInstance().setCountDown(true);
-                    android.os.Message message = new android.os.Message();
+                    Message message = new Message();
                     message.what = 0x0001;
                     message.arg1 = recordSecond;
                     message.obj  = "还可以说" + (60 - recordSecond) + "秒";

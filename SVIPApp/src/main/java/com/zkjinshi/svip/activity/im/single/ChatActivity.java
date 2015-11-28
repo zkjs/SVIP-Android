@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im;
+package com.zkjinshi.svip.activity.im.single;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,12 +29,12 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.actions.FaceViewPagerManager;
-import com.zkjinshi.svip.activity.im.actions.MoreViewPagerManager;
-import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
-import com.zkjinshi.svip.activity.im.actions.NetCheckManager;
-import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
-import com.zkjinshi.svip.activity.im.actions.VoiceRecordManager;
+import com.zkjinshi.svip.activity.im.single.actions.FaceViewPagerManager;
+import com.zkjinshi.svip.activity.im.single.actions.MessageListViewManager;
+import com.zkjinshi.svip.activity.im.single.actions.MoreViewPagerManager;
+import com.zkjinshi.svip.activity.im.single.actions.NetCheckManager;
+import com.zkjinshi.svip.activity.im.single.actions.QuickMenuManager;
+import com.zkjinshi.svip.activity.im.single.actions.VoiceRecordManager;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
@@ -52,7 +52,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import static android.view.View.*;
 
 /**
- * 聊天界面
+ * 单聊Activity
  * 开发者：vincent
  * 日期：2015/7/28
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -81,7 +81,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private LinearLayout faceLinearLayout, moreLinearLayout;
     private FaceViewPagerManager facePagerManager;
     private MoreViewPagerManager moreViewPagerManager;
-    private VoiceRecordManager   voiceRecordManager;
+    private VoiceRecordManager voiceRecordManager;
     private NetCheckManager netCheckManager;
     private CheckBox             faceCb, moreCb;
     private ImageButton    toggleAudioBtn;//切换到录音按钮

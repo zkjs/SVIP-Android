@@ -1,11 +1,8 @@
 package com.zkjinshi.svip.menu.action;
 
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.zkjinshi.svip.activity.im.actions.MessageListViewManager;
-import com.zkjinshi.svip.activity.im.actions.QuickMenuManager;
-import com.zkjinshi.svip.utils.VIPContext;
+import com.zkjinshi.svip.activity.im.single.actions.QuickMenuManager;
 
 /**
  * 快捷聊天指令

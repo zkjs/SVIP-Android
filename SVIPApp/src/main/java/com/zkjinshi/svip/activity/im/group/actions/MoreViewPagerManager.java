@@ -1,10 +1,5 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.group.actions;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +20,9 @@ import android.widget.Toast;
 
 import com.easemob.chat.EMChatManager;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.VideoCallActivity;
-import com.zkjinshi.svip.activity.im.VoiceCallActivity;
+import com.zkjinshi.svip.activity.im.single.VideoCallActivity;
+import com.zkjinshi.svip.activity.im.single.VoiceCallActivity;
+import com.zkjinshi.svip.adapter.GroupMoreAdapter;
 import com.zkjinshi.svip.adapter.MoreAdapter;
 import com.zkjinshi.svip.adapter.MorePageAdapter;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -34,6 +30,12 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.view.CirclePageIndicator;
 import com.zkjinshi.svip.view.JazzyViewPager;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * 更多栏管理器
@@ -59,25 +61,15 @@ public class MoreViewPagerManager extends Handler {
 	private Context context;
 	private JazzyViewPager moreViewPager;
 	private LinearLayout moreLinearLayout;
-	private Intent intent;
 	
 	private String picName;
-
-	private String userId;
-	private String toName;
-	private String shopId;
-	private String shopName;
 
 	public MoreViewPagerManager(Context context, LinearLayout moreLinearLayout) {
 		this.context = context;
 		this.moreLinearLayout = moreLinearLayout;
 	}
 
-	public void init(String userId,String toName,String shopId,String shopName) {
-		this.userId = userId;
-		this.toName = toName;
-		this.shopId = shopId;
-		this.shopName = shopName;
+	public void init() {
 		initView((Activity) context);
 		initMorePage();
 	}
@@ -129,13 +121,12 @@ public class MoreViewPagerManager extends Handler {
 		gv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT));
 		gv.setGravity(Gravity.CENTER);
-		gv.setAdapter(new MoreAdapter(context, i));
+		gv.setAdapter(new GroupMoreAdapter(context, i));
 		gv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				intent = new Intent();
 				switch (position) {
 				case CHOOSE_IMAGE: {// 发送图片
 					Intent intent = new Intent(context, MultiImageSelectorActivity.class);
@@ -147,30 +138,12 @@ public class MoreViewPagerManager extends Handler {
 					break;
 				case TAKE_PHOTO: {// 拍照
 					Intent i = new Intent(
-							android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+							MediaStore.ACTION_IMAGE_CAPTURE);
 					String photoFileName = System.currentTimeMillis() + ".jpg";
 					CacheUtil.getInstance().savePicName(photoFileName);
 					i.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(new File(FileUtil.getInstance().getImageTempPath() + photoFileName)));
 					((Activity)context).startActivityForResult(i, Constants.FLAG_CHOOSE_PHOTO);
-					}
-					break;
-				case VOICE_CALL: {// 语音通话
-						if (!EMChatManager.getInstance().isConnected()) {
-							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
-						} else {
-							context.startActivity(new Intent(context, VoiceCallActivity.class).putExtra("username", userId).putExtra("toName", toName)
-									.putExtra("shopId", shopId).putExtra("shopName", shopName).putExtra("isComingCall", false));
-						}
-					}
-					break;
-				case VIDEO_CALL: {// 视频通话
-						if (!EMChatManager.getInstance().isConnected())
-							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
-						else {
-							context.startActivity(new Intent(context, VideoCallActivity.class).putExtra("username", userId).putExtra("toName",toName)
-									.putExtra("shopId",shopId).putExtra("shopName",shopName).putExtra("isComingCall", false));
-						}
 					}
 					break;
 				default:
@@ -186,7 +159,6 @@ public class MoreViewPagerManager extends Handler {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				moreLinearLayout.setVisibility(View.VISIBLE);
 			}
 		}, 100);

@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.easemob.chat.EMChat;
-import com.easemob.util.EMLog;
-import com.zkjinshi.svip.activity.im.VideoCallActivity;
-import com.zkjinshi.svip.activity.im.VoiceCallActivity;
+import com.zkjinshi.svip.activity.im.single.VideoCallActivity;
+import com.zkjinshi.svip.activity.im.single.VoiceCallActivity;
 
 /**
  * 开发者：JimmyZhang

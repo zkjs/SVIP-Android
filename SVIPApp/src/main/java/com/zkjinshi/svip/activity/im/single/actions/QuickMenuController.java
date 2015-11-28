@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.single.actions;
 
 import com.zkjinshi.svip.menu.vo.ActionType;
 import com.zkjinshi.svip.menu.vo.MenuGroup;

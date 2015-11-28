@@ -12,7 +12,8 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.ChatActivity;
+import com.zkjinshi.svip.activity.im.group.ChatGroupActivity;
+import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
@@ -63,35 +64,34 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 EMConversation conversation = conversationList.get(position);
                 EMMessage message = conversation.getLastMessage();
                 String username = conversation.getUserName();
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                Intent intent = new Intent();
                 if (conversation.isGroup()) {
-                    if (conversation.getType() == EMConversation.EMConversationType.ChatRoom) {
-                        intent.putExtra(Constants.EXTRA_CHAT_TYPE, Constants.CHATTYPE_CHATROOM);
-                    } else {
-                        intent.putExtra(Constants.EXTRA_CHAT_TYPE, Constants.CHATTYPE_GROUP);
-                    }
-                }
-                intent.putExtra(Constants.EXTRA_USER_ID, username);
-                if (null != message) {
-                    try {
-                        String shopId = message.getStringAttribute("shopId");
-                        String shopName = message.getStringAttribute("shopName");
-                        String fromName = message.getStringAttribute("fromName");
-                        String toName = message.getStringAttribute("toName");
-                        if (!TextUtils.isEmpty(shopId)) {
-                            intent.putExtra(Constants.EXTRA_SHOP_ID,shopId);
+                    intent.setClass(getActivity(), ChatGroupActivity.class);
+                    intent.putExtra("groupId",username);
+                }else {
+                    intent.setClass(getActivity(), ChatActivity.class);
+                    intent.putExtra(Constants.EXTRA_USER_ID, username);
+                    if (null != message) {
+                        try {
+                            String shopId = message.getStringAttribute("shopId");
+                            String shopName = message.getStringAttribute("shopName");
+                            String fromName = message.getStringAttribute("fromName");
+                            String toName = message.getStringAttribute("toName");
+                            if (!TextUtils.isEmpty(shopId)) {
+                                intent.putExtra(Constants.EXTRA_SHOP_ID, shopId);
+                            }
+                            if (!TextUtils.isEmpty(shopName)) {
+                                intent.putExtra(Constants.EXTRA_SHOP_NAME, shopName);
+                            }
+                            if (!toName.equals(CacheUtil.getInstance().getUserName())) {
+                                intent.putExtra(Constants.EXTRA_TO_NAME, toName);
+                            } else {
+                                intent.putExtra(Constants.EXTRA_TO_NAME, fromName);
+                            }
+                            intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
+                        } catch (EaseMobException e) {
+                            e.printStackTrace();
                         }
-                        if (!TextUtils.isEmpty(shopName)) {
-                            intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
-                        }
-                        if(!toName.equals(CacheUtil.getInstance().getUserName())){
-                            intent.putExtra(Constants.EXTRA_TO_NAME, toName);
-                        }else{
-                            intent.putExtra(Constants.EXTRA_TO_NAME, fromName);
-                        }
-                        intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
-                    } catch (EaseMobException e) {
-                        e.printStackTrace();
                     }
                 }
                 startActivity(intent);

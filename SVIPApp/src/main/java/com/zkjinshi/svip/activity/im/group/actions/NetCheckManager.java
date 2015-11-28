@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.group.actions;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

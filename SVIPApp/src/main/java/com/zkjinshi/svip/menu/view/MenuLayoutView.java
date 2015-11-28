@@ -24,6 +24,7 @@ public class MenuLayoutView extends LinearLayout{
     private ArrayList<MenuGroup> menuGroupList;
     private MenuGroupView menuGroupView;
     private LayoutParams layoutParams;
+    private ChatMenuType chatMenuType = ChatMenuType.SINGLE;
 
     @SuppressLint("NewApi")
     public MenuLayoutView(Context context, AttributeSet attrs, int defStyle) {
@@ -40,6 +41,11 @@ public class MenuLayoutView extends LinearLayout{
         this.inflater = LayoutInflater.from(context);
     }
 
+    public MenuLayoutView(Context context,ChatMenuType chatMenuType) {
+        this(context);
+        this.chatMenuType = chatMenuType;
+    }
+
     public MenuLayoutView(Context context, ArrayList<MenuGroup> menuGroupList) {
         super(context);
         this.context = context;
@@ -47,19 +53,25 @@ public class MenuLayoutView extends LinearLayout{
         this.menuGroupList = menuGroupList;
     }
 
+    public MenuLayoutView(Context context, ArrayList<MenuGroup> menuGroupList,ChatMenuType chatMenuType){
+        this(context,menuGroupList);
+        this.chatMenuType = chatMenuType;
+    }
+
+
     public void init(){
         layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT , 1.0f);
         if(null != menuGroupList && !menuGroupList.isEmpty()){
             if(null != menuGroupList && !menuGroupList.isEmpty()){
-                menuGroupView = new MenuGroupView(context, menuGroupList.get(0),true,0,PostionType.LEFT);
+                menuGroupView = new MenuGroupView(context, menuGroupList.get(0),true,0,PostionType.LEFT,chatMenuType);
                 menuGroupView.setLayoutParams(layoutParams);
                 addView(menuGroupView);
                 for(int i= 1; i< menuGroupList.size()-1; i++){
-                    menuGroupView = new MenuGroupView(context, menuGroupList.get(i),true,i,PostionType.CENTER);
+                    menuGroupView = new MenuGroupView(context, menuGroupList.get(i),true,i,PostionType.CENTER,chatMenuType);
                     menuGroupView.setLayoutParams(layoutParams);
                     addView(menuGroupView);
                 }
-                menuGroupView = new MenuGroupView(context, menuGroupList.get(menuGroupList.size()-1), false,menuGroupList.size()-1,PostionType.RIGHT);
+                menuGroupView = new MenuGroupView(context, menuGroupList.get(menuGroupList.size()-1), false,menuGroupList.size()-1,PostionType.RIGHT,chatMenuType);
                 menuGroupView.setLayoutParams(layoutParams);
                 addView(menuGroupView);
             }

@@ -1,7 +1,8 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.single.actions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -9,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.ChatActivity;
+import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.menu.view.MenuLayoutView;
 import com.zkjinshi.svip.menu.vo.MenuGroup;
 import com.zkjinshi.svip.menu.vo.MenuItem;
@@ -89,7 +90,11 @@ public class QuickMenuManager {
         chatKeyboardLayout.setVisibility(View.GONE);
         menuInBottom = AnimationUtils.loadAnimation(context,R.anim.menu_in_bottom);
         menuOutTop = AnimationUtils.loadAnimation(context,R.anim.menu_out_top);
-        menuGroupList = QuickMenuController.getInstance().getMenuGroupList(shopId);
+        if(!TextUtils.isEmpty(shopId)){
+            menuGroupList = QuickMenuController.getInstance().getMenuGroupList(shopId);
+        }else {
+            menuGroupList = QuickMenuController.getInstance().getNoOrderMenuGroupList();
+        }
         //绘制低栏按钮
         layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         menuLayoutView = new MenuLayoutView(context, menuGroupList);

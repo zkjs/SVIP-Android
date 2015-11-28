@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
+import com.easemob.chat.EMGroupManager;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -22,9 +22,10 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
-import com.zkjinshi.svip.activity.im.actions.MessageSendFailChecker;
+import com.zkjinshi.svip.activity.im.single.actions.MessageSendFailChecker;
 
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.receiver.ECallReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -34,7 +35,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -100,6 +100,7 @@ public class SVIPApplication extends Application {
         //注册通话广播接收者
         registerReceiver(callReceiver, callFilter);
         EasemobIMHelper.getInstance().initConnectionListener();
+        EMGroupManager.getInstance().addGroupChangeListener(new EGroupReomveListener());
     }
 
 

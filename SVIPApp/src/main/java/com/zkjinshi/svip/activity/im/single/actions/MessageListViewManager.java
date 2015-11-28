@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.single.actions;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,7 +11,6 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.easemob.EMCallBack;
-import com.easemob.EMEventListener;
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
@@ -23,18 +22,14 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
-import com.zkjinshi.svip.manager.OrderManager;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
-import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 消息ListView管理器
@@ -340,7 +335,18 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                 break;
             case EventDeliveryAck:
                 EMChatManager.getInstance().getChatOptions().setRequireDeliveryAck(true);
-                break;
+                final EMMessage deliveryMessage = (EMMessage) event.getData();
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (currentMessageList.contains(deliveryMessage)) {
+                            deliveryMessage.status = EMMessage.Status.SUCCESS;
+                            chatAdapter.setMessageList(currentMessageList);
+                            scrollBottom();
+                        }
+                    }
+                });
+				break;
             case EventReadAck:
                 // 获取到message
                 break;

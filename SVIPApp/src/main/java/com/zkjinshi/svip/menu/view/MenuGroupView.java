@@ -2,7 +2,6 @@ package com.zkjinshi.svip.menu.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.menu.action.ChatGroupMenuAction;
 import com.zkjinshi.svip.menu.action.ChatMenuAction;
 import com.zkjinshi.svip.menu.action.MenuAction;
 import com.zkjinshi.svip.menu.action.PushMenuAction;
@@ -48,6 +48,7 @@ public class MenuGroupView extends LinearLayout {
     private int position;
     private PostionType postionType;
     private MenuAction menuAction;
+    private ChatMenuType chatMenuType = ChatMenuType.SINGLE;
 
     @SuppressLint("NewApi")
     public MenuGroupView(Context context, AttributeSet attrs, int defStyle) {
@@ -76,8 +77,6 @@ public class MenuGroupView extends LinearLayout {
     public MenuGroupView(Context context, MenuGroup menuGroup,
                            boolean isShowCutline) {
         this(context, menuGroup);
-        initView(isShowCutline);
-        initListeners();
     }
 
     public MenuGroupView(Context context, MenuGroup menuGroup,
@@ -91,6 +90,18 @@ public class MenuGroupView extends LinearLayout {
         this(context, menuGroup, isShowCutline);
         this.position = position;
         this.postionType = type;
+        initView(isShowCutline);
+        initListeners();
+    }
+
+    public MenuGroupView(Context context, MenuGroup menuGroup,
+                         boolean isShowCutline,int position,PostionType type,ChatMenuType chatMenuType) {
+        this(context, menuGroup, isShowCutline);
+        this.chatMenuType = chatMenuType;
+        this.position = position;
+        this.postionType = type;
+        initView(isShowCutline);
+        initListeners();
     }
 
     public void initView(boolean isShowCutline) {
@@ -124,7 +135,7 @@ public class MenuGroupView extends LinearLayout {
     public void initListeners() {
         menuItemList = menuGroup.getMenuItemList();
         if (null != menuType && menuType == MenuType.MULTI) {
-            menuItemView = new MenuItemView(context, menuItemList);
+            menuItemView = new MenuItemView(context, menuItemList,chatMenuType);
             menuTv.setTag(menuItemView);
             menuTv.setOnClickListener(new OnClickListener() {
 
@@ -133,10 +144,10 @@ public class MenuGroupView extends LinearLayout {
                     menuItemView = (MenuItemView) view.getTag();
                     int[] location = new int[2];
                     view.getLocationOnScreen(location);
-                    int widthSpec = View.MeasureSpec.makeMeasureSpec(0,
-                            View.MeasureSpec.UNSPECIFIED);
-                    int heightSpec = View.MeasureSpec.makeMeasureSpec(0,
-                            View.MeasureSpec.UNSPECIFIED);
+                    int widthSpec = MeasureSpec.makeMeasureSpec(0,
+                            MeasureSpec.UNSPECIFIED);
+                    int heightSpec = MeasureSpec.makeMeasureSpec(0,
+                            MeasureSpec.UNSPECIFIED);
                     menuItemView.getMenuLayout().measure(widthSpec, heightSpec);
                     layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1.0f);
                     int popupHeight = menuItemView.getMenuLayout().getMeasuredHeight();
@@ -171,7 +182,11 @@ public class MenuGroupView extends LinearLayout {
                         //执行按钮动作
                         ActionType actionType = menuGroup.getActionType();
                         if (actionType == ActionType.CHAT) {//进行预订聊天
-                            menuAction = new ChatMenuAction(menuName);
+                            if(chatMenuType == ChatMenuType.SINGLE){
+                                menuAction = new ChatMenuAction(menuName);
+                            }else {
+                                menuAction = new ChatGroupMenuAction(menuName);
+                            }
                             menuAction.executeAction();
                         } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                             menuAction = new PushMenuAction();

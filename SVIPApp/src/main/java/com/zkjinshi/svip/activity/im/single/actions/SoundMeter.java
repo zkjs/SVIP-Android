@@ -1,6 +1,5 @@
-package com.zkjinshi.svip.activity.im.actions;
+package com.zkjinshi.svip.activity.im.single.actions;
 
-import java.io.File;
 import java.io.IOException;
 import android.media.MediaRecorder;
 import android.os.Environment;

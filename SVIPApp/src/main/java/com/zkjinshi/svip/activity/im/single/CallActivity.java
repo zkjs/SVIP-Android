@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.activity.im;
+package com.zkjinshi.svip.activity.im.single;
 
 import android.content.Context;
 import android.media.AudioManager;

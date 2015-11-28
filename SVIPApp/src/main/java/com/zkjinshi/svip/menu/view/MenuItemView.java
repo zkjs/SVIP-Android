@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.menu.action.ChatGroupMenuAction;
 import com.zkjinshi.svip.menu.action.ChatMenuAction;
 import com.zkjinshi.svip.menu.action.MenuAction;
 import com.zkjinshi.svip.menu.action.PushMenuAction;
@@ -38,6 +39,8 @@ public class MenuItemView extends PopupWindow {
     private TextView cutlineTv;
     private MenuAction menuAction;
     private String menuName;
+    private ChatMenuType chatMenuType = ChatMenuType.SINGLE;
+
     public MenuItemView(Context context) {
         super(context);
         this.context = context;
@@ -47,6 +50,13 @@ public class MenuItemView extends PopupWindow {
     public MenuItemView(Context context, ArrayList<MenuItem> menuItemList) {
         this(context);
         this.menuItemList = menuItemList;
+        init();
+    }
+
+    public MenuItemView(Context context, ArrayList<MenuItem> menuItemList,ChatMenuType chatMenuType){
+        this(context);
+        this.menuItemList = menuItemList;
+        this.chatMenuType = chatMenuType;
         init();
     }
 
@@ -84,7 +94,11 @@ public class MenuItemView extends PopupWindow {
                 MenuItem menuItem = (MenuItem) view.getTag();
                 ActionType actionType = menuItem.getActionType();
                 if (actionType == ActionType.CHAT) {//进行预订聊天
-                    menuAction = new ChatMenuAction(menuItem.getMenuName());
+                    if(chatMenuType == ChatMenuType.SINGLE){
+                        menuAction = new ChatMenuAction(menuItem.getMenuName());
+                    }else {
+                        menuAction = new ChatGroupMenuAction(menuItem.getMenuName());
+                    }
                     menuAction.executeAction();
                 } else if (actionType == ActionType.PUSH) {//推送最新预定信息
                     menuAction = new PushMenuAction();

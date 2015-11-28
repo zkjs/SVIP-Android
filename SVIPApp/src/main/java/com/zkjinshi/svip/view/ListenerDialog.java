@@ -3,27 +3,16 @@ package com.zkjinshi.svip.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.ChatActivity;
-import com.zkjinshi.svip.activity.im.actions.SoundMeter;
-import com.zkjinshi.svip.activity.order.ShopActivity;
-import com.zkjinshi.svip.bean.CustomerServiceBean;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.activity.im.single.actions.SoundMeter;
 import com.zkjinshi.svip.utils.FileUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;

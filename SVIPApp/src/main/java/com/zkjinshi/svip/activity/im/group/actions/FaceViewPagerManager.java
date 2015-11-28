@@ -1,8 +1,4 @@
-package com.zkjinshi.svip.activity.im.actions;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+package com.zkjinshi.svip.activity.im.group.actions;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,6 +29,10 @@ import com.zkjinshi.svip.adapter.FacePageAdapter;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.view.CirclePageIndicator;
 import com.zkjinshi.svip.view.JazzyViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 表情栏管理器
