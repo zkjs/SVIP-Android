@@ -81,8 +81,6 @@ public class InviteCodeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_code);
 
-        mInviteCode = CacheUtil.getInstance().getInviteCode();
-
         initView();
         initData();
         initListener();
@@ -97,12 +95,6 @@ public class InviteCodeActivity extends Activity {
         mLlSalerInfo    = (LinearLayout)  findViewById(R.id.ll_saler_info);
         mCivSalerAvatar = (ImageView)     findViewById(R.id.civ_saler_avatar);
         mTvSalerName    = (TextView)      findViewById(R.id.tv_saler_name);
-
-        if(!TextUtils.isEmpty(mInviteCode)){
-            mEtInviteCode.setText(mInviteCode);
-            mEtInviteCode.setEnabled(false);
-            mIbtnQianJin.setVisibility(View.INVISIBLE);
-        }
     }
 
     private void initData() {
@@ -227,7 +219,6 @@ public class InviteCodeActivity extends Activity {
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
                         //本地缓存绑定邀请码
-                        CacheUtil.getInstance().saveInviteCode(mInviteCode);
                         if(!TextUtils.isEmpty(mSalesID)) {
                             EMConversationHelper.getInstance().sendInviteCmdMessage(
                                     mUserID,
@@ -297,7 +288,8 @@ public class InviteCodeActivity extends Activity {
 
         NetRequest netRequest = new NetRequest(ProtocolUtil.getEmpByInviteCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
-        bizMap.put("salesid", mUserID);
+
+        bizMap.put("userid", mUserID);
         bizMap.put("token", mToken);
         bizMap.put("code", inviteCodeStr);
 
@@ -329,7 +321,7 @@ public class InviteCodeActivity extends Activity {
                     Boolean isSuccess = responseObj.getBoolean("set");
                     if (isSuccess) {
                         mSalesID = responseObj.getString("salesid");
-                        mShopID  = responseObj.getString("shopid");
+                        mShopID  = String.valueOf(responseObj.getInt("shopid"));
                         if (!TextUtils.isEmpty(mSalesID)) {
                             String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
                             mSalesName = responseObj.getString("sales_name");
