@@ -13,6 +13,7 @@ import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class EMessageReceiver extends BroadcastReceiver {
                 showBookHotelSuccDialog(context,shopId,orderNo);
             }else if(action.equals("com.zkjinshi.svip.CONNECTION_CONFLICT")){
                 showOfflineDialog(context);
+                NotificationHelper.getInstance().showExitAccountNotification(context);
             }
         }
     }

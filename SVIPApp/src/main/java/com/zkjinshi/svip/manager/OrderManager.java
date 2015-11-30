@@ -8,6 +8,8 @@ import com.easemob.EMNotifierEvent;
 import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
+import com.zkjinshi.svip.notification.NotificationHelper;
+import com.zkjinshi.svip.utils.VIPContext;
 
 /**
  * 订单管理器
@@ -42,11 +44,14 @@ public class OrderManager {
                     if(!TextUtils.isEmpty(aciton) && "sureOrder".equals(aciton)){
                         final String shopId = message.getStringAttribute("shopId");
                         final String orderNo = message.getStringAttribute("orderNo");
+                        //1. 通过广播确认生成订单通知对话框
                         Intent intent = new Intent();
                         intent.setAction("com.zkjinshi.svip.ACTION_ORDER");
                         intent.putExtra("shopId", shopId);
-                        intent.putExtra("orderNo",orderNo);
+                        intent.putExtra("orderNo", orderNo);
                         context.sendBroadcast(intent);
+                        //2. 生成Notification通知
+                        NotificationHelper.getInstance().showNotification(context, shopId, orderNo);
                     }
                 } catch (EaseMobException e) {
                     e.printStackTrace();
