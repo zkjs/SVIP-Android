@@ -122,5 +122,7 @@
     <string name="if_exit_the_current_account_or_not">确定退出当前账户？</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
+    <string name="order_confirm">订单确认</string>
+    <string name="you_have_a_new_unconfirm_order">您有一条待确认订单。</string>
 
 </resources>
