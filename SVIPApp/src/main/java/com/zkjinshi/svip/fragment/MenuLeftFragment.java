@@ -190,6 +190,7 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                         WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
                         //修改登录状态
                         CacheUtil.getInstance().setLogin(false);
+                        CacheUtil.getInstance().savePicPath("");
                         ImageLoader.getInstance().clearDiskCache();
                         ImageLoader.getInstance().clearMemoryCache();
                         Intent loginActiviy = new Intent(mActivity, LoginActivity.class);
