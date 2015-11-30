@@ -538,7 +538,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
 
     }

@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -26,11 +28,13 @@ import com.zkjinshi.svip.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.RunnableFuture;
+
 
 /**
  * Created by Anshul on 24/06/15.
  */
-public class GooeyMenu extends View implements GestureDetector.OnGestureListener {
+public class GooeyMenu extends View {
 
     private static final long ANIMATION_DURATION = 300;
     private static final int DEFUALT_MENU_NO = 5;
@@ -67,9 +71,22 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
             {android.R.attr.state_enabled, -android.R.attr.state_active,
                     android.R.attr.state_pressed};
 
-    private GestureDetector detector;
+   // private GestureDetector detector;
+    private static final int LONG_CLICK_TIME = 500;
+    private static final int LONG_CLICK_MSG = 1;
     public boolean isLongClick = false;
     public boolean isHideDrawable;
+    float startX,startY;
+    Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            if(msg.what == LONG_CLICK_MSG){
+                isLongClick = true;
+                isHideDrawable = true;
+                mGooeyMenuInterface.menuLongClicked();
+            }
+        }
+    };
+
 
     public GooeyMenu(Context context) {
         super(context);
@@ -93,7 +110,7 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 //    }
 
     private void init(AttributeSet attrs) {
-        detector = new GestureDetector(this);
+       // detector = new GestureDetector(this);
         if (attrs != null) {
             TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
                     attrs,
@@ -301,10 +318,13 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        detector.onTouchEvent(event);
+       // detector.onTouchEvent(event);
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                startX = event.getX();
+                startY = event.getY();
                 if (isGooeyMenuTouch(event)) {
+                   handler.sendEmptyMessageDelayed(LONG_CLICK_MSG,LONG_CLICK_TIME);
                     return true;
                 }
                 int menuItem = isMenuItemTouched(event);
@@ -317,14 +337,22 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
                     return true;
                 }
                 return false;
-
+//            case MotionEvent.ACTION_MOVE:
+//                double deltaX = Math.sqrt((event.getX() - startX) * (event.getX() - startX) + (event.getY() - startY) * (event.getY() - startY));
+//                if (deltaX > 10 && handler != null) { // 移动大于10像素
+//                    handler.removeMessages(LONG_CLICK_MSG);
+//                    isLongClick = false;
+//                }
+//                break;
             case MotionEvent.ACTION_UP:
+                handler.removeMessages(LONG_CLICK_MSG);
                 if(isLongClick){
-                    isLongClick = false;
                     isHideDrawable = false;
+                    isLongClick = false;
                     mGooeyMenuInterface.menuLongClickedUp();
                     return false;
                 }
+                isLongClick = false;
                 if (isGooeyMenuTouch(event)) {
                     mBezierAnimation.start();
                     cancelAllAnimation();
@@ -396,49 +424,50 @@ public class GooeyMenu extends View implements GestureDetector.OnGestureListener
     }
 
     public boolean isGooeyMenuTouch(MotionEvent event) {
-        if (event.getX() >= mCenterX - mFabButtonRadius && event.getX() <= mCenterX + mFabButtonRadius) {
-            if (event.getY() >= mCenterY - mFabButtonRadius && event.getY() <= mCenterY + mFabButtonRadius) {
+        float rate = 1.5f;
+        if (event.getX() >= mCenterX - mFabButtonRadius*rate && event.getX() <= mCenterX + mFabButtonRadius*rate) {
+            if (event.getY() >= mCenterY - mFabButtonRadius*rate && event.getY() <= mCenterY + mFabButtonRadius*rate) {
                 return true;
             }
         }
         return false;
     }
 
-    @Override
-    public boolean onDown(MotionEvent event) {
-
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent event) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent event) {
-        if (isGooeyMenuTouch(event)) {
-            isLongClick = true;
-            isHideDrawable = true;
-            mGooeyMenuInterface.menuLongClicked();
-        }
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
+//    @Override
+//    public boolean onDown(MotionEvent event) {
+//
+//        return false;
+//    }
+//
+//    @Override
+//    public void onShowPress(MotionEvent motionEvent) {
+//
+//    }
+//
+//    @Override
+//    public boolean onSingleTapUp(MotionEvent event) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void onLongPress(MotionEvent event) {
+//        if (isGooeyMenuTouch(event)) {
+//            isLongClick = true;
+//            isHideDrawable = true;
+//            mGooeyMenuInterface.menuLongClicked();
+//        }
+//
+//    }
+//
+//    @Override
+//    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+//        return false;
+//    }
 
     // Helper class for animation and Menu Item cicle center Points
     public class CirclePoint {
