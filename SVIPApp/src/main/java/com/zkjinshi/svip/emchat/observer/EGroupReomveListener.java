@@ -2,18 +2,11 @@ package com.zkjinshi.svip.emchat.observer;
 
 import android.util.Log;
 
-import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
-import com.easemob.chat.EMMessage;
-import com.easemob.chat.EMNotifier;
 import com.easemob.chat.GroupReomveListener;
-import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EaseMobException;
-import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.svip.utils.CacheUtil;
-
-import java.util.UUID;
 
 /**
  * 群相关事件监听
@@ -41,17 +34,6 @@ public class EGroupReomveListener extends GroupReomveListener {
         }
         if (!hasGroup)
             return;
-        // 被邀请
-        EMMessage msg = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
-        msg.setChatType(EMMessage.ChatType.GroupChat);
-        msg.setFrom(inviter);
-        msg.setTo(groupId);
-        msg.setMsgId(UUID.randomUUID().toString());
-        msg.addBody(new TextMessageBody(inviter + "邀请你加入了群聊"));
-        // 保存邀请消息
-        EMChatManager.getInstance().saveMessage(msg);
-        // 提醒新消息
-        EMNotifier.getInstance(BaseContext.getInstance().getContext()).notifyOnNewMsg();
         //TODO Jimmy 默认同意加群
         try {
             EMGroupManager.getInstance().acceptApplication(CacheUtil.getInstance().getUserId(),groupId);
@@ -72,16 +54,6 @@ public class EGroupReomveListener extends GroupReomveListener {
         super.onApplicationAccept(groupId, groupName, accepter);
         Log.i(TAG,"onApplicationAccept");
         //加群申请被接受
-        EMMessage msg = EMMessage.createReceiveMessage(EMMessage.Type.TXT);
-        msg.setChatType(EMMessage.ChatType.GroupChat);
-        msg.setFrom(accepter);
-        msg.setTo(groupId);
-        msg.setMsgId(UUID.randomUUID().toString());
-        msg.addBody(new TextMessageBody(accepter + "同意了你的群聊申请"));
-        // 保存同意消息
-        EMChatManager.getInstance().saveMessage(msg);
-        // 提醒新消息
-        EMNotifier.getInstance(BaseContext.getInstance().getContext()).notifyOnNewMsg();
     }
 
     @Override
