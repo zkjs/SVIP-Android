@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
@@ -189,6 +190,8 @@ public class MenuLeftFragment extends Fragment implements View.OnClickListener{
                         WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
                         //修改登录状态
                         CacheUtil.getInstance().setLogin(false);
+                        ImageLoader.getInstance().clearDiskCache();
+                        ImageLoader.getInstance().clearMemoryCache();
                         Intent loginActiviy = new Intent(mActivity, LoginActivity.class);
                         startActivity(loginActiviy);
                         mActivity.finish();

@@ -559,7 +559,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
         findViewById(R.id.menu_ibtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = 34/0;
                 slidingMenu.showMenu();
             }
         });
