@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
+import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.factory.ShopInfoFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -125,7 +126,7 @@ public class HotelFragment  extends Fragment {
                 ShopListResponse shopInfoVo = (ShopListResponse) shopAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), OrderBookingActivity.class);
                 intent.putExtra("shopid", shopInfoVo.getShopid());
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, ShopActivity.KILL_MYSELF);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }

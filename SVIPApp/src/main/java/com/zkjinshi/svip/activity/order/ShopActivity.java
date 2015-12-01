@@ -44,6 +44,8 @@ public class ShopActivity extends AppCompatActivity {
 
     public static final String TAG = ShopActivity.class.getSimpleName();
 
+    public static final int KILL_MYSELF = 1;
+
     private ViewPager mViewPager;
     private ShopPagerAdapter mShopPagerAdapter;
     private RadioButton hotelRbtn,playRbtn,foodRbtn;
@@ -201,6 +203,16 @@ public class ShopActivity extends AppCompatActivity {
             mSearchView.closeSearch();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (RESULT_OK == resultCode) {
+             if(KILL_MYSELF == requestCode){
+                 finish();
+                 //overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
         }
     }
 

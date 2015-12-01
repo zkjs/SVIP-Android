@@ -69,6 +69,8 @@ public class OrderBookingActivity extends Activity {
 
     private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
+
+
     private ItemTitleView mTitle;
     private TextView mRoomType;
     private TextView mTvArriveDate;
@@ -104,6 +106,7 @@ public class OrderBookingActivity extends Activity {
     private OrderDetailResponse orderDetailResponse = new OrderDetailResponse();
     private OrderRoomResponse orderRoomResponse = new OrderRoomResponse();
 
+    public static final int KILL_MYSELF = 1;
     public static final int GOOD_REQUEST_CODE = 6;
     public static final int PEOPLE_REQUEST_CODE = 7;
 
@@ -418,8 +421,10 @@ public class OrderBookingActivity extends Activity {
                                         if (!TextUtils.isEmpty(shopName)) {
                                             intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
                                         }
-                                        startActivity(intent);
+                                        startActivityForResult(intent,OrderBookingActivity.KILL_MYSELF);
                                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                        setResult(RESULT_OK);
+                                        finish();
                                     }
                                 }
                             }
@@ -463,6 +468,9 @@ public class OrderBookingActivity extends Activity {
                     lastGoodInfoVo = (GoodInfoVo) data.getSerializableExtra("GoodInfoVo");
                     setOrderRoomType(lastGoodInfoVo);
                 }
+            }else if(KILL_MYSELF == requestCode){
+                setResult(RESULT_OK);
+                finish();
             }
         }
     }

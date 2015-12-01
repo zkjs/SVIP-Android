@@ -234,12 +234,14 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         titleIv.getmLeft().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(RESULT_OK);
                 ChatActivity.this.finish();
             }
         });
         titleIv.getmRight().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(RESULT_OK);
                 ChatActivity.this.finish();
             }
         });
