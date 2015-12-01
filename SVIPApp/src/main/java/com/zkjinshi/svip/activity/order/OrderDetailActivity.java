@@ -36,7 +36,6 @@ import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
@@ -751,7 +750,10 @@ public class OrderDetailActivity extends Activity{
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
                     if(baseResponse.isSet()){
-                        CustomerServicesManager.getInstance().requestServiceListTask(OrderDetailActivity.this, shopId, new NetRequestListener() {
+                        CustomerServicesManager.getInstance().requestServiceListTask(
+                            OrderDetailActivity.this,
+                            shopId,
+                            new ExtNetRequestListener(OrderDetailActivity.this) {
                             @Override
                             public void onNetworkRequestError(int errorCode, String errorMessage) {
                                 Log.i(TAG, "errorCode:" + errorCode);
@@ -862,7 +864,10 @@ public class OrderDetailActivity extends Activity{
                 try {
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult,BaseResponse.class);
                     if(baseResponse.isSet()){
-                        CustomerServicesManager.getInstance().requestServiceListTask(OrderDetailActivity.this, shopId, new NetRequestListener() {
+                        CustomerServicesManager.getInstance().requestServiceListTask(
+                            OrderDetailActivity.this,
+                            shopId,
+                            new ExtNetRequestListener(OrderDetailActivity.this) {
                             @Override
                             public void onNetworkRequestError(int errorCode, String errorMessage) {
                                 Log.i(TAG, "errorCode:" + errorCode);

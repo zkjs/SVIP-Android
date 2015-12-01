@@ -3,9 +3,9 @@ package com.zkjinshi.svip.manager;
 import android.content.Context;
 
 import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -40,7 +40,7 @@ public class CustomerServicesManager {
      * @param shopId
      * @param netRequestListener
      */
-    public void requestServiceListTask(Context context,String shopId,NetRequestListener netRequestListener){
+    public void requestServiceListTask(Context context, String shopId, ExtNetRequestListener netRequestListener){
         NetRequest netRequest = new NetRequest(ProtocolUtil.getCustomerServiceUrl());
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", CacheUtil.getInstance().getUserId());

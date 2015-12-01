@@ -46,7 +46,6 @@ import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.request.pushad.MsgPushLocA2MReqTool;
@@ -73,7 +72,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver, GooeyMenu.GooeyMenuInterface,LocationManager.LocationChangeListener {
+public class MainActivity extends FragmentActivity implements IBeaconObserver,
+        GooeyMenu.GooeyMenuInterface, LocationManager.LocationChangeListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -193,7 +193,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, G
     //智能选择客服
     public void loadCleverServer(final int menuNumber){
         final String shopid = getCleverShopId();
-        CustomerServicesManager.getInstance().requestServiceListTask(this,shopid , new NetRequestListener() {
+        CustomerServicesManager.getInstance().requestServiceListTask(this,shopid , new ExtNetRequestListener(this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);

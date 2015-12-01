@@ -34,7 +34,6 @@ import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestListener;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
@@ -364,7 +363,10 @@ public class OrderBookingActivity extends Activity {
 
                     orderDetailResponse.setUsers(mUserList);
                     orderDetailResponse.setContent("您好，帮我预定这间房");
-                    CustomerServicesManager.getInstance().requestServiceListTask(OrderBookingActivity.this, shopId, new NetRequestListener() {
+                    CustomerServicesManager.getInstance().requestServiceListTask(
+                        OrderBookingActivity.this,
+                        shopId,
+                        new ExtNetRequestListener(OrderBookingActivity.this) {
                         @Override
                         public void onNetworkRequestError(int errorCode, String errorMessage) {
                             Log.i(TAG, "errorCode:" + errorCode);

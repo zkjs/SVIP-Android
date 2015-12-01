@@ -32,7 +32,7 @@ import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.ShopCallVo;
 import com.zkjinshi.svip.bean.UserCallVo;
-import com.zkjinshi.svip.net.NetRequestListener;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CameraHelper;
 
@@ -180,7 +180,7 @@ public class VideoCallActivity extends CallActivity implements View.OnClickListe
 
 
         if(isInComingCall){
-            requestUserTask(this, username, new NetRequestListener() {
+            requestUserTask(this, username, new ExtNetRequestListener(this) {
                 @Override
                 public void onNetworkRequestError(int errorCode, String errorMessage) {
                     Log.i(TAG, "errorCode:" + errorCode);
