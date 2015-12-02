@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -127,9 +128,9 @@ public class MainController {
     }
 
     /**
-     * 初始化专属客服列表信息
+     * 判读是否已经激活
      */
-    public void initServerPersonal(){
+    public void checktActivate(){
         String url = ProtocolUtil.getUserMysemp();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -156,23 +157,17 @@ public class MainController {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<List<ServerPersonalVo>>() {
-                    }.getType();
-                    Gson gson = new Gson();
-                    List<ServerPersonalVo> serverPersonalVoList = gson.fromJson(result.rawResult, listType);
+                    BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
                     TextView activateTv = (TextView)activity.findViewById(R.id.activate_tv);
-                    if (serverPersonalVoList != null && serverPersonalVoList.size() > 0) {
-                        CacheUtil.getInstance().setActivate(true);
+                    if (baseBean.isSet()) {
                         activateTv.setText("（已激活）");
                         activity.findViewById(R.id.tips_layout).setVisibility(View.GONE);
-                        ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
+                        CacheUtil.getInstance().setActivate(true);
                     } else {
                         activateTv.setText("（未激活）");
                         activity.findViewById(R.id.tips_layout).setVisibility(View.VISIBLE);
                         CacheUtil.getInstance().setActivate(false);
                     }
-
-
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -187,5 +182,67 @@ public class MainController {
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
+
+    /**
+     * 初始化专属客服列表信息
+     */
+//    public void initServerPersonal(){
+//        String url = ProtocolUtil.getUserMysemp();
+//        Log.i(TAG, url);
+//        NetRequest netRequest = new NetRequest(url);
+//        HashMap<String,String> bizMap = new HashMap<String,String>();
+//        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+//        bizMap.put("token", CacheUtil.getInstance().getToken());
+//        netRequest.setBizParamMap(bizMap);
+//        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
+//        netRequestTask.methodType = MethodType.PUSH;
+//        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
+//            @Override
+//            public void onNetworkRequestError(int errorCode, String errorMessage) {
+//                Log.i(TAG, "errorCode:" + errorCode);
+//                Log.i(TAG, "errorMessage:" + errorMessage);
+//            }
+//
+//            @Override
+//            public void onNetworkRequestCancelled() {
+//
+//            }
+//
+//            @Override
+//            public void onNetworkResponseSucceed(NetResponse result) {
+//                super.onNetworkResponseSucceed(result);
+//                Log.i(TAG, "result.rawResult:" + result.rawResult);
+//                try {
+//                    Type listType = new TypeToken<List<ServerPersonalVo>>() {
+//                    }.getType();
+//                    Gson gson = new Gson();
+//                    List<ServerPersonalVo> serverPersonalVoList = gson.fromJson(result.rawResult, listType);
+//                    TextView activateTv = (TextView)activity.findViewById(R.id.activate_tv);
+//                    if (serverPersonalVoList != null && serverPersonalVoList.size() > 0) {
+//                        CacheUtil.getInstance().setActivate(true);
+//                        activateTv.setText("（已激活）");
+//                        activity.findViewById(R.id.tips_layout).setVisibility(View.GONE);
+//                        ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
+//                    } else {
+//                        activateTv.setText("（未激活）");
+//                        activity.findViewById(R.id.tips_layout).setVisibility(View.VISIBLE);
+//                        CacheUtil.getInstance().setActivate(false);
+//                    }
+//
+//
+//                } catch (Exception e) {
+//                    Log.e(TAG, e.getMessage());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void beforeNetworkRequestStart() {
+//
+//            }
+//        });
+//        netRequestTask.isShowLoadingDialog = true;
+//        netRequestTask.execute();
+//    }
     
 }

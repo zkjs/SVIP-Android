@@ -307,7 +307,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver,
         initDBName();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
-        MainController.getInstance().initServerPersonal();
+        MainController.getInstance().checktActivate();
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
         setBadgeNum();

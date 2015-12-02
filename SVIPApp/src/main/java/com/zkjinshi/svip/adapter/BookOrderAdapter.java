@@ -140,7 +140,7 @@ public class BookOrderAdapter extends SvipBaseAdapter<BookOrder> {
         }
 
         holder.shopName.setText(itemOrder.getFullName() + "");
-        float payment = stayDays * Float.parseFloat(itemOrder.getRoomRate());
+        float payment = Float.parseFloat(itemOrder.getRoomRate());
         holder.costAmount.setText(payment+"元");
         return convertView;
     }
