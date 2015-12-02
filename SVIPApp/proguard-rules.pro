@@ -142,25 +142,50 @@
 
 #----根据 Android Private Libraries 配置lib jar包start---#
 
- #1 短信验证包
--dontwarn com.cloopen.rest.**
--keep class com.cloopen.rest.** { *; }
+#支付宝
+-dontwarn com.alipay.**
+-keep class com.alipay.**{ *; }
+
+-dontwarn com.ta.utdid2.**
+-keep class  com.ta.utdid2.**{ *; }
+
+-dontwarn com.ut.device.**
+-keep class  com.ut.device.**{ *; }
+
+-dontwarn org.json.alipay.**
+-keep class org.json.alipay.**{ *; }
+
+ # 短信验证包
+-dontwarn com.cloopen.rest.sdk.**
+-keep class com.cloopen.rest.sdk.** { *; }
 -dontwarn de.mindpipe.android.logging.log4j.**
 -keep class de.mindpipe.android.logging.log4j.** { *; }
--dontwarn org.**
--keep class org.** { *; }
+-dontwarn org.apache.**
+-keep class org.apache.** { *; }
+-dontwarn org.dom4j.**
+-keep class org.dom4j.** { *; }
 -dontwarn ytx.org.apache.http.**
 -keep class ytx.org.apache.http.** { *; }
 
- #2 mime网络框架包
+ #mime网络框架包
 -dontwarn org.apache.http.entity.mime.**
 -keep class org.apache.http.entity.mime.**{ *; }
 
- #3 xls/xlsx电子表格解析包
--dontwarn jxl.**
--keep class jxl.**{ *; }
+#微信
+-dontwarn com.tencent.**
+-keep class com.tencent.**{ *; }
 
- #4 云测包
+#ping++
+-dontwarn com.pingplusplus.android.**
+-keep class com.pingplusplus.android.**{ *; }
+
+#高德地图
+-dontwarn com.amap.api.location.**
+-keep class com.amap.api.location.**{ *; }
+-dontwarn com.aps.**
+-keep class com.aps.**{ *; }
+
+ #云测包
 -dontwarn com.testin.agent.**
 -keep class com.testin.agent.** { *; }
 
