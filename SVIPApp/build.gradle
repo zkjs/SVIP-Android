@@ -15,7 +15,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,5 +35,4 @@ dependencies {
     compile project(':CalendarListView')
     compile project(':Cloud_TagView')
     compile project(':MaterialSearchViewLibrary')
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
 }
