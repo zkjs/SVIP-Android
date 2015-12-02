@@ -65,6 +65,7 @@ import com.zkjinshi.svip.view.GooeyMenu;
 import com.zkjinshi.svip.view.ListenerDialog;
 import com.zkjinshi.svip.view.zoomview.CityDialog;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -768,9 +769,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver,
             double shopLng;
             shopLat = lastOrderInfo.getMap_latitude();
             shopLng = lastOrderInfo.getMap_longitude();
-            LogUtil.getInstance().info(LogLevel.DEBUG,"酒店位置信息("+shopLat+","+shopLng+")");
             double distancedouble =  MapUtil.GetDistance(geoLat,geoLng,shopLat,shopLng);
-            distanceTv.setText("距离"+distancedouble+"KM");
+            LogUtil.getInstance().info(LogLevel.DEBUG,"酒店位置信息("+shopLat+","+shopLng+")");
+
+            DecimalFormat df = new DecimalFormat("###.0");
+            LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+distancedouble);
+            distanceTv.setText("距离"+df.format(distancedouble)+"KM");
         }else{
             distanceTv.setText("距离未知");
         }
