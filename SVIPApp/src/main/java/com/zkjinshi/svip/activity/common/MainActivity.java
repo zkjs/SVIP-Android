@@ -75,6 +75,7 @@ import java.util.HashMap;
 public class MainActivity extends FragmentActivity implements IBeaconObserver,
         GooeyMenu.GooeyMenuInterface, LocationManager.LocationChangeListener {
 
+
     public static final String TAG = MainActivity.class.getSimpleName();
 
     public static final int NOTIFY_UPDATE_VIEW = 0x0001;

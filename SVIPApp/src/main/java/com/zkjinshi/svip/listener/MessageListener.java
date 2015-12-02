@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.listener;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,10 +21,7 @@ import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.net.protocol.ProtocolMSG;
 import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.base.view.CustomDialog;
-import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
-import com.zkjinshi.svip.activity.order.PayOrderActivity;
-import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceImgChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
 import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
@@ -46,11 +42,8 @@ import com.zkjinshi.svip.vo.OrderVo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 开发者：JimmyZhang
@@ -96,6 +89,7 @@ public class MessageListener extends Handler implements IMessageListener {
                 MsgPushLocA2MRSP msgPushLocA2MRSP = gson.fromJson(message,MsgPushLocA2MRSP.class);
                 ArrayList<MsgPushLocAd> arrmsg = msgPushLocA2MRSP.getArrmsg();
                 if(null != arrmsg && !arrmsg.isEmpty()){
+                    LogUtil.getInstance().info(LogLevel.INFO, TAG+"收到用户到店通知：" + arrmsg.get(0));
                     NotificationHelper.getInstance().showNotification(VIPContext.getInstance().getContext(),arrmsg.get(0));
                 }
             }
