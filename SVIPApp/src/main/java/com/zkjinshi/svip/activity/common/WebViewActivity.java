@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
@@ -38,6 +39,9 @@ import android.widget.TextView;
 import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 轻应用html5载入界面
@@ -79,7 +83,16 @@ public class WebViewActivity extends Activity {
     @Override
     protected void onDestroy() {
         if (null != webView) {
-            webView.destroy();
+            webView.getSettings().setBuiltInZoomControls(true);
+            webView.setVisibility(View.GONE);// 把destroy()延后
+            long timeout = ViewConfiguration.getZoomControlsTimeout();
+            System.out.println("time=="+timeout);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    webView.destroy();
+                }
+            }, timeout);
         }
         super.onDestroy();
     }
