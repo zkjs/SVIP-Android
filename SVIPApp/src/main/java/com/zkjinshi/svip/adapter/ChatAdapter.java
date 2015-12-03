@@ -444,7 +444,7 @@ public class ChatAdapter extends BaseAdapter {
             }
             vh.msg.setText("");
             vh.msg.setVisibility(View.GONE);
-            String key = message.getMsgId();
+            final String key = message.getMsgId();
             Bitmap displayBitmap = null;
             Bitmap bitmapCache = (Bitmap) msgCacheMap.get(key);
             final String fileName = imgBody.getFileName();
@@ -453,17 +453,13 @@ public class ChatAdapter extends BaseAdapter {
                 if(!TextUtils.isEmpty(filePath)){
                     displayBitmap = BitmapFactory.decodeFile(filePath);
                 }
-                if(null == displayBitmap){
-                    displayBitmap = BitmapFactory.decodeFile(FileUtil.getInstance()
-                            .getImagePath() + fileName);
-                }
                 if (displayBitmap != null) {// 本地取
                     displayBitmap = ImageUtil.cropThumbBitmap(displayBitmap);
                     displayBitmap = ImageUtil.loadThumbBitmap(context,
                             displayBitmap);
+                    msgCacheMap.put(key,displayBitmap);
                     vh.img.setImageBitmap(displayBitmap);
                 } else {// 从网络取
-                    //ToDo Jimmy 获取图片链接
                     String thumbUrl =  imgBody.getThumbnailUrl();
                     if(!TextUtils.isEmpty(thumbUrl)){
                         ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
@@ -487,6 +483,7 @@ public class ChatAdapter extends BaseAdapter {
                                                         + fileName);
                                         ImageUtil.saveBitmap(loadedImage,
                                                 file.getPath());
+                                        msgCacheMap.put(key,loadedImage);
                                     }
 
                                     @Override
