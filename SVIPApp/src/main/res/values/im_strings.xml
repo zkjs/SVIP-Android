@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- 发送语音 -->
     <string name="chatfooter_cancel_rcd">手指上滑，取消发送</string>
     <string name="chatfooter_cancel_rcd_release">松开手指，取消发送</string>
@@ -7,4 +8,8 @@
     <string name="chatfooter_presstorcd">按住 说话</string>
     <string name="chatfooter_releasetofinish">松开 结束</string>
     <string name="chatfooter_cancel_tips">松开手指，取消发送</string>
+
+    <!-- 图片浏览 -->
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+
 </resources>

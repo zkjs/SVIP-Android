@@ -44,6 +44,7 @@ import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.http.get.DownloadRequestListener;
 import com.zkjinshi.svip.http.get.DownloadTask;
@@ -428,7 +429,16 @@ public class ChatAdapter extends BaseAdapter {
                 vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO Jimmy 跳转到图片浏览页面
+                        EMMessage vo = (EMMessage) v.getTag();
+                        ArrayList<String> urls = getImageUrls(messageList);
+                        int picPostion = getPicPositon(vo, urls);
+                        Intent it = new Intent(context,
+                                ScanImagesActivity.class);
+                        it.putStringArrayListExtra(
+                                ScanImagesActivity.EXTRA_IMAGE_URLS, urls);
+                        it.putExtra(ScanImagesActivity.EXTRA_IMAGE_INDEX,
+                                picPostion);
+                        context.startActivity(it);
                     }
                 });
             }
@@ -846,5 +856,33 @@ public class ChatAdapter extends BaseAdapter {
 
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
+    }
+
+    // 获得图片集合
+    public ArrayList<String> getImageUrls(List<EMMessage> messageList) {
+        ArrayList<String> urls = new ArrayList<String>();
+        for (EMMessage message : messageList) {
+            if(EMMessage.Type.IMAGE.equals(message.getType())){
+                ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
+                urls.add(imgBody.getThumbnailUrl());
+            }
+        }
+        return urls;
+    }
+
+    // 获得图片位置
+    public int getPicPositon(EMMessage message, ArrayList<String> urls) {
+        ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
+        String url = imgBody.getThumbnailUrl();
+        String mUrl = "";
+        int picPostion = 0;
+        for (int i = 0; i < urls.size(); i++) {
+            mUrl = urls.get(i);
+            if (mUrl.equals(url)) {
+                picPostion = i;
+                break;
+            }
+        }
+        return picPostion;
     }
 }
