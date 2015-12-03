@@ -1,7 +1,9 @@
 
 package com.zkjinshi.base.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 /**
  * 分辨率操作工具类
@@ -11,6 +13,36 @@ import android.content.Context;
  * 版权所有
  */
 public class DisplayUtil {
+
+	/**
+	 *
+	 * 此方法描述的是：   获得屏幕宽度
+	 * @author:JimmyZhang
+	 * @since: 2013-12-17 下午7:50:54
+	 * @param activity
+	 * @return
+	 * @return int
+	 */
+	public static int getWidthPixel(Activity activity) {
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		return dm.widthPixels;
+	}
+
+	/**
+	 *
+	 * 此方法描述的是：   获得屏幕高度
+	 * @author:JimmyZhang
+	 * @since: 2013-12-17 下午7:51:01
+	 * @param activity
+	 * @return
+	 * @return int
+	 */
+	public static int getHeightPixel(Activity activity) {
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		return dm.heightPixels;
+	}
 
 	/**
 	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
