@@ -251,8 +251,8 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                getUser(inputPhone);
-               /* if (mSmsVerifySuccess) {
+                //getUser(inputPhone);
+               if (mSmsVerifySuccess) {
                     thirdBundleData = null;
                     getUser(inputPhone);//判断用户是否已经存在
                 } else {
@@ -262,7 +262,7 @@ public class LoginActivity extends Activity{
                     mVerifyCode.requestFocus();
                     mBtnConfirm.setText("正在发送中...");
                     sendVerifyCodeForPhone(inputPhone);//发送验证码
-                }*/
+                }
             }
         });
 
