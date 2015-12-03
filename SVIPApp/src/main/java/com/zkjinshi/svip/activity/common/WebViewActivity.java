@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
@@ -86,8 +87,7 @@ public class WebViewActivity extends Activity {
             webView.getSettings().setBuiltInZoomControls(true);
             webView.setVisibility(View.GONE);// 把destroy()延后
             long timeout = ViewConfiguration.getZoomControlsTimeout();
-            System.out.println("time=="+timeout);
-            new Timer().schedule(new TimerTask() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     webView.destroy();
