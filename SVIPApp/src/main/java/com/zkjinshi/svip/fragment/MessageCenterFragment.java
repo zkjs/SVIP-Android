@@ -102,6 +102,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
     @Override
     public void onResume() {
         super.onResume();
+        EMConversationHelper.getInstance().requestGroupListTask();
         conversationList = (ArrayList<EMConversation>) EMConversationHelper.getInstance().loadConversationList();
         mChatRoomAdapter.setConversationList(conversationList);
         if(null == conversationList || conversationList.isEmpty()){
