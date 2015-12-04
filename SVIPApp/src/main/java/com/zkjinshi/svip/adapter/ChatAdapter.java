@@ -462,28 +462,7 @@ public class ChatAdapter extends BaseAdapter {
                     String thumbUrl =  imgBody.getThumbnailUrl();
                     if(!TextUtils.isEmpty(thumbUrl)){
                         ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
-                                imageOptions, new ImageLoadingListener() {
-
-                                    @Override
-                                    public void onLoadingStarted(String imageUri,
-                                                                 View view) {
-                                    }
-
-                                    @Override
-                                    public void onLoadingFailed(String imageUri,
-                                                                View view, FailReason failReason) {
-                                    }
-
-                                    @Override
-                                    public void onLoadingComplete(String imageUri,
-                                                                  View view, Bitmap loadedImage) {
-                                    }
-
-                                    @Override
-                                    public void onLoadingCancelled(String imageUri,
-                                                                   View view) {
-                                    }
-                                });
+                                imageOptions);
                     }
                 }
             } else {
