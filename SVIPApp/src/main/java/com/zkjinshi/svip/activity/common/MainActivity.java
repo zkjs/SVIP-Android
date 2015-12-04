@@ -364,6 +364,10 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver,
     protected void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
+
+        if(listenerDialog.isShowing()){
+            menuLongClickedUp();
+        }
     }
 
     @Override
@@ -387,6 +391,8 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver,
         setBadgeNum();
         loadLastOrderInfo();
         loadAdPush();
+
+
     }
 
     @Override
