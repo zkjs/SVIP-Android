@@ -447,7 +447,6 @@ public class ChatAdapter extends BaseAdapter {
             final String key = message.getMsgId();
             Bitmap displayBitmap = null;
             Bitmap bitmapCache = (Bitmap) msgCacheMap.get(key);
-            final String fileName = imgBody.getFileName();
             String filePath = imgBody.getLocalUrl();
             if (bitmapCache == null) {
                 if(!TextUtils.isEmpty(filePath)){
@@ -478,12 +477,6 @@ public class ChatAdapter extends BaseAdapter {
                                     @Override
                                     public void onLoadingComplete(String imageUri,
                                                                   View view, Bitmap loadedImage) {
-                                        File file = new File(
-                                                FileUtil.getInstance().getImagePath()
-                                                        + fileName);
-                                        ImageUtil.saveBitmap(loadedImage,
-                                                file.getPath());
-                                        msgCacheMap.put(key,loadedImage);
                                     }
 
                                     @Override
