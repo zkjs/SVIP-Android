@@ -251,7 +251,7 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
-                getUser(inputPhone);
+               getUser(inputPhone);
 //               if (mSmsVerifySuccess) {
 //                    thirdBundleData = null;
 //                    getUser(inputPhone);//判断用户是否已经存在

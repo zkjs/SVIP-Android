@@ -158,14 +158,9 @@ public class MainController {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
-                    TextView activateTv = (TextView)activity.findViewById(R.id.activate_tv);
                     if (baseBean.isSet()) {
-                        activateTv.setText("（已激活）");
-                        activity.findViewById(R.id.tips_layout).setVisibility(View.GONE);
                         CacheUtil.getInstance().setActivate(true);
                     } else {
-                        activateTv.setText("（未激活）");
-                        activity.findViewById(R.id.tips_layout).setVisibility(View.VISIBLE);
                         CacheUtil.getInstance().setActivate(false);
                     }
                 } catch (Exception e) {
