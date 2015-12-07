@@ -517,6 +517,7 @@
     <color name="TransparentGray">#7F000000</color>
     <color name="TransparentLightGray">#22000000</color>
     <color name="gray525252">#525252</color>
+    <color name="eeeeee">#eeeeee</color>
 
     <array name="loc_notice_colors">
         <item>#666666</item>
@@ -537,5 +538,10 @@
     </array>
 
     <color name="voip_interface_text_color">#bababa</color>
+
+    <color name="e3e3e3">#e3e3e3</color>
+    <color name="b8b8b8">#b8b8b8</color>
+    <color name="gray6666">#666666</color>
+    <color name="ffc56e">#ffc56e</color>
 
 </resources>

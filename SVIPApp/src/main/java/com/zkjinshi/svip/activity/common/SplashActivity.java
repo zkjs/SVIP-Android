@@ -32,7 +32,8 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class SplashActivity extends Activity {
+public class
+SplashActivity extends Activity {
 
     private DisplayImageOptions options;
 

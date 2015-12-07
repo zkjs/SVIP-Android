@@ -370,4 +370,11 @@ public class ProtocolUtil {
         return  ConfigUtil.getInst().getHttpDomain()+"user/friend";
     }
 
+    /**
+     * 获取销售详情信息
+     * @return
+     */
+    public static String getSalesUrl() {
+        return  ConfigUtil.getInst().getHttpDomain()+"user/getsales";
+    }
 }

@@ -419,6 +419,11 @@
             android:theme="@style/horizontal_slide" >
         </activity>
 
+        <activity android:name=".activity.common.ContactActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
     </application>
 
 </manifest>
