@@ -123,7 +123,6 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
         if (null != webSocketClient) {
             webSocketClient.disconnect();
         }
-        stopHeartBeat();
         Log.e(Constants.ZKJINSHI_BASE_TAG, TAG + ".close()");
     }
 
