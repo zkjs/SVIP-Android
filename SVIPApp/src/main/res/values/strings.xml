@@ -124,5 +124,12 @@
     <string name="cancel">取消</string>
     <string name="order_confirm">订单确认</string>
     <string name="you_have_a_new_unconfirm_order">您有一条待确认订单。</string>
+    <string name="tv_pieces_of_evaluation">条评价</string>
+    <string name="phone">电话</string>
+    <string name="evaluate_score">评分</string>
+    <string name="latest">最近</string>
+    <string name="no_login">无登录</string>
+    <string name="consult_immediately">立刻咨询</string>
+    <string name="where_you_want_go_and_enjoy_services">想去哪里，享受尊贵服务？</string>
 
 </resources>

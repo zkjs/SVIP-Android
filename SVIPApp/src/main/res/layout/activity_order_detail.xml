@@ -292,8 +292,6 @@
                     android:textStyle="bold"
                     android:text="立即支付"/>
 
-
-
             </LinearLayout>
             <!--发票类型-->
             <LinearLayout
