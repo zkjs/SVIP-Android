@@ -106,7 +106,7 @@ public class TabNavigationFragment extends Fragment implements
 					mContentFragments.put(mCheckedRadioButtonId, target);
 				}
 				if (target != null) {
-					ft.replace(R.id.main_frame_content, target);
+					ft.replace(R.id.main_frame_content, target,String.valueOf(checkedId));
 					ft.commit();
 				}
 			}

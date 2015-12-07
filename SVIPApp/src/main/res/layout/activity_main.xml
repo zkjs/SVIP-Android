@@ -23,6 +23,7 @@
         android:name="com.zkjinshi.svip.fragment.TabNavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/footer_tab" />
+        tools:layout="@layout/footer_tab"
+        android:tag="TabNavigationFragment"/>
 
 </LinearLayout>

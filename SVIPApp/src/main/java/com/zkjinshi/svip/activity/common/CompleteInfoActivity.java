@@ -224,8 +224,10 @@ public class CompleteInfoActivity extends Activity {
                             BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                             if (null != baseResponse && baseResponse.isSet()) {
                                 ImageLoader.getInstance().clearDiskCache();
-                                ImageLoader.getInstance().clearMemoryCache();;
+                                ImageLoader.getInstance().clearMemoryCache();
                                 CacheUtil.getInstance().setUserName(nickName);
+                                CacheUtil.getInstance().setSex(sexValue+"");
+
                                 //进入邀请码页面，并输入邀请码
                                 Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
                                 CompleteInfoActivity.this.startActivity(goInviteCode);

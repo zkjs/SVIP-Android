@@ -227,6 +227,32 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 保存用户性别
+	 * @param sex
+	 */
+	public void setSex(String sex) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString("sex", sex).commit();
+	}
+
+	/**
+	 * 获取用户性别
+	 * @return
+	 */
+	public String getSex() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getString("sex","0");
+	}
+
+	/**
 	 * 保存用户手机号
 	 * @param mobilePhone
 	 */

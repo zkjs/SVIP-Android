@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:id="@+id/last_order_layout">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e3e3e3"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订单状态 "
+        android:textColor="#666666"
+        android:textSize="16sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="216dp">
+        <ImageView
+            android:id="@+id/order_shop_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/img_dingdanxiangqing"
+            android:scaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#000000"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp">
+            <TextView
+                android:id="@+id/order_shopname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="长沙 芙蓉国温德姆至尊豪廷大酒店 "
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:ellipsize="marquee"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/order_tips_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你已经提交订单，请等待酒店确认 "
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/order_detail_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="豪华大床房 | 11/26入住 | 2晚 | 699 "
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

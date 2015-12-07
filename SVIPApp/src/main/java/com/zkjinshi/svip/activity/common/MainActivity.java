@@ -18,6 +18,9 @@ import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
+import com.zkjinshi.svip.emchat.observer.EMessageListener;
+import com.zkjinshi.svip.fragment.HomeFragment;
+import com.zkjinshi.svip.fragment.TabNavigationFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
@@ -36,49 +39,18 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    public static final int NOTIFY_UPDATE_VIEW = 0x0001;
-    public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
-    private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
+
+
 
     SVIPApplication svipApplication;
-    private OrderLastResponse lastOrderInfo = null;
-
 
     public static double geoLat = 100;
     public static double geoLng;
 
     private ListenerDialog listenerDialog;
 
-    public enum MainTextStatus {
-        DEFAULT_NULL,
-        NO_ORDER_NOT_IN,
-        NO_ORDER_IN,
-        BOOKING_NOT_IN,
-        BOOKING_IN,
-        SURE_IN_HAVE_NOLOGIN,
-        SURE_IN_NOT_NOLOGIN,
-        SURE_NOT_IN,
-        CHECKIN_IN,
-        CHECKIN_NOT_IN,
-        ORDER_FINISH
-    }
-
-    private MainTextStatus mainTextStatus = MainTextStatus.DEFAULT_NULL;
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case NOTIFY_UPDATE_VIEW:
-                   // setBadgeNum();
-                    break;
-                case NOTIFY_UPDATE_MAIN_TEXT:
-                   // changeMainText();
-                    break;
-            }
-        }
-    };
+    TabNavigationFragment tabNavigationFragment;
+    HomeFragment homeFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,8 +77,21 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         LocationManager.getInstance().setLocationChangeListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        IBeaconSubject.getInstance().removeObserver(this);
+        EMessageListener.getInstance().unregisterEventListener();
+        if(listenerDialog != null){
+            listenerDialog.stopAnimation();
+        }
+
+    }
+
     private void initView() {
         listenerDialog = new ListenerDialog(this);
+        tabNavigationFragment = (TabNavigationFragment)getSupportFragmentManager().findFragmentByTag("TabNavigationFragment");
+
     }
 
     private void initData(){
@@ -157,7 +142,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
 
         reginAdPush(regionVo);
         addRegionVo(regionVo);
-        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
+        notifyHomeFragment();
     }
 
     @Override
@@ -170,7 +155,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
         removeRegionVo(regionVo);
-        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
+        notifyHomeFragment();
     }
 
     //添加蓝牙设备
@@ -211,7 +196,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         geoLat = aMapLocation.getLatitude();//纬度
         geoLng = aMapLocation.getLongitude();//经度
         LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
-        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
+        notifyHomeFragment();
 
+    }
+
+    public void notifyHomeFragment(){
+        if(getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
+            homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
+            homeFragment.notifyMainTextChange();
+        }
     }
 }

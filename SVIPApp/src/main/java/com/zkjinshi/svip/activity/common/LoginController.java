@@ -106,6 +106,7 @@ public class LoginController {
                             CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                             CacheUtil.getInstance().setUserRealName(userInfoVo.getRealName());
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
+                            CacheUtil.getInstance().setSex(userDetailVo.getSex());
                         }
                         loginUser();
                         //判读是否新注册用户
