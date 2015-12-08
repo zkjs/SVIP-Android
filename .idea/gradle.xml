@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/SlidingMenu" />
             <option value="$PROJECT_DIR$/ZKJinShiBaseClass" />
             <option value="$PROJECT_DIR$/multi-image-selector" />
+            <option value="$PROJECT_DIR$/pinyinSearch" />
           </set>
         </option>
         <option name="myModules">
@@ -28,6 +29,7 @@
             <option value="$PROJECT_DIR$/SlidingMenu" />
             <option value="$PROJECT_DIR$/ZKJinShiBaseClass" />
             <option value="$PROJECT_DIR$/multi-image-selector" />
+            <option value="$PROJECT_DIR$/pinyinSearch" />
           </set>
         </option>
       </GradleProjectSettings>

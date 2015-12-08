@@ -1,1 +1,2 @@
 include ':CalendarListView', ':Cloud_TagView', ':SVIPApp', ':SlidingMenu', ':ZKJinShiBaseClass', ':multi-image-selector', ':MaterialSearchViewLibrary'
+include ':pinyinSearch'

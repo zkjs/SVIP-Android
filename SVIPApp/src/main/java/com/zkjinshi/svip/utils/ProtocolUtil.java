@@ -15,8 +15,6 @@ public class ProtocolUtil {
     public static int DEFAULT_MAX_RETRIES = 0; //增加重试次数
     public static float DEFAULT_BACKOFF_MULT = 1f;//它允许你指定一个退避乘数可以用来实现“指数退避”来从RESTful服务器请求数据。
 
-
-
     /**
      * 获取客服列表 URL
      * @return
@@ -376,5 +374,21 @@ public class ProtocolUtil {
      */
     public static String getSalesUrl() {
         return  ConfigUtil.getInst().getHttpDomain()+"user/getsales";
+    }
+
+    /**
+     * 获取城市列表
+     * @return
+     */
+    public static String getCityListUrl() {
+        return  ConfigUtil.getInst().getHttpDomain()+"arrive/citylist";
+    }
+
+    /**
+     * 根据城市名称获取商家列表
+     * @return
+     */
+    public static String getShopLIstByCityUrl(String city) {
+        return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
     }
 }

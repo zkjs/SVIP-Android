@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:gravity="right|center_vertical"
         android:padding="5dp"
-        android:hint="定位"
+        android:hint="@string/shenzhen_city"
         android:layout_marginRight="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"

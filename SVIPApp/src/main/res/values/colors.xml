@@ -543,5 +543,10 @@
     <color name="b8b8b8">#b8b8b8</color>
     <color name="gray666666">#666666</color>
     <color name="ffc56e">#ffc56e</color>
+    <color name="city_search_bg">#fff2f2f2</color>
+    <color name="city_item_letter_color">#ff8c8c8c</color>
+    <color name="dialog_title_color">#ff333333</color>
+    <color name="dialog_content_color">#ff495a6d</color>
+    <color name="city_item_text_color">#ff5c5c5c</color>
 
 </resources>
