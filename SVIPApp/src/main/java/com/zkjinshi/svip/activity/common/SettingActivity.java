@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,12 +21,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.AboutActivity;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.http.post.HttpRequest;
 import com.zkjinshi.svip.http.post.HttpRequestListener;
@@ -40,6 +44,7 @@ import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
@@ -109,6 +114,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mTicketInfo.setOnClickListener(this);
         mRealName.setOnClickListener(this);
         mAbout.setOnClickListener(this);
+        findViewById(R.id.ius_logout).setOnClickListener(this);
     }
 
     private void initData(){
@@ -450,7 +456,78 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
                 break;
+            case R.id.ius_logout:
+                final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(this);
+                customerBuilder.setTitle(getString(R.string.exit));
+                customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
+                customerBuilder.setGravity(Gravity.CENTER);
+                customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
+                customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //环信接口退出
+                        EasemobIMHelper.getInstance().logout();
+                        //http接口推出
+                        String userID = CacheUtil.getInstance().getUserId();
+                        logoutHttp(userID);
+                        //熊推接口推出
+                        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
+                        //修改登录状态
+                        CacheUtil.getInstance().setLogin(false);
+                        CacheUtil.getInstance().savePicPath("");
+                        ImageLoader.getInstance().clearDiskCache();
+                        ImageLoader.getInstance().clearMemoryCache();
+                        Intent loginActiviy = new Intent(SettingActivity.this, LoginActivity.class);
+                        startActivity(loginActiviy);
+                        finish();
+
+                    }
+                });
+                customerBuilder.create().show();
+                break;
         }
+    }
+
+    /**
+     * 断开用户登录连接
+     */
+    private void logoutHttp(String userID) {
+        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
+        Log.i(TAG, logoutUrl);
+        NetRequest netRequest = new NetRequest(logoutUrl);
+        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
     }
 }

@@ -131,6 +131,9 @@ public class MainController {
      * 判读是否已经激活
      */
     public void checktActivate(){
+        if(CacheUtil.getInstance().isActivate()){
+            return;
+        }
         String url = ProtocolUtil.getUserMysemp();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);

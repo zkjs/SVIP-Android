@@ -1,5 +1,7 @@
 package com.zkjinshi.svip.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +25,9 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -58,7 +62,9 @@ public class HomeFragment extends Fragment {
 
     public static final int NOTIFY_UPDATE_VIEW = 0x0001;
     public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
+    private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
 
+    private View view = null;
     private ImageView homePicIv;
     private TextView nameTv;
     private ImageView orderShopIconIv;
@@ -66,6 +72,8 @@ public class HomeFragment extends Fragment {
     private TextView orderTipsTv;
     private TextView orderDetailTv,simpleTextTv;
     private View lastOrderLayout;
+    private Activity mActivity;
+    private View codeLayout;
 
     SVIPApplication svipApplication;
     private OrderLastResponse lastOrderInfo = null;
@@ -107,8 +115,9 @@ public class HomeFragment extends Fragment {
 
     private void initView(View view){
         svipApplication = (SVIPApplication)getActivity().getApplication();
-        homePicIv = (ImageView)view.findViewById(R.id.home_pic_iv);
+
         nameTv = (TextView)view.findViewById(R.id.name_tv);
+        codeLayout = view.findViewById(R.id.code_layout);
 
         orderShopIconIv = (ImageView)view.findViewById(R.id.order_shop_iv);
         orderShopNameTv = (TextView)view.findViewById(R.id.order_shopname_tv);
@@ -116,12 +125,13 @@ public class HomeFragment extends Fragment {
         orderDetailTv = (TextView)view.findViewById(R.id.order_detail_tv);
         lastOrderLayout = view.findViewById(R.id.last_order_layout);
         simpleTextTv = (TextView)view.findViewById(R.id.simple_text_tv);
+
+        homePicIv = (ImageView)view.findViewById(R.id.home_pic_iv);
+        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
+        homePicIv.startAnimation(bigAnimation);
     }
 
     private void initData(){
-        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
-        homePicIv.startAnimation(bigAnimation);
-
 
         String nameStr = "";
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
@@ -137,7 +147,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void initListeners(){
-
+        //立即激活
+        mActivity.findViewById(R.id.code_click_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goInvitesCode = new Intent(mActivity, InviteCodeActivity.class);
+                startActivityForResult(goInvitesCode, REQUEST_ACTIVATE_INVITE_CODE);
+            }
+        });
     }
 
     @Override
@@ -148,8 +165,11 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home,container,false);
-        initView(view);
+        mActivity = getActivity();
+        if(view == null){
+            view = inflater.inflate(R.layout.fragment_home,container,false);
+            initView(view);
+        }
         return view;
     }
 
@@ -164,6 +184,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         loadLastOrderInfo();
+        checktActivate();
     }
 
     //加载最近的一条订单信息
@@ -281,7 +302,7 @@ public class HomeFragment extends Fragment {
             LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+distancedouble);
             simpleTextTv.setText("有订单  " +"距离"+df.format(distancedouble)+"KM");
         }else{
-            simpleTextTv.setText("距离未知");
+            simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通，让您尊享个性服务。");
         }
     }
 
@@ -445,6 +466,63 @@ public class HomeFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 判读是否已经激活
+     */
+    public void checktActivate(){
+        if(CacheUtil.getInstance().isActivate()){
+            codeLayout.setVisibility(View.GONE);
+            return;
+        }
+        String url = ProtocolUtil.getUserMysemp();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(mActivity,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
+                    if (baseBean.isSet()) {
+                        CacheUtil.getInstance().setActivate(true);
+                        codeLayout.setVisibility(View.GONE);
+                    } else {
+                        CacheUtil.getInstance().setActivate(false);
+                        codeLayout.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
 }
