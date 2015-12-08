@@ -35,22 +35,11 @@ import com.zkjinshi.svip.view.GooeyMenu;
 import com.zkjinshi.svip.view.ListenerDialog;
 
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver, LocationManager.LocationChangeListener{
+public class MainActivity extends FragmentActivity implements IBeaconObserver{
 
     public static final String TAG = MainActivity.class.getSimpleName();
-
-
-
-
     SVIPApplication svipApplication;
-
-    public static double geoLat = 100;
-    public static double geoLng;
-
-    private ListenerDialog listenerDialog;
-
-    TabNavigationFragment tabNavigationFragment;
-    HomeFragment homeFragment;
+    //private ListenerDialog listenerDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,14 +56,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
     @Override
     protected void onPause() {
         super.onPause();
-        LocationManager.getInstance().removeLocation();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        LocationManager.getInstance().registerLocation(this);
-        LocationManager.getInstance().setLocationChangeListener(this);
     }
 
     @Override
@@ -82,15 +68,14 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
-        if(listenerDialog != null){
-            listenerDialog.stopAnimation();
-        }
+//        if(listenerDialog != null){
+//            listenerDialog.stopAnimation();
+//        }
 
     }
 
     private void initView() {
-        listenerDialog = new ListenerDialog(this);
-        tabNavigationFragment = (TabNavigationFragment)getSupportFragmentManager().findFragmentByTag("TabNavigationFragment");
+        //listenerDialog = new ListenerDialog(this);
 
     }
 
@@ -98,7 +83,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         initDBName();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
-        MainController.getInstance().checktActivate();
         MessageListener  messageListener = new MessageListener();
         initService(messageListener);
     }
@@ -190,19 +174,11 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver, L
         WebSocketManager.getInstance().sendMessage(msgPushStr);
     }
 
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        //获取位置信息
-        geoLat = aMapLocation.getLatitude();//纬度
-        geoLng = aMapLocation.getLongitude();//经度
-        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
-        notifyHomeFragment();
 
-    }
 
     public void notifyHomeFragment(){
         if(getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
-            homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
+            HomeFragment homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
             homeFragment.notifyMainTextChange();
         }
     }

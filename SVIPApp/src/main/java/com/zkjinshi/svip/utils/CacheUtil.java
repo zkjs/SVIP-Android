@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.response.OrderRoomResponse;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -450,6 +451,25 @@ public class CacheUtil {
 	 */
 	public void setRegionInfo(String shopId, RegionVo regionVo) {
 		saveObjCache(regionVo);
+	}
+
+	/**
+	 * 获取最近浏览商品信息
+	 *
+	 * @return
+	 */
+	public OrderRoomResponse getLastLookGood() {
+		OrderRoomResponse orderRoomResponse = new OrderRoomResponse();
+		return (OrderRoomResponse)getObjCache(orderRoomResponse);
+	}
+
+	/**
+	 * 设置最近浏览商品信息
+	 *
+	 * @param orderRoomResponse
+	 */
+	public void setLastLookGood(  OrderRoomResponse orderRoomResponse) {
+		saveObjCache(orderRoomResponse);
 	}
 
 	/**

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/last_look_layout">
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="216dp">
         <ImageView
+            android:id="@+id/last_look_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/img_dingdanxiangqing"
@@ -37,6 +39,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp">
             <TextView
+                android:id="@+id/last_look_room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="¥655 起"
@@ -48,6 +51,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/last_look_shopname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="长沙 芙蓉国温德姆豪廷大酒店"

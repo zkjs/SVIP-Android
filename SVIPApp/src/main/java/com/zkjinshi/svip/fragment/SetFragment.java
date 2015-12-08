@@ -106,7 +106,7 @@ public class SetFragment extends Fragment implements View.OnClickListener{
         setAvatar();
         nameTv.setText(CacheUtil.getInstance().getUserName());
         vipTv.setText("VIP "+CacheUtil.getInstance().getUserApplevel());
-
+        checktActivate();
     }
 
     public void setAvatar(){

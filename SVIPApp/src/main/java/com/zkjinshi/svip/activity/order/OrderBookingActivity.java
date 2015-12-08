@@ -488,6 +488,8 @@ public class OrderBookingActivity extends Activity {
         orderRoomResponse.setShopid(shopId);
         orderRoomResponse.setFullname(shopName);
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
+
+        CacheUtil.getInstance().setLastLookGood(orderRoomResponse);
     }
 
 }

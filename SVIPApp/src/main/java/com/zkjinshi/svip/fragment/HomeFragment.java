@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -25,17 +26,24 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.activity.common.CityActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.activity.order.OrderBookingActivity;
+import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
+import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -56,7 +64,7 @@ import java.util.HashMap;
 /**
  * 首页Fragment
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements LocationManager.LocationChangeListener{
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -132,7 +140,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData(){
-
+        MainController.getInstance().init(mActivity);
         String nameStr = "";
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             nameStr = CacheUtil.getInstance().getUserName();
@@ -148,11 +156,78 @@ public class HomeFragment extends Fragment {
 
     private void initListeners(){
         //立即激活
-        mActivity.findViewById(R.id.code_click_tv).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.code_click_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goInvitesCode = new Intent(mActivity, InviteCodeActivity.class);
                 startActivityForResult(goInvitesCode, REQUEST_ACTIVATE_INVITE_CODE);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        //位置
+        view.findViewById(R.id.location_llt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, CityActivity.class);
+                mActivity.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        //点击最近浏览
+        view.findViewById(R.id.last_look_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, OrderBookingActivity.class);
+                OrderRoomResponse lastLookGood = CacheUtil.getInstance().getLastLookGood();
+                intent.putExtra("shopid", lastLookGood.getShopid());
+                intent.putExtra("lastLookGood", lastLookGood);
+                mActivity.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+            }
+        });
+
+        //点击订单
+        view.findViewById(R.id.last_order_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = null;
+                switch (mainTextStatus) {
+                    case NO_ORDER_IN:
+                        if (svipApplication.mRegionList.size() > 0) {
+
+                            intent = new Intent(mActivity, OrderBookingActivity.class);
+                            intent.putExtra("shopid", svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1).getiBeacon().getShopid());
+                        }
+
+                        break;
+                    case ORDER_FINISH:
+                        intent = new Intent(mActivity, OrderEvaluateActivity.class);
+                        OrderConsumeResponse bookOrder = new OrderConsumeResponse();
+                        bookOrder.setReservation_no(lastOrderInfo.getReservation_no());
+                        bookOrder.setShopid(lastOrderInfo.getShopid());
+                        bookOrder.setRoom_type(lastOrderInfo.getRoom_type());
+                        bookOrder.setRooms(lastOrderInfo.getRooms());
+                        bookOrder.setRoom_rate(lastOrderInfo.getRoom_rate());
+                        bookOrder.setArrival_date(lastOrderInfo.getArrival_date());
+                        bookOrder.setDeparture_date(lastOrderInfo.getDeparture_date());
+                        intent.putExtra("bookOrder", bookOrder);
+                        break;
+                    default:
+                        if (lastOrderInfo != null && lastOrderInfo.getReservation_no() != null) {
+                            intent = new Intent(mActivity, OrderDetailActivity.class);
+                            intent.putExtra("reservation_no", lastOrderInfo.getReservation_no());
+                            intent.putExtra("shopid", lastOrderInfo.getShopid());
+                        }
+
+                }
+                if (intent != null) {
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right,
+                            R.anim.slide_out_left);
+                }
             }
         });
     }
@@ -183,8 +258,48 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        LocationManager.getInstance().registerLocation(mActivity);
+        LocationManager.getInstance().setLocationChangeListener(this);
         loadLastOrderInfo();
         checktActivate();
+        initLastGoodLook();
+    }
+
+    public void onPause() {
+        super.onPause();
+        LocationManager.getInstance().removeLocation();
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        //获取位置信息
+        geoLat = aMapLocation.getLatitude();//纬度
+        geoLng = aMapLocation.getLongitude();//经度
+        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
+        notifyMainTextChange();
+
+    }
+
+    //初始化最近浏览
+    private void initLastGoodLook(){
+        View lastLookView = view.findViewById(R.id.last_look_layout);
+        OrderRoomResponse lastLookGood =  (OrderRoomResponse)CacheUtil.getInstance().getLastLookGood();
+
+        if( TextUtils.isEmpty(lastLookGood.getFullname())){
+            lastLookView.setVisibility(View.GONE);
+        }else{
+            lastLookView.setVisibility(View.VISIBLE);
+            ImageView lastLookIv = (ImageView) view.findViewById(R.id.last_look_iv);
+            TextView lastLookRoom = (TextView)view.findViewById(R.id.last_look_room);
+            TextView lastLookShopname = (TextView)view.findViewById(R.id.last_look_shopname);
+
+
+            String goodImgUrl = ProtocolUtil.getGoodImgUrl(lastLookGood.getImgurl());
+            MainController.getInstance().setPhoto(goodImgUrl,lastLookIv);
+
+            lastLookRoom.setText(lastLookGood.getRoom_type());
+            lastLookShopname.setText(lastLookGood.getFullname());
+        }
     }
 
     //加载最近的一条订单信息
