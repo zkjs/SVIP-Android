@@ -131,5 +131,6 @@
     <string name="no_login">无登录</string>
     <string name="consult_immediately">立刻咨询</string>
     <string name="where_you_want_go_and_enjoy_services">想去哪里，享受尊贵服务？</string>
+    <string name="where_to_go_and_who_are_you_looking_for">想去哪里，想找谁？</string>
 
 </resources>

@@ -244,6 +244,7 @@ public class ContactActivity extends Activity {
         String shopId      = salerInfo.getShopid();
         int    sex         = salerInfo.getSex();
         String realName    = salerInfo.getReal_name();
+        float  avgScore    = salerInfo.getAvg_score();
 
         if(!TextUtils.isEmpty(userID)){
             String avatarUrl = ProtocolUtil.getAvatarUrl(userID);
@@ -261,5 +262,6 @@ public class ContactActivity extends Activity {
         if(!TextUtils.isEmpty(shopName)){
             mTvShopName.setText(shopName);
         }
+        mTvEvaluateScore.setText(avgScore+"");
     }
 }

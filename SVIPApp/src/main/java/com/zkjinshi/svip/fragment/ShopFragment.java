@@ -1,11 +1,14 @@
 package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +20,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.CityActivity;
+import com.zkjinshi.svip.activity.common.CityChooseActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
@@ -28,6 +32,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.ShopListResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Type;
@@ -39,6 +44,8 @@ import java.util.List;
 public class ShopFragment extends Fragment {
 
     private final String TAG = ShopFragment.class.getSimpleName();
+
+    private final static int REQUEST_CHOOSE_CITY = 0x00;
 
     private Activity     mActivity;
     private LinearLayout mLlCityInfo;
@@ -88,17 +95,21 @@ public class ShopFragment extends Fragment {
         tips.setText("暂无商家");
         ((ViewGroup)mLvShopList.getParent()).addView(emptyView);
         mLvShopList.setEmptyView(emptyView);
+        String currentCity = CacheUtil.getInstance().getCurrentCity();
+        if(!TextUtils.isEmpty(currentCity)){
+            mTvCityName.setText(currentCity);
+        }
         getShopList();
     }
 
     private void initListeners(){
-
         //进入城市选择
         mLlCityInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cityChoose = new Intent(mActivity, CityActivity.class);
-                startActivity(cityChoose);
+                Intent cityChoose = new Intent(mActivity, CityChooseActivity.class);
+                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -111,6 +122,17 @@ public class ShopFragment extends Fragment {
                 intent.putExtra("shopid", shopInfoVo.getShopid());
                 getActivity().startActivityForResult(intent, ShopActivity.KILL_MYSELF);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        //输入框点击事件
+        mEtCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
+                Intent cityChoose = new Intent(mActivity, CityChooseActivity.class);
+                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
@@ -161,4 +183,15 @@ public class ShopFragment extends Fragment {
         netRequestTask.execute();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == mActivity.RESULT_OK){
+            if(requestCode == REQUEST_CHOOSE_CITY){
+                //TODO: 获得城市选择
+
+            }
+        }
+
+    }
 }

@@ -588,4 +588,27 @@ public class CacheUtil {
 			return value;
 	}
 
+	/**
+	 * 获取当前城市信息
+	 */
+	public String getCurrentCity() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getString("current_city", "");
+	}
+
+	/**
+	 * 保存当前城市信息
+	 * @param currentCity
+	 */
+	public void saveCurrentCity(String currentCity) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString("current_city", currentCity).commit();
+	}
+
 }

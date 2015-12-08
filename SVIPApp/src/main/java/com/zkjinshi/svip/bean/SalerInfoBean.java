@@ -22,6 +22,15 @@ public class SalerInfoBean implements Serializable{
     private String   real_name;
     private String   shopid;
     private String   shop_name;
+    private float   avg_score;
+
+    public float getAvg_score() {
+        return avg_score;
+    }
+
+    public void setAvg_score(float avg_score) {
+        this.avg_score = avg_score;
+    }
 
     public boolean isSet() {
         return set;
