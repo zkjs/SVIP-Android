@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/title_activity_choose"> </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/eeeeee"
+        android:layout_height="48dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:text="定位"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_ding_wei"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/ic_dingwei_orange"/>
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_toLeftOf="@+id/iv_ding_wei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="长沙"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

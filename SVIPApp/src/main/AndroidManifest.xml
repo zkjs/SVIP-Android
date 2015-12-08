@@ -424,6 +424,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
+        <activity android:name=".activity.common.CityChooseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
     </application>
 
 </manifest>
