@@ -5,11 +5,13 @@ import com.zkjinshi.svip.utils.FileUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
@@ -45,28 +47,18 @@ public class RequestUtil {
      * @throws Exception
      */
     public static String sendGetRequest(String requestUrl) throws Exception{
-        StringBuffer buffer = new StringBuffer();
-        URL url = new URL(requestUrl);
-        HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-        httpUrlConn.setReadTimeout(TIMEOUT);
-        httpUrlConn.setDoOutput(false);
-        httpUrlConn.setDoInput(true);
-        httpUrlConn.setUseCaches(false);
-        httpUrlConn.setRequestMethod("GET");
-        httpUrlConn.connect();
-        InputStream inputStream = httpUrlConn.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String str = null;
-        while ((str = bufferedReader.readLine()) != null) {
-            buffer.append(str);
+        String result = null;
+        HttpGet httpRequest = new HttpGet(requestUrl);
+        HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(
+                HttpProtocolParams.USER_AGENT,
+                "android");
+        HttpResponse httpResponse = httpclient.execute(httpRequest);
+        if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+        {
+            result = EntityUtils.toString(httpResponse.getEntity());
         }
-        bufferedReader.close();
-        inputStreamReader.close();
-        inputStream.close();
-        inputStream = null;
-        httpUrlConn.disconnect();
-        return buffer.toString();
+        return result;
     }
 
     /**
