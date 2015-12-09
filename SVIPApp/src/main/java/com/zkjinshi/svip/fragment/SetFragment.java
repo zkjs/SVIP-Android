@@ -77,6 +77,8 @@ public class SetFragment extends Fragment implements View.OnClickListener{
 
     public void onResume(){
         super.onResume();
+        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
+        homePicIv.startAnimation(bigAnimation);
         initData();
     }
 
@@ -90,8 +92,7 @@ public class SetFragment extends Fragment implements View.OnClickListener{
         setCodeTv = (TextView)mView.findViewById(R.id.set_code_tv);
 
         homePicIv = (ImageView)mView.findViewById(R.id.home_pic_iv);
-        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
-        homePicIv.startAnimation(bigAnimation);
+
 
         photoCtv.setOnClickListener(this);
         setCodeTv.setOnClickListener(this);

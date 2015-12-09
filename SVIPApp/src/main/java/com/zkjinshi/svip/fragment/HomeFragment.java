@@ -273,6 +273,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public void onResume() {
         super.onResume();
+        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
+        homePicIv.startAnimation(bigAnimation);
         LocationManager.getInstance().registerLocation(mActivity);
         LocationManager.getInstance().setLocationChangeListener(this);
         loadLastOrderInfo();
