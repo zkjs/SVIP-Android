@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:gravity="center_vertical"
+    android:background="@color/Gray252628">
+
+    <TextView
+        android:id="@+id/tv_city_name"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="@string/service_center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_add"
+        android:layout_width="48dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="48dp">
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_jia_orange" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_toLeftOf="@id/rl_add"
+        android:layout_width="48dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:layout_centerVertical="true"
+        android:layout_height="48dp">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_search_orange" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

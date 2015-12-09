@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.fragment.contacts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.RandomDrawbleUtil;
@@ -99,8 +101,18 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             myHolder.tvLetter.setVisibility(View.GONE);
         }
 
+        //进入客户详情界面
+        myHolder.civContactAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ContactActivity.class);
+                intent.putExtra("contact_id", sortModel.fuid);
+                mContext.startActivity(intent);
+            }
+        });
+
         ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(sortModel.fuid),
-                myHolder.civContactAvatar,options);
+                                                      myHolder.civContactAvatar,options);
 
         //显示客户名称
         String clientName = sortModel.name;

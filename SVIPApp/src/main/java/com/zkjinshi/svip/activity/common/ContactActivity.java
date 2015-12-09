@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
@@ -56,6 +60,7 @@ public class ContactActivity extends Activity {
     private TextView       mTvLatestOnline;//最近在线时间
     private TextView       mTvShopName;//所属商家
     private TextView       mTvContactName;//联想人姓名
+    private LinearLayout   mLlPhone;
     private TextView       mTvPhoneNumber;//手机号
     private ImageButton    mIbtnDial;//聊天按键
     private TextView       mTvEvaluateScore;//评分
@@ -64,8 +69,8 @@ public class ContactActivity extends Activity {
     private CheckBox       mCbOrderEvaluateGratify;//及格
     private CheckBox       mCbOrderEvaluateGreatGratify;//良好
     private CheckBox       mCbOrderEvaluateHighlyRecommend;//优秀
-    private TextView       mTvEvaluationsCount;//评价数量
-    private Button         mBtnConsultImmediately;//评价数量
+//    private TextView       mTvEvaluationsCount;//评价数量
+    private Button         mBtnConsultImmediately;//立即交谈
 
     private String  mUserID;
     private String  mToken;
@@ -91,6 +96,7 @@ public class ContactActivity extends Activity {
         mTvShopName      = (TextView) findViewById(R.id.tv_shop_name);
         mTvContactName   = (TextView) findViewById(R.id.tv_contact_name);
         mTvPhoneNumber   = (TextView) findViewById(R.id.tv_phone_number);
+        findViewById(R.id.ll_phone);
         mIbtnDial        = (ImageButton) findViewById(R.id.ibtn_dial);
         mTvEvaluateScore = (TextView) findViewById(R.id.tv_evaluate_score);
         mCbOrderEvaluatePoor            = (CheckBox) findViewById(R.id.cb_order_evaluate_poor);
@@ -98,7 +104,7 @@ public class ContactActivity extends Activity {
         mCbOrderEvaluateGratify         = (CheckBox) findViewById(R.id.cb_order_evaluate_gratify);
         mCbOrderEvaluateGreatGratify    = (CheckBox) findViewById(R.id.cb_order_evaluate_great_gratify);
         mCbOrderEvaluateHighlyRecommend = (CheckBox) findViewById(R.id.cb_order_evaluate_highly_recommend);
-        mTvEvaluationsCount    = (TextView) findViewById(R.id.tv_evaluation_count);
+//        mTvEvaluationsCount    = (TextView) findViewById(R.id.tv_evaluation_count);
         mBtnConsultImmediately = (Button) findViewById(R.id.btn_consult_immediately);
     }
 
@@ -130,16 +136,27 @@ public class ContactActivity extends Activity {
             }
         });
 
+        mLlPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = mTvPhoneNumber.getText().toString();
+                dial(phoneNumber);
+            }
+        });
+
         mIbtnDial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                String phoneNumber = mTvPhoneNumber.getText().toString();
-               if(TextUtils.isEmpty(phoneNumber)){
-                   Intent intent = new Intent();
-                   intent.setAction(Intent.ACTION_CALL);
-                   intent.setData(Uri.parse("tel:" + phoneNumber));
-                   ContactActivity.this.startActivity(intent);
-               }
+               dial(phoneNumber);
+            }
+        });
+
+        mTvPhoneNumber.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardUtil.copy(mTvPhoneNumber.getText().toString(), ContactActivity.this);
+                return false;
             }
         });
 
@@ -178,6 +195,19 @@ public class ContactActivity extends Activity {
     }
 
     /**
+     * 拨打电话
+     * @param phoneNumber
+     */
+    private void dial(String phoneNumber) {
+        if(TextUtils.isEmpty(phoneNumber)){
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            ContactActivity.this.startActivity(intent);
+        }
+    }
+
+    /**
      * 根据销售服务人员ID获取销售信息
      * @param userID
      */
@@ -207,14 +237,14 @@ public class ContactActivity extends Activity {
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.INFO, TAG + "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
                     mSalerInfo = gson.fromJson(result.rawResult, SalerInfoBean.class);
                     if (null!=mSalerInfo && mSalerInfo.isSet()) {
                         showSalerInfo(mSalerInfo);
                     } else {
-                        DialogUtil.getInstance().showToast(ContactActivity.this, "获取销售详情失败。");
+                        LogUtil.getInstance().info(LogLevel.INFO, TAG + "获取销售详情失败。");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -262,6 +292,26 @@ public class ContactActivity extends Activity {
         if(!TextUtils.isEmpty(shopName)){
             mTvShopName.setText(shopName);
         }
+
         mTvEvaluateScore.setText(avgScore+"");
+        if(avgScore >=0 && avgScore < 1){
+            mCbOrderEvaluatePoor.setChecked(true);
+            mCbOrderEvaluatePoor.setEnabled(false);
+        }else if(avgScore >=1 && avgScore < 2){
+            mCbOrderEvaluateCommon.setChecked(true);
+            mCbOrderEvaluatePoor.setEnabled(false);
+        }else if(avgScore >=2 && avgScore < 3){
+            mCbOrderEvaluateGratify.setChecked(true);
+            mCbOrderEvaluatePoor.setEnabled(false);
+        }else if(avgScore >=3 && avgScore < 4){
+             mCbOrderEvaluateGreatGratify.setChecked(true);
+            mCbOrderEvaluatePoor.setEnabled(false);
+        }else if(avgScore >=4 && avgScore < 5){
+            mCbOrderEvaluateHighlyRecommend.setChecked(true);
+            mCbOrderEvaluatePoor.setEnabled(false);
+        }else {
+            //do nothing
+        }
+
     }
 }

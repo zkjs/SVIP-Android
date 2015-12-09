@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.adapter.HotCityGridAdapter;
+import com.zkjinshi.svip.activity.city.helper.CityComparator;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -41,6 +42,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,20 +78,22 @@ public class CityListActivity extends Activity {
 
     private View hotcityall;
     private WindowManager windowManager;
+    private CityComparator mCityComparator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.public_cityhot);
-
         //初始化定位
         LocationManager.getInstance().registerLocation(this);
         LayoutInflater localLayoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        citysearch = (TextView) findViewById(R.id.city_search_edittext);
-        backbutton = (ImageButton) findViewById(R.id.title_left_btn);
-        mCityLit = (ListView) findViewById(R.id.public_allcity_list);
-        letterListView = (MyLetterListView) findViewById(R.id.cityLetterListView);
+        View city_layout = localLayoutInflater.inflate(R.layout.public_cityhot, null);
+        setContentView(city_layout);
+
+        citysearch = (TextView) city_layout.findViewById(R.id.city_search_edittext);
+        backbutton = (ImageButton) city_layout.findViewById(R.id.title_left_btn);
+        mCityLit = (ListView) city_layout.findViewById(R.id.public_allcity_list);
+        letterListView = (MyLetterListView) city_layout.findViewById(R.id.cityLetterListView);
 
         View cityhot_header_blank = localLayoutInflater.inflate(R.layout.public_cityhot_header_padding_blank, mCityLit, false);
         mCityLit.addHeaderView(cityhot_header_blank, null, false);
@@ -108,6 +112,7 @@ public class CityListActivity extends Activity {
         localGridView = (GridView) hotcityall.findViewById(R.id.public_hotcity_list);
         mCityLit.addHeaderView(hotcityall);
 
+        mCityComparator = new CityComparator();
         //获取当前热门城市列表
         getCityList();
         city_locating_state.setOnClickListener(new View.OnClickListener() {
@@ -226,6 +231,9 @@ public class CityListActivity extends Activity {
                     });
 
                     mCityNames = CityFactory.getInstance().convertCityBeans2CityModels(citys);
+                    //比较城市名称
+                    Collections.sort(mCityNames, mCityComparator);
+
                     letterListView.setOnTouchingLetterChangedListener(new LetterListViewListener());
                     alphaIndexer = new HashMap<>();
                     handler = new Handler();
@@ -264,9 +272,6 @@ public class CityListActivity extends Activity {
         netRequestTask.execute();
     }
 
-    /**
-     * @return
-     */
     private ArrayList<CityModel> getCityNames() {
         ArrayList<CityModel> names = new ArrayList<CityModel>();
         Cursor cursor = database.rawQuery(
@@ -327,10 +332,8 @@ public class CityListActivity extends Activity {
             sections = new String[list.size()];
 
             for (int i = 0; i < list.size(); i++) {
-                //
                 // getAlpha(list.get(i));
                 String currentStr = list.get(i).getNameSort();
-                //
                 String previewStr = (i - 1) >= 0 ? list.get(i - 1)
                         .getNameSort() : " ";
                 if (!previewStr.equals(currentStr)) {
@@ -364,7 +367,7 @@ public class CityListActivity extends Activity {
                         null);
                 holder = new ViewHolder();
                 holder.alpha = (TextView) convertView.findViewById(R.id.alpha);
-                holder.name = (TextView) convertView
+                holder.name  = (TextView) convertView
                         .findViewById(R.id.public_cityhot_item_textview);
                 convertView.setTag(holder);
             } else {
@@ -373,8 +376,7 @@ public class CityListActivity extends Activity {
 
             holder.name.setText(list.get(position).getCityName());
             String currentStr = list.get(position).getNameSort();
-            String previewStr = (position - 1) >= 0 ? list.get(position - 1)
-                    .getNameSort() : " ";
+            String previewStr = (position - 1) >= 0 ? list.get(position - 1).getNameSort() : " ";
             if (!previewStr.equals(currentStr)) {
                 holder.alpha.setVisibility(View.VISIBLE);
                 holder.alpha.setText(currentStr);

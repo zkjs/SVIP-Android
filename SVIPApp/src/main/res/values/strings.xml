@@ -146,5 +146,7 @@
     <string name="xml_loading_01">加载中</string>
     <string name="shenzhen">深圳</string>
     <string name="shenzhen_city">深圳市</string>
+    <string name="contacts">联系人</string>
+    <string name="address_book">通讯录</string>
 
 </resources>

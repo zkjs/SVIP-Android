@@ -552,5 +552,6 @@
     <color name="dialog_title_color">#ff333333</color>
     <color name="dialog_content_color">#ff495a6d</color>
     <color name="city_item_text_color">#ff5c5c5c</color>
+    <color name="fac473" >#fac473</color>
 
 </resources>

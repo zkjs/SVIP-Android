@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <Button
@@ -104,10 +105,13 @@
             </FrameLayout>
 
             <LinearLayout
+                android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_btn_default"
                 android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -240,51 +244,51 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_btn_default"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@drawable/bg_btn_default"-->
+                <!--android:clickable="true"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:id="@+id/tv_evaluation_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:inputType="number"
-                    android:paddingLeft="15dp"
-                    android:text="3"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_evaluation_count"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:inputType="number"-->
+                    <!--android:paddingLeft="15dp"-->
+                    <!--android:text="3"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="16sp" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="5dp"
-                    android:text="@string/tv_pieces_of_evaluation"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="left|center_vertical"-->
+                    <!--android:paddingLeft="5dp"-->
+                    <!--android:text="@string/tv_pieces_of_evaluation"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textColorHint="@color/gray"-->
+                    <!--android:textSize="16sp" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/srl_evaluations"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<android.support.v4.widget.SwipeRefreshLayout-->
+                <!--android:id="@+id/srl_evaluations"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_evaluations"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/rv_evaluations"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                </android.support.v7.widget.RecyclerView>
+                <!--</android.support.v7.widget.RecyclerView>-->
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
         </LinearLayout>
     </ScrollView>
