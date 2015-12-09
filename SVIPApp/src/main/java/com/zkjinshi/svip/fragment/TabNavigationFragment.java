@@ -23,7 +23,7 @@ public class TabNavigationFragment extends Fragment implements
 	private RadioGroup mTabItemGroup;
 
 	private SparseArray<Fragment> mContentFragments = new SparseArray<Fragment>(
-			1);
+			4);
 	
 	public int mCheckedRadioButtonId = R.id.footer_tab_rb_home;
 
@@ -102,7 +102,6 @@ public class TabNavigationFragment extends Fragment implements
 					} else if (mCheckedRadioButtonId == R.id.footer_tab_rb_set) {
 						target = new SetFragment();
 					}
-					mContentFragments.clear();
 					mContentFragments.put(mCheckedRadioButtonId, target);
 				}
 				if (target != null) {
