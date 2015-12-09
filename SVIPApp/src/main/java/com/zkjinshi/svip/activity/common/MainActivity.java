@@ -39,7 +39,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
 
     public static final String TAG = MainActivity.class.getSimpleName();
     SVIPApplication svipApplication;
-    //private ListenerDialog listenerDialog;
+    public OrderLastResponse lastOrderInfo = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -181,5 +181,9 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
             HomeFragment homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
             homeFragment.notifyMainTextChange();
         }
+    }
+
+    public void changTag(int rbId){
+        TabNavigationFragment.setCurrentNavigationChecked(rbId,this);
     }
 }

@@ -43,6 +43,7 @@
                         android:layout_height="wrap_content"
                         android:background="@mipmap/ic_dingwei"/>
                     <TextView
+                        android:id="@+id/location_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="长沙"
@@ -70,6 +71,7 @@
                 android:paddingLeft="20dp"
                 android:id="@+id/code_layout">
                 <TextView
+                    android:id="@+id/code_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="您的VIP身份尚未激活"

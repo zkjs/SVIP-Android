@@ -79,7 +79,7 @@ public class OrderBookingActivity extends Activity {
     private LinearLayout mLltDateContainer;
     private ImageView mIvRoomImg;
     private Button mBtnSendOrder;
-    private Button mBtnCancelOrder;
+
     private LinearLayout mLltYuan;
     private RelativeLayout mrltRoomImg;
 
@@ -127,7 +127,6 @@ public class OrderBookingActivity extends Activity {
 
         mTitle = (ItemTitleView) findViewById(R.id.itv_title);
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
-        mBtnCancelOrder = (Button) findViewById(R.id.btn_cancel_order);
         mRoomType = (TextView) findViewById(R.id.tv_room_type);
         mLltYuan = (LinearLayout) findViewById(R.id.rl_yuan);
 
@@ -147,9 +146,7 @@ public class OrderBookingActivity extends Activity {
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
 
-        mBtnSendOrder.setText("发送订单给客服");
-        mBtnCancelOrder.setVisibility(View.GONE);
-
+        mBtnSendOrder.setText("立即预定");
         shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
 
         calendarList = new ArrayList<Calendar>();

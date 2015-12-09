@@ -497,6 +497,10 @@
     <drawable name="btn_pressed_color">#58ffffff</drawable>
     <drawable name="btn_normal_color">#00000000</drawable>
 
+    <drawable name="btn_yellow_pressed_color">#99ffc56e</drawable>
+    <drawable name="btn_yellow_normal_color">#ffffc56e</drawable>
+
+
     <color name="gray616161">#616161</color>
     <color name="grayB8B8B8">#B8B8B8</color>
     <color name="gray_888888">#888888</color>

@@ -55,7 +55,7 @@ public class ShopFragment extends Fragment {
 
     private final String TAG = ShopFragment.class.getSimpleName();
 
-    private final static int REQUEST_CHOOSE_CITY = 0x00;
+    public final static int REQUEST_CHOOSE_CITY = 0x00;
 
     private Activity     mActivity;
     private LinearLayout mLlCityInfo;

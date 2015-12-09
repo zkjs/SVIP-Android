@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
@@ -36,7 +37,6 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 
      private DisplayImageOptions options;
      private Activity activity;
-     public int pageIndex = 0;
      public String shopId,shopName;
      public CustomerServiceBean customerService = null;
 
@@ -134,10 +134,10 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 
                 break;
             case R.id.choose_btn:
-                intent = new Intent(activity, ShopActivity.class);
-                intent.putExtra("pageIndex",pageIndex);
-                activity.startActivity(intent);
-                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if(activity instanceof MainActivity){
+                    MainActivity mainActivity = (MainActivity)activity;
+                    mainActivity.changTag(R.id.footer_tab_rb_shop);
+                }
                 cancel();
                 break;
             case R.id.server_chat:
