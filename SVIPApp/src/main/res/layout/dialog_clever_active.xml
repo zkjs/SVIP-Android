@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#7f000000"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:id="@+id/clever_active_layout">
+    
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="180dp">
+        <ImageView
+            android:id="@+id/ad_pic_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:background="@mipmap/bg_shouye"/>
+
+        <TextView
+            android:id="@+id/ad_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:text="精心推荐"
+            android:textColor="#ffffff"/>
+
+        <com.zkjinshi.svip.view.CircleImageView
+            android:id="@+id/ad_logo_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/ic_main_logo_nor"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:layout_below="@+id/ad_title_tv"/>
+
+        <TextView
+            android:id="@+id/ad_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="威斯汀酒店"
+            android:textColor="#ffffff"
+            android:layout_below="@id/ad_title_tv"
+            android:layout_toRightOf="@id/ad_logo_iv"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"/>
+
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/ad_des1_tv"
+        android:layout_width="320dp"
+        android:layout_height="38dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:text="¥999起 | 个性定制 | 专属客服"
+        android:textColor="#666666"
+        android:paddingLeft="15dp"/>
+</LinearLayout>

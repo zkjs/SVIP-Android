@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -297,6 +300,22 @@ public class ImageUtil {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 手动回收ImageVIew的图片资源
+     * @param imageView
+     */
+    public static void releaseImageViewResouce(ImageView imageView) {
+        if (imageView == null) return;
+        Drawable drawable = imageView.getDrawable();
+        if (drawable != null && drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
         }
     }
 

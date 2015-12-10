@@ -33,6 +33,7 @@ import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.view.BookingDialog;
+import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.view.ListenerDialog;
 
 import org.apache.log4j.chainsaw.Main;
@@ -95,25 +96,22 @@ public class TabNavigationFragment extends Fragment implements
 	}
 
 	public void longClickDeal(){
-		//Toast.makeText(getActivity().getApplicationContext(),"长按事件响应。",Toast.LENGTH_SHORT).show();
-		if(!listenerDialog.isShowing()){
-			listenerDialog.show();
-			listenerDialog.startRecord();
-		}
+//		if(!listenerDialog.isShowing()){
+//			listenerDialog.show();
+//			listenerDialog.startRecord();
+//		}
 	}
 
 	public void longClickUpDeal(){
-		//Toast.makeText(getActivity().getApplicationContext(),"长按抬起事件响应。",Toast.LENGTH_SHORT).show();
-		if(listenerDialog.isShowing()){
-			listenerDialog.stopRecord();
-			listenerDialog.cancel();
-		}
-		loadCleverServer();
+//		if(listenerDialog.isShowing()){
+//			listenerDialog.stopRecord();
+//			listenerDialog.cancel();
+//		}
+//		loadCleverServer();
 	}
 
 	public void shortClickDeal(){
-		//Toast.makeText(getActivity().getApplicationContext(),"短按事件响应。",Toast.LENGTH_SHORT).show();
-		loadCleverServer();
+		new CleverDialog(getActivity()).show();
 	}
 
 	@Override
