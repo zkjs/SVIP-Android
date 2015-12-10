@@ -1,11 +1,11 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderInvoiceResponse extends HttpResponse {
+public class OrderInvoiceResponse extends NetResponse {
 
    private int id ;//            发票id int
    private String invoice_title ;//   发票抬头

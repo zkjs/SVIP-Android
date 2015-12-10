@@ -1,11 +1,11 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderRoomTagResponse extends HttpResponse {
+public class OrderRoomTagResponse extends NetResponse {
    private int id;//        房间选项id int
    private String content;//    房间选项名称
    private String sortorder;//  排序 int

@@ -397,7 +397,14 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGroupMemberUrl(){
-
         return ConfigUtil.getInst().getHttpDomain()+"hxim/member";
+    }
+
+    /**
+     * 获取个人信息更新url
+     * @return
+     */
+    public static String getUserUploadUrl(){
+        return ConfigUtil.getInst().getHttpDomain()+"user/upload";
     }
 }

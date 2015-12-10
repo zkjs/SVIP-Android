@@ -1,11 +1,11 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderPrivilegeResponse extends HttpResponse {
+public class OrderPrivilegeResponse extends NetResponse {
     private int id;//                   商家特权id  int
     private String privilege_code;//   特权代码
     private String privilege_name;//   特权名称

@@ -32,6 +32,7 @@ import java.util.HashMap;
  * 版权所有
  */
 public class CallActivity extends FragmentActivity {
+
     protected boolean isInComingCall;
     protected String username;
     protected CallingState callingState = CallingState.CANCED;

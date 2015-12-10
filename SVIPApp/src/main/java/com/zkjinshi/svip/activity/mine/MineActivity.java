@@ -24,14 +24,14 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
-import com.zkjinshi.svip.http.post.HttpRequest;
-import com.zkjinshi.svip.http.post.HttpRequestListener;
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.Sex;
 import com.zkjinshi.svip.vo.UserInfoVo;
@@ -60,9 +60,9 @@ public class MineActivity extends Activity{
     private RadioButton bogyRBtn,girlRBtn;
     private int sexValue;
     private ImageButton backIBtn;
-    private Map<String,String> stringMap;
-    private Map<String,File> fileMap;
-    private HttpRequest httpRequest;
+    private HashMap<String,String> stringMap;
+    private HashMap<String,File> fileMap;
+    private NetRequest httpRequest;
 
     private UserInfoVo userInfoVo;
     private UserInfoResponse userInfoResponse;
@@ -222,9 +222,11 @@ public class MineActivity extends Activity{
                 picPath =  CacheUtil.getInstance().getPicPath();
                 sexValue = sexRp.getCheckedRadioButtonId() ==  R.id.mine_set_user_male ? 1 : 0;
                 LogUtil.getInstance().info(LogLevel.INFO,"sexValue:"+sexValue);
-                httpRequest = new HttpRequest();
-                stringMap = new HashMap<String, String>();
-                fileMap = new HashMap<String, File>();
+
+                String url  = ProtocolUtil.getUserUploadUrl();
+                httpRequest = new NetRequest(url);
+                stringMap   = new HashMap<String, String>();
+                fileMap     = new HashMap<String, File>();
                 stringMap.put("userid",CacheUtil.getInstance().getUserId());
                 stringMap.put("token", CacheUtil.getInstance().getToken());
                 stringMap.put("phone_os",DeviceUtils.getOS()+" "+DeviceUtils.getSdk());
@@ -236,11 +238,10 @@ public class MineActivity extends Activity{
                     fileMap.put("UploadForm[file]", new File(picPath));
                     LogUtil.getInstance().info(LogLevel.INFO, "picPath:" + picPath);
                 }
-                httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
-                httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
-                httpRequest.setStringParamMap(stringMap);
-                httpRequest.setFileParamMap(fileMap);
-                MineNetController.getInstance().requestSetInfoTask(httpRequest,new HttpRequestListener<HttpResponse>(){
+                httpRequest.setBizParamMap(stringMap);
+                httpRequest.setFileMap(fileMap);
+                MineNetController.getInstance().requestSetInfoTask(httpRequest,
+                    new ExtNetRequestListener(MineActivity.this){
                     @Override
                     public void onNetworkRequestCancelled() {
 
@@ -253,7 +254,7 @@ public class MineActivity extends Activity{
                     }
 
                     @Override
-                    public void onNetworkResponseSucceed(HttpResponse result) {
+                    public void onNetworkResponseSucceed(NetResponse result) {
 
                         if(null != result && null != result.rawResult){
                             LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);

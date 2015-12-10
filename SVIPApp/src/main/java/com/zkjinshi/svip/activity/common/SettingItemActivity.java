@@ -18,12 +18,13 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.http.post.HttpRequest;
-import com.zkjinshi.svip.http.post.HttpRequestListener;
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 import java.util.HashMap;
@@ -114,16 +115,18 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
 
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
-        HttpRequest httpRequest = new HttpRequest();
+        String url = ProtocolUtil.getUserUploadUrl();
+        NetRequest httpRequest = new NetRequest(url);
+
         HashMap<String, String> stringMap = new HashMap<String, String>();
         stringMap.put("userid",CacheUtil.getInstance().getUserId());
         stringMap.put("token", CacheUtil.getInstance().getToken());
         stringMap.put(fieldKey,fieldValue);
-        httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
-        httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
-        httpRequest.setStringParamMap(stringMap);
+        httpRequest.setBizParamMap(stringMap);
+
         MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest, new HttpRequestListener<HttpResponse>() {
+        MineNetController.getInstance().requestSetInfoTask(httpRequest,
+            new ExtNetRequestListener(SettingItemActivity.this) {
             @Override
             public void onNetworkRequestCancelled() {
 
@@ -136,7 +139,7 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
             }
 
             @Override
-            public void onNetworkResponseSucceed(HttpResponse result) {
+            public void onNetworkResponseSucceed(NetResponse result) {
 
                 if (null != result && null != result.rawResult) {
                     LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);

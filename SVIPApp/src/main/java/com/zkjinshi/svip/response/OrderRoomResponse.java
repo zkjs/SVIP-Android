@@ -1,11 +1,11 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderRoomResponse  extends HttpResponse {
+public class OrderRoomResponse  extends NetResponse {
 
     private String  reservation_no;// 预定单号
     private String  userid ;//用户id

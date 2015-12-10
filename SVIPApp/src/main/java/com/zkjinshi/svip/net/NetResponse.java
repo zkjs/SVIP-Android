@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.net;
 
 import java.io.InputStream;
+import java.io.Serializable;
 
 /**
  * 网络请求响应类
@@ -9,7 +10,7 @@ import java.io.InputStream;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class NetResponse {
+public class NetResponse implements Serializable{
 
     /**
      * 返回的原始文本数据

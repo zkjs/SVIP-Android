@@ -24,9 +24,6 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.http.post.HttpRequest;
-import com.zkjinshi.svip.http.post.HttpRequestListener;
-import com.zkjinshi.svip.http.post.HttpResponse;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -38,6 +35,7 @@ import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -422,17 +420,19 @@ public class OauthLoginActivity extends Activity{
      * @param fieldKey
      * @param fieldValue
      */
-    public void submitUserInfo(final Context context,final String fieldKey,final String fieldValue){
-        HttpRequest httpRequest = new HttpRequest();
+    public void submitUserInfo(final Context context, final String fieldKey, final String fieldValue){
+
+        String url = ProtocolUtil.getUserUploadUrl();
+        NetRequest httpRequest = new NetRequest(url);
         HashMap<String, String> stringMap = new HashMap<String, String>();
         stringMap.put("userid",CacheUtil.getInstance().getUserId());
         stringMap.put("token", CacheUtil.getInstance().getToken());
-        stringMap.put(fieldKey,fieldValue);
-        httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
-        httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
-        httpRequest.setStringParamMap(stringMap);
+        stringMap.put(fieldKey, fieldValue);
+
+        httpRequest.setBizParamMap(stringMap);
         MineNetController.getInstance().init(context);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest, new HttpRequestListener<HttpResponse>() {
+        MineNetController.getInstance().requestSetInfoTask(httpRequest,
+            new ExtNetRequestListener(OauthLoginActivity.this) {
             @Override
             public void onNetworkRequestCancelled() {
 
@@ -445,7 +445,7 @@ public class OauthLoginActivity extends Activity{
             }
 
             @Override
-            public void onNetworkResponseSucceed(HttpResponse result) {
+            public void onNetworkResponseSucceed(NetResponse result) {
 
                 if (null != result && null != result.rawResult) {
                     LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);

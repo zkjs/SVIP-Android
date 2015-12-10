@@ -1,11 +1,12 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderUsersResponse extends HttpResponse {
+public class OrderUsersResponse extends NetResponse {
     private int id;//       联系人id int
     private String realname;//  真实姓名
     private String idcard;//   证件号

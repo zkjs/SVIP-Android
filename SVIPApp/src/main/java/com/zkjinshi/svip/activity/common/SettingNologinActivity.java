@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
@@ -11,18 +12,18 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.mine.MineNetController;
-import com.zkjinshi.svip.http.post.HttpRequest;
-import com.zkjinshi.svip.http.post.HttpRequestListener;
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 import java.util.HashMap;
@@ -31,6 +32,8 @@ import java.util.HashMap;
  * Created by dujiande on 2015/9/10.
  */
 public class SettingNologinActivity extends Activity {
+
+    private final static String TAG = SettingNologinActivity.class.getSimpleName();
 
     private ItemTitleView mTitle;
     private TextView mFlagTv;
@@ -90,33 +93,36 @@ public class SettingNologinActivity extends Activity {
     }
 
     //提交资料
-    public void submitInfo(final String fieldKey,final String fieldValue){
-        HttpRequest httpRequest = new HttpRequest();
-        HashMap<String, String> stringMap = new HashMap<String, String>();
-        stringMap.put("userid", CacheUtil.getInstance().getUserId());
-        stringMap.put("token", CacheUtil.getInstance().getToken());
-        stringMap.put(fieldKey,fieldValue);
-        httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
-        httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
-        httpRequest.setStringParamMap(stringMap);
-        MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest, new HttpRequestListener<HttpResponse>() {
+    public void submitInfo(final String fieldKey, final String fieldValue){
+
+        String url = ProtocolUtil.getUserUploadUrl();
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token",  CacheUtil.getInstance().getToken());
+        bizMap.put(fieldKey, fieldValue);
+
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
             @Override
             public void onNetworkRequestCancelled() {
 
             }
 
             @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(HttpResponse result) {
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                LogUtil.getInstance().info(LogLevel.INFO, TAG + "result.rawResult:" + result.rawResult);
 
                 if (null != result && null != result.rawResult) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
 
@@ -126,9 +132,15 @@ public class SettingNologinActivity extends Activity {
                 } else {
                     DialogUtil.getInstance().showCustomToast(SettingNologinActivity.this, "修改失败!", Toast.LENGTH_LONG);
                 }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
 
             }
         });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
 }

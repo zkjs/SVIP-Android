@@ -1,6 +1,6 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 /**
  * http响应基类
@@ -9,7 +9,7 @@ import com.zkjinshi.svip.http.post.HttpResponse;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class BaseResponse extends HttpResponse {
+public class BaseResponse extends NetResponse {
 
     private boolean set = true;
 

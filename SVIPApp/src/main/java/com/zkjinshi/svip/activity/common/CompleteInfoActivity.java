@@ -25,13 +25,14 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
-import com.zkjinshi.svip.http.post.HttpRequest;
-import com.zkjinshi.svip.http.post.HttpRequestListener;
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
 
@@ -61,13 +62,13 @@ public class CompleteInfoActivity extends Activity {
 
     private ImageLoadingListener imageLoadingListener;
     private Bundle               thirdBundledata;
-    private HttpRequest          httpRequest;
+    private NetRequest           httpRequest;
     private String               mNickName;
     private String               picPath;
     private int                 sexValue;
 
-    private Map<String,String>  stringMap;
-    private Map<String,File>    fileMap;
+    private HashMap<String,String>  stringMap;
+    private HashMap<String,File>    fileMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +187,8 @@ public class CompleteInfoActivity extends Activity {
                 sexValue  = mRgSex.getCheckedRadioButtonId() == R.id.rb_male ? 1 : 0;
                 LogUtil.getInstance().info(LogLevel.INFO, "sexValue:" + sexValue);
 
-                httpRequest = new HttpRequest();
+                String url = ProtocolUtil.getUserUploadUrl();
+                httpRequest = new NetRequest(url);
                 stringMap   = new HashMap<String, String>();
                 fileMap     = new HashMap<String, File>();
 
@@ -201,11 +203,11 @@ public class CompleteInfoActivity extends Activity {
                     fileMap.put("UploadForm[file]", new File(picPath));
                     LogUtil.getInstance().info(LogLevel.INFO, "picPath:" + picPath);
                 }
-                httpRequest.setRequestUrl(ConfigUtil.getInst().getHttpDomain());
-                httpRequest.setRequestMethod(Constants.MODIFY_USER_INFO_METHOD);
-                httpRequest.setStringParamMap(stringMap);
-                httpRequest.setFileParamMap(fileMap);
-                MineNetController.getInstance().requestSetInfoTask(httpRequest, new HttpRequestListener<HttpResponse>() {
+                httpRequest.setBizParamMap(stringMap);
+                httpRequest.setFileMap(fileMap);
+
+                MineNetController.getInstance().requestSetInfoTask(httpRequest,
+                    new ExtNetRequestListener(CompleteInfoActivity.this) {
                     @Override
                     public void onNetworkRequestCancelled() {
 
@@ -218,7 +220,7 @@ public class CompleteInfoActivity extends Activity {
                     }
 
                     @Override
-                    public void onNetworkResponseSucceed(HttpResponse result) {
+                    public void onNetworkResponseSucceed(NetResponse result) {
                         if (null != result && null != result.rawResult) {
                             LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                             BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);

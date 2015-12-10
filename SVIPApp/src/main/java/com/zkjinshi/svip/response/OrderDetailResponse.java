@@ -1,13 +1,13 @@
 package com.zkjinshi.svip.response;
 
-import com.zkjinshi.svip.http.post.HttpResponse;
+import com.zkjinshi.svip.net.NetResponse;
 
 import java.util.ArrayList;
 
 /**
  * Created by djd on 2015/9/6.
  */
-public class OrderDetailResponse  extends HttpResponse {
+public class OrderDetailResponse extends NetResponse {
 
     private OrderRoomResponse room;//订房信息
     private ArrayList<OrderUsersResponse> users;//入住人信息
