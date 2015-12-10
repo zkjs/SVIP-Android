@@ -188,19 +188,29 @@ public class TableOpenHelper {
                         + " phone    text " //联系电话
                         + " )";
 
+    /** 城市名列表 */
+    public static String CITY_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.CITY_TBL
+                    + "("
+                    + " city_name text primary key," //城市名称
+                    + " name_sort text " //城市排序字母
+                    + " )";
+
     /**
      * 获取数据库所有表名
      * @return
      */
     public static String[] getTableNames(){
         return new String[]{
-                DBOpenHelper.MESSAGE_TBL,     //消息记录表
-                DBOpenHelper.CHAT_ROOM_TBL,   //聊天室表
-                DBOpenHelper.CHAT_MEMBER_TBL, //聊天成员表
-                DBOpenHelper.USER_INFO_TBL,   //详细用户信息表
-                DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
-                DBOpenHelper.SERVER_PERSONAL_TBL,    //专属客服表
-                DBOpenHelper.PERSON_CHECK_IN_TBL     //入住人信息表
+            DBOpenHelper.MESSAGE_TBL,     //消息记录表
+            DBOpenHelper.CHAT_ROOM_TBL,   //聊天室表
+            DBOpenHelper.CHAT_MEMBER_TBL, //聊天成员表
+            DBOpenHelper.USER_INFO_TBL,   //详细用户信息表
+            DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
+            DBOpenHelper.SERVER_PERSONAL_TBL,    //专属客服表
+            DBOpenHelper.PERSON_CHECK_IN_TBL,    //入住人表
+            DBOpenHelper.CITY_TBL                //城市名列表
         };
     }
 }

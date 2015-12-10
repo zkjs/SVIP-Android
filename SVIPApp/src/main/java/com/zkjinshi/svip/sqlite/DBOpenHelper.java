@@ -25,6 +25,7 @@ public class DBOpenHelper extends SQLiteOpenHelper{
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
     public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
     public static final String PERSON_CHECK_IN_TBL   = "person_check_in_tbl";//订单入住人表
+    public static final String CITY_TBL              = "city_tbl";//城市名列表
 
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSION);

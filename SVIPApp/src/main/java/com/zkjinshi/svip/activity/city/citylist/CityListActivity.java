@@ -39,6 +39,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.sqlite.CityDBUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class CityListActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //初始化定位
         LocationManager.getInstance().registerLocation(this);
         LayoutInflater localLayoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -115,6 +117,7 @@ public class CityListActivity extends Activity {
         mCityComparator = new CityComparator();
         //获取当前热门城市列表
         getCityList();
+
         city_locating_state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,8 +234,7 @@ public class CityListActivity extends Activity {
                     });
 
                     mCityNames = CityFactory.getInstance().convertCityBeans2CityModels(citys);
-                    //比较城市名称
-                    Collections.sort(mCityNames, mCityComparator);
+                    Collections.sort(mCityNames, mCityComparator);//比较城市名称
 
                     letterListView.setOnTouchingLetterChangedListener(new LetterListViewListener());
                     alphaIndexer = new HashMap<>();
@@ -240,6 +242,10 @@ public class CityListActivity extends Activity {
                     overlayThread = new OverlayThread();
                     initOverlay();
                     setAdapter(mCityNames);
+
+                    //添加城市名称进入数据库
+                    CityDBUtil.getInstance().batchAddCityModels(mCityNames);
+
                     mCityLit.setOnItemClickListener(new CityListActivityOnItemClick());
                     backbutton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -248,16 +254,16 @@ public class CityListActivity extends Activity {
                         }
                     });
 
-                    /** 城市搜索界面暂时不进行加入 */
-//                    citysearch.setOnTouchListener(new View.OnTouchListener() {
-//                        @Override
-//                        public boolean onTouch(View v, MotionEvent event) {
-//                            boolean startLoad = ContactsHelper.getInstance().startLoadContacts();
-//                            Intent intent = new Intent(CityListActivity.this, SearchActivity.class);
-//                            startActivityForResult(intent, 2);
-//                            return false;
-//                        }
-//                    });
+                    citysearch.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            boolean startLoad = ContactsHelper.getInstance().startLoadContacts();
+                            Intent intent = new Intent(CityListActivity.this, SearchActivity.class);
+                            startActivityForResult(intent, 2);
+                            return false;
+                        }
+                    });
+
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -272,22 +278,22 @@ public class CityListActivity extends Activity {
         netRequestTask.execute();
     }
 
-    private ArrayList<CityModel> getCityNames() {
-        ArrayList<CityModel> names = new ArrayList<CityModel>();
-        Cursor cursor = database.rawQuery(
-                "SELECT * FROM T_City ORDER BY NameSort", null);
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            CityModel cityModel = new CityModel();
-            cityModel.setCityName(cursor.getString(cursor
-                    .getColumnIndex("CityName")));
-            cityModel.setNameSort(cursor.getString(cursor
-                    .getColumnIndex("NameSort")));
-            names.add(cityModel);
-        }
-        cursor.close();
-        return names;
-    }
+//    private ArrayList<CityModel> getCityNames() {
+//        ArrayList<CityModel> names = new ArrayList<CityModel>();
+//        Cursor cursor = database.rawQuery(
+//                "SELECT * FROM T_City ORDER BY NameSort", null);
+//        for (int i = 0; i < cursor.getCount(); i++) {
+//            cursor.moveToPosition(i);
+//            CityModel cityModel = new CityModel();
+//            cityModel.setCityName(cursor.getString(cursor
+//                    .getColumnIndex("CityName")));
+//            cityModel.setNameSort(cursor.getString(cursor
+//                    .getColumnIndex("NameSort")));
+//            names.add(cityModel);
+//        }
+//        cursor.close();
+//        return names;
+//    }
 
     class CityListActivityOnItemClick implements OnItemClickListener {
         @Override

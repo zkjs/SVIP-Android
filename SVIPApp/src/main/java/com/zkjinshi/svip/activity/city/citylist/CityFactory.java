@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.city.citylist;
 
+import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.zkjinshi.svip.fragment.contacts.CharacterParser;
@@ -57,5 +58,29 @@ public class CityFactory {
             }
         }
         return cityModels;
+    }
+
+    /**
+     * 构建新增城市键对值
+     * @param cityModel
+     * @return
+     */
+    public ContentValues buildAddContentValues(CityModel cityModel) {
+        ContentValues values = new ContentValues();
+        values.put("city_name", cityModel.getCityName());//城市名称
+        values.put("name_sort", cityModel.getNameSort());//城市首字母
+        return values;
+    }
+
+    /**
+     * 构建更新城市键对值
+     * @param cityModel
+     * @return
+     */
+    public ContentValues buildUpdateContentValues(CityModel cityModel) {
+        ContentValues values = new ContentValues();
+        values.put("city_name", cityModel.getCityName());//城市名称
+        values.put("name_sort", cityModel.getNameSort());//城市首字母
+        return values;
     }
 }

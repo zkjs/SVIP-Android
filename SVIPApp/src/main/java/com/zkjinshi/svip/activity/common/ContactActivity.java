@@ -60,7 +60,7 @@ public class ContactActivity extends Activity {
     private TextView       mTvLatestOnline;//最近在线时间
     private TextView       mTvShopName;//所属商家
     private TextView       mTvContactName;//联想人姓名
-    private LinearLayout   mLlPhone;
+//    private LinearLayout   mLlPhone;
     private TextView       mTvPhoneNumber;//手机号
     private ImageButton    mIbtnDial;//聊天按键
     private TextView       mTvEvaluateScore;//评分
@@ -96,7 +96,7 @@ public class ContactActivity extends Activity {
         mTvShopName      = (TextView) findViewById(R.id.tv_shop_name);
         mTvContactName   = (TextView) findViewById(R.id.tv_contact_name);
         mTvPhoneNumber   = (TextView) findViewById(R.id.tv_phone_number);
-        findViewById(R.id.ll_phone);
+//        mLlPhone         = (LinearLayout)findViewById(R.id.ll_phone);
         mIbtnDial        = (ImageButton) findViewById(R.id.ibtn_dial);
         mTvEvaluateScore = (TextView) findViewById(R.id.tv_evaluate_score);
         mCbOrderEvaluatePoor            = (CheckBox) findViewById(R.id.cb_order_evaluate_poor);
@@ -136,13 +136,13 @@ public class ContactActivity extends Activity {
             }
         });
 
-        mLlPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phoneNumber = mTvPhoneNumber.getText().toString();
-                dial(phoneNumber);
-            }
-        });
+//        mLlPhone.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String phoneNumber = mTvPhoneNumber.getText().toString();
+//                dial(phoneNumber);
+//            }
+//        });
 
         mIbtnDial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,7 +199,7 @@ public class ContactActivity extends Activity {
      * @param phoneNumber
      */
     private void dial(String phoneNumber) {
-        if(TextUtils.isEmpty(phoneNumber)){
+        if(!TextUtils.isEmpty(phoneNumber)){
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
