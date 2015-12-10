@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/city_search_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -10,11 +10,9 @@
         android:id="@+id/serchlayout"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
-        android:background="@drawable/topbar_bg"
-        android:gravity="center_vertical"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingLeft="7.0dip"
-        android:paddingRight="7.0dip">
+        android:gravity="center_vertical">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -22,9 +20,11 @@
             android:layout_height="32.0dip"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="6.0dip"
+            android:layout_toLeftOf="@+id/iv_cancel"
+            android:layout_marginLeft="@dimen/city_search_margin_landr_dimen"
+            android:layout_marginRight="@dimen/city_search_margin_landr_dimen"
             android:layout_marginTop="6.0dip"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/city_search_bg">
+            android:background="@drawable/city_search_bg" >
 
             <ImageView
                 android:id="@+id/search_check"
@@ -59,6 +59,7 @@
                 android:layout_marginRight="9.0dp"
                 android:background="@drawable/btn_gray_delete_selector"
                 android:visibility="gone" />
+
         </RelativeLayout>
 
         <ImageButton
@@ -66,8 +67,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/ic_quxiao"
-            android:gravity="center" />
+            android:background="@mipmap/ic_quxiao"/>
 
     </LinearLayout>
 

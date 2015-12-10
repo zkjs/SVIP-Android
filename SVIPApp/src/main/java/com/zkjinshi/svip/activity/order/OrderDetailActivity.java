@@ -78,7 +78,6 @@ public class OrderDetailActivity extends Activity{
 
     private final static String TAG = OrderDetailActivity.class.getSimpleName();
 
-    private ItemTitleView   mTitle;
     private TextView        mRoomType;
     private TextView        mRoomRate;
     private TextView        mTvOrderStatus;
@@ -88,9 +87,11 @@ public class OrderDetailActivity extends Activity{
     private LinearLayout    mLltDateContainer;
     private ImageView       mIvRoomImg;
 
+    private TextView        mTitleTv;
+    private ImageView       mCancelIv;
+
 
     private Button          mBtnSendOrder;
-    private Button          mBtnCancelOrder;
     private LinearLayout    mLltYuan;
     private LinearLayout    mLltTicketContainer;
 
@@ -135,6 +136,7 @@ public class OrderDetailActivity extends Activity{
     public static final int PEOPLE_REQUEST_CODE = 7;
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
+    public static final int PAY_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,9 +201,11 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initView() {
-        mTitle = (ItemTitleView) findViewById(R.id.itv_title);
+
+        mTitleTv = (TextView)findViewById(R.id.title_tv);
+        mCancelIv = (ImageView)findViewById(R.id.delete_iv);
+
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
-        mBtnCancelOrder = (Button)findViewById(R.id.btn_cancel_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
         mRoomRate     = (TextView) findViewById(R.id.tv_payment);
         mLltYuan      = (LinearLayout)findViewById(R.id.rl_yuan);
@@ -236,9 +240,7 @@ public class OrderDetailActivity extends Activity{
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
 
         mBtnSendOrder.setText("确认订单");
-        mTitle.setTextTitle(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
-        mTitle.setTextColor(this, R.color.White);
-        mTitle.getmRight().setVisibility(View.GONE);
+        mTitleTv.setText(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
     }
 
     private void initData(){
@@ -329,19 +331,23 @@ public class OrderDetailActivity extends Activity{
     private void initOrderStatus() {
         //订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单
         //支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账
+        //支付方式 1在线支付 2挂账 3到店支付
 
         final String orderStatus = orderDetailResponse.getRoom().getStatus();
         String payStatus = orderDetailResponse.getRoom().getPay_status();
+        int payId = orderDetailResponse.getRoom().getPay_id();
 
         mBtnSendOrder.setVisibility(View.GONE);
-        mBtnCancelOrder.setVisibility(View.GONE);
+        mCancelIv.setVisibility(View.GONE);
         modifyEnable = false;
+
+        mTvPay.setTextColor(Color.parseColor("#555555"));
 
         if (orderStatus.equals("0")){
             modifyEnable = true;
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
-            mBtnCancelOrder.setVisibility(View.VISIBLE);
+            mCancelIv.setVisibility(View.VISIBLE);
 
         }
         else if(orderStatus.equals("1")){
@@ -349,7 +355,7 @@ public class OrderDetailActivity extends Activity{
         }
         else if(orderStatus.equals("2")){
             mTvOrderStatus.setText("已确认");
-            mBtnCancelOrder.setVisibility(View.VISIBLE);
+            mCancelIv.setVisibility(View.VISIBLE);
         }
         else if(orderStatus.equals("3")){
             mTvOrderStatus.setText("已完成");
@@ -362,22 +368,29 @@ public class OrderDetailActivity extends Activity{
         }
 
         if (payStatus.equals("0")){
-            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
-            mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
-            mTvPay.setText("立即支付");
-            mTvPay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(OrderDetailActivity.this,OrderPayActivity.class);
-                    //Intent intent = new Intent(OrderDetailActivity.this,PayOrderActivity.class);
-                    intent.putExtra("orderDetailResponse",orderDetailResponse);
-                    startActivity(intent);
-                    finish();
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
+            if(payId == 1){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
+                mTvPay.setText("立即支付");
+                mTvPay.setTextColor(Color.parseColor("#ffc56e"));
+                mTvPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(OrderDetailActivity.this,OrderPayActivity.class);
+                        intent.putExtra("orderDetailResponse",orderDetailResponse);
+                        startActivityForResult(intent,PAY_REQUEST_CODE);
 
-                }
-            });
+                    }
+                });
+            }else if(payId == 2){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已挂账");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
+                mTvPay.setText("已挂账");
+            }else if(payId == 3){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
+                mTvPay.setText("到店支付");
+            }
 
         }
         else if(payStatus.equals("1")){
@@ -403,6 +416,8 @@ public class OrderDetailActivity extends Activity{
             mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
             mTvPay.setText("已挂账");
         }
+
+
     }
 
     //初始化订单备注
@@ -600,14 +615,14 @@ public class OrderDetailActivity extends Activity{
             }
         });
         //取消订单
-        mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.delete_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cancelOrder();
             }
         });
         //返回
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OrderDetailActivity.this.finish();
@@ -1071,7 +1086,10 @@ public class OrderDetailActivity extends Activity{
                     mTvRemark.setText(remark);
                     orderDetailResponse.getRoom().setRemark(remark);
                 }
+            }else if(PAY_REQUEST_CODE == requestCode){
+                loadOrderInfoByReservationNo();
             }
+
         }
     }
 

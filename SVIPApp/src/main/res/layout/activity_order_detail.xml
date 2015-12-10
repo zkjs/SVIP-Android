@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dfdfdf"
-    android:orientation="vertical">
+    android:background="#f5f2f5">
 
-    <!--标题-->
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_send_booking_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="酒店名"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF" />
+        android:layout_height="45dp"
+        android:text="确认订单"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
 
     <ScrollView
         android:scrollbars="none"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_send_booking_order">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,17 +34,43 @@
                 android:id="@+id/rl_order_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:visibility="visible">
 
                 <ImageView
                     android:id="@+id/iv_room_img"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_room_pic_default"/>
+                    android:layout_height="214dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/img_dingdanxiangqing"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/title_layout">
+                    <ImageView
+                        android:id="@+id/back_iv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_fanhui_orange"/>
+                    <TextView
+                        android:id="@+id/title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="确认订单"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"
+                        android:layout_centerInParent="true"/>
+
+                    <ImageView
+                        android:id="@+id/delete_iv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_quxiao_orange"
+                        android:layout_alignParentRight="true"/>
+
+                </RelativeLayout>
                 <LinearLayout
                     android:id="@+id/rl_yuan"
                     android:layout_width="wrap_content"
@@ -52,7 +78,8 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/bg_yuan">
+                    android:background="@mipmap/bg_yuan"
+                    android:layout_below="@id/title_layout">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -284,7 +311,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/tv_pay"
-                    android:textColor="@android:color/holo_blue_light"
+                    android:textColor="#555555"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -461,40 +488,10 @@
                     android:text=""/>
             </LinearLayout>
 
-            <!--按钮-->
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/btn_send_booking_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="确认订单"
-                    android:textSize="16sp"
-                    android:textColor="@color/White"
-                    android:background="@drawable/btn_bg_01_selector"/>
-
-                <Button
-                    android:layout_marginTop="20dp"
-                    android:id="@+id/btn_cancel_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="取消订单"
-                    android:textSize="16sp"
-                    android:textColor="@color/White"
-                    android:background="@drawable/btn_bg_01_selector"/>
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>
 
 
 

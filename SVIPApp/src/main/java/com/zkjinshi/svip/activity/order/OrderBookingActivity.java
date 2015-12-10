@@ -69,9 +69,9 @@ public class OrderBookingActivity extends Activity {
 
     private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
+    private TextView        mTitleTv;
+    private ImageView       mCancelIv;
 
-
-    private ItemTitleView mTitle;
     private TextView mRoomType;
     private TextView mTvArriveDate;
     private TextView mTvLeaveDate;
@@ -125,7 +125,10 @@ public class OrderBookingActivity extends Activity {
 
     private void initView() {
 
-        mTitle = (ItemTitleView) findViewById(R.id.itv_title);
+        mTitleTv = (TextView)findViewById(R.id.title_tv);
+        mCancelIv = (ImageView)findViewById(R.id.delete_iv);
+        mCancelIv.setVisibility(View.GONE);
+
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
         mRoomType = (TextView) findViewById(R.id.tv_room_type);
         mLltYuan = (LinearLayout) findViewById(R.id.rl_yuan);
@@ -150,9 +153,7 @@ public class OrderBookingActivity extends Activity {
         shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
 
         calendarList = new ArrayList<Calendar>();
-        mTitle.setTextTitle(shopName);
-        mTitle.setTextColor(this, R.color.White);
-        mTitle.getmRight().setVisibility(View.GONE);
+        mTitleTv.setText(shopName);
 
         mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
         mChineseFormat = new SimpleDateFormat("MM月dd日");
@@ -313,7 +314,7 @@ public class OrderBookingActivity extends Activity {
     }
 
     private void initListener() {
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OrderBookingActivity.this.finish();

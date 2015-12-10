@@ -22,25 +22,27 @@ public class SearchActivity extends Activity {
     private ListView searchresult;
     private EditText input;
     private ImageButton clear, left;
-    private SQLiteDatabase database;
+//    private SQLiteDatabase database;
+    private CitysearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchlayout);
+
         searchresult = (ListView) findViewById(R.id.searchresult);
         input = (EditText) findViewById(R.id.input);
         clear = (ImageButton) findViewById(R.id.clear);
-        left = (ImageButton) findViewById(R.id.left_title_button);
+        left  = (ImageButton) findViewById(R.id.left_title_button);
 
-        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+//        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 input.setText("");
             }
         });
-        final CitysearchAdapter adapter = new CitysearchAdapter(ContactsHelper.mSearchContacts, this);
 
         left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,13 +51,13 @@ public class SearchActivity extends Activity {
             }
         });
 
+        adapter = new CitysearchAdapter(ContactsHelper.mSearchContacts, this);
         searchresult.setAdapter(adapter);
         searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 final Contacts cityModel = ContactsHelper.mSearchContacts.get(position);
-                Setting.Save2SharedPreferences(SearchActivity.this, "city",
-                        cityModel.getName());
+                Setting.Save2SharedPreferences(SearchActivity.this, "city", cityModel.getName());
                 Intent intent = new Intent();
                 intent.putExtra("city", cityModel.getName());
                 setResult(RESULT_OK, intent);
@@ -98,24 +100,24 @@ public class SearchActivity extends Activity {
 
         });
     }
-
-    /**
-     * 从数据库获取城市数据
-     *
-     * @return
-     */
-    private ArrayList<CityModel> getCityNames(String string) {
-        ArrayList<CityModel> names = new ArrayList<CityModel>();
-        Cursor cursor = database.rawQuery( "SELECT CityName FROM T_City where CityName like '%"
-                + string
-                + "%' ORDER BY NameSort", null);
-        for (int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToPosition(i);
-            CityModel cityModel = new CityModel();
-            cityModel.setCityName(cursor.getString(cursor.getColumnIndex("CityName")));
-            names.add(cityModel);
-        }
-        return names;
-    }
+//
+//    /**
+//     * 从数据库获取城市数据
+//     *
+//     * @return
+//     */
+//    private ArrayList<CityModel> getCityNames(String string) {
+//        ArrayList<CityModel> names = new ArrayList<CityModel>();
+//        Cursor cursor = database.rawQuery( "SELECT CityName FROM T_City where CityName like '%"
+//                + string
+//                + "%' ORDER BY NameSort", null);
+//        for (int i = 0; i < cursor.getCount(); i++) {
+//            cursor.moveToPosition(i);
+//            CityModel cityModel = new CityModel();
+//            cityModel.setCityName(cursor.getString(cursor.getColumnIndex("CityName")));
+//            names.add(cityModel);
+//        }
+//        return names;
+//    }
 
 }

@@ -108,7 +108,6 @@
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/bg_btn_default"
                 android:clickable="true"
                 android:focusableInTouchMode="true"
                 android:focusable="true"

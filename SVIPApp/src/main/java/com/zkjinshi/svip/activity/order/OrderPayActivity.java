@@ -85,43 +85,32 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
 
 
 
-    private ItemTitleView itemTitleView;
-    private TextView orderPriceTv,roomTypeTv,roomTagTv;
+
+
     private ImageButton aliPayIBtn, weChatPayIBtn;
-    private TextView ccPayTv;
     private OrderDetailResponse orderDetailResponse;
 
     private void initView(){
-        itemTitleView = (ItemTitleView)findViewById(R.id.pay_order_title_layout);
-        orderPriceTv = (TextView)findViewById(R.id.pay_order_price_tv);
-        roomTypeTv = (TextView)findViewById(R.id.pay_order_room_type_tv);
-        roomTagTv = (TextView)findViewById(R.id.pay_order_room_tag);
+   ;
         aliPayIBtn = (ImageButton)findViewById(R.id.pay_order_ali_pay_ibtn);
         weChatPayIBtn = (ImageButton)findViewById(R.id.pay_order_we_chat_pay_ibtn);
-        ccPayTv = (TextView)findViewById(R.id.pay_order_cc_pay_tv);
-
         aliPayIBtn.setOnClickListener(this);
         weChatPayIBtn.setOnClickListener(this);
     }
 
     private void initData(){
-        itemTitleView.setTextTitle(getString(R.string.pay));
-        itemTitleView.setTextColor(this, R.color.White);
+
         orderDetailResponse = (OrderDetailResponse)getIntent().getSerializableExtra("orderDetailResponse");
-        orderPriceTv.setText(orderDetailResponse.getRoom().getRoom_rate());
-        roomTypeTv.setText(orderDetailResponse.getRoom().getRoom_type());
-        roomTagTv.setText(orderDetailResponse.getRoom().getRemark());
+
     }
 
     private void initListeners(){
 
         //返回
-        itemTitleView.getmLeft().setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.pay_order_top_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-                overridePendingTransition(R.anim.slide_in_left,
-                        R.anim.slide_out_right);
             }
         });
 
@@ -135,6 +124,7 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
         String replaceable = String.format("[%s, \\s.]", NumberFormat.getCurrencyInstance(Locale.CHINA).getCurrency().getSymbol(Locale.CHINA));
         String cleanString = amountText.toString().replaceAll(replaceable, "");
         int amount = Integer.valueOf(new BigDecimal(cleanString).toString());
+        amount = amount*100;
 
         // 支付宝，微信支付 按键的点击响应处理
        if (view.getId() == R.id.pay_order_ali_pay_ibtn) {
@@ -224,6 +214,7 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
 
                 if(result.equals("success")){
                     showPaySuccessDialog();
+                    setResult(RESULT_OK);
                     finish();
                 }else if(result.equals("fail")){
                     showPayFailsDialog();
@@ -239,7 +230,7 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
      * 支付失败对话框
      */
     private void showPaySuccessDialog(){
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
         customBuilder.setTitle("温馨提示");
         customBuilder.setMessage("支付成功！");
         customBuilder.setGravity(Gravity.CENTER);
@@ -257,7 +248,7 @@ public class OrderPayActivity extends Activity implements View.OnClickListener{
      * 支付失败对话框
      */
     private void showPayFailsDialog(){
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
         customBuilder.setTitle("温馨提示");
         customBuilder.setMessage("支付失败，请重新支付！");
         customBuilder.setGravity(Gravity.CENTER);

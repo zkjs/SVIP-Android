@@ -3,19 +3,10 @@
     xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dfdfdf"
+    android:background="#f5f2f5"
     android:orientation="vertical">
 
-    <!--标题-->
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="酒店名"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+
     <Button
         android:layout_alignParentBottom="true"
         android:id="@+id/btn_send_booking_order"
@@ -31,7 +22,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/itv_title"
         android:layout_above="@id/btn_send_booking_order">
 
         <LinearLayout
@@ -43,18 +33,43 @@
             <RelativeLayout
                 android:id="@+id/rl_order_top"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_room_img"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/ic_room_pic_default"/>
+                    android:layout_height="214dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/img_dingdanxiangqing"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/title_layout">
+                    <ImageView
+                        android:id="@+id/back_iv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_fanhui_orange"/>
+                    <TextView
+                        android:id="@+id/title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="预定"
+                        android:textSize="16sp"
+                        android:textColor="#ffffff"
+                        android:layout_centerInParent="true"/>
+
+                    <ImageView
+                        android:id="@+id/delete_iv"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_quxiao_orange"
+                        android:layout_alignParentRight="true"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/rl_yuan"
@@ -63,7 +78,8 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/bg_yuan">
+                    android:background="@mipmap/bg_yuan"
+                    android:layout_below="@id/title_layout">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
