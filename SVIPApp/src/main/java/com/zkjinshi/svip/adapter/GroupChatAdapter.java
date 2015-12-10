@@ -44,6 +44,7 @@ import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BookOrder;
+import com.zkjinshi.svip.bean.MemberBean;
 import com.zkjinshi.svip.http.get.DownloadRequestListener;
 import com.zkjinshi.svip.http.get.DownloadTask;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -89,6 +90,12 @@ public class GroupChatAdapter extends BaseAdapter {
     private boolean isDelEnabled; // ture：启用删除状态，false：不启用
     private String keyWord = "";
     private ResendListener mResendListener;
+    private ArrayList<MemberBean> memberList;
+
+    public void setMemberList(ArrayList<MemberBean> memberList) {
+        this.memberList = memberList;
+        notifyDataSetChanged();
+    }
 
     public void setResendListener(ResendListener listener) {
         mResendListener = listener;
@@ -209,21 +216,29 @@ public class GroupChatAdapter extends BaseAdapter {
                     break;
             }
         }
-        String userName = message.getFrom();
-        //TODO Jimmy 暂时不显示人名称
+
         switch (itemType) {
             case TYPE_RECV_ITEM: // 别人发送的布局
                 setViewValues(rvh, position, true);
+                String userId = message.getFrom();
+                String userName = null;
+                if(null != memberList && !memberList.isEmpty()){
+                    for(MemberBean member : memberList){
+                        if(member.getUserid().equals(userId)){
+                            userName = member.getUsername();
+                        }
+                    }
+                }
                 if (!TextUtils.isEmpty(userName)) {
                     rvh.name.setText(userName + "：");
-                    rvh.name.setVisibility(View.INVISIBLE);
+                    rvh.name.setVisibility(View.VISIBLE);
                 }
                 break;
 
             case TYPE_SEND_ITEM: // 自己发送的布局
                 setViewValues(svh, position, false);
                 svh.name.setText("我：");
-                svh.name.setVisibility(View.INVISIBLE);
+                svh.name.setVisibility(View.VISIBLE);
                 EMMessage.Status sendStatus = message.status;
                 if (EMMessage.Status.INPROGRESS.equals(sendStatus)) { // 正在发送
                     svh.progressBar.setVisibility(View.VISIBLE);

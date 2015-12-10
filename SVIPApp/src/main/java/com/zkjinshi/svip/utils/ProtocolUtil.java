@@ -391,4 +391,13 @@ public class ProtocolUtil {
     public static String getShopLIstByCityUrl(String city) {
         return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
     }
+
+    /**
+     * 获取环信群成员
+     * @return
+     */
+    public static String getGroupMemberUrl(){
+
+        return ConfigUtil.getInst().getHttpDomain()+"hxim/member";
+    }
 }
