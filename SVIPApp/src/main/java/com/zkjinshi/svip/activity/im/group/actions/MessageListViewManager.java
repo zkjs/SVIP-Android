@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -17,18 +18,26 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.group.controller.GroupMemberController;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.adapter.GroupChatAdapter;
+import com.zkjinshi.svip.bean.MemberBean;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +51,8 @@ import java.util.List;
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
         GroupChatAdapter.ResendListener,IEMessageObserver {
 
+    public static final String TAG = MessageListViewManager.class.getSimpleName();
+
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
 
     private Context context;
@@ -52,6 +63,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private List<EMMessage> requestMessageList = new ArrayList<EMMessage>();
     private static final int PAGE_SIZE = 10;
     private String groupId;
+    private ArrayList<MemberBean> memberList;
 
     public MessageListViewManager(Context context, String groupId) {
         this.context = context;
@@ -72,6 +84,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private void initData() {
         if(!TextUtils.isEmpty(groupId)){
             conversation = EMChatManager.getInstance().getConversation(groupId);
+            requestGroupMembersTask();
         }
         clearChatRoomBadgeNum();
         setOverScrollMode(messageListView);
@@ -86,6 +99,40 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         chatAdapter.setMessageList(currentMessageList);
         scrollBottom();
         addAllObserver();
+    }
+
+    /**
+     * 请求群成员信息
+     */
+    private void requestGroupMembersTask(){
+
+        GroupMemberController.getInstance().requestGroupMembersTask(groupId, new ExtNetRequestListener(context) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                super.onNetworkRequestError(errorCode, errorMessage);
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                if(null != result && !TextUtils.isEmpty(result.rawResult)){
+
+                    try {
+
+                        Log.i(TAG, "result:" + result.rawResult);
+                        Type listType = new TypeToken<ArrayList<MemberBean>>(){}.getType();
+                        Gson gson = new Gson();
+                        memberList = gson.fromJson(result.rawResult, listType);
+                        chatAdapter.setMemberList(memberList);
+
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },context);
     }
 
     private void initListeners() {
