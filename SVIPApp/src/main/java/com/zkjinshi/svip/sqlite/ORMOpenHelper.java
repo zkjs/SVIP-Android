@@ -19,9 +19,6 @@ public class ORMOpenHelper {
      */
     public static void createTables(SQLiteDatabase db) {
         // 执行建messagetbl表sql语句
-        db.execSQL(TableOpenHelper.MESSAGE_TBL_SQL);
-        db.execSQL(TableOpenHelper.CHAT_ROOM_TBL_SQL);
-        db.execSQL(TableOpenHelper.CHAT_MEMBER_TBL_SQL);
         db.execSQL(TableOpenHelper.USER_INFO_TBL_SQL);
         db.execSQL(TableOpenHelper.SHOP_INFO_TBL_SQL);
         db.execSQL(TableOpenHelper.SERVER_PERSONAL_TBL_SQL);

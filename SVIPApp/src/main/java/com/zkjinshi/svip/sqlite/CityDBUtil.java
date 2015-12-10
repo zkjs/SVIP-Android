@@ -9,11 +9,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.activity.city.citylist.CityFactory;
 import com.zkjinshi.svip.activity.city.citylist.CityModel;
-import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
-import com.zkjinshi.svip.factory.ChatRoomFactory;
-import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.utils.VIPContext;
-import com.zkjinshi.svip.vo.MessageVo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,10 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.factory.UserDetailFactory;
 import com.zkjinshi.svip.utils.VIPContext;
-import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.UserDetailVo;
 
 /**

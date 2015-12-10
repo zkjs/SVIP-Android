@@ -20,7 +20,6 @@ import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
-import com.zkjinshi.svip.listener.MessageListener;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -77,7 +76,6 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
         initDBName();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
-        MessageListener  messageListener = new MessageListener();
     }
 
     private void initListeners() {

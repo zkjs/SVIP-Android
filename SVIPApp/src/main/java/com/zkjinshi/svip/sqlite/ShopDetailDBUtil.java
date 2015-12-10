@@ -7,14 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceMediaChat;
-import com.zkjinshi.svip.bean.jsonbean.MsgCustomerServiceTextChat;
-import com.zkjinshi.svip.factory.MessageFactory;
 import com.zkjinshi.svip.factory.ShopDetailFactory;
-import com.zkjinshi.svip.factory.UserDetailFactory;
 import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.vo.ShopDetailVo;
-import com.zkjinshi.svip.vo.UserDetailVo;
 
 import java.util.HashMap;
 import java.util.List;

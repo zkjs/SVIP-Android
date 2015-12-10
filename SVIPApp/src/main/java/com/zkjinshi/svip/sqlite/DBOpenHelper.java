@@ -18,9 +18,6 @@ public class DBOpenHelper extends SQLiteOpenHelper{
 
     public static String DB_NAME = "svip_sqlite.db";//根据每个用户创建一份数据库
     public static final int VERSION = 1;// 数据库版本
-    public static final String MESSAGE_TBL = "messagetbl";// 消息表名
-    public static final String CHAT_ROOM_TBL = "chatroomtbl";//聊天室表名
-    public static final String CHAT_MEMBER_TBL = "chatmembertbl";//聊天室成员表
     public static final String USER_INFO_TBL   = "userinfotbl";//用户个人信息表
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
     public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
