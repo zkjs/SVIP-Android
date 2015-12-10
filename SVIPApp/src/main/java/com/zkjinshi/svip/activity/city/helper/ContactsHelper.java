@@ -14,9 +14,13 @@ import com.pinyinsearch.model.PinyinUnit;
 import com.pinyinsearch.util.PinyinUtil;
 import com.pinyinsearch.util.QwertyMatchPinyinUnits;
 import com.pinyinsearch.util.T9MatchPinyinUnits;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.BaseContext;
+import com.zkjinshi.svip.activity.city.citylist.CityModel;
 import com.zkjinshi.svip.activity.city.citylist.DBManager;
 import com.zkjinshi.svip.activity.city.model.Contacts;
+import com.zkjinshi.svip.sqlite.CityDBUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -324,11 +328,11 @@ public class ContactsHelper {
 			if (null != mSearchContacts) {
 				mSearchContacts.clear();
 			} else {
-				mSearchContacts = new ArrayList<Contacts>();
+				mSearchContacts = new ArrayList<>();
 			}
 
 			for(int i=0; i<mBaseContacts.size(); i++){
-				Contacts currentContacts=null;
+				Contacts currentContacts = null;
 				for(currentContacts=mBaseContacts.get(i); null!=currentContacts; currentContacts=currentContacts.getNextContacts()){
 					currentContacts.setSearchByType(Contacts.SearchByType.SearchByNull);
 					currentContacts.clearMatchKeywords();
@@ -498,104 +502,66 @@ public class ContactsHelper {
 	private boolean isSearching() {
 		return (mLoadTask != null && mLoadTask.getStatus() == Status.RUNNING);
 	}
-	@SuppressLint("DefaultLocale")
-	private List<Contacts> loadContacts1(Context context) {
-		ArrayList<Contacts> names = new ArrayList<Contacts>();
-		DBManager dbManager = new DBManager(context);
-		dbManager.openDateBase();
-		dbManager.closeDatabase();
-		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/"
-				+ DBManager.DB_NAME, null);
-		Cursor cursor = database.rawQuery(
-				"SELECT * FROM T_City ORDER BY NameSort", null);
-		for (int i = 0; i < cursor.getCount(); i++) {
-			cursor.moveToPosition(i);
-			Contacts contacts=new Contacts(cursor.getString(cursor
-					.getColumnIndex("CityName")));
-			names.add(contacts);
-		}
-		cursor.close();
-		return names;
-	}
-	@SuppressLint("DefaultLocale")
-	private List<Contacts> loadContacts(Context context) {
-		List<Contacts> kanjiStartContacts = new ArrayList<Contacts>();
-		HashMap<String, Contacts> kanjiStartContactsHashMap=new HashMap<String, Contacts>();
-		
-		List<Contacts>  nonKanjiStartContacts = new ArrayList<Contacts>();
-		HashMap<String, Contacts> nonKanjiStartContactsHashMap=new HashMap<String,Contacts>();
-		
-		List<Contacts> contacts=new ArrayList<Contacts>();
-		
-		Contacts cs=null;
+
+    /** add by WinkyQin at 2015/12/10 */
+    private List<Contacts> loadContacts(Context context) {
+		List<Contacts> kanjiStartContacts = new ArrayList<>();
+		HashMap<String, Contacts> kanjiStartContactsHashMap = new HashMap<>();
+		List<Contacts>  nonKanjiStartContacts = new ArrayList<>();
+		HashMap<String, Contacts> nonKanjiStartContactsHashMap = new HashMap<>();
+		List<Contacts> contacts=new ArrayList<>();
+
+		Contacts cs = null;
 		Cursor cursor = null;
 		String sortkey = null;
 		long startLoadTime=System.currentTimeMillis();
-		String[] projection=new String[] {ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER};
 		try {
+            cursor = CityDBUtil.getInstance().queryAllCursor();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
+                String id = i +"";
+                String displayName = cursor.getString(cursor.getColumnIndex("city_name"));
 
-//			cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,null, null, "sort_key");
-			DBManager dbManager = new DBManager(context);
-			dbManager.openDateBase();
-			dbManager.closeDatabase();
-			SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/"
-					+ DBManager.DB_NAME, null);
-			 cursor = database.rawQuery(
-					"SELECT * FROM T_City ORDER BY NameSort", null);
-			int i=0;
-			int nameindex=cursor.getColumnIndex("CityName");
-			while (cursor.moveToNext()) {
-				String id=""+i++;
-				String displayName = cursor.getString(nameindex);
+                boolean kanjiStartContactsExist    = kanjiStartContactsHashMap.containsKey(id);
+                boolean nonKanjiStartContactsExist = nonKanjiStartContactsHashMap.containsKey(id);
 
-
-				boolean kanjiStartContactsExist=kanjiStartContactsHashMap.containsKey(id);
-				boolean nonKanjiStartContactsExist=nonKanjiStartContactsHashMap.containsKey(id);
-
-				if(true==kanjiStartContactsExist){
-					cs=kanjiStartContactsHashMap.get(id);
-				}else if(true==nonKanjiStartContactsExist){
-					cs=nonKanjiStartContactsHashMap.get(id);
-				}else {
-
-					cs = new Contacts(displayName);
-					PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
-					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
-					cs.setSortKey(praseSortKey(sortkey));
-					boolean isKanji = PinyinUtil.isKanji(cs.getName().charAt(0));
-
-					if (true == isKanji) {
-						kanjiStartContactsHashMap.put(id, cs);
-					} else {
-						nonKanjiStartContactsHashMap.put(id, cs);
-					}
-				}
-				}
+                if(kanjiStartContactsExist){
+                    cs = kanjiStartContactsHashMap.get(id);
+                }else if(nonKanjiStartContactsExist){
+                    cs = nonKanjiStartContactsHashMap.get(id);
+                }else {
+                    cs = new Contacts(displayName);
+                    PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
+                    sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
+                    cs.setSortKey(praseSortKey(sortkey));
+                    boolean isKanji = PinyinUtil.isKanji(cs.getName().charAt(0));
+                    if (true == isKanji) {
+                        kanjiStartContactsHashMap.put(id, cs);
+                    } else {
+                        nonKanjiStartContactsHashMap.put(id, cs);
+                    }
+                }
+            }
 
 		} catch (Exception e) {
-
+            LogUtil.getInstance().info(LogLevel.DEBUG, TAG+"e:"+e);
 		} finally {
 			if (null != cursor) {
 				cursor.close();
 				cursor = null;
 			}
 		}
-		
+
 		kanjiStartContacts.addAll(kanjiStartContactsHashMap.values());
 		Collections.sort(kanjiStartContacts, Contacts.mAscComparator);
-		
+
 		nonKanjiStartContacts.addAll(nonKanjiStartContactsHashMap.values());
 		Collections.sort(nonKanjiStartContacts, Contacts.mAscComparator);
-		
-		//contacts.addAll(nonKanjiStartContacts);
 		contacts.addAll(kanjiStartContacts);
-	
-		//merge nonKanjiStartContacts and kanjiStartContacts
 		int lastIndex=0;
 		boolean shouldBeAdd=false;
 		for(int i=0; i<nonKanjiStartContacts.size(); i++){
 			String nonKanfirstLetter= PinyinUtil.getFirstLetter(nonKanjiStartContacts.get(i).getNamePinyinUnits());
-			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]");
 			int j=0;
 			for(j=0+lastIndex; j<contacts.size(); j++){
 				String firstLetter= PinyinUtil.getFirstLetter(contacts.get(j).getNamePinyinUnits());
@@ -607,33 +573,162 @@ public class ContactsHelper {
 					shouldBeAdd=false;
 				}
 			}
-			
+
 			if(lastIndex>=contacts.size()){
 				lastIndex++;
 				shouldBeAdd=true;
-				//Log.i(TAG, "lastIndex="+lastIndex);
 			}
-			
+
 			if(true==shouldBeAdd){
 				contacts.add(j, nonKanjiStartContacts.get(i));
 				shouldBeAdd=false;
 			}
 		}
-	
 		long endLoadTime=System.currentTimeMillis();
 		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"] contacts.size()="+contacts.size());
-		
-		/*for (int i = 0; i < contacts.size(); i++) {
-			Log.i(TAG, "****************************************");
-			Contacts currentContacts = contacts.get(i);
-			while (null != currentContacts) {
-				Log.i(TAG, "name[" + currentContacts.getName()+"]phoneNumber[" + currentContacts.getPhoneNumber()+"]");
-				currentContacts = currentContacts.getNextContacts();
-			}
-		}*/
-		
+
 		return contacts;
 	}
+
+    /** add by WinkyQin at 2015/12/10 临时注释，后期有需要显示全国城市再添加 */
+//	@SuppressLint("DefaultLocale")
+//	private List<Contacts> loadContacts1(Context context) {
+//		ArrayList<Contacts> names = new ArrayList<Contacts>();
+//		DBManager dbManager = new DBManager(context);
+//		dbManager.openDateBase();
+//		dbManager.closeDatabase();
+//		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/"
+//				+ DBManager.DB_NAME, null);
+//		Cursor cursor = database.rawQuery(
+//				"SELECT * FROM T_City ORDER BY NameSort", null);
+//		for (int i = 0; i < cursor.getCount(); i++) {
+//			cursor.moveToPosition(i);
+//			Contacts contacts=new Contacts(cursor.getString(cursor
+//					.getColumnIndex("CityName")));
+//			names.add(contacts);
+//		}
+//		cursor.close();
+//		return names;
+//	}
+
+    /** add by WinkyQin at 2015/12/10 临时注释，后期有需要显示全国城市再添加 */
+	@SuppressLint("DefaultLocale")
+//	private List<Contacts> loadContacts(Context context) {
+//		List<Contacts> kanjiStartContacts = new ArrayList<Contacts>();
+//		HashMap<String, Contacts> kanjiStartContactsHashMap=new HashMap<String, Contacts>();
+//
+//		List<Contacts>  nonKanjiStartContacts = new ArrayList<Contacts>();
+//		HashMap<String, Contacts> nonKanjiStartContactsHashMap=new HashMap<String,Contacts>();
+//
+//		List<Contacts> contacts=new ArrayList<Contacts>();
+//
+//		Contacts cs=null;
+//		Cursor cursor = null;
+//		String sortkey = null;
+//		long startLoadTime=System.currentTimeMillis();
+//		String[] projection=new String[] {ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,ContactsContract.CommonDataKinds.Phone.NUMBER};
+//		try {
+//
+////			cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,null, null, "sort_key");
+//			DBManager dbManager = new DBManager(context);
+//			dbManager.openDateBase();
+//			dbManager.closeDatabase();
+//			SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/"
+//					+ DBManager.DB_NAME, null);
+//			 cursor = database.rawQuery(
+//					"SELECT * FROM T_City ORDER BY NameSort", null);
+//			int i=0;
+//			int nameindex=cursor.getColumnIndex("CityName");
+//			while (cursor.moveToNext()) {
+//				String id=""+i++;
+//				String displayName = cursor.getString(nameindex);
+//
+//
+//				boolean kanjiStartContactsExist=kanjiStartContactsHashMap.containsKey(id);
+//				boolean nonKanjiStartContactsExist=nonKanjiStartContactsHashMap.containsKey(id);
+//
+//				if(true==kanjiStartContactsExist){
+//					cs=kanjiStartContactsHashMap.get(id);
+//				}else if(true==nonKanjiStartContactsExist){
+//					cs=nonKanjiStartContactsHashMap.get(id);
+//				}else {
+//
+//					cs = new Contacts(displayName);
+//					PinyinUtil.chineseStringToPinyinUnit(cs.getName(), cs.getNamePinyinUnits());
+//					sortkey = PinyinUtil.getSortKey(cs.getNamePinyinUnits()).toUpperCase();
+//					cs.setSortKey(praseSortKey(sortkey));
+//					boolean isKanji = PinyinUtil.isKanji(cs.getName().charAt(0));
+//
+//					if (true == isKanji) {
+//						kanjiStartContactsHashMap.put(id, cs);
+//					} else {
+//						nonKanjiStartContactsHashMap.put(id, cs);
+//					}
+//				}
+//				}
+//
+//		} catch (Exception e) {
+//
+//		} finally {
+//			if (null != cursor) {
+//				cursor.close();
+//				cursor = null;
+//			}
+//		}
+//
+//		kanjiStartContacts.addAll(kanjiStartContactsHashMap.values());
+//		Collections.sort(kanjiStartContacts, Contacts.mAscComparator);
+//
+//		nonKanjiStartContacts.addAll(nonKanjiStartContactsHashMap.values());
+//		Collections.sort(nonKanjiStartContacts, Contacts.mAscComparator);
+//
+//		//contacts.addAll(nonKanjiStartContacts);
+//		contacts.addAll(kanjiStartContacts);
+//
+//		//merge nonKanjiStartContacts and kanjiStartContacts
+//		int lastIndex=0;
+//		boolean shouldBeAdd=false;
+//		for(int i=0; i<nonKanjiStartContacts.size(); i++){
+//			String nonKanfirstLetter= PinyinUtil.getFirstLetter(nonKanjiStartContacts.get(i).getNamePinyinUnits());
+//			//Log.i(TAG, "nonKanfirstLetter=["+nonKanfirstLetter+"]");
+//			int j=0;
+//			for(j=0+lastIndex; j<contacts.size(); j++){
+//				String firstLetter= PinyinUtil.getFirstLetter(contacts.get(j).getNamePinyinUnits());
+//				lastIndex++;
+//				if(firstLetter.charAt(0)>nonKanfirstLetter.charAt(0)){
+//					shouldBeAdd=true;
+//					break;
+//				}else{
+//					shouldBeAdd=false;
+//				}
+//			}
+//
+//			if(lastIndex>=contacts.size()){
+//				lastIndex++;
+//				shouldBeAdd=true;
+//				//Log.i(TAG, "lastIndex="+lastIndex);
+//			}
+//
+//			if(true==shouldBeAdd){
+//				contacts.add(j, nonKanjiStartContacts.get(i));
+//				shouldBeAdd=false;
+//			}
+//		}
+//
+//		long endLoadTime=System.currentTimeMillis();
+//		Log.i(TAG, "endLoadTime-startLoadTime=["+(endLoadTime-startLoadTime)+"] contacts.size()="+contacts.size());
+//
+//		/*for (int i = 0; i < contacts.size(); i++) {
+//			Log.i(TAG, "****************************************");
+//			Contacts currentContacts = contacts.get(i);
+//			while (null != currentContacts) {
+//				Log.i(TAG, "name[" + currentContacts.getName()+"]phoneNumber[" + currentContacts.getPhoneNumber()+"]");
+//				currentContacts = currentContacts.getNextContacts();
+//			}
+//		}*/
+//
+//		return contacts;
+//	}
 	
 	private void parseContacts(List<Contacts> contacts) {
 		if (null == contacts || contacts.size() < 1) {
