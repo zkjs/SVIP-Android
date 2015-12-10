@@ -37,6 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
+import io.yunba.android.manager.YunBaManager;
+
 /**
  * Created by JimmyZhang on 2015/7/18.
  */
@@ -49,6 +51,7 @@ public class SVIPApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        YunBaManager.start(getApplicationContext());
         initContext();
         initEmchat();
         saveConfig();

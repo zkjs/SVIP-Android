@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -17,11 +18,13 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.bean.LocPushBean;
 import com.zkjinshi.svip.bean.jsonbean.MsgPushLocA2M;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.fragment.TabNavigationFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
+import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
@@ -33,6 +36,12 @@ import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.view.GooeyMenu;
 import com.zkjinshi.svip.view.ListenerDialog;
+
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import io.yunba.android.manager.YunBaManager;
 
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver{
@@ -169,12 +178,47 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
      * @param regionVo
      */
     private void reginAdPush(RegionVo regionVo){
+        if(null != regionVo){
+            IBeaconEntity iBeaconEntity = regionVo.getiBeacon();
+            String locId = iBeaconEntity.getLocid();
+            String shopid = iBeaconEntity.getShopid();
+            String locdesc = iBeaconEntity.getLocdesc();
+            LocPushBean locPushBean = new LocPushBean();
+            locPushBean.setUserid(CacheUtil.getInstance().getUserId());
+            locPushBean.setUsername(CacheUtil.getInstance().getUserName());
+            if(!TextUtils.isEmpty(locId)){
+                locPushBean.setLocid(locId);
+            }
+            if(!TextUtils.isEmpty(shopid)){
+                locPushBean.setShopid(shopid);
+            }
+            if(!TextUtils.isEmpty(locdesc)){
+                locPushBean.setLocdesc(locdesc);
+            }
+            //新增云巴测试
+            YunBaManager.publish(getApplicationContext(), locId, new Gson().toJson(locPushBean),
+                    new IMqttActionListener() {
+                        @Override
+                        public void onSuccess(IMqttToken asyncActionToken) {
+                            String msgLog = "Publish succeed : " + asyncActionToken.getTopics().toString();
+                            Log.i(TAG,"onSuccess:"+msgLog);
+                        }
+
+                        @Override
+                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            if (exception instanceof MqttException) {
+                                MqttException ex = (MqttException)exception;
+                                String msg =  "publish failed with error code : " + ex.getReasonCode();
+                                Log.i(TAG,"onFailure:"+msg);
+                            }
+                        }
+                    }
+            );
+        }
         MsgPushLocA2M msgPushLocA2M = MsgPushLocA2MReqTool.buildMsgPushLocA2M(regionVo);
         String msgPushStr = new Gson().toJson(msgPushLocA2M,MsgPushLocA2M.class);
         WebSocketManager.getInstance().sendMessage(msgPushStr);
     }
-
-
 
     public void notifyHomeFragment(){
         if(getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
