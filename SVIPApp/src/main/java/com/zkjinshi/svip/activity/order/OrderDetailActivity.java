@@ -78,7 +78,6 @@ public class OrderDetailActivity extends Activity{
 
     private final static String TAG = OrderDetailActivity.class.getSimpleName();
 
-    private ItemTitleView   mTitle;
     private TextView        mRoomType;
     private TextView        mRoomRate;
     private TextView        mTvOrderStatus;
@@ -88,9 +87,11 @@ public class OrderDetailActivity extends Activity{
     private LinearLayout    mLltDateContainer;
     private ImageView       mIvRoomImg;
 
+    private TextView        mTitleTv;
+    private ImageView       mCancelIv;
+
 
     private Button          mBtnSendOrder;
-    private Button          mBtnCancelOrder;
     private LinearLayout    mLltYuan;
     private LinearLayout    mLltTicketContainer;
 
@@ -199,9 +200,11 @@ public class OrderDetailActivity extends Activity{
     }
 
     private void initView() {
-        mTitle = (ItemTitleView) findViewById(R.id.itv_title);
+
+        mTitleTv = (TextView)findViewById(R.id.title_tv);
+        mCancelIv = (ImageView)findViewById(R.id.delete_iv);
+
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
-        mBtnCancelOrder = (Button)findViewById(R.id.btn_cancel_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
         mRoomRate     = (TextView) findViewById(R.id.tv_payment);
         mLltYuan      = (LinearLayout)findViewById(R.id.rl_yuan);
@@ -236,9 +239,7 @@ public class OrderDetailActivity extends Activity{
         mlltRemark = (LinearLayout)findViewById(R.id.llt_order_remark);
 
         mBtnSendOrder.setText("确认订单");
-        mTitle.setTextTitle(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
-        mTitle.setTextColor(this, R.color.White);
-        mTitle.getmRight().setVisibility(View.GONE);
+        mTitleTv.setText(ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId));
     }
 
     private void initData(){
@@ -334,14 +335,14 @@ public class OrderDetailActivity extends Activity{
         String payStatus = orderDetailResponse.getRoom().getPay_status();
 
         mBtnSendOrder.setVisibility(View.GONE);
-        mBtnCancelOrder.setVisibility(View.GONE);
+        mCancelIv.setVisibility(View.GONE);
         modifyEnable = false;
 
         if (orderStatus.equals("0")){
             modifyEnable = true;
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
-            mBtnCancelOrder.setVisibility(View.VISIBLE);
+            mCancelIv.setVisibility(View.VISIBLE);
 
         }
         else if(orderStatus.equals("1")){
@@ -349,7 +350,7 @@ public class OrderDetailActivity extends Activity{
         }
         else if(orderStatus.equals("2")){
             mTvOrderStatus.setText("已确认");
-            mBtnCancelOrder.setVisibility(View.VISIBLE);
+            mCancelIv.setVisibility(View.VISIBLE);
         }
         else if(orderStatus.equals("3")){
             mTvOrderStatus.setText("已完成");
@@ -600,14 +601,14 @@ public class OrderDetailActivity extends Activity{
             }
         });
         //取消订单
-        mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.delete_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cancelOrder();
             }
         });
         //返回
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 OrderDetailActivity.this.finish();
