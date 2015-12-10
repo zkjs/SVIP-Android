@@ -136,6 +136,7 @@ public class OrderDetailActivity extends Activity{
     public static final int PEOPLE_REQUEST_CODE = 7;
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
+    public static final int PAY_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -330,13 +331,17 @@ public class OrderDetailActivity extends Activity{
     private void initOrderStatus() {
         //订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单
         //支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账
+        //支付方式 1在线支付 2挂账 3到店支付
 
         final String orderStatus = orderDetailResponse.getRoom().getStatus();
         String payStatus = orderDetailResponse.getRoom().getPay_status();
+        int payId = orderDetailResponse.getRoom().getPay_id();
 
         mBtnSendOrder.setVisibility(View.GONE);
         mCancelIv.setVisibility(View.GONE);
         modifyEnable = false;
+
+        mTvPay.setTextColor(Color.parseColor("#555555"));
 
         if (orderStatus.equals("0")){
             modifyEnable = true;
@@ -363,22 +368,29 @@ public class OrderDetailActivity extends Activity{
         }
 
         if (payStatus.equals("0")){
-            mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
-            mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
-            mTvPay.setText("立即支付");
-            mTvPay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(OrderDetailActivity.this,OrderPayActivity.class);
-                    //Intent intent = new Intent(OrderDetailActivity.this,PayOrderActivity.class);
-                    intent.putExtra("orderDetailResponse",orderDetailResponse);
-                    startActivity(intent);
-                    finish();
-                    overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
+            if(payId == 1){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
+                mTvPay.setText("立即支付");
+                mTvPay.setTextColor(Color.parseColor("#ffc56e"));
+                mTvPay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(OrderDetailActivity.this,OrderPayActivity.class);
+                        intent.putExtra("orderDetailResponse",orderDetailResponse);
+                        startActivityForResult(intent,PAY_REQUEST_CODE);
 
-                }
-            });
+                    }
+                });
+            }else if(payId == 2){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/已挂账");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
+                mTvPay.setText("已挂账");
+            }else if(payId == 3){
+                mTvOrderStatus.setText(mTvOrderStatus.getText().toString()+"/未支付");
+                mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付"+orderDetailResponse.getRoom().getRoom_rate()+"元");
+                mTvPay.setText("到店支付");
+            }
 
         }
         else if(payStatus.equals("1")){
@@ -404,6 +416,8 @@ public class OrderDetailActivity extends Activity{
             mTvPayTips.setText("你应该支付"+orderDetailResponse.getRoom().getRoom_rate()+"元，还需要支付0元");
             mTvPay.setText("已挂账");
         }
+
+
     }
 
     //初始化订单备注
@@ -1072,7 +1086,10 @@ public class OrderDetailActivity extends Activity{
                     mTvRemark.setText(remark);
                     orderDetailResponse.getRoom().setRemark(remark);
                 }
+            }else if(PAY_REQUEST_CODE == requestCode){
+                loadOrderInfoByReservationNo();
             }
+
         }
     }
 

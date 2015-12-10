@@ -311,7 +311,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/tv_pay"
-                    android:textColor="@android:color/holo_blue_light"
+                    android:textColor="#555555"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

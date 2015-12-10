@@ -19,8 +19,17 @@ public class OrderRoomResponse  extends HttpResponse {
     private String  room_rate;// 房价 int.00
     private String  status;// 订单状态 默认0可取消订单 1已取消订单 2已确认订单 3已经完成的订单 4正在入住中 5已删除订单 int
     private String  remark;// 备注内容
+    private int pay_id; //支付方式 1在线支付 2挂账 3到店支付
     private String  pay_status;// 支付状态 0未支付,1已支付,3支付一部分,4已退款, 5已挂账   int
     private String imgurl;
+
+    public int getPay_id() {
+        return pay_id;
+    }
+
+    public void setPay_id(int pay_id) {
+        this.pay_id = pay_id;
+    }
 
     public String getImgurl() {
         return imgurl;

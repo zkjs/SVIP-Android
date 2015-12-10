@@ -11,7 +11,6 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.order.PayOrderActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;

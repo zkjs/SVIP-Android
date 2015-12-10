@@ -261,14 +261,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
 
-        <activity
-            android:name=".activity.order.PayOrderActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:label="@string/app_name"
-            >
-        </activity>
+
 
         <activity
             android:name=".activity.order.OrderPayActivity"
