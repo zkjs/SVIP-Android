@@ -5,15 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
-
 import com.easemob.EMNotifierEvent;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMConversation;
+import com.easemob.chat.EMGroup;
+import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EaseMobException;
@@ -24,15 +21,12 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.VibratorUtil;
-import com.zkjinshi.svip.vo.MessageVo;
-import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.TxtExtType;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -61,49 +55,11 @@ public class NotificationHelper {
 
     /**
      * 后台通知栏通知用户收到消息
-     *
-     * @param context
-     * @param messageVo
-     */
-    public void showNotification(Context context, MessageVo messageVo) {
-        if (ActivityManagerHelper.isRunningBackground(context)) {
-            int nofifyFlag = 0;
-            NotificationCompat.Builder notificationBuilder = null;
-            // 1.设置显示信息
-            notificationBuilder = new NotificationCompat.Builder(context);
-            notificationBuilder.setContentTitle("" + messageVo.getContactName());
-            MimeType msgType = messageVo.getMimeType();
-            if (msgType == MimeType.TEXT) {
-                notificationBuilder.setContentText("" + messageVo.getContent());
-            } else if (msgType == MimeType.IMAGE) {
-                notificationBuilder.setContentText("[图片]");
-            } else {
-                notificationBuilder.setContentText("[语音]");
-            }
-            notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-            // 2.设置点击跳转事件
-            Intent intent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    intent, 0);
-            notificationBuilder.setContentIntent(pendingIntent);
-            // 3.设置通知栏其他属性
-            notificationBuilder.setAutoCancel(true);
-            notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
-            NotificationManagerCompat notificationManager =
-                    NotificationManagerCompat.from(context);
-            notificationManager.notify(nofifyFlag, notificationBuilder.build());
-        } else {
-            MediaPlayerUtil.playNotifyVoice(context);
-            VibratorHelper.vibratorShark(context);
-        }
-    }
-
-    /**
-     * 后台通知栏通知用户收到消息
      * @param context
      * @param event
      */
     public void showNotification(Context context, EMNotifierEvent event) {
+        int nofifyFlag = 0;
         switch (event.getEvent()) {
             case EventNewMessage:
                 EMMessage message = (EMMessage) event.getData();
@@ -113,28 +69,30 @@ public class NotificationHelper {
                     if(!username.equals(CacheUtil.getInstance().getUserId())){
                         EMMessage.Type msgType = message.getType();
                         if (ActivityManagerHelper.isRunningBackground(context)) {
-                            int nofifyFlag = 0;
                             NotificationCompat.Builder notificationBuilder = null;
-                            // 1.设置显示信息
                             notificationBuilder = new NotificationCompat.Builder(context);
                             if (message.getChatType() == EMMessage.ChatType.GroupChat || message.getChatType() == EMMessage.ChatType.ChatRoom) {
-                               //TODO JIMMY 后续需要修改
-                                titleName = message.getTo();
+                                EMConversationHelper.getInstance().requestGroupListTask();
+                                String groupId = message.getTo();
+                                EMGroup group = EMGroupManager.getInstance().getGroup(groupId);
+                                if (group != null){
+                                    titleName = group.getGroupName();
+                                }
                             } else {
                                 titleName = message.getFrom();
-                            }
-                            try {
-                                String fromName = message.getStringAttribute("fromName");
-                                String toName = message.getStringAttribute("toName");
-                                if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
-                                    titleName = fromName;
-                                }else{
-                                    if(!TextUtils.isEmpty(toName)){
-                                        titleName = toName;
+                                try {
+                                    String fromName = message.getStringAttribute("fromName");
+                                    String toName = message.getStringAttribute("toName");
+                                    if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
+                                        titleName = fromName;
+                                    }else{
+                                        if(!TextUtils.isEmpty(toName)){
+                                            titleName = toName;
+                                        }
                                     }
+                                } catch (EaseMobException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (EaseMobException e) {
-                                e.printStackTrace();
                             }
                             notificationBuilder.setContentTitle("" + titleName);
                             if (msgType == EMMessage.Type.TXT) {
@@ -187,11 +145,13 @@ public class NotificationHelper {
     public void showNotification(Context context, String shopID, String orderNo) {
 
         NotificationCompat.Builder notificationBuilder = null;
+
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
         notificationBuilder.setContentTitle(context.getString(R.string.order_confirm));
         notificationBuilder.setContentText(context.getString(R.string.you_have_a_new_unconfirm_order));
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+
         // 2.设置点击跳转事件
         Intent intent = new Intent(context, OrderDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -199,6 +159,7 @@ public class NotificationHelper {
         intent.putExtra("reservation_no", orderNo);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         notificationBuilder.setContentIntent(pendingIntent);
+
         // 3.设置通知栏其他属性
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
@@ -212,15 +173,16 @@ public class NotificationHelper {
      * @param context
      */
     public void showExitAccountNotification(Context context) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         NotificationCompat.Builder notificationBuilder = null;
+
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
         String content = "您的账号于" + sdf.format(new Date()) + "在另一台设备登录";
         notificationBuilder.setContentTitle("下线通知");
         notificationBuilder.setContentText(content);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-
         String userID    = CacheUtil.getInstance().getUserId();
         String avatarUrl = ProtocolUtil.getAvatarUrl(userID);
         Bitmap bitmap    = ImageLoader.getInstance().loadImageSync(avatarUrl);

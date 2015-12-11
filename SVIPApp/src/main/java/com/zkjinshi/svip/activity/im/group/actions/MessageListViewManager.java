@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
 import com.easemob.EMCallBack;
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
@@ -24,9 +23,9 @@ import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.group.controller.GroupMemberController;
-import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.adapter.GroupChatAdapter;
 import com.zkjinshi.svip.bean.MemberBean;
+import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -85,6 +84,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if(!TextUtils.isEmpty(groupId)){
             conversation = EMChatManager.getInstance().getConversation(groupId);
             requestGroupMembersTask();
+            EMConversationHelper.getInstance().requestGroupListTask();
         }
         clearChatRoomBadgeNum();
         setOverScrollMode(messageListView);
