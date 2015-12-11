@@ -4,7 +4,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dadada"
+    android:background="#e3e3e3"
     android:orientation="vertical">
 
     <com.zkjinshi.svip.view.ItemTitleView
@@ -124,22 +124,6 @@
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="偏好标签" />
 
-                <com.zkjinshi.svip.view.ItemUserSettingView
-                    android:id="@+id/ius_about_us"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    zkjinshi:itemSettingTitle="关于我们" />
-
-                <com.zkjinshi.svip.view.ItemUserSettingView
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/ius_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    zkjinshi:itemSettingTitle="退出" />
             </LinearLayout>
 
         </RelativeLayout>

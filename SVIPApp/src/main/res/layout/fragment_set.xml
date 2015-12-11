@@ -16,7 +16,7 @@
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="338dp" >
+                android:layout_height="280dp" >
                 <ImageView
                     android:id="@+id/home_pic_iv"
                     android:layout_width="match_parent"
@@ -91,15 +91,7 @@
                 android:orientation="vertical"
                 android:background="#ffffff">
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    style="@style/LeftMenuText"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:text="特权"
-                    android:drawableLeft="@mipmap/ic_tequan"
-                    android:id="@+id/leftmenu_front_tv"
-                    android:layout_marginTop="0dp" />
+
                 <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#e3e3e3"/>
@@ -110,7 +102,7 @@
                     style="@style/LeftMenuText"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:text="行程"
+                    android:text="预订信息"
                     android:drawableLeft="@mipmap/ic_xingcheng"
                     android:id="@+id/leftmenu_order_tv"
                     />
@@ -122,7 +114,7 @@
                     style="@style/LeftMenuText"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:text="已消费"
+                    android:text="消费记录"
                     android:drawableLeft="@mipmap/ic_yixiaofei"
                     android:id="@+id/leftmenu_footprint_tv"
                     />
@@ -142,6 +134,27 @@
                 <View android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#e3e3e3"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    style="@style/LeftMenuText"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:text="关于我们"
+                    android:drawableLeft="@mipmap/ic_about_us_gary"
+                    android:id="@+id/leftmenu_about_tv" />
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#e3e3e3"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    style="@style/LeftMenuText"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:text="退出"
+                    android:drawableLeft="@mipmap/ic_tuichu_gary"
+                    android:id="@+id/leftmenu_exit_tv" />
 
             </LinearLayout>
         </LinearLayout>
