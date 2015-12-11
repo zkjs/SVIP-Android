@@ -1,10 +1,13 @@
 package com.zkjinshi.svip;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
@@ -34,14 +37,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import io.yunba.android.manager.YunBaManager;
 
 /**
- * Created by JimmyZhang on 2015/7/18.
+ * 超级身份入口
+ * 开发者：JimmyZhang
+ * 日期：2015/7/28
+ * Copyright (C) 2015 深圳中科金石科技有限公司
+ * 版权所有
  */
 public class SVIPApplication extends Application {
+
+    public static final String TAG = SVIPApplication.class.getSimpleName();
 
     public Vector<RegionVo> mRegionList = new Vector<RegionVo>();
 
@@ -82,6 +93,16 @@ public class SVIPApplication extends Application {
      * 设置环信ios推送昵称
      */
     private void initEmchat(){
+        int pid = android.os.Process.myPid();
+        String processAppName = getAppName(pid);
+        // 如果app启用了远程的service，此application:onCreate会被调用2次
+        // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
+        // 默认的app会在以包名为默认的process name下运行，如果查到的process name不是app的process name就立即返回
+        if (processAppName == null ||!processAppName.equalsIgnoreCase(getPackageName())) {
+            Log.e(TAG, "enter the service process!");
+            // 则此application::onCreate 是被service 调用的，直接返回
+            return;
+        }
         EMChat.getInstance().init(this);
         EMChatOptions options = EMChatManager.getInstance().getChatOptions();
         // 默认添加好友时，是不需要验证的，改成需要验证
@@ -104,6 +125,26 @@ public class SVIPApplication extends Application {
         EMGroupManager.getInstance().addGroupChangeListener(new EGroupReomveListener());
     }
 
+    private String getAppName(int pID) {
+        String processName = null;
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List l = am.getRunningAppProcesses();
+        Iterator i = l.iterator();
+        PackageManager pm = getPackageManager();
+        while (i.hasNext()) {
+            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
+            try {
+                if (info.pid == pID) {
+                    CharSequence c = pm.getApplicationLabel(pm.getApplicationInfo(info.processName, PackageManager.GET_META_DATA));
+                    processName = info.processName;
+                    return processName;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return processName;
+    }
 
     /**
      * 初始化配置
