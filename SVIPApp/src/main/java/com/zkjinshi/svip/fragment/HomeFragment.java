@@ -28,6 +28,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.activity.common.CityActivity;
+import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
@@ -98,6 +99,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private OrderLastResponse lastOrderInfo = null;
     public static double geoLat = 100;
     public static double geoLng;
+    private String bestHotelId="120";
+    private String bestServerid="555711167a31a";
 
 
     public enum MainTextStatus {
@@ -194,6 +197,33 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 mActivity.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
+            }
+        });
+
+        //点击服务精选
+        view.findViewById(R.id.best_server_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(bestServerid)){
+                    Intent intent = new Intent(mActivity, ContactActivity.class);
+                    intent.putExtra("contact_id", bestServerid);
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                }
+
+            }
+        });
+
+        //点击酒店精选
+        view.findViewById(R.id.best_hotel_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!TextUtils.isEmpty(bestHotelId)){
+                    Intent intent = new Intent(mActivity, OrderBookingActivity.class);
+                    intent.putExtra("shopid", bestHotelId);
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                }
             }
         });
 
