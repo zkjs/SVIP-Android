@@ -107,7 +107,8 @@ public class TabNavigationFragment extends Fragment implements
 //			listenerDialog.stopRecord();
 //			listenerDialog.cancel();
 //		}
-//		loadCleverServer();
+//		final String shopid = getCleverShopId();
+//		loadCleverServer(shopid);
 	}
 
 	public void shortClickDeal(){
@@ -146,8 +147,7 @@ public class TabNavigationFragment extends Fragment implements
 	}
 
 	//智能选择客服
-	public void loadCleverServer(){
-		final String shopid = getCleverShopId();
+	public void loadCleverServer(final String shopid){
 		CustomerServicesManager.getInstance().requestServiceListTask(getActivity(),shopid , new ExtNetRequestListener(getActivity()) {
 			@Override
 			public void onNetworkRequestError(int errorCode, String errorMessage) {
