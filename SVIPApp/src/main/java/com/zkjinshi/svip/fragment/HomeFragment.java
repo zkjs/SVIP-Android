@@ -36,13 +36,17 @@ import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.bean.BaseBean;
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
@@ -53,13 +57,16 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.OrderUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.ListenerDialog;
+import com.zkjinshi.svip.view.ServerDialog;
 import com.zkjinshi.svip.vo.UserDetailVo;
 
 import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -601,6 +608,60 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         return false;
     }
 
+    //智能选择客服
+    public void loadCleverServer(final String shopid){
+        CustomerServicesManager.getInstance().requestServiceListTask(getActivity(),shopid , new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result:" + result.rawResult);
+                CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                if (null != customerServiceListResponse) {
+                    HeadBean head = customerServiceListResponse.getHead();
+                    if (null != head) {
+                        boolean isSet = head.isSet();
+                        if (isSet) {
+                            ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                            String salesId = head.getExclusive_salesid();
+                            CustomerServiceBean customerService = null;
+                            if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                    customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                } else {//无专属客服
+                                    customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                }
+                                showServerDailog(shopid,customerService);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+    }
+
+    public void showServerDailog(String shopId,CustomerServiceBean customerServiceBean){
+        ServerDialog serverDialog = new ServerDialog(getActivity());
+        serverDialog.shopId = shopId;
+        serverDialog.customerService = customerServiceBean;
+        serverDialog.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+        serverDialog.show();
+    }
+
     /**
      * 设置欢迎语句
      */
@@ -636,16 +697,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
             String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
 
-            simpleTextTv.setText("专属客服为您24小时服务，如影随形。");
+            simpleTextTv.setText("超级身份能与客服沟通，为你开启全新预定方式。");
             codeTextTv.setText(fullname+"欢迎您");
             codeClickTv.setText("立即预定");
             codeClickTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mActivity, OrderBookingActivity.class);
-                    intent.putExtra("shopid", shopid);
-                    mActivity.startActivity(intent);
-                    mActivity.overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    loadCleverServer(shopid);
                 }
             });
 
@@ -685,7 +743,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             //没订单，没ibeacome
             simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向服务员预定沟通，尊享个性服务。");
             codeTextTv.setText(welcomeText+"，您没有任何行程");
-            codeClickTv.setText("开始行程");
+            codeClickTv.setText("开始预定");
             codeClickTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
