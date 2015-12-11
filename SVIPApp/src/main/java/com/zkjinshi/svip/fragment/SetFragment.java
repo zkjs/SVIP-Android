@@ -33,6 +33,7 @@ import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -57,6 +58,7 @@ public class SetFragment extends Fragment implements View.OnClickListener{
     private TextView vipTv,setCodeTv;
     private Activity mActivity;
     private ImageView homePicIv;
+    private Animation bigAnimation;
 
 
     @Override
@@ -78,9 +80,15 @@ public class SetFragment extends Fragment implements View.OnClickListener{
 
     public void onResume(){
         super.onResume();
-        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
+        bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
         homePicIv.startAnimation(bigAnimation);
         initData();
+    }
+
+    public void onPause() {
+        super.onPause();
+        bigAnimation.cancel();
+        bigAnimation = null;
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container)
