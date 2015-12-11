@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
@@ -95,12 +96,21 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private View codeLayout;
     private TextView codeClickTv,codeTextTv;
 
+    private ImageView bestServerAvatarIv;
+    private TextView bestServerNameTv;
+    private TextView bestServerShopNameTv;
+
+    private ImageView bestHotelImgIv;
+    private TextView bestHotelDesTv;
+    private TextView bestHotelShopNameTv;
+
     SVIPApplication svipApplication;
     private OrderLastResponse lastOrderInfo = null;
     public static double geoLat = 100;
     public static double geoLng;
     private String bestHotelId="120";
     private String bestServerid="555711167a31a";
+    Animation bigAnimation;
 
 
     public enum MainTextStatus {
@@ -154,6 +164,14 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         lastOrderLayout = view.findViewById(R.id.last_order_layout);
         simpleTextTv = (TextView)view.findViewById(R.id.simple_text_tv);
         locationTv = (TextView)view.findViewById(R.id.location_textview);
+
+        bestServerAvatarIv = (ImageView)view.findViewById(R.id.best_server_avatar_iv);
+        bestServerNameTv = (TextView)view.findViewById(R.id.best_server_name_tv);
+        bestServerShopNameTv = (TextView)view.findViewById(R.id.best_server_shopname_tv);
+
+        bestHotelImgIv = (ImageView)view.findViewById(R.id.best_hotel_img);
+        bestHotelDesTv = (TextView) view.findViewById(R.id.best_hotel_des_tv);
+        bestHotelShopNameTv = (TextView)view.findViewById(R.id.best_hotel_name_tv);
 
         homePicIv = (ImageView)view.findViewById(R.id.home_pic_iv);
         Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
@@ -310,18 +328,22 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public void onResume() {
         super.onResume();
-        Animation bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
-        homePicIv.startAnimation(bigAnimation);
         LocationManager.getInstance().registerLocation(mActivity);
         LocationManager.getInstance().setLocationChangeListener(this);
         loadLastOrderInfo();
         checktActivate();
         initLastGoodLook();
+
+        bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
+        homePicIv.startAnimation(bigAnimation);
     }
 
     public void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
+
+        bigAnimation.cancel();
+        bigAnimation = null;
     }
 
     @Override
