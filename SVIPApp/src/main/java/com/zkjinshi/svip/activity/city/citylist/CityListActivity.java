@@ -416,7 +416,9 @@ public class CityListActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        windowManager.removeView(overlay);
+        if(null != overlay){
+            windowManager.removeView(overlay);
+        }
         LocationManager.getInstance().removeLocation();
         super.onDestroy();
     }
