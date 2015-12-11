@@ -108,7 +108,7 @@ public class LoginController {
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                             CacheUtil.getInstance().setSex(userDetailVo.getSex());
                         }
-                        loginUser();
+                        loginHxUser();
                         //判读是否新注册用户
                         if(isNewRegister){
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);
@@ -141,20 +141,12 @@ public class LoginController {
     /**
      * 登录环信IM
      */
-    private void loginUser(){
+    private void loginHxUser(){
         EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
             @Override
             public void onSuccess() {
                 EMGroupManager.getInstance().loadAllGroups();
                 EMChatManager.getInstance().loadAllConversations();
-                // EasemobIMHelper.getInstance().getFriendList();
-                //  EasemobIMHelper.getInstance().addFriend("hanton","jimmy add you to friend");
-                // EasemobIMHelper.getInstance().acceptInvitation("jimmyzhang");
-                //ReceiverHelper.getInstance().init(MainActivity.this);
-                // ReceiverHelper.getInstance().regiserNewMessageReceiver();
-                //  ReceiverHelper.getInstance().regiserAckMessageReceiver();
-                // ReceiverHelper.getInstance().regiserSuccMessageReceiver();
-                //ReceiverHelper.getInstance().regiserCmdMessageReceiver();
                 EMessageListener.getInstance().registerEventListener();
                 EMConversationHelper.getInstance().requestGroupListTask();
             }

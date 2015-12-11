@@ -61,8 +61,8 @@ public class SVIPApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        YunBaManager.start(getApplicationContext());
         initContext();
+        initYunBa();
         initEmchat();
         saveConfig();
         initLog();
@@ -90,7 +90,14 @@ public class SVIPApplication extends Application {
     }
 
     /**
-     * 设置环信ios推送昵称
+     * 初始化云巴区域推送
+     */
+    private void initYunBa(){
+        YunBaManager.start(getApplicationContext());
+    }
+
+    /**
+     * 初始化环信聊天
      */
     private void initEmchat(){
         int pid = android.os.Process.myPid();
