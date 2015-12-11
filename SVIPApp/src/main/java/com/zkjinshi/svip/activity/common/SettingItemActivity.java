@@ -44,7 +44,6 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
     private String fieldKey;
     private int modifyType;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -89,9 +88,6 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
         if(!TextUtils.isEmpty(fieldValue)){
             mInputEt.setText(fieldValue);
         }
-
-
-
     }
 
     @Override
