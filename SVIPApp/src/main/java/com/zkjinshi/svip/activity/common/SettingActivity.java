@@ -69,7 +69,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private ItemUserSettingView mTicketInfo;//发票信息
     private ItemUserSettingView mCompany;//单位
     private ItemUserSettingView mEmail;//邮箱
-    private ItemUserSettingView mAbout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mEmail            = (ItemUserSettingView) findViewById(R.id.ius_email);
         mTicketInfo        = (ItemUserSettingView) findViewById(R.id.ius_ticket_info);
         mRealName          = (ItemUserSettingView)findViewById(R.id.ius_real_name);
-        mAbout = (ItemUserSettingView) findViewById(R.id.ius_about_us);
+
     }
 
     private void initListener() {
@@ -110,8 +110,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         mEmail.setOnClickListener(this);
         mTicketInfo.setOnClickListener(this);
         mRealName.setOnClickListener(this);
-        mAbout.setOnClickListener(this);
-        findViewById(R.id.ius_logout).setOnClickListener(this);
+
+
     }
 
     private void initData(){
@@ -382,13 +382,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 MineUiController.getInstance().init(this);
                 MineUiController.getInstance().showChoosePhotoDialog();
                 break;
-            case R.id.ius_about_us:
-                intent = new Intent(SettingActivity.this, WebViewActivity.class);
-                intent.putExtra("webview_url","http://zkjinshi.com/about_us/");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
-                break;
             case R.id.ius_real_name:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
                 intent.putExtra("modify_type",Constants.FLAG_MODIFY_REAL_NAME);
@@ -455,78 +448,9 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
                 break;
-            case R.id.ius_logout:
-                final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(this);
-                customerBuilder.setTitle(getString(R.string.exit));
-                customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
-                customerBuilder.setGravity(Gravity.CENTER);
-                customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
 
-                customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //环信接口退出
-                        EasemobIMHelper.getInstance().logout();
-                        //http接口推出
-                        String userID = CacheUtil.getInstance().getUserId();
-                        logoutHttp(userID);
-                        //熊推接口推出
-                        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
-                        //修改登录状态
-                        CacheUtil.getInstance().setLogin(false);
-                        CacheUtil.getInstance().savePicPath("");
-                        ImageLoader.getInstance().clearDiskCache();
-                        ImageLoader.getInstance().clearMemoryCache();
-                        Intent loginActiviy = new Intent(SettingActivity.this, LoginActivity.class);
-                        startActivity(loginActiviy);
-                        finish();
-
-                    }
-                });
-                customerBuilder.create().show();
-                break;
         }
     }
 
-    /**
-     * 断开用户登录连接
-     */
-    private void logoutHttp(String userID) {
-        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
-        Log.i(TAG, logoutUrl);
-        NetRequest netRequest = new NetRequest(logoutUrl);
-        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
-            }
 
-            @Override
-            public void onNetworkRequestCancelled() {
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }
 }

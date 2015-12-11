@@ -27,6 +27,7 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainUiController;
 import com.zkjinshi.svip.activity.common.SettingActivity;
+import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.mine.PrivilegeActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
@@ -97,9 +98,10 @@ public class SetFragment extends Fragment implements View.OnClickListener{
         photoCtv.setOnClickListener(this);
         setCodeTv.setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_set_tv).setOnClickListener(this);
-        mView.findViewById(R.id.leftmenu_front_tv).setOnClickListener(this);
+        mView.findViewById(R.id.leftmenu_about_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_order_tv).setOnClickListener(this);
         mView.findViewById(R.id.leftmenu_footprint_tv).setOnClickListener(this);
+        mView.findViewById(R.id.leftmenu_exit_tv).setOnClickListener(this);
 
     }
 
@@ -197,11 +199,12 @@ public class SetFragment extends Fragment implements View.OnClickListener{
                         R.anim.slide_out_left);
             }
             break;
-            //特权
-            case R.id.leftmenu_front_tv:
+            //关于我们
+            case R.id.leftmenu_about_tv:
             {
-                Intent intent = new Intent(getActivity(), PrivilegeActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/about_us/");
+                getActivity().startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
@@ -232,8 +235,82 @@ public class SetFragment extends Fragment implements View.OnClickListener{
                 Intent goInvitesCode = new Intent(mActivity, InviteCodeActivity.class);
                 startActivity(goInvitesCode);
             }
+            //退出
+            case R.id.leftmenu_exit_tv:
+            {
+                final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(getActivity());
+                customerBuilder.setTitle(getString(R.string.exit));
+                customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
+                customerBuilder.setGravity(Gravity.CENTER);
+                customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //环信接口退出
+                        EasemobIMHelper.getInstance().logout();
+                        //http接口推出
+                        String userID = CacheUtil.getInstance().getUserId();
+                        logoutHttp(userID);
+                        //熊推接口推出
+                        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
+                        //修改登录状态
+                        CacheUtil.getInstance().setLogin(false);
+                        CacheUtil.getInstance().savePicPath("");
+                        ImageLoader.getInstance().clearDiskCache();
+                        ImageLoader.getInstance().clearMemoryCache();
+                        Intent loginActiviy = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(loginActiviy);
+                        getActivity().finish();
+
+                    }
+                });
+                customerBuilder.create().show();
+            }
 
         }
+    }
+
+    /**
+     * 断开用户登录连接
+     */
+    private void logoutHttp(String userID) {
+        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
+        Log.i(TAG, logoutUrl);
+        NetRequest netRequest = new NetRequest(logoutUrl);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(), netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
     }
 
 }
