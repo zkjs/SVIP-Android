@@ -6,6 +6,7 @@ http://crash.testin.cn/
 xianhua@zkjinshi.com
 12345678zkjs
 
+Bluetooth Smart(蓝牙4.0 BLE)从Android 4.3+开始支持
 
 支付接口相关参数
 
