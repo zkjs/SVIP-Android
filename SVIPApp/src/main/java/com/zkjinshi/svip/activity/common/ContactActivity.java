@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,11 +64,11 @@ public class ContactActivity extends Activity {
     private TextView       mTvPhoneNumber;//手机号
     private ImageButton    mIbtnDial;//聊天按键
     private TextView       mTvEvaluateScore;//评分
-    private CheckBox       mCbOrderEvaluatePoor;//太差
-    private CheckBox       mCbOrderEvaluateCommon;//不及格
-    private CheckBox       mCbOrderEvaluateGratify;//及格
-    private CheckBox       mCbOrderEvaluateGreatGratify;//良好
-    private CheckBox       mCbOrderEvaluateHighlyRecommend;//优秀
+    private ImageView       mIvOrderEvaluatePoor;//太差
+    private ImageView       mIvOrderEvaluateCommon;//不及格
+    private ImageView       mIvOrderEvaluateGratify;//及格
+    private ImageView       mIvOrderEvaluateGreatGratify;//良好
+    private ImageView       mIvOrderEvaluateHighlyRecommend;//优秀
 //    private TextView       mTvEvaluationsCount;//评价数量
     private Button         mBtnConsultImmediately;//立即交谈
 
@@ -99,13 +99,14 @@ public class ContactActivity extends Activity {
 //        mLlPhone         = (LinearLayout)findViewById(R.id.ll_phone);
         mIbtnDial        = (ImageButton) findViewById(R.id.ibtn_dial);
         mTvEvaluateScore = (TextView) findViewById(R.id.tv_evaluate_score);
-        mCbOrderEvaluatePoor            = (CheckBox) findViewById(R.id.cb_order_evaluate_poor);
-        mCbOrderEvaluateCommon          = (CheckBox) findViewById(R.id.cb_order_evaluate_common);
-        mCbOrderEvaluateGratify         = (CheckBox) findViewById(R.id.cb_order_evaluate_gratify);
-        mCbOrderEvaluateGreatGratify    = (CheckBox) findViewById(R.id.cb_order_evaluate_great_gratify);
-        mCbOrderEvaluateHighlyRecommend = (CheckBox) findViewById(R.id.cb_order_evaluate_highly_recommend);
+        mIvOrderEvaluatePoor            = (ImageView) findViewById(R.id.iv_order_evaluate_poor);
+        mIvOrderEvaluateCommon          = (ImageView) findViewById(R.id.iv_order_evaluate_common);
+        mIvOrderEvaluateGratify         = (ImageView) findViewById(R.id.iv_order_evaluate_gratify);
+        mIvOrderEvaluateGreatGratify    = (ImageView) findViewById(R.id.iv_order_evaluate_great_gratify);
+        mIvOrderEvaluateHighlyRecommend = (ImageView) findViewById(R.id.iv_order_evaluate_highly_recommend);
 //        mTvEvaluationsCount    = (TextView) findViewById(R.id.tv_evaluation_count);
         mBtnConsultImmediately = (Button) findViewById(R.id.btn_consult_immediately);
+
     }
 
     private void initData() {
@@ -293,24 +294,26 @@ public class ContactActivity extends Activity {
             mTvShopName.setText(shopName);
         }
 
+        //设置点评星星是否可用
         mTvEvaluateScore.setText(avgScore+"");
-        if(avgScore >=0 && avgScore < 1){
-            mCbOrderEvaluatePoor.setChecked(true);
-            mCbOrderEvaluatePoor.setEnabled(false);
-        }else if(avgScore >=1 && avgScore < 2){
-            mCbOrderEvaluateCommon.setChecked(true);
-            mCbOrderEvaluatePoor.setEnabled(false);
-        }else if(avgScore >=2 && avgScore < 3){
-            mCbOrderEvaluateGratify.setChecked(true);
-            mCbOrderEvaluatePoor.setEnabled(false);
-        }else if(avgScore >=3 && avgScore < 4){
-             mCbOrderEvaluateGreatGratify.setChecked(true);
-            mCbOrderEvaluatePoor.setEnabled(false);
-        }else if(avgScore >=4 && avgScore < 5){
-            mCbOrderEvaluateHighlyRecommend.setChecked(true);
-            mCbOrderEvaluatePoor.setEnabled(false);
-        }else {
-            //do nothing
+        if(avgScore >0 && avgScore <= 1){
+            mIvOrderEvaluatePoor.setBackgroundResource(R.mipmap.ic_star_pre);
+        }
+
+        if(avgScore >1 && avgScore <= 2){
+            mIvOrderEvaluateCommon.setBackgroundResource(R.mipmap.ic_star_pre);
+        }
+
+        if(avgScore >2 && avgScore <= 3){
+            mIvOrderEvaluateGratify.setBackgroundResource(R.mipmap.ic_star_pre);
+        }
+
+        if(avgScore >3 && avgScore <= 4){
+            mIvOrderEvaluateGreatGratify.setBackgroundResource(R.mipmap.ic_star_pre);
+        }
+
+        if(avgScore >4 && avgScore <=5){
+            mIvOrderEvaluateHighlyRecommend.setBackgroundResource(R.mipmap.ic_star_pre);
         }
 
     }

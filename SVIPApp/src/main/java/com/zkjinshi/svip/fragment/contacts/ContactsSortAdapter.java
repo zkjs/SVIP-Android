@@ -105,9 +105,12 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         myHolder.civContactAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ContactActivity.class);
-                intent.putExtra("contact_id", sortModel.fuid);
-                mContext.startActivity(intent);
+                String contactID = sortModel.fuid;
+                if (!TextUtils.isEmpty(contactID)) {
+                    Intent intent = new Intent(mContext, ContactActivity.class);
+                    intent.putExtra("contact_id", contactID);
+                    mContext.startActivity(intent);
+                }
             }
         });
 

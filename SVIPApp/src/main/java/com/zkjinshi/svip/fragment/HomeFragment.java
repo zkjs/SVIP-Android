@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,13 +21,10 @@ import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
-import com.zkjinshi.svip.activity.common.CityActivity;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
@@ -50,21 +46,14 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
-import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
-import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.OrderUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.BookingDialog;
-import com.zkjinshi.svip.view.ListenerDialog;
 import com.zkjinshi.svip.view.ServerDialog;
-import com.zkjinshi.svip.vo.UserDetailVo;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -80,8 +69,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
-    public static final int NOTIFY_UPDATE_VIEW = 0x0001;
-    public static final int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
+    private final static int NOTIFY_UPDATE_VIEW = 0x0001;
+    private final static int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
 
     private View view = null;
