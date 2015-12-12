@@ -185,6 +185,12 @@
 -dontwarn com.aps.**
 -keep class com.aps.**{ *; }
 
+#云巴
+-dontwarn io.yunba.android.**
+-keep class io.yunba.android.**{ *; }
+-dontwarn org.eclipse.paho.client.mqttv3.**
+-keep class org.eclipse.paho.client.mqttv3.**{ *; }
+
  #云测包
 -dontwarn com.testin.agent.**
 -keep class com.testin.agent.** { *; }
