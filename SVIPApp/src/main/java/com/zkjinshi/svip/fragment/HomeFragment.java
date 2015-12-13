@@ -157,6 +157,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     private void initData(){
+        homeMsgList.clear();
         HomeMsgResponse welcomeMsg= new HomeMsgResponse();
         welcomeMsg.setClickAble(false);
         welcomeMsg.setMajorText("欢迎使用超级服务");
