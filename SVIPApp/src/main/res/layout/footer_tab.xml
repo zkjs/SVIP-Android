@@ -7,44 +7,36 @@
     <RadioGroup
         android:id="@+id/footer_tab_rg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_centerVertical="true"
         android:background="@null"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/footer_tab_rb_home"
             style="@style/main_tab_bottom"
+            android:text="@string/footer_tab_txt_home"
             android:drawableTop="@drawable/footer_rb_home" />
 
         <RadioButton
             android:id="@+id/footer_tab_rb_shop"
             style="@style/main_tab_bottom"
+            android:text="@string/footer_tab_txt_shop"
             android:drawableTop="@drawable/footer_rb_shop" />
-
-        <RadioButton
-            android:id="@+id/footer_tab_rb_center"
-            style="@style/main_tab_bottom"
-            android:visibility="invisible"
-            android:drawableTop="@mipmap/ic_zhijian" />
 
         <RadioButton
             android:id="@+id/footer_tab_rb_message"
             style="@style/main_tab_bottom"
+            android:text="@string/footer_tab_txt_message"
             android:drawableTop="@drawable/footer_rb_message" />
 
         <RadioButton
             android:id="@+id/footer_tab_rb_set"
             style="@style/main_tab_bottom"
+            android:text="@string/footer_tab_txt_set"
             android:drawableTop="@drawable/footer_rb_set" />
 
     </RadioGroup>
-
-    <ImageView
-        android:id="@+id/footer_tab_iv_zhijian"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_zhijian"/>
 
 </RelativeLayout>
