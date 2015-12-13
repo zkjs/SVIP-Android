@@ -170,13 +170,13 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
             if(!TextUtils.isEmpty(locdesc)){
                 locPushBean.setLocdesc(locdesc);
             }
-            //新增云巴测试
-            YunBaManager.publish(getApplicationContext(), locId, new Gson().toJson(locPushBean),
+            String pushContent = new Gson().toJson(locPushBean);
+            Log.i(TAG,"云巴推送订阅内容:"+pushContent);
+            YunBaManager.publish(getApplicationContext(), locId, pushContent,
                     new IMqttActionListener() {
                         @Override
                         public void onSuccess(IMqttToken asyncActionToken) {
-                            String msgLog = "Publish succeed : " + asyncActionToken.getTopics().toString();
-                            Log.i(TAG,"onSuccess:"+msgLog);
+                            Log.i(TAG,"订阅云巴推送消息成功");
                         }
 
                         @Override
@@ -184,7 +184,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
                             if (exception instanceof MqttException) {
                                 MqttException ex = (MqttException)exception;
                                 String msg =  "publish failed with error code : " + ex.getReasonCode();
-                                Log.i(TAG,"onFailure:"+msg);
+                                Log.i(TAG,"订阅云巴推送消息失败:"+msg);
                             }
                         }
                     }

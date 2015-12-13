@@ -99,8 +99,8 @@
 -keep class com.zkjinshi.svip.net.** { *; }
 -keep class com.zkjinshi.svip.fragment.**{ *; }
 -keep class com.zkjinshi.svip.activity.**{ *; }
-
 -keep class com.zkjinshi.svip.view.**{ *; }
+-keep class com.zkjinshi.svip.ibeacon.**{ *; }
 
 #保留扩展控件不被混淆
 -keep class android.support.**{ *; }
@@ -189,7 +189,7 @@
 -dontwarn io.yunba.android.**
 -keep class io.yunba.android.**{ *; }
 -dontwarn org.eclipse.paho.client.mqttv3.**
--keep class org.eclipse.paho.client.mqttv3.**{ *; }
+-keep class org.eclipse.paho.client.mqtv3.**{ *; }
 
  #云测包
 -dontwarn com.testin.agent.**
