@@ -26,6 +26,9 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.yunba.android.manager.YunBaManager;
 
 public class MainActivity extends FragmentActivity implements IBeaconObserver{
@@ -154,41 +157,62 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
      */
     private void reginAdPush(RegionVo regionVo){
         if(null != regionVo){
-            IBeaconEntity iBeaconEntity = regionVo.getiBeacon();
-            String locId = iBeaconEntity.getLocid();
-            String shopid = iBeaconEntity.getShopid();
-            String locdesc = iBeaconEntity.getLocdesc();
-            LocPushBean locPushBean = new LocPushBean();
-            locPushBean.setUserid(CacheUtil.getInstance().getUserId());
-            locPushBean.setUsername(CacheUtil.getInstance().getUserName());
-            if(!TextUtils.isEmpty(locId)){
-                locPushBean.setLocid(locId);
-            }
-            if(!TextUtils.isEmpty(shopid)){
-                locPushBean.setShopid(shopid);
-            }
-            if(!TextUtils.isEmpty(locdesc)){
-                locPushBean.setLocdesc(locdesc);
-            }
-            String pushContent = new Gson().toJson(locPushBean);
-            Log.i(TAG,"云巴推送订阅内容:"+pushContent);
-            YunBaManager.publish(getApplicationContext(), locId, pushContent,
-                    new IMqttActionListener() {
-                        @Override
-                        public void onSuccess(IMqttToken asyncActionToken) {
-                            Log.i(TAG,"订阅云巴推送消息成功");
-                        }
+            try {
+                IBeaconEntity iBeaconEntity = regionVo.getiBeacon();
+                String locId = iBeaconEntity.getLocid();
+                String shopid = iBeaconEntity.getShopid();
+                String locdesc = iBeaconEntity.getLocdesc();
+                String sexStr = CacheUtil.getInstance().getSex();
+                LocPushBean locPushBean = new LocPushBean();
+                int sex = Integer.parseInt(sexStr);
+                locPushBean.setSex(sex);
+                locPushBean.setUserid(CacheUtil.getInstance().getUserId());
+                locPushBean.setUsername(CacheUtil.getInstance().getUserName());
+                if(!TextUtils.isEmpty(locId)){
+                    locPushBean.setLocid(locId);
+                }
+                if(!TextUtils.isEmpty(shopid)){
+                    locPushBean.setShopid(shopid);
+                }
+                if(!TextUtils.isEmpty(locdesc)){
+                    locPushBean.setLocdesc(locdesc);
+                }
+                String alert = "";
+                String msg = new Gson().toJson(locPushBean);
+                if(sex == 0){
+                    alert = CacheUtil.getInstance().getUserName()+"女士到达"+locdesc;
+                }else{
+                    alert = CacheUtil.getInstance().getUserName()+"先生到达"+locdesc;
+                }
+                Log.i(TAG,"云巴推送订阅内容:"+msg);
+                JSONObject opts = new JSONObject();
+                JSONObject apn_json = new JSONObject();
+                JSONObject aps = new JSONObject();
+                aps.put("sound", "default");
+                aps.put("badge", 1);
+                aps.put("alert", alert);
+                apn_json.put("aps", aps);
+                opts.put("apn_json", apn_json);
+                YunBaManager.publish2(getApplicationContext(), locId, msg, opts,
+                        new IMqttActionListener() {
+                            @Override
+                            public void onSuccess(IMqttToken asyncActionToken) {
+                                Log.i(TAG,"订阅云巴推送消息成功");
+                            }
 
-                        @Override
-                        public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                            if (exception instanceof MqttException) {
-                                MqttException ex = (MqttException)exception;
-                                String msg =  "publish failed with error code : " + ex.getReasonCode();
-                                Log.i(TAG,"订阅云巴推送消息失败:"+msg);
+                            @Override
+                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                                if (exception instanceof MqttException) {
+                                    MqttException ex = (MqttException)exception;
+                                    String msg =  "publish failed with error code : " + ex.getReasonCode();
+                                    Log.i(TAG,"订阅云巴推送消息失败:"+msg);
+                                }
                             }
                         }
-                    }
-            );
+                );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -207,7 +207,7 @@ public class ContactsFragment extends BaseFragment{
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
     }
 

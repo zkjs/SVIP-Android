@@ -15,6 +15,7 @@ public class LocPushBean implements Serializable {
     private String  username;//username
     private String  locid;   //客人所在区域
     private String locdesc;//客人区域描述
+    private int sex;// 0:女 1：男
 
     public String getShopid() {
         return shopid;
@@ -54,5 +55,13 @@ public class LocPushBean implements Serializable {
 
     public void setLocdesc(String locdesc) {
         this.locdesc = locdesc;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }
