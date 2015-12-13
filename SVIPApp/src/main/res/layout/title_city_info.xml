@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="56dp"
         android:gravity="center"
-        android:layout_height="56dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ibtn_chat"
@@ -24,28 +24,24 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_city"
+    <RelativeLayout
+        android:gravity="center"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|left"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:background="@null"
-        android:hint="@string/where_you_want_go_and_enjoy_services"
-        android:textSize="16sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_city_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right|center_vertical"
-        android:padding="5dp"
-        android:text="@string/shenzhen"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/et_city"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|left"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:background="@null"
+            android:hint="@string/where_you_want_go_and_enjoy_services"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

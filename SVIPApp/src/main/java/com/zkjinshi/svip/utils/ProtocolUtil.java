@@ -385,11 +385,23 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取全部商家列表
+     * @return
+     */
+    public static String getShopListUrl() {
+        return  "http://mmm.zkjinshi.com/shop/list";
+    }
+
+
+    /**
      * 根据城市名称获取商家列表
      * @return
      */
-    public static String getShopLIstByCityUrl(String city) {
-        return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
+    public static String getShopListByCityUrl(String city) {
+        // old api
+        //return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
+        // new api
+        return  "http://mmm.zkjinshi.com/shop/list?city=" + city;
     }
 
     /**

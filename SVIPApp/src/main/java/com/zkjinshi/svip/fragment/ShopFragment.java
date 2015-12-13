@@ -26,12 +26,12 @@ import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.ShopListResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Type;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 首页Fragment
+ * 商店列表Fragment
  */
 public class ShopFragment extends Fragment {
 
@@ -50,11 +50,10 @@ public class ShopFragment extends Fragment {
     private Activity     mActivity;
     private LinearLayout mLlCityInfo;
     private EditText     mEtCity;
-    private TextView     mTvCityName;
     private ListView     mLvShopList;
 
-    private List<ShopListResponse> mShopList;
-    private ShopAdapter            mShopAdapter;
+    private List<ShopBean> mShopList;
+    private ShopAdapter    mShopAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -85,7 +84,6 @@ public class ShopFragment extends Fragment {
         mLvShopList = (ListView) view.findViewById(R.id.lv_shop_list);
         mLlCityInfo = (LinearLayout) view.findViewById(R.id.ll_city_info);
         mEtCity     = (EditText) view.findViewById(R.id.et_city);
-        mTvCityName = (TextView) view.findViewById(R.id.tv_city_name);
     }
 
     private void initData(){
@@ -100,7 +98,7 @@ public class ShopFragment extends Fragment {
         mShopAdapter = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
 
-        String city = mTvCityName.getText().toString();
+        String city = mEtCity.getText().toString();
         if(!TextUtils.isEmpty(city)){
             getShopListByCity(city);
         }
@@ -121,9 +119,9 @@ public class ShopFragment extends Fragment {
         mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShopListResponse shopInfoVo = (ShopListResponse) mShopAdapter.getItem(position);
+                ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
                 Intent intent = new Intent(mActivity, OrderBookingActivity.class);
-                intent.putExtra("shopid", shopInfoVo.getShopid());
+                intent.putExtra("shopid", shopBean.getShopId());
                 startActivityForResult(intent, ShopActivity.KILL_MYSELF);
                 mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -142,12 +140,11 @@ public class ShopFragment extends Fragment {
     }
 
     private void getShopListByCity(String city){
-        String url = ProtocolUtil.getShopLIstByCityUrl(city);
+        String url = ProtocolUtil.getShopListByCityUrl(city);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
-
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
@@ -164,7 +161,7 @@ public class ShopFragment extends Fragment {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<List<ShopListResponse>>(){}.getType();
+                    Type listType = new TypeToken<List<ShopBean>>(){}.getType();
                     Gson gson = new Gson();
                     mShopList = gson.fromJson(result.rawResult, listType);
                     mShopAdapter.setData(mShopList);
@@ -190,7 +187,7 @@ public class ShopFragment extends Fragment {
             if(requestCode == REQUEST_CHOOSE_CITY){
                 if(null != data){
                     String city = data.getStringExtra("city");
-                    mTvCityName.setText(city);
+                    mEtCity.setText(city);
                     getShopListByCity(city);
                 }
             }

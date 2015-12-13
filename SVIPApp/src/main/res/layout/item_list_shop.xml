@@ -1,89 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
-    
-    <RelativeLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
-        <com.zkjinshi.svip.view.CircleImageView
-            android:id="@+id/list_hotel_logo_civ"
-            android:layout_width="74dp"
-            android:layout_height="74dp"
-            android:layout_marginLeft="10dp"
-           android:layout_centerVertical="true"
-            android:scaleType="centerInside"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/img_hotel_anli03"/>
+        android:layout_height="320dp"
+        android:orientation="vertical"
+        android:weightSum="5">
 
-        <TextView
-            android:id="@+id/list_hotel_name_tv"
-            android:layout_toRightOf="@id/list_hotel_logo_civ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:singleLine="true"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:text="xxxxxxxxxxxxxxx"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@color/TransparentLightGray"
+            android:layout_weight="4">
 
-        <TextView
-            android:id="@+id/list_hotel_level_tv"
-            android:layout_toRightOf="@id/list_hotel_logo_civ"
-            android:layout_below="@id/list_hotel_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textColor="#9B9B9B"
-            android:textStyle="normal"
-            android:text="五星级"
-            />
+            <ImageView
+                android:id="@+id/iv_shop_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/img_dingdanxiangqing"
+                android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/list_hotel_price_tv"
-            android:layout_toRightOf="@id/list_hotel_level_tv"
-            android:layout_below="@id/list_hotel_name_tv"
-            android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textColor="#9B9B9B"
-            android:textStyle="normal"
-            android:text="¥1288起"
-            android:visibility="invisible"
-            />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/list_hotel_park_iv"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/list_hotel_name_tv"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/ic_tingchechang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/list_hotel_wifi_iv"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/list_hotel_name_tv"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/ic_wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <TextView
+                android:id="@+id/tv_shop_des"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="left|center_vertical"
+                android:lines="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="88dp"
+                android:text="商家描述" />
 
-    </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.50dp"
+                android:background="@color/BackgroundBlack"></View>
 
+        </LinearLayout>
 
+    </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="xxx酒店"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_shop_business"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_shop_name"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="住宿，会议"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center|right">
+
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/civ_saler_avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/img_avatar_hotel" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

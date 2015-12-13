@@ -1,8 +1,6 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
-import android.media.Image;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +12,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
-import com.zkjinshi.svip.response.ShopListResponse;
-import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.vo.ShopInfoVo;
+import com.zkjinshi.svip.view.CircleImageView;
 
 import java.util.List;
 
@@ -27,16 +24,24 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopAdapter  extends SvipBaseAdapter<ShopListResponse> {
+public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
-    private DisplayImageOptions options;
+    private DisplayImageOptions shopOptions;
+    private DisplayImageOptions avatarOptions;
 
     public ShopAdapter(List datas, Activity activity) {
         super(datas, activity);
-        this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_hotel_anli03)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_hotel_anli03)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_hotel_anli03)// 设置图片加载或解码过程中发生错误显示的图片
+        this.shopOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.img_dingdanxiangqing)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .build();
+        this.avatarOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_avatar_hotel)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.img_avatar_hotel)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.img_avatar_hotel)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
@@ -48,48 +53,53 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopListResponse> {
         if(null ==  convertView){
             convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_shop,null);
             viewHolder = new ViewHolder();
-            viewHolder.shopLogoIv = (ImageView)convertView.findViewById(R.id.list_hotel_logo_civ);
-            viewHolder.shopNamtTv = (TextView)convertView.findViewById(R.id.list_hotel_name_tv);
-            viewHolder.park = (ImageView)convertView.findViewById(R.id.list_hotel_park_iv);
-            viewHolder.wifi = (ImageView)convertView.findViewById(R.id.list_hotel_wifi_iv);
-            viewHolder.shopStar = (TextView)convertView.findViewById(R.id.list_hotel_level_tv);
+            viewHolder.ivShopLogo     = (ImageView)convertView.findViewById(R.id.iv_shop_logo);
+            viewHolder.civSalerAvatar = (CircleImageView)convertView.findViewById(R.id.civ_saler_avatar);
+            viewHolder.tvShopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
+            viewHolder.tvShopBusiness = (TextView) convertView.findViewById(R.id.tv_shop_business);
+            viewHolder.tvShopDes      = (TextView) convertView.findViewById(R.id.tv_shop_des);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        ShopListResponse shopInfoVo = mDatas.get(position);
-        String shopName = shopInfoVo.getFullname();
+
+        ShopBean shopBean = mDatas.get(position);
+        String   shopName = shopBean.getShopName();
+        String   shopLogo = shopBean.getShopLogo();
+        String   shopBusi = shopBean.getShopBusiness();
+        String   shopDesc = shopBean.getShopDesc();
+        String   shopID   = shopBean.getShopId();
+        String   salesID  = shopBean.getSalesid();
+
         if(!TextUtils.isEmpty(shopName)){
-            viewHolder.shopNamtTv.setText(shopName);
-        }
-        String logo = shopInfoVo.getLogo();
-        if(!TextUtils.isEmpty(logo)){
-            String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
-            ImageLoader.getInstance().displayImage(logoUrl,viewHolder.shopLogoIv,options);
+            viewHolder.tvShopName.setText(shopName);
         }
 
-        if(shopInfoVo.getPark() == 1){
-            viewHolder.park.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.park.setVisibility(View.INVISIBLE);
+        if(!TextUtils.isEmpty(shopBusi)){
+            viewHolder.tvShopBusiness.setText(shopBusi);
         }
 
-        if(shopInfoVo.getWifi() == 1){
-            viewHolder.wifi.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.wifi.setVisibility(View.INVISIBLE);
+        if(!TextUtils.isEmpty(shopDesc)){
+            viewHolder.tvShopDes.setText(shopDesc);
         }
-        viewHolder.shopStar.setText(shopInfoVo.getStar()+"星级");
 
+//        if(!TextUtils.isEmpty(shopLogo)){
+//            String logoUrl = ProtocolUtil.getShopLogoUrl(shopLogo);
+//            ImageLoader.getInstance().displayImage(logoUrl, viewHolder.ivShopLogo, shopOptions);
+//        }
+
+        if(!TextUtils.isEmpty(salesID)){
+            String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
+            ImageLoader.getInstance().displayImage(avatarUrl,viewHolder.civSalerAvatar, avatarOptions);
+        }
         return convertView;
     }
 
     static class ViewHolder{
-        ImageView shopLogoIv;
-        TextView shopNamtTv;
-
-        TextView shopStar;
-        ImageView wifi;
-        ImageView park;
+        ImageView       ivShopLogo;
+        CircleImageView civSalerAvatar;
+        TextView        tvShopName;
+        TextView        tvShopBusiness;
+        TextView        tvShopDes;
     }
 }
