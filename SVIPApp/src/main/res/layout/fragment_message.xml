@@ -6,12 +6,82 @@
 
     <include layout="@layout/title_message_info"> </include>
 
-    <include layout="@layout/tab_message_fragment"> </include>
+    <RadioGroup
+        android:id="@+id/rg_operation"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_chat"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="48dp"
+            android:textSize="14sp"
+            android:button="@null"
+            android:textColor="@color/black"
+            android:text="@string/chat" />
+
+        <RadioButton
+            android:id="@+id/rb_address_book"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:button="@null"
+            android:layout_height="48dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:text="@string/address_book" />
+
+    </RadioGroup>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View
+                android:id="@+id/v_chat"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@color/TextColorOrange"
+                android:visibility="invisible"
+                ></View>
+
+            <View
+                android:id="@+id/v_address_book"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@color/TextColorOrange"
+                android:visibility="invisible"
+                ></View>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:gravity="bottom"
+            android:layout_height="4dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.50dp"
+                android:background="#bbbbbb"
+                ></View>
+        </RelativeLayout>
+
+    </FrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     </android.support.v4.view.ViewPager>
 
 </LinearLayout>

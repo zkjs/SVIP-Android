@@ -389,7 +389,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListUrl() {
-        return  "http://mmm.zkjinshi.com/shop/list";
+        return  ConfigUtil.getInst().getConfigValue()+"list";
     }
 
 
@@ -401,7 +401,7 @@ public class ProtocolUtil {
         // old api
         //return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
         // new api
-        return  "http://mmm.zkjinshi.com/shop/list?city=" + city;
+        return  ConfigUtil.getInst().getConfigValue()+"list?city=" + city;
     }
 
     /**

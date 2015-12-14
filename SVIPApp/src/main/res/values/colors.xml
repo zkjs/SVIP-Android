@@ -556,6 +556,7 @@
 
     <color name="TextColorBlack">#101010</color>
     <color name="TextColorOrange">#fac473</color>
+
     <color name="BackgroundBlack">#101010</color>
 
 </resources>
