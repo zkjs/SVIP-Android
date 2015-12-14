@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
     <!--正式用环境-->
-    <http-host>120.25.241.196</http-host>
+   <!-- <http-host>120.25.241.196</http-host>
     <im-host>im.zkjinshi.com</im-host>
-    <im-port>7777</im-port>
+    <im-port>7777</im-port>-->
 
     <!--测试环境-->
-    <!--<http-host>112.74.38.81</http-host>
+    <http-host>112.74.38.81</http-host>
     <im-host>tim.zkjinshi.com</im-host>
-    <im-port>7777</im-port>-->
+    <im-port>7777</im-port>
 
     <!--媒体服务器-->
     <media-host>112.74.205.31</media-host>
