@@ -102,12 +102,13 @@ public class MainController {
         if(length <= 0){
             return;
         }
-        int number = new Random().nextInt(length);
-        if(number == bigPicIndex){
-            bigPicIndex = (bigPicIndex+1)%length;
-        }else{
-            bigPicIndex = number;
-        }
+//        int number = new Random().nextInt(length);
+//        if(number == bigPicIndex){
+//            bigPicIndex = (bigPicIndex+1)%length;
+//        }else{
+//            bigPicIndex = number;
+//        }
+        bigPicIndex = (bigPicIndex+1)%length;
         String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
         ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
 

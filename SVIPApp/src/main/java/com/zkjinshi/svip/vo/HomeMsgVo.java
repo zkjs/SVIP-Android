@@ -1,9 +1,11 @@
-package com.zkjinshi.svip.response;
+package com.zkjinshi.svip.vo;
+
+import com.zkjinshi.svip.response.BaseResponse;
 
 /**
  * Created by dujiande on 2015/12/13.
  */
-public class HomeMsgResponse extends BaseResponse {
+public class HomeMsgVo extends BaseResponse {
 
     public enum HomeMsgType {
         HOME_MSG_DEFAULT,
@@ -17,6 +19,15 @@ public class HomeMsgResponse extends BaseResponse {
     private boolean clickAble;
     private String icon="";
     private HomeMsgType msgType;
+    private String shopid="";
+
+    public String getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
+    }
 
     public HomeMsgType getMsgType() {
         return msgType;

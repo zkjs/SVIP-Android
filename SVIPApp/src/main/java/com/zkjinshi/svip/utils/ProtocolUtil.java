@@ -428,5 +428,21 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"firstpage/icons";
     }
 
+    /**
+     * 获取用户推送消息(用户未登陆)
+     * @return
+     */
+    public static String getMessageDefaultUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"messages/default";
+    }
+
+    /**
+     * 获取推荐商家列表
+     * @return
+     */
+    public static String getShopRecommendedUrl(String city){
+        return ConfigUtil.getInst().getApiDomain()+"shop/recommended/"+city+"/";
+    }
+
 
 }

@@ -2,7 +2,6 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,33 +14,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
-import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
-import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
-import com.zkjinshi.svip.activity.order.OrderBookingActivity;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
-import com.zkjinshi.svip.activity.order.OrderEvaluateActivity;
 import com.zkjinshi.svip.adapter.HomeAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
@@ -56,27 +44,23 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BigPicResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
-import com.zkjinshi.svip.response.HomeMsgResponse;
-import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.response.MessageDefaultResponse;
+import com.zkjinshi.svip.response.ShopRecommendedResponse;
+import com.zkjinshi.svip.vo.HomeMsgVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
-import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.MapUtil;
-import com.zkjinshi.svip.utils.OrderUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RecyclerWrapAdapter;
 import com.zkjinshi.svip.view.ServerDialog;
 import com.zkjinshi.svip.view.WrapRecyclerView;
 
 import java.lang.reflect.Type;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * 首页Fragment
@@ -111,26 +95,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     public static double geoLng;
     private String bestHotelId="120";
     private String bestServerid="555711167a31a";
-    private ArrayList<HomeMsgResponse> homeMsgList;
+    private ArrayList<HomeMsgVo> homeMsgList;
     private String city = "";
-
-
-
-    public enum MainTextStatus {
-        DEFAULT_NULL,
-        NO_ORDER_NOT_IN,
-        NO_ORDER_IN,
-        BOOKING_NOT_IN,
-        BOOKING_IN,
-        SURE_IN_HAVE_NOLOGIN,
-        SURE_IN_NOT_NOLOGIN,
-        SURE_NOT_IN,
-        CHECKIN_IN,
-        CHECKIN_NOT_IN,
-        ORDER_FINISH
-    }
-
-    private MainTextStatus mainTextStatus = MainTextStatus.DEFAULT_NULL;
 
     Handler handler = new Handler(){
         @Override
@@ -149,8 +115,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     break;
                 case NOTIFY_LOCATION:
                 {
-                    HomeMsgResponse homeMsg= new HomeMsgResponse();
-                    homeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_LOCATION);
+                    HomeMsgVo homeMsg= new HomeMsgVo();
+                    homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
                     homeMsg.setClickAble(true);
                     homeMsg.setMajorText("我们为您精心推荐了本地服务");
                     homeMsg.setMinorText("限量KTV到店服务");
@@ -184,7 +150,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             activeCodeTv = (TextView)headerView.findViewById(R.id.active_code_tv);
         }
 
-        homeMsgList = new ArrayList<HomeMsgResponse>();
+        homeMsgList = new ArrayList<HomeMsgVo>();
         homeAdapter = new HomeAdapter(homeMsgList,getActivity());
         wrapRecyclerView.setAdapter(homeAdapter);
 
@@ -192,13 +158,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     private void initData(){
         homeMsgList.clear();
-        HomeMsgResponse welcomeMsg= new HomeMsgResponse();
-        welcomeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT);
+        HomeMsgVo welcomeMsg= new HomeMsgVo();
+        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
         welcomeMsg.setClickAble(false);
         welcomeMsg.setMajorText("欢迎使用超级服务");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
         homeMsgList.add(welcomeMsg);
         homeAdapter.notifyItemInserted(0);
+
+
 
     }
 
@@ -243,7 +211,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         super.onStart();
         initData();
         initListeners();
-
     }
 
     @Override
@@ -254,6 +221,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         loadLastOrderInfo();
         checktActivate();
         setBigPicAnimation();
+
+        getMessageDefault();
+
     }
 
     public void onPause() {
@@ -375,6 +345,129 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
 
+
+    //获取推荐商家列表
+    private void getShopRecommended(String city){
+        String url = ProtocolUtil.getShopRecommendedUrl(city);
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<ShopRecommendedResponse>>() {}.getType();
+                    ArrayList<ShopRecommendedResponse> messageList = new Gson().fromJson(result.rawResult, listType);
+
+                    for(ShopRecommendedResponse message : messageList){
+
+                        HomeMsgVo homeMsg= new HomeMsgVo();
+                        homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+                        homeMsg.setClickAble(true);
+                        homeMsg.setMajorText(message.getRecommend_title());
+                        homeMsg.setMinorText(message.getRecommend_content());
+                        homeMsg.setIcon( ConfigUtil.getInst().getHttpDomain()+message.getRecommend_logo());
+                        homeMsg.setShopid(message.getShopid());
+                        homeMsgList.add(homeMsg);
+
+                    }
+                    homeAdapter.notifyDataSetChanged();
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+
+    }
+
+
+    //获取用户推送消息(用户未登陆)
+    private void getMessageDefault(){
+        String url = ProtocolUtil.getMessageDefaultUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
+                    ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
+                    if(messageList.size() > 0){
+                        homeMsgList.clear();
+                    }
+                    for(MessageDefaultResponse message : messageList){
+
+                        HomeMsgVo welcomeMsg= new HomeMsgVo();
+                        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+                        welcomeMsg.setClickAble(false);
+                        welcomeMsg.setMajorText(message.getTitle());
+                        welcomeMsg.setMinorText(message.getDesc());
+                        welcomeMsg.setIcon(message.getIconbaseurl()+message.getIconfilename());
+                        homeMsgList.add(welcomeMsg);
+
+                    }
+                    homeAdapter.notifyDataSetChanged();
+                    if(TextUtils.isEmpty(city)){
+                        city = "深圳";
+                    }
+                    getShopRecommended(city);
+
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+
+    }
+
+
     //加载最近的一条订单信息
     private void loadLastOrderInfo(){
         String url = ProtocolUtil.getLastOrder();
@@ -474,52 +567,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      */
     public synchronized void changeMainText(){
 
-        try {
-            showWelcomeText();
-        } catch (Exception e) {
-            LogUtil.getInstance().info(LogLevel.ERROR, e.getMessage());
-        }
+
     }
 
-    /**
-     * 获取主语句状态
-     */
-    public MainTextStatus getMainTextStatus(){
-        if(lastOrderInfo == null && svipApplication.mRegionList.size() <= 0){
-            mainTextStatus = MainTextStatus.NO_ORDER_NOT_IN;
-        }
-        else if( lastOrderInfo == null &&  svipApplication.mRegionList.size() > 0){
-            mainTextStatus = MainTextStatus.NO_ORDER_IN;
-        }
-        else if(lastOrderInfo != null && lastOrderInfo.getStatus().equals("0") && !checkIfInOrderShop()){
-            mainTextStatus = MainTextStatus.BOOKING_NOT_IN;
-        }
-        else if(lastOrderInfo != null && lastOrderInfo.getStatus().equals("0") && checkIfInOrderShop()){
-            mainTextStatus = MainTextStatus.BOOKING_IN;
-        }
-        else if(checkIfInOrderShop() && lastOrderInfo.getStatus().equals("2") && lastOrderInfo.getNologin().equals("0")){
-            mainTextStatus = MainTextStatus.SURE_IN_NOT_NOLOGIN;
-        }
-        else if(checkIfInOrderShop() && lastOrderInfo.getStatus().equals("2") && lastOrderInfo.getNologin().equals("1")){
-            mainTextStatus = MainTextStatus.SURE_IN_HAVE_NOLOGIN;
-        }
-        else if(!checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("2")){
-            mainTextStatus = MainTextStatus.SURE_NOT_IN;
-        }
-        else if(checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4")){
-            mainTextStatus = MainTextStatus.CHECKIN_IN;
-        }
-        else if(!checkIfInOrderShop() && lastOrderInfo != null && lastOrderInfo.getStatus().equals("4")){
-            mainTextStatus = MainTextStatus.CHECKIN_NOT_IN;
-        }
-        else if( lastOrderInfo != null && lastOrderInfo.getStatus().equals("3")){
-            mainTextStatus = MainTextStatus.ORDER_FINISH;
-        }
-        else{
-            mainTextStatus = MainTextStatus.DEFAULT_NULL;
-        }
-        return mainTextStatus;
-    }
+
 
     /**
      * 判断用户是否在最近订单所在的酒店中 如果在则返回true 否则 返回false。
@@ -589,99 +640,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         serverDialog.show();
     }
 
-    /**
-     * 设置欢迎语句
-     */
-    public void showWelcomeText(){
-//        //未激活
-//        if(!CacheUtil.getInstance().isActivate()){
-//            simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向服务员预定沟通，尊享个性服务。");
-//            codeTextTv.setText("您的VIP身份尚未激活");
-//            codeClickTv.setText("立即激活");
-//            codeClickTv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent goInvitesCode = new Intent(mActivity, InviteCodeActivity.class);
-//                    startActivityForResult(goInvitesCode, REQUEST_ACTIVATE_INVITE_CODE);
-//                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                }
-//            });
-//            return;
-//        }
-//        //已经激活
-//        String welcomeText = "";
-//       int hour =  Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-//        if(hour > 6 && hour < 12){
-//            welcomeText = "上午好";
-//        }else if(hour > 12 && hour < 18){
-//            welcomeText = "下午好";
-//        }else{
-//            welcomeText = "晚上好";
-//        }
-//        //有ibeacome 没订单
-//        if(lastOrderInfo == null && svipApplication.mRegionList.size() > 0){
-//            int index = svipApplication.mRegionList.size()-1;
-//            final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-//            String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
-//
-//            simpleTextTv.setText("超级身份能与客服沟通，为你开启全新预定方式。");
-//            codeTextTv.setText(fullname+"欢迎您");
-//            codeClickTv.setText("立即预定");
-//            codeClickTv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    loadCleverServer(shopid);
-//                }
-//            });
-//
-//        }else if(checkIfInOrderShop()){
-//            //有订单在酒店
-//            simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向服务员预定沟通，尊享个性服务。");
-//            codeTextTv.setText(lastOrderInfo.getFullname()+"欢迎您");
-//            codeClickTv.setText("立即查看");
-//            codeClickTv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
-//                    intent.putExtra("is_order", true);
-//                    getActivity().startActivity(intent);
-//                    getActivity().overridePendingTransition(R.anim.slide_in_right,
-//                            R.anim.slide_out_left);
-//                }
-//            });
-//
-//        }else if(lastOrderInfo != null){
-//            //有订单 没ibeacome
-//            simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向服务员预定沟通，尊享个性服务。");
-//            codeTextTv.setText(welcomeText+"，您有1个行程");
-//            codeClickTv.setText("立即查看");
-//            codeClickTv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
-//                    intent.putExtra("is_order", true);
-//                    getActivity().startActivity(intent);
-//                    getActivity().overridePendingTransition(R.anim.slide_in_right,
-//                            R.anim.slide_out_left);
-//                }
-//            });
-//
-//        } else if(lastOrderInfo == null && svipApplication.mRegionList.size() == 0){
-//            //没订单，没ibeacome
-//            simpleTextTv.setText("超级身份精选了很多优质服务，您可以直接向服务员预定沟通，尊享个性服务。");
-//            codeTextTv.setText(welcomeText+"，您没有任何行程");
-//            codeClickTv.setText("开始预定");
-//            codeClickTv.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(mActivity instanceof MainActivity){
-//                        MainActivity mainActivity = (MainActivity)mActivity;
-//                        mainActivity.changTag(R.id.footer_tab_rb_shop);
-//                    }
-//                }
-//            });
-//        }
-    }
+
 
     /**
      * 判读是否已经激活

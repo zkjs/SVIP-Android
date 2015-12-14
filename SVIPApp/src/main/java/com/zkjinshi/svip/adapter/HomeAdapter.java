@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.easemob.chat.EMConversation;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.response.HomeMsgResponse;
+import com.zkjinshi.svip.vo.HomeMsgVo;
 
 import java.util.ArrayList;
 
@@ -24,18 +23,18 @@ import java.util.ArrayList;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<HomeMsgResponse> datalist;
+    private ArrayList<HomeMsgVo> datalist;
     private DisplayImageOptions options;
 
 
 
-    public HomeAdapter(ArrayList<HomeMsgResponse> datalist,Context context){
+    public HomeAdapter(ArrayList<HomeMsgVo> datalist, Context context){
         this.context = context;
         this.datalist = datalist;
         this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_logo_zhanwei)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_logo_zhanwei)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_logo_zhanwei)// 设置图片加载或解码过程中发生错误显示的图片
+                .showImageOnLoading(R.mipmap.ic_dingwei_orange)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.ic_dingwei_orange)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.ic_dingwei_orange)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
@@ -50,34 +49,33 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        HomeMsgResponse homeMsgResponse = datalist.get(position);
-        if(TextUtils.isEmpty(homeMsgResponse.getMajorText())){
+        HomeMsgVo homeMsgVo = datalist.get(position);
+        if(TextUtils.isEmpty(homeMsgVo.getMajorText())){
             holder.majorText.setText("");
         }else{
-            holder.majorText.setText(homeMsgResponse.getMajorText());
+            holder.majorText.setText(homeMsgVo.getMajorText());
         }
 
-        if(TextUtils.isEmpty(homeMsgResponse.getMinorText())){
+        if(TextUtils.isEmpty(homeMsgVo.getMinorText())){
             holder.minorText.setText("");
         }else{
-            holder.minorText.setText(homeMsgResponse.getMinorText());
+            holder.minorText.setText(homeMsgVo.getMinorText());
         }
 
-        if(homeMsgResponse.isClickAble()){
+        if(homeMsgVo.isClickAble()){
             holder.clickIv.setVisibility(View.VISIBLE);
         }else{
             holder.clickIv.setVisibility(View.INVISIBLE);
         }
 
-        if(TextUtils.isEmpty(homeMsgResponse.getIcon())){
-            if(homeMsgResponse.getMsgType() == HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT){
+        if(TextUtils.isEmpty(homeMsgVo.getIcon())){
+            if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT){
                 holder.iconIv.setImageResource(R.mipmap.ic_liwu_orange);
-            }if(homeMsgResponse.getMsgType() == HomeMsgResponse.HomeMsgType.HOME_MSG_LOCATION){
+            }if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION){
                 holder.iconIv.setImageResource(R.mipmap.ic_dingwei_orange);
             }
-
         }else{
-            String path = homeMsgResponse.getIcon();
+            String path = homeMsgVo.getIcon();
             ImageLoader.getInstance().displayImage(path,holder.iconIv,options);
         }
 
