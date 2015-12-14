@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#191223"
+    android:background="#f8f8f8"
     android:layout_height="50dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -24,31 +25,16 @@
             android:id="@+id/header_bar_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
+            android:textColor="#666666"
             android:text="@string/app_name"/>
 
-        <TextView
-            android:id="@+id/header_bar_tv_finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:clickable="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"
-            android:visibility="gone"
-            android:text="@string/mine_finish"/>
-
         <ImageButton
-            android:id="@+id/header_bar_list_ibtn"
+            android:id="@+id/header_bar_btn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -58,6 +44,11 @@
             android:padding="10dp"
             android:visibility="gone" />
 
-
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#441d1d26"/>
+
 </LinearLayout>
