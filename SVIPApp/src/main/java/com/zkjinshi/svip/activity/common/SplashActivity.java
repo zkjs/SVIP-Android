@@ -150,8 +150,8 @@ SplashActivity extends Activity {
                 // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
                 handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             } else {
-                //handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
-                handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
+                handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
+               // handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             }
         }else{
             showNetDialog();

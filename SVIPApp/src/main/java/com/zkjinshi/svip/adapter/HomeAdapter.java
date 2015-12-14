@@ -70,6 +70,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
 
         if(TextUtils.isEmpty(homeMsgResponse.getIcon())){
+            if(homeMsgResponse.getMsgType() == HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT){
+                holder.iconIv.setImageResource(R.mipmap.ic_liwu_orange);
+            }if(homeMsgResponse.getMsgType() == HomeMsgResponse.HomeMsgType.HOME_MSG_LOCATION){
+                holder.iconIv.setImageResource(R.mipmap.ic_dingwei_orange);
+            }
 
         }else{
             String path = homeMsgResponse.getIcon();

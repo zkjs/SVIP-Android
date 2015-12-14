@@ -89,6 +89,9 @@ public class MainController {
 
         if(bigPicResponseList == null) {
             String rawResult = CacheUtil.getInstance().getListStrCache("bigPicResponseList");
+            if(TextUtils.isEmpty(rawResult)){
+                return;
+            }
             Type listType = new TypeToken<ArrayList<BigPicResponse>>() {
             }.getType();
             Gson gson = new Gson();

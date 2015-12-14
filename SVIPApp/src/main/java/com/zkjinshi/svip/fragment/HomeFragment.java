@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int NOTIFY_UPDATE_VIEW = 0x0001;
     private final static int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
+    private final static int NOTIFY_LOCATION = 0x04;
 
     private View view = null;
     private View headerView = null;
@@ -146,6 +147,17 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     }
                     changeMainText();
                     break;
+                case NOTIFY_LOCATION:
+                {
+                    HomeMsgResponse homeMsg= new HomeMsgResponse();
+                    homeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_LOCATION);
+                    homeMsg.setClickAble(true);
+                    homeMsg.setMajorText("我们为您精心推荐了本地服务");
+                    homeMsg.setMinorText("限量KTV到店服务");
+                    homeMsgList.add(homeMsg);
+                    homeAdapter.notifyItemInserted(homeMsgList.size()-1);
+                }
+                    break;
             }
         }
     };
@@ -186,14 +198,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         welcomeMsg.setMajorText("欢迎使用超级服务");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
         homeMsgList.add(welcomeMsg);
-
-        welcomeMsg= new HomeMsgResponse();
-        welcomeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT);
-        welcomeMsg.setClickAble(true);
-        welcomeMsg.setMajorText("我们为您精心推荐了本地服务");
-        welcomeMsg.setMinorText("限量KTV到店服务");
-        homeMsgList.add(welcomeMsg);
-
         homeAdapter.notifyItemInserted(0);
 
     }
@@ -367,8 +371,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
         city = aMapLocation.getCity();
         city = city.replace("市","");
-        notifyMainTextChange();
-
+        handler.sendEmptyMessage(NOTIFY_LOCATION);
     }
 
 
