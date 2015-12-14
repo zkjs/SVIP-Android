@@ -14,4 +14,5 @@ public class Constants {
     public static final String IM_PORT = "im-port";
     public static final String MEDIA_HOST = "media-host";
     public static final String MEDIA_PORT = "media-port";
+    public static final String API_HOST = "api-host";
 }

@@ -133,6 +133,14 @@ public class ConfigUtil {
     }
 
     /**
+     * 获取铁式API请求链接
+     * @return
+     */
+    public String getApiDomain() {
+        return "http://" + getConfigValue(Constants.API_HOST)+ "/";
+    }
+
+    /**
      * 获取http请求链接
      * @return
      */
