@@ -103,7 +103,7 @@ public class WebViewActivity extends Activity {
     public void initView() {
 
         backIBtn = (ImageButton) findViewById(R.id.header_bar_btn_back);
-        listIBtn = (ImageButton) findViewById(R.id.header_bar_list_ibtn);
+        listIBtn = (ImageButton) findViewById(R.id.header_bar_btn_more);
         backIBtn.setVisibility(View.VISIBLE);
         listIBtn.setVisibility(View.VISIBLE);
         centerTitleBarTv = (TextView) findViewById(R.id.header_bar_tv_title);
