@@ -419,4 +419,14 @@ public class ProtocolUtil {
     public static String getUserUploadUrl(){
         return ConfigUtil.getInst().getHttpDomain()+"user/upload";
     }
+
+    /**
+     * 获取首页大图
+     * @return
+     */
+    public static String getBigPicUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"firstpage/icons";
+    }
+
+
 }

@@ -2,6 +2,8 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,14 +22,20 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
@@ -46,6 +54,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BigPicResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.HomeMsgResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
@@ -60,12 +69,14 @@ import com.zkjinshi.svip.view.RecyclerWrapAdapter;
 import com.zkjinshi.svip.view.ServerDialog;
 import com.zkjinshi.svip.view.WrapRecyclerView;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * 首页Fragment
@@ -81,6 +92,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private View view = null;
     private View headerView = null;
     private ImageView homePicIv;
+    private TextView hiTextTv;
+    private TextView nameTv;
+    private TextView activeCodeTv;
+    private TextView simpleTextTv;
+    private ImageView logoIv;
 
     private Activity mActivity;
     public WrapRecyclerView wrapRecyclerView;
@@ -95,7 +111,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private String bestHotelId="120";
     private String bestServerid="555711167a31a";
     private ArrayList<HomeMsgResponse> homeMsgList;
-    Animation bigAnimation;
+    private String city = "";
+
 
 
     public enum MainTextStatus {
@@ -148,6 +165,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             wrapRecyclerView.addHeaderView(headerView);
 
             homePicIv = (ImageView)headerView.findViewById(R.id.home_pic_iv);
+            hiTextTv = (TextView)headerView.findViewById(R.id.hi_text_tv);
+            nameTv = (TextView)headerView.findViewById(R.id.name_tv);
+            simpleTextTv = (TextView)headerView.findViewById(R.id.simple_text_tv);
+            logoIv = (ImageView)headerView.findViewById(R.id.logo_iv);
+            activeCodeTv = (TextView)headerView.findViewById(R.id.active_code_tv);
         }
 
         homeMsgList = new ArrayList<HomeMsgResponse>();
@@ -159,25 +181,20 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private void initData(){
         homeMsgList.clear();
         HomeMsgResponse welcomeMsg= new HomeMsgResponse();
+        welcomeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT);
         welcomeMsg.setClickAble(false);
         welcomeMsg.setMajorText("欢迎使用超级服务");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
-        homeMsgList.add(0,welcomeMsg);
-        homeAdapter.notifyItemInserted(0);
+        homeMsgList.add(welcomeMsg);
 
-        LocationManager.getInstance().registerLocation(mActivity);
-        LocationManager.getInstance().setLocationChangeListener(this);
-        MainController.getInstance().init(mActivity);
-        String nameStr = "";
-        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
-            nameStr = CacheUtil.getInstance().getUserName();
-        }
-        if(CacheUtil.getInstance().getSex().equals("0")){
-            nameStr = nameStr + "  女士";
-        }else{
-            nameStr = nameStr + "  男士";
-        }
-        //nameTv.setText(nameStr);
+        welcomeMsg= new HomeMsgResponse();
+        welcomeMsg.setMsgType(HomeMsgResponse.HomeMsgType.HOME_MSG_DEFAULT);
+        welcomeMsg.setClickAble(true);
+        welcomeMsg.setMajorText("我们为您精心推荐了本地服务");
+        welcomeMsg.setMinorText("限量KTV到店服务");
+        homeMsgList.add(welcomeMsg);
+
+        homeAdapter.notifyItemInserted(0);
 
     }
 
@@ -207,6 +224,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mActivity = getActivity();
+        LocationManager.getInstance().registerLocation(mActivity);
+        LocationManager.getInstance().setLocationChangeListener(this);
+        MainController.getInstance().init(mActivity);
         if (view == null)
         {
             initView(inflater, container);
@@ -219,25 +239,123 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         super.onStart();
         initData();
         initListeners();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        //首页大图区
+        setBigPicZone();
         loadLastOrderInfo();
         checktActivate();
-
-        bigAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_bigger);
-        homePicIv.startAnimation(bigAnimation);
+        setBigPicAnimation();
     }
 
     public void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
+        MainController.getInstance().pauseBigPicAnimation();
+    }
 
-        bigAnimation.cancel();
-        bigAnimation = null;
+    public void setBigPicAnimation(){
+        MainController.getInstance().setBigPicAnimation(homePicIv);
+    }
 
+
+
+
+
+    /**
+     * 设置首页大图区信息
+     */
+    public void setBigPicZone(){
+        //设置时间问候语
+        String welcomeText = "";
+        int hour =  Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if(hour >= 0 && hour < 9){
+            welcomeText = "早上好";
+        }else if(hour >= 9 && hour < 11){
+            welcomeText = "上午好";
+        }else if(hour >= 11 && hour < 13){
+            welcomeText = "中午好";
+        }else if(hour >= 13 && hour < 18){
+            welcomeText = "下午好";
+        }else if(hour >= 18&& hour < 24){
+            welcomeText = "晚上好";
+        }
+
+        hiTextTv.setText(welcomeText);
+
+        //动态提示语
+
+        //用户未登陆
+        if(!CacheUtil.getInstance().isLogin()){
+
+            nameTv.setText("立即登陆");
+            nameTv.setTextColor(Color.parseColor("#ffc56e"));
+            nameTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goLogin();
+                    mActivity.finish();
+                }
+            });
+            simpleTextTv.setText("使用超级身份，享受超凡个性服务");
+            activeCodeTv.setVisibility(View.GONE);
+
+        }else{//用户已经登录
+            String nameStr = "";
+            if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+                nameStr = CacheUtil.getInstance().getUserName();
+            }
+            if(CacheUtil.getInstance().getSex().equals("0")){
+                nameStr = nameStr + "  女士";
+            }else{
+                nameStr = nameStr + "  先生";
+            }
+            nameTv.setText(nameStr);
+            nameTv.setTextColor(Color.parseColor("#ffffff"));
+            nameTv.setOnClickListener(null);
+
+                //用户已经激活
+            if(CacheUtil.getInstance().isActivate()){
+                activeCodeTv.setVisibility(View.GONE);
+                simpleTextTv.setText("使用超级身份，享受超凡个性服务");
+                //到店
+                if(svipApplication.mRegionList.size() > 0){
+                    int index = svipApplication.mRegionList.size()-1;
+                    final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+                    String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
+                    simpleTextTv.setText("欢迎光临"+fullname);
+                }
+            }else{
+                //用户未激活
+                activeCodeTv.setVisibility(View.VISIBLE);
+                activeCodeTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent goInvitesCode = new Intent(mActivity, InviteCodeActivity.class);
+                        mActivity.startActivity(goInvitesCode);
+                        mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                });
+                simpleTextTv.setText("输入邀请码激活身份，享受超凡个性服务");
+
+            }
+        }
+
+
+    }
+
+    /**
+     * 跳转到登录页面
+     */
+    private void goLogin() {
+        Intent intent = new Intent(mActivity, LoginActivity.class);
+        mActivity.startActivity(intent);
+        mActivity.finish();
+        mActivity.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
     }
 
     @Override
@@ -246,6 +364,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         geoLat = aMapLocation.getLatitude();//纬度
         geoLng = aMapLocation.getLongitude();//经度
         LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
+
+        city = aMapLocation.getCity();
+        city = city.replace("市","");
         notifyMainTextChange();
 
     }
@@ -564,7 +685,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      */
     public void checktActivate(){
         if(CacheUtil.getInstance().isActivate()){
-            showWelcomeText();
+            setBigPicZone();
             return;
         }
         String url = ProtocolUtil.getUserMysemp();
@@ -599,7 +720,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     } else {
                         CacheUtil.getInstance().setActivate(false);
                     }
-                    showWelcomeText();
+                    setBigPicZone();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -611,7 +732,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
     }
 

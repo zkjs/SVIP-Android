@@ -79,6 +79,7 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
         initDBName();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
+        MainController.getInstance().initBigPic();
     }
 
     private void initListeners() {

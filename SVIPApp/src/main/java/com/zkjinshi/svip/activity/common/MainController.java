@@ -5,6 +5,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,11 +16,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BaseBean;
+import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BigPicResponse;
 import com.zkjinshi.svip.sqlite.ServerPeronalDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -28,8 +32,10 @@ import com.zkjinshi.svip.vo.ServerPersonalVo;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 开发者：dujiande
@@ -41,6 +47,10 @@ public class MainController {
 
     private final static String TAG =  MainController.class.getSimpleName();
     private DisplayImageOptions options;
+    private DisplayImageOptions bigOptions;
+    Animation bigAnimation;
+    public int bigPicIndex = 0;
+    ArrayList<BigPicResponse> bigPicResponseList = null;
 
     private  MainController(){}
     private static  MainController instance;
@@ -64,6 +74,50 @@ public class MainController {
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
+        this.bigOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .build();
+    }
+
+    /**
+     * 设置首页动态图
+     */
+    public void setBigPicAnimation(ImageView homePicIv){
+        bigAnimation = AnimationUtils.loadAnimation(activity, R.anim.anim_bigger);
+        homePicIv.startAnimation(bigAnimation);
+
+        if(bigPicResponseList == null) {
+            String rawResult = CacheUtil.getInstance().getListStrCache("bigPicResponseList");
+            Type listType = new TypeToken<ArrayList<BigPicResponse>>() {
+            }.getType();
+            Gson gson = new Gson();
+            bigPicResponseList = gson.fromJson(rawResult, listType);
+        }
+
+        int length = bigPicResponseList.size();
+        if(length <= 0){
+            return;
+        }
+        int number = new Random().nextInt(length);
+        if(number == bigPicIndex){
+            bigPicIndex = (bigPicIndex+1)%length;
+        }else{
+            bigPicIndex = number;
+        }
+        String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
+        ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
+
+    }
+
+    /**
+     * 停止首页大图动画
+     */
+    public void pauseBigPicAnimation(){
+        if(bigAnimation != null){
+            bigAnimation.cancel();
+            bigAnimation = null;
+        }
     }
 
     /**
@@ -127,6 +181,65 @@ public class MainController {
 
     }
 
+
+    /**
+     * 初始化首页大图
+     */
+    public void initBigPic(){
+        String url = ProtocolUtil.getBigPicUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<BigPicResponse>>(){}.getType();
+                    Gson gson = new Gson();
+                    ArrayList<BigPicResponse> bigPicResponseList = gson.fromJson(result.rawResult, listType);
+                    if(bigPicResponseList.size() > 0){
+                        CacheUtil.getInstance().saveListCache("bigPicResponseList",bigPicResponseList);
+                        if(activity instanceof MainActivity){
+                            MainActivity mainActivity = (MainActivity)activity;
+                            if(mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
+                                HomeFragment homeFragment = (HomeFragment)mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
+                                homeFragment.setBigPicAnimation();
+                            }
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+
+    }
+
+
+
     /**
      * 判读是否已经激活
      */
@@ -177,7 +290,7 @@ public class MainController {
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
     }
 

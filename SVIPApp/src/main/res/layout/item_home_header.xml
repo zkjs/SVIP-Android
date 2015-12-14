@@ -6,40 +6,40 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="348dp"
+        android:layout_height="354dp"
         android:background="#ffffff">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="318dp" >
+            android:layout_height="324dp" >
             <ImageView
                 android:id="@+id/home_pic_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:background="@mipmap/bg_shouye"/>
+                android:src="@mipmap/bg_shouye"
+                android:scaleType="centerCrop"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000"/>
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/location_llt"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <ImageView
+            android:id="@+id/logo_iv"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:gravity="center"
             android:background="@drawable/circle_bg"
-            android:layout_marginRight="30dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_zhijian_white"/>
-        </LinearLayout>
+            android:layout_marginRight="30dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_zhijian_white"
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/simple_text_tv"
-            android:layout_above="@id/location_llt"
-            android:layout_marginBottom="0dp"
+            android:layout_above="@id/logo_iv"
+            android:layout_marginBottom="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我们为您精选了众多品质服务, 登录后还可尊享个性化特权."
@@ -51,7 +51,7 @@
         <TextView
             android:id="@+id/name_tv"
             android:layout_above="@id/simple_text_tv"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="18dp"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,9 +60,21 @@
             android:textSize="24sp"/>
 
         <TextView
+            android:id="@+id/active_code_tv"
+            android:layout_above="@id/simple_text_tv"
+            android:layout_toRightOf="@id/name_tv"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即激活"
+            android:textColor="#ffc56e"
+            android:textSize="24sp"/>
+
+        <TextView
             android:id="@+id/hi_text_tv"
             android:layout_above="@id/name_tv"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
