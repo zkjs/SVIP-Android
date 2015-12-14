@@ -82,7 +82,7 @@
                 android:padding="10dp"
                 android:text="xxx酒店"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_shop_business"

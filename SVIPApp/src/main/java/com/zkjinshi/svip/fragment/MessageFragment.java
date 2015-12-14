@@ -4,27 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.adapter.MessageFragmentAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
-import com.zkjinshi.svip.view.zoomview.ImageViewTouchBase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,40 +29,47 @@ public class MessageFragment extends Fragment {
 
     private RelativeLayout mRlAdd;
     private RelativeLayout mRlSearch;
-    private TextView       mTvChat;
-    private TextView       mTvContacts;
-    private ImageView      mIvTabLine;
+    private View vChat;
+    private View vAddressBook;
 
     private ViewPager      mViewPager;
+    private RadioGroup     mRgOperation;
     private List<BaseFragment>   mFragmentList;
-    private FragmentPagerAdapter mFragmenAdapter;
-    private FragmentManager      mFragmentManager;
-
-    private int mCurrentIndex ;
-    private int mScreenWidth ;
+    private FragmentPagerAdapter mFragmentPagerAdapter;
 
     private void initView(View view){
-
         mRlAdd       = (RelativeLayout) view.findViewById(R.id.rl_add);
         mRlSearch    = (RelativeLayout) view.findViewById(R.id.rl_search);
-        mTvChat      = (TextView) view.findViewById(R.id.tv_chat);
-        mTvContacts  = (TextView) view.findViewById(R.id.tv_contacts);
-        mIvTabLine   = (ImageView)  view.findViewById(R.id.iv_tab_line);
+        vChat        = view.findViewById(R.id.v_chat);
+        vAddressBook = view.findViewById(R.id.v_address_book);
         mViewPager   = (ViewPager)  view.findViewById(R.id.vp_fragment);
+        mRgOperation = (RadioGroup) view.findViewById(R.id.rg_operation);
     }
 
     private void initData(){
-        mActivity        = this.getActivity();
-        mFragmentManager = mActivity.getSupportFragmentManager();
-
-        initTabLineWidth();
+        mActivity     = this.getActivity();
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new MessageCenterFragment());
         mFragmentList.add(new ContactsFragment());
-        mFragmenAdapter = new MessageFragmentAdapter(mFragmentManager, mFragmentList);
 
-        mViewPager.setAdapter(mFragmenAdapter);
+        mFragmentPagerAdapter = new FragmentPagerAdapter(
+                getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return mFragmentList.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mFragmentList.size();
+            }
+        };
+
+        mViewPager.setAdapter(mFragmentPagerAdapter);
+
         mViewPager.setCurrentItem(0);
+        mRgOperation.check(R.id.rb_chat);
+        vChat.setVisibility(View.VISIBLE);
     }
 
     private void initListeners(){
@@ -90,78 +88,31 @@ public class MessageFragment extends Fragment {
             }
         });
 
-        mTvChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mCurrentIndex != 0){
-                    mViewPager.setCurrentItem(0);
-                }
-            }
-        });
-
-        mTvContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mCurrentIndex != 1){
-                    mViewPager.setCurrentItem(1);
-                }
-            }
-        });
-
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            /**
-             * position :当前页面，及你点击滑动的页面 offset:当前页面偏移的百分比
-             * offsetPixels:当前页面偏移的像素位置
-             */
-            @Override
-            public void onPageScrolled(int position, float offset, int i1) {
-
-                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mIvTabLine.getLayoutParams();
-                Log.e("offset:", offset + "");
-                /**
-                 * 利用currentIndex(当前所在页面)和position(下一个页面)以及offset来
-                 * 设置mTabLineIv的左边距 滑动场景：
-                 * 从左到右分别为0,1  0->1; 1->2; 2->1; 1->0
-                 */
-                // 0->1
-                if (mCurrentIndex == 0 && position == 0){
-                    lp.leftMargin = (int) (offset * (mScreenWidth * 1.0 / 2)
-                            + mCurrentIndex * (mScreenWidth / 2));
-                    // 1->0
-                } else if (mCurrentIndex == 1 && position == 0){
-                    lp.leftMargin = (int) ( - (1 - offset) * (mScreenWidth * 1.0 / 2)
-                            + mCurrentIndex * (mScreenWidth / 2));
-                }
-                mIvTabLine.setLayoutParams(lp);
-            }
-
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                mCurrentIndex = position;
-            }
-
-            /**
-             * state滑动中的状态
-             * 有三种状态（0，1，2） 1：正在滑动 2：滑动完毕 0：什么都没做。
-             */
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
+                if(position == 0){
+                    mRgOperation.check(R.id.rb_chat);
+                }else if(position == 1){
+                    mRgOperation.check(R.id.rb_address_book);
+                }
             }
         });
 
-    }
-
-    /**
-     * 设置滑动条的宽度为屏幕的1/2(根据Tab的个数而定)
-     */
-    private void initTabLineWidth() {
-        DisplayMetrics dpMetrics = new DisplayMetrics();
-        mActivity.getWindow().getWindowManager().getDefaultDisplay().getMetrics(dpMetrics);
-        mScreenWidth = dpMetrics.widthPixels;
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mIvTabLine.getLayoutParams();
-        lp.width = mScreenWidth / 2;
-        mIvTabLine.setLayoutParams(lp);
+        mRgOperation.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.rb_chat){
+                    mViewPager.setCurrentItem(0);
+                    vChat.setVisibility(View.VISIBLE);
+                    vAddressBook.setVisibility(View.INVISIBLE);
+                }else if(checkedId == R.id.rb_address_book) {
+                    mViewPager.setCurrentItem(1);
+                    vChat.setVisibility(View.INVISIBLE);
+                    vAddressBook.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
@@ -188,6 +139,5 @@ public class MessageFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
 
 }
