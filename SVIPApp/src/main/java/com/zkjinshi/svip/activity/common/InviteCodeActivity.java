@@ -135,8 +135,7 @@ public class InviteCodeActivity extends Activity {
             public void afterTextChanged(Editable inviteCode) {
                 String inviteCodeStr = inviteCode.toString();
                 if (inviteCodeStr.length() >= 6) {
-                    String upperCode = inviteCodeStr.toUpperCase();
-                    findSalerByInviteCode(upperCode);
+                    findSalerByInviteCode(inviteCodeStr.toUpperCase());
                 }
 
                 if (TextUtils.isEmpty(inviteCodeStr)) {
@@ -162,7 +161,7 @@ public class InviteCodeActivity extends Activity {
                         return ;
                     } else {
                         //邀请码验证成功 开始确认并绑定邀请码
-                        bindTheSalerWithCode(mInviteCode, mSalesID, mSalesName, mShopID);
+                        bindTheSalerWithCode(mInviteCode.toUpperCase(), mSalesID, mSalesName, mShopID);
                     }
                 } else {
                     Intent goHome = new Intent(InviteCodeActivity.this, MainActivity.class);
@@ -359,8 +358,8 @@ public class InviteCodeActivity extends Activity {
      * @param show
      */
     private void showSalerInfo(final boolean show, String avatarUrl, String salerName) {
-        AnimatorSet animation = null;
 
+        AnimatorSet animation = null;
         if ((mLlSalerInfo.getVisibility() == View.VISIBLE) && !show) {
             animation = new AnimatorSet();
             ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", 0,

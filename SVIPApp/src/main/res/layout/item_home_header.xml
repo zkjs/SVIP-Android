@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="348dp"
+        android:background="#ffffff">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="318dp" >
+            <ImageView
+                android:id="@+id/home_pic_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:background="@mipmap/bg_shouye"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/location_llt"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/circle_bg"
+            android:layout_marginRight="30dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_zhijian_white"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/simple_text_tv"
+            android:layout_above="@id/location_llt"
+            android:layout_marginBottom="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我们为您精选了众多品质服务, 登录后还可尊享个性化特权."
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_above="@id/simple_text_tv"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="林小熊 女士"
+            android:textColor="#ffffff"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/hi_text_tv"
+            android:layout_above="@id/name_tv"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下午好"
+            android:textColor="#ffffff"
+            android:textSize="24sp"/>
+
+    </RelativeLayout>
+</LinearLayout>
