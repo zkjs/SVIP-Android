@@ -8,13 +8,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -30,7 +30,7 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
-import com.zkjinshi.svip.adapter.HomeAdapter;
+import com.zkjinshi.svip.adapter.HomeMsgAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
@@ -42,7 +42,6 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BigPicResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.ShopRecommendedResponse;
@@ -51,9 +50,7 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.RecyclerWrapAdapter;
 import com.zkjinshi.svip.view.ServerDialog;
-import com.zkjinshi.svip.view.WrapRecyclerView;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -84,9 +81,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private ImageView logoIv;
 
     private Activity mActivity;
-    public WrapRecyclerView wrapRecyclerView;
-    public RecyclerWrapAdapter recyclerWrapAdapter;
-    public HomeAdapter homeAdapter = null;
+    public ListView listView;
+    public HomeMsgAdapter homeMsgAdapter = null;
 
 
     SVIPApplication svipApplication;
@@ -115,13 +111,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     break;
                 case NOTIFY_LOCATION:
                 {
-                    HomeMsgVo homeMsg= new HomeMsgVo();
-                    homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
-                    homeMsg.setClickAble(true);
-                    homeMsg.setMajorText("我们为您精心推荐了本地服务");
-                    homeMsg.setMinorText("限量KTV到店服务");
-                    homeMsgList.add(homeMsg);
-                    homeAdapter.notifyItemInserted(homeMsgList.size()-1);
+
                 }
                     break;
             }
@@ -133,14 +123,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         svipApplication = (SVIPApplication)getActivity().getApplication();
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
-        wrapRecyclerView = (WrapRecyclerView) view.findViewById(R.id.wrapRecyclerView);
-        wrapRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        wrapRecyclerView.setLayoutManager(mLayoutManager);
+        listView = (ListView) view.findViewById(R.id.listview);
 
         if(headerView == null){
             headerView = inflater.inflate(R.layout.item_home_header,null,false);
-            wrapRecyclerView.addHeaderView(headerView);
+            listView.addHeaderView(headerView);
 
             homePicIv = (ImageView)headerView.findViewById(R.id.home_pic_iv);
             hiTextTv = (TextView)headerView.findViewById(R.id.hi_text_tv);
@@ -151,20 +138,21 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
 
         homeMsgList = new ArrayList<HomeMsgVo>();
-        homeAdapter = new HomeAdapter(homeMsgList,getActivity());
-        wrapRecyclerView.setAdapter(homeAdapter);
+        homeMsgAdapter = new HomeMsgAdapter(homeMsgList,getActivity());
+        listView.setAdapter(homeMsgAdapter);
 
     }
 
     private void initData(){
-        homeMsgList.clear();
-        HomeMsgVo welcomeMsg= new HomeMsgVo();
-        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-        welcomeMsg.setClickAble(false);
-        welcomeMsg.setMajorText("欢迎使用超级服务");
-        welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
-        homeMsgList.add(welcomeMsg);
-        homeAdapter.notifyItemInserted(0);
+//        homeMsgList.clear();
+//        HomeMsgVo welcomeMsg= new HomeMsgVo();
+//        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+//        welcomeMsg.setClickAble(false);
+//        welcomeMsg.setMajorText("欢迎使用超级服务");
+//        welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
+//        homeMsgList.add(welcomeMsg);
+//        homeMsgAdapter.setDatalist(homeMsgList);
+//        homeMsgAdapter.notifyItemInserted(0);
 
 
 
@@ -218,11 +206,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         super.onResume();
         //首页大图区
         setBigPicZone();
-        loadLastOrderInfo();
-        checktActivate();
         setBigPicAnimation();
+        checktActivate();
+        if(CacheUtil.getInstance().isLogin()){
+            getMessageDefault();
+        }else{
+            getMessageDefault();
+        }
 
-        getMessageDefault();
+
 
     }
 
@@ -385,7 +377,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         homeMsgList.add(homeMsg);
 
                     }
-                    homeAdapter.notifyDataSetChanged();
+                    homeMsgAdapter.setDatalist(homeMsgList);
+                    homeMsgAdapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -444,12 +437,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         homeMsgList.add(welcomeMsg);
 
                     }
-                    homeAdapter.notifyDataSetChanged();
-                    if(TextUtils.isEmpty(city)){
-                        city = "深圳";
-                    }
-                    getShopRecommended(city);
-
+                    homeMsgAdapter.setDatalist(homeMsgList);
+                    homeMsgAdapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());

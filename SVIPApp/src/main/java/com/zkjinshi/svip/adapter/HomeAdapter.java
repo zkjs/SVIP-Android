@@ -27,6 +27,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private DisplayImageOptions options;
 
 
+    public ArrayList<HomeMsgVo> getDatalist() {
+        return datalist;
+    }
+
+    public void setDatalist(ArrayList<HomeMsgVo> datalist) {
+        this.datalist = datalist;
+    }
 
     public HomeAdapter(ArrayList<HomeMsgVo> datalist, Context context){
         this.context = context;
@@ -49,6 +56,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        if(position >= datalist.size()){
+            return;
+        }
         HomeMsgVo homeMsgVo = datalist.get(position);
         if(TextUtils.isEmpty(homeMsgVo.getMajorText())){
             holder.majorText.setText("");
@@ -78,8 +88,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             String path = homeMsgVo.getIcon();
             ImageLoader.getInstance().displayImage(path,holder.iconIv,options);
         }
-
-
     }
 
     @Override
