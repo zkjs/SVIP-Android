@@ -85,11 +85,11 @@ public class ShopFragment extends Fragment {
         mLvShopList = (ListView) view.findViewById(R.id.lv_shop_list);
         mLlCityInfo = (LinearLayout) view.findViewById(R.id.ll_city_info);
         mEtCity     = (EditText) view.findViewById(R.id.et_city);
-        SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
     }
 
     private void initData(){
         mActivity = this.getActivity();
+        SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
         View emptyView = mActivity.getLayoutInflater().inflate(R.layout.empty_layout, null);
         TextView tips = (TextView)emptyView.findViewById(R.id.empty_tips);
         tips.setText("暂无商家");
