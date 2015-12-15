@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -81,28 +82,12 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         }else {
             holder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.item_consume_record, null);
-            holder.shopIcon     = (CircleImageView) convertView.findViewById(R.id.civ_shop_icon);
-            holder.upLine  =  convertView.findViewById(R.id.line_up);
-            holder.downLine =  convertView.findViewById(R.id.line_down);
-            holder.shopName  = (TextView) convertView.findViewById(R.id.tv_shop_name);
-            holder.good     = (TextView) convertView.findViewById(R.id.tv_good);
-            holder.price   = (TextView) convertView.findViewById(R.id.tv_price);
-            holder.orderData       = (TextView)convertView.findViewById(R.id.tv_time);
-            holder.unGrade     = (TextView)convertView.findViewById(R.id.tv_ungrade);
-            holder.gradeLayout = (LinearLayout)convertView.findViewById(R.id.layout_grade);
-            holder.starNum = (TextView)convertView.findViewById(R.id.tv_grade_value);
+            holder.shopIcon     = (CircleImageView) convertView.findViewById(R.id.order_item_cv_hotel_photo);
+            holder.hotelNameTv = (TextView)convertView.findViewById(R.id.order_item_tv_hotel_name);
+            holder.orderInfoTv = (TextView)convertView.findViewById(R.id.order_item_tv_order_info);
+            holder.comingDateTv = (TextView)convertView.findViewById(R.id.order_item_tv_coming_date);
+            holder.orderStatusTv = (TextView)convertView.findViewById(R.id.order_item_tv_order_status);
             convertView.setTag(holder);
-        }
-
-        if(position == 0){
-            holder.upLine.setVisibility(View.INVISIBLE);
-        }else{
-            holder.upLine.setVisibility(View.VISIBLE);
-        }
-        if(position == datalist.size() -1){
-            holder.downLine.setVisibility(View.INVISIBLE);
-        }else{
-            holder.downLine.setVisibility(View.VISIBLE);
         }
 
         //获得shopID网络路径
@@ -110,45 +95,61 @@ public class ConsumeRecordAdapter extends BaseAdapter {
             String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopid() + ".png";
             ImageLoader.getInstance().displayImage(logoUrl, holder.shopIcon, options);
         }
-//        SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        try {
-//            //转换成指定之间格式
-//            Date date = detailFormat.parse(itemOrder.getArrival_date());
-//            String simpleDate= simpleFormat.format(date);
-//            holder.orderData.setText(simpleDate + "");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-        holder.orderData.setText(itemOrder.getArrival_date());
-        String goodstr = itemOrder.getRoom_type()+"×"+itemOrder.getRooms();
-        holder.good.setText(goodstr);
-        String shopname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(itemOrder.getShopid());
-        holder.shopName.setText(shopname);
-        holder.price.setText("￥" + itemOrder.getRoom_rate()+"元");
-
-        if(itemOrder.getScore().equals("0")){
-            holder.gradeLayout.setVisibility(View.GONE);
-            holder.unGrade.setVisibility(View.VISIBLE);
-        }else{
-            holder.gradeLayout.setVisibility(View.VISIBLE);
-            holder.unGrade.setVisibility(View.GONE);
-            holder.starNum.setText(itemOrder.getScore());
+        holder.comingDateTv.setText(itemOrder.getArrival_date());
+        SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("MM/dd");
+        try {
+            Date date = detailFormat.parse(itemOrder.getArrival_date());
+            String simpleDate= simpleFormat.format(date) + "入住";
+            String goodstr = itemOrder.getRoom_type()+ " | " + simpleDate+ " | "+"¥ " + itemOrder.getRoom_rate();
+            holder.orderInfoTv.setText(goodstr);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+        String shopname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(itemOrder.getShopid());
+        holder.hotelNameTv.setText(shopname);
+
+        if(!TextUtils.isEmpty(itemOrder.getStatus())) {
+            switch (Integer.valueOf(itemOrder.getStatus())){
+                case BookOrder.ORDER_UNCONFIRMED:
+                    holder.orderStatusTv.setText(R.string.order_unconfirmed);
+                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    break;
+                case BookOrder.ORDER_CANCELLED:
+                    holder.orderStatusTv.setText(R.string.order_cancelled);
+                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    break;
+                case BookOrder.ORDER_CONFIRMED:
+                    holder.orderStatusTv.setText(R.string.order_confirmed);
+                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    break;
+                case BookOrder.ORDER_FINISHED:
+                    if(itemOrder.getScore().equals("0")){
+                        holder.orderStatusTv.setText("待评价");
+                        holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    }else {
+                        holder.orderStatusTv.setText(R.string.order_finished);
+                        holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai);
+                    }
+                    break;
+                case BookOrder.ORDER_USING:
+                    holder.orderStatusTv.setText(R.string.order_using);
+                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    break;
+                case BookOrder.ORDER_DELETED:
+                    holder.orderStatusTv.setText(R.string.trade_deleted);
+                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
+                    break;
+            }
+
+        }
         return convertView;
     }
 
     static class ViewHolder{
         CircleImageView shopIcon;
-        View            upLine;
-        View            downLine;
-        TextView        shopName;
-        TextView        price;
-        TextView        orderData;
-        TextView        good;
-        TextView        unGrade;
-        LinearLayout    gradeLayout;
-        TextView        starNum;
+        TextView hotelNameTv,orderInfoTv,comingDateTv,orderStatusTv;
+
     }
 }

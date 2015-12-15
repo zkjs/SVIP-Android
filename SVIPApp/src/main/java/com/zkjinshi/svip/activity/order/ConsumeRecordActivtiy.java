@@ -7,9 +7,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -59,7 +61,8 @@ public class ConsumeRecordActivtiy extends Activity {
 
     private final static String TAG = ConsumeRecordActivtiy.class.getSimpleName();
 
-    private ItemTitleView       mItvTitle;
+    private ImageButton backIBtn;
+    private TextView titleTv;
     private SwipeMenuListView   mSlvBookOrder;
 
 
@@ -85,7 +88,8 @@ public class ConsumeRecordActivtiy extends Activity {
     }
 
     private void initView() {
-        mItvTitle = (ItemTitleView) findViewById(R.id.Itv_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
         mSlvBookOrder = (SwipeMenuListView) findViewById(R.id.slv_history_order);
         mSlvBookOrder.setEmptyView(emptyView);
@@ -105,8 +109,8 @@ public class ConsumeRecordActivtiy extends Activity {
     }
 
     private void initData() {
-        mItvTitle.setTextTitle("消费记录");
-        mItvTitle.getmRight().setVisibility(View.GONE);
+        backIBtn.setVisibility(View.VISIBLE);
+        titleTv.setText("订单管理");
 
         mUserID = CacheUtil.getInstance().getUserId();
         mToken = CacheUtil.getInstance().getToken();
@@ -118,27 +122,27 @@ public class ConsumeRecordActivtiy extends Activity {
 
     private void initListener() {
         /** 返回键监听事件 */
-        mItvTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConsumeRecordActivtiy.this.finish();
             }
         });
 
-        /** 右边设置点击事件 */
-        mItvTitle.getmRight().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         mSlvBookOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
                 OrderConsumeResponse bookOrder = (OrderConsumeResponse)mBookOrderAdapter.getItem(position);
-                intent.putExtra("bookOrder",bookOrder);
+                String orderStatus = bookOrder.getStatus();
+                Intent intent = new Intent();
+                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
+                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
+                    intent.putExtra("bookOrder",bookOrder);
+                }else{
+                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
+                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
+                    intent.putExtra("shopid",bookOrder.getShopid());
+                }
                 startActivity(intent);
             }
         });
@@ -218,7 +222,7 @@ public class ConsumeRecordActivtiy extends Activity {
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", userID);
         bizMap.put("token", token);
-        bizMap.put("status", "3");
+        bizMap.put("status", "0,2,3,4");
         bizMap.put("page", currentPage+"");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
