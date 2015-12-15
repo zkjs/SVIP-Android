@@ -37,6 +37,7 @@ import com.zkjinshi.svip.utils.Constants;
 
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.view.RefreshListview;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuCreator;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenuItem;
@@ -63,7 +64,7 @@ public class ConsumeRecordActivtiy extends Activity {
 
     private ImageButton backIBtn;
     private TextView titleTv;
-    private SwipeMenuListView   mSlvBookOrder;
+    private RefreshListview   mSlvBookOrder;
 
 
     private ConsumeRecordAdapter    mBookOrderAdapter = null;
@@ -91,21 +92,8 @@ public class ConsumeRecordActivtiy extends Activity {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
-        mSlvBookOrder = (SwipeMenuListView) findViewById(R.id.slv_history_order);
+        mSlvBookOrder = (RefreshListview) findViewById(R.id.slv_history_order);
         mSlvBookOrder.setEmptyView(emptyView);
-
-        // step 1. create a MenuCreator
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());// create "delete" item
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));// set item background
-                deleteItem.setWidth(DisplayUtil.dip2px(ConsumeRecordActivtiy.this, 90));// set item width
-                deleteItem.setIcon(R.mipmap.ic_delete);// set a icon
-                menu.addMenuItem(deleteItem);// add to menu
-            }
-        };
-        mSlvBookOrder.setMenuCreator(creator);
     }
 
     private void initData() {
@@ -163,48 +151,6 @@ public class ConsumeRecordActivtiy extends Activity {
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-        });
-
-        // step 2. listener item click event
-        mSlvBookOrder.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        /** 执行订单状态删除 */
-                        int orderStatus = Integer.parseInt(mBookOrderAdapter.datalist.get(position).getStatus());
-                        if (BookOrder.ORDER_DELETED == orderStatus || BookOrder.ORDER_CANCELLED
-                                == orderStatus || BookOrder.ORDER_FINISHED == orderStatus) {
-                            updateOrderStatus(mUserID, mToken, position, BookOrder.ORDER_DELETED + "");
-                        } else {
-                            DialogUtil.getInstance().showToast(ConsumeRecordActivtiy.this, "当前订单状态不可删除");
-                        }
-                        break;
-                }
-                return false;
-            }
-        });
-
-        // set SwipeListener
-        mSlvBookOrder.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-            @Override
-            public void onSwipeStart(int position) {
-                // swipe start
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-                // swipe end
-            }
-        });
-
-        // test item long click
-        mSlvBookOrder.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                return false;
             }
         });
     }

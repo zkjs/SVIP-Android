@@ -12,11 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <com.zkjinshi.svip.view.swipelistview.SwipeMenuListView
+    <com.zkjinshi.svip.view.RefreshListview
         android:id="@+id/slv_history_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.zkjinshi.svip.view.swipelistview.SwipeMenuListView>
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/empty_view"
