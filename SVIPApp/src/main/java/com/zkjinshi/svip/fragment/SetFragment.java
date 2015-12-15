@@ -31,6 +31,8 @@ public class SetFragment extends Fragment{
 
     public static final String TAG = SetFragment.class.getSimpleName();
 
+    public static final int KILL_MYSELT = 1;
+
     private RelativeLayout accountInfoLayout,orderManagerLayout,setLayout;
     private CircleImageView userPhotoIv;
     private TextView userNameTv;
@@ -93,11 +95,21 @@ public class SetFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,KILL_MYSELT);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
         });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == getActivity().RESULT_OK){
+            if(requestCode == KILL_MYSELT){
+                getActivity().finish();
+            }
+        }
 
     }
 

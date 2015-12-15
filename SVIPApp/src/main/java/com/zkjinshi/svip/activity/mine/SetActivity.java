@@ -130,6 +130,7 @@ public class SetActivity extends Activity {
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent loginActiviy = new Intent(SetActivity.this, LoginActivity.class);
                 startActivity(loginActiviy);
+                setResult(RESULT_OK);
                 finish();
 
             }
