@@ -445,4 +445,7 @@ public class ProtocolUtil {
     }
 
 
+    public static String getArriveNoticeUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"arrive/notice";
+    }
 }

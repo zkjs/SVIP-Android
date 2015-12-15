@@ -559,4 +559,7 @@
 
     <color name="BackgroundBlack">#101010</color>
 
+    <color name="light_yellow">#ffc56e</color>
+    <color name="light_black">#666666</color>
+
 </resources>

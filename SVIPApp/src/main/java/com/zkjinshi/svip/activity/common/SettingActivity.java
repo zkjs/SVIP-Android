@@ -11,9 +11,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -58,39 +60,33 @@ public class SettingActivity extends Activity implements View.OnClickListener {
 
     public static final String TAG = SettingActivity.class.getSimpleName();
 
-    private ItemTitleView mTitle;//返回
+    private ImageButton backIBtn;
+    private TextView titleTv;
     private CircleImageView mUserIcon;//用户头像
     private RelativeLayout mItemUserIcon;//头像条目
-    private ItemUserSettingView mUserName;//用户昵称
     private ItemUserSettingView mUserPhone;//用户手机
     private ItemUserSettingView mUserSex;//用户性别
     private ItemUserSettingView mRealName;//真实姓名
-    private ItemUserSettingView mLabelTaste;//口味标签
     private ItemUserSettingView mTicketInfo;//发票信息
-    private ItemUserSettingView mCompany;//单位
     private ItemUserSettingView mEmail;//邮箱
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
         initView();//初始化view
         initData();//初始化data加入
         initListener();
     }
 
     private void initView() {
-        mTitle            = (ItemTitleView)       findViewById(R.id.itv_setting_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         mUserIcon        = (CircleImageView)     findViewById(R.id.civ_user_icon);
         mItemUserIcon    = (RelativeLayout)      findViewById(R.id.rl_user_icon_img);
-        mUserName         = (ItemUserSettingView) findViewById(R.id.ius_user_name);
         mUserPhone      = (ItemUserSettingView) findViewById(R.id.ius_user_phone);
         mUserSex        = (ItemUserSettingView) findViewById(R.id.ius_user_sex);
-        mCompany        = (ItemUserSettingView) findViewById(R.id.ius_company);
-        mLabelTaste     = (ItemUserSettingView) findViewById(R.id.ius_fan_label);
         mEmail            = (ItemUserSettingView) findViewById(R.id.ius_email);
         mTicketInfo        = (ItemUserSettingView) findViewById(R.id.ius_ticket_info);
         mRealName          = (ItemUserSettingView)findViewById(R.id.ius_real_name);
@@ -98,15 +94,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     }
 
     private void initListener() {
-        mTitle.getmLeft().setOnClickListener(this);
+        backIBtn.setOnClickListener(this);
        // mUserIcon.setOnClickListener(this);
         findViewById(R.id.rl_user_icon_img).setOnClickListener(this);
         mItemUserIcon.setOnClickListener(this);
-        mUserName.setOnClickListener(this);
         mUserPhone.setOnClickListener(this);
         mUserSex.setOnClickListener(this);
-        mCompany.setOnClickListener(this);
-        mLabelTaste.setOnClickListener(this);
         mEmail.setOnClickListener(this);
         mTicketInfo.setOnClickListener(this);
         mRealName.setOnClickListener(this);
@@ -117,8 +110,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private void initData(){
         MineUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
-        mTitle.getmRight().setVisibility(View.INVISIBLE);
-        mTitle.setTextTitle("设置");
+        backIBtn.setVisibility(View.VISIBLE);
+        titleTv.setText("账户信息");
 
 
         String url = ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),CacheUtil.getInstance().getUserId());
@@ -173,9 +166,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
      */
     private void setViewData(UserInfoVo userInfoVo){
         String userPhotoSuffix = userInfoVo.getUserAvatar();
-        String userNameStr = userInfoVo.getUsername();
         String mobilePhoneStr = userInfoVo.getMobilePhoto();
-        String companyStr = userInfoVo.getCompany();
         String realNameStr = userInfoVo.getRealName();
         Sex sex = userInfoVo.getSex();
         String emailStr = userInfoVo.getEmail();
@@ -188,17 +179,11 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         if(!TextUtils.isEmpty(realNameStr)){
             mRealName.setTextContent2(realNameStr);
         }
-        if(!TextUtils.isEmpty(userNameStr)){
-            mUserName.setTextContent2(userNameStr);
-        }
         if(null != sex && sex == Sex.BOY){
             mUserSex.setTextContent2("男");
         }
         else{
             mUserSex.setTextContent2("女");
-        }
-        if(!TextUtils.isEmpty(companyStr)){
-            mCompany.setTextContent2(companyStr);
         }
         if(!TextUtils.isEmpty(emailStr)){
             mEmail.setTextContent2(emailStr);
@@ -220,12 +205,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                     break;
                 case Constants.FLAG_MODIFY_REAL_NAME:
                     mRealName.setTextContent2(data.getStringExtra("new_value"));
-                    break;
-                case Constants.FLAG_MODIFY_USER_NAME:
-                    mUserName.setTextContent2(data.getStringExtra("new_value"));
-                    break;
-                case Constants.FLAG_MODIFY_REMARK:
-                    mCompany.setTextContent2(data.getStringExtra("new_value"));
                     break;
                 case Constants.FLAG_MODIFY_EMAIL:
                     mEmail.setTextContent2(data.getStringExtra("new_value"));
@@ -374,7 +353,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         Intent intent = null;
         switch (view.getId()){
             //返回
-            case R.id.rl_left:
+            case R.id.header_bar_btn_back:
             finish();
                 break;
             //选择头像
@@ -394,32 +373,8 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
                 break;
-            case R.id.ius_user_name:
-                intent = new Intent(SettingActivity.this,SettingItemActivity.class);
-                intent.putExtra("modify_type",Constants.FLAG_MODIFY_USER_NAME);
-                intent.putExtra("title","修改昵称");
-                intent.putExtra("hint","取个昵称，让更多人认识你。");
-                intent.putExtra("tips","");
-                intent.putExtra("field_key","username");
-                intent.putExtra("field_value", mUserName.getTextContent2());
-                startActivityForResult(intent, Constants.FLAG_MODIFY_USER_NAME);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
-                break;
             case R.id.ius_user_sex:
                 showSexDialog();
-                break;
-            case R.id.ius_company:
-                intent = new Intent(SettingActivity.this,SettingItemActivity.class);
-                intent.putExtra("modify_type",Constants.FLAG_MODIFY_REMARK);
-                intent.putExtra("title","修改公司/单位");
-                intent.putExtra("hint","输入你的单位名称。");
-                intent.putExtra("tips","建议输入全名 如XX市XX科技有限公司");
-                intent.putExtra("field_key","remark");
-                intent.putExtra("field_value", mCompany.getTextContent2());
-                startActivityForResult(intent, Constants.FLAG_MODIFY_REMARK);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
                 break;
             case R.id.ius_email:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
@@ -440,11 +395,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.ius_ticket_info:
                 startActivity(new Intent(SettingActivity.this,SettingTicketsActivity.class));
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
-                break;
-            case R.id.ius_fan_label:
-                startActivity(new Intent(SettingActivity.this,SettingTagsActivity.class));
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
                 break;
