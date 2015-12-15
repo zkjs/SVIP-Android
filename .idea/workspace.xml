@@ -41,7 +41,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -7301,12 +7300,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00001" summary="1.添加默认入住人姓名显示">
-      <created>1447686467078</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1447686467078</updated>
-    </task>
     <task id="LOCAL-00002" summary="1.添加默认入住人姓名显示">
       <created>1447686726012</created>
       <option name="number" value="00002" />
@@ -7595,7 +7588,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450147297251</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="1. api 地址更新">
+      <created>1450147761740</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1450147761741</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView">
