@@ -121,6 +121,10 @@ public class SetActivity extends Activity {
                 WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
                 //修改登录状态
                 CacheUtil.getInstance().setLogin(false);
+                CacheUtil.getInstance().setActivate(false);
+                CacheUtil.getInstance().setUserId("");
+                CacheUtil.getInstance().setUserName("");
+                CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
                 ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();

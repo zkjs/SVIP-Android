@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseFragment;
+import com.zkjinshi.svip.net.RequestUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,10 @@ public class MessageFragment extends Fragment {
     }
 
     private void initData(){
+        if(!CacheUtil.getInstance().isLogin()){
+            RequestUtil.showLoginDialog(getActivity());
+            return;
+        }
         mActivity     = this.getActivity();
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new MessageCenterFragment());

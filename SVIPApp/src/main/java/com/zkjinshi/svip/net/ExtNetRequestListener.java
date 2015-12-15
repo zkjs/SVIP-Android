@@ -51,7 +51,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
             if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
                 if(context instanceof Activity){
                    // DialogUtil.getInstance().showToast(context, "Token失效，请重新登录!");
-                  showLoginDialog();
+                  RequestUtil.showLoginDialog((Activity) context);
                 }
             }
         }catch (Exception e){
@@ -65,30 +65,5 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
         Log.i(ExtNetRequestListener.class.getSimpleName(),"beforeNetworkRequestStart");
     }
 
-    public void showLoginDialog(){
-        final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(context);
-        customerBuilder.setTitle("登录");
-        customerBuilder.setMessage("Token失效或者未登录，请重新登录!");
-        customerBuilder.setGravity(Gravity.CENTER);
-        customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
 
-        customerBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                CacheUtil.getInstance().setLogin(false);
-                CacheUtil.getInstance().savePicPath("");
-                ImageLoader.getInstance().clearDiskCache();
-                ImageLoader.getInstance().clearMemoryCache();
-                Intent intent = new Intent(context,LoginActivity.class);
-                context.startActivity(intent);
-                ((Activity)context).finish();
-            }
-        });
-        customerBuilder.create().show();
-    }
 }

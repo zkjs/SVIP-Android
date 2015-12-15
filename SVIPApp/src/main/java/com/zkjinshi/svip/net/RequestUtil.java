@@ -1,5 +1,16 @@
 package com.zkjinshi.svip.net;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.Gravity;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 
 import org.apache.http.HttpResponse;
@@ -11,6 +22,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
 
@@ -53,6 +65,8 @@ public class RequestUtil {
         httpclient.getParams().setParameter(
                 HttpProtocolParams.USER_AGENT,
                 "android");
+        httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
+        httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
         HttpResponse httpResponse = httpclient.execute(httpRequest);
         if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
         {
@@ -98,6 +112,8 @@ public class RequestUtil {
         }
         HttpPost httpPost = new HttpPost(requestUrl);
         HttpClient httpClient = new DefaultHttpClient();
+        httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
+        httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
         httpPost.setEntity(multipartEntity);
         HttpResponse response = httpClient.execute(httpPost);
         int respCode = 0;
@@ -187,6 +203,38 @@ public class RequestUtil {
         outStream.close();
         conn.disconnect();
         return result.toString();
+    }
+
+
+    public static void showLoginDialog(final Activity activity){
+        final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(activity);
+        customerBuilder.setTitle("登录");
+        customerBuilder.setMessage("Token失效或者未登录，请重新登录!");
+        customerBuilder.setGravity(Gravity.CENTER);
+        customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        customerBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                CacheUtil.getInstance().setLogin(false);
+                CacheUtil.getInstance().setActivate(false);
+                CacheUtil.getInstance().setUserId("");
+                CacheUtil.getInstance().setUserName("");
+                CacheUtil.getInstance().setUserPhone("");
+                CacheUtil.getInstance().savePicPath("");
+                ImageLoader.getInstance().clearDiskCache();
+                ImageLoader.getInstance().clearMemoryCache();
+                Intent intent = new Intent(activity,LoginActivity.class);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+        customerBuilder.create().show();
     }
 
 }

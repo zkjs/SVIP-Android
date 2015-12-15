@@ -18,6 +18,7 @@ import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -44,6 +45,10 @@ public class SetFragment extends Fragment{
     }
 
     private void initData(){
+        if(!CacheUtil.getInstance().isLogin()){
+            RequestUtil.showLoginDialog(getActivity());
+            return;
+        }
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_logo_zhanwei)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_logo_zhanwei)// 设置图片Uri为空或是错误的时候显示的图片

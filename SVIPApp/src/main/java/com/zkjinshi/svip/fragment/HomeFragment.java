@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -261,6 +262,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         super.onPause();
         LocationManager.getInstance().removeLocation();
         MainController.getInstance().pauseBigPicAnimation();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 
     public void setBigPicAnimation(){
