@@ -6,16 +6,11 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/Itv_title"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/header_bar"
         android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:rightImage="@mipmap/ic_gengduo"
-        zkjinshi:itemTitleColor="#FFFFFF">
-
-    </com.zkjinshi.svip.view.ItemTitleView>
+        android:layout_width="match_parent"/>
 
     <com.zkjinshi.svip.view.swipelistview.SwipeMenuListView
         android:id="@+id/slv_history_order"

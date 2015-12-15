@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="#ccc"/>
+        android:background="#e3e3e3"/>
 
     <fragment
         android:id="@+id/main_frame_footer_tab_navigation"
