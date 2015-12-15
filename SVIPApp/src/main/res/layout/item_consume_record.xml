@@ -1,143 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="100dp"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/White">
 
-            <View
-                android:id="@+id/line_up"
-                android:layout_gravity="center"
-                android:layout_width="0.5dp"
-                android:background="#bbbbbb"
-                android:layout_height="0dp"
-                android:layout_weight="1.0">
-            </View>
+        <com.zkjinshi.svip.view.CircleImageView
+            android:id="@+id/order_item_cv_hotel_photo"
+            android:layout_height="64dp"
+            android:layout_width="64dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/img_hotel_anli03" />
 
-            <com.zkjinshi.svip.view.CircleImageView
-                android:id="@+id/civ_shop_icon"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_centerHorizontal="true" />
-
-            <View
-                android:id="@+id/line_down"
-                android:layout_gravity="center"
-                android:layout_width="0.5dp"
-                android:background="#bbbbbb"
-                android:layout_height="0dp"
-                android:layout_weight="1.0">
-            </View>
-
-
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical= "true"
+            android:layout_toRightOf="@id/order_item_cv_hotel_photo"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/tv_shop_name"
+                android:id="@+id/order_item_tv_hotel_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="铂涛菲诺大酒店"
+                android:text="豪庭大酒店"
                 android:textSize="14sp"
-                android:textColor="#101010"
-                android:layout_marginLeft="5dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:textColor="#101010"/>
+
+            <TextView
+                android:id="@+id/order_item_tv_order_info"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp">
-                <TextView
-                    android:id="@+id/tv_good"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="豪华大床房x1 "
-                    android:textSize="16sp"
-                    android:singleLine="true"
-                    android:textColor="#101010"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="￥1088.5"
-                    android:textSize="14sp"
-                    android:textColor="#101010"
-                    android:layout_marginRight="10dp"/>
-            </LinearLayout>
+                android:text="豪华大床房 | 12/29入住 | ¥ 1288.50"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:textColor="#666666"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/order_item_tv_coming_date"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_clock"/>
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2015-08-25"
-                    android:textSize="14sp"
-                    android:textColor="#828282"
-                    android:layout_marginLeft="5dp"/>
-
-                <TextView
-                    android:id="@+id/tv_ungrade"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="未评价"
-                    android:textSize="12sp"
-                    android:textColor="#ff9800"
-                    android:layout_marginLeft="15dp"
-                   />
-                <LinearLayout
-                    android:id="@+id/layout_grade"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:background="@mipmap/ic_yuanjiaojuxing">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_star"/>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="#ffffff"
-                        android:layout_marginLeft="5dp"></View>
-
-                    <TextView
-                        android:id="@+id/tv_grade_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textColor="#ffffff"
-                        android:textSize="12sp"
-                        android:layout_marginLeft="5dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:text="2015-08-25"
+                android:drawableLeft="@mipmap/ic_time"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textColor="#b8b8b8"/>
 
         </LinearLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/order_item_tv_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:text="待支付"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:background="@mipmap/btn_zhuantai_orange"
+            android:textColor="@android:color/white"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#e3e3e3"/>
+
+
 </LinearLayout>
+
+
+

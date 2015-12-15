@@ -20,27 +20,16 @@
                 android:id="@+id/set_layout_user_account_info"
                 android:layout_width="match_parent"
                 android:clickable="true"
-                android:background="@drawable/bg_layout_item_selector"
+                android:background="#ffc56e"
                 android:layout_height="80dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="账户信息"
-                    android:textSize="16sp"
-                    android:textColor="#666666"
-                    android:layout_centerVertical="true"
-                    />
 
                 <com.zkjinshi.svip.view.CircleImageView
                     android:id="@+id/set_uv_user_photo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_gravity="center"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
                     android:scaleType="center"
                     android:clickable="true"
                     android:background="@mipmap/ic_main_user_default_photo_nor"/>
@@ -49,13 +38,22 @@
                     android:id="@+id/set_uv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/set_uv_user_photo"
-                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/set_uv_user_photo"
+                    android:layout_marginLeft="10dp"
                     android:text="张三"
                     android:textSize="14sp"
-                    android:textColor="#666666"
+                    android:textColor="@android:color/white"
                     android:layout_centerVertical="true"
                     />
+                
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_right_white"
+                    android:scaleType="centerInside"/>
 
             </RelativeLayout>
 
@@ -70,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:clickable="true"
                 android:background="@drawable/bg_layout_item_selector"
-                android:layout_height="44dp">
+                android:layout_height="48dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,6 +79,15 @@
                     android:textColor="#666666"
                     android:layout_centerVertical="true"
                     />
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_right_orange"
+                    android:scaleType="centerInside"/>
 
             </RelativeLayout>
 
@@ -94,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:clickable="true"
                 android:background="@drawable/bg_layout_item_selector"
-                android:layout_height="44dp">
+                android:layout_height="48dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,6 +112,15 @@
                     android:textColor="#666666"
                     android:layout_centerVertical="true"
                     />
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/ic_right_orange"
+                    android:scaleType="centerInside"/>
 
             </RelativeLayout>
 

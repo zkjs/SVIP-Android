@@ -81,7 +81,7 @@ public class ItemUserSettingView extends RelativeLayout{
     }
 
     public void setTextContent2Color(int colorResId){
-        mTextContent2.setTextColor(colorResId);
+        mTextContent2.setTextColor(getContext().getResources().getColor(colorResId));
     }
 
     /**

@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
+import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -75,7 +76,7 @@ public class SetFragment extends Fragment{
         orderManagerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
