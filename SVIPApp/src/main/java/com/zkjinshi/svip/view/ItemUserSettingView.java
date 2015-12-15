@@ -80,6 +80,10 @@ public class ItemUserSettingView extends RelativeLayout{
         mTextContent2.setText(textContent2);
     }
 
+    public void setTextContent2Color(int colorResId){
+        mTextContent2.setTextColor(colorResId);
+    }
+
     /**
      * 取参数2
      *

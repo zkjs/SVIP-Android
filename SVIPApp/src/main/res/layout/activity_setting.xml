@@ -7,19 +7,16 @@
     android:background="#e3e3e3"
     android:orientation="vertical">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_setting_title"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/header_bar"
         android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="设置"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        android:layout_width="match_parent"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/itv_setting_title">
+        android:layout_below="@+id/head_bar_layout">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -37,7 +34,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:paddingLeft="15dp"
-                    android:text="头像"
+                    android:text="身份图片"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -66,15 +63,6 @@
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="姓名" />
 
-
-                <com.zkjinshi.svip.view.ItemUserSettingView
-                    android:id="@+id/ius_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    zkjinshi:itemSettingTitle="昵称" />
-
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/ius_user_sex"
                     android:layout_width="match_parent"
@@ -82,14 +70,6 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="性别" />
-
-                <com.zkjinshi.svip.view.ItemUserSettingView
-                    android:id="@+id/ius_company"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    zkjinshi:itemSettingTitle="单位" />
 
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/ius_email"
@@ -115,14 +95,6 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="发票信息" />
-
-                <com.zkjinshi.svip.view.ItemUserSettingView
-                    android:id="@+id/ius_fan_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    zkjinshi:itemSettingTitle="偏好标签" />
 
             </LinearLayout>
 

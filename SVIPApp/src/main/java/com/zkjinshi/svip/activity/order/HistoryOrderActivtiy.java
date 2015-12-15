@@ -225,7 +225,7 @@ public class HistoryOrderActivtiy extends Activity {
         bizMap.put("token", token);
         bizMap.put("set", Constants.QUREY_ORDER + "");
         bizMap.put("page", currentPage+"");
-        bizMap.put("status", "0,2,4");
+        bizMap.put("status", "0,2,3,4");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;

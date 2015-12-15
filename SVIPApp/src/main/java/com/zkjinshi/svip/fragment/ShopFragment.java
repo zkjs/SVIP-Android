@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -88,6 +89,7 @@ public class ShopFragment extends Fragment {
 
     private void initData(){
         mActivity = this.getActivity();
+        SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
         View emptyView = mActivity.getLayoutInflater().inflate(R.layout.empty_layout, null);
         TextView tips = (TextView)emptyView.findViewById(R.id.empty_tips);
         tips.setText("暂无商家");
@@ -99,8 +101,10 @@ public class ShopFragment extends Fragment {
         mLvShopList.setAdapter(mShopAdapter);
 
         String city = mEtCity.getText().toString();
-        if(!TextUtils.isEmpty(city)){
+        if (!TextUtils.isEmpty(city)){
             getShopListByCity(city);
+        } else {
+            getShopList();
         }
     }
 
@@ -128,13 +132,14 @@ public class ShopFragment extends Fragment {
         });
 
         //输入框点击事件
-        mEtCity.setOnClickListener(new View.OnClickListener() {
+        mEtCity.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
+            public boolean onTouch(View v, MotionEvent event) {
+
                 Intent cityChoose = new Intent(mActivity, CityListActivity.class);
                 startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
                 mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                return false;
             }
         });
     }
@@ -192,6 +197,46 @@ public class ShopFragment extends Fragment {
                 }
             }
         }
+    }
 
+    public void getShopList() {
+        String url = ProtocolUtil.getShopListUrl();
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<List<ShopBean>>(){}.getType();
+                    Gson gson = new Gson();
+                    mShopList = gson.fromJson(result.rawResult, listType);
+                    mShopAdapter.setData(mShopList);
+                    LogUtil.getInstance().info(LogLevel.INFO, "shoplistByCity:" + mShopList);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 }

@@ -14,7 +14,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
+import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -62,7 +64,10 @@ public class SetFragment extends Fragment{
         accountInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
 
@@ -70,7 +75,10 @@ public class SetFragment extends Fragment{
         orderManagerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
 
@@ -80,6 +88,8 @@ public class SetFragment extends Fragment{
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
             }
         });
 

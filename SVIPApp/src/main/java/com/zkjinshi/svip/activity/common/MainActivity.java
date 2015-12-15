@@ -211,9 +211,12 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
                             }
                         }
                 );
+                //区域位置变化通知
+               // MainController.getInstance().requestArriveNoticeTask(shopid,locId);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

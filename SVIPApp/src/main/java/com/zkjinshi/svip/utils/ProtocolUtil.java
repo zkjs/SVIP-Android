@@ -48,7 +48,6 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getHttpDomain()+"comment/add";
     }
 
-
     /**
      * 获取用户id请求URL
      * @param token
@@ -381,7 +380,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getCityListUrl() {
-        return  ConfigUtil.getInst().getHttpDomain()+"arrive/citylist";
+        return ConfigUtil.getInst().getHttpDomain()+"arrive/citylist";
     }
 
     /**
@@ -389,9 +388,8 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListUrl() {
-        return  ConfigUtil.getInst().getConfigValue()+"list";
+        return ConfigUtil.getInst().getApiDomain()+"shop/list";
     }
-
 
     /**
      * 根据城市名称获取商家列表
@@ -401,7 +399,8 @@ public class ProtocolUtil {
         // old api
         //return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
         // new api
-        return  ConfigUtil.getInst().getConfigValue()+"list?city=" + city;
+//        return  "http://mmm.zkjinshi.com/shop/list?city=" + city;
+        return  ConfigUtil.getInst().getApiDomain()+"shop/list?city=" + city;
     }
 
     /**
@@ -445,4 +444,7 @@ public class ProtocolUtil {
     }
 
 
+    public static String getArriveNoticeUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"arrive/notice";
+    }
 }

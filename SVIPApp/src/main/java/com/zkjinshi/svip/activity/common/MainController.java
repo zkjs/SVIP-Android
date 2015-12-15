@@ -298,66 +298,40 @@ public class MainController {
         netRequestTask.execute();
     }
 
-    /**
-     * 初始化专属客服列表信息
-     */
-//    public void initServerPersonal(){
-//        String url = ProtocolUtil.getUserMysemp();
-//        Log.i(TAG, url);
-//        NetRequest netRequest = new NetRequest(url);
-//        HashMap<String,String> bizMap = new HashMap<String,String>();
-//        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-//        bizMap.put("token", CacheUtil.getInstance().getToken());
-//        netRequest.setBizParamMap(bizMap);
-//        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-//        netRequestTask.methodType = MethodType.PUSH;
-//        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-//            @Override
-//            public void onNetworkRequestError(int errorCode, String errorMessage) {
-//                Log.i(TAG, "errorCode:" + errorCode);
-//                Log.i(TAG, "errorMessage:" + errorMessage);
-//            }
-//
-//            @Override
-//            public void onNetworkRequestCancelled() {
-//
-//            }
-//
-//            @Override
-//            public void onNetworkResponseSucceed(NetResponse result) {
-//                super.onNetworkResponseSucceed(result);
-//                Log.i(TAG, "result.rawResult:" + result.rawResult);
-//                try {
-//                    Type listType = new TypeToken<List<ServerPersonalVo>>() {
-//                    }.getType();
-//                    Gson gson = new Gson();
-//                    List<ServerPersonalVo> serverPersonalVoList = gson.fromJson(result.rawResult, listType);
-//                    TextView activateTv = (TextView)activity.findViewById(R.id.activate_tv);
-//                    if (serverPersonalVoList != null && serverPersonalVoList.size() > 0) {
-//                        CacheUtil.getInstance().setActivate(true);
-//                        activateTv.setText("（已激活）");
-//                        activity.findViewById(R.id.tips_layout).setVisibility(View.GONE);
-//                        ServerPeronalDBUtil.getInstance().batchAddServerPernal(serverPersonalVoList);
-//                    } else {
-//                        activateTv.setText("（未激活）");
-//                        activity.findViewById(R.id.tips_layout).setVisibility(View.VISIBLE);
-//                        CacheUtil.getInstance().setActivate(false);
-//                    }
-//
-//
-//                } catch (Exception e) {
-//                    Log.e(TAG, e.getMessage());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void beforeNetworkRequestStart() {
-//
-//            }
-//        });
-//        netRequestTask.isShowLoadingDialog = true;
-//        netRequestTask.execute();
-//    }
+    public void requestArriveNoticeTask(String shopId,String locId){{
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getArriveNoticeUrl());
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("Userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("Locid", locId);
+        bizMap.put("Shopid", shopId);
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+    }}
     
 }
