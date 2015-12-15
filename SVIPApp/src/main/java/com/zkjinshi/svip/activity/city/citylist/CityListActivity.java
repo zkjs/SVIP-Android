@@ -94,7 +94,7 @@ public class CityListActivity extends Activity {
 
         citysearch = (TextView) city_layout.findViewById(R.id.city_search_edittext);
         backbutton = (ImageButton) city_layout.findViewById(R.id.title_left_btn);
-        mCityLit = (ListView) city_layout.findViewById(R.id.public_allcity_list);
+        mCityLit   = (ListView) city_layout.findViewById(R.id.public_allcity_list);
         letterListView = (MyLetterListView) city_layout.findViewById(R.id.cityLetterListView);
 
         View cityhot_header_blank = localLayoutInflater.inflate(R.layout.public_cityhot_header_padding_blank, mCityLit, false);

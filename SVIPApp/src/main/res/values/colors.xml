@@ -520,6 +520,7 @@
     <color name="blue_039be5">#039be5</color>
     <color name="TransparentGray">#7F000000</color>
     <color name="TransparentLightGray">#32000000</color>
+    <color name="TransparentBlack">#10000000</color>
     <color name="gray525252">#525252</color>
     <color name="eeeeee">#eeeeee</color>
 
