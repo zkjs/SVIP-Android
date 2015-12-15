@@ -20,6 +20,15 @@ public class HomeMsgVo extends BaseResponse {
     private String icon="";
     private HomeMsgType msgType;
     private String shopid="";
+    private String orderNo;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getShopid() {
         return shopid;

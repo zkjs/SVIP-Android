@@ -447,4 +447,21 @@ public class ProtocolUtil {
     public static String getArriveNoticeUrl(){
         return ConfigUtil.getInst().getApiDomain()+"arrive/notice";
     }
+
+    /**
+     * 获取合适分辨率的图片URL
+     * @return
+     */
+    public static String getFitPicUrl(String path,String file){
+        return path+"andriod/"+CacheUtil.getInstance().getBestFitPixel()+"/"+file;
+
+    }
+
+    /**
+     * 获取用户订单状态消息
+     * @return
+     */
+    public static String getOrderMsgUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"messages/orders";
+    }
 }

@@ -19,11 +19,14 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+
+import org.apache.log4j.chainsaw.Main;
 
 /**
  * 开机启动页面
@@ -50,6 +53,7 @@ SplashActivity extends Activity {
 
     private static final int GO_LOGIN = 1000;
     private static final int GO_HOME = 1001;
+    private static final int GO_HOME_NO_lOGIN = 1002;
     private Animation skyDropOutAnim,logoFadeInAnim,logoFadeOutAnim, textFadeInAnim, textFadeOutAnim;
 
     public static final int OPEN_SET_ACTION_FLAG = 1;
@@ -58,8 +62,25 @@ SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        initBestFitPixel();
         initView();
         initData();
+    }
+
+    //初始化最适合的图片分辨率
+    private void initBestFitPixel() {
+        int myPixel = DisplayUtil.getWidthPixel(this);
+        int apiSupportPixels[] = {480,720,1080,1920};
+        int bestFitPixel = 720;
+        int offset = Math.abs(bestFitPixel - myPixel);
+        for(int i=0;i<apiSupportPixels.length;i++){
+            int temp = Math.abs(apiSupportPixels[i] - myPixel);
+            if(temp < offset ){
+                offset = temp;
+                bestFitPixel = apiSupportPixels[i];
+            }
+        }
+        CacheUtil.getInstance().setBestFitPixel(bestFitPixel);
     }
 
     private void initView(){
@@ -150,8 +171,8 @@ SplashActivity extends Activity {
                 // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
                 handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             } else {
-                handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
-               // handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
+                //handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
+               handler.sendEmptyMessageDelayed(GO_HOME_NO_lOGIN, SPLASH_DELAY_MILLIS);
             }
         }else{
             showNetDialog();
@@ -166,10 +187,7 @@ SplashActivity extends Activity {
     }
 
     private void goHome() {
-//        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-//        SplashActivity.this.startActivity(mainIntent);
-//        SplashActivity.this.finish();
-//        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+
         LoginController.getInstance().init(this);
         LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,null);
     }
@@ -185,12 +203,21 @@ SplashActivity extends Activity {
                 case GO_HOME:
                     goHome();
                     break;
+                case GO_HOME_NO_lOGIN:
+                    goHomeNoLogin();
                 default:
                     break;
             }
             super.handleMessage(msg);
         }
     };
+
+    private void goHomeNoLogin() {
+        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+        SplashActivity.this.startActivity(mainIntent);
+        SplashActivity.this.finish();
+        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+    }
 
     private void showNetDialog(){
 

@@ -382,6 +382,7 @@ public class OrderBookingActivity extends Activity {
                         @Override
                         public void onNetworkResponseSucceed(NetResponse result) {
                             Log.i(TAG, "result:" + result.rawResult);
+                            super.onNetworkResponseSucceed(result);
                             CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
                             if (null != customerServiceListResponse) {
                                 HeadBean head = customerServiceListResponse.getHead();

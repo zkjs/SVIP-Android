@@ -2,11 +2,16 @@ package com.zkjinshi.svip.net;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -45,11 +50,8 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
             BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
             if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
                 if(context instanceof Activity){
-                    DialogUtil.getInstance().showToast(context, "Token失效，请重新登录!");
-                    CacheUtil.getInstance().setLogin(false);
-                    Intent intent = new Intent(context,LoginActivity.class);
-                    context.startActivity(intent);
-                    ((Activity)context).finish();
+                   // DialogUtil.getInstance().showToast(context, "Token失效，请重新登录!");
+                  showLoginDialog();
                 }
             }
         }catch (Exception e){
@@ -61,5 +63,32 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
     @Override
     public void beforeNetworkRequestStart() {
         Log.i(ExtNetRequestListener.class.getSimpleName(),"beforeNetworkRequestStart");
+    }
+
+    public void showLoginDialog(){
+        final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(context);
+        customerBuilder.setTitle("登录");
+        customerBuilder.setMessage("Token失效或者未登录，请重新登录!");
+        customerBuilder.setGravity(Gravity.CENTER);
+        customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        customerBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                CacheUtil.getInstance().setLogin(false);
+                CacheUtil.getInstance().savePicPath("");
+                ImageLoader.getInstance().clearDiskCache();
+                ImageLoader.getInstance().clearMemoryCache();
+                Intent intent = new Intent(context,LoginActivity.class);
+                context.startActivity(intent);
+                ((Activity)context).finish();
+            }
+        });
+        customerBuilder.create().show();
     }
 }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#e3e3e3"
-        android:dividerHeight="1px">
+        android:dividerHeight="0px">
     </ListView>
 
 </LinearLayout>

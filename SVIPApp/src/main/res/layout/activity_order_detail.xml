@@ -46,7 +46,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/title_layout">
+                    android:id="@+id/title_layout"
+                    android:background="#33000000">
                     <ImageView
                         android:id="@+id/back_iv"
                         android:layout_width="50dp"
@@ -62,13 +63,16 @@
                         android:textColor="#ffffff"
                         android:layout_centerInParent="true"/>
 
-                    <ImageView
-                        android:id="@+id/delete_iv"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:scaleType="centerInside"
-                        android:src="@mipmap/ic_quxiao_orange"
-                        android:layout_alignParentRight="true"/>
+                    <TextView
+                        android:id="@+id/delete_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="#ffc56e"
+                        android:text="取消"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"/>
 
                 </RelativeLayout>
                 <LinearLayout
