@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/city_search_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -15,14 +14,30 @@
         android:gravity="center_vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_back"
+            android:clickable="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/left_title_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_fanhui_orange"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="32.0dip"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="6.0dip"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/iv_cancel"
-            android:layout_marginLeft="@dimen/city_search_margin_landr_dimen"
-            android:layout_marginRight="@dimen/city_search_margin_landr_dimen"
             android:layout_marginTop="6.0dip"
             android:background="@drawable/city_search_bg" >
 
@@ -32,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="9.0dip"
+                android:layout_marginLeft="5dip"
                 android:src="@drawable/ic_action_action_search" />
 
             <EditText
@@ -62,19 +77,17 @@
 
         </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/left_title_button"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/ic_quxiao"/>
-
     </LinearLayout>
 
     <ListView
         android:id="@+id/searchresult"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/city_search_bg"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/divider_line_color"
+        android:dividerHeight="0.50dp"
+        android:listSelector="@android:color/transparent">
     </ListView>
 
 </LinearLayout>

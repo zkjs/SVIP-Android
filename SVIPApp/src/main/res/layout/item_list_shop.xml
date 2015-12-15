@@ -44,11 +44,6 @@
                 android:paddingRight="88dp"
                 android:text="商家描述" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.50dp"
-                android:background="@color/BackgroundBlack"></View>
-
         </LinearLayout>
 
     </LinearLayout>

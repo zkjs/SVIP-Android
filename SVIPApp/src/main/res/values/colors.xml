@@ -548,7 +548,7 @@
     <color name="b8b8b8">#b8b8b8</color>
     <color name="gray666666">#666666</color>
     <color name="ffc56e">#ffc56e</color>
-    <color name="city_search_bg">#fff2f2f2</color>
+
     <color name="city_item_letter_color">#ff8c8c8c</color>
     <color name="dialog_title_color">#ff333333</color>
 
@@ -556,11 +556,17 @@
     <color name="city_item_text_color">#ff5c5c5c</color>
 
     <color name="TextColorBlack">#101010</color>
+    <color name="TextColorGray">#666666</color>
     <color name="TextColorOrange">#fac473</color>
 
     <color name="BackgroundBlack">#101010</color>
+    <color name="BackgroundWhite">#fafafa</color>
+    <color name="BackgroundGray">#e3e3e3</color>
+
+    <color name="city_search_bg">#fff2f2f2</color>
 
     <color name="light_yellow">#ffc56e</color>
     <color name="light_black">#666666</color>
 
+    <color name="DivederColorBlack">#101010</color>
 </resources>

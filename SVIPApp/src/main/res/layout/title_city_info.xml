@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/ll_city_info"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clickable="true"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:layout_width="match_parent"
@@ -11,15 +9,17 @@
     android:layout_height="56dp">
 
     <RelativeLayout
-        android:layout_width="56dp"
+        android:id="@+id/rl_dingwei"
+        android:layout_width="40dp"
         android:gravity="center"
-        android:layout_height="match_parent">
+        android:layout_marginLeft="5dp"
+        android:layout_height="40dp">
 
         <ImageView
-            android:id="@+id/ibtn_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:id="@+id/iv_dingwei"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:clickable="true"
             android:background="@mipmap/ic_dingwei_orange" />
 
     </RelativeLayout>

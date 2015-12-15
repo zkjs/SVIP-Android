@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -48,10 +48,10 @@ public class ShopFragment extends Fragment {
 
     public final static int REQUEST_CHOOSE_CITY = 0x00;
 
-    private Activity     mActivity;
-    private LinearLayout mLlCityInfo;
-    private EditText     mEtCity;
-    private ListView     mLvShopList;
+    private Activity       mActivity;
+    private RelativeLayout mRlDingWei;
+    private EditText       mEtCity;
+    private ListView       mLvShopList;
 
     private List<ShopBean> mShopList;
     private ShopAdapter    mShopAdapter;
@@ -83,7 +83,7 @@ public class ShopFragment extends Fragment {
 
     private void initView(View view){
         mLvShopList = (ListView) view.findViewById(R.id.lv_shop_list);
-        mLlCityInfo = (LinearLayout) view.findViewById(R.id.ll_city_info);
+        mRlDingWei  = (RelativeLayout) view.findViewById(R.id.rl_dingwei);
         mEtCity     = (EditText) view.findViewById(R.id.et_city);
     }
 
@@ -109,15 +109,6 @@ public class ShopFragment extends Fragment {
     }
 
     private void initListeners(){
-        //进入城市选择
-        mLlCityInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
 
         //商店条目点击事件
         mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -132,13 +123,23 @@ public class ShopFragment extends Fragment {
         });
 
         //输入框点击事件
+        mRlDingWei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
+                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+            }
+        });
+
+        //输入框点击事件
         mEtCity.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Intent cityChoose = new Intent(mActivity, CityListActivity.class);
+                    startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
                 return false;
             }
         });
