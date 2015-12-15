@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -56,7 +57,8 @@ public class HistoryOrderActivtiy extends Activity {
 
     private final static String TAG = HistoryOrderActivtiy.class.getSimpleName();
 
-    private ItemTitleView       mItvTitle;
+    private ImageButton backIBtn;
+    private TextView titleTv;
     private SwipeMenuListView   mSlvBookOrder;
 
     private List<BookOrder>     mBookOrders;
@@ -65,8 +67,6 @@ public class HistoryOrderActivtiy extends Activity {
     private String mUserID;
     private String mToken;
     private int    mCurrentPage;//记录当前查询页
-
-    private boolean isOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,8 @@ public class HistoryOrderActivtiy extends Activity {
     }
 
     private void initView() {
-        mItvTitle = (ItemTitleView) findViewById(R.id.Itv_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
         mSlvBookOrder = (SwipeMenuListView) findViewById(R.id.slv_history_order);
         mSlvBookOrder.setEmptyView(emptyView);
@@ -103,14 +104,8 @@ public class HistoryOrderActivtiy extends Activity {
     }
 
     private void initData() {
-        isOrder = getIntent().getBooleanExtra("is_order", false);
-        if (isOrder) {
-            mItvTitle.setResTitle(this, R.string.order);
-            mItvTitle.getmRight().setVisibility(View.GONE);
-        } else {
-            mItvTitle.setResTitle(this, R.string.footprint);
-            mItvTitle.getmRight().setVisibility(View.GONE);
-        }
+        backIBtn.setVisibility(View.VISIBLE);
+        titleTv.setText("订单管理");
         mUserID = CacheUtil.getInstance().getUserId();
         mToken = CacheUtil.getInstance().getToken();
         mCurrentPage = 1;
@@ -120,21 +115,14 @@ public class HistoryOrderActivtiy extends Activity {
     }
 
     private void initListener() {
-        /** 返回键监听事件 */
-        mItvTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+
+        /**
+         * 返回
+         */
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HistoryOrderActivtiy.this.finish();
-            }
-        });
-
-        /** 右边设置点击事件 */
-        mItvTitle.getmRight().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isOrder){
-
-                }
+                finish();
             }
         });
 
