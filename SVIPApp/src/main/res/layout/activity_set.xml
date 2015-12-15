@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:clickable="true"
         android:background="@drawable/bg_layout_item_selector"
-        android:layout_height="44dp">
+        android:layout_height="48dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:clickable="true"
         android:background="@drawable/bg_layout_item_selector"
-        android:layout_height="44dp">
+        android:layout_height="48dp">
 
         <TextView
             android:layout_width="wrap_content"

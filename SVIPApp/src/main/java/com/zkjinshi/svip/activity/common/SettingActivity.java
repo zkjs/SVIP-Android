@@ -167,7 +167,6 @@ public class SettingActivity extends Activity implements View.OnClickListener {
     private void setViewData(UserInfoVo userInfoVo){
         String userPhotoSuffix = userInfoVo.getUserAvatar();
         String mobilePhoneStr = userInfoVo.getMobilePhoto();
-        String realNameStr = userInfoVo.getRealName();
         Sex sex = userInfoVo.getSex();
         String emailStr = userInfoVo.getEmail();
 
@@ -176,8 +175,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
         if(!TextUtils.isEmpty(userPhotoUrl)){
             MineUiController.getInstance().setUserPhoto(userPhotoUrl,mUserIcon);
         }
-        if(!TextUtils.isEmpty(realNameStr)){
-            mRealName.setTextContent2(realNameStr);
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+            mRealName.setTextContent2(CacheUtil.getInstance().getUserName());
+            mRealName.setTextContent2Color(R.color.light_black);
+        }else{
+            mRealName.setTextContent2("立即补全信息");
+            mRealName.setTextContent2Color(R.color.light_yellow);
         }
         if(null != sex && sex == Sex.BOY){
             mUserSex.setTextContent2("男");
