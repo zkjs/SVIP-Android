@@ -2,229 +2,107 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_svip_mine">
+    android:background="@android:color/white">
 
     <RelativeLayout
-        android:id="@+id/rl_input_phone"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center_horizontal">
+        android:id="@+id/login_layout_head"
+        android:layout_width="match_parent"
+        android:layout_height="267dp"
+        android:background="@mipmap/bg_zhuce">
 
-        <ImageView
-            android:id="@+id/iv_icon_user"
-            android:layout_width="11dp"
-            android:layout_height="14dp"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/icon_user_default" />
-
-        <EditText
-            android:id="@+id/et_input_phone"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_icon_user"
-            android:gravity="left"
-            android:hint="@string/please_input_phone_number"
-            android:inputType="number"
-            android:maxLength="11"
-            android:background="#00000000"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@color/Gray9E9E9E"
-            android:textSize="18sp" />
-
-        <FrameLayout
+        <TextView
+            android:id="@+id/login_tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/et_input_phone"
-            android:layout_alignRight="@id/et_input_phone"
-            android:layout_alignTop="@id/et_input_phone"
-            android:layout_marginRight="5dp">
+            android:layout_centerInParent="true"
+            android:text="Welcome"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"/>
 
-            <ImageView
-                android:id="@+id/iv_phone_right"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignRight="@id/et_input_phone"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_input_right"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_phone_error"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignRight="@id/et_input_phone"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_input_warning"
-                android:visibility="gone" />
-        </FrameLayout>
-
-        <View
-            style="@style/LineC7C7C7"
-            android:layout_alignBottom="@+id/et_input_phone"></View>
+        <TextView
+            android:id="@+id/login_tv_tips"
+            android:layout_below="@id/login_tv_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="感受尊贵的超级服务"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_verify_code"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_input_phone"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+    <EditText
+        android:id="@+id/et_input_phone"
+        android:layout_below="@id/login_layout_head"
+        android:layout_width="300dp"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal">
+        android:layout_centerHorizontal="true"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:gravity="left|center_vertical"
+        android:hint="@string/please_input_phone_number"
+        android:inputType="number"
+        android:drawableLeft="@mipmap/ic_yonghu_nor"
+        android:drawablePadding="10dp"
+        android:maxLength="11"
+        android:background="@drawable/bg_login_etv_shape"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#666666"
+        android:textColorHint="#b8b8b8"
+        android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/iv_icon_lock"
-            android:layout_width="11dp"
-            android:layout_height="14dp"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/icon_password_lock" />
-
-
+    <LinearLayout
+        android:id="@+id/layout_verify_code"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/et_input_phone"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_verify_code"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_icon_lock"
-            android:focusable="false"
-            android:gravity="left"
-            android:inputType="phone"
-            android:padding="5dp"
-            android:background="#00000000"
-            android:maxLength="6"
+            android:gravity="left|center_vertical"
+            android:hint="@string/please_input_phone_number"
+            android:inputType="number"
+            android:drawableLeft="@mipmap/ic_mima_nor"
+            android:drawablePadding="10dp"
+            android:maxLength="11"
+            android:background="@drawable/bg_login_etv_shape"
+            android:padding="10dp"
             android:singleLine="true"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@color/Gray9E9E9E"
-            android:textSize="18sp" />
+            android:textColor="#666666"
+            android:textColorHint="#b8b8b8"
+            android:textSize="14sp" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/et_verify_code"
-            android:layout_alignRight="@id/et_verify_code"
-            android:layout_alignTop="@id/et_verify_code"
-            android:layout_marginRight="5dp">
+        <TextView
+            android:id="@+id/tv_send_verify_code"
+            android:clickable="true"
+            android:layout_width="97dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="验证码"
+            android:background="@drawable/bg_login_etv_shape"
+            android:textColor="#666666"
+            android:textSize="14sp" />
 
-            <ImageView
-                android:id="@+id/iv_verify_right"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignRight="@id/et_verify_code"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_input_right"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/iv_verify_error"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignRight="@id/et_verify_code"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/img_input_warning"
-                android:visibility="gone" />
-        </FrameLayout>
-
-        <View
-            style="@style/LineC7C7C7"
-            android:layout_alignBottom="@+id/et_verify_code"></View>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/rl_verify_code"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/bg_btn_white_selector"
-        android:enabled="false"
-        android:text="@string/click_to_agree"
-        android:textColor="@drawable/bg_textcolor_login"
-        android:textSize="16sp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_confirm"
-        android:gravity="center"
-        android:padding="20dp">
-
-        <TextView
-            android:id="@+id/tv_dianjiqueding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingRight="10dp"
-            android:text="@string/click_to_agree"
-            android:textColor="@color/Gray9E9E9E" />
-
-        <TextView
-            android:id="@+id/tv_user_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@id/tv_dianjiqueding"
-            android:clickable="true"
-            android:text="@string/use_protocal"
-            android:textColor="#DCDCDC" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_need_help"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:text="@string/need_help"
-        android:textColor="#DCDCDC" />
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center">
-        <ImageButton
-            android:id="@+id/enter_weixin_ibtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/enter_weixin_ibtn"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:layout_margin="5dp"/>
-        <ImageButton
-            android:id="@+id/enter_weibo_ibtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/enter_weibo_ibtn"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:layout_margin="5dp"/>
-        <ImageButton
-            android:id="@+id/enter_qq_ibtn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/enter_qq_ibtn"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:layout_margin="5dp"/>
-    </LinearLayout>
+        android:layout_height="45dp"
+        android:text="确定"
+        android:textSize="14sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
 
 </RelativeLayout>

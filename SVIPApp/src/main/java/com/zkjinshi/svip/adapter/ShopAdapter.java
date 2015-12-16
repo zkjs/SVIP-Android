@@ -6,12 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
+import com.zkjinshi.svip.bean.BaseShopBean;
+import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -24,7 +28,12 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
+public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
+
+    private final static int ITEM_VIEW_COUNT = 2;
+
+    private final static int ITEM_RECOMMEND_SHOP = 0x00;
+    private final static int ITEM_NORMAL_SHOP    = 0x01;
 
     private DisplayImageOptions shopOptions;
     private DisplayImageOptions avatarOptions;
@@ -51,47 +60,77 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if(null ==  convertView){
-            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_shop,null);
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_shop, null);
             viewHolder = new ViewHolder();
             viewHolder.ivShopLogo     = (ImageView)convertView.findViewById(R.id.iv_shop_logo);
             viewHolder.civSalerAvatar = (CircleImageView)convertView.findViewById(R.id.civ_saler_avatar);
             viewHolder.tvShopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
             viewHolder.tvShopBusiness = (TextView) convertView.findViewById(R.id.tv_shop_business);
             viewHolder.tvShopDes      = (TextView) convertView.findViewById(R.id.tv_shop_des);
+            viewHolder.llShopInfo     = (LinearLayout) convertView.findViewById(R.id.ll_shop_info);
+            viewHolder.rlSalerInfo    = (RelativeLayout) convertView.findViewById(R.id.rl_saler_info);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        ShopBean shopBean = mDatas.get(position);
-        String   shopName = shopBean.getShopName();
-        String   shopLogo = shopBean.getShopLogo();
-        String   shopBusi = shopBean.getShopBusiness();
-        String   shopDesc = shopBean.getShopDesc();
-        String   shopID   = shopBean.getShopId();
-        String   salesID  = shopBean.getSalesid();
+        if (ITEM_RECOMMEND_SHOP == getItemViewType(position)) {
 
-        if(!TextUtils.isEmpty(shopName)){
-            viewHolder.tvShopName.setText(shopName);
+            viewHolder.llShopInfo.setVisibility(View.GONE);
+            viewHolder.rlSalerInfo.setVisibility(View.GONE);
+
+            RecommendShopBean recommendShop = (RecommendShopBean) mDatas.get(position);
+            String   shopName = recommendShop.getLink_url();
+            String   recommendTitle   = recommendShop.getRecommend_title();
+            String   recommendContent = recommendShop.getRecommend_content();
+            String   shopBgimgurl     = recommendShop.getShop_bgimgurl();
+
+            if(!TextUtils.isEmpty(shopName)){
+                viewHolder.tvShopName.setText(shopName);
+            }
+
+            if(!TextUtils.isEmpty(recommendTitle)){
+                viewHolder.tvShopBusiness.setText(recommendTitle);
+            }
+
+            if(!TextUtils.isEmpty(recommendContent)){
+                viewHolder.tvShopDes.setText(recommendContent);
+            }
+
+            if(!TextUtils.isEmpty(shopBgimgurl)){
+                ImageLoader.getInstance().displayImage(shopBgimgurl, viewHolder.ivShopLogo, shopOptions);
+            }
+
+        } else {
+            ShopBean shopBean = (ShopBean) mDatas.get(position);
+            String   shopName = shopBean.getShopname();
+            String   shopBusi = shopBean.getShopbusiness();
+            String   shopDesc = shopBean.getShopdesc();
+            String   salesID  = shopBean.getSalesid();
+            String   imgUrl   = shopBean.getBgImgUrl();
+
+            if(!TextUtils.isEmpty(shopName)){
+                viewHolder.tvShopName.setText(shopName);
+            }
+
+            if(!TextUtils.isEmpty(shopBusi)){
+                viewHolder.tvShopBusiness.setText(shopBusi);
+            }
+
+            if(!TextUtils.isEmpty(shopDesc)){
+                viewHolder.tvShopDes.setText(shopDesc);
+            }
+
+            if(!TextUtils.isEmpty(imgUrl)){
+                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
+            }
+
+            if(!TextUtils.isEmpty(salesID)){
+                String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
+                ImageLoader.getInstance().displayImage(avatarUrl,viewHolder.civSalerAvatar, avatarOptions);
+            }
         }
 
-        if(!TextUtils.isEmpty(shopBusi)){
-            viewHolder.tvShopBusiness.setText(shopBusi);
-        }
-
-        if(!TextUtils.isEmpty(shopDesc)){
-            viewHolder.tvShopDes.setText(shopDesc);
-        }
-
-//        if(!TextUtils.isEmpty(shopLogo)){
-//            String logoUrl = ProtocolUtil.getShopLogoUrl(shopLogo);
-//            ImageLoader.getInstance().displayImage(logoUrl, viewHolder.ivShopLogo, shopOptions);
-//        }
-
-        if(!TextUtils.isEmpty(salesID)){
-            String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
-            ImageLoader.getInstance().displayImage(avatarUrl,viewHolder.civSalerAvatar, avatarOptions);
-        }
         return convertView;
     }
 
@@ -101,5 +140,23 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
         TextView        tvShopName;
         TextView        tvShopBusiness;
         TextView        tvShopDes;
+
+        LinearLayout    llShopInfo;
+        RelativeLayout  rlSalerInfo;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        BaseShopBean baseShop = mDatas.get(position);
+        if(baseShop instanceof RecommendShopBean){
+            return ITEM_RECOMMEND_SHOP;
+        } else {
+            return ITEM_NORMAL_SHOP;
+        }
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return ITEM_VIEW_COUNT;
     }
 }

@@ -2,6 +2,7 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.bean.BaseShopBean;
+import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -56,8 +59,8 @@ public class ShopFragment extends Fragment {
     private EditText       mEtCity;
     private ListView       mLvShopList;
 
-    private List<ShopBean> mShopList;
-    private ShopAdapter    mShopAdapter;
+    private List<BaseShopBean> mShopList;
+    private ShopAdapter        mShopAdapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class ShopFragment extends Fragment {
         mActivity = this.getActivity();
         SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
         View emptyView = mActivity.getLayoutInflater().inflate(R.layout.empty_layout, null);
-        TextView tips = (TextView)emptyView.findViewById(R.id.empty_tips);
+        TextView tips  = (TextView)emptyView.findViewById(R.id.empty_tips);
         tips.setText("暂无商家");
         ((ViewGroup)mLvShopList.getParent()).addView(emptyView);
         mLvShopList.setEmptyView(emptyView);
@@ -111,9 +114,9 @@ public class ShopFragment extends Fragment {
 
         String city = mEtCity.getText().toString();
         if (!TextUtils.isEmpty(city)){
-            getShopListByCity(city);
+            getRecommendShopList(city);
         } else {
-            getShopList();
+            getRecommendShopList(getString(R.string.shenzhen));
         }
     }
 
@@ -123,11 +126,21 @@ public class ShopFragment extends Fragment {
         mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
-                Intent intent = new Intent(mActivity, OrderBookingActivity.class);
-                intent.putExtra("shopid", shopBean.getShopId());
-                startActivityForResult(intent, ShopActivity.KILL_MYSELF);
-                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                BaseShopBean baseShopBean = (BaseShopBean) mShopAdapter.getItem(position);
+                if(baseShopBean instanceof RecommendShopBean){
+                    //TODO:进入推荐的链接地址
+                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
+                    Uri uri = Uri.parse(linkUrl);
+                    Intent  intent = new  Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+
+                } else {
+                    Intent intent = new Intent(mActivity, OrderBookingActivity.class);
+                    intent.putExtra("shopid", baseShopBean.getShopid());
+                    startActivityForResult(intent, ShopActivity.KILL_MYSELF);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+
             }
         });
 
@@ -233,9 +246,56 @@ public class ShopFragment extends Fragment {
                 try {
                     Type listType = new TypeToken<List<ShopBean>>(){}.getType();
                     Gson gson = new Gson();
-                    mShopList = gson.fromJson(result.rawResult, listType);
+                    List<BaseShopBean> shopBeanList = gson.fromJson(result.rawResult, listType);
+                    mShopList.addAll(shopBeanList);
                     mShopAdapter.setData(mShopList);
                     LogUtil.getInstance().info(LogLevel.INFO, "shoplistByCity:" + mShopList);
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+    }
+
+    /**
+     * 获得推荐酒店商家列表
+     */
+    public void getRecommendShopList(String city) {
+        String url = ProtocolUtil.getRecommendedShopListUrl(city);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<List<RecommendShopBean>>(){}.getType();
+                    Gson gson = new Gson();
+                    List<RecommendShopBean> recommendShopList = gson.fromJson(result.rawResult, listType);
+                    mShopList.add(recommendShopList.get(0));
+                    LogUtil.getInstance().info(LogLevel.INFO, "recommendShopList:" + recommendShopList);
+
+                    getShopList();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }

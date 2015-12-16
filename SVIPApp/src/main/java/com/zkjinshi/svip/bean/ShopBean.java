@@ -8,14 +8,14 @@ import java.io.Serializable;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopBean implements Serializable {
+public class ShopBean extends BaseShopBean implements Serializable {
 
     private String salesid;
     private String shopbusiness;
     private String shopdesc;
-    private String shopid;
     private String shoplogo;
     private String shopname;
+    private String bgImgUrl;
 
     public String getSalesid() {
         return salesid;
@@ -25,43 +25,43 @@ public class ShopBean implements Serializable {
         this.salesid = salesid;
     }
 
-    public String getShopBusiness() {
+    public String getShopbusiness() {
         return shopbusiness;
     }
 
-    public void setShopBusiness(String shopbusiness) {
+    public void setShopbusiness(String shopbusiness) {
         this.shopbusiness = shopbusiness;
     }
 
-    public String getShopDesc() {
+    public String getShopdesc() {
         return shopdesc;
     }
 
-    public void setShopDesc(String shopdesc) {
+    public void setShopdesc(String shopdesc) {
         this.shopdesc = shopdesc;
     }
 
-    public String getShopId() {
-        return shopid;
-    }
-
-    public void setShopDd(String shopid) {
-        this.shopid = shopid;
-    }
-
-    public String getShopLogo() {
+    public String getShoplogo() {
         return shoplogo;
     }
 
-    public void setShopLogo(String shoplogo) {
+    public void setShoplogo(String shoplogo) {
         this.shoplogo = shoplogo;
     }
 
-    public String getShopName() {
+    public String getShopname() {
         return shopname;
     }
 
-    public void setShopName(String shopname) {
+    public void setShopname(String shopname) {
         this.shopname = shopname;
+    }
+
+    public String getBgImgUrl() {
+        return bgImgUrl;
+    }
+
+    public void setBgImgUrl(String bgImgUrl) {
+        this.bgImgUrl = bgImgUrl;
     }
 }
