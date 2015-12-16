@@ -7272,12 +7272,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00006" summary="1. 增加用户未使用邀请码进入接口&#10;2. 昵称修改后，首页没及时更新bug&#10;3. 首页酒店名为null的bug">
-      <created>1447761419865</created>
-      <option name="number" value="00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1447761419865</updated>
-    </task>
     <task id="LOCAL-00007" summary="1. 更新邀请码发送">
       <created>1447839610113</created>
       <option name="number" value="00007" />
@@ -7566,7 +7560,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450229372600</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="1. 更新版本号">
+      <created>1450230067129</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1450230067129</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TodoView">
