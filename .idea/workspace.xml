@@ -40,12 +40,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/build.gradle" afterPath="$PROJECT_DIR$/SVIPApp/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,8 +83,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.031141868">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.36201116">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -5482,7 +5477,7 @@
         <entry key="F:/native/RecyclerViewHeader" value="7224488368766" />
         <entry key="$PROJECT_DIR$/../SuperService-1.0-Android" value="13018032463652" />
         <entry key="$PROJECT_DIR$/../material-sheet-fab" value="8658379405683" />
-        <entry key="F:\zkjs_github\SVIP-1.0-Android" value="14485316534032" />
+        <entry key="F:\zkjs_github\SVIP-1.0-Android" value="14485403312872" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -7277,12 +7272,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00005" summary="1. 增加用户未使用邀请码进入接口&#10;2. 昵称修改后，首页没及时更新bug&#10;3. 首页酒店名为null的bug">
-      <created>1447761242046</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1447761242046</updated>
-    </task>
     <task id="LOCAL-00006" summary="1. 增加用户未使用邀请码进入接口&#10;2. 昵称修改后，首页没及时更新bug&#10;3. 首页酒店名为null的bug">
       <created>1447761419865</created>
       <option name="number" value="00006" />
@@ -7571,7 +7560,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450178282124</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="1. 更新版本号">
+      <created>1450229372599</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1450229372600</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7675,7 +7670,6 @@
     <MESSAGE value="1. 更新版本" />
     <MESSAGE value="1. 还原验证登录吗。" />
     <MESSAGE value="1. 还原登录验证码。" />
-    <MESSAGE value="1. 更新版本号" />
     <MESSAGE value="1. 加入商家列表界面显示&#10;2. 加入销售服务员详情显示" />
     <MESSAGE value="1.更新城市定位" />
     <MESSAGE value="1.更新城市显示列表" />
@@ -7690,7 +7684,8 @@
     <MESSAGE value="1.更新版本号。" />
     <MESSAGE value="1. api 地址更新" />
     <MESSAGE value="1. 更新城市选择界面" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 更新城市选择界面" />
+    <MESSAGE value="1. 更新版本号" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 更新版本号" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -7977,7 +7972,7 @@
         <state vertical-scroll-proportion="-1.6363636">
           <caret line="4" column="45" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="45" />
           <folding>
-            <element signature="e#267#298#0" expanded="true" />
+            <element signature="e#267#298#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -8166,8 +8161,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.031141868">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.36201116">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding />
         </state>
       </provider>
