@@ -38,7 +38,10 @@
             android:text=""
             android:hint="手机号"
             android:textColor="#666666"
-            android:textColorHint="#b8b8b8"/>
+            android:textColorHint="#b8b8b8"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:inputType="number"/>
 
     </RelativeLayout>
     <LinearLayout

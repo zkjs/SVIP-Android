@@ -121,6 +121,11 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 conversationList.clear();
                 conversationList.addAll(EMConversationHelper.getInstance().loadConversationList());
                 mChatRoomAdapter.setConversationList(conversationList);
+                if(conversationList.size() > 0){
+                    mTvDialog.setVisibility(View.GONE);
+                }else{
+                    mTvDialog.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
