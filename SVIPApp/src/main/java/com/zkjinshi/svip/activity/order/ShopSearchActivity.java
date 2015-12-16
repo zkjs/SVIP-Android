@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -44,7 +45,7 @@ public class ShopSearchActivity extends Activity {
 
     private EditText searchEt;
     private ListView shopListView;
-    private List<ShopBean> shopResponseList = new ArrayList<ShopBean>();
+    private List<BaseShopBean> shopResponseList = new ArrayList<BaseShopBean>();
     private ShopAdapter shopAdapter;
 
     @Override
