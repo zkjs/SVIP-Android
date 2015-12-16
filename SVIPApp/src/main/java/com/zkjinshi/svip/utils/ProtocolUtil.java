@@ -468,4 +468,13 @@ public class ProtocolUtil {
     public static String getOrderMsgUrl(){
         return ConfigUtil.getInst().getApiDomain()+"messages/orders";
     }
+
+    /**
+     * 根据手机号查询服务员
+     * @return
+     */
+    public static String getServerByPhone(String phone){
+        return ConfigUtil.getInst().getApiDomain()+"user/getuser/"+phone+"/";
+    }
+
 }
