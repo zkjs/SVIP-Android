@@ -319,4 +319,27 @@ public class ImageUtil {
         }
     }
 
+    public static Bitmap getBitmapFromFile(File dst, int width, int height) {
+        if (null != dst && dst.exists()) {
+            BitmapFactory.Options opts = null;
+            if (width > 0 && height > 0) {
+                opts = new BitmapFactory.Options();           //设置inJustDecodeBounds为true后，decodeFile并不分配空间，此时计算原始图片的长度和宽度
+                opts.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(dst.getPath(), opts);
+                // 计算图片缩放比例
+                final int minSideLength = Math.min(width, height);
+                opts.inSampleSize = computeSampleSize(opts, minSideLength,width * height);           //这里一定要将其设置回false，因为之前我们将其设置成了true
+                opts.inJustDecodeBounds = false;
+                opts.inInputShareable = true;
+                opts.inPurgeable = true;
+            }
+            try {
+                return BitmapFactory.decodeFile(dst.getPath(), opts);
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
 }
