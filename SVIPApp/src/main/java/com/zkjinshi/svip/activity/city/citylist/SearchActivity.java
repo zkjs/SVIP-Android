@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
@@ -22,6 +23,7 @@ public class SearchActivity extends Activity {
     private ListView searchresult;
     private EditText input;
     private ImageButton clear, left;
+    private RelativeLayout mBack;
 //    private SQLiteDatabase database;
     private CitysearchAdapter adapter;
 
@@ -34,6 +36,7 @@ public class SearchActivity extends Activity {
         input = (EditText) findViewById(R.id.input);
         clear = (ImageButton) findViewById(R.id.clear);
         left  = (ImageButton) findViewById(R.id.left_title_button);
+        mBack = (RelativeLayout) findViewById(R.id.rl_back);
 
 //        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
 
@@ -44,14 +47,15 @@ public class SearchActivity extends Activity {
             }
         });
 
-        left.setOnClickListener(new View.OnClickListener() {
+        mBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 SearchActivity.this.finish();
             }
         });
 
         adapter = new CitysearchAdapter(ContactsHelper.mSearchContacts, this);
+
         searchresult.setAdapter(adapter);
         searchresult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

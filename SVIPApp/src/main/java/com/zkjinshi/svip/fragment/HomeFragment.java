@@ -13,13 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -30,6 +33,8 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
@@ -45,6 +50,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.ShopRecommendedResponse;
+import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
@@ -140,26 +146,63 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         homeMsgList = new ArrayList<HomeMsgVo>();
         homeMsgAdapter = new HomeMsgAdapter(homeMsgList,getActivity());
         listView.setAdapter(homeMsgAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+               // Toast.makeText(mActivity.getApplicationContext(),"position:"+position,Toast.LENGTH_SHORT).show();
+                if(position == 0){
+                    return;
+                }
+                int index = position-1;
+                HomeMsgVo homeMsgVo = homeMsgList.get(index);
+                switch (homeMsgVo.getMsgType()){
+                    case HOME_MSG_LOCATION:
+                    {
+                        Intent intent = new Intent(mActivity, OrderBookingActivity.class);
+                        intent.putExtra("shopid", homeMsgVo.getShopid());
+                        mActivity.startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
+                    break;
+                    case HOME_MSG_ORDER:
+                    {
+                        Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                        intent.putExtra("is_order", true);
+                        getActivity().startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
+                    break;
+                }
+            }
+        });
 
     }
 
     private void initData(){
-//        homeMsgList.clear();
-//        HomeMsgVo welcomeMsg= new HomeMsgVo();
-//        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-//        welcomeMsg.setClickAble(false);
-//        welcomeMsg.setMajorText("欢迎使用超级服务");
-//        welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
-//        homeMsgList.add(welcomeMsg);
-//        homeMsgAdapter.setDatalist(homeMsgList);
-//        homeMsgAdapter.notifyItemInserted(0);
-
-
 
     }
 
-    private void initListeners(){
+    //加载本地预设信息
+    private void addLlocalDefaultHomeMsg(){
+        HomeMsgVo welcomeMsg= new HomeMsgVo();
+        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+        welcomeMsg.setClickAble(false);
+        welcomeMsg.setMajorText("欢迎使用超级服务");
+        welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
+        homeMsgList.add(welcomeMsg);
+        homeMsgAdapter.setDatalist(homeMsgList);
+        homeMsgAdapter.notifyDataSetChanged();
+    }
 
+    private void initListeners(){
+        logoIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new CleverDialog(getActivity()).show();
+            }
+        });
     }
 
     @Override
@@ -207,21 +250,24 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         //首页大图区
         setBigPicZone();
         setBigPicAnimation();
-        checktActivate();
         if(CacheUtil.getInstance().isLogin()){
-            getMessageDefault();
+            checktActivate();
+            getOrderMsgUrl();
         }else{
             getMessageDefault();
         }
-
-
-
     }
 
     public void onPause() {
         super.onPause();
         LocationManager.getInstance().removeLocation();
         MainController.getInstance().pauseBigPicAnimation();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 
     public void setBigPicAnimation(){
@@ -339,62 +385,62 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
 
     //获取推荐商家列表
-    private void getShopRecommended(String city){
-        String url = ProtocolUtil.getShopRecommendedUrl(city);
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<ArrayList<ShopRecommendedResponse>>() {}.getType();
-                    ArrayList<ShopRecommendedResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-
-                    for(ShopRecommendedResponse message : messageList){
-
-                        HomeMsgVo homeMsg= new HomeMsgVo();
-                        homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
-                        homeMsg.setClickAble(true);
-                        homeMsg.setMajorText(message.getRecommend_title());
-                        homeMsg.setMinorText(message.getRecommend_content());
-                        homeMsg.setIcon( ConfigUtil.getInst().getHttpDomain()+message.getRecommend_logo());
-                        homeMsg.setShopid(message.getShopid());
-                        homeMsgList.add(homeMsg);
-
-                    }
-                    homeMsgAdapter.setDatalist(homeMsgList);
-                    homeMsgAdapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-
-    }
+//    private void getShopRecommended(String city){
+//        String url = ProtocolUtil.getShopRecommendedUrl(city);
+//        Log.i(TAG, url);
+//        NetRequest netRequest = new NetRequest(url);
+//        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+//        netRequestTask.methodType = MethodType.GET;
+//        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+//            @Override
+//            public void onNetworkRequestError(int errorCode, String errorMessage) {
+//                Log.i(TAG, "errorCode:" + errorCode);
+//                Log.i(TAG, "errorMessage:" + errorMessage);
+//            }
+//
+//            @Override
+//            public void onNetworkRequestCancelled() {
+//
+//            }
+//
+//            @Override
+//            public void onNetworkResponseSucceed(NetResponse result) {
+//                super.onNetworkResponseSucceed(result);
+//                Log.i(TAG, "result.rawResult:" + result.rawResult);
+//                try {
+//                    Type listType = new TypeToken<ArrayList<ShopRecommendedResponse>>() {}.getType();
+//                    ArrayList<ShopRecommendedResponse> messageList = new Gson().fromJson(result.rawResult, listType);
+//
+//                    for(ShopRecommendedResponse message : messageList){
+//
+//                        HomeMsgVo homeMsg= new HomeMsgVo();
+//                        homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+//                        homeMsg.setClickAble(true);
+//                        homeMsg.setMajorText(message.getRecommend_title());
+//                        homeMsg.setMinorText(message.getRecommend_content());
+//                        homeMsg.setIcon( ConfigUtil.getInst().getHttpDomain()+message.getRecommend_logo());
+//                        homeMsg.setShopid(message.getShopid());
+//                        homeMsgList.add(homeMsg);
+//
+//                    }
+//                    homeMsgAdapter.setDatalist(homeMsgList);
+//                    homeMsgAdapter.notifyDataSetChanged();
+//
+//                } catch (Exception e) {
+//                    Log.e(TAG, e.getMessage());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void beforeNetworkRequestStart() {
+//
+//            }
+//        });
+//        netRequestTask.isShowLoadingDialog = false;
+//        netRequestTask.execute();
+//
+//    }
 
 
     //获取用户推送消息(用户未登陆)
@@ -428,19 +474,28 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     }
                     for(MessageDefaultResponse message : messageList){
 
-                        HomeMsgVo welcomeMsg= new HomeMsgVo();
-                        welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                        welcomeMsg.setClickAble(false);
-                        welcomeMsg.setMajorText(message.getTitle());
-                        welcomeMsg.setMinorText(message.getDesc());
-                        welcomeMsg.setIcon(message.getIconbaseurl()+message.getIconfilename());
-                        homeMsgList.add(welcomeMsg);
+                        HomeMsgVo homeMsgVo= new HomeMsgVo();
+                        if(TextUtils.isEmpty(message.getShopid())){
+                            homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+                            homeMsgVo.setClickAble(false);
+                        }else{
+                            homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+                            homeMsgVo.setShopid(message.getShopid());
+                            homeMsgVo.setClickAble(true);
+                        }
+
+                        homeMsgVo.setMajorText(message.getTitle());
+                        homeMsgVo.setMinorText(message.getDesc());
+                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                        homeMsgList.add(homeMsgVo);
+
 
                     }
                     homeMsgAdapter.setDatalist(homeMsgList);
                     homeMsgAdapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
+                    addLlocalDefaultHomeMsg();
                     Log.e(TAG, e.getMessage());
                 }
 
@@ -457,9 +512,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
 
-    //加载最近的一条订单信息
-    private void loadLastOrderInfo(){
-        String url = ProtocolUtil.getLastOrder();
+    //获取用户订单状态消息
+    private void getOrderMsgUrl(){
+        String url = ProtocolUtil.getOrderMsgUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
@@ -486,17 +541,33 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
 
-                    lastOrderInfo = new Gson().fromJson(result.rawResult, OrderLastResponse.class);
-                    if (lastOrderInfo != null && lastOrderInfo.getReservation_no().equals("0")) {
-                        lastOrderInfo = null;
-                        //lastOrderLayout.setVisibility(View.GONE);
-                        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
-                        return;
+                    Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
+                    ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
+                    if(messageList.size() > 0){
+                        homeMsgList.clear();
                     }
-                    //lastOrderLayout.setVisibility(View.VISIBLE);
-                    initOrderView(lastOrderInfo);
+                    for(MessageDefaultResponse message : messageList){
+
+                        HomeMsgVo homeMsgVo= new HomeMsgVo();
+                        homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
+                        homeMsgVo.setClickAble(false);
+                        homeMsgVo.setMajorText(message.getTitle());
+                        homeMsgVo.setMinorText(message.getDesc());
+                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                        homeMsgVo.setOrderNo(message.getOrderNo());
+                        homeMsgList.add(homeMsgVo);
+
+                    }
+                    if(messageList.size() > 0){
+                        homeMsgAdapter.setDatalist(homeMsgList);
+                        homeMsgAdapter.notifyDataSetChanged();
+                    }
+                    else{
+                        getMessageDefault();
+                    }
 
                 } catch (Exception e) {
+                    getMessageDefault();
                     Log.e(TAG, e.getMessage());
                 }
 
@@ -512,35 +583,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     }
 
-    public void initOrderView(OrderLastResponse lastOrderInfo){
-        try{
-            String roomType = lastOrderInfo.getRoom_type();
-            String roomRate = lastOrderInfo.getRoom_rate();
-            String arriveDate = lastOrderInfo.getArrival_date();
-            String departureDate = lastOrderInfo.getDeparture_date();
-            String orderStatusStr = lastOrderInfo.getStatus();
-            String shopId = lastOrderInfo.getShopid();
-            if (!TextUtils.isEmpty(orderStatusStr)) {
-                CacheUtil.getInstance().setOrderStatus(shopId, Integer.parseInt(orderStatusStr));
-            }
-            //orderShopNameTv.setText(lastOrderInfo.getFullname());
 
-            String arriveDateStr = "";
-            int dayNum = 0;
-            SimpleDateFormat mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat mChineseFormat = new SimpleDateFormat("MM/dd");
-
-            Date date = mSimpleFormat.parse(arriveDate);
-            arriveDateStr = mChineseFormat.format(date);
-            dayNum = TimeUtil.daysBetween(arriveDate, departureDate);
-
-            //orderDetailTv.setText("" + roomType + "  |  " + arriveDateStr + "入住  |  " + dayNum + "晚" + "  |  ￥" + roomRate);
-            handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 
     public void notifyMainTextChange(){
         handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
@@ -635,6 +678,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      * 判读是否已经激活
      */
     public void checktActivate(){
+        if(!CacheUtil.getInstance().isLogin()){
+            return;
+        }
         if(CacheUtil.getInstance().isActivate()){
             setBigPicZone();
             return;

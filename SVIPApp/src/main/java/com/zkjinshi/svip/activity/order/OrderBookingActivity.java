@@ -36,6 +36,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
@@ -358,6 +359,10 @@ public class OrderBookingActivity extends Activity {
         mBtnSendOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    RequestUtil.showLoginDialog(OrderBookingActivity.this);
+                    return;
+                }
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
                     orderDetailResponse.setRoom(orderRoomResponse);
                     String shopId = orderDetailResponse.getRoom().getShopid();
@@ -382,6 +387,7 @@ public class OrderBookingActivity extends Activity {
                         @Override
                         public void onNetworkResponseSucceed(NetResponse result) {
                             Log.i(TAG, "result:" + result.rawResult);
+                            super.onNetworkResponseSucceed(result);
                             CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
                             if (null != customerServiceListResponse) {
                                 HeadBean head = customerServiceListResponse.getHead();

@@ -10,12 +10,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseFragment;
+import com.zkjinshi.svip.net.RequestUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +30,10 @@ public class MessageFragment extends Fragment {
 
     private FragmentActivity mActivity;
 
-    private RelativeLayout mRlAdd;
-    private RelativeLayout mRlSearch;
+
     private View vChat;
     private View vAddressBook;
+    private ImageView addIv;
 
     private ViewPager      mViewPager;
     private RadioGroup     mRgOperation;
@@ -38,8 +41,8 @@ public class MessageFragment extends Fragment {
     private FragmentPagerAdapter mFragmentPagerAdapter;
 
     private void initView(View view){
-        mRlAdd       = (RelativeLayout) view.findViewById(R.id.rl_add);
-        mRlSearch    = (RelativeLayout) view.findViewById(R.id.rl_search);
+        addIv       = (ImageView) view.findViewById(R.id.add_iv);
+
         vChat        = view.findViewById(R.id.v_chat);
         vAddressBook = view.findViewById(R.id.v_address_book);
         mViewPager   = (ViewPager)  view.findViewById(R.id.vp_fragment);
@@ -47,6 +50,10 @@ public class MessageFragment extends Fragment {
     }
 
     private void initData(){
+        if(!CacheUtil.getInstance().isLogin()){
+            RequestUtil.showLoginDialog(getActivity());
+            return;
+        }
         mActivity     = this.getActivity();
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new MessageCenterFragment());
@@ -74,14 +81,7 @@ public class MessageFragment extends Fragment {
 
     private void initListeners(){
 
-        mRlAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogUtil.getInstance().showCustomToast(mActivity, "TODO", Gravity.CENTER);
-            }
-        });
-
-        mRlSearch.setOnClickListener(new View.OnClickListener() {
+        addIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUtil.getInstance().showCustomToast(mActivity, "TODO", Gravity.CENTER);

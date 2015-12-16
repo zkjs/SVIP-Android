@@ -18,6 +18,7 @@ import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -29,6 +30,8 @@ import com.zkjinshi.svip.view.CircleImageView;
 public class SetFragment extends Fragment{
 
     public static final String TAG = SetFragment.class.getSimpleName();
+
+    public static final int KILL_MYSELT = 1;
 
     private RelativeLayout accountInfoLayout,orderManagerLayout,setLayout;
     private CircleImageView userPhotoIv;
@@ -44,6 +47,10 @@ public class SetFragment extends Fragment{
     }
 
     private void initData(){
+        if(!CacheUtil.getInstance().isLogin()){
+            RequestUtil.showLoginDialog(getActivity());
+            return;
+        }
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_logo_zhanwei)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_logo_zhanwei)// 设置图片Uri为空或是错误的时候显示的图片
@@ -88,11 +95,21 @@ public class SetFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,KILL_MYSELT);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
         });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == getActivity().RESULT_OK){
+            if(requestCode == KILL_MYSELT){
+                getActivity().finish();
+            }
+        }
 
     }
 

@@ -611,4 +611,31 @@ public class CacheUtil {
 		sp.edit().putString("current_city", currentCity).commit();
 	}
 
+
+	/**
+	 * 保存最适合的图片分辨率
+	 * @param bestFitPixel
+	 */
+	public void setBestFitPixel(int bestFitPixel) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putInt("bestFitPixel", bestFitPixel).commit();
+	}
+
+	/**
+	 * 获取最适合的图片分辨率
+	 * @return
+	 */
+	public int getBestFitPixel() {
+		if (null == context) {
+			return 0;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getInt("bestFitPixel", 720);
+	}
+
 }

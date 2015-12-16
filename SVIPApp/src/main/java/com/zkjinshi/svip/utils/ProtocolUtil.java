@@ -396,11 +396,15 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListByCityUrl(String city) {
-        // old api
-        //return  ConfigUtil.getInst().getHttpDomain()+"arrive/shoplist?city=" + city;
-        // new api
-//        return  "http://mmm.zkjinshi.com/shop/list?city=" + city;
-        return  ConfigUtil.getInst().getApiDomain()+"shop/list?city=" + city;
+        return  ConfigUtil.getInst().getApiDomain()+"shop/list/" + city;
+    }
+
+    /**
+     * 根据城市名称获取推荐商家列表
+     * @return
+     */
+    public static String getRecommendedShopListUrl(String city) {
+        return  ConfigUtil.getInst().getApiDomain()+"shop/recommended/" + city;
     }
 
     /**
@@ -446,5 +450,22 @@ public class ProtocolUtil {
 
     public static String getArriveNoticeUrl(){
         return ConfigUtil.getInst().getApiDomain()+"arrive/notice";
+    }
+
+    /**
+     * 获取合适分辨率的图片URL
+     * @return
+     */
+    public static String getFitPicUrl(String path,String file){
+        return path+"andriod/"+CacheUtil.getInstance().getBestFitPixel()+"/"+file;
+
+    }
+
+    /**
+     * 获取用户订单状态消息
+     * @return
+     */
+    public static String getOrderMsgUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"messages/orders";
     }
 }

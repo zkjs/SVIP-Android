@@ -10,8 +10,8 @@
         android:id="@+id/lv_shop_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#e8e8e8"
-        android:dividerHeight="1dp"
+        android:divider="@color/DivederColorBlack"
+        android:dividerHeight="1px"
         android:fadingEdge="none"
         android:fadeScrollbars="true" />
 

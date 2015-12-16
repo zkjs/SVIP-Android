@@ -154,11 +154,10 @@ public class MineUiController extends BaseUiController{
                     }else{
                         photoFilePath =  FileUtil.getInstance().getImageTempPath() + CacheUtil.getInstance().getPicName();
                     }
-                    displayBitmap = BitmapFactory.decodeFile(photoFilePath);
-                    if (displayBitmap != null) {
-                        displayBitmap = ImageUtil.cropThumbBitmap(displayBitmap);
-                        displayBitmap = ImageUtil.loadThumbBitmap(context,
-                                displayBitmap);
+                    File file = new File(photoFilePath);
+                    if (file.exists()) {
+                        displayBitmap = ImageUtil.getBitmapFromFile(file,198,198);
+                        displayBitmap = ImageUtil.loadThumbBitmap(context,displayBitmap);
                         imageView.setImageBitmap(displayBitmap);
                     }
                     CacheUtil.getInstance().savePicPath(photoFilePath);

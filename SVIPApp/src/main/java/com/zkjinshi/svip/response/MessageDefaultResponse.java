@@ -11,6 +11,24 @@ public class MessageDefaultResponse implements Serializable {
     private String iconbaseurl;
     private String iconfilename;
     private String title;
+    private String shopid="";
+    private String orderNo;
+
+    public String getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getDesc() {
         return desc;

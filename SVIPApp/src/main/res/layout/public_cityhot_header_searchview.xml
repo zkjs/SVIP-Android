@@ -8,14 +8,29 @@
     android:gravity="center_vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_back"
+        android:clickable="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/title_left_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_fanhui_orange"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="32.0dip"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="6.0dip"
-        android:layout_toLeftOf="@+id/iv_cancel"
-        android:layout_marginLeft="@dimen/city_search_margin_landr_dimen"
-        android:layout_marginRight="@dimen/city_search_margin_landr_dimen"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="6.0dip"
         android:background="@drawable/city_search_bg">
 
@@ -25,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="9.0dip"
+            android:layout_marginLeft="5dip"
             android:src="@drawable/ic_action_action_search" />
 
         <TextView
@@ -40,12 +55,5 @@
             android:textColor="#ff94989d"
             android:textSize="12.0sp" />
     </RelativeLayout>
-
-    <ImageButton
-        android:id="@+id/title_left_btn"
-        android:layout_marginRight="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_quxiao"/>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 
@@ -88,7 +90,7 @@ public class OrderDetailActivity extends Activity{
     private ImageView       mIvRoomImg;
 
     private TextView        mTitleTv;
-    private ImageView       mCancelIv;
+    private TextView       mCancelTv;
 
 
     private Button          mBtnSendOrder;
@@ -203,7 +205,7 @@ public class OrderDetailActivity extends Activity{
     private void initView() {
 
         mTitleTv = (TextView)findViewById(R.id.title_tv);
-        mCancelIv = (ImageView)findViewById(R.id.delete_iv);
+        mCancelTv = (TextView) findViewById(R.id.delete_text);
 
         mBtnSendOrder = (Button) findViewById(R.id.btn_send_booking_order);
         mRoomType     = (TextView) findViewById(R.id.tv_room_type);
@@ -338,7 +340,7 @@ public class OrderDetailActivity extends Activity{
         int payId = orderDetailResponse.getRoom().getPay_id();
 
         mBtnSendOrder.setVisibility(View.GONE);
-        mCancelIv.setVisibility(View.GONE);
+        mCancelTv.setVisibility(View.GONE);
         modifyEnable = false;
 
         mTvPay.setTextColor(Color.parseColor("#555555"));
@@ -347,7 +349,7 @@ public class OrderDetailActivity extends Activity{
             modifyEnable = true;
             mTvOrderStatus.setText("已提交");
             mBtnSendOrder.setVisibility(View.VISIBLE);
-            mCancelIv.setVisibility(View.VISIBLE);
+            mCancelTv.setVisibility(View.VISIBLE);
 
         }
         else if(orderStatus.equals("1")){
@@ -355,7 +357,7 @@ public class OrderDetailActivity extends Activity{
         }
         else if(orderStatus.equals("2")){
             mTvOrderStatus.setText("已确认");
-            mCancelIv.setVisibility(View.VISIBLE);
+            mCancelTv.setVisibility(View.VISIBLE);
         }
         else if(orderStatus.equals("3")){
             mTvOrderStatus.setText("已完成");
@@ -615,10 +617,10 @@ public class OrderDetailActivity extends Activity{
             }
         });
         //取消订单
-        findViewById(R.id.delete_iv).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.delete_text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelOrder();
+                showCancelDialog();
             }
         });
         //返回
@@ -679,6 +681,27 @@ public class OrderDetailActivity extends Activity{
 
     }
 
+    private void showCancelDialog() {
+        final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(this);
+        customerBuilder.setTitle("取消订单");
+        customerBuilder.setMessage("你确定要取消该订单吗？");
+        customerBuilder.setGravity(Gravity.CENTER);
+        customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               cancelOrder();
+            }
+        });
+        customerBuilder.create().show();
+    }
+
     //初始化标签点击事件
     private void initTagClickEvent(){
         mRoomTagView.setOnTagClickListener(new OnTagClickListener() {
@@ -735,6 +758,8 @@ public class OrderDetailActivity extends Activity{
 
     //取消订单
     private void cancelOrder(){
+
+
         String url = ProtocolUtil.updateOrderUrl();
         Log.i(TAG,url);
         NetRequest netRequest = new NetRequest(url);

@@ -45,7 +45,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:id="@+id/title_layout">
+                    android:id="@+id/title_layout"
+                    android:background="#33000000">
                     <ImageView
                         android:id="@+id/back_iv"
                         android:layout_width="50dp"

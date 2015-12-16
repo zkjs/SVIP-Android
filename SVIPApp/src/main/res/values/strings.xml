@@ -148,11 +148,13 @@
     <string name="shenzhen_city">深圳市</string>
     <string name="contacts">联系人</string>
     <string name="address_book">通讯录</string>
+    <string name="nearby">附近</string>
 
     <!--底部栏标题-->
     <string name="footer_tab_txt_home">首页</string>
     <string name="footer_tab_txt_shop">商家</string>
     <string name="footer_tab_txt_message">消息</string>
     <string name="footer_tab_txt_set">我</string>
+    <string name="chang_sha">长沙</string>
 
 </resources>

@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.MainActivity;
@@ -32,6 +33,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.view.BookingDialog;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.view.ListenerDialog;
@@ -67,6 +69,18 @@ public class TabNavigationFragment extends Fragment implements
 		}
 
 		super.onStart();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		ImageLoader.getInstance().clearMemoryCache();
+		for(int i=0;i<mContentFragments.size();i++){
+			if(mContentFragments.get(i) != null){
+				Fragment fragment = mContentFragments.get(i);
+				fragment = null;
+			}
+		}
 	}
 
 	public static void setCurrentNavigationChecked(int rbId, Activity activity) {

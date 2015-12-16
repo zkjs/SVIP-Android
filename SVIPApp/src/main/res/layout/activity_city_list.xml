@@ -4,4 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/home_edittext_layout"
+        layout="@layout/public_cityhot_header_searchview" />
+
+    <ListView
+        android:id="@+id/lv_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/city_search_bg"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/divider_line_color"
+        android:dividerHeight="0.50dp"
+        android:listSelector="@android:color/transparent" />
+
 </LinearLayout>
