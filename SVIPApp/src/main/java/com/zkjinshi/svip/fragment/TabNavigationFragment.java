@@ -75,12 +75,17 @@ public class TabNavigationFragment extends Fragment implements
 	public void onStop() {
 		super.onStop();
 		ImageLoader.getInstance().clearMemoryCache();
-		for(int i=0;i<mContentFragments.size();i++){
-			if(mContentFragments.get(i) != null){
-				Fragment fragment = mContentFragments.get(i);
-				fragment = null;
-			}
-		}
+	}
+
+	public void onDestroy(){
+		super.onDestroy();
+//		for(int i=0;i<mContentFragments.size();i++){
+//			if(mContentFragments.get(i) != null){
+//				Fragment fragment = mContentFragments.get(i);
+//				fragment = null;
+//			}
+//		}
+//		mContentFragments.clear();
 	}
 
 	public static void setCurrentNavigationChecked(int rbId, Activity activity) {

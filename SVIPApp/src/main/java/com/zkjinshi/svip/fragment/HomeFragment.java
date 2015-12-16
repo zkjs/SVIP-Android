@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
-    private final static int NOTIFY_UPDATE_VIEW = 0x0001;
+    private final static int LOAD_DEFAULT_MSG= 0x0001;
     private final static int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
     private final static int NOTIFY_LOCATION = 0x04;
@@ -105,8 +105,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case NOTIFY_UPDATE_VIEW:
-                    // setBadgeNum();
+                case LOAD_DEFAULT_MSG:
+                    getMessageDefault();
                     break;
                 case NOTIFY_UPDATE_MAIN_TEXT:
                     if(mActivity instanceof MainActivity){
@@ -563,11 +563,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         homeMsgAdapter.notifyDataSetChanged();
                     }
                     else{
-                        getMessageDefault();
+                        handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                     }
 
                 } catch (Exception e) {
-                    getMessageDefault();
+                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                     Log.e(TAG, e.getMessage());
                 }
 

@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,22 +8,34 @@ import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.bean.LocPushBean;
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.fragment.HomeFragment;
+import com.zkjinshi.svip.fragment.SetFragment;
 import com.zkjinshi.svip.fragment.TabNavigationFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.utils.VIPContext;
+
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -67,7 +80,75 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
 //        if(listenerDialog != null){
 //            listenerDialog.stopAnimation();
 //        }
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == SetFragment.KILL_MYSELT){
+                logout();
+                finish();
+            }
+        }
+
+    }
+
+    public void logout(){
+        //环信接口退出
+        EasemobIMHelper.getInstance().logout();
+        //http接口推出
+        String userID = CacheUtil.getInstance().getUserId();
+        logoutHttp(userID);
+        //熊推接口推出
+        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
+        //修改登录状态
+        CacheUtil.getInstance().setLogin(false);
+        CacheUtil.getInstance().setActivate(false);
+        CacheUtil.getInstance().setUserId("");
+        CacheUtil.getInstance().setUserName("");
+        CacheUtil.getInstance().setUserPhone("");
+        CacheUtil.getInstance().savePicPath("");
+        ImageLoader.getInstance().clearDiskCache();
+        ImageLoader.getInstance().clearMemoryCache();
+        Intent loginActiviy = new Intent(this, LoginActivity.class);
+        startActivity(loginActiviy);
+    }
+
+    /**
+     * 断开用户登录连接
+     */
+    private void logoutHttp(String userID) {
+        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
+        Log.i(TAG, logoutUrl);
+        NetRequest netRequest = new NetRequest(logoutUrl);
+        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
     }
 
     private void initView() {
