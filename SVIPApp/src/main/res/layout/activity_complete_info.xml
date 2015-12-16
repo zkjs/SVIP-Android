@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
-    android:background="@mipmap/bg_svip_mine"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:layout_height="match_parent">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF" />
-
     <RelativeLayout
+        android:id="@+id/layout_user_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="86dp"
@@ -33,80 +26,70 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="173dp"
-        android:layout_marginTop="56dp"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_user_avatar_tips"
+        android:layout_below="@id/layout_user_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="请上传身份识别图"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textColor="#666666"/>
+
+    <LinearLayout
+        android:layout_below="@id/tv_user_avatar_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="45dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/et_nick_name"
-            android:layout_width="173dp"
-            android:padding="5dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/White"
-            android:hint="@string/nickname"
+            android:layout_width="228dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:hint="请输入姓名"
+            android:inputType="text"
+            android:drawableLeft="@mipmap/ic_yonghu_nor"
+            android:drawablePadding="10dp"
+            android:maxLength="11"
+            android:background="@drawable/bg_login_etv_shape"
+            android:padding="10dp"
             android:singleLine="true"
-            android:textSize="14sp"
-            android:background="#00000000"
-            android:textColorHint="@color/Gray9E9E9E"
-            android:gravity="center_vertical|left" />
+            android:textColor="#666666"
+            android:textColorHint="#b8b8b8"
+            android:textSize="14sp" />
 
-        <View
-            android:layout_alignBottom="@id/et_nick_name"
-            android:layout_height="1px"
-            android:background="@android:color/white"
-            android:layout_width="match_parent"/>
+        <CheckBox
+            android:id="@+id/cb_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:button="@null"
+            android:clickable="true"
+            android:text="@null"
+            android:layout_marginRight="16dp"
+            android:drawableLeft="@drawable/sex_cb_selector" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:paddingTop="40dp"
-        android:paddingBottom="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="173dp"
-        android:layout_height="wrap_content">
-        
-        <RadioGroup
-            android:id="@+id/rg_sex"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-                <RadioButton
-                    android:id="@+id/rb_male"
-                    android:button="@null"
-                    android:layout_marginLeft="29dp"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:background="@drawable/mine_rb_male" >
-                </RadioButton>
-
-                <RadioButton
-                    android:id="@+id/rb_female"
-                    android:button="@null"
-                    android:layout_marginLeft="58dp"
-                    android:background="@drawable/mine_rb_female"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp">
-                </RadioButton>
-
-        </RadioGroup>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_weight="1"
+    <Button
+        android:id="@+id/ibtn_qian_jin"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="0dp">
+        android:layout_height="45dp"
+        android:text="确定"
+        android:textSize="14sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
 
-        <ImageButton
-            android:id="@+id/ibtn_qian_jin"
-            android:layout_width="22dp"
-            android:layout_height="21.50dp"
-            android:background="@mipmap/ic_qianjin" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
