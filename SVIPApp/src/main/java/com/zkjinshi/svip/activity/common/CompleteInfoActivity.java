@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -52,13 +54,10 @@ import java.util.Map;
  */
 public class CompleteInfoActivity extends Activity {
 
-    private ItemTitleView   mTitle;
     private CircleImageView mCivUserAvatar;
     private EditText        mEtNickName;
-    private RadioGroup      mRgSex;
-    private RadioButton     mRbMale;
-    private RadioButton     mRbFemale;
-    private ImageButton     mIbtnQianJin;
+    private Button mIbtnQianJin;
+    private CheckBox cbSex;
 
     private ImageLoadingListener imageLoadingListener;
     private Bundle               thirdBundledata;
@@ -74,20 +73,16 @@ public class CompleteInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_info);
-
         initView();
         initData();
         initListener();
     }
 
     private void initView() {
-        mTitle         = (ItemTitleView)   findViewById(R.id.itv_title);
         mCivUserAvatar = (CircleImageView) findViewById(R.id.civ_user_avatar);
         mEtNickName    = (EditText)    findViewById(R.id.et_nick_name);
-        mRgSex         = (RadioGroup)  findViewById(R.id.rg_sex);
-        mRbMale        = (RadioButton) findViewById(R.id.rb_male);
-        mRbFemale      = (RadioButton) findViewById(R.id.rb_female);
-        mIbtnQianJin   = (ImageButton) findViewById(R.id.ibtn_qian_jin);
+        mIbtnQianJin   = (Button) findViewById(R.id.ibtn_qian_jin);
+        cbSex = (CheckBox)findViewById(R.id.cb_sex);
     }
 
     private void initData() {
@@ -118,45 +113,21 @@ public class CompleteInfoActivity extends Activity {
             //初始化性别
             String sex = thirdBundledata.getString("sex");
             if(null != sex && sex.equals("1")){
-                mRbMale.setChecked(true);
+                cbSex.setChecked(false);
             }else {
-                mRbFemale.setChecked(true);
+                cbSex.setChecked(true);
             }
         }
 
-        mTitle.setTextTitle(getString(R.string.complete_info));
     }
 
     private void initListener() {
-
-        //左侧后退操作
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CompleteInfoActivity.this.finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
-        });
 
         //头像选择操作
         mCivUserAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MineUiController.getInstance().showChoosePhotoDialog();
-            }
-        });
-
-        //性别切换按钮
-        mRgSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //选择男性
-                if (checkedId == R.id.rb_male) {
-                }
-
-                //选择女性
-                if (checkedId == R.id.rb_female) {
-                }
             }
         });
 
@@ -173,18 +144,11 @@ public class CompleteInfoActivity extends Activity {
                     return;
                 }
 
-                //性别选择
-                if (!mRbMale.isChecked() && !mRbFemale.isChecked()) {
-                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
-                                getString(R.string.please_choose_sex), Gravity.CENTER);
-                    return;
-                }
-
                 DeviceUtils.init(CompleteInfoActivity.this);
 
                 mNickName = mEtNickName.getText().toString();
                 picPath   = CacheUtil.getInstance().getPicPath();
-                sexValue  = mRgSex.getCheckedRadioButtonId() == R.id.rb_male ? 1 : 0;
+                sexValue  = cbSex.isChecked() ? 0 : 1;
                 LogUtil.getInstance().info(LogLevel.INFO, "sexValue:" + sexValue);
 
                 String url = ProtocolUtil.getUserUploadUrl();

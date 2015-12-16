@@ -49,6 +49,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -239,8 +240,16 @@ public class LoginActivity extends Activity{
             @Override
             public void onClick(View v) {
                 String inputPhone = mInputPhone.getText().toString();
-                //getUser(inputPhone);
-                String verifyCode = mVerifyCode.getText().toString();
+                if (TextUtils.isEmpty(inputPhone)) {
+                    DialogUtil.getInstance().showCustomToast(v.getContext(), "输入的手机号码不能为空", Gravity.CENTER);
+                    return;
+                }
+                if(!IntentUtil.isMobileNO(inputPhone)){
+                    DialogUtil.getInstance().showCustomToast(v.getContext(), "请输入正确格式的手机号码", Gravity.CENTER);
+                    return;
+                }
+                getUser(inputPhone);
+              /*  String verifyCode = mVerifyCode.getText().toString();
                 String phoneNumber = mInputPhone.getText().toString();
                 if (verifyCode.length() == 6) {
                     if (StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
@@ -255,7 +264,7 @@ public class LoginActivity extends Activity{
                     getUser(inputPhone);//判断用户是否已经存在
                 }else {
                     DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
-                }
+                }*/
             }
         });
 
