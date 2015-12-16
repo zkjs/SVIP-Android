@@ -3,7 +3,9 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -88,6 +91,32 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
         if(!TextUtils.isEmpty(fieldValue)){
             mInputEt.setText(fieldValue);
         }
+        if(fieldKey.equals("email") ){
+            mInputEt.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    String inputStr = editable.toString();
+                    if (inputStr.length() > 0) {
+                        if( IntentUtil.isEmailAddress(inputStr)){
+                            mTipsTv.setText("");
+                        }else{
+                            mTipsTv.setText("格式错误！");
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -99,7 +128,7 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
         }
         if(fieldKey.equals("email") )
         {
-            if(fieldValue.matches("^\\w+@\\w+\\.(com|cn)")){
+            if( IntentUtil.isEmailAddress(fieldValue)){
                 mTipsTv.setText("");
             }else{
                 mTipsTv.setText("格式错误！");

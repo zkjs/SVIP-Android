@@ -112,66 +112,12 @@ public class SetActivity extends Activity {
         customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //环信接口退出
-                EasemobIMHelper.getInstance().logout();
-                //http接口推出
-                String userID = CacheUtil.getInstance().getUserId();
-                logoutHttp(userID);
-                //熊推接口推出
-                WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
-                //修改登录状态
-                CacheUtil.getInstance().setLogin(false);
-                CacheUtil.getInstance().setActivate(false);
-                CacheUtil.getInstance().setUserId("");
-                CacheUtil.getInstance().setUserName("");
-                CacheUtil.getInstance().setUserPhone("");
-                CacheUtil.getInstance().savePicPath("");
-                ImageLoader.getInstance().clearDiskCache();
-                ImageLoader.getInstance().clearMemoryCache();
-                Intent loginActiviy = new Intent(SetActivity.this, LoginActivity.class);
-                startActivity(loginActiviy);
                 setResult(RESULT_OK);
                 finish();
-
             }
         });
         customerBuilder.create().show();
     }
 
-    /**
-     * 断开用户登录连接
-     */
-    private void logoutHttp(String userID) {
-        String logoutUrl = ProtocolUtil.getLogoutUrl(userID);
-        Log.i(TAG, logoutUrl);
-        NetRequest netRequest = new NetRequest(logoutUrl);
-        NetRequestTask netRequestTask = new NetRequestTask(SetActivity.this, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(SetActivity.this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "http退出失败");
-            }
 
-            @Override
-            public void onNetworkRequestCancelled() {
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                LogUtil.getInstance().info(LogLevel.ERROR, "http退出成功");
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }
 }

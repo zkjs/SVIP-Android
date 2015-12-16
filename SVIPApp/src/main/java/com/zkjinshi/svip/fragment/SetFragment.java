@@ -95,7 +95,7 @@ public class SetFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetActivity.class);
-                startActivityForResult(intent,KILL_MYSELT);
+                getActivity().startActivityForResult(intent,KILL_MYSELT);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
@@ -103,15 +103,7 @@ public class SetFragment extends Fragment{
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == getActivity().RESULT_OK){
-            if(requestCode == KILL_MYSELT){
-                getActivity().finish();
-            }
-        }
 
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
