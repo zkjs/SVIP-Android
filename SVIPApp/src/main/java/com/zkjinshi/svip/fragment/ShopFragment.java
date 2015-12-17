@@ -100,8 +100,11 @@ public class ShopFragment extends BaseFragment {
 
                 } else {
                     Intent intent = new Intent(mActivity, GoodListActivity.class);
-                    intent.putExtra("shopBean", (ShopBean)baseShopBean);
+                    String shopid = baseShopBean.getShopid();
+                    ShopBean shopBean = (ShopBean)baseShopBean;
+                    intent.putExtra("shopBean", shopBean);
                     intent.putExtra("showHeader",true);
+                    intent.putExtra("shopid",shopid);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }

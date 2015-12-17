@@ -201,15 +201,8 @@ public class GoodListActivity extends Activity {
         if(getIntent().getSerializableExtra("GoodInfoVo") != null){
             goodInfoVo = (GoodInfoVo)getIntent().getSerializableExtra("GoodInfoVo");
         }
-        if(shopBean != null){
-            shopid = shopBean.getShopid();
-        }else{
-            shopid = getIntent().getStringExtra("shopid");
-            bookingBtn.setVisibility(View.GONE);
-        }
-//        goodInfoList = new ArrayList<GoodInfoVo>();
-//        goodAdapter = new GoodAdapter(goodInfoList,GoodListActivity.this);
-//        roomListView.setAdapter(goodAdapter);
+        shopid = getIntent().getStringExtra("shopid");
+        bookingBtn.setVisibility(View.GONE);
 
         TextView tips  = (TextView)findViewById(R.id.empty_tips);
         tips.setText("暂无房型可选");

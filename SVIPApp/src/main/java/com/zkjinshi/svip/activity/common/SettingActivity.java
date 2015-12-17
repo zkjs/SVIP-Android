@@ -370,7 +370,7 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 intent.putExtra("title","修改姓名");
                 intent.putExtra("hint","输入你的真实姓名");
                 intent.putExtra("tips","该名字用于你订房时确定，不会透露给他人");
-                intent.putExtra("field_key","real_name");
+                intent.putExtra("field_key","username");
                 intent.putExtra("field_value",mRealName.getTextContent2());
                 startActivityForResult(intent, Constants.FLAG_MODIFY_REAL_NAME);
                 overridePendingTransition(R.anim.slide_in_right,

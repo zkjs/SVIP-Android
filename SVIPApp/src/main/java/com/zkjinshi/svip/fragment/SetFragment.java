@@ -17,9 +17,9 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
-import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+
 import com.zkjinshi.svip.net.NetDialogUtil;
-import com.zkjinshi.svip.net.RequestUtil;
+
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -122,13 +122,13 @@ public class SetFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        initData();;
         initListeners();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initData();
     }
 
 }

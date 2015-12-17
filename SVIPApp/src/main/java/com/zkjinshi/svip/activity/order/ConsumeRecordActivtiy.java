@@ -2,8 +2,6 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 
@@ -19,11 +17,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
-import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -33,16 +29,9 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
 
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.RefreshListview;
-import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
-import com.zkjinshi.svip.view.swipelistview.SwipeMenuCreator;
-import com.zkjinshi.svip.view.swipelistview.SwipeMenuItem;
-import com.zkjinshi.svip.view.swipelistview.SwipeMenuListView;
-
 
 
 import java.util.ArrayList;
@@ -77,7 +66,7 @@ public class ConsumeRecordActivtiy extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_order);
+        setContentView(R.layout.activity_consumer_record);
         initView();
     }
 

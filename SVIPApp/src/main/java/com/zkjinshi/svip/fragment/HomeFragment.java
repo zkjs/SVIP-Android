@@ -33,9 +33,8 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
-import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
-import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
@@ -50,7 +49,6 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
-import com.zkjinshi.svip.response.ShopRecommendedResponse;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
@@ -197,8 +195,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     break;
                     case HOME_MSG_ORDER:
                     {
-                        Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
-                        intent.putExtra("is_order", true);
+                        Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
                         getActivity().startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_in_right,
                                 R.anim.slide_out_left);
