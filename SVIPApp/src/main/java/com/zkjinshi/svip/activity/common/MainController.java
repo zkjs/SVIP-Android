@@ -301,12 +301,12 @@ public class MainController {
     public void requestArriveNoticeTask(String shopId,String locId){{
         NetRequest netRequest = new NetRequest(ProtocolUtil.getArriveNoticeUrl());
         HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("Userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("Locid", locId);
-        bizMap.put("Shopid", shopId);
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("locid", locId);
+        bizMap.put("shopid", shopId);
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.JSON;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {

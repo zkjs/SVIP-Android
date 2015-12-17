@@ -1,11 +1,13 @@
 package com.zkjinshi.svip.net;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
@@ -18,13 +20,18 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -39,6 +46,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 
 /**
  * 网络请求帮助类
@@ -73,6 +81,51 @@ public class RequestUtil {
             result = EntityUtils.toString(httpResponse.getEntity());
         }
         return result;
+    }
+
+    public static String sendPostRequest(String requestUrl,HashMap<String,String> bizParamsMap) throws Exception{
+        String resultInfo = null;
+        JSONObject jsonObject = null;
+        URL url = new URL(requestUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setConnectTimeout(TIMEOUT);
+        connection.setReadTimeout(TIMEOUT);
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestMethod("POST");
+        connection.setUseCaches(false);
+        connection.setInstanceFollowRedirects(true);
+        connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        connection.connect();
+        DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+        jsonObject = new JSONObject();
+        if (null != bizParamsMap) {
+            Iterator<Map.Entry<String, String>> bizIterator = bizParamsMap.entrySet()
+                    .iterator();
+            while (bizIterator.hasNext()) {
+                HashMap.Entry bizEntry = (HashMap.Entry) bizIterator.next();
+                jsonObject.put(bizEntry.getKey().toString(),bizEntry
+                        .getValue().toString());
+            }
+        }
+        out.write(jsonObject.toString().getBytes("UTF-8"));
+        out.flush();
+        out.close();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                connection.getInputStream()));
+        int responseCode =  connection.getResponseCode();
+        if(responseCode == HttpStatus.SC_OK){
+            String lines;
+            StringBuffer sb = new StringBuffer("");
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            resultInfo = sb.toString();
+            reader.close();
+        }
+        connection.disconnect();
+        return  resultInfo;
     }
 
     /**
@@ -140,6 +193,7 @@ public class RequestUtil {
         URL uri = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
         conn.setReadTimeout(TIMEOUT);
+        conn.setConnectTimeout(TIMEOUT);
         conn.setDoInput(true);
         conn.setDoOutput(true);
         conn.setUseCaches(false);
