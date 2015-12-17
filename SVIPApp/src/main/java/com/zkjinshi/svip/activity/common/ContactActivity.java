@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,7 +62,7 @@ public class ContactActivity extends Activity {
     private TextView       mTvLatestOnline;//最近在线时间
     private TextView       mTvShopName;//所属商家
     private TextView       mTvContactName;//联想人姓名
-//    private LinearLayout   mLlPhone;
+    private LinearLayout   mLlPhone;
     private TextView       mTvPhoneNumber;//手机号
     private ImageButton    mIbtnDial;//聊天按键
     private TextView       mTvEvaluateScore;//评分
@@ -96,7 +98,7 @@ public class ContactActivity extends Activity {
         mTvShopName      = (TextView) findViewById(R.id.tv_shop_name);
         mTvContactName   = (TextView) findViewById(R.id.tv_contact_name);
         mTvPhoneNumber   = (TextView) findViewById(R.id.tv_phone_number);
-//        mLlPhone         = (LinearLayout)findViewById(R.id.ll_phone);
+        mLlPhone         = (LinearLayout)findViewById(R.id.ll_phone);
         mIbtnDial        = (ImageButton) findViewById(R.id.ibtn_dial);
         mTvEvaluateScore = (TextView) findViewById(R.id.tv_evaluate_score);
         mIvOrderEvaluatePoor            = (ImageView) findViewById(R.id.iv_order_evaluate_poor);
@@ -137,13 +139,13 @@ public class ContactActivity extends Activity {
             }
         });
 
-//        mLlPhone.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String phoneNumber = mTvPhoneNumber.getText().toString();
-//                dial(phoneNumber);
-//            }
-//        });
+        mLlPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = mTvPhoneNumber.getText().toString();
+                dial(phoneNumber);
+            }
+        });
 
         mIbtnDial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +206,8 @@ public class ContactActivity extends Activity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + phoneNumber));
-            ContactActivity.this.startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
@@ -288,6 +291,8 @@ public class ContactActivity extends Activity {
 
         if(!TextUtils.isEmpty(phoneNumber)){
             mTvPhoneNumber.setText(phoneNumber);
+        } else {
+            mTvPhoneNumber.setText(getString(R.string.current_none));
         }
 
         if(!TextUtils.isEmpty(shopName)){
@@ -317,4 +322,5 @@ public class ContactActivity extends Activity {
         }
 
     }
+
 }

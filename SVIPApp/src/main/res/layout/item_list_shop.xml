@@ -19,7 +19,6 @@
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/img_dingdanxiangqing"
                 android:scaleType="fitXY" />
 
         </RelativeLayout>
@@ -28,6 +27,8 @@
             android:id="@+id/ll_shop_info"
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:orientation="vertical">
 
             <TextView
@@ -36,9 +37,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:gravity="left|center_vertical"
+                android:gravity="left|center"
                 android:paddingLeft="20dp"
                 android:paddingRight="88dp"
+                android:paddingTop="5dp"
                 android:singleLine="true"
                 android:text="商家描述" />
 
@@ -48,9 +50,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:gravity="left|top"
+                android:gravity="left|center"
+                android:paddingBottom="5dp"
                 android:paddingLeft="20dp"
-                android:paddingRight="88dp"
+                android:paddingRight="20dp"
                 android:singleLine="true"
                 android:text="商家地址" />
 
@@ -63,19 +66,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="192dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="64dp">
+            android:paddingTop="64dp"
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/tv_shop_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:padding="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="true"
                 android:text="xxx酒店"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
@@ -83,15 +90,19 @@
             <TextView
                 android:id="@+id/tv_shop_business"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_below="@+id/tv_shop_name"
-                android:gravity="center"
-                android:padding="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="top|center_horizontal"
+                android:lines="2"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="住宿，会议"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_saler_info"
@@ -109,6 +120,7 @@
                     android:id="@+id/civ_saler_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:clickable="true"
                     android:src="@mipmap/img_avatar_hotel" />
 
                 <View

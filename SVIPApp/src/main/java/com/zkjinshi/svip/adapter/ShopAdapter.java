@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
 import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
@@ -109,7 +111,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
             String   shopBusi = shopBean.getShopbusiness();
             String   shopDesc = shopBean.getShopdesc();
             String   shopAdd  = shopBean.getShopaddress();
-            String   salesID  = shopBean.getSalesid();
+            final String   salesID  = shopBean.getSalesid();
             String   imgUrl   = shopBean.getBgImgUrl();
 
             if(!TextUtils.isEmpty(shopName)){
@@ -134,7 +136,16 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
 
             if(!TextUtils.isEmpty(salesID)){
                 String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
-                ImageLoader.getInstance().displayImage(avatarUrl,viewHolder.civSalerAvatar, avatarOptions);
+                ImageLoader.getInstance().displayImage(avatarUrl, viewHolder.civSalerAvatar, avatarOptions);
+                viewHolder.civSalerAvatar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // 进入销售主页
+                        Intent intent = new Intent(mActivity, ContactActivity.class);
+                        intent.putExtra("contact_id", salesID);
+                        mActivity.startActivity(intent);
+                    }
+                });
             }
         }
 
