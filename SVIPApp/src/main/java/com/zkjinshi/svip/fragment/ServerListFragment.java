@@ -64,18 +64,15 @@ public class ServerListFragment extends BaseFragment{
         loadServerList();
     }
 
-    /**
-     * 初始化监听器操作
-     */
-    private void initListener() {
-        //设置listView刷新数据
+    @Override
+    protected void initListener() {
+        super.initListener();
         mSrlContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadServerList();
             }
         });
-
     }
 
     /**
