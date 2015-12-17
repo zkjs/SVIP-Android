@@ -301,26 +301,25 @@ public class ContactActivity extends Activity {
 
         //设置点评星星是否可用
         mTvEvaluateScore.setText(avgScore+"");
-        if(avgScore >0 && avgScore <= 1){
+        if(avgScore > 0 ){
             mIvOrderEvaluatePoor.setBackgroundResource(R.mipmap.ic_star_pre);
         }
 
-        if(avgScore >1 && avgScore <= 2){
+        if(avgScore >= 2 ){
             mIvOrderEvaluateCommon.setBackgroundResource(R.mipmap.ic_star_pre);
         }
 
-        if(avgScore >2 && avgScore <= 3){
+        if(avgScore >= 3){
             mIvOrderEvaluateGratify.setBackgroundResource(R.mipmap.ic_star_pre);
         }
 
-        if(avgScore >3 && avgScore <= 4){
+        if(avgScore >= 4){
             mIvOrderEvaluateGreatGratify.setBackgroundResource(R.mipmap.ic_star_pre);
         }
 
-        if(avgScore >4 && avgScore <=5){
+        if(avgScore >=5){
             mIvOrderEvaluateHighlyRecommend.setBackgroundResource(R.mipmap.ic_star_pre);
         }
-
     }
 
 }
