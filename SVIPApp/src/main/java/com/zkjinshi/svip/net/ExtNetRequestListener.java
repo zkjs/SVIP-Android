@@ -51,7 +51,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
             if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
                 if(context instanceof Activity){
                    // DialogUtil.getInstance().showToast(context, "Token失效，请重新登录!");
-                  RequestUtil.showLoginDialog((Activity) context);
+                  NetDialogUtil.showLoginDialog((Activity) context);
                 }
             }
         }catch (Exception e){

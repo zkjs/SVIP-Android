@@ -19,6 +19,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.AddFriendActivity;
 import com.zkjinshi.svip.base.BaseFragment;
+import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -53,7 +54,7 @@ public class MessageFragment extends Fragment {
 
     private void initData(){
         if(!CacheUtil.getInstance().isLogin()){
-            RequestUtil.showLoginDialog(getActivity());
+            NetDialogUtil.showLoginDialog(getActivity());
             return;
         }
         mActivity     = this.getActivity();
