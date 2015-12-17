@@ -43,12 +43,16 @@ public abstract class  BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // 数据加载的操作
         initData();
+        initListener();
     }
 
     /**
      * 数据加载的方法
      */
     protected void initData() {
+    }
+
+    protected void initListener(){
     }
 
     protected abstract View initView();
