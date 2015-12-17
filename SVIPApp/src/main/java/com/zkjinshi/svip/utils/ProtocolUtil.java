@@ -387,16 +387,16 @@ public class ProtocolUtil {
      * 获取全部商家列表
      * @return
      */
-    public static String getShopListUrl() {
-        return ConfigUtil.getInst().getApiDomain()+"shop/list";
+    public static String getShopListUrl(int page, int pageSize) {
+        return ConfigUtil.getInst().getApiDomain()+"shop/list"+"/"+page+"/"+pageSize+"/";
     }
 
     /**
      * 根据城市名称获取商家列表
      * @return
      */
-    public static String getShopListByCityUrl(String city) {
-        return  ConfigUtil.getInst().getApiDomain()+"shop/list/" + city;
+    public static String getShopListByCityUrl(String city, int page, int pageSize) {
+        return  ConfigUtil.getInst().getApiDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
     }
 
     /**

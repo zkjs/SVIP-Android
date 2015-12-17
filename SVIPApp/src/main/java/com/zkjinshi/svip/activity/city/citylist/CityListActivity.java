@@ -98,7 +98,6 @@ public class CityListActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(MotionEvent.ACTION_DOWN == event.getAction()){
-
                     //开始载入城市
                     ContactsHelper.getInstance().startLoadContacts();
                     Intent intent = new Intent(CityListActivity.this, SearchActivity.class);
@@ -118,7 +117,7 @@ public class CityListActivity extends Activity {
                         String city = aMapLocation.getCity();
                         if (!TextUtils.isEmpty(city)) {
                             //更新城市显示
-                            mCityLocated.setCity(city);
+                            mCityLocated.setCity(city.substring(0, city.length()-1));
                             Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
                             mCityAdapter.notifyDataSetChanged();
                         }
@@ -133,6 +132,7 @@ public class CityListActivity extends Activity {
                 CityBean cityBean = (CityBean) parent.getAdapter().getItem(position);
                 String city   = cityBean.getCity();
                 Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
+
                 Intent intent = new Intent();
                 intent.putExtra("city", city);
                 setResult(RESULT_OK, intent);

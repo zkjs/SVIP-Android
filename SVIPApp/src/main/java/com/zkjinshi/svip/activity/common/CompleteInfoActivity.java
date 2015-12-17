@@ -3,14 +3,18 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -58,6 +62,8 @@ public class CompleteInfoActivity extends Activity {
     private EditText        mEtNickName;
     private Button mIbtnQianJin;
     private CheckBox cbSex;
+    private ImageView clearNickNameIv;
+    private Drawable leftNickNameDrawable;
 
     private ImageLoadingListener imageLoadingListener;
     private Bundle               thirdBundledata;
@@ -83,6 +89,7 @@ public class CompleteInfoActivity extends Activity {
         mEtNickName    = (EditText)    findViewById(R.id.et_nick_name);
         mIbtnQianJin   = (Button) findViewById(R.id.ibtn_qian_jin);
         cbSex = (CheckBox)findViewById(R.id.cb_sex);
+        clearNickNameIv = (ImageView)findViewById(R.id.login_iv_clear_nick_name);
     }
 
     private void initData() {
@@ -122,6 +129,47 @@ public class CompleteInfoActivity extends Activity {
     }
 
     private void initListener() {
+
+        //清空姓名
+        clearNickNameIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEtNickName.setText("");
+            }
+        });
+
+        //输入姓名
+        mEtNickName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String nickNameStr = s.toString();
+                if(TextUtils.isEmpty(nickNameStr)){
+                    clearNickNameIv.setVisibility(View.GONE);
+                    leftNickNameDrawable = getResources().getDrawable(
+                            R.mipmap.ic_yonghu_nor);
+                    leftNickNameDrawable.setBounds(0, 0, leftNickNameDrawable.getMinimumWidth(),
+                            leftNickNameDrawable.getMinimumHeight());
+                    mEtNickName.setCompoundDrawables(leftNickNameDrawable, null, null, null);
+                }else{
+                    clearNickNameIv.setVisibility(View.VISIBLE);
+                    leftNickNameDrawable = getResources().getDrawable(
+                            R.mipmap.ic_yonghu_pre);
+                    leftNickNameDrawable.setBounds(0, 0, leftNickNameDrawable.getMinimumWidth(),
+                            leftNickNameDrawable.getMinimumHeight());
+                    mEtNickName.setCompoundDrawables(leftNickNameDrawable, null, null, null);
+                }
+            }
+        });
 
         //头像选择操作
         mCivUserAvatar.setOnClickListener(new View.OnClickListener() {

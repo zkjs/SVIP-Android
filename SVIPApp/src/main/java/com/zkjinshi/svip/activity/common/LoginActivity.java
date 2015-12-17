@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -99,6 +100,9 @@ public class LoginActivity extends Activity{
     private EditText  mVerifyCode;
     private TextView  sendVerifyCode;
     private Button commitBtn;
+    private ImageView clearPhoneIv,clearCodeIv;
+    private Drawable leftPhoneDrawable,leftCodeDrawable;
+    private TextView useDealTv;
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
@@ -208,6 +212,9 @@ public class LoginActivity extends Activity{
         mVerifyCode     = (EditText)    findViewById(R.id.et_verify_code);
         sendVerifyCode = (TextView)findViewById(R.id.tv_send_verify_code);
         commitBtn = (Button)findViewById(R.id.btn_confirm);
+        clearPhoneIv = (ImageView)findViewById(R.id.login_iv_clear_phone);
+        clearCodeIv = (ImageView)findViewById(R.id.login_iv_verify_code);
+        useDealTv = (TextView)findViewById(R.id.login_tv_use_deal);
     }
 
     private void initData() {
@@ -221,6 +228,33 @@ public class LoginActivity extends Activity{
     }
 
     private void initListener() {
+
+        //使用协议
+        useDealTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,UseDealActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom,
+                        R.anim.slide_out_top);
+            }
+        });
+
+        //清空手机号码
+        clearPhoneIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInputPhone.setText("");
+            }
+        });
+
+        //清空验证码
+        clearCodeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mVerifyCode.setText("");
+            }
+        });
 
         //发送验证码
         sendVerifyCode.setOnClickListener(new View.OnClickListener() {
@@ -281,11 +315,29 @@ public class LoginActivity extends Activity{
 
             @Override
             public void afterTextChanged(Editable strPhone) {
-                //1.监听手机输入
+                if (null != strPhone && strPhone.length() > 0) {
+                    clearPhoneIv.setVisibility(View.VISIBLE);
+                } else {
+                    clearPhoneIv.setVisibility(View.GONE);
+                }
                 String phoneNumber = strPhone.toString();
                 if (phoneNumber.length() != 11) {
+                    sendVerifyCode.setBackgroundResource(R.drawable.bg_login_etv_default_shape);
+                    sendVerifyCode.setTextColor(getResources().getColor(R.color.light_black));
                     sendVerifyCode.setEnabled(false);
+                    leftPhoneDrawable = getResources().getDrawable(
+                            R.mipmap.ic_yonghu_nor);
+                    leftPhoneDrawable.setBounds(0, 0, leftPhoneDrawable.getMinimumWidth(),
+                            leftPhoneDrawable.getMinimumHeight());
+                    mInputPhone.setCompoundDrawables(leftPhoneDrawable, null, null, null);
                 } else {
+                    sendVerifyCode.setBackgroundResource(R.drawable.bg_login_etv_active_shape);
+                    sendVerifyCode.setTextColor(getResources().getColor(android.R.color.white));
+                    leftPhoneDrawable = getResources().getDrawable(
+                            R.mipmap.ic_yonghu_pre);
+                    leftPhoneDrawable.setBounds(0, 0, leftPhoneDrawable.getMinimumWidth(),
+                            leftPhoneDrawable.getMinimumHeight());
+                    mInputPhone.setCompoundDrawables(leftPhoneDrawable, null, null, null);
                     if (!StringUtil.isPhoneNumber(phoneNumber)) {
                         sendVerifyCode.setEnabled(false);
                     } else {
@@ -296,6 +348,41 @@ public class LoginActivity extends Activity{
                             sendVerifyCode.setEnabled(false);
                         }
                     }
+                }
+            }
+        });
+
+        mVerifyCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (null != s && s.length() > 0) {
+                    clearCodeIv.setVisibility(View.VISIBLE);
+                } else {
+                    clearCodeIv.setVisibility(View.GONE);
+                }
+                String code = s.toString();
+                if(!TextUtils.isEmpty(code) && code.length() == 6){
+                    leftCodeDrawable = getResources().getDrawable(
+                            R.mipmap.ic_mima_pre);
+                    leftCodeDrawable.setBounds(0, 0, leftCodeDrawable.getMinimumWidth(),
+                            leftCodeDrawable.getMinimumHeight());
+                    mVerifyCode.setCompoundDrawables(leftCodeDrawable, null, null, null);
+                }else {
+                    leftCodeDrawable = getResources().getDrawable(
+                            R.mipmap.ic_mima_nor);
+                    leftCodeDrawable.setBounds(0, 0, leftCodeDrawable.getMinimumWidth(),
+                            leftCodeDrawable.getMinimumHeight());
+                    mVerifyCode.setCompoundDrawables(leftCodeDrawable, null, null, null);
                 }
             }
         });

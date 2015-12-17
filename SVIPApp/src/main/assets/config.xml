@@ -15,6 +15,6 @@
     <media-port>9090</media-port>
 
     <!--铁式api-->
-    <api-host>mmm.zkjinshi.com</api-host>
+    <api-host>p.zkjinshi.com/japi</api-host>
 
 </config>

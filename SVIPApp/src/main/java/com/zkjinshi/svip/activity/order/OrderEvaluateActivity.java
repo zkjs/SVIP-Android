@@ -40,6 +40,7 @@ import com.zkjinshi.svip.response.OrderEvaluateResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.EvaluateLevel;
 
 import java.util.ArrayList;
@@ -74,7 +75,9 @@ public class OrderEvaluateActivity extends Activity{
     private TextView hotelNameTv,roomInfoTv,priceTv,checkInDateTv,checkInNamesTv,invoiceInfoTv,remarkInfoTv;
     private DisplayImageOptions goodsIconOptions,shopLogoOptions,salsePhotoOption;
     private TextView salesNameTv;
-    private ImageView salesIconIv,goodsIconIv;
+    private CircleImageView salesIconIv;
+    private ImageView goodsIconIv;
+    private TextView titleTv;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -105,8 +108,9 @@ public class OrderEvaluateActivity extends Activity{
         invoiceInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_invoice_info);
         remarkInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_remark_info);
         salesNameTv = (TextView)findViewById(R.id.order_evaluate_iv_sales_name);
-        salesIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_sales_photo);
+        salesIconIv = (CircleImageView)findViewById(R.id.order_evaluate_iv_sales_photo);
         goodsIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_goods);
+        titleTv = (TextView)findViewById(R.id.order_evaluate_tv_title);
     }
 
     private void initData(){
@@ -134,6 +138,7 @@ public class OrderEvaluateActivity extends Activity{
                 String shopId = bookOrder.getShopid();
                 if(null != shopId){
                     String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+                    //titleTv.setText(shopName);
                     if(!TextUtils.isEmpty(shopName)){
                         hotelNameTv.setText(shopName);
                     }

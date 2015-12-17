@@ -46,10 +46,15 @@
         android:layout_marginTop="45dp"
         android:orientation="horizontal">
 
+        <RelativeLayout
+            android:id="@+id/layout_invite_code"
+            android:layout_width="228dp"
+            android:layout_height="48dp">
+
         <EditText
             android:id="@+id/et_nick_name"
             android:layout_width="228dp"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:gravity="left|center_vertical"
@@ -58,12 +63,25 @@
             android:drawableLeft="@mipmap/ic_yonghu_nor"
             android:drawablePadding="10dp"
             android:maxLength="11"
-            android:background="@drawable/bg_login_etv_shape"
+            android:background="@drawable/bg_login_etv"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="#666666"
             android:textColorHint="#b8b8b8"
             android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/login_iv_clear_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:visibility="gone"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_quxiao_gary"/>
+
+        </RelativeLayout>
 
         <CheckBox
             android:id="@+id/cb_sex"
