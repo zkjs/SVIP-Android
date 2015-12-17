@@ -13,6 +13,7 @@ public class ShopBean extends BaseShopBean implements Serializable {
     private String salesid;
     private String shopbusiness;
     private String shopdesc;
+    private String shopaddress;
     private String shoplogo;
     private String shopname;
     private String bgImgUrl;
@@ -39,6 +40,14 @@ public class ShopBean extends BaseShopBean implements Serializable {
 
     public void setShopdesc(String shopdesc) {
         this.shopdesc = shopdesc;
+    }
+
+    public String getShopaddress() {
+        return shopaddress;
+    }
+
+    public void setShopaddress(String shopaddress) {
+        this.shopaddress = shopaddress;
     }
 
     public String getShoplogo() {

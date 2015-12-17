@@ -67,6 +67,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
             viewHolder.tvShopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
             viewHolder.tvShopBusiness = (TextView) convertView.findViewById(R.id.tv_shop_business);
             viewHolder.tvShopDes      = (TextView) convertView.findViewById(R.id.tv_shop_des);
+            viewHolder.tvShopAdd      = (TextView) convertView.findViewById(R.id.tv_shop_add);
             viewHolder.llShopInfo     = (LinearLayout) convertView.findViewById(R.id.ll_shop_info);
             viewHolder.rlSalerInfo    = (RelativeLayout) convertView.findViewById(R.id.rl_saler_info);
             convertView.setTag(viewHolder);
@@ -106,6 +107,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
             String   shopName = shopBean.getShopname();
             String   shopBusi = shopBean.getShopbusiness();
             String   shopDesc = shopBean.getShopdesc();
+            String   shopAdd  = shopBean.getShopaddress();
             String   salesID  = shopBean.getSalesid();
             String   imgUrl   = shopBean.getBgImgUrl();
 
@@ -119,6 +121,10 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
 
             if(!TextUtils.isEmpty(shopDesc)){
                 viewHolder.tvShopDes.setText(shopDesc);
+            }
+
+            if(!TextUtils.isEmpty(shopAdd)){
+                viewHolder.tvShopAdd.setText(shopAdd);
             }
 
             if(!TextUtils.isEmpty(imgUrl)){
@@ -140,6 +146,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
         TextView        tvShopName;
         TextView        tvShopBusiness;
         TextView        tvShopDes;
+        TextView        tvShopAdd;
 
         LinearLayout    llShopInfo;
         RelativeLayout  rlSalerInfo;
