@@ -18,6 +18,7 @@ import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
+import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -48,7 +49,7 @@ public class SetFragment extends Fragment{
 
     private void initData(){
         if(!CacheUtil.getInstance().isLogin()){
-            RequestUtil.showLoginDialog(getActivity());
+            NetDialogUtil.showLoginDialog(getActivity());
             return;
         }
         this.options = new DisplayImageOptions.Builder()

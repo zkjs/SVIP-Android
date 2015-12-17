@@ -33,6 +33,7 @@ import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
@@ -360,7 +361,7 @@ public class OrderBookingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if(!CacheUtil.getInstance().isLogin()){
-                    RequestUtil.showLoginDialog(OrderBookingActivity.this);
+                    NetDialogUtil.showLoginDialog(OrderBookingActivity.this);
                     return;
                 }
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
