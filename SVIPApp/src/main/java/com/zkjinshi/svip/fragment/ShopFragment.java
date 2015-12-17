@@ -63,7 +63,7 @@ public class ShopFragment extends Fragment {
     private ShopAdapter        mShopAdapter;
 
     private int mPage = 1;
-    private int mPageSize     = 5;
+    private int mPageSize = 5;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -105,11 +105,6 @@ public class ShopFragment extends Fragment {
     private void initData(){
         mActivity = this.getActivity();
         SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
-        View emptyView = mActivity.getLayoutInflater().inflate(R.layout.empty_layout, null);
-        TextView tips  = (TextView)emptyView.findViewById(R.id.empty_tips);
-        tips.setText("暂无商家");
-        ((ViewGroup)mLvShopList.getParent()).addView(emptyView);
-        mLvShopList.setEmptyView(emptyView);
 
         mShopList = new ArrayList<>();
         mShopAdapter = new ShopAdapter(mShopList, mActivity);
@@ -119,12 +114,11 @@ public class ShopFragment extends Fragment {
         if (!TextUtils.isEmpty(city)){
             getRecommendShopList(city);
         } else {
-            getRecommendShopList(getString(R.string.shenzhen_city));
+            getRecommendShopList(getString(R.string.shenzhen));
         }
     }
 
     private void initListeners(){
-
         //商店条目点击事件
         mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -170,57 +164,17 @@ public class ShopFragment extends Fragment {
         });
     }
 
-    private void getShopListByCity(String city, int page, int size){
-        String url = ProtocolUtil.getShopListByCityUrl(city, 1, 5);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<List<ShopBean>>(){}.getType();
-                    Gson gson = new Gson();
-
-                    mPage++;
-                    mShopList = gson.fromJson(result.rawResult, listType);
-                    mShopAdapter.setData(mShopList);
-                    LogUtil.getInstance().info(LogLevel.INFO, "shoplistByCity:" + mShopList);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == mActivity.RESULT_OK){
             if(requestCode == REQUEST_CHOOSE_CITY){
                 if(null != data){
                     String city = data.getStringExtra("city");
                     mEtCity.setText(city);
+
+                    mShopList.removeAll(mShopList);
                     mPage = 1;
                     getShopListByCity(city, mPage, mPageSize);
                 }
@@ -229,7 +183,17 @@ public class ShopFragment extends Fragment {
     }
 
     public void getShopList(int page, int pageSize) {
-        String url = ProtocolUtil.getShopListUrl(page, pageSize);
+        getShopListByCity(null, page, pageSize);
+    }
+
+    private void getShopListByCity(String city, int page, int pageSize){
+        String url = null;
+        if(!TextUtils.isEmpty(city)){
+            url = ProtocolUtil.getShopListByCityUrl(city, page, pageSize);
+        }else{
+            url = ProtocolUtil.getShopListUrl(page, pageSize);
+        }
+
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
@@ -251,13 +215,14 @@ public class ShopFragment extends Fragment {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<List<ShopBean>>(){}.getType();
-                    Gson gson = new Gson();
-                    List<BaseShopBean> shopBeanList = gson.fromJson(result.rawResult, listType);
-
+                    Gson gson     = new Gson();
                     mPage++;
-                    mShopList.addAll(shopBeanList);
-                    mShopAdapter.setData(mShopList);
-                    LogUtil.getInstance().info(LogLevel.INFO, "shoplistByCity:" + mShopList);
+                    List<ShopBean> shopBeanList = gson.fromJson(result.rawResult, listType);
+                    if(null != shopBeanList && !shopBeanList.isEmpty()){
+                        mShopList.addAll(shopBeanList);
+                        mShopAdapter.setData(mShopList);
+                    }
+                    LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + mShopList);
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -300,10 +265,11 @@ public class ShopFragment extends Fragment {
                     Type listType = new TypeToken<List<RecommendShopBean>>(){}.getType();
                     Gson gson = new Gson();
                     List<RecommendShopBean> recommendShopList = gson.fromJson(result.rawResult, listType);
-                    mShopList.add(recommendShopList.get(0));
-                    LogUtil.getInstance().info(LogLevel.INFO, "recommendShopList:" + recommendShopList);
-
+                    if(null != recommendShopList && !recommendShopList.isEmpty()){
+                        mShopList.add(0, recommendShopList.get(0));
+                    }
                     getShopList(mPage, mPageSize);
+                    LogUtil.getInstance().info(LogLevel.INFO, "recommendShopList:" + recommendShopList);
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }

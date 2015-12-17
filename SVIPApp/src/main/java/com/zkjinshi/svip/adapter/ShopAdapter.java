@@ -20,6 +20,7 @@ import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -166,4 +167,5 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
     public int getViewTypeCount() {
         return ITEM_VIEW_COUNT;
     }
+
 }
