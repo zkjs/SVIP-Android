@@ -477,4 +477,13 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"user/getuser/"+phone+"/";
     }
 
+
+    /**
+     * 根据shopid 查询商家基本信息
+     * @return
+     */
+    public static String getShopBaseInfoUrl(String shopid){
+        return ConfigUtil.getInst().getApiDomain()+"shop/getshop/"+shopid;
+    }
+
 }

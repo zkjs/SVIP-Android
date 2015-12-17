@@ -6,18 +6,27 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
+
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        android:orientation="vertical">
+    </LinearLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_send_booking_order"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="立即预定"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
 
     <ListView
         android:id="@+id/good_list_list_view"
-        android:layout_below="@id/itv_title"
+        android:layout_below="@id/headerLayout"
+        android:layout_above="@id/btn_send_booking_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -26,10 +35,19 @@
         android:cacheColorHint="@android:color/transparent"
         android:background="#EEEEEE"/>
 
-    <!--<include-->
-        <!--layout="@layout/view_choose_and_pay"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"/>-->
+    <ImageView
+        android:id="@+id/back_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_fanhui_orange"/>
+
+    <LinearLayout
+        android:id="@+id/empty_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/empty_layout" />
+    </LinearLayout>
+
 
 </RelativeLayout>

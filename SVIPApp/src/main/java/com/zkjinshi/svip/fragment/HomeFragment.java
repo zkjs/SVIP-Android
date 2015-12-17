@@ -33,6 +33,7 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.order.HistoryOrderActivtiy;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
@@ -146,37 +147,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         homeMsgList = new ArrayList<HomeMsgVo>();
         homeMsgAdapter = new HomeMsgAdapter(homeMsgList,getActivity());
         listView.setAdapter(homeMsgAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-               // Toast.makeText(mActivity.getApplicationContext(),"position:"+position,Toast.LENGTH_SHORT).show();
-                if(position == 0){
-                    return;
-                }
-                int index = position-1;
-                HomeMsgVo homeMsgVo = homeMsgList.get(index);
-                switch (homeMsgVo.getMsgType()){
-                    case HOME_MSG_LOCATION:
-                    {
-                        Intent intent = new Intent(mActivity, OrderBookingActivity.class);
-                        intent.putExtra("shopid", homeMsgVo.getShopid());
-                        mActivity.startActivity(intent);
-                        mActivity.overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
-                    }
-                    break;
-                    case HOME_MSG_ORDER:
-                    {
-                        Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
-                        intent.putExtra("is_order", true);
-                        getActivity().startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
-                    }
-                    break;
-                }
-            }
-        });
+
 
     }
 
@@ -201,6 +172,39 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             @Override
             public void onClick(View view) {
                 new CleverDialog(getActivity()).show();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Toast.makeText(mActivity.getApplicationContext(),"position:"+position,Toast.LENGTH_SHORT).show();
+                if(position == 0){
+                    return;
+                }
+                int index = position-1;
+                HomeMsgVo homeMsgVo = homeMsgList.get(index);
+                switch (homeMsgVo.getMsgType()){
+                    case HOME_MSG_LOCATION:
+                    {
+                        Intent intent = new Intent(mActivity, GoodListActivity.class);
+                        intent.putExtra("shopid", homeMsgVo.getShopid());
+                        intent.putExtra("showHeader",true);
+                        mActivity.startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
+                    break;
+                    case HOME_MSG_ORDER:
+                    {
+                        Intent intent = new Intent(getActivity(), HistoryOrderActivtiy.class);
+                        intent.putExtra("is_order", true);
+                        getActivity().startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
+                    break;
+                }
             }
         });
     }
@@ -522,7 +526,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         bizMap.put("token", CacheUtil.getInstance().getToken());
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.JSON;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -22,14 +24,20 @@ import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.HomeMsgVo;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -39,6 +47,8 @@ import java.util.HashMap;
  * 版权所有
  */
 public class SettingItemActivity extends Activity implements View.OnClickListener  {
+
+    private final static String TAG = SettingItemActivity.class.getSimpleName();
 
     private ItemTitleView mTitle;//返回
     private TextView mTipsTv;
@@ -141,36 +151,36 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
         String url = ProtocolUtil.getUserUploadUrl();
-        NetRequest httpRequest = new NetRequest(url);
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put(fieldKey,fieldValue);
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
 
-        HashMap<String, String> stringMap = new HashMap<String, String>();
-        stringMap.put("userid",CacheUtil.getInstance().getUserId());
-        stringMap.put("token", CacheUtil.getInstance().getToken());
-        stringMap.put(fieldKey,fieldValue);
-        httpRequest.setBizParamMap(stringMap);
-
-        MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest,
-            new ExtNetRequestListener(SettingItemActivity.this) {
             @Override
             public void onNetworkRequestCancelled() {
 
             }
 
             @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
-            }
-
-            @Override
             public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
 
-                if (null != result && null != result.rawResult) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
-                       Intent data = new Intent();
+                        Intent data = new Intent();
                         data.putExtra("new_value", fieldValue);
                         setResult(RESULT_OK, data);
                         if(fieldKey.equals("username")){
@@ -179,14 +189,20 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
                             CacheUtil.getInstance().setUserRealName(fieldValue);
                         }
                         finish();
-                    } else {
-                        DialogUtil.getInstance().showCustomToast(SettingItemActivity.this, "修改失败!", Toast.LENGTH_LONG);
                     }
-                } else {
-                    DialogUtil.getInstance().showCustomToast(SettingItemActivity.this, "修改失败!", Toast.LENGTH_LONG);
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
                 }
 
             }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
         });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 }

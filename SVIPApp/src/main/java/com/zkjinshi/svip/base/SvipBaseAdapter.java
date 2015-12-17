@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class SvipBaseAdapter<T> extends BaseAdapter {
 
-    protected List<T>  mDatas;
+    public List<T>  mDatas;
     protected Activity mActivity;
 
     public SvipBaseAdapter(List<T> datas, Activity activity) {

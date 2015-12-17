@@ -26,6 +26,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
+import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
@@ -135,9 +136,10 @@ public class ShopFragment extends Fragment {
                     startActivity(intent);
 
                 } else {
-                    Intent intent = new Intent(mActivity, OrderBookingActivity.class);
-                    intent.putExtra("shopid", baseShopBean.getShopid());
-                    startActivityForResult(intent, ShopActivity.KILL_MYSELF);
+                    Intent intent = new Intent(mActivity, GoodListActivity.class);
+                    intent.putExtra("shopBean", (ShopBean)baseShopBean);
+                    intent.putExtra("showHeader",true);
+                    mActivity.startActivity(intent);
                     mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
 

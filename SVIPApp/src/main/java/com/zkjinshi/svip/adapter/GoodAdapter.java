@@ -42,7 +42,7 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
                 .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
                 .showImageOnFail(R.mipmap.ic_room_pic_default)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
         this.selectMap = new HashMap<String,Boolean>();
@@ -55,8 +55,6 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
             convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_good,null);
             viewHolder = new ViewHolder();
             viewHolder.roomTypeTv = (TextView)convertView.findViewById(R.id.list_room_type_tv);
-            viewHolder.offerBreakfastTv = (TextView)convertView.findViewById(R.id.list_offer_breakfast_tv);
-            viewHolder.roomPriceTv = (TextView)convertView.findViewById(R.id.list_room_price_tv);
             viewHolder.roomPicTv = (ImageView)convertView.findViewById(R.id.list_room_pic_iv);
             viewHolder.selectedPicTv = (ImageView)convertView.findViewById(R.id.list_selected_pic_iv);
             convertView.setTag(viewHolder);
@@ -69,16 +67,6 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
         String type = goodInfoVo.getType();
 
         viewHolder.roomTypeTv.setText(roomStr + type);
-
-        String meatStr = goodInfoVo.getMeat();
-        if(!TextUtils.isEmpty(meatStr)){
-            viewHolder.offerBreakfastTv.setText(meatStr);
-        }
-
-        String priceStr = goodInfoVo.getPrice();
-        if(!TextUtils.isEmpty(priceStr)){
-            viewHolder.roomPriceTv.setText("¥"+priceStr);
-        }
 
         String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){
@@ -102,7 +90,7 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
     }
 
     static class ViewHolder{
-        TextView roomTypeTv,offerBreakfastTv,roomPriceTv;
+        TextView roomTypeTv;
         ImageView roomPicTv,selectedPicTv;
     }
 
@@ -120,7 +108,7 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
      */
     public void selectGood(String goodId){
         if(null != selectMap){
-            selectMap.clear();;
+            selectMap.clear();
             selectMap.put(goodId, true);
             notifyDataSetChanged();
         }

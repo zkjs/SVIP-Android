@@ -118,11 +118,10 @@ public class OrderBookingActivity extends Activity {
         setContentView(R.layout.activity_order_booking);
 
         shopId = getIntent().getStringExtra("shopid");
-        if (!StringUtil.isEmpty(shopId)) {
-            initView();
-            initData();
-            initListener();
-        }
+        lastGoodInfoVo = (GoodInfoVo) getIntent().getSerializableExtra("GoodInfoVo");
+        initView();
+        initData();
+        initListener();
     }
 
     private void initView() {
@@ -183,55 +182,7 @@ public class OrderBookingActivity extends Activity {
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-
-        String url = ProtocolUtil.getGoodListUrl(shopId);
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<List<GoodInfoResponse>>() {
-                    }.getType();
-                    Gson gson = new Gson();
-                    goodResponsseList = gson.fromJson(result.rawResult, listType);
-                    if (null != goodResponsseList && !goodResponsseList.isEmpty()) {
-                        goodInfoList = GoodInfoFactory.getInstance().bulidGoodList(goodResponsseList);
-                        if (null != goodInfoList && !goodInfoList.isEmpty()) {
-                            GoodInfoVo goodInfoVo = goodInfoList.get(0);
-                            lastGoodInfoVo = goodInfoVo;
-                            setOrderRoomType(goodInfoVo);
-                        }
-                    }
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
+        setOrderRoomType(lastGoodInfoVo);
 
     }
 
@@ -449,10 +400,9 @@ public class OrderBookingActivity extends Activity {
     private void gotoChooseRoomTypeList() {
         Intent intent = new Intent(OrderBookingActivity.this, GoodListActivity.class);
         if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("GoodInfoVo", lastGoodInfoVo);
-            bundle.putSerializable("goodInfoList", goodInfoList);
-            intent.putExtras(bundle);
+            intent.putExtra("GoodInfoVo", lastGoodInfoVo);
+            intent.putExtra("shopid",shopId);
+            intent.putExtra("showHeader",false);
             startActivityForResult(intent, GOOD_REQUEST_CODE);
             overridePendingTransition(R.anim.slide_in_right,
                     R.anim.slide_out_left);
@@ -494,7 +444,7 @@ public class OrderBookingActivity extends Activity {
         orderRoomResponse.setFullname(shopName);
         orderRoomResponse.setRoom_typeid(goodInfoVo.getId());
 
-        CacheUtil.getInstance().setLastLookGood(orderRoomResponse);
+        //CacheUtil.getInstance().setLastLookGood(orderRoomResponse);
     }
 
 }
