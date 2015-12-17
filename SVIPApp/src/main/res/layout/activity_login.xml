@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <RelativeLayout
         android:id="@+id/login_layout_head"
@@ -32,35 +34,58 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_input_phone"
-        android:layout_below="@id/login_layout_head"
+    <RelativeLayout
+        android:id="@+id/layout_input_phone"
         android:layout_width="300dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:gravity="left|center_vertical"
-        android:hint="@string/please_input_phone_number"
-        android:inputType="number"
-        android:drawableLeft="@mipmap/ic_yonghu_nor"
-        android:drawablePadding="10dp"
-        android:maxLength="11"
-        android:background="@drawable/bg_login_etv"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#666666"
-        android:textColorHint="#b8b8b8"
-        android:textSize="14sp" />
+        android:layout_below="@id/login_layout_head"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_input_phone"
+            android:layout_width="300dp"
+            android:layout_centerVertical="true"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:hint="@string/please_input_phone_number"
+            android:inputType="number"
+            android:drawableLeft="@mipmap/ic_yonghu_nor"
+            android:drawablePadding="10dp"
+            android:maxLength="11"
+            android:background="@drawable/bg_login_etv"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#666666"
+            android:textColorHint="#b8b8b8"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/login_iv_clear_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_quxiao_gary"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_verify_code"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/et_input_phone"
+        android:layout_below="@id/layout_input_phone"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="48dp">
 
         <EditText
             android:id="@+id/et_verify_code"
@@ -79,6 +104,19 @@
             android:textColor="#666666"
             android:textColorHint="#b8b8b8"
             android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/login_iv_verify_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:visibility="gone"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_quxiao_gary"/>
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_send_verify_code"
