@@ -1,133 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
-    android:background="@mipmap/bg_svip_mine"
+    android:background="@android:color/white"
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"/>
-
     <RelativeLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="173dp"
-        android:paddingBottom="60dp"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:id="@+id/invite_head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:background="#ffc56e">
+
+        <com.zkjinshi.svip.view.CircleImageView
+            android:id="@+id/civ_saler_avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_launcher" />
 
         <LinearLayout
-            android:id="@+id/ll_invite_code"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/civ_saler_avatar"
+            android:gravity="center_vertical|left">
 
-            <LinearLayout
-                android:visibility="gone"
-                android:id="@+id/ll_saler_info"
-                android:padding="10dp"
+            <TextView
+                android:id="@+id/tv_saler_name"
+                android:textSize="14sp"
+                android:textColor="@color/White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:text="来自至尊宝的邀请"/>
 
-                <com.zkjinshi.svip.view.CircleImageView
-                    android:id="@+id/civ_saler_avatar"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_photo_btn_selector" />
-
-                <TextView
-                    android:id="@+id/tv_saler_name"
-                    android:padding="5dp"
-                    android:layout_marginTop="20dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/et_invite_code"
-                android:layout_width="173dp"
-                android:padding="5dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/White"
-                android:hint="@string/invite_code"
-                android:maxLength="6"
-                android:inputType="text"
-                android:singleLine="true"
+            <TextView
+                android:layout_marginTop="10dp"
                 android:textSize="14sp"
-                android:background="#00000000"
-                android:textColorHint="@color/Gray9E9E9E"
-                android:gravity="center_vertical|left" />
+                android:textColor="@color/White"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击确认激活特权，他将成为你的专属客服"/>
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/v_line"
-            android:layout_alignBottom="@id/ll_invite_code"
-            android:layout_height="1px"
-            android:background="@android:color/white"
-            android:layout_width="match_parent"
-        />
-
     </RelativeLayout>
 
-    <LinearLayout
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:id="@+id/ibtn_qian_jin"
-            android:layout_width="22dp"
-            android:layout_height="21.50dp"
-            android:layout_centerHorizontal="true"
-            android:background="@mipmap/ic_qianjin" />
-
-        <TextView
-            android:padding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/get_into_next_step_if_not_exists"
-            android:textColor="@color/Gray9E9E9E"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/ibtn_qian_jin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
+    <EditText
+        android:id="@+id/et_invite_code"
+        android:layout_below="@id/invite_head_layout"
+        android:layout_width="300dp"
+        android:layout_marginTop="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content">
+        android:gravity="left|center_vertical"
+        android:hint="请输入邀请码"
+        android:inputType="text"
+        android:drawableLeft="@mipmap/ic_duanxin_nor"
+        android:drawablePadding="10dp"
+        android:maxLength="11"
+        android:background="@drawable/bg_login_etv"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="#666666"
+        android:textColorHint="#b8b8b8"
+        android:textSize="14sp" />
 
-        <TextView
-            android:padding="10dp"
-            android:id="@+id/tv_what_is_invite_code"
-            android:text="@string/what_is_invite_code"
-            android:textColor="@color/Gray9E9E9E"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_invite_tips"
+        android:layout_below="@id/et_invite_code"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="*输入邀请码能够激活特权"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="跳过"
+        android:textSize="14sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
 
-</LinearLayout>
+</RelativeLayout>

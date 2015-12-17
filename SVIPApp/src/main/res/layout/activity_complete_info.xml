@@ -58,7 +58,7 @@
             android:drawableLeft="@mipmap/ic_yonghu_nor"
             android:drawablePadding="10dp"
             android:maxLength="11"
-            android:background="@drawable/bg_login_etv_shape"
+            android:background="@drawable/bg_login_etv_default_shape"
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="#666666"

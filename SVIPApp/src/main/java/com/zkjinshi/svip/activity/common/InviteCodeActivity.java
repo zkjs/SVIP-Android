@@ -14,10 +14,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.easemob.EMCallBack;
@@ -37,6 +39,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 import org.json.JSONException;
@@ -61,14 +64,11 @@ public class InviteCodeActivity extends Activity {
     private String        mToken;
     private String        mUserName;
 
-    private ItemTitleView mTitle;
     private EditText      mEtInviteCode;
-    private TextView      mTvInviteCode;
-    private ImageButton   mIbtnQianJin;
-
-    private LinearLayout  mLlSalerInfo;
-    private ImageView     mCivSalerAvatar;
+    private CircleImageView mCivSalerAvatar;
     private TextView      mTvSalerName;
+    private Button commitBtn;
+    private RelativeLayout headLayout;
 
     private DisplayImageOptions mOptions;
     private String              mSalesID;
@@ -80,21 +80,17 @@ public class InviteCodeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invite_code);
-
         initView();
         initData();
         initListener();
     }
 
     private void initView() {
-        mTitle        = (ItemTitleView) findViewById(R.id.itv_title);
         mEtInviteCode = (EditText)      findViewById(R.id.et_invite_code);
-        mTvInviteCode = (TextView)      findViewById(R.id.tv_what_is_invite_code);
-        mIbtnQianJin  = (ImageButton)   findViewById(R.id.ibtn_qian_jin);
-
-        mLlSalerInfo    = (LinearLayout)  findViewById(R.id.ll_saler_info);
-        mCivSalerAvatar = (ImageView)     findViewById(R.id.civ_saler_avatar);
+        mCivSalerAvatar = (CircleImageView)     findViewById(R.id.civ_saler_avatar);
         mTvSalerName    = (TextView)      findViewById(R.id.tv_saler_name);
+        commitBtn = (Button)findViewById(R.id.btn_confirm);
+        headLayout = (RelativeLayout)findViewById(R.id.invite_head_layout);
     }
 
     private void initData() {
@@ -103,8 +99,6 @@ public class InviteCodeActivity extends Activity {
         mPhoneNum = CacheUtil.getInstance().getUserPhone();
         mToken    = CacheUtil.getInstance().getToken();
         mUserName = CacheUtil.getInstance().getUserName();
-
-        mTitle.setTextTitle("");
         mOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_main_user_default_photo_press)
                 .cacheInMemory(true)
@@ -113,14 +107,6 @@ public class InviteCodeActivity extends Activity {
     }
 
     private void initListener() {
-
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InviteCodeActivity.this.finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
-        });
 
         mEtInviteCode.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,18 +131,12 @@ public class InviteCodeActivity extends Activity {
             }
         });
 
-        mTvInviteCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogUtil.getInstance().showToast(InviteCodeActivity.this, "TODO");
-            }
-        });
-
-        mIbtnQianJin.setOnClickListener(new View.OnClickListener() {
+        //提交
+        commitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mInviteCode = mEtInviteCode.getText().toString().trim();
-                if (!TextUtils.isEmpty(mInviteCode) && (mLlSalerInfo.getVisibility() == View.VISIBLE)) {
+                if (!TextUtils.isEmpty(mInviteCode) && (headLayout.getVisibility() == View.VISIBLE)) {
                     if(TextUtils.isEmpty(mInviteCode) || TextUtils.isEmpty(mInviteCode)){
                         return ;
                     } else {
@@ -325,8 +305,10 @@ public class InviteCodeActivity extends Activity {
                             String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
                             mSalesName = responseObj.getString("sales_name");
                             showSalerInfo(true, avatarUrl, mSalesName);
+                            commitBtn.setText("确认");
                         }
                     } else {
+                        commitBtn.setText("跳过");
                         if(responseObj.getInt("err") == 400) {
                             DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
                                                   "token失效, 请重新登录！", Gravity.CENTER);
@@ -360,21 +342,21 @@ public class InviteCodeActivity extends Activity {
     private void showSalerInfo(final boolean show, String avatarUrl, String salerName) {
 
         AnimatorSet animation = null;
-        if ((mLlSalerInfo.getVisibility() == View.VISIBLE) && !show) {
+        if ((headLayout.getVisibility() == View.VISIBLE) && !show) {
             animation = new AnimatorSet();
-            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY", 0,
+            ObjectAnimator move = ObjectAnimator.ofFloat(headLayout, "translationY", 0,
                                                       (5/4) * mEtInviteCode.getHeight());
-            ObjectAnimator fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 1, 0);
+            ObjectAnimator fade = ObjectAnimator.ofFloat(headLayout, "alpha", 1, 0);
             animation.playTogether(move, fade);
-        } else if ((mLlSalerInfo.getVisibility() != View.VISIBLE) && show) {
+        } else if ((headLayout.getVisibility() != View.VISIBLE) && show) {
             animation = new AnimatorSet();
-            ObjectAnimator move = ObjectAnimator.ofFloat(mLlSalerInfo, "translationY",
+            ObjectAnimator move = ObjectAnimator.ofFloat(headLayout, "translationY",
                                                 (5/4) * mEtInviteCode.getHeight(), 0);
             ObjectAnimator fade;
             if (mEtInviteCode.isFocused()) {
-                fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 0, 1);
+                fade = ObjectAnimator.ofFloat(headLayout, "alpha", 0, 1);
             } else {
-                fade = ObjectAnimator.ofFloat(mLlSalerInfo, "alpha", 0, 0.33f);
+                fade = ObjectAnimator.ofFloat(headLayout, "alpha", 0, 0.33f);
             }
             animation.playTogether(move, fade);
         }
@@ -387,8 +369,10 @@ public class InviteCodeActivity extends Activity {
                 ImageLoader.getInstance().displayImage(avatarUrl, mCivSalerAvatar, mOptions);
             }
             if(!TextUtils.isEmpty(salerName)){
-                mTvSalerName.setText(salerName);
+                mTvSalerName.setText("来自"+salerName+"的邀请");
             }
+        }else{
+            commitBtn.setText("跳过");
         }
 
         if (animation != null) {
@@ -396,14 +380,14 @@ public class InviteCodeActivity extends Activity {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     super.onAnimationStart(animation);
-                    mLlSalerInfo.setVisibility(View.VISIBLE);
+                    headLayout.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    mLlSalerInfo.setVisibility(show ? View.VISIBLE : View.GONE);
-                    AnimatorProxy.wrap(mLlSalerInfo).setAlpha(show ? 1 : 0);
+                    headLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+                    AnimatorProxy.wrap(headLayout).setAlpha(show ? 1 : 0);
                 }
             });
             animation.start();
