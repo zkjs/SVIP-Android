@@ -52,30 +52,49 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/et_invite_code"
-        android:layout_below="@id/invite_head_layout"
+    <RelativeLayout
+        android:id="@+id/layout_invite_code"
         android:layout_width="300dp"
-        android:layout_marginTop="54dp"
+        android:layout_below="@id/invite_head_layout"
         android:layout_centerHorizontal="true"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:gravity="left|center_vertical"
-        android:hint="请输入邀请码"
-        android:inputType="text"
-        android:drawableLeft="@mipmap/ic_duanxin_nor"
-        android:drawablePadding="10dp"
-        android:maxLength="11"
-        android:background="@drawable/bg_login_etv"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textColor="#666666"
-        android:textColorHint="#b8b8b8"
-        android:textSize="14sp" />
+        android:layout_marginTop="54dp"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_invite_code"
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:gravity="left|center_vertical"
+            android:hint="请输入邀请码"
+            android:inputType="text"
+            android:drawableLeft="@mipmap/ic_duanxin_nor"
+            android:drawablePadding="10dp"
+            android:maxLength="11"
+            android:background="@drawable/bg_login_etv"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#666666"
+            android:textColorHint="#b8b8b8"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/login_iv_clear_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_quxiao_gary"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_invite_tips"
-        android:layout_below="@id/et_invite_code"
+        android:layout_below="@id/layout_invite_code"
         android:textSize="12sp"
         android:textColor="#666666"
         android:layout_width="wrap_content"

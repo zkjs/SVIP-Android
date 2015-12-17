@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -69,6 +70,8 @@ public class InviteCodeActivity extends Activity {
     private TextView      mTvSalerName;
     private Button commitBtn;
     private RelativeLayout headLayout;
+    private Drawable leftInviteDrawable;
+    private ImageView clearInviteIv;
 
     private DisplayImageOptions mOptions;
     private String              mSalesID;
@@ -91,6 +94,7 @@ public class InviteCodeActivity extends Activity {
         mTvSalerName    = (TextView)      findViewById(R.id.tv_saler_name);
         commitBtn = (Button)findViewById(R.id.btn_confirm);
         headLayout = (RelativeLayout)findViewById(R.id.invite_head_layout);
+        clearInviteIv = (ImageView)findViewById(R.id.login_iv_clear_invite);
     }
 
     private void initData() {
@@ -108,6 +112,15 @@ public class InviteCodeActivity extends Activity {
 
     private void initListener() {
 
+        //清空邀请码
+        clearInviteIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEtInviteCode.setText("");
+            }
+        });
+
+        //邀请码输入
         mEtInviteCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -120,10 +133,25 @@ public class InviteCodeActivity extends Activity {
             @Override
             public void afterTextChanged(Editable inviteCode) {
                 String inviteCodeStr = inviteCode.toString();
+                if(TextUtils.isEmpty(inviteCodeStr)){
+                    clearInviteIv.setVisibility(View.GONE);
+                }else {
+                    clearInviteIv.setVisibility(View.VISIBLE);
+                }
                 if (inviteCodeStr.length() >= 6) {
                     findSalerByInviteCode(inviteCodeStr.toUpperCase());
+                    leftInviteDrawable = getResources().getDrawable(
+                            R.mipmap.ic_duanxin_pre);
+                    leftInviteDrawable.setBounds(0, 0, leftInviteDrawable.getMinimumWidth(),
+                            leftInviteDrawable.getMinimumHeight());
+                    mEtInviteCode.setCompoundDrawables(leftInviteDrawable, null, null, null);
+                }else{
+                    leftInviteDrawable = getResources().getDrawable(
+                            R.mipmap.ic_duanxin_nor);
+                    leftInviteDrawable.setBounds(0, 0, leftInviteDrawable.getMinimumWidth(),
+                            leftInviteDrawable.getMinimumHeight());
+                    mEtInviteCode.setCompoundDrawables(leftInviteDrawable, null, null, null);
                 }
-
                 if (TextUtils.isEmpty(inviteCodeStr)) {
                     showSalerInfo(false, null, null);
                 }
