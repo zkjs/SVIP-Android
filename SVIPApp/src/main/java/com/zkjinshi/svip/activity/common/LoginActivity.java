@@ -102,6 +102,7 @@ public class LoginActivity extends Activity{
     private Button commitBtn;
     private ImageView clearPhoneIv,clearCodeIv;
     private Drawable leftPhoneDrawable,leftCodeDrawable;
+    private TextView useDealTv;
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
@@ -213,6 +214,7 @@ public class LoginActivity extends Activity{
         commitBtn = (Button)findViewById(R.id.btn_confirm);
         clearPhoneIv = (ImageView)findViewById(R.id.login_iv_clear_phone);
         clearCodeIv = (ImageView)findViewById(R.id.login_iv_verify_code);
+        useDealTv = (TextView)findViewById(R.id.login_tv_use_deal);
     }
 
     private void initData() {
@@ -226,6 +228,17 @@ public class LoginActivity extends Activity{
     }
 
     private void initListener() {
+
+        //使用协议
+        useDealTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,UseDealActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom,
+                        R.anim.slide_out_top);
+            }
+        });
 
         //清空手机号码
         clearPhoneIv.setOnClickListener(new View.OnClickListener() {

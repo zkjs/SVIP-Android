@@ -133,6 +133,18 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/login_tv_use_deal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_verify_code"
+        android:text="《使用协议》"
+        android:clickable="true"
+        android:textColor="@color/light_yellow"
+        android:textSize="12sp"/>
+
     <Button
         android:id="@+id/btn_confirm"
         android:layout_alignParentBottom="true"
