@@ -55,6 +55,13 @@ public class BaseApplication extends Application {
         startActivity(i);
     }
 
+    public void clear() {
+        for(int i =activityStack.size()-1; i > -1; i -- ){
+            Activity act = activityStack.get(i);
+            act.finish();
+        }
+    }
+
     public void exit() {
         for(int i =activityStack.size()-1; i > -1; i -- ){
             Activity act = activityStack.get(i);

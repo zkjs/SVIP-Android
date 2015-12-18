@@ -103,7 +103,7 @@ public class SetActivity extends BaseActivity {
     private void showQuitDialog(){
         final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(this);
         customerBuilder.setTitle(getString(R.string.exit));
-        customerBuilder.setMessage("确定退出应用？");
+        customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
         customerBuilder.setGravity(Gravity.CENTER);
         customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
@@ -114,7 +114,10 @@ public class SetActivity extends BaseActivity {
         customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               onExit();
+                BaseApplication.getInst().clear();
+                Intent intent = new Intent(SetActivity.this,LoginActivity.class);
+                intent.putExtra("isHomeBack",true);
+                startActivity(intent);
             }
         });
         customerBuilder.create().show();

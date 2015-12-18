@@ -113,6 +113,7 @@ public class LoginActivity extends BaseActivity {
     private SmsReceiver smsReceiver;
 
     public Bundle thirdBundleData = null;   //从第三方或得的用户数据
+    private boolean isHomeBack;
 
      public Handler handler = new Handler(){
         @Override
@@ -220,6 +221,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initData() {
+        isHomeBack = getIntent().getBooleanExtra("isHomeBack",false);
         WXLoginController.getInstance().init(this);
         LoginController.getInstance().init(this);
         IntentFilter filter = new IntentFilter();
@@ -235,6 +237,10 @@ public class LoginActivity extends BaseActivity {
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isHomeBack){
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }
                 finish();
             }
         });
