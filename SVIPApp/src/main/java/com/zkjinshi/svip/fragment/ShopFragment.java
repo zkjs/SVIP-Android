@@ -171,21 +171,6 @@ public class ShopFragment extends BaseFragment {
         saveStateToArguments();
     }
 
-    /**
-     * 保存商家列表
-     */
-    private void saveStateToArguments() {
-        if (getView() != null){
-            if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
-                CacheUtil.getInstance().saveListCache("recommend_shop_list",  mRecommendShopList);
-            }
-
-            if(null != mShopList && !mShopList.isEmpty()){
-                CacheUtil.getInstance().saveListCache("shop_list", mShopList);
-            }
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -207,6 +192,21 @@ public class ShopFragment extends BaseFragment {
                     mPage = 1;
                     getShopListByCity(city, mPage, mPageSize);
                 }
+            }
+        }
+    }
+
+    /**
+     * 保存商家列表
+     */
+    private void saveStateToArguments() {
+        if (getView() != null){
+            if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
+                CacheUtil.getInstance().saveListCache("recommend_shop_list",  mRecommendShopList);
+            }
+
+            if(null != mShopList && !mShopList.isEmpty()){
+                CacheUtil.getInstance().saveListCache("shop_list", mShopList);
             }
         }
     }
