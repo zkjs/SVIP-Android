@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="默认发票"
-            android:textColor="@color/Black"
+            android:textColor="#101010"
             android:textSize="14sp"
             android:layout_marginBottom="10dp"
             android:id="@+id/tv_ticket_index" />
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@color/Black"
+                android:textColor="#666666"
                 android:text="发票抬头:"
                 android:background="@android:color/transparent"
                 android:layout_marginRight="10dp"/>
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="深圳市中科金石科技有限公司"
                 android:textSize="14sp"
-                android:textColor="@color/Black"
+                android:textColor="#666666"
                 android:id="@+id/tv_ticket_name" />
         </LinearLayout>
 
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="#888888"
+                android:textColor="#b8b8b8"
                 android:text="获取方式:"
                 android:background="@android:color/transparent"
                 android:layout_marginRight="10dp"/>
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="离店时自取"
                 android:textSize="14sp"
-                android:textColor="#888888"/>
+                android:textColor="#b8b8b8"/>
         </LinearLayout>
 
     </LinearLayout>

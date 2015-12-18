@@ -9,6 +9,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 import com.google.gson.Gson;
@@ -42,14 +44,11 @@ public class SettingTicketsItemActivity extends Activity {
     private boolean isNew = true;
     private TicketVo tickeData = null;
     private int position;
-
-    private ItemTitleView mTitle;
     private EditText  mInputEt;
     private CheckBox mDefaultRbtn;
     private Button mSaveBtn;
-
-
-
+    private ImageButton backIBtn;
+    private TextView titleTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,35 +62,35 @@ public class SettingTicketsItemActivity extends Activity {
     }
 
     private void initView() {
-        mTitle            = (ItemTitleView) findViewById(R.id.itv_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         mInputEt          = (EditText)findViewById(R.id.et_setting_input);
         mDefaultRbtn      = (CheckBox)findViewById(R.id.ticket_checkbox);
         mSaveBtn          = (Button)findViewById(R.id.btn_confirm);
-
     }
 
     private void initData() {
+        backIBtn.setVisibility(View.VISIBLE);
         MineNetController.getInstance().init(this);
-        mTitle.getmRight().setVisibility(View.GONE);
         Bundle bundle = getIntent().getExtras();
         if(bundle == null){
             isNew = true;
-            mTitle.setTextTitle("新增发票");
+            titleTv.setText("新增发票");
         }else{
             Object data = bundle.getSerializable("TicketVo");
             position = bundle.getInt("position");
             isNew = false;
-            mTitle.setTextTitle("修改发票"+(position+1));
+            titleTv.setText("修改发票");
             tickeData = (TicketVo)data;
             mInputEt.setText(tickeData.getInvoice_title());
             mDefaultRbtn.setChecked(tickeData.getIs_default().equals("1"));
         }
-
-
     }
 
     private void initListener() {
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+
+        //返回
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 back();
