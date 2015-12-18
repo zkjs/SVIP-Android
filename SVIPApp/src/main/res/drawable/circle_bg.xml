@@ -4,13 +4,6 @@
     android:shape="oval"
     android:useLevel="false" >
     <solid android:color="#ffc56e" />
-    <padding
-        android:left="2dp"
-        android:top="1dp"
-        android:right="2dp"
-        android:bottom="1dp" />
-    <solid
-        android:color="#ffc56e" />
     <stroke
         android:width="0dp"
         android:color="@android:color/white" />
