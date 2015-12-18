@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * 修改资料
  * 开发者：杜健德
  * 日期：2015/8/18
  * Copyright (C) 2015 深圳中科金石科技有限公司
@@ -50,12 +52,13 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
 
     private final static String TAG = SettingItemActivity.class.getSimpleName();
 
-    private ItemTitleView mTitle;//返回
     private TextView mTipsTv;
     private EditText mInputEt;
     private Button   mSaveBtn;
     private String fieldKey;
     private int modifyType;
+    private ImageButton backIBtn;
+    private TextView titleTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +77,15 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
         mTipsTv = (TextView)findViewById(R.id.tv_setting_tips);
         mSaveBtn = (Button)findViewById(R.id.btn_confirm);
         mSaveBtn.setOnClickListener(this);
-
-        mTitle = (ItemTitleView)findViewById(R.id.itv_setting_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
 
     }
 
     private void initData() {
-        mTitle.getmRight().setVisibility(View.INVISIBLE);
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+
+        backIBtn.setVisibility(View.VISIBLE);
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -91,7 +95,7 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
         modifyType = getIntent().getIntExtra("modify_type",Constants.FLAG_MODIFY_REAL_NAME);
         fieldKey = getIntent().getStringExtra("field_key");
         String titleStr = getIntent().getStringExtra("title");
-        mTitle.setTextTitle(titleStr);
+        titleTv.setText(titleStr);
 
         mInputEt.setHint(getIntent().getStringExtra("hint"));
         mTipsTv.setText(getIntent().getStringExtra("tips"));
@@ -120,7 +124,7 @@ public class SettingItemActivity extends Activity implements View.OnClickListene
                         if( IntentUtil.isEmailAddress(inputStr)){
                             mTipsTv.setText("");
                         }else{
-                            mTipsTv.setText("格式错误！");
+                            mTipsTv.setText("格式错误");
                         }
                     }
                 }

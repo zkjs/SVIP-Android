@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -67,7 +68,6 @@ public class SettingPhoneActivity extends Activity {
     private Timer mTimer;//计数器
     private TimerTask mSmsCountTask;//执行倒计时
 
-    private ItemTitleView mTitle;//返回
     private LinearLayout mOrgLlt;
     private RelativeLayout mInputRlt;
     private TextView  mOrgPhone; //原来的电话号码
@@ -79,6 +79,8 @@ public class SettingPhoneActivity extends Activity {
     private ImageView mImgPhoneError;
     private ImageView mImgVerifyRight;
     private ImageView mImgVerifyError;
+    private ImageButton backIBtn;
+    private TextView titleTv;
 
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
@@ -165,7 +167,8 @@ public class SettingPhoneActivity extends Activity {
     }
 
     private void initView() {
-        mTitle            = (ItemTitleView) findViewById(R.id.itv_title);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         mOrgLlt         = (LinearLayout)findViewById(R.id.llyt_org);
         mInputRlt       = (RelativeLayout)findViewById(R.id.rl_input_phone);
         mOrgPhone       = (TextView)findViewById(R.id.tv_org_phone);
@@ -182,9 +185,8 @@ public class SettingPhoneActivity extends Activity {
     private void initData() {
         mBtnConfirm.setText("点击发送验证码");//按钮初始状态
         mBtnConfirm.setEnabled(true);
-
-        mTitle.setTextTitle("修改手机号");
-        mTitle.getmRight().setVisibility(View.GONE);
+        backIBtn.setVisibility(View.VISIBLE);
+        titleTv.setText("修改手机");
         mOrgLlt.setVisibility(View.VISIBLE);
         mInputRlt.setVisibility(View.GONE);
         mOrgPhone.setText(CacheUtil.getInstance().getUserPhone());
@@ -317,7 +319,7 @@ public class SettingPhoneActivity extends Activity {
             }
         });
 
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

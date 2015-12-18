@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/header_bar"
         android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="修改手机号码"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:id="@+id/llyt_org"
+        android:layout_below="@id/head_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -43,6 +39,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_input_phone"
+        android:layout_below="@id/llyt_org"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
@@ -58,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="left"
-            android:hint="@string/please_input_phone_number"
+            android:hint="@string/please_input_new_phone_number"
             android:inputType="number"
             android:maxLength="11"
             android:background="#00000000"
@@ -163,18 +160,13 @@
 
     <Button
         android:id="@+id/btn_confirm"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/rl_verify_code"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/btn_bg_01_selector"
-        android:enabled="false"
+        android:layout_height="45dp"
         android:text="发送验证码"
+        android:textSize="14sp"
         android:textColor="@color/White"
-        android:textSize="16sp" />
+        android:enabled="false"
+        android:background="@drawable/btn_yellow_selector"/>
 
-
-
-</LinearLayout>
+</RelativeLayout>

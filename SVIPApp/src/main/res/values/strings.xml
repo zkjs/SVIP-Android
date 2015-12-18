@@ -14,6 +14,7 @@
     <string name="use_protocal">使用协议</string>
     <string name="click_to_agree">点击确定, 即同意</string>
     <string name="please_input_phone_number">请输入手机号</string>
+    <string name="please_input_new_phone_number">请输入新手机号</string>
     <string name="phone_verify_title">验证手机号</string>
 
     <string name="no_order_tip_msg">您没有任何预定信息，立即预定</string>
