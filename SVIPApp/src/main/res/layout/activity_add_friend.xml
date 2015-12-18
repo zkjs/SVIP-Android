@@ -36,7 +36,7 @@
             android:background="@android:color/transparent"
             android:textSize="14sp"
             android:text=""
-            android:hint="手机号"
+            android:hint="请输入服务员手机号"
             android:textColor="#666666"
             android:textColorHint="#b8b8b8"
             android:singleLine="true"
