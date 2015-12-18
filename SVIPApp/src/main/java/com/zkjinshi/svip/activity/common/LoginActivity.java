@@ -102,7 +102,7 @@ public class LoginActivity extends Activity{
     private Button commitBtn;
     private ImageView clearPhoneIv,clearCodeIv;
     private Drawable leftPhoneDrawable,leftCodeDrawable;
-    private TextView useDealTv;
+    private TextView useDealTv,useDealTipTv;
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
@@ -190,8 +190,6 @@ public class LoginActivity extends Activity{
         initListener();
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -215,6 +213,7 @@ public class LoginActivity extends Activity{
         clearPhoneIv = (ImageView)findViewById(R.id.login_iv_clear_phone);
         clearCodeIv = (ImageView)findViewById(R.id.login_iv_verify_code);
         useDealTv = (TextView)findViewById(R.id.login_tv_use_deal);
+        useDealTipTv = (TextView)findViewById(R.id.login_tv_use_deal_tips);
     }
 
     private void initData() {
@@ -306,6 +305,7 @@ public class LoginActivity extends Activity{
         mInputPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
@@ -377,12 +377,16 @@ public class LoginActivity extends Activity{
                     leftCodeDrawable.setBounds(0, 0, leftCodeDrawable.getMinimumWidth(),
                             leftCodeDrawable.getMinimumHeight());
                     mVerifyCode.setCompoundDrawables(leftCodeDrawable, null, null, null);
+                    useDealTipTv.setVisibility(View.VISIBLE);
+                    commitBtn.setVisibility(View.VISIBLE);
                 }else {
                     leftCodeDrawable = getResources().getDrawable(
                             R.mipmap.ic_mima_nor);
                     leftCodeDrawable.setBounds(0, 0, leftCodeDrawable.getMinimumWidth(),
                             leftCodeDrawable.getMinimumHeight());
                     mVerifyCode.setCompoundDrawables(leftCodeDrawable, null, null, null);
+                    useDealTipTv.setVisibility(View.GONE);
+                    commitBtn.setVisibility(View.GONE);
                 }
             }
         });
