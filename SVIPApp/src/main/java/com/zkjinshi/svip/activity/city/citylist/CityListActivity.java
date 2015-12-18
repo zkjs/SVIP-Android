@@ -120,7 +120,6 @@ public class CityListActivity extends Activity {
             new LocationManager.LocationChangeListener() {
                 @Override
                 public void onLocationChanged(AMapLocation aMapLocation) {
-
                     if (aMapLocation != null) {
                         String city = aMapLocation.getCity();
                         if (!TextUtils.isEmpty(city)) {
@@ -140,18 +139,22 @@ public class CityListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 CityBean cityBean = (CityBean) parent.getAdapter().getItem(position);
-                String city   = cityBean.getCity();
-                Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
-
-//                Intent intent = new Intent();
-//                intent.putExtra("city", city);
-//                setResult(RESULT_OK, intent);
-//                finish();
-
-                Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
-                intent.putExtra("city", city);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                startActivity(intent);
+                String   city     = cityBean.getCity();
+                if(!TextUtils.isEmpty(city) && !city.equals(getString(R.string.locating))){
+                    //Intent intent = new Intent();
+                    //intent.putExtra("city", city);
+                    //setResult(RESULT_OK, intent);
+                    //finish();
+                    Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
+                    Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
+                    intent.putExtra("city", city);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    startActivity(intent);
+                }
             }
         });
     }

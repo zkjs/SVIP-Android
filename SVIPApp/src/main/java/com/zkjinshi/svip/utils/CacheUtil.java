@@ -637,4 +637,8 @@ public class CacheUtil {
 		return sp.getInt("bestFitPixel", 720);
 	}
 
+	public void clearCache(String key) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString(key, "").commit();
+	}
 }
