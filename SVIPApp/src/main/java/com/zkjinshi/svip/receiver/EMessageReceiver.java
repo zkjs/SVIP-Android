@@ -9,10 +9,12 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.WindowManager;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -88,8 +90,15 @@ public class EMessageReceiver extends BroadcastReceiver {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                WebSocketManager.getInstance().logoutIM(context);
+                //修改登录状态
                 CacheUtil.getInstance().setLogin(false);
+                CacheUtil.getInstance().setActivate(false);
+                CacheUtil.getInstance().setUserId("");
+                CacheUtil.getInstance().setUserName("");
+                CacheUtil.getInstance().setUserPhone("");
+                CacheUtil.getInstance().savePicPath("");
+                ImageLoader.getInstance().clearDiskCache();
+                ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(context, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

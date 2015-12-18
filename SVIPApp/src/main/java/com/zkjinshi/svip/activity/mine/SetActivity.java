@@ -115,6 +115,17 @@ public class SetActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 BaseApplication.getInst().clear();
+                //环信接口退出
+                EasemobIMHelper.getInstance().logout();
+                //修改登录状态
+                CacheUtil.getInstance().setLogin(false);
+                CacheUtil.getInstance().setActivate(false);
+                CacheUtil.getInstance().setUserId("");
+                CacheUtil.getInstance().setUserName("");
+                CacheUtil.getInstance().setUserPhone("");
+                CacheUtil.getInstance().savePicPath("");
+                ImageLoader.getInstance().clearDiskCache();
+                ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 intent.putExtra("isHomeBack",true);
                 startActivity(intent);

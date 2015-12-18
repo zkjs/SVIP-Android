@@ -102,8 +102,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         //http接口推出
         String userID = CacheUtil.getInstance().getUserId();
         logoutHttp(userID);
-        //熊推接口推出
-        WebSocketManager.getInstance().logoutIM(VIPContext.getInstance().getContext());
         //修改登录状态
         CacheUtil.getInstance().setLogin(false);
         CacheUtil.getInstance().setActivate(false);

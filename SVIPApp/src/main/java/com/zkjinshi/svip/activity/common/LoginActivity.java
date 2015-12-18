@@ -242,6 +242,9 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent);
                 }
                 finish();
+                if(isHomeBack){
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                }
             }
         });
 

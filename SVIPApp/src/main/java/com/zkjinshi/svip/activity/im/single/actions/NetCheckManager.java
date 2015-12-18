@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.IntentUtil;
+import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.net.NetRequestTask;
 
 /**
  * 网络状态监测管理器
@@ -42,7 +44,7 @@ public class NetCheckManager {
 
     public void initData() {
 
-        netSetTv.setVisibility(WebSocketManager.getInstance().isConnected() ? View.GONE
+        netSetTv.setVisibility(NetWorkUtil.isNetworkConnected(context) ? View.GONE
                 : View.VISIBLE);
     }
 
