@@ -21,6 +21,8 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.view.zoomview.CropImage;
 import com.zkjinshi.svip.view.zoomview.CropImageView;
 
+import java.io.File;
+
 /**
  * 裁剪图片Activity
  * 开发者：JimmyZhang
@@ -116,7 +118,8 @@ public class CutActivity extends Activity {
         Bitmap bitmap = null;
         try {
             int degree = ImageUtil.readPictureDegree(mPath);
-            bitmap =  ImageUtil.decodeFile(mPath);
+            File file = new File(mPath);
+            bitmap =  ImageUtil.getBitmapFromFile(file,400,400);
             bitmap = ImageUtil.rotaingImageView(bitmap,degree);
             mBitmap = ImageUtil.cropBitmap(bitmap, screenWidth, screenHeight);
             if (mBitmap == null) {

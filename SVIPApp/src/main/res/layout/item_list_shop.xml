@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="256dp"
             android:src="@color/TransparentBlack">
@@ -18,10 +19,18 @@
             <ImageView
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:scaleType="fitXY" />
 
-        </RelativeLayout>
+            <View
+                android:id="@+id/v_white_line"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_shop_info"

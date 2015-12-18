@@ -15,6 +15,7 @@ import android.widget.*;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
 import com.zkjinshi.svip.activity.city.model.Contacts;
+import com.zkjinshi.svip.activity.order.ShopCityActivity;
 
 import java.util.ArrayList;
 
@@ -61,10 +62,18 @@ public class SearchActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 final Contacts cityModel = ContactsHelper.mSearchContacts.get(position);
-                Setting.Save2SharedPreferences(SearchActivity.this, "city", cityModel.getName());
-                Intent intent = new Intent();
-                intent.putExtra("city", cityModel.getName());
-                setResult(RESULT_OK, intent);
+
+                String city = cityModel.getName();
+                Setting.Save2SharedPreferences(SearchActivity.this, "city", city);
+//                Intent intent = new Intent();
+//                intent.putExtra("city", city);
+//                setResult(RESULT_OK, intent);
+//                finish();
+
+                Intent intent = new Intent(SearchActivity.this, ShopCityActivity.class);
+                intent.putExtra("city", city);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
 
             }

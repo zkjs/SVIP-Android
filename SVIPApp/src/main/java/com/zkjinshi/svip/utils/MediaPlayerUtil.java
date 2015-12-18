@@ -13,19 +13,12 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaRecorder;
 import android.media.RingtoneManager;
-import android.os.Environment;
-import android.util.*;
-import android.util.Base64;
+import android.util.Log;
 
 import com.zkjinshi.svip.R;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
