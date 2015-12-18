@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 应用层基类
  * 开发者：JimmyZhang
- * 日期：2015/11/19
+ * 日期：2015/12/18
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
