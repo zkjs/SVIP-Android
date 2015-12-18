@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000">
+    android:background="#e3e3e3">
 
-
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_title"
-        android:layout_width="match_parent"
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/header_bar"
         android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="设置"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        android:layout_width="match_parent"/>
 
-    <ListView
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="添加发票"
+        android:textSize="14sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
+
+    <com.zkjinshi.svip.view.swipelistview.SwipeMenuListView
+        android:layout_below="@id/head_bar_layout"
+        android:layout_above="@id/btn_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="#00000000"
-        android:dividerHeight="18dp"
+        android:dividerHeight="1px"
         android:id="@+id/lv_tickets"
         android:layout_gravity="center_horizontal" />
 
-
-</LinearLayout>
+</RelativeLayout>

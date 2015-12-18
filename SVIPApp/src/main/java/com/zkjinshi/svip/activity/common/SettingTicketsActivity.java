@@ -5,24 +5,27 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
-
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -32,16 +35,15 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.ItemTitleView;
-
+import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
+import com.zkjinshi.svip.view.swipelistview.SwipeMenuCreator;
+import com.zkjinshi.svip.view.swipelistview.SwipeMenuItem;
+import com.zkjinshi.svip.view.swipelistview.SwipeMenuListView;
 import com.zkjinshi.svip.vo.TicketVo;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by djd on 2015/8/24.
@@ -50,15 +52,13 @@ public class SettingTicketsActivity extends Activity {
 
     private final static String TAG = SettingPhoneActivity.class.getSimpleName();
 
-    private ItemTitleView mTitle;
-    private View footView;
-
-    private ListView mTicketsLv;
+    private ImageButton backIBtn;
+    private TextView titleTv;
+    private Button addBtn;
+    private SwipeMenuListView mTicketsLv;
     private ArrayList<TicketVo> listData = new ArrayList<TicketVo>();
     private MyAdapter myAdapter;
-
     private int deleteIndex;
-
 
     private class MyAdapter extends BaseAdapter{
 
@@ -91,8 +91,6 @@ public class SettingTicketsActivity extends Activity {
                 holder = new ViewHolder();
                 holder.ticketName = (TextView)convertView.findViewById(R.id.tv_ticket_name);
                 holder.ticketIndex = (TextView)convertView.findViewById(R.id.tv_ticket_index);
-                holder.setTv      = (TextView)convertView.findViewById(R.id.tv_set);
-                holder.delTv      = (TextView)convertView.findViewById(R.id.tv_del);
                 convertView.setTag(holder);//绑定ViewHolder对象
             }else{
                 holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
@@ -103,19 +101,6 @@ public class SettingTicketsActivity extends Activity {
             }else{
                 holder.ticketIndex.setText("发票"+(position+1));
             }
-            holder.setTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setItem(position);
-                }
-            });
-            holder.delTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    deleteItem(position);
-                }
-            });
-
             return convertView;
         }
     }
@@ -124,13 +109,9 @@ public class SettingTicketsActivity extends Activity {
     public final class ViewHolder{
         public TextView ticketName;
         public TextView ticketIndex;
-        public TextView setTv;
-        public TextView delTv;
-
     }
 
     private void setItem(int position){
-       // DialogUtil.getInstance().showToast(this,"setItem"+position);
         TicketVo data = listData.get(position);
         Intent intent = new Intent(SettingTicketsActivity.this,SettingTicketsItemActivity.class);
         Bundle bundle = new Bundle();
@@ -143,30 +124,31 @@ public class SettingTicketsActivity extends Activity {
 
     private void deleteItem(final int position){
         deleteIndex = position;
-        new AlertDialog.Builder(this)
-                .setTitle("确认")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("你确定要删除该信息吗？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        deleteItemByNet(position);
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .show();
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        customBuilder.setTitle("提示");
+        customBuilder.setMessage("你确定要删除该信息吗？");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteItemByNet(position);
+            }
+        });
+        customBuilder.create().show();
     }
 
     private void deleteItemByNet(final int position){
 
-        String url = ProtocolUtil.updateTicketUrl();
-        Log.i(TAG, url);
+        String url = ProtocolUtil.updateTicketUrl();;
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", CacheUtil.getInstance().getUserId());
@@ -207,7 +189,6 @@ public class SettingTicketsActivity extends Activity {
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
-
             }
 
             @Override
@@ -220,36 +201,67 @@ public class SettingTicketsActivity extends Activity {
 
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_ticket_list);
-
         initView();
         initData();
         initListener();
     }
 
     private void initView() {
-        mTitle            = (ItemTitleView) findViewById(R.id.itv_title);
-        mTicketsLv        = (ListView)findViewById(R.id.lv_tickets);
-        footView    = getLayoutInflater().inflate(R.layout.ticket_list_item_new, null);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
+        titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
+        mTicketsLv = (SwipeMenuListView)findViewById(R.id.lv_tickets);
+        addBtn = (Button)findViewById(R.id.btn_add);
     }
 
     private void initData() {
         MineNetController.getInstance().init(this);
-        mTitle.getmRight().setVisibility(View.GONE);
-        mTitle.setTextTitle("设置发票");
-
-        //test();
+        backIBtn.setVisibility(View.VISIBLE);
+        titleTv.setText("发票信息");
         loadTicketsList();
-        mTicketsLv.addFooterView(footView, null, false);
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getApplicationContext());
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                deleteItem.setWidth(DisplayUtil.dip2px(SettingTicketsActivity.this,88));
+                deleteItem.setIcon(R.mipmap.ic_delete);
+                menu.addMenuItem(deleteItem);
+            }
+        };
+        mTicketsLv.setMenuCreator(creator);
         myAdapter = new MyAdapter(this);
         mTicketsLv.setAdapter(myAdapter);
+        initMenuData();
+    }
 
+    private void initMenuData(){
+        //删除发票信息
+        mTicketsLv.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0://删除
+                        deleteItem(position);
+                        break;
+                }
+                return false;
+            }
+        });
+        //编辑发票信息
+        mTicketsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setItem(position);
+            }
+        });
     }
 
     //加载发票列表
@@ -313,27 +325,22 @@ public class SettingTicketsActivity extends Activity {
 
 
     private void initListener(){
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+
+        backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        footView.setOnClickListener(new View.OnClickListener() {
+        //新增发票
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // DialogUtil.getInstance().showToast(SettingTicketsActivity.this,"new a Ticket");
                 startActivity(new Intent(SettingTicketsActivity.this,SettingTicketsItemActivity.class));
                 finish();
             }
         });
-
-
     }
-
-
-
-
 
 }

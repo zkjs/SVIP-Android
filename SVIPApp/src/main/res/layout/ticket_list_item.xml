@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/bg_white_radius">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,45 +67,6 @@
                 android:textSize="14sp"
                 android:textColor="#888888"/>
         </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:background="#bbbbbb"
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"></View>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="修改"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_blue_light"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/tv_set" />
-
-        <View
-            android:background="#bbbbbb"
-            android:layout_height="40dp"
-            android:layout_width="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"></View>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="删除"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_blue_light"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/tv_del" />
 
     </LinearLayout>
 
