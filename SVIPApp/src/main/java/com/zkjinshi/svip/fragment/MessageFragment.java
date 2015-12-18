@@ -19,6 +19,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.AddFriendActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.RequestUtil;
@@ -55,7 +56,7 @@ public class MessageFragment extends Fragment {
 
     private void initData(){
         if(!CacheUtil.getInstance().isLogin()){
-            //NetDialogUtil.showLoginDialog(getActivity());
+            BaseApplication.getInst().clear();
             Intent intent = new Intent(getActivity(),LoginActivity.class);
             intent.putExtra("isHomeBack",true);
             getActivity().startActivity(intent);
