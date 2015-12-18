@@ -115,6 +115,5 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
         super.cancel();
         bigAnimation.cancel();
         bigAnimation = null;
-        ImageUtil.releaseImageViewResouce(pic);
     }
 }

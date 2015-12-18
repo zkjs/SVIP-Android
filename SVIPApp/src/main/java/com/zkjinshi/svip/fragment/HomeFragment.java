@@ -33,6 +33,7 @@ import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.common.MainController;
+import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
@@ -49,6 +50,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
+import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
@@ -157,7 +159,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private void addLlocalDefaultHomeMsg(){
         HomeMsgVo welcomeMsg= new HomeMsgVo();
         welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-        welcomeMsg.setClickAble(false);
+        welcomeMsg.setClickAble(true);
         welcomeMsg.setMajorText("欢迎使用超级服务");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
         homeMsgList.add(welcomeMsg);
@@ -183,6 +185,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 int index = position-1;
                 HomeMsgVo homeMsgVo = homeMsgList.get(index);
                 switch (homeMsgVo.getMsgType()){
+                    case HOME_MSG_DEFAULT:
+                    {
+                        Intent intent = new Intent(mActivity, WebViewActivity.class);
+                        intent.putExtra("webview_url","http://www.zkjinshi.com/about_us/about_svip.html");
+                        mActivity.startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.slide_in_right,
+                                R.anim.slide_out_left);
+                    }
+                    break;
                     case HOME_MSG_LOCATION:
                     {
                         Intent intent = new Intent(mActivity, GoodListActivity.class);
@@ -446,6 +457,54 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 //
 //    }
 
+    //根据酒店区域获取用户特权
+    private void getUserPrivilege(){
+        int index = svipApplication.mRegionList.size()-1;
+        String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+        String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+        String url = ProtocolUtil.getUserPrivilegeUrl(shopid,locid);
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
+                    ArrayList<PrivilegeResponse> privilegeList = new Gson().fromJson(result.rawResult, listType);
+                    if(privilegeList.size() > 0){
+
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+    }
+
 
     //获取用户推送消息(用户未登陆)
     private void getMessageDefault(){
@@ -481,7 +540,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
                         if(TextUtils.isEmpty(message.getShopid())){
                             homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                            homeMsgVo.setClickAble(false);
+                            homeMsgVo.setClickAble(true);
                         }else{
                             homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
                             homeMsgVo.setShopid(message.getShopid());
@@ -554,7 +613,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
                         homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
-                        homeMsgVo.setClickAble(false);
+                        homeMsgVo.setClickAble(true);
                         homeMsgVo.setMajorText(message.getTitle());
                         homeMsgVo.setMinorText(message.getDesc());
                         homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));

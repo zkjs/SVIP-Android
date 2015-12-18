@@ -486,4 +486,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"shop/getshop/"+shopid;
     }
 
+    /**
+     * 根据酒店区域获取用户特权
+     * @return
+     */
+    public static String getUserPrivilegeUrl(String shopid,String locid){
+        return ConfigUtil.getInst().getApiDomain()+"user/privilege/"+shopid+"/"+locid;
+    }
+
 }
