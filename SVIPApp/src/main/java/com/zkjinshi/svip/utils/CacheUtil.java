@@ -611,7 +611,6 @@ public class CacheUtil {
 		sp.edit().putString("current_city", currentCity).commit();
 	}
 
-
 	/**
 	 * 保存最适合的图片分辨率
 	 * @param bestFitPixel

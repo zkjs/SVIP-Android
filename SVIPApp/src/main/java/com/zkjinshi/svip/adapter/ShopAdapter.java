@@ -50,6 +50,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
+
         this.avatarOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_avatar_hotel)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_avatar_hotel)// 设置图片Uri为空或是错误的时候显示的图片
@@ -67,6 +68,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
             viewHolder = new ViewHolder();
             viewHolder.ivShopLogo     = (ImageView)convertView.findViewById(R.id.iv_shop_logo);
             viewHolder.civSalerAvatar = (CircleImageView)convertView.findViewById(R.id.civ_saler_avatar);
+            viewHolder.vWhiteLine     = convertView.findViewById(R.id.v_white_line);
             viewHolder.tvShopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
             viewHolder.tvShopBusiness = (TextView) convertView.findViewById(R.id.tv_shop_business);
             viewHolder.tvShopDes      = (TextView) convertView.findViewById(R.id.tv_shop_des);
@@ -80,25 +82,21 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
 
         if (ITEM_RECOMMEND_SHOP == getItemViewType(position)) {
 
+            viewHolder.vWhiteLine.setVisibility(View.VISIBLE);
             viewHolder.llShopInfo.setVisibility(View.GONE);
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
             RecommendShopBean recommendShop = (RecommendShopBean) mDatas.get(position);
-            String   shopName = recommendShop.getLink_url();
-            String   recommendTitle   = recommendShop.getRecommend_title();
-            String   recommendContent = recommendShop.getRecommend_content();
-            String   shopBgimgurl     = recommendShop.getShop_bgimgurl();
+            String recommendTitle   = recommendShop.getRecommend_title();
+            String recommendContent = recommendShop.getRecommend_content();
+            String shopBgimgurl     = recommendShop.getShop_bgimgurl();
 
-            if(!TextUtils.isEmpty(shopName)){
-                viewHolder.tvShopName.setText(shopName);
+            if(!TextUtils.isEmpty(recommendContent)){
+                viewHolder.tvShopName.setText(recommendContent);
             }
 
             if(!TextUtils.isEmpty(recommendTitle)){
                 viewHolder.tvShopBusiness.setText(recommendTitle);
-            }
-
-            if(!TextUtils.isEmpty(recommendContent)){
-                viewHolder.tvShopDes.setText(recommendContent);
             }
 
             if(!TextUtils.isEmpty(shopBgimgurl)){
@@ -159,7 +157,7 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
         TextView        tvShopBusiness;
         TextView        tvShopDes;
         TextView        tvShopAdd;
-
+        View            vWhiteLine;
         LinearLayout    llShopInfo;
         RelativeLayout  rlSalerInfo;
     }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,17 +15,19 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.adapter.CityAdapter;
 import com.zkjinshi.svip.activity.city.helper.CityComparator;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
+import com.zkjinshi.svip.activity.order.ShopCityActivity;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.sqlite.CityDBUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.util.ArrayList;
@@ -73,7 +74,14 @@ public class CityListActivity extends Activity {
         mCityBeanList   = new ArrayList<>();
         mCityLocated    = new CityBean();
         mCityLocated.setCityLocated(true);
-        mCityLocated.setCity(getString(R.string.chang_sha));
+        String currentCity = CacheUtil.getInstance().getCurrentCity();
+
+        if (!TextUtils.isEmpty(currentCity)) {
+            mCityLocated.setCity(currentCity);
+        } else {
+            mCityLocated.setCity(getString(R.string.locating));
+        }
+
         mCityBeanList.add(0, mCityLocated);
 
         mCityAdapter    = new CityAdapter(mCityBeanList, CityListActivity.this);
@@ -118,6 +126,7 @@ public class CityListActivity extends Activity {
                         if (!TextUtils.isEmpty(city)) {
                             //更新城市显示
                             mCityLocated.setCity(city.substring(0, city.length()-1));
+                            CacheUtil.getInstance().saveCurrentCity(city);
                             Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
                             mCityAdapter.notifyDataSetChanged();
                         }
@@ -129,14 +138,20 @@ public class CityListActivity extends Activity {
         mLvCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 CityBean cityBean = (CityBean) parent.getAdapter().getItem(position);
                 String city   = cityBean.getCity();
                 Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
 
-                Intent intent = new Intent();
+//                Intent intent = new Intent();
+//                intent.putExtra("city", city);
+//                setResult(RESULT_OK, intent);
+//                finish();
+
+                Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
                 intent.putExtra("city", city);
-                setResult(RESULT_OK, intent);
-                finish();
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(intent);
             }
         });
     }
@@ -189,9 +204,13 @@ public class CityListActivity extends Activity {
                     //比较城市名称
                     Collections.sort(cityBeans, mCityComparator);
                     if(null != cityBeans && !cityBeans.isEmpty()){
-                        mCityBeanList.addAll(cityBeans);
                         mCityAdapter.setData(mCityBeanList);
                         mCityAdapter.notifyDataSetChanged();
+
+                        //添加城市名称进入数据库
+                        List<CityModel> cityModels = CityFactory.getInstance().convertCityBeans2CityModels(cityBeans);
+                        CityDBUtil.getInstance().batchAddCityModels(cityModels);
+                        mCityBeanList.addAll(cityBeans);
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());

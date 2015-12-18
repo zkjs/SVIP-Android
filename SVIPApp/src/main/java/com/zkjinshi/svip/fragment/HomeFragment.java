@@ -380,6 +380,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
         city = aMapLocation.getCity();
         city = city.replace("市","");
+        if(!TextUtils.isEmpty(city)){
+            CacheUtil.getInstance().saveCurrentCity(city);
+        }
         handler.sendEmptyMessage(NOTIFY_LOCATION);
     }
 
