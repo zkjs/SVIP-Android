@@ -167,7 +167,7 @@ public class LoginController {
 
     private void goHome() {
         Intent mainIntent = new Intent(activity, MainActivity.class);
-        // mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(mainIntent);
         activity.finish();
         activity.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);

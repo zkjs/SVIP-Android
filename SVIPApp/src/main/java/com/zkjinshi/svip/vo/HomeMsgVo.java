@@ -11,7 +11,7 @@ public class HomeMsgVo extends BaseResponse {
         HOME_MSG_DEFAULT,
         HOME_MSG_LOCATION,
         HOME_MSG_ORDER,
-        HOME_MSG_OTHER
+        HOME_MSG_PRIVILEDGE
     }
 
     private String majorText;

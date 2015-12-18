@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     SVIPApplication svipApplication;
     private OrderLastResponse lastOrderInfo = null;
+    private CleverDialog cleverDialog = null;
     public static double geoLat = 100;
     public static double geoLng;
     private String bestHotelId="120";
@@ -131,6 +132,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
         listView = (ListView) view.findViewById(R.id.listview);
+
+        if(cleverDialog == null){
+            cleverDialog = new CleverDialog(getActivity());
+        }
 
         if(headerView == null){
             headerView = inflater.inflate(R.layout.item_home_header,null,false);
@@ -171,7 +176,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         logoIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CleverDialog(getActivity()).show();
+               getUserPrivilege();
             }
         });
 
@@ -459,9 +464,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     //根据酒店区域获取用户特权
     private void getUserPrivilege(){
+        if(svipApplication.mRegionList.size() <= 0){
+            return;
+        }
         int index = svipApplication.mRegionList.size()-1;
-        String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-        String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+        final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+        final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+        final String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
         String url = ProtocolUtil.getUserPrivilegeUrl(shopid,locid);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -484,9 +493,28 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
-                    ArrayList<PrivilegeResponse> privilegeList = new Gson().fromJson(result.rawResult, listType);
-                    if(privilegeList.size() > 0){
+
+                    PrivilegeResponse privilegeResponse = new Gson().fromJson(result.rawResult, PrivilegeResponse.class);
+                    if(cleverDialog != null){
+                        cleverDialog.show();
+                        cleverDialog.setPrivilegeResponse(privilegeResponse);
+                        cleverDialog.setContentText(null,shopName,
+                                privilegeResponse.getPrivilegeName(),
+                                privilegeResponse.getPrivilegeDesc(),
+                                privilegeResponse.getPrivilegeIcon()
+                        );
+                        cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
+                            @Override
+                            public void callback(PrivilegeResponse privilegeResponse) {
+                                HomeMsgVo homeMsg= new HomeMsgVo();
+                                homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
+                                homeMsg.setClickAble(false);
+                                homeMsg.setMajorText(shopName);
+                                homeMsg.setMinorText("成功获取\""+privilegeResponse.getPrivilegeName()+"\"特权");
+                                homeMsgList.add(0,homeMsg);
+                                homeMsgAdapter.notifyDataSetChanged();
+                            }
+                        });
 
                     }
 

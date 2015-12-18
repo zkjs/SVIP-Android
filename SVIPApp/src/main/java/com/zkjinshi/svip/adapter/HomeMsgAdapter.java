@@ -102,8 +102,10 @@ public class HomeMsgAdapter extends BaseAdapter {
             if(TextUtils.isEmpty(homeMsgVo.getIcon())){
                 if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT){
                     vh.iconIv.setImageResource(R.mipmap.ic_liwu_orange);
-                }if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION){
+                }else if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION){
                     vh.iconIv.setImageResource(R.mipmap.ic_dingwei_orange);
+                }else if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE){
+                    vh.iconIv.setImageResource(R.mipmap.ic_v_orange);
                 }
             }else{
                 String path = homeMsgVo.getIcon();

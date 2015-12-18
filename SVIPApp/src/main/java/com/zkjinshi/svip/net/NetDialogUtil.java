@@ -41,7 +41,6 @@ public class NetDialogUtil {
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(activity,LoginActivity.class);
                 activity.startActivity(intent);
-                activity.finish();
             }
         });
         customerBuilder.create().show();

@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
@@ -157,7 +158,7 @@ public class OrderBookingActivity extends BaseActivity {
         GoodListNetController.getInstance().init(this);
         GoodListUiController.getInstance().init(this);
 
-        mBtnSendOrder.setText("立即预定");
+        mBtnSendOrder.setText("提交订单");
         shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
 
         calendarList = new ArrayList<Calendar>();
@@ -319,7 +320,11 @@ public class OrderBookingActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if(!CacheUtil.getInstance().isLogin()){
-                    NetDialogUtil.showLoginDialog(OrderBookingActivity.this);
+                    //NetDialogUtil.showLoginDialog(OrderBookingActivity.this);
+                    Intent intent = new Intent(OrderBookingActivity.this,LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    finish();
                     return;
                 }
                 if (lastGoodInfoVo != null && !StringUtil.isEmpty(lastGoodInfoVo.getId())) {

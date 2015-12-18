@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
@@ -49,7 +50,10 @@ public class SetFragment extends Fragment{
 
     private void initData(){
         if(!CacheUtil.getInstance().isLogin()){
-            NetDialogUtil.showLoginDialog(getActivity());
+           // NetDialogUtil.showLoginDialog(getActivity());
+            Intent intent = new Intent(getActivity(),LoginActivity.class);
+            intent.putExtra("isHomeBack",true);
+            getActivity().startActivity(intent);
             return;
         }
         this.options = new DisplayImageOptions.Builder()
