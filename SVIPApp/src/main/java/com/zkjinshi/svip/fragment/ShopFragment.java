@@ -177,7 +177,7 @@ public class ShopFragment extends BaseFragment {
     private void saveStateToArguments() {
         if (getView() != null){
             if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
-                CacheUtil.getInstance().saveListCache("recommed_shop_list",  mRecommendShopList);
+                CacheUtil.getInstance().saveListCache("recommend_shop_list",  mRecommendShopList);
             }
 
             if(null != mShopList && !mShopList.isEmpty()){
