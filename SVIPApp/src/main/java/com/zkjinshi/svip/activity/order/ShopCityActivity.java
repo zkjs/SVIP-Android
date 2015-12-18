@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
@@ -172,7 +170,7 @@ public class ShopCityActivity extends Activity{
 
             }
         });
-        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
 }

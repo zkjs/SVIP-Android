@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
 
-public class citychangdialog extends Dialog {
+public class CityChangeDialog extends Dialog {
 
     private Button city_change_again, city_change_cancel;
     private TextView changmsg;
@@ -18,7 +18,7 @@ public class citychangdialog extends Dialog {
     private String cityName;
     private ClickListenerInterface clickListenerInterface;
 
-    public citychangdialog(Context context, String string) {
+    public CityChangeDialog(Context context, String string) {
         super(context, R.style.MyDialog);
         this.context = context;
         this.cityName = string;

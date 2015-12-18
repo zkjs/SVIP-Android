@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
@@ -60,7 +62,7 @@ public class ShopFragment extends BaseFragment {
     private ArrayList<RecommendShopBean> mRecommendShopList;
     private ArrayList<ShopBean>          mShopList;
     
-    private int mPage = 1;
+    private int mPage;
     private int mPageSize = 5;
 
     @Override
@@ -116,11 +118,11 @@ public class ShopFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BaseShopBean baseShopBean = (BaseShopBean) mShopAdapter.getItem(position);
                 if(baseShopBean instanceof RecommendShopBean){
-                    //TODO:进入推荐的链接地址
-                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
-                    Uri uri = Uri.parse(linkUrl);
-                    Intent  intent = new  Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
+                    DialogUtil.getInstance().showCustomToast(mContext, "TODO", Gravity.CENTER);
+//                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
+//                    Uri uri = Uri.parse(linkUrl);
+//                    Intent  intent = new  Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(intent);
 
                 } else {
                     Intent intent = new Intent(mActivity, GoodListActivity.class);
@@ -132,7 +134,6 @@ public class ShopFragment extends BaseFragment {
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
-
             }
         });
 
@@ -177,24 +178,24 @@ public class ShopFragment extends BaseFragment {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == mActivity.RESULT_OK){
-            if(requestCode == REQUEST_CHOOSE_CITY){
-                if(null != data){
-                    String city = data.getStringExtra("city");
-                    if(!city.equals(getString(R.string.locating))){
-                        mEtCity.setText(city);
-                    }
-                    mBaseShopList.removeAll(mBaseShopList);
-                    mPage = 1;
-                    getShopListByCity(city, mPage, mPageSize);
-                }
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(resultCode == mActivity.RESULT_OK){
+//            if(requestCode == REQUEST_CHOOSE_CITY){
+//                if(null != data){
+//                    String city = data.getStringExtra("city");
+//                    if(!city.equals(getString(R.string.locating))){
+//                        mEtCity.setText(city);
+//                    }
+//                    mBaseShopList.removeAll(mBaseShopList);
+//                    mPage = 1;
+//                    getShopListByCity(city, mPage, mPageSize);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * 保存商家列表
@@ -297,6 +298,7 @@ public class ShopFragment extends BaseFragment {
                     if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
                         mBaseShopList.add(0, mRecommendShopList.get(0));
                     }
+                    mPage = 1;
                     getShopList(mPage, mPageSize);
                     LogUtil.getInstance().info(LogLevel.INFO, "recommendShopList:" + mRecommendShopList);
                 } catch (Exception e) {

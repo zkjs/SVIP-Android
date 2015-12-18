@@ -48,6 +48,7 @@
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:paddingLeft="20dp"
+                android:textColor="@color/black"
                 android:paddingRight="88dp"
                 android:paddingTop="5dp"
                 android:singleLine="true"
@@ -63,6 +64,7 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:textColor="@color/black"
                 android:singleLine="true"
                 android:text="商家地址" />
 
