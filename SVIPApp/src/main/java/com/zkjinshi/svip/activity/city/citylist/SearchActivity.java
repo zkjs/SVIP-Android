@@ -16,10 +16,11 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
 import com.zkjinshi.svip.activity.city.model.Contacts;
 import com.zkjinshi.svip.activity.order.ShopCityActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends BaseActivity {
 
     private ListView searchresult;
     private EditText input;

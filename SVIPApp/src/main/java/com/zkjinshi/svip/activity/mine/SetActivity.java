@@ -19,6 +19,8 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
+import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -37,7 +39,7 @@ import java.util.Set;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class SetActivity extends Activity {
+public class SetActivity extends BaseActivity {
 
     public static final String TAG = SetActivity.class.getSimpleName();
 
@@ -101,7 +103,7 @@ public class SetActivity extends Activity {
     private void showQuitDialog(){
         final CustomDialog.Builder customerBuilder = new CustomDialog.Builder(this);
         customerBuilder.setTitle(getString(R.string.exit));
-        customerBuilder.setMessage(getString(R.string.if_exit_the_current_account_or_not));
+        customerBuilder.setMessage("确定退出应用？");
         customerBuilder.setGravity(Gravity.CENTER);
         customerBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
@@ -112,8 +114,7 @@ public class SetActivity extends Activity {
         customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                setResult(RESULT_OK);
-                finish();
+               onExit();
             }
         });
         customerBuilder.create().show();

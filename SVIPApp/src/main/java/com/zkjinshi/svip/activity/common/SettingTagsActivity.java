@@ -27,6 +27,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -56,7 +57,7 @@ import me.kaede.tagview.TagView;
 /**
  * Created by djd on 2015/8/20.
  */
-public class SettingTagsActivity extends Activity{
+public class SettingTagsActivity extends BaseActivity {
 
     private final static String TAG = SettingPhoneActivity.class.getSimpleName();
     private ItemTitleView mTitle;

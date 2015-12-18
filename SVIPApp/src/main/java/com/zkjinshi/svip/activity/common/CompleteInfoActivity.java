@@ -31,6 +31,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetResponse;
@@ -56,7 +57,7 @@ import java.util.Map;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CompleteInfoActivity extends Activity {
+public class CompleteInfoActivity extends BaseActivity {
 
     private CircleImageView mCivUserAvatar;
     private EditText        mEtNickName;

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 /**
  * Created by dujiande on 2015/12/16.
  */
-public class AddFriendActivity extends Activity {
+public class AddFriendActivity extends BaseActivity {
     private final static String TAG = AddFriendActivity.class.getSimpleName();
 
     private EditText inputTextEt;

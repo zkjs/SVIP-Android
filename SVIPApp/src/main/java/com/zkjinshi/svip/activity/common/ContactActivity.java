@@ -28,6 +28,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.SalerInfoBean;
 import com.zkjinshi.svip.fragment.contacts.Contact;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -53,7 +54,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ContactActivity extends Activity {
+public class ContactActivity extends BaseActivity {
 
     private final String TAG = ContactActivity.class.getSimpleName();
 

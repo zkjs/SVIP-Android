@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseAppCompatActivity;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.fragment.ContactsFragment;
 import com.zkjinshi.svip.fragment.MessageCenterFragment;
@@ -41,7 +42,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ServiceCenterActivity extends AppCompatActivity {
+public class ServiceCenterActivity extends BaseAppCompatActivity {
 
     private RelativeLayout mRlBack;
     private RelativeLayout mRlSearch;

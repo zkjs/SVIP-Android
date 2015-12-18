@@ -31,6 +31,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.Setting;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -56,7 +57,7 @@ import java.util.HashMap;
 /**
  * Created by djd on 2015/8/17.
  */
-public class SettingActivity extends Activity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String TAG = SettingActivity.class.getSimpleName();
 

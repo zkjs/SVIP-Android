@@ -20,7 +20,7 @@
                 android:id="@+id/set_layout_user_account_info"
                 android:layout_width="match_parent"
                 android:clickable="true"
-                android:background="#ffc56e"
+                android:background="@drawable/bg_layout_item_selector"
                 android:layout_height="80dp">
 
                 <com.zkjinshi.svip.view.CircleImageView
@@ -52,7 +52,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_right_white"
+                    android:src="@mipmap/ic_right_orange"
                     android:scaleType="centerInside"/>
 
             </RelativeLayout>

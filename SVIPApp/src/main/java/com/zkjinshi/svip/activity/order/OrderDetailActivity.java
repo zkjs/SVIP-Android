@@ -32,6 +32,7 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
@@ -76,7 +77,7 @@ import me.kaede.tagview.TagView;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OrderDetailActivity extends Activity{
+public class OrderDetailActivity extends BaseActivity {
 
     private final static String TAG = OrderDetailActivity.class.getSimpleName();
 

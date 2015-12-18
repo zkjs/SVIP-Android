@@ -24,6 +24,7 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetResponse;
@@ -50,7 +51,7 @@ import java.util.Map;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class MineActivity extends Activity{
+public class MineActivity extends BaseActivity {
 
     private CircleImageView photoImageView;
     private TextView finishIv,titleTv,mobilePhoneTv;

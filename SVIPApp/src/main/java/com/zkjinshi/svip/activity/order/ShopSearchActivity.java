@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -39,7 +40,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopSearchActivity extends Activity {
+public class ShopSearchActivity extends BaseActivity {
 
     private final static String TAG = ShopSearchActivity.class.getSimpleName();
 

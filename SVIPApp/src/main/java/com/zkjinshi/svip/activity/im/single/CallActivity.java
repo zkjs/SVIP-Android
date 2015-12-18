@@ -13,6 +13,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -31,7 +32,7 @@ import java.util.HashMap;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CallActivity extends FragmentActivity {
+public class CallActivity extends BaseFragmentActivity {
 
     protected boolean isInComingCall;
     protected String username;

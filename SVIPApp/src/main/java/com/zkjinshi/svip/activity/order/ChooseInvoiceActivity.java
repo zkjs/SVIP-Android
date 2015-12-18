@@ -24,6 +24,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -47,7 +48,7 @@ import java.util.HashMap;
 /**
  * Created by djd on 2015/8/28.
  */
-public class ChooseInvoiceActivity extends Activity {
+public class ChooseInvoiceActivity extends BaseActivity {
     private final static String TAG = ChooseInvoiceActivity.class.getSimpleName();
 
     private EditText mEtInput;

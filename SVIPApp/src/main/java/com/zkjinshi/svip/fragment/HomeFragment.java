@@ -233,15 +233,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mActivity = getActivity();
+        LocationManager.getInstance().registerLocation(mActivity);
+        LocationManager.getInstance().setLocationChangeListener(this);
+        MainController.getInstance().init(mActivity);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mActivity = getActivity();
-        LocationManager.getInstance().registerLocation(mActivity);
-        LocationManager.getInstance().setLocationChangeListener(this);
-        MainController.getInstance().init(mActivity);
         if (view == null)
         {
             initView(inflater, container);

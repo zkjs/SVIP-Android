@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 
 /**
  * 使用说明
@@ -15,7 +16,7 @@ import com.zkjinshi.svip.R;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class UseDealActivity extends Activity {
+public class UseDealActivity extends BaseActivity {
 
     private ImageButton backIBtn;
     private TextView titleTv;

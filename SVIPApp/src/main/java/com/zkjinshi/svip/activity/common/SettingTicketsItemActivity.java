@@ -19,6 +19,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -38,7 +39,7 @@ import java.util.Map;
 /**
  * Created by djd on 2015/8/24.
  */
-public class SettingTicketsItemActivity extends Activity {
+public class SettingTicketsItemActivity extends BaseActivity {
 
     private final static String TAG = SettingPhoneActivity.class.getSimpleName();
     private boolean isNew = true;

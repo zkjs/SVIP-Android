@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.base.util.TimeUtil;
@@ -35,6 +36,7 @@ import com.zkjinshi.svip.activity.im.group.actions.MoreViewPagerManager;
 import com.zkjinshi.svip.activity.im.group.actions.NetCheckManager;
 import com.zkjinshi.svip.activity.im.group.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.group.actions.VoiceRecordManager;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
@@ -60,7 +62,7 @@ import static android.view.View.VISIBLE;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ChatGroupActivity extends Activity implements CompoundButton.OnCheckedChangeListener{
+public class ChatGroupActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener{
 
     private final static String TAG = ChatGroupActivity.class.getSimpleName();
 
@@ -426,12 +428,13 @@ public class ChatGroupActivity extends Activity implements CompoundButton.OnChec
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         messageListViewManager.destoryMessageListViewManager();
         MediaPlayerUtil.stop();
         if(null != netCheckManager){
             netCheckManager.unregisternetCheckReceiver();
         }
-        super.onDestroy();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 
     @Override

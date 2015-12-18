@@ -53,6 +53,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -75,7 +76,7 @@ import com.zkjinshi.svip.wxapi.WXEntryActivity;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class LoginActivity extends Activity{
+public class LoginActivity extends BaseActivity {
 
     private final static String TAG = LoginActivity.class.getSimpleName();
 
@@ -103,6 +104,7 @@ public class LoginActivity extends Activity{
     private ImageView clearPhoneIv,clearCodeIv;
     private Drawable leftPhoneDrawable,leftCodeDrawable;
     private TextView useDealTv,useDealTipTv;
+    private ImageButton backIBtn;
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
@@ -214,6 +216,7 @@ public class LoginActivity extends Activity{
         clearCodeIv = (ImageView)findViewById(R.id.login_iv_verify_code);
         useDealTv = (TextView)findViewById(R.id.login_tv_use_deal);
         useDealTipTv = (TextView)findViewById(R.id.login_tv_use_deal_tips);
+        backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
     }
 
     private void initData() {
@@ -227,6 +230,14 @@ public class LoginActivity extends Activity{
     }
 
     private void initListener() {
+
+        //返回
+        backIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //使用协议
         useDealTv.setOnClickListener(new View.OnClickListener() {

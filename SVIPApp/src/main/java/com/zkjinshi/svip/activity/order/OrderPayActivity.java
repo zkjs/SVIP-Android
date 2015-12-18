@@ -39,6 +39,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -58,7 +59,7 @@ import com.zkjinshi.svip.view.ItemTitleView;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OrderPayActivity extends Activity implements View.OnClickListener{
+public class OrderPayActivity extends BaseActivity implements View.OnClickListener{
 
     private final static String TAG = OrderPayActivity.class.getSimpleName();
 

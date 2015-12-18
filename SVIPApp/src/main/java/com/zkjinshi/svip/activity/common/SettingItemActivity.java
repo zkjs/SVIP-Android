@@ -24,6 +24,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -48,7 +49,7 @@ import java.util.HashMap;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class SettingItemActivity extends Activity implements View.OnClickListener  {
+public class SettingItemActivity extends BaseActivity implements View.OnClickListener  {
 
     private final static String TAG = SettingItemActivity.class.getSimpleName();
 

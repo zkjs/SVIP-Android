@@ -26,6 +26,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -50,7 +51,7 @@ import java.util.TimerTask;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class SettingPhoneActivity extends Activity {
+public class SettingPhoneActivity extends BaseActivity {
 
     private final static String TAG = SettingPhoneActivity.class.getSimpleName();
 

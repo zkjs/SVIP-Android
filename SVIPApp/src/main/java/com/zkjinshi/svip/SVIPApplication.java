@@ -14,6 +14,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
 import com.easemob.chat.EMGroupManager;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -26,6 +27,7 @@ import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
 import com.zkjinshi.svip.ibeacon.RegionVo;
@@ -50,7 +52,7 @@ import io.yunba.android.manager.YunBaManager;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class SVIPApplication extends Application {
+public class SVIPApplication extends BaseApplication {
 
     public static final String TAG = SVIPApplication.class.getSimpleName();
 
@@ -208,6 +210,9 @@ public class SVIPApplication extends Application {
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
+        config.memoryCache(new LruMemoryCache(2 * 1024 * 1024));
+        config.memoryCacheSize(2 * 1024 * 1024);
+        config.memoryCacheSizePercentage(13);
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(50 * 1024 * 1024);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);

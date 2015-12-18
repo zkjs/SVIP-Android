@@ -25,6 +25,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.factory.PersonCheckInFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -49,7 +50,7 @@ import java.util.HashMap;
 /**
  * Created by djd on 2015/8/28.
  */
-public class ChoosePeopleActivity extends Activity {
+public class ChoosePeopleActivity extends BaseActivity {
     private final static String TAG = ChoosePeopleActivity.class.getSimpleName();
 
     private EditText mEtInput;

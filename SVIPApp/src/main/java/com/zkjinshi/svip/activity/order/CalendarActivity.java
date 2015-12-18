@@ -19,6 +19,7 @@ import com.andexert.calendarlistview.SimpleMonthAdapter;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.DateVo;
 
@@ -34,7 +35,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CalendarActivity extends Activity implements DatePickerController{
+public class CalendarActivity extends BaseActivity implements DatePickerController{
 
     //private ImageButton backIBtn;
     private ItemTitleView mTitle;//返回

@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.base.util.TimeUtil;
@@ -442,12 +443,13 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         messageListViewManager.destoryMessageListViewManager();
         MediaPlayerUtil.stop();
         if(null != netCheckManager){
             netCheckManager.unregisternetCheckReceiver();
         }
-        super.onDestroy();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 
     @Override

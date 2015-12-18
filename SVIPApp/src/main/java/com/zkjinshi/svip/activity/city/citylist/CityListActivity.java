@@ -20,6 +20,7 @@ import com.zkjinshi.svip.activity.city.adapter.CityAdapter;
 import com.zkjinshi.svip.activity.city.helper.CityComparator;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
 import com.zkjinshi.svip.activity.order.ShopCityActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -41,7 +42,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CityListActivity extends Activity {
+public class CityListActivity extends BaseActivity {
 
     private final static String TAG = CityListActivity.class.getSimpleName();
 

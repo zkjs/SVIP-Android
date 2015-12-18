@@ -27,6 +27,7 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
@@ -67,7 +68,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OrderBookingActivity extends Activity {
+public class OrderBookingActivity extends BaseActivity {
 
     private final static String TAG = OrderBookingActivity.class.getSimpleName();
 
@@ -122,6 +123,12 @@ public class OrderBookingActivity extends Activity {
         initView();
         initData();
         initListener();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ImageLoader.getInstance().clearMemoryCache();
     }
 
     private void initView() {

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
@@ -17,7 +18,7 @@ import me.kaede.tagview.TagView;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CityActivity extends Activity{
+public class CityActivity extends BaseActivity {
     private final static String TAG = CityActivity.class.getSimpleName();
 
     private TagView gpsTagView;

@@ -18,7 +18,6 @@ import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
-import com.zkjinshi.svip.activity.order.ShopActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;

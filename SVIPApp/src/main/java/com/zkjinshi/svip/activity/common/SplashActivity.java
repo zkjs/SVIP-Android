@@ -23,6 +23,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
@@ -35,8 +36,7 @@ import org.apache.log4j.chainsaw.Main;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class
-SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
 
     private DisplayImageOptions options;
 

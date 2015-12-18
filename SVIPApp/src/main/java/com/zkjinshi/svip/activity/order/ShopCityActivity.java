@@ -18,6 +18,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
@@ -39,7 +40,7 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopCityActivity extends Activity{
+public class ShopCityActivity extends BaseActivity {
 
     private final static String TAG = ShopCityActivity.class.getSimpleName();
 

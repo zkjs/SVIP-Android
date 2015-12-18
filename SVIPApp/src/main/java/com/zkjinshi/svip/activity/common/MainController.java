@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.fragment.HomeFragment;

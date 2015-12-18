@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,7 +53,8 @@ import java.util.TimerTask;
  * 版权所有
  */
 @SuppressLint("JavascriptInterface")
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends BaseActivity {
+
     public static String TAG = "WebViewActivity";
     private ImageView prePageIv, nextPageIv, reflushPageIv;
     private WebView webView;

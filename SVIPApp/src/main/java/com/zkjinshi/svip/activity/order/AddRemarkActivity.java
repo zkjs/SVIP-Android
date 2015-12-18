@@ -12,12 +12,13 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 /**
  * Created by djd on 2015/8/28.
  */
-public class AddRemarkActivity extends Activity implements View.OnClickListener{
+public class AddRemarkActivity extends BaseActivity implements View.OnClickListener{
 
     private ItemTitleView mTitle;//返回
     private TextView mTipsTv;

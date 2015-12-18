@@ -3,7 +3,6 @@ package com.zkjinshi.svip.view.zoomview;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.order.ShopActivity;
 
 import me.kaede.tagview.Utils;
 

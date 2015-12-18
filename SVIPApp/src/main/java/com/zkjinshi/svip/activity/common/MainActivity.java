@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
@@ -14,6 +16,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
@@ -44,7 +47,7 @@ import org.json.JSONObject;
 
 import io.yunba.android.manager.YunBaManager;
 
-public class MainActivity extends FragmentActivity implements IBeaconObserver{
+public class MainActivity extends BaseFragmentActivity implements IBeaconObserver{
 
     public static final String TAG = MainActivity.class.getSimpleName();
     SVIPApplication svipApplication;
@@ -310,5 +313,20 @@ public class MainActivity extends FragmentActivity implements IBeaconObserver{
 
     public void changTag(int rbId){
         TabNavigationFragment.setCurrentNavigationChecked(rbId,this);
+    }
+
+    int waitTime = 2000;
+
+    long touchTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if((currentTime-touchTime)>=waitTime) {
+            Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+            touchTime = currentTime;
+        }else {
+            onExit();
+        }
     }
 }

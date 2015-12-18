@@ -12,6 +12,7 @@ import android.widget.SimpleAdapter;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.view.ItemTitleView;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.Map;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class PrivilegeActivity  extends Activity {
+public class PrivilegeActivity  extends BaseActivity {
 
     private final static String TAG = PrivilegeActivity.class.getSimpleName();
 

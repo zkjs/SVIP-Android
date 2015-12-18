@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.EvaluateBean;
 import com.zkjinshi.svip.bean.HeadBean;
@@ -53,7 +54,7 @@ import java.util.HashMap;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OrderEvaluateActivity extends Activity{
+public class OrderEvaluateActivity extends BaseActivity {
 
     private final static String TAG = OrderEvaluateActivity.class.getSimpleName();
 

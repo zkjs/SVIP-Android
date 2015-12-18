@@ -24,6 +24,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -52,7 +53,7 @@ import java.util.TimerTask;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class OauthLoginActivity extends Activity{
+public class OauthLoginActivity extends BaseActivity{
 
     private final static String TAG = OauthLoginActivity.class.getSimpleName();
 
