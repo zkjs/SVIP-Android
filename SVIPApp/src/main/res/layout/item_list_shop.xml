@@ -19,18 +19,17 @@
             <ImageView
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="256dp"
                 android:scaleType="fitXY" />
 
-            <View
-                android:id="@+id/v_white_line"
-                android:background="@color/white"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"></View>
-
         </LinearLayout>
+
+        <View
+            android:id="@+id/v_white_line"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
 
         <LinearLayout
             android:id="@+id/ll_shop_info"
