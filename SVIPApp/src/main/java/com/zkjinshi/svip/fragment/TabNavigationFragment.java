@@ -2,45 +2,18 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.common.MainActivity;
-import com.zkjinshi.svip.bean.CustomerServiceBean;
-import com.zkjinshi.svip.bean.HeadBean;
-import com.zkjinshi.svip.ibeacon.RegionVo;
-import com.zkjinshi.svip.manager.CustomerServicesManager;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.CustomerServiceListResponse;
-import com.zkjinshi.svip.response.OrderLastResponse;
-import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.view.BookingDialog;
-import com.zkjinshi.svip.view.CleverDialog;
-import com.zkjinshi.svip.view.ListenerDialog;
-
-import org.apache.log4j.chainsaw.Main;
-
-import java.util.ArrayList;
 
 /**
  * Fragment引导管理器

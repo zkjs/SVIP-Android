@@ -85,6 +85,12 @@ public class MessageFragment extends Fragment {
         addIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), AddFriendActivity.class);
                 getActivity().startActivity(intent);
             }

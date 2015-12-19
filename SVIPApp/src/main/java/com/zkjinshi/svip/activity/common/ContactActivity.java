@@ -143,6 +143,12 @@ public class ContactActivity extends BaseActivity {
         mLlPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(ContactActivity.this,LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 String phoneNumber = mTvPhoneNumber.getText().toString();
                 dial(phoneNumber);
             }
@@ -151,6 +157,12 @@ public class ContactActivity extends BaseActivity {
         mIbtnDial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(ContactActivity.this,LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                String phoneNumber = mTvPhoneNumber.getText().toString();
                dial(phoneNumber);
             }
@@ -167,7 +179,12 @@ public class ContactActivity extends BaseActivity {
         mBtnConsultImmediately.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO:进入聊天界面
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(ContactActivity.this,LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 Intent goChat = new Intent(ContactActivity.this, ChatActivity.class);
                 if(null != mSalerInfo){
                     String fromName   = CacheUtil.getInstance().getUserName();

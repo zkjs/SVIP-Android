@@ -73,6 +73,12 @@ public class SetFragment extends Fragment{
         accountInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
@@ -84,6 +90,12 @@ public class SetFragment extends Fragment{
         orderManagerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
@@ -95,6 +107,12 @@ public class SetFragment extends Fragment{
         setLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 Intent intent = new Intent(getActivity(), SetActivity.class);
                 getActivity().startActivityForResult(intent,KILL_MYSELT);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,

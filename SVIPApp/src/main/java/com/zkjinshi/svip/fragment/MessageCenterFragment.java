@@ -12,6 +12,7 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.im.group.ChatGroupActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
@@ -61,6 +62,12 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         mChatRoomAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 EMConversation conversation = conversationList.get(position);
                 EMMessage message = conversation.getLastMessage();
                 String username = conversation.getUserName();
@@ -108,6 +115,19 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         if(null == conversationList || conversationList.isEmpty()){
             mTvDialog.setVisibility(View.VISIBLE);
             mTvDialog.setText(mActivity.getString(R.string.current_none));
+            if(!CacheUtil.getInstance().isLogin()){
+                mTvDialog.setText("立即登录");
+                mTvDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(),LoginActivity.class);
+                        intent.putExtra("isHomeBack",true);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }else {
+            mTvDialog.setVisibility(View.GONE);
         }
     }
 

@@ -17,16 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
@@ -37,19 +34,14 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
-import com.zkjinshi.svip.bean.CustomerServiceBean;
-import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.ibeacon.RegionVo;
-import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.view.CleverDialog;
@@ -58,13 +50,10 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.ServerDialog;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -707,62 +696,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         return false;
     }
-
-    //智能选择客服
-    public void loadCleverServer(final String shopid){
-        CustomerServicesManager.getInstance().requestServiceListTask(getActivity(),shopid , new ExtNetRequestListener(getActivity()) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                Log.i(TAG, "result:" + result.rawResult);
-                CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
-                if (null != customerServiceListResponse) {
-                    HeadBean head = customerServiceListResponse.getHead();
-                    if (null != head) {
-                        boolean isSet = head.isSet();
-                        if (isSet) {
-                            ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
-                            String salesId = head.getExclusive_salesid();
-                            CustomerServiceBean customerService = null;
-                            if (null != customerServiceList && !customerServiceList.isEmpty()) {
-                                if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                    customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                } else {//无专属客服
-                                    customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
-                                }
-                                showServerDailog(shopid,customerService);
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-    }
-
-    public void showServerDailog(String shopId,CustomerServiceBean customerServiceBean){
-        ServerDialog serverDialog = new ServerDialog(getActivity());
-        serverDialog.shopId = shopId;
-        serverDialog.customerService = customerServiceBean;
-        serverDialog.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
-        serverDialog.show();
-    }
-
-
 
     /**
      * 判读是否已经激活

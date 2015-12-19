@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.fragment.contacts.CharacterParser;
@@ -93,6 +94,12 @@ public class ContactsFragment extends BaseFragment{
         mContactsAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
                 SortModel sortModel = mSortList.get(postion);
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 intent.putExtra(Constants.EXTRA_USER_ID,sortModel.fuid);
@@ -133,6 +140,13 @@ public class ContactsFragment extends BaseFragment{
 
         //网络获取环信好友
         loadHttpContacts();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateListView(mSortList);
     }
 
     /**
@@ -343,6 +357,17 @@ public class ContactsFragment extends BaseFragment{
         if(null == sortLists || sortLists.isEmpty()){
             mTvDialog.setVisibility(View.VISIBLE);
             mTvDialog.setText(mActivity.getString(R.string.current_none));
+            if(!CacheUtil.getInstance().isLogin()){
+                mTvDialog.setText("立即登录");
+                mTvDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(),LoginActivity.class);
+                        intent.putExtra("isHomeBack",true);
+                        startActivity(intent);
+                    }
+                });
+            }
         }else {
             // 根据a-z进行排序源数据
             mTvDialog.setVisibility(View.GONE);

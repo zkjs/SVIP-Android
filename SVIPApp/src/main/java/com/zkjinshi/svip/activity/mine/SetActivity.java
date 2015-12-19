@@ -127,7 +127,6 @@ public class SetActivity extends BaseActivity {
                 ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
-                intent.putExtra("isHomeBack",true);
                 startActivity(intent);
             }
         });
