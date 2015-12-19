@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.adapter.GoodAdapter;
 
 import com.zkjinshi.svip.base.BaseActivity;
@@ -39,6 +40,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GoodInfoResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
@@ -204,6 +206,12 @@ public class GoodListActivity extends BaseActivity {
             viewHolder.civSalerAvatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(!CacheUtil.getInstance().isLogin()){
+                        Intent intent = new Intent(GoodListActivity.this,LoginActivity.class);
+                        intent.putExtra("isHomeBack",true);
+                        startActivity(intent);
+                        return;
+                    }
                     // 进入销售主页
                     Intent intent = new Intent(GoodListActivity.this, ContactActivity.class);
                     intent.putExtra("contact_id", salesID);

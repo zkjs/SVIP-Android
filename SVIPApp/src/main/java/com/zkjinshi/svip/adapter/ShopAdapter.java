@@ -15,10 +15,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
 import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
@@ -138,6 +140,12 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
                 viewHolder.civSalerAvatar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if(!CacheUtil.getInstance().isLogin()){
+                            Intent intent = new Intent(mActivity,LoginActivity.class);
+                            intent.putExtra("isHomeBack",true);
+                            mActivity.startActivity(intent);
+                            return;
+                        }
                         // 进入销售主页
                         Intent intent = new Intent(mActivity, ContactActivity.class);
                         intent.putExtra("contact_id", salesID);
