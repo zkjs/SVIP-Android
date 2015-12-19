@@ -14,7 +14,7 @@
             <ImageView
                 android:id="@+id/home_pic_iv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="326dp"
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:src="@mipmap/bg_shouye"
