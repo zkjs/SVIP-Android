@@ -464,7 +464,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         int index = svipApplication.mRegionList.size()-1;
         final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
-        final String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
         String url = ProtocolUtil.getUserPrivilegeUrl(shopid,locid);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -492,7 +491,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     if(cleverDialog != null){
                         cleverDialog.show();
                         cleverDialog.setPrivilegeResponse(privilegeResponse);
-                        cleverDialog.setContentText(null,shopName,
+                        cleverDialog.setContentText(null,privilegeResponse.getShopName(),
                                 privilegeResponse.getPrivilegeName(),
                                 privilegeResponse.getPrivilegeDesc(),
                                 privilegeResponse.getPrivilegeIcon()
@@ -503,8 +502,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                                 HomeMsgVo homeMsg= new HomeMsgVo();
                                 homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
                                 homeMsg.setClickAble(false);
-                                homeMsg.setMajorText(shopName);
-                                homeMsg.setMinorText("成功获取\""+privilegeResponse.getPrivilegeName()+"\"特权");
+                                homeMsg.setMajorText(privilegeResponse.getMessageCard().getTitle());
+                                homeMsg.setMinorText(privilegeResponse.getMessageCard().getContent());
                                 homeMsgList.add(0,homeMsg);
                                 homeMsgAdapter.notifyDataSetChanged();
                             }

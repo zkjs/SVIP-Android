@@ -7,9 +7,27 @@ import java.io.Serializable;
  */
 public class PrivilegeResponse implements Serializable {
 
+    private MessageCardResponse messageCard;
     private String privilegeDesc;
     private String privilegeIcon;
     private  String privilegeName;
+    private String shopName;
+
+    public MessageCardResponse getMessageCard() {
+        return messageCard;
+    }
+
+    public void setMessageCard(MessageCardResponse messageCard) {
+        this.messageCard = messageCard;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 
     public String getPrivilegeDesc() {
         return privilegeDesc;
