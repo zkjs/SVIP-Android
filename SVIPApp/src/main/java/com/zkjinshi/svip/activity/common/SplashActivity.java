@@ -189,7 +189,7 @@ public class SplashActivity extends BaseActivity {
     private void goHome() {
 
         LoginController.getInstance().init(this);
-        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,null);
+        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,false,null);
     }
 
     Handler handler = new Handler() {

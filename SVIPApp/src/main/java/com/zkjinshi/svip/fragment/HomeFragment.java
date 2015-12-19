@@ -322,7 +322,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         //用户未登陆
         if(!CacheUtil.getInstance().isLogin()){
 
-            nameTv.setText("立即登陆");
+            nameTv.setText("立即登录");
             nameTv.setTextColor(Color.parseColor("#ffc56e"));
             nameTv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -381,7 +381,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      * 跳转到登录页面
      */
     private void goLogin() {
-        BaseApplication.getInst().clear();
         Intent intent = new Intent(getActivity(),LoginActivity.class);
         intent.putExtra("isHomeBack",true);
         getActivity().startActivity(intent);

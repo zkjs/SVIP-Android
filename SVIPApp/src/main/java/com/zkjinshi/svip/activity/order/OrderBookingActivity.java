@@ -322,7 +322,6 @@ public class OrderBookingActivity extends BaseActivity {
             public void onClick(View view) {
                 if(!CacheUtil.getInstance().isLogin()){
                     //NetDialogUtil.showLoginDialog(OrderBookingActivity.this);
-                    BaseApplication.getInst().clear();
                     Intent intent = new Intent(OrderBookingActivity.this,LoginActivity.class);
                     intent.putExtra("isHomeBack",true);
                     startActivity(intent);

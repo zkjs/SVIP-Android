@@ -55,13 +55,6 @@ public class MessageFragment extends Fragment {
     }
 
     private void initData(){
-        if(!CacheUtil.getInstance().isLogin()){
-            BaseApplication.getInst().clear();
-            Intent intent = new Intent(getActivity(),LoginActivity.class);
-            intent.putExtra("isHomeBack",true);
-            getActivity().startActivity(intent);
-            return;
-        }
         mActivity     = this.getActivity();
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new MessageCenterFragment());

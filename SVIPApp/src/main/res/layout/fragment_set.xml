@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/set_uv_user_photo"
                     android:layout_marginLeft="10dp"
-                    android:text="张三"
+                    android:text="登录/注册"
                     android:textSize="14sp"
                     android:textColor="#666666"
                     android:layout_centerVertical="true"

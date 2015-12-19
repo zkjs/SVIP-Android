@@ -237,14 +237,7 @@ public class LoginActivity extends BaseActivity {
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isHomeBack){
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                }
                 finish();
-                if(isHomeBack){
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                }
             }
         });
 
@@ -484,7 +477,7 @@ public class LoginActivity extends BaseActivity {
                         CacheUtil.getInstance().setUserId(userid);
                         CacheUtil.getInstance().setLogin(true);
                         DBOpenHelper.DB_NAME = userid +".db";
-                        LoginController.getInstance().getUserDetailInfo(userid, token, true, null);
+                        LoginController.getInstance().getUserDetailInfo(userid, token, true,isHomeBack, null);
 
                     }else {
                         LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
@@ -562,7 +555,7 @@ public class LoginActivity extends BaseActivity {
                         CacheUtil.getInstance().setUserId(userid);
                         CacheUtil.getInstance().setLogin(true);
                         DBOpenHelper.DB_NAME = userid +".db";
-                        LoginController.getInstance().getUserDetailInfo(userid, token, false,null);
+                        LoginController.getInstance().getUserDetailInfo(userid, token, false,isHomeBack,null);
 
                     }
 

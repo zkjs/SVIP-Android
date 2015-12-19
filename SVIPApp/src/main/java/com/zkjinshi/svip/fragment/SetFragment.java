@@ -50,14 +50,6 @@ public class SetFragment extends Fragment{
     }
 
     private void initData(){
-        if(!CacheUtil.getInstance().isLogin()){
-           // NetDialogUtil.showLoginDialog(getActivity());
-            BaseApplication.getInst().clear();
-            Intent intent = new Intent(getActivity(),LoginActivity.class);
-            intent.putExtra("isHomeBack",true);
-            getActivity().startActivity(intent);
-            return;
-        }
         this.options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_logo_zhanwei)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_logo_zhanwei)// 设置图片Uri为空或是错误的时候显示的图片
@@ -70,7 +62,9 @@ public class SetFragment extends Fragment{
             String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
             ImageLoader.getInstance().displayImage(userPhotoUrl, userPhotoIv, options);
         }
-        userNameTv.setText(CacheUtil.getInstance().getUserName());
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+            userNameTv.setText(CacheUtil.getInstance().getUserName());
+        }
     }
 
     private void initListeners(){

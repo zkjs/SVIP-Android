@@ -67,7 +67,7 @@ public class LoginController {
      * @param token
      * @param isNewRegister 是否是新注册用户
      */
-    public void getUserDetailInfo(final String userid, String token,final boolean isNewRegister,final Bundle thirdBundleData) {
+    public void getUserDetailInfo(final String userid, String token,final boolean isNewRegister,final boolean isHomeBack,final Bundle thirdBundleData) {
 
         String url =  Constants.GET_USER_DETAIL_URL + "userid=" + userid + "&token=" + token;
         Log.i(TAG, url);
@@ -119,7 +119,12 @@ public class LoginController {
                             activity.startActivity(intent);
                             activity.finish();
                         } else {
-                            goHome();
+                            if(isHomeBack){
+                                activity.finish();
+                            }else {
+                                goHome();
+                            }
+
                         }
                     }
 

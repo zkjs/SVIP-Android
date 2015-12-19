@@ -393,7 +393,7 @@ public class OauthLoginActivity extends BaseActivity{
                         CacheUtil.getInstance().setUserId(userid);
                         CacheUtil.getInstance().setLogin(true);
                         DBOpenHelper.DB_NAME = userid +".db";
-                        LoginController.getInstance().getUserDetailInfo(userid, token, true, thirdBundleData);
+                        LoginController.getInstance().getUserDetailInfo(userid, token, true, false,thirdBundleData);
                     }else {
                         LogUtil.getInstance().info(LogLevel.INFO, "loginin-注册失败！");
                     }
@@ -453,7 +453,7 @@ public class OauthLoginActivity extends BaseActivity{
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
                         LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息成功。");
-                        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,null);
+                        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,false,null);
                     } else {
                         LogUtil.getInstance().info(LogLevel.ERROR,"修改用户信息错误。");
                     }
