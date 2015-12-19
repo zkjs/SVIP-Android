@@ -97,7 +97,7 @@ public class EMessageReceiver extends BroadcastReceiver {
                 CacheUtil.getInstance().setUserName("");
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
-                ImageLoader.getInstance().clearDiskCache();
+                //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(context, LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

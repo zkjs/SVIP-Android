@@ -37,7 +37,7 @@ public class NetDialogUtil {
                 CacheUtil.getInstance().setUserName("");
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
-                ImageLoader.getInstance().clearDiskCache();
+                //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(activity,LoginActivity.class);
                 activity.startActivity(intent);
