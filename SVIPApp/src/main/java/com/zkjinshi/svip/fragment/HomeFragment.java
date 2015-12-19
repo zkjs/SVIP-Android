@@ -452,6 +452,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     //根据酒店区域获取用户特权
     private void getUserPrivilege(){
+        if(!CacheUtil.getInstance().isLogin()){
+            return;
+        }
+        if(!CacheUtil.getInstance().isActivate()){
+            return;
+        }
         if(svipApplication.mRegionList.size() <= 0){
             return;
         }
