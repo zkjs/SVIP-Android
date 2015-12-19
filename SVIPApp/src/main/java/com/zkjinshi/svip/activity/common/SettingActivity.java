@@ -4,14 +4,20 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -43,6 +49,7 @@ import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -53,6 +60,8 @@ import com.zkjinshi.svip.vo.UserInfoVo;
 
 import java.io.File;
 import java.util.HashMap;
+
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * Created by djd on 2015/8/17.
@@ -304,6 +313,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     if (null != baseResponse && baseResponse.isSet()) {
                         if(fieldKey.equals("sex")){
                             CacheUtil.getInstance().setSex(fieldValue);
+                            if(fieldValue.equals("0")){
+                                mUserSex.setTextContent2("女");
+                            }else{
+                                mUserSex.setTextContent2("男");
+                            }
                         }
                     }
                 }
@@ -311,46 +325,72 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    //显示性别选择对话框
-    private void showSexDialog(){
-        final Dialog dialog = new Dialog(this);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_sex);
 
-        Window dialogWindow = dialog.getWindow();
-        dialogWindow.setGravity(Gravity.CENTER);
-        int width = DeviceUtils.getScreenWidth(this);
 
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = (int) (width*0.8); // 宽度
-        // lp.height = 300; // 高度
-        //lp.alpha = 0.7f; // 透明度
-        dialogWindow.setAttributes(lp);
-        dialog.show();
-        RadioGroup group = (RadioGroup)dialog.findViewById(R.id.gendergroup);
-        RadioButton mRadio1 = (RadioButton) dialog.findViewById(R.id.girl);
-        RadioButton mRadio2 = (RadioButton) dialog.findViewById(R.id.boy);
-        if(mUserSex.getTextContent2().toString().equals("女")){
-            mRadio1.setChecked(true);
-        }
-        else  if(mUserSex.getTextContent2().toString().equals("男")){
-            mRadio2.setChecked(true);
-        }
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    /**
+     * 显示性别选择对话框
+     */
+    public void showChooseSexDialog(){
+
+        final Dialog dlg = new Dialog(this, R.style.ActionTheme_DataSheet);
+        LinearLayout layout = (LinearLayout) LayoutInflater.from(this).inflate(
+                R.layout.set_sex_dialog, null);
+        final int cFullFillWidth = 10000;
+        layout.setMinimumWidth(cFullFillWidth);
+        final Button boyBtn = (Button) layout.findViewById(R.id.dialog_btn_boy);
+        final Button girlBtn = (Button) layout.findViewById(R.id.dialog_btn_girl);
+        Button cancelBtn = (Button) layout.findViewById(R.id.dialog_btn_cancel);
+
+        setSexText(boyBtn,girlBtn,CacheUtil.getInstance().getSex());
+
+        //男
+        boyBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.girl) {
-                    submitInfo("sex","0");
-                    mUserSex.setTextContent2("女");
-                }
-                else{
-                    submitInfo("sex","1");
-                    mUserSex.setTextContent2("男");
-                }
-                dialog.cancel();
+            public void onClick(View v) {
+                submitInfo("sex","1");
+                setSexText(boyBtn,girlBtn,"1");
+                dlg.cancel();
             }
         });
+        //女
+        girlBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                submitInfo("sex","0");
+                setSexText(boyBtn,girlBtn,"0");
+                dlg.cancel();
+            }
+        });
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dlg.dismiss();
+            }
+        });
+        Window w = dlg.getWindow();
+        WindowManager.LayoutParams lp = w.getAttributes();
+        lp.x = 0;
+        final int cMakeBottom = -1000;
+        lp.y = cMakeBottom;
+        lp.gravity = Gravity.BOTTOM;
+        dlg.onWindowAttributesChanged(lp);
+        dlg.setCanceledOnTouchOutside(true);
+        dlg.setContentView(layout);
+        dlg.show();
+
+    }
+
+    private void setSexText(Button boyBtn, Button girlBtn,String sexValue){
+        if(sexValue.equals("0")){
+            boyBtn.setTextColor(Color.parseColor("#454546"));
+            girlBtn.setTextColor(Color.parseColor("#ffc56e"));
+        }else{
+            boyBtn.setTextColor(Color.parseColor("#ffc56e"));
+            girlBtn.setTextColor(Color.parseColor("#454546"));
+        }
     }
 
 
@@ -380,7 +420,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         R.anim.slide_out_left);
                 break;
             case R.id.ius_user_sex:
-                showSexDialog();
+                showChooseSexDialog();
                 break;
             case R.id.ius_email:
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
