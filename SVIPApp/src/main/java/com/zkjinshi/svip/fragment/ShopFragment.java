@@ -52,11 +52,10 @@ public class ShopFragment extends BaseFragment {
     private EditText       mEtCity;
     private ListView       mLvShopList;
 
-    private List<BaseShopBean> mBaseShopList;
-    private ShopAdapter        mShopAdapter;
-    private ArrayList<RecommendShopBean> mRecommendShopList;
-    private ArrayList<ShopBean>          mShopList;
-    
+    private ShopAdapter         mShopAdapter;
+    private ArrayList<ShopBean> mShopList;
+    private Gson mGson;
+    private Type mTypeShopList;
     private int mPage;
     private int mPageSize = 5;
 
@@ -73,35 +72,30 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-
-        String recommendShopResult = CacheUtil.getInstance().getListStrCache("recommend_shop_list");
-        String shopResult = CacheUtil.getInstance().getListStrCache("shop_list");
-        Gson gson = new Gson();
-        mBaseShopList    = new ArrayList<>();
-
-        if(!TextUtils.isEmpty(recommendShopResult)){
-            Type listType = new TypeToken<ArrayList<RecommendShopBean>>() {}.getType();
-            mRecommendShopList = gson.fromJson(recommendShopResult, listType);
-            if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
-                mBaseShopList.addAll(mRecommendShopList);
-            }
-        }
-
-        if(!TextUtils.isEmpty(shopResult)){
-            Type listType = new TypeToken<ArrayList<ShopBean>>() {}.getType();
-            mShopList = gson.fromJson(shopResult, listType);
-            if(null != mShopList && !mShopList.isEmpty()){
-                mBaseShopList.addAll(mShopList);
-            }
-        }
-
-        mShopAdapter = new ShopAdapter(mBaseShopList, mActivity);
+        mGson = new Gson();
+        mTypeShopList = new TypeToken<List<ShopBean>>(){}.getType();
+        mShopList     = new ArrayList<>();
+        mShopAdapter  = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
 
-        if(mBaseShopList.isEmpty()){
-            getRecommendShopList(getString(R.string.shenzhen));
-        }
+        initShopList();
+    }
 
+    /**
+     * 初始化商店列表
+     */
+    private void initShopList() {
+        String jsonShopList = CacheUtil.getInstance().getListStrCache("shop_list");
+        if (!TextUtils.isEmpty(jsonShopList)){
+            List<ShopBean> shopBeanList = mGson.fromJson(jsonShopList, mTypeShopList);
+            if(null != shopBeanList && !shopBeanList.isEmpty()){
+                mShopList.addAll(shopBeanList);
+                mShopAdapter.setData(mShopList);
+            }
+        } else {
+            mPage = 1;
+            getShopList(mPage, mPageSize);
+        }
     }
 
     @Override
@@ -112,14 +106,7 @@ public class ShopFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BaseShopBean baseShopBean = (BaseShopBean) mShopAdapter.getItem(position);
-                if(baseShopBean instanceof RecommendShopBean){
-                    DialogUtil.getInstance().showCustomToast(mContext, "TODO", Gravity.CENTER);
-//                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
-//                    Uri uri = Uri.parse(linkUrl);
-//                    Intent  intent = new  Intent(Intent.ACTION_VIEW, uri);
-//                    startActivity(intent);
-
-                } else {
+                if(position > 0){
                     Intent intent = new Intent(mActivity, GoodListActivity.class);
                     String shopid = baseShopBean.getShopid();
                     ShopBean shopBean = (ShopBean)baseShopBean;
@@ -128,6 +115,12 @@ public class ShopFragment extends BaseFragment {
                     intent.putExtra("shopid",shopid);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    DialogUtil.getInstance().showCustomToast(mContext, "TODO", Gravity.CENTER);
+//                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
+//                    Uri uri = Uri.parse(linkUrl);
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(intent);
                 }
             }
         });
@@ -171,6 +164,7 @@ public class ShopFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         ImageLoader.getInstance().clearMemoryCache();
+        CacheUtil.getInstance().clearCache("shop_list");
     }
 
 //    @Override
@@ -196,14 +190,8 @@ public class ShopFragment extends BaseFragment {
      * 保存商家列表
      */
     private void saveStateToArguments() {
-        if (getView() != null){
-            if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
-                CacheUtil.getInstance().saveListCache("recommend_shop_list",  mRecommendShopList);
-            }
-
-            if(null != mShopList && !mShopList.isEmpty()){
-                CacheUtil.getInstance().saveListCache("shop_list", mShopList);
-            }
+        if(null != mShopList && !mShopList.isEmpty()){
+            CacheUtil.getInstance().saveListCache("shop_list", mShopList);
         }
     }
 
@@ -238,19 +226,13 @@ public class ShopFragment extends BaseFragment {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<List<ShopBean>>(){}.getType();
-                    Gson gson     = new Gson();
-                    mPage++;
-                   mShopList = gson.fromJson(result.rawResult, listType);
-                    if(null != mShopList && !mShopList.isEmpty()){
-                        mBaseShopList.addAll(mShopList);
-                        mShopAdapter.setData(mBaseShopList);
-                    }
-                    LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + mBaseShopList);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                mPage++;
+                List<ShopBean> shopList = mGson.fromJson(result.rawResult, mTypeShopList);
+                if(null != shopList && !shopList.isEmpty()){
+                    mShopList.addAll(shopList);
+                    mShopAdapter.setData(mShopList);
                 }
+                LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + shopList);
             }
 
             @Override
@@ -258,55 +240,8 @@ public class ShopFragment extends BaseFragment {
 
             }
         });
-        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
 
-    /**
-     * 获得推荐酒店商家列表
-     */
-    public void getRecommendShopList(String city) {
-        String url = ProtocolUtil.getRecommendedShopListUrl(city);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<List<RecommendShopBean>>(){}.getType();
-                    Gson gson = new Gson();
-                    mRecommendShopList = gson.fromJson(result.rawResult, listType);
-                    if(null != mRecommendShopList && !mRecommendShopList.isEmpty()){
-                        mBaseShopList.add(0, mRecommendShopList.get(0));
-                    }
-                    mPage = 1;
-                    getShopList(mPage, mPageSize);
-                    LogUtil.getInstance().info(LogLevel.INFO, "recommendShopList:" + mRecommendShopList);
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }
 }

@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,7 +18,6 @@ import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -46,7 +44,7 @@ public class ShopSearchActivity extends BaseActivity {
 
     private EditText searchEt;
     private ListView shopListView;
-    private List<BaseShopBean> shopResponseList = new ArrayList<BaseShopBean>();
+    private List<ShopBean> shopResponseList = new ArrayList<ShopBean>();
     private ShopAdapter shopAdapter;
 
     @Override
