@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.adapter.GoodAdapter;
 
 import com.zkjinshi.svip.base.BaseActivity;
@@ -152,6 +153,7 @@ public class GoodListActivity extends BaseActivity {
         viewHolder.tvShopName     = (TextView) headerView.findViewById(R.id.tv_shop_name);
         viewHolder.tvShopBusiness = (TextView) headerView.findViewById(R.id.tv_shop_business);
         viewHolder.tvShopDes      = (TextView) headerView.findViewById(R.id.tv_shop_des);
+        viewHolder.tvShopAdd      = (TextView) headerView.findViewById(R.id.tv_shop_add);
         viewHolder.llShopInfo     = (LinearLayout) headerView.findViewById(R.id.ll_shop_info);
         viewHolder.rlSalerInfo    = (RelativeLayout) headerView.findViewById(R.id.rl_saler_info);
 
@@ -169,11 +171,11 @@ public class GoodListActivity extends BaseActivity {
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-
         String   shopName = shopBean.getShopname();
         String   shopBusi = shopBean.getShopbusiness();
         String   shopDesc = shopBean.getShopdesc();
-        String   salesID  = shopBean.getSalesid();
+        String   shopAdd  = shopBean.getShopaddress();
+        final String   salesID  = shopBean.getSalesid();
         String   imgUrl   = shopBean.getBgImgUrl();
 
         if(!TextUtils.isEmpty(shopName)){
@@ -188,13 +190,26 @@ public class GoodListActivity extends BaseActivity {
             viewHolder.tvShopDes.setText(shopDesc);
         }
 
+        if(!TextUtils.isEmpty(shopAdd)){
+            viewHolder.tvShopAdd.setText(shopAdd);
+        }
+
         if(!TextUtils.isEmpty(imgUrl)){
             ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
         }
 
         if(!TextUtils.isEmpty(salesID)){
             String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
-            ImageLoader.getInstance().displayImage(avatarUrl,viewHolder.civSalerAvatar, avatarOptions);
+            ImageLoader.getInstance().displayImage(avatarUrl, viewHolder.civSalerAvatar, avatarOptions);
+            viewHolder.civSalerAvatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 进入销售主页
+                    Intent intent = new Intent(GoodListActivity.this, ContactActivity.class);
+                    intent.putExtra("contact_id", salesID);
+                    GoodListActivity.this.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -357,6 +372,7 @@ public class GoodListActivity extends BaseActivity {
         TextView        tvShopName;
         TextView        tvShopBusiness;
         TextView        tvShopDes;
+        TextView        tvShopAdd;
 
         LinearLayout    llShopInfo;
         RelativeLayout rlSalerInfo;
