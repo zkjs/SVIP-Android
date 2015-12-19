@@ -1,11 +1,10 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,11 +15,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BaseShopBean;
-import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -47,7 +46,7 @@ public class ShopCityActivity extends BaseActivity {
     private RelativeLayout mRlBack;
     private TextView       mTvCity;
     private ListView       mLvShopList;
-    private List<BaseShopBean> mShopList;
+    private List<ShopBean> mShopList;
     private ShopAdapter        mShopAdapter;
 
     private int mPage = 1;
@@ -89,14 +88,7 @@ public class ShopCityActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BaseShopBean baseShopBean = (BaseShopBean) mShopAdapter.getItem(position);
-                if(baseShopBean instanceof RecommendShopBean){
-                    //TODO:进入推荐的链接地址
-                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
-                    Uri uri = Uri.parse(linkUrl);
-                    Intent intent = new  Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-
-                } else {
+                if(position > 0){
                     Intent intent = new Intent(ShopCityActivity.this, GoodListActivity.class);
                     String shopid = baseShopBean.getShopid();
                     ShopBean shopBean = (ShopBean)baseShopBean;
@@ -105,6 +97,12 @@ public class ShopCityActivity extends BaseActivity {
                     intent.putExtra("shopid",shopid);
                     ShopCityActivity.this.startActivity(intent);
                     ShopCityActivity.this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    DialogUtil.getInstance().showCustomToast(ShopCityActivity.this, "TODO", Gravity.CENTER);
+//                    String linkUrl = ((RecommendShopBean) baseShopBean).getLink_url();
+//                    Uri uri = Uri.parse(linkUrl);
+//                    Intent  intent = new  Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(intent);
                 }
 
             }

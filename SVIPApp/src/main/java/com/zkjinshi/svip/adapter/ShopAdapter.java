@@ -17,7 +17,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
-import com.zkjinshi.svip.bean.BaseShopBean;
+import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -33,12 +33,12 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
+public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
     private final static int ITEM_VIEW_COUNT = 2;
 
-    private final static int ITEM_RECOMMEND_SHOP = 0x00;
-    private final static int ITEM_NORMAL_SHOP    = 0x01;
+    private final static int ITEM_ADVERTISE   = 0x00;
+    private final static int ITEM_NORMAL_SHOP = 0x01;
 
     private DisplayImageOptions shopOptions;
     private DisplayImageOptions avatarOptions;
@@ -82,37 +82,32 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        if (ITEM_RECOMMEND_SHOP == getItemViewType(position)) {
+        ShopBean shopBean = mDatas.get(position);
+        String   shopName = shopBean.getShopname();
+        String   shopBusi = shopBean.getShopbusiness();
+        String   shopDesc = shopBean.getShopdesc();
+        String   shopAdd  = shopBean.getShopaddress();
+        final String   salesID  = shopBean.getSalesid();
+        String   imgUrl   = shopBean.getBgImgUrl();
 
+        if (ITEM_ADVERTISE == getItemViewType(position)) {
             viewHolder.vWhiteLine.setVisibility(View.VISIBLE);
             viewHolder.llShopInfo.setVisibility(View.GONE);
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
-            RecommendShopBean recommendShop = (RecommendShopBean) mDatas.get(position);
-            String recommendTitle   = recommendShop.getRecommend_title();
-            String recommendContent = recommendShop.getRecommend_content();
-            String shopBgimgurl     = recommendShop.getShop_bgimgurl();
-
-            if(!TextUtils.isEmpty(recommendContent)){
-                viewHolder.tvShopName.setText(recommendContent);
+            if(!TextUtils.isEmpty(shopName)){
+                viewHolder.tvShopName.setText(shopName);
             }
 
-            if(!TextUtils.isEmpty(recommendTitle)){
-                viewHolder.tvShopBusiness.setText(recommendTitle);
+            if(!TextUtils.isEmpty(shopBusi)){
+                viewHolder.tvShopBusiness.setText(shopBusi);
             }
 
-            if(!TextUtils.isEmpty(shopBgimgurl)){
-                ImageLoader.getInstance().displayImage(shopBgimgurl, viewHolder.ivShopLogo, shopOptions);
+            if(!TextUtils.isEmpty(imgUrl)){
+                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
             }
 
         } else {
-            ShopBean shopBean = (ShopBean) mDatas.get(position);
-            String   shopName = shopBean.getShopname();
-            String   shopBusi = shopBean.getShopbusiness();
-            String   shopDesc = shopBean.getShopdesc();
-            String   shopAdd  = shopBean.getShopaddress();
-            final String   salesID  = shopBean.getSalesid();
-            String   imgUrl   = shopBean.getBgImgUrl();
 
             if(!TextUtils.isEmpty(shopName)){
                 viewHolder.tvShopName.setText(shopName);
@@ -172,11 +167,10 @@ public class ShopAdapter  extends SvipBaseAdapter<BaseShopBean> {
 
     @Override
     public int getItemViewType(int position) {
-        BaseShopBean baseShop = mDatas.get(position);
-        if(baseShop instanceof RecommendShopBean){
-            return ITEM_RECOMMEND_SHOP;
-        } else {
+        if(position > 0){
             return ITEM_NORMAL_SHOP;
+        } else {
+            return ITEM_ADVERTISE;
         }
     }
 
