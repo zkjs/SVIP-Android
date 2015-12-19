@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,17 +25,14 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.UserGetuserResponse;
-import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * Created by dujiande on 2015/12/16.
+ * 添加好友
  */
 public class AddFriendActivity extends BaseActivity {
     private final static String TAG = AddFriendActivity.class.getSimpleName();
