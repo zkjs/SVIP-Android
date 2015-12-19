@@ -302,7 +302,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
-
+                        if(fieldKey.equals("sex")){
+                            CacheUtil.getInstance().setSex(fieldValue);
+                        }
                     }
                 }
             }
