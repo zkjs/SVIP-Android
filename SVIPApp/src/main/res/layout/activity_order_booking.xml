@@ -39,8 +39,7 @@
                     android:id="@+id/iv_room_img"
                     android:layout_width="match_parent"
                     android:layout_height="214dp"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/img_dingdanxiangqing"/>
+                    android:scaleType="centerCrop"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
