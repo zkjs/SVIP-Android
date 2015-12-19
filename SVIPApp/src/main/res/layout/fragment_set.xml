@@ -42,7 +42,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="张三"
                     android:textSize="14sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="#666666"
                     android:layout_centerVertical="true"
                     />
                 
