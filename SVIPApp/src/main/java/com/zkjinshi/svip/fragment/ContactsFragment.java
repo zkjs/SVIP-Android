@@ -139,6 +139,9 @@ public class ContactsFragment extends BaseFragment{
      * 获取网络联系人数据
      */
     private void loadHttpContacts() {
+        if(!CacheUtil.getInstance().isLogin()){
+            return;
+        }
 
         String url = ProtocolUtil.getUserFriendUrl();
         Log.i(TAG,url);
