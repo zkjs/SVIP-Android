@@ -37,6 +37,7 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
@@ -327,7 +328,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 @Override
                 public void onClick(View view) {
                     goLogin();
-                    mActivity.finish();
                 }
             });
             simpleTextTv.setText("使用超级身份，享受超凡个性服务");
@@ -381,10 +381,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      * 跳转到登录页面
      */
     private void goLogin() {
-        Intent intent = new Intent(mActivity, LoginActivity.class);
-        mActivity.startActivity(intent);
-        mActivity.finish();
-        mActivity.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+        BaseApplication.getInst().clear();
+        Intent intent = new Intent(getActivity(),LoginActivity.class);
+        intent.putExtra("isHomeBack",true);
+        getActivity().startActivity(intent);
     }
 
     @Override
