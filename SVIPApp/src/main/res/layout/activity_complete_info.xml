@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:text="请上传身份识别图"
+        android:text="请上传身份识别头像,以便商家可以认出您,为您提供特权服务"
         android:layout_marginTop="15dp"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#666666"/>
 
     <LinearLayout

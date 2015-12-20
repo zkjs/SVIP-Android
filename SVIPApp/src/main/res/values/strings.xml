@@ -79,6 +79,8 @@
     <string name="get_into_next_step_if_not_exists">若无邀请码，请进入下一步</string>
     <string name="update_user_info_success">更新用户信息成功</string>
     <string name="please_input_nickname">请输入昵称</string>
+    <string name="please_input_username">请输入姓名</string>
+    <string name="please_input_userphoto">请上传身份识别头像</string>
     <string name="please_choose_sex">请选择性别</string>
     <string name="net_exception">网络异常</string>
     <string name="request_cancel">请求取消</string>

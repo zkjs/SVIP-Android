@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -13,17 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
@@ -37,18 +32,15 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.view.ItemTitleView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 完善新用户资料
@@ -187,16 +179,21 @@ public class CompleteInfoActivity extends BaseActivity {
 
                 //验证昵称
                 final String nickName = mEtNickName.getText().toString().trim();
+                picPath   = CacheUtil.getInstance().getPicPath();
                 if (TextUtils.isEmpty(nickName)) {
                     DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
-                            getString(R.string.please_input_nickname), Gravity.CENTER);
+                            getString(R.string.please_input_username), Gravity.CENTER);
                     return;
                 }
-
+                if(TextUtils.isEmpty(picPath)){
+                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this,
+                            getString(R.string.please_input_userphoto), Gravity.CENTER);
+                    return;
+                }
                 DeviceUtils.init(CompleteInfoActivity.this);
 
                 mNickName = mEtNickName.getText().toString();
-                picPath   = CacheUtil.getInstance().getPicPath();
+
                 sexValue  = cbSex.isChecked() ? 0 : 1;
                 LogUtil.getInstance().info(LogLevel.INFO, "sexValue:" + sexValue);
 
@@ -212,10 +209,6 @@ public class CompleteInfoActivity extends BaseActivity {
                 stringMap.put("remark", "");
                 stringMap.put("preference", "");
                 stringMap.put("sex", "" + sexValue);
-                if (!TextUtils.isEmpty(picPath)) {
-                    fileMap.put("UploadForm[file]", new File(picPath));
-                    LogUtil.getInstance().info(LogLevel.INFO, "picPath:" + picPath);
-                }
                 httpRequest.setBizParamMap(stringMap);
                 httpRequest.setFileMap(fileMap);
 
@@ -242,16 +235,16 @@ public class CompleteInfoActivity extends BaseActivity {
                                 ImageLoader.getInstance().clearMemoryCache();
                                 CacheUtil.getInstance().setUserName(nickName);
                                 CacheUtil.getInstance().setSex(sexValue+"");
-
+                                CacheUtil.getInstance().savePicPath("");
                                 //进入邀请码页面，并输入邀请码
                                 Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
                                 CompleteInfoActivity.this.startActivity(goInviteCode);
                                 finish();
                             } else {
-                                DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
+                                DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
                             }
                         } else {
-                            DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
+                            DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
                         }
 
                     }
