@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/iv_dingwei"
-            android:layout_width="20dp"
-            android:layout_height="27dp"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
             android:clickable="true"
-            android:background="@mipmap/ic_dingwei_orange" />
+            android:background="@mipmap/ic_search_orange" />
 
     </RelativeLayout>
 
