@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -44,6 +47,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
+import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
@@ -68,6 +72,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
     private final static int NOTIFY_LOCATION = 0x04;
 
+    public static String lastLocid = "";
+    public Animation fadeAnimation;
+
     private View view = null;
     private View headerView = null;
     private ImageView homePicIv;
@@ -75,7 +82,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private TextView nameTv;
     private TextView activeCodeTv;
     private TextView simpleTextTv;
+    private TextView logoTextTv;
     private ImageView logoIv;
+    private CircleImageView avatarCiv;
 
     private Activity mActivity;
     public ListView listView;
@@ -135,7 +144,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             hiTextTv = (TextView)headerView.findViewById(R.id.hi_text_tv);
             nameTv = (TextView)headerView.findViewById(R.id.name_tv);
             simpleTextTv = (TextView)headerView.findViewById(R.id.simple_text_tv);
+            logoTextTv = (TextView) headerView.findViewById(R.id.logo_text);
+            logoTextTv.setVisibility(View.GONE);
             logoIv = (ImageView)headerView.findViewById(R.id.logo_iv);
+            avatarCiv = (CircleImageView)headerView.findViewById(R.id.avatar_civ);
             activeCodeTv = (TextView)headerView.findViewById(R.id.active_code_tv);
         }
 
@@ -147,7 +159,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     private void initData(){
-
+        if(CacheUtil.getInstance().isLogin()){
+            logoIv.setVisibility(View.GONE);
+        }else{
+            logoIv.setVisibility(View.VISIBLE);
+        }
     }
 
     //加载本地预设信息
@@ -163,7 +179,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     private void initListeners(){
-        logoIv.setOnClickListener(new View.OnClickListener() {
+        avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                getUserPrivilege();
@@ -289,6 +305,14 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      * 设置首页大图区信息
      */
     public void setBigPicZone(){
+        //设置头像
+
+        if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
+            String userId = CacheUtil.getInstance().getUserId();
+            String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+            MainController.getInstance().setPhoto(userPhotoUrl,avatarCiv);
+        }
+
         //设置时间问候语
         String welcomeText = "";
         int hour =  Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
@@ -307,6 +331,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         hiTextTv.setText(welcomeText);
 
         //动态提示语
+
 
         //用户未登陆
         if(!CacheUtil.getInstance().isLogin()){
@@ -450,6 +475,41 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 //
 //    }
 
+    public void showPrivilegeTips(){
+        logoTextTv.setVisibility(View.VISIBLE);
+        fadeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fade);
+        logoTextTv.startAnimation(fadeAnimation);
+    }
+
+    public void hidePrivilegeTips(){
+        fadeAnimation.cancel();
+        fadeAnimation = null;
+        logoTextTv.clearAnimation();
+        logoTextTv.setVisibility(View.GONE);
+    }
+
+    public void notifyIbeacon(){
+        if(!CacheUtil.getInstance().isLogin()){
+            return;
+        }
+        if(!CacheUtil.getInstance().isActivate()){
+            return;
+        }
+        if(svipApplication.mRegionList.size() <= 0){
+            lastLocid = "";
+            hidePrivilegeTips();
+            return;
+        }
+        int index = svipApplication.mRegionList.size()-1;
+        final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+        if(locid.equals(lastLocid)){
+            hidePrivilegeTips();
+            return;
+        }
+
+        showPrivilegeTips();
+    }
+
     //根据酒店区域获取用户特权
     private void getUserPrivilege(){
         if(!CacheUtil.getInstance().isLogin()){
@@ -464,6 +524,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         int index = svipApplication.mRegionList.size()-1;
         final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+
+        if(locid.equals(lastLocid)){
+            return;
+        }
+        lastLocid = locid;
+        hidePrivilegeTips();
         String url = ProtocolUtil.getUserPrivilegeUrl(shopid,locid);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -486,7 +552,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-
                     PrivilegeResponse privilegeResponse = new Gson().fromJson(result.rawResult, PrivilegeResponse.class);
                     if(cleverDialog != null){
                         cleverDialog.show();

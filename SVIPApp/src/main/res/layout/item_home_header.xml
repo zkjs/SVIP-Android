@@ -25,21 +25,44 @@
                 android:background="#33000000"/>
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/logo_iv"
+        <RelativeLayout
+            android:id="@+id/logo_layout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/circle_bg"
-            android:layout_marginRight="30dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@mipmap/ic_zhijian_white"
-            android:scaleType="centerInside"/>
+            android:layout_marginRight="30dp">
+            <com.zkjinshi.svip.view.CircleImageView
+                android:id="@+id/avatar_civ"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"/>
+            <ImageView
+                android:id="@+id/logo_iv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerInside"
+                android:background="@drawable/circle_bg"
+                android:src="@mipmap/ic_zhijian_white"/>
+            <TextView
+                android:id="@+id/logo_text"
+                android:background="@drawable/circle_bg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="新特权"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+
 
         <TextView
             android:id="@+id/simple_text_tv"
-            android:layout_above="@id/logo_iv"
+            android:layout_above="@id/logo_layout"
             android:layout_marginBottom="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

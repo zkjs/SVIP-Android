@@ -34,7 +34,8 @@
         <LinearLayout
             android:id="@+id/ll_shop_info"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="wrap_content"
+            android:minHeight="64dp"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:orientation="vertical">
@@ -117,7 +118,8 @@
         <RelativeLayout
             android:id="@+id/rl_saler_info"
             android:layout_width="match_parent"
-            android:layout_height="128dp"
+            android:layout_height="wrap_content"
+            android:minHeight="128dp"
             android:gravity="center|right"
             android:paddingRight="20dp">
 

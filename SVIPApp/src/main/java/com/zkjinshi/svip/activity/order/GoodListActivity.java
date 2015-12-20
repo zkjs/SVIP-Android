@@ -159,6 +159,8 @@ public class GoodListActivity extends BaseActivity {
         viewHolder.llShopInfo     = (LinearLayout) headerView.findViewById(R.id.ll_shop_info);
         viewHolder.rlSalerInfo    = (RelativeLayout) headerView.findViewById(R.id.rl_saler_info);
 
+        viewHolder.tvShopDes.setSingleLine(false);
+
         this.shopOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
