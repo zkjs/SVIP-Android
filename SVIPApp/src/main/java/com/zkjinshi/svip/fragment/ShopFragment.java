@@ -1,7 +1,6 @@
 package com.zkjinshi.svip.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -54,8 +53,6 @@ public class ShopFragment extends BaseFragment {
 
     private ShopAdapter         mShopAdapter;
     private ArrayList<ShopBean> mShopList;
-    private Gson mGson;
-    private Type mTypeShopList;
     private int mPage;
     private int mPageSize = 5;
 
@@ -72,30 +69,12 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        mGson = new Gson();
-        mTypeShopList = new TypeToken<List<ShopBean>>(){}.getType();
-        mShopList     = new ArrayList<>();
-        mShopAdapter  = new ShopAdapter(mShopList, mActivity);
+
+        mShopList    = new ArrayList<>();
+        mShopAdapter = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
-
-        initShopList();
-    }
-
-    /**
-     * 初始化商店列表
-     */
-    private void initShopList() {
-        String jsonShopList = CacheUtil.getInstance().getListStrCache("shop_list");
-        if (!TextUtils.isEmpty(jsonShopList)){
-            List<ShopBean> shopBeanList = mGson.fromJson(jsonShopList, mTypeShopList);
-            if(null != shopBeanList && !shopBeanList.isEmpty()){
-                mShopList.addAll(shopBeanList);
-                mShopAdapter.setData(mShopList);
-            }
-        } else {
-            mPage = 1;
-            getShopList(mPage, mPageSize);
-        }
+        mPage = 1;
+        getShopList(mPage, mPageSize);
     }
 
     @Override
@@ -149,22 +128,9 @@ public class ShopFragment extends BaseFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        saveStateToArguments();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        saveStateToArguments();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         ImageLoader.getInstance().clearMemoryCache();
-        CacheUtil.getInstance().clearCache("shop_list");
     }
 
 //    @Override
@@ -185,15 +151,6 @@ public class ShopFragment extends BaseFragment {
 //            }
 //        }
 //    }
-
-    /**
-     * 保存商家列表
-     */
-    private void saveStateToArguments() {
-        if(null != mShopList && !mShopList.isEmpty()){
-            CacheUtil.getInstance().saveListCache("shop_list", mShopList);
-        }
-    }
 
     public void getShopList(int page, int pageSize) {
         getShopListByCity(null, page, pageSize);
@@ -226,8 +183,11 @@ public class ShopFragment extends BaseFragment {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
+                Gson gson = new Gson();
+                Type type = new TypeToken<List<ShopBean>>(){}.getType();
+
                 mPage++;
-                List<ShopBean> shopList = mGson.fromJson(result.rawResult, mTypeShopList);
+                List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
                 if(null != shopList && !shopList.isEmpty()){
                     mShopList.addAll(shopList);
                     mShopAdapter.setData(mShopList);

@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,37 +21,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 
 import com.google.gson.Gson;
-//import com.umeng.socialize.bean.SHARE_MEDIA;
-//import com.umeng.socialize.bean.SocializeEntity;
-//import com.umeng.socialize.controller.UMServiceFactory;
-//import com.umeng.socialize.controller.UMSocialService;
-//import com.umeng.socialize.controller.listener.SocializeListeners;
-//import com.umeng.socialize.exception.SocializeException;
-//import com.umeng.socialize.sso.UMQQSsoHandler;
-//import com.umeng.socialize.weixin.controller.UMWXHandler;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
-
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -61,7 +37,6 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
-
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
@@ -69,6 +44,12 @@ import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.wxapi.WXEntryActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 开发者：JimmyZhang

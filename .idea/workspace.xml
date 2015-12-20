@@ -44,12 +44,13 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
+    <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="1. 更新商家列表显示">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopCityActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopCityActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopSearchActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopSearchActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/build.gradle" afterPath="$PROJECT_DIR$/SVIPApp/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
@@ -79,57 +80,7 @@
     <favorites_list name="SVIP-1.0-Android" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShopFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.9">
-              <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
-              <folding>
-                <element signature="e#3427#4666#0" expanded="true" />
-                <element signature="e#4665#4666#0" expanded="true" />
-                <element signature="e#4726#4998#0" expanded="true" />
-                <element signature="e#4997#4998#0" expanded="true" />
-                <element signature="e#5055#5574#0" expanded="true" />
-                <element signature="e#5573#5574#0" expanded="true" />
-                <element signature="e#7046#7047#0" expanded="true" />
-                <element signature="e#7101#7102#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShopDetailDBUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ShopDetailDBUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.58953166">
-              <caret line="164" column="55" selection-start-line="164" selection-start-column="55" selection-end-line="164" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NetRequestTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -5514,7 +5465,7 @@
       <map>
         <entry key="E:\develop_code\android\studio\github\SVIP-1.0-Android" value="14474878252570" />
         <entry key="F:/native/RecyclerViewHeader" value="7224488368766" />
-        <entry key="$PROJECT_DIR$" value="14502780132217" />
+        <entry key="$PROJECT_DIR$" value="14502863618504" />
         <entry key="$PROJECT_DIR$/../SuperService-1.0-Android" value="13018032463652" />
         <entry key="$PROJECT_DIR$/../material-sheet-fab" value="8658379405683" />
         <entry key="F:\zkjs_github\SVIP-1.0-Android" value="14485403312872" />
@@ -6485,8 +6436,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/CityType.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityBean.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/adapter/CityAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_city_list.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CitysearchAdapter.java" />
@@ -6529,13 +6478,15 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityChangeDialog.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/TabNavigationFragment.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/AddRemarkActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopCityActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopSearchActivity.java" />
+        <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/563dcb685903c96ce8abbd03adf7fa49e19aa8b4/gson-2.3.1-sources.jar!/com/google/gson/reflect/TypeToken.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
       </list>
     </option>
   </component>
@@ -6566,7 +6517,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -6580,58 +6531,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android-1.0" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android-1.0" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android-1.0" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-Android-1.0" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svip" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches">
         <subPane />
       </pane>
@@ -6735,7 +6635,26 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android-1.0" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-Android-1.0" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIPApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Problems" />
         <subPane subId="Project Files">
@@ -6858,24 +6777,24 @@
     <property name="recentsLimit" value="5" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71UBBLH22C4C" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_10_API_21" />
-    <property name="SearchEverywhereHistoryKey" value="ShopF&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;PinYinC&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.PinyinComparator&#10;CityL&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;Item&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;ShopC&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopCityActivity.java&#10;Cache&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/utils/CacheUtil.java&#10;ContactA&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ContactActivity.java&#10;ContactsA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsSortAdapter&#10;MainCon&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainUiController.java&#10;MainA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.MainActivity&#10;ShopAda&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java&#10;ShopAdapter&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java&#10;ShopA&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopActivity.java&#10;Item_shop&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;CItyLI&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;CityList&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;Invi&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.InviteCodeActivity&#10;SharedPre&#9;PSI&#9;JAVA://android.content.SharedPreferences&#10;Shop&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Contac&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/activity_contact.xml&#10;item&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;Server&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ServerListFragment.java&#10;COntact&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ContactActivity.java&#10;Goodl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.GoodListActivity&#10;OrderB&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java&#10;BaseF&#9;PSI&#9;JAVA://com.zkjinshi.svip.base.BaseFragment&#10;conf&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/assets/config.xml&#10;S&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Proto&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;SalerIN&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/bean/SalerInfoBean.java&#10;Confi&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/assets/config.xml&#10;ShopB&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/bean/ShopBean.java&#10;Contact&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ContactsFragment.java&#10;ContactsH&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.city.helper.ContactsHelper&#10;Contacts&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.ContactsFragment&#10;item_&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;CitySea&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CitysearchAdapter.java&#10;ItemC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/layout/item_city_list.xml&#10;City&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/adapter/CityAdapter.java&#10;Message&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MessageFragment.java&#10;pro&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;color&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/colors.xml&#10;Protoc&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;MessageF&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MessageFragment.java&#10;Wx&#9;PSI&#9;JAVA://com.zkjinshi.svip.wxapi.WXEntryActivity&#10;ShopFrag&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.ShopFragment&#10;INviteC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;OrderA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.OrderBookingActivity&#10;CityListA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;Invite&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.InviteCodeActivity" />
+    <property name="SearchEverywhereHistoryKey" value="Login&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.LoginActivity&#10;ShopF&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;PinYinC&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.PinyinComparator&#10;CityL&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;Item&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;ShopC&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopCityActivity.java&#10;Cache&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/utils/CacheUtil.java&#10;ContactA&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ContactActivity.java&#10;ContactsA&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.contacts.ContactsSortAdapter&#10;MainCon&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainUiController.java&#10;MainA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.MainActivity&#10;ShopAda&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java&#10;ShopAdapter&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java&#10;ShopA&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/ShopActivity.java&#10;Item_shop&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;CItyLI&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;CityList&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java&#10;Invi&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.InviteCodeActivity&#10;SharedPre&#9;PSI&#9;JAVA://android.content.SharedPreferences&#10;Shop&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Contac&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/activity_contact.xml&#10;item&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;Server&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ServerListFragment.java&#10;COntact&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ContactActivity.java&#10;Goodl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.GoodListActivity&#10;OrderB&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/order/OrderBookingActivity.java&#10;BaseF&#9;PSI&#9;JAVA://com.zkjinshi.svip.base.BaseFragment&#10;conf&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/assets/config.xml&#10;S&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Proto&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;SalerIN&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/bean/SalerInfoBean.java&#10;Confi&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/assets/config.xml&#10;ShopB&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/bean/ShopBean.java&#10;Contact&#9;FILE&#9;file://F:/zkjs_github/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ContactsFragment.java&#10;ContactsH&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.city.helper.ContactsHelper&#10;Contacts&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.ContactsFragment&#10;item_&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/layout/item_list_shop.xml&#10;CitySea&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CitysearchAdapter.java&#10;ItemC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/layout/item_city_list.xml&#10;City&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/adapter/CityAdapter.java&#10;Message&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MessageFragment.java&#10;pro&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;color&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/res/values/colors.xml&#10;Protoc&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;MessageF&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/MessageFragment.java&#10;Wx&#9;PSI&#9;JAVA://com.zkjinshi.svip.wxapi.WXEntryActivity&#10;ShopFrag&#9;PSI&#9;JAVA://com.zkjinshi.svip.fragment.ShopFragment&#10;INviteC&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/InviteCodeActivity.java&#10;OrderA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.order.OrderBookingActivity&#10;CityListA&#9;FILE&#9;file://F:/zkjs_github/SVIP-1.0-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityListActivity.java" />
     <property name="android.project.structure.last.selected" value="SVIPApp" />
     <property name="android.project.structure.proportion" value="0.15" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="259" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="257" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="272" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="270" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="276" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="274" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1035" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1028" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="263" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="261" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="271" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="269" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="274" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="272" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1034" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1027" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="ExportApk.ApkPath" value="F:\zkjs_github\app_svip\svip" />
     <property name="ExportApk.Flavors" value="" />
@@ -6919,7 +6838,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_order_booking.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -6927,6 +6847,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/SVIPApp/src/main/res/layout/set_sex_dialog.xml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -7289,12 +7210,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00025" summary="1. 更新测试版本 1.4.7">
-      <created>1448709560696</created>
-      <option name="number" value="00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1448709560696</updated>
-    </task>
     <task id="LOCAL-00026" summary="1. 更新退出和接收到邀请码使用通知对话框提示。">
       <created>1448879264959</created>
       <option name="number" value="00026" />
@@ -7583,7 +7498,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450494866850</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="1. 更新商家列表显示">
+      <created>1450515054954</created>
+      <option name="number" value="00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1450515054955</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7597,7 +7518,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32683983" sideWeight="0.4946581" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33982685" sideWeight="0.4957265" order="11" side_tool="false" content_ui="tabs" />
@@ -7607,15 +7528,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66920567" sideWeight="0.51282054" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.534632" sideWeight="0.4871795" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.57575756" sideWeight="0.49786323" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.57575756" sideWeight="0.49786323" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3073593" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.49786323" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20405982" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42404372" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20405982" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -7629,7 +7550,7 @@
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42404372" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -7639,7 +7560,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.66920567" sideWeight="0.51282054" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.534632" sideWeight="0.4871795" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.534632" sideWeight="0.4871795" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -7659,7 +7580,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.49786323" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20405982" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20405982" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42404372" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -7677,7 +7598,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. 更新版本。" />
     <MESSAGE value="1. 更新token失效处理" />
     <MESSAGE value="1. 更新版本" />
     <MESSAGE value="1. 还原验证登录吗。" />
@@ -7702,7 +7622,8 @@
     <MESSAGE value="1. 更新商家列表搜索，数据切换。" />
     <MESSAGE value="1. 更新版本号。" />
     <MESSAGE value="1. 更新版本号 1.6.1。" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 更新版本号 1.6.1。" />
+    <MESSAGE value="1. 更新商家列表显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 更新商家列表显示" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -7737,24 +7658,6 @@
           <properties />
           <option name="timeStamp" value="221" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java</url>
-          <line>232</line>
-          <properties />
-          <option name="timeStamp" value="223" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java</url>
-          <line>226</line>
-          <properties />
-          <option name="timeStamp" value="227" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java</url>
-          <line>215</line>
-          <properties />
-          <option name="timeStamp" value="228" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -7788,46 +7691,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_city_shop.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6395631">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/SearchActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1337079">
-          <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21235955">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/contacts/ContactsSortAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/ContactActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="86" column="43" selection-start-line="86" selection-start-column="43" selection-end-line="86" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainUiController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -7846,7 +7709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -7864,7 +7726,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.0">
           <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -7875,7 +7736,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.5263157">
           <caret line="631" column="40" selection-start-line="631" selection-start-column="40" selection-end-line="631" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7905,7 +7765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33295712">
           <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -7937,22 +7796,6 @@
             <element signature="e#5194#5222#0" expanded="false" />
             <element signature="e#6082#6083#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.678572">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44004658">
-          <caret line="14" column="68" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8045,7 +7888,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6513872">
           <caret line="20" column="45" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -8091,11 +7933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30167598">
           <caret line="13" column="31" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#406#407#0" expanded="false" />
-            <element signature="e#465#466#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -8111,13 +7948,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.322034">
           <caret line="46" column="53" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="53" />
-          <folding>
-            <element signature="e#1405#1415#0" expanded="true" />
-            <element signature="e#2639#3029#0" expanded="true" />
-            <element signature="e#3028#3029#0" expanded="true" />
-            <element signature="e#3302#3894#0" expanded="true" />
-            <element signature="e#3893#3894#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -8125,12 +7955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
-          <folding>
-            <element signature="e#2584#3875#0" expanded="false" />
-            <element signature="e#3874#3875#0" expanded="false" />
-            <element signature="e#3932#4096#0" expanded="false" />
-            <element signature="e#4095#4096#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -8138,7 +7962,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="639" column="40" selection-start-line="639" selection-start-column="40" selection-end-line="639" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8146,7 +7969,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8154,7 +7976,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8162,7 +7983,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8170,18 +7990,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.8098086">
           <caret line="90" column="26" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
-          <folding>
-            <element signature="e#5664#6391#0" expanded="true" />
-            <element signature="e#6390#6391#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.1027933">
           <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -8189,31 +8004,84 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3553072">
+          <caret line="168" column="43" selection-start-line="168" selection-start-column="43" selection-end-line="168" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/563dcb685903c96ce8abbd03adf7fa49e19aa8b4/gson-2.3.1-sources.jar!/com/google/gson/reflect/TypeToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3329609">
+          <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/563dcb685903c96ce8abbd03adf7fa49e19aa8b4/gson-2.3.1-sources.jar!/com/google/gson/reflect/TypeToken.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3329609">
+          <caret line="99" column="19" selection-start-line="99" selection-start-column="15" selection-end-line="99" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28092486">
+          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_chat_room.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45597106">
+          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.9">
-          <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.09050279">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
-            <element signature="e#3427#4666#0" expanded="true" />
-            <element signature="e#4665#4666#0" expanded="true" />
-            <element signature="e#4726#4998#0" expanded="true" />
-            <element signature="e#4997#4998#0" expanded="true" />
-            <element signature="e#5055#5574#0" expanded="true" />
-            <element signature="e#5573#5574#0" expanded="true" />
-            <element signature="e#7046#7047#0" expanded="true" />
-            <element signature="e#7101#7102#0" expanded="true" />
+            <element signature="e#2721#3960#0" expanded="true" />
+            <element signature="e#3959#3960#0" expanded="true" />
+            <element signature="e#4020#4292#0" expanded="true" />
+            <element signature="e#4291#4292#0" expanded="true" />
+            <element signature="e#4349#4868#0" expanded="true" />
+            <element signature="e#4867#4868#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainController.java">
+    <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58953166">
-          <caret line="164" column="55" selection-start-line="164" selection-start-column="55" selection-end-line="164" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.33184358">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.094295695">
+          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
           <folding />
         </state>
       </provider>
