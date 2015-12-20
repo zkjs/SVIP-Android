@@ -117,9 +117,11 @@ public class EasemobIMHelper {
                 if (error == EMError.USER_REMOVED) {
                     // 显示帐号已经被移除
                     Log.i(TAG, "环信重连异常-显示帐号已经被移除");
+                    EasemobIMHelper.getInstance().logout();
                 } else if (error == EMError.CONNECTION_CONFLICT) {
                     // 显示帐号在其他设备登陆
                     Log.i(TAG, "环信重连异常-帐号在其他设备登陆");
+                    EasemobIMHelper.getInstance().logout();
                     Intent intent = new Intent();
                     intent.setAction("com.zkjinshi.svip.CONNECTION_CONFLICT");
                     VIPContext.getInstance().getContext().sendBroadcast(intent);
