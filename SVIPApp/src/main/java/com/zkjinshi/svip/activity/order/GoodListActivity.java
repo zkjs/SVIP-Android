@@ -308,7 +308,6 @@ public class GoodListActivity extends BaseActivity {
                 intent.putExtra("shopid",shopid);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
             }
         });
 
