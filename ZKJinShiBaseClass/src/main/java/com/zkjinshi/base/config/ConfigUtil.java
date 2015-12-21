@@ -141,11 +141,35 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取http请求链接
+     *
      * @return
      */
     public String getHttpDomain() {
         return "http://" + getConfigValue(Constants.HTTP_HOST)+ "/";
+    }
+
+    /**
+     * 获取短信SMS_ACCOUNT_SID
+     * @return
+     */
+    public String getSmsAccountSID() {
+        return getConfigValue(Constants.SMS_ACCOUNT_SID);
+    }
+
+    /**
+     * 获取短信SMS_APP_ID
+     * @return
+     */
+    public String getSmsAppID() {
+        return getConfigValue(Constants.SMS_APP_ID);
+    }
+
+    /**
+     * 获取短信SMS_AUTH_TOKEN
+     * @return
+     */
+    public String getSmsAuthToken() {
+        return getConfigValue(Constants.SMS_AUTH_TOKEN);
     }
 
     /**
