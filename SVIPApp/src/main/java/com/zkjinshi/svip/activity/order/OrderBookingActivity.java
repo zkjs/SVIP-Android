@@ -371,6 +371,7 @@ public class OrderBookingActivity extends BaseActivity {
                                                 }
                                             }
                                         }
+                                        BaseApplication.getInst().clearLeaveTop();
                                         Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
                                         intent.putExtra("orderDetailResponse", orderDetailResponse);
                                         String shopId = orderDetailResponse.getRoom().getShopid();
@@ -389,9 +390,8 @@ public class OrderBookingActivity extends BaseActivity {
                                         if (!TextUtils.isEmpty(shopName)) {
                                             intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
                                         }
-                                        startActivityForResult(intent,OrderBookingActivity.KILL_MYSELF);
+                                        startActivity(intent);
                                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                        setResult(RESULT_OK);
                                         finish();
                                     }
                                 }
