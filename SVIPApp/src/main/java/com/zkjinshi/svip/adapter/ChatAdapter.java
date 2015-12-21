@@ -42,6 +42,7 @@ import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.net.ext.DownloadRequestListener;
@@ -295,8 +296,18 @@ public class ChatAdapter extends BaseAdapter {
                 .getMsgTime() : 0; // 上一条消息的发送时间戳
         boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
-        String userId = message.getFrom();
+        final String userId = message.getFrom();
         ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(userId), vh.head, options);
+        if(isComMsg){
+            vh.head.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ContactActivity.class);
+                    intent.putExtra("contact_id", userId);
+                    context.startActivity(intent);
+                }
+            });
+        }
         EMMessage.Type mimeType = message.getType();
         if (mimeType.equals(EMMessage.Type.TXT)) {// 文本消息
             try {

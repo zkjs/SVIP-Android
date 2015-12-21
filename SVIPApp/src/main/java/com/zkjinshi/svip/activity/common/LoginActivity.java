@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity {
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
-    private Map<String, String>       mPhoneVerifyMap;//指定手机对应验证码
+    private Map<String, String>       mPhoneVerifyMap = new HashMap<String, String>();//指定手机对应验证码
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;
 
@@ -279,7 +279,7 @@ public class LoginActivity extends BaseActivity {
                 String verifyCode = mVerifyCode.getText().toString();
                 String phoneNumber = mInputPhone.getText().toString();
                 if (verifyCode.length() == 6) {
-                    if (StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
+                    if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
                         mSmsVerifySuccess = true;//verify success
                         mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
                     } else {
