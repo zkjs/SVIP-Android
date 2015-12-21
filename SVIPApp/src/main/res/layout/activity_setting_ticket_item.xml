@@ -38,6 +38,7 @@
                 android:textColor="#101010"
                 android:textColorHint="#b8b8b8"
                 android:gravity="bottom"
+                android:maxLength="34"
                 />
             <View
                 android:background="#bbbbbb"
