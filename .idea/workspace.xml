@@ -46,10 +46,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/SmsUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/SmsUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/config/ConfigUtil.java" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/config/ConfigUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/util/Constants.java" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/util/Constants.java" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -121,8 +117,8 @@
       <file leaf-file-name="Constants.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/util/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3051948">
-              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.48051947">
+              <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -7367,12 +7363,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00031" summary="1. 更新版本">
-      <created>1449192658266</created>
-      <option name="number" value="00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1449192658266</updated>
-    </task>
     <task id="LOCAL-00032" summary="1. 还原登录验证码。">
       <created>1449194025899</created>
       <option name="number" value="00032" />
@@ -7661,7 +7651,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450669156154</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="1. 更新短信验证码appID到配置文件">
+      <created>1450670610062</created>
+      <option name="number" value="00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1450670610062</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TodoView">
@@ -7755,7 +7751,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. 还原验证登录吗。" />
     <MESSAGE value="1. 还原登录验证码。" />
     <MESSAGE value="1. 加入商家列表界面显示&#10;2. 加入销售服务员详情显示" />
     <MESSAGE value="1.更新城市定位" />
@@ -7780,7 +7775,8 @@
     <MESSAGE value="1. 更新版本号" />
     <MESSAGE value="1. 定位图标为搜索图标&#10;" />
     <MESSAGE value="1. 更新fragment保存和重现数据" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 更新fragment保存和重现数据" />
+    <MESSAGE value="1. 更新短信验证码appID到配置文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 更新短信验证码appID到配置文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -8266,8 +8262,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/util/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3051948">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.48051947">
+          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
           <folding />
         </state>
       </provider>
