@@ -60,17 +60,20 @@
         </LinearLayout>
 
         <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="  设为默认"
+            android:text="设为默认"
             android:id="@+id/ticket_checkbox"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:textSize="14sp"
             android:textColor="@color/Black"
             android:checked="true"
-            android:button="@drawable/checkbox_ticket_selector"
-            android:background="@null"/>
+            android:button="@null"
+            android:drawableLeft="@drawable/checkbox_ticket_selector"
+            android:background="@null"
+            android:drawablePadding="10dp"/>
 
     </LinearLayout>
 
