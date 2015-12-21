@@ -275,7 +275,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }else{
             getMessageDefault();
         }
-        notifyIbeacon();
     }
 
     public void onPause() {
@@ -490,7 +489,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         logoTextTv.setVisibility(View.GONE);
     }
 
-    public void notifyIbeacon(){
+    public synchronized void notifyIbeacon(){
         if(!CacheUtil.getInstance().isLogin()){
             logoIv.setVisibility(View.VISIBLE);
             return;
@@ -507,7 +506,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         int index = svipApplication.mRegionList.size()-1;
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
-        if(locid.equals(lastLocid)){
+        if(locid.equals(lastLocid) && !TextUtils.isEmpty(lastLocid)){
             hidePrivilegeTips();
             return;
         }
@@ -780,6 +779,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         if(CacheUtil.getInstance().isActivate()){
             setBigPicZone();
+            notifyIbeacon();
             return;
         }
         String url = ProtocolUtil.getUserMysemp();
@@ -815,6 +815,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         CacheUtil.getInstance().setActivate(false);
                     }
                     setBigPicZone();
+                    notifyIbeacon();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
