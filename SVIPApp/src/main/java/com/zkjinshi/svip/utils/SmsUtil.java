@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.utils;
 
 import com.cloopen.rest.sdk.CCPRestSmsSDK;
+import com.zkjinshi.base.config.ConfigUtil;
 
 import java.util.Map;
 import java.util.Random;
@@ -12,10 +13,10 @@ public class SmsUtil {
 
     private final static String SERVER_IP   = "app.cloopen.com";
     private final static String SERVER_PORT = "8883";
-    private final static String ACCOUNT_SID = "8a48b5514d9861c3014d99cf3572024a";
 
-    private final static String APP_ID      = "aaf98f894d985d36014d9a1e19f702bb";
-    private final static String AUTH_TOKEN  = "137d18e0111643ffb9e06401f214cc8d";
+    private final static String ACCOUNT_SID = ConfigUtil.getInst().getSmsAccountSID();
+    private final static String APP_ID      = ConfigUtil.getInst().getSmsAppID();
+    private final static String AUTH_TOKEN  = ConfigUtil.getInst().getSmsAuthToken();
 
     private final static String TEMPLATE_ID = "22143";
     private final static int    VERIFY_TIME = 2;

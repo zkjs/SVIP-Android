@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -85,6 +86,7 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
 
     private void initData() {
 
+
         backIBtn.setVisibility(View.VISIBLE);
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +132,14 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
             });
+        }
+
+        if(fieldKey.equals("username")){
+            //姓名最多10个中文字符
+            mInputEt.setFilters(new InputFilter[]{ new  InputFilter.LengthFilter(8)});
+        }else if(fieldKey.equals("email")){
+            //姓名最多40个中文字符
+            mInputEt.setFilters(new InputFilter[]{ new  InputFilter.LengthFilter(40)});
         }
 
     }
