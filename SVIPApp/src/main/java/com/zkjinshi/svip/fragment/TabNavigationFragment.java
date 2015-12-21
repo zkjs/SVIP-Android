@@ -50,17 +50,6 @@ public class TabNavigationFragment extends Fragment implements
 		ImageLoader.getInstance().clearMemoryCache();
 	}
 
-	public void onDestroy(){
-		super.onDestroy();
-//		for(int i=0;i<mContentFragments.size();i++){
-//			if(mContentFragments.get(i) != null){
-//				Fragment fragment = mContentFragments.get(i);
-//				fragment = null;
-//			}
-//		}
-//		mContentFragments.clear();
-	}
-
 	public static void setCurrentNavigationChecked(int rbId, Activity activity) {
 		RadioGroup mTabItemGroup = (RadioGroup) activity
 				.findViewById(R.id.footer_tab_rg);
@@ -103,6 +92,33 @@ public class TabNavigationFragment extends Fragment implements
 		}
 	}
 
+	private int currentPosition = 0;
+	private int checkedPosition = 0;
+
+	private void setCurrentPosition(Fragment fragment){
+		if(fragment instanceof HomeFragment){
+			currentPosition = 0;
+		}else if(fragment instanceof ShopFragment){
+			currentPosition = 1;
+		}else if(fragment instanceof MessageFragment){
+			currentPosition = 2;
+		}else {
+			currentPosition = 3;
+		}
+	}
+
+	private int getCheckedPosition(Fragment fragment){
+		if(fragment instanceof HomeFragment){
+			return 0;
+		}else if(fragment instanceof ShopFragment){
+			return 1;
+		}else if(fragment instanceof MessageFragment){
+			return 2;
+		}else {
+			return 3;
+		}
+	}
+
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		FragmentManager fragmentManager = getFragmentManager();
@@ -124,8 +140,15 @@ public class TabNavigationFragment extends Fragment implements
 					mContentFragments.put(mCheckedRadioButtonId, target);
 				}
 				if (target != null) {
+					checkedPosition = getCheckedPosition(target);
+					if(checkedPosition > currentPosition){
+						ft.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left);
+					}else {
+						ft.setCustomAnimations(R.anim.slide_in_left,R.anim.slide_out_right);
+					}
 					ft.replace(R.id.main_frame_content, target,String.valueOf(checkedId));
 					ft.commit();
+					setCurrentPosition(target);
 				}
 			}
 		}

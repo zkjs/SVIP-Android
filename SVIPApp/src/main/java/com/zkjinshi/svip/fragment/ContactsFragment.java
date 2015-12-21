@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class ContactsFragment extends BaseFragment{
     private List<SortModel>     mSortList;
     private PinyinComparator    mPinyinComparator;
     private CharacterParser     mCharacterParser;
+    private LinearLayout unLoginLayout;
 
     private SideBar     mSideBar;
     private TextView    mTvDialog;
@@ -77,6 +79,7 @@ public class ContactsFragment extends BaseFragment{
         mSideBar  = (SideBar)  view.findViewById(R.id.sb_sidebar);
         mTvDialog = (TextView) view.findViewById(R.id.tv_dialog);
         mSideBar.setTextView(mTvDialog);
+        unLoginLayout = (LinearLayout)view.findViewById(R.id.contacts_layout_unlogin);
 
         return view;
     }
@@ -135,6 +138,15 @@ public class ContactsFragment extends BaseFragment{
             }
         });
 
+        //未登录按钮栏
+        unLoginLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                intent.putExtra("isHomeBack",true);
+                startActivity(intent);
+            }
+        });
         //载入联系人
         //loadContacts();
 
@@ -354,25 +366,21 @@ public class ContactsFragment extends BaseFragment{
      * @param sortLists
      */
     private void updateListView(List<SortModel> sortLists) {
-        if(null == sortLists || sortLists.isEmpty()){
-            mTvDialog.setVisibility(View.VISIBLE);
-            mTvDialog.setText(mActivity.getString(R.string.current_none));
-            if(!CacheUtil.getInstance().isLogin()){
-                mTvDialog.setText("立即登录");
-                mTvDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(),LoginActivity.class);
-                        intent.putExtra("isHomeBack",true);
-                        startActivity(intent);
-                    }
-                });
+        if(!CacheUtil.getInstance().isLogin()){
+            unLoginLayout.setVisibility(View.VISIBLE);
+            mSideBar.setVisibility(View.INVISIBLE);
+        }else{
+            if(null == sortLists || sortLists.isEmpty()){
+                mTvDialog.setVisibility(View.VISIBLE);
+                mTvDialog.setText("暂无联系人");
+                mSideBar.setVisibility(View.INVISIBLE);
+            }else {
+                // 根据a-z进行排序源数据
+                mTvDialog.setVisibility(View.GONE);
+                mSideBar.setVisibility(View.VISIBLE);
+                Collections.sort(sortLists, mPinyinComparator);
+                mContactsAdapter.updateListView(sortLists);
             }
-        }else {
-            // 根据a-z进行排序源数据
-            mTvDialog.setVisibility(View.GONE);
-            Collections.sort(sortLists, mPinyinComparator);
-            mContactsAdapter.updateListView(sortLists);
         }
     }
 }
