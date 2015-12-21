@@ -187,7 +187,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             mRealName.setTextContent2(CacheUtil.getInstance().getUserName());
-            mRealName.setTextContent2Color(R.color.light_black);
+           // mRealName.setTextContent2Color(R.color.light_black);
         }else{
             mRealName.setTextContent2("立即补全信息");
             mRealName.setTextContent2Color(R.color.light_yellow);
@@ -412,7 +412,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 intent.putExtra("modify_type",Constants.FLAG_MODIFY_REAL_NAME);
                 intent.putExtra("title","修改姓名");
                 intent.putExtra("hint","输入你的真实姓名");
-                intent.putExtra("tips","该名字用于你订房时确定，不会透露给他人");
+                intent.putExtra("tips","该姓名用于您预订服务时使用,不会透露给他人");
                 intent.putExtra("field_key","username");
                 intent.putExtra("field_value",mRealName.getTextContent2());
                 startActivityForResult(intent, Constants.FLAG_MODIFY_REAL_NAME);
