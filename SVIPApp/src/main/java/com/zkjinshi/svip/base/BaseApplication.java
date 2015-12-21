@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
+import com.zkjinshi.svip.activity.common.MainActivity;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,6 +61,14 @@ public class BaseApplication extends Application {
         for(int i =activityStack.size()-1; i > -1; i -- ){
             Activity act = activityStack.get(i);
             act.finish();
+        }
+    }
+
+    public void clearLeftTop() {
+        for(int i =activityStack.size()-1; i > -1; i -- ){
+            Activity act = activityStack.get(i);
+            if(!(act instanceof MainActivity))
+                act.finish();
         }
     }
 

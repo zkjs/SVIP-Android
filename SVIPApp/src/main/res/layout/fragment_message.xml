@@ -20,7 +20,8 @@
             android:button="@null"
             android:paddingLeft="0dp"
             android:textColor="#525252"
-            android:text="@string/chat" />
+            android:text="@string/message"
+            android:checked="false" />
 
         <RadioButton
             android:id="@+id/rb_address_book"
