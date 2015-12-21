@@ -16,6 +16,9 @@
     <media-host>112.74.205.31</media-host>
     <media-port>9090</media-port>
 
-
+    <!--短信验证码配置ID-->
+    <sms-account-sid>8a48b5514d9861c3014d99cf3572024a</sms-account-sid>
+    <sms-app-id>aaf98f894d985d36014d9a1e19f702bb</sms-app-id>
+    <sms-auth-token>137d18e0111643ffb9e06401f214cc8d</sms-auth-token>
 
 </config>

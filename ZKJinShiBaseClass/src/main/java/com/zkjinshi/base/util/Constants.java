@@ -8,6 +8,7 @@ package com.zkjinshi.base.util;
  * 版权所有
  */
 public class Constants {
+
     public static final String ZKJINSHI_BASE_TAG = "ZKJinShi_TAG";
     public static final String HTTP_HOST = "http-host";
     public static final String IM_HOST = "im-host";
@@ -15,4 +16,9 @@ public class Constants {
     public static final String MEDIA_HOST = "media-host";
     public static final String MEDIA_PORT = "media-port";
     public static final String API_HOST = "api-host";
+
+    public static final String SMS_ACCOUNT_SID = "sms-account-sid";
+    public static final String SMS_APP_ID      = "sms-app-id";
+    public static final String SMS_AUTH_TOKEN  = "sms-auth-token";
+
 }
