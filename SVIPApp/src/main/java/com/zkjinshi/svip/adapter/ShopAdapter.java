@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.bean.RecommendShopBean;
@@ -95,16 +96,16 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
             viewHolder.llShopInfo.setVisibility(View.GONE);
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
+            if(!TextUtils.isEmpty(imgUrl)){
+                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
+            }
+
             if(!TextUtils.isEmpty(shopName)){
                 viewHolder.tvShopName.setText(shopName);
             }
 
-            if(!TextUtils.isEmpty(shopBusi)){
-                viewHolder.tvShopBusiness.setText(shopBusi);
-            }
-
-            if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
+            if(!TextUtils.isEmpty(shopDesc)){
+                viewHolder.tvShopBusiness.setText(shopDesc);
             }
 
         } else {
