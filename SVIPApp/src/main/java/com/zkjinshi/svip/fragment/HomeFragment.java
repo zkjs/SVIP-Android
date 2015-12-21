@@ -482,8 +482,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     public void hidePrivilegeTips(){
-        fadeAnimation.cancel();
-        fadeAnimation = null;
+        if(fadeAnimation != null){
+            fadeAnimation.cancel();
+            fadeAnimation = null;
+        }
         logoTextTv.clearAnimation();
         logoTextTv.setVisibility(View.GONE);
     }
