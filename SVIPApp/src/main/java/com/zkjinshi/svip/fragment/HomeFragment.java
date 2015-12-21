@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int NOTIFY_LOCATION = 0x04;
 
     public static String lastLocid = "";
-    public Animation fadeAnimation;
+    public Animation fadeAnimation = null;
 
     private View view = null;
     private View headerView = null;
@@ -159,11 +159,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     private void initData(){
-        if(CacheUtil.getInstance().isLogin()){
-            logoIv.setVisibility(View.GONE);
-        }else{
-            logoIv.setVisibility(View.VISIBLE);
-        }
+
     }
 
     //加载本地预设信息
@@ -279,6 +275,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }else{
             getMessageDefault();
         }
+        notifyIbeacon();
     }
 
     public void onPause() {
@@ -477,8 +474,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public void showPrivilegeTips(){
         logoTextTv.setVisibility(View.VISIBLE);
-        fadeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fade);
-        logoTextTv.startAnimation(fadeAnimation);
+        if(fadeAnimation == null){
+            fadeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fade);
+            logoTextTv.startAnimation(fadeAnimation);
+        }
+
     }
 
     public void hidePrivilegeTips(){
@@ -492,7 +492,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public void notifyIbeacon(){
         if(!CacheUtil.getInstance().isLogin()){
+            logoIv.setVisibility(View.VISIBLE);
             return;
+        }else{
+            logoIv.setVisibility(View.GONE);
         }
         if(!CacheUtil.getInstance().isActivate()){
             return;
@@ -508,7 +511,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             hidePrivilegeTips();
             return;
         }
-
         showPrivilegeTips();
     }
 
