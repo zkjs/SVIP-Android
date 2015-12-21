@@ -64,7 +64,7 @@ public class BaseApplication extends Application {
         }
     }
 
-    public void clearLeftTop() {
+    public void clearLeaveTop() {
         for(int i =activityStack.size()-1; i > -1; i -- ){
             Activity act = activityStack.get(i);
             if(!(act instanceof MainActivity))
