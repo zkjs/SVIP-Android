@@ -42,8 +42,17 @@ public abstract class  BaseFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // 数据加载的操作
+        onRestoreInstanceState(savedInstanceState);
         initData();
         initListener();
+    }
+
+    /**
+     * fragment数据保存和重现
+     * @param savedInstanceState
+     */
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
     }
 
     /**

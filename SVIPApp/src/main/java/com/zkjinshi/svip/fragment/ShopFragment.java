@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,14 +25,12 @@ import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.bean.BaseShopBean;
-import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Type;
@@ -70,11 +69,29 @@ public class ShopFragment extends BaseFragment {
     protected void initData() {
         super.initData();
 
-        mShopList    = new ArrayList<>();
-        mShopAdapter = new ShopAdapter(mShopList, mActivity);
-        mLvShopList.setAdapter(mShopAdapter);
-        mPage = 1;
-        getShopList(mPage, mPageSize);
+        if (null == mShopList || mShopList.isEmpty()) {
+            mShopList    = new ArrayList<>();
+            mShopAdapter = new ShopAdapter(mShopList, mActivity);
+            mLvShopList.setAdapter(mShopAdapter);
+            mPage = 1;
+            getShopList(mPage, mPageSize);
+        } else {
+            if(null != mShopAdapter){
+                mLvShopList.setAdapter(mShopAdapter);
+            }
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if(null != savedInstanceState){
+            mPage     = savedInstanceState.getInt("page");
+            mShopList = (ArrayList<ShopBean>) savedInstanceState.getSerializable("shop_list");
+            if(null != mShopAdapter){
+                mShopAdapter.setData(mShopList);
+            }
+        }
     }
 
     @Override
@@ -125,6 +142,15 @@ public class ShopFragment extends BaseFragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(null != mShopList && !mShopList.isEmpty()){
+            outState.putInt("page", mPage);
+            outState.putSerializable("shop_list", mShopList);
+        }
     }
 
     @Override
