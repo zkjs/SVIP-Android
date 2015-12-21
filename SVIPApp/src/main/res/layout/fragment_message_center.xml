@@ -18,16 +18,19 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <include
+        android:id="@+id/contacts_layout_unlogin"
+        layout="@layout/layout_message_unlogin"/>
+
     <TextView
         android:id="@+id/tv_dialog"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light"
         android:gravity="center"
         android:clickable="true"
-        android:textColor="#ffffffff"
-        android:textSize="30.0dip"
+        android:textColor="#b8b8b8"
+        android:textSize="14sp"
         android:visibility="invisible" />
 
 </FrameLayout>

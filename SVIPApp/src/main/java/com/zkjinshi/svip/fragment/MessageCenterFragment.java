@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.easemob.EMNotifierEvent;
@@ -39,6 +40,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
     private ChatRoomAdapter mChatRoomAdapter;
     private ArrayList<EMConversation> conversationList;
     private TextView mTvDialog;
+    private LinearLayout unLoginLayout;
 
     @Override
     protected View initView() {
@@ -49,6 +51,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         mLayoutManager = new LinearLayoutManager(mActivity);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRcvMsgCenter.setLayoutManager(mLayoutManager);
+        unLoginLayout = (LinearLayout)view.findViewById(R.id.contacts_layout_unlogin);
         return view;
     }
 
@@ -104,6 +107,17 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 startActivity(intent);
             }
         });
+
+        //未登录按钮栏
+        unLoginLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
+                intent.putExtra("isHomeBack",true);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -112,22 +126,15 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         EMConversationHelper.getInstance().requestGroupListTask();
         conversationList = (ArrayList<EMConversation>) EMConversationHelper.getInstance().loadConversationList();
         mChatRoomAdapter.setConversationList(conversationList);
-        if(null == conversationList || conversationList.isEmpty()){
-            mTvDialog.setVisibility(View.VISIBLE);
-            mTvDialog.setText(mActivity.getString(R.string.current_none));
-            if(!CacheUtil.getInstance().isLogin()){
-                mTvDialog.setText("立即登录");
-                mTvDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(),LoginActivity.class);
-                        intent.putExtra("isHomeBack",true);
-                        startActivity(intent);
-                    }
-                });
-            }
+        if(!CacheUtil.getInstance().isLogin()){
+            unLoginLayout.setVisibility(View.VISIBLE);
         }else {
-            mTvDialog.setVisibility(View.GONE);
+            if(null == conversationList || conversationList.isEmpty()){
+                mTvDialog.setVisibility(View.VISIBLE);
+                mTvDialog.setText("暂无消息");
+            }else {
+                mTvDialog.setVisibility(View.GONE);
+            }
         }
     }
 

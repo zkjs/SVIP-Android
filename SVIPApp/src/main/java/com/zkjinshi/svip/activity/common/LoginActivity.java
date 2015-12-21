@@ -276,22 +276,22 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
                 getUser(inputPhone);
-//                String verifyCode = mVerifyCode.getText().toString();
-//                String phoneNumber = mInputPhone.getText().toString();
-//                if (verifyCode.length() == 6) {
-//                    if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
-//                        mSmsVerifySuccess = true;//verify success
-//                        mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
-//                    } else {
-//                        mSmsVerifySuccess = false;//verify failed
-//                    }
-//                }
-//                if (mSmsVerifySuccess) {
-//                    thirdBundleData = null;
-//                    getUser(inputPhone);//判断用户是否已经存在
-//                }else {
-//                    DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
-//                }
+               /* String verifyCode = mVerifyCode.getText().toString();
+                String phoneNumber = mInputPhone.getText().toString();
+                if (verifyCode.length() == 6) {
+                    if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
+                        mSmsVerifySuccess = true;//verify success
+                        mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
+                    } else {
+                        mSmsVerifySuccess = false;//verify failed
+                    }
+                }
+                if (mSmsVerifySuccess) {
+                    thirdBundleData = null;
+                    getUser(inputPhone);//判断用户是否已经存在
+                }else {
+                    DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
+                }*/
             }
         });
 
