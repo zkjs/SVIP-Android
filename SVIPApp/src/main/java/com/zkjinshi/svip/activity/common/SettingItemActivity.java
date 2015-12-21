@@ -136,7 +136,7 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
 
         if(fieldKey.equals("username")){
             //姓名最多10个中文字符
-            mInputEt.setFilters(new InputFilter[]{ new  InputFilter.LengthFilter(10)});
+            mInputEt.setFilters(new InputFilter[]{ new  InputFilter.LengthFilter(8)});
         }else if(fieldKey.equals("email")){
             //姓名最多40个中文字符
             mInputEt.setFilters(new InputFilter[]{ new  InputFilter.LengthFilter(40)});
