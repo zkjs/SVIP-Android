@@ -54,6 +54,7 @@ public class SplashActivity extends BaseActivity {
     private static final int GO_LOGIN = 1000;
     private static final int GO_HOME = 1001;
     private static final int GO_HOME_NO_lOGIN = 1002;
+    private static final int GO_GUIDE = 1003;
     private Animation skyDropOutAnim,logoFadeInAnim,logoFadeOutAnim, textFadeInAnim, textFadeOutAnim;
 
     public static final int OPEN_SET_ACTION_FLAG = 1;
@@ -62,6 +63,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //CacheUtil.getInstance().setGuide(true);
         initBestFitPixel();
         initView();
         initData();
@@ -171,8 +173,11 @@ public class SplashActivity extends BaseActivity {
                 // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
                 handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             } else {
-                //handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
-               handler.sendEmptyMessageDelayed(GO_HOME_NO_lOGIN, SPLASH_DELAY_MILLIS);
+                if(CacheUtil.getInstance().isGuide()){
+                    handler.sendEmptyMessageDelayed(GO_HOME_NO_lOGIN, SPLASH_DELAY_MILLIS);
+                }else{
+                    handler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
+                }
             }
         }else{
             showNetDialog();
@@ -205,12 +210,22 @@ public class SplashActivity extends BaseActivity {
                     break;
                 case GO_HOME_NO_lOGIN:
                     goHomeNoLogin();
+                    break;
+                case GO_GUIDE:
+                    goGuide();
                 default:
                     break;
             }
             super.handleMessage(msg);
         }
     };
+
+    private void goGuide() {
+        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+        SplashActivity.this.startActivity(intent);
+        SplashActivity.this.finish();
+        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+    }
 
     private void goHomeNoLogin() {
         Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);

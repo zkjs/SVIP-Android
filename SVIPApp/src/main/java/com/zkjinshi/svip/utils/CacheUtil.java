@@ -72,6 +72,32 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 设置用户是否Guide
+	 * @param isGuide
+	 */
+	public void setGuide(boolean isGuide) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("is_guide", isGuide).commit();
+	}
+
+	/**
+	 * 获取用户登录状态
+	 * @return
+	 */
+	public boolean isGuide() {
+		if (null == context) {
+			return false;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("is_guide", false);
+	}
+
+	/**
 	 * 获取用户登录状态
 	 * @return
 	 */
