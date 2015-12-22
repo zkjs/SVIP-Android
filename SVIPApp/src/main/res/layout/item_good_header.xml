@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            android:src="@color/TransparentBlack">
+
+            <ImageView
+                android:id="@+id/iv_shop_logo"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:src="@mipmap/img_dingdanxiangqing"
+                android:scaleType="fitXY" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_white_line"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_shop_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="64dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_shop_des"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:paddingLeft="20dp"
+                android:textColor="#666666"
+                android:paddingRight="20dp"
+                android:paddingTop="24dp"
+                android:text="商家描述"
+                android:lineSpacingMultiplier="1.5"/>
+
+            <TextView
+                android:id="@+id/tv_shop_add"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="#b8b8b8"
+                android:text="商家地址" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="64dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="true"
+                android:text="xxx酒店"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_shop_business"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@+id/tv_shop_name"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="top|center_horizontal"
+                android:lines="2"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="住宿，会议"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_saler_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="128dp"
+            android:gravity="center|right"
+            android:paddingRight="20dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <com.zkjinshi.svip.view.CircleImageView
+                    android:id="@+id/civ_saler_avatar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:src="@mipmap/img_avatar_hotel" />
+
+                <View
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_avatar_ring" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>
