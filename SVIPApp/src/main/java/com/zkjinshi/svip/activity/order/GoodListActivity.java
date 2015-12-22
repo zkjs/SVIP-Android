@@ -341,7 +341,12 @@ public class GoodListActivity extends BaseActivity {
                             setResult(RESULT_OK, intent);
                             finish();
                         }else{
-                            bookingBtn.setVisibility(View.VISIBLE);
+                            if(goodAdapter.checkIsEmpty()){
+                                bookingBtn.setVisibility(View.GONE);
+                            }else{
+                                bookingBtn.setVisibility(View.VISIBLE);
+                            }
+
                         }
                     }
                 }

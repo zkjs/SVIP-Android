@@ -108,9 +108,17 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
      */
     public void selectGood(String goodId){
         if(null != selectMap){
-            selectMap.clear();
-            selectMap.put(goodId, true);
+            if(selectMap.containsKey(goodId)){
+                selectMap.clear();
+            }else{
+                selectMap.clear();
+                selectMap.put(goodId, true);
+            }
             notifyDataSetChanged();
         }
+    }
+
+    public boolean checkIsEmpty(){
+        return  selectMap.isEmpty();
     }
 }
