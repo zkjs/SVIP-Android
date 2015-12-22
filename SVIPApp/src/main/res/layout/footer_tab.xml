@@ -16,6 +16,7 @@
         <RadioButton
             android:id="@+id/footer_tab_rb_home"
             style="@style/main_tab_bottom"
+            android:checked="true"
             android:text="@string/footer_tab_txt_home"
             android:drawableTop="@drawable/footer_rb_home" />
 
