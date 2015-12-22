@@ -270,6 +270,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         //首页大图区
         setBigPicZone();
         setBigPicAnimation();
+        homeMsgList.clear();
         if(CacheUtil.getInstance().isLogin()){
             checktActivate();
             getOrderMsgUrl();
@@ -622,9 +623,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 try {
                     Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
                     ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-                    if(messageList.size() > 0){
-                        homeMsgList.clear();
-                    }
                     for(MessageDefaultResponse message : messageList){
 
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
@@ -696,9 +694,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
                     Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
                     ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-                    if(messageList.size() > 0){
-                        homeMsgList.clear();
-                    }
                     for(MessageDefaultResponse message : messageList){
 
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
@@ -715,9 +710,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         homeMsgAdapter.setDatalist(homeMsgList);
                         homeMsgAdapter.notifyDataSetChanged();
                     }
-                    else{
-                        handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
-                    }
+                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
 
                 } catch (Exception e) {
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
