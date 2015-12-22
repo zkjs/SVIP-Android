@@ -209,6 +209,10 @@ public class CompleteInfoActivity extends BaseActivity {
                 stringMap.put("remark", "");
                 stringMap.put("preference", "");
                 stringMap.put("sex", "" + sexValue);
+                if (!TextUtils.isEmpty(picPath)) {
+                    fileMap.put("UploadForm[file]", new File(picPath));
+                    LogUtil.getInstance().info(LogLevel.INFO, "picPath:" + picPath);
+                }
                 httpRequest.setBizParamMap(stringMap);
                 httpRequest.setFileMap(fileMap);
 
