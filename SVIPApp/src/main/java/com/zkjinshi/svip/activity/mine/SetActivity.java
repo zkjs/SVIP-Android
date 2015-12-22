@@ -114,7 +114,7 @@ public class SetActivity extends BaseActivity {
         customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                BaseApplication.getInst().clear();
+                BaseApplication.getInst().clearLeaveTop();
                 //环信接口退出
                 EasemobIMHelper.getInstance().logout();
                 //修改登录状态

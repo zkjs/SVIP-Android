@@ -61,9 +61,13 @@ public class SetFragment extends Fragment{
             String userId = CacheUtil.getInstance().getUserId();
             String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
             ImageLoader.getInstance().displayImage(userPhotoUrl, userPhotoIv, options);
+        }else {
+            userPhotoIv.setImageResource(R.mipmap.ic_main_user_default_photo_nor);
         }
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             userNameTv.setText(CacheUtil.getInstance().getUserName());
+        }else {
+            userNameTv.setText("登录/注册");
         }
     }
 
