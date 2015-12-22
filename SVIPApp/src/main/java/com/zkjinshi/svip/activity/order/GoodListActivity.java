@@ -145,7 +145,7 @@ public class GoodListActivity extends BaseActivity {
     }
 
     private void initHeader(){
-        headerView = LayoutInflater.from(this).inflate(R.layout.item_list_shop, null);
+        headerView = LayoutInflater.from(this).inflate(R.layout.item_good_header, null);
         //headerLayout.addView(headerView);
         roomListView.addHeaderView(headerView);
 
