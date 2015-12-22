@@ -1,49 +1,44 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.fragment.HomeFragment;
+import com.zkjinshi.svip.fragment.MessageFragment;
 import com.zkjinshi.svip.fragment.SetFragment;
-import com.zkjinshi.svip.fragment.TabNavigationFragment;
+import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.ibeacon.IBeaconEntity;
 import com.zkjinshi.svip.ibeacon.IBeaconObserver;
 import com.zkjinshi.svip.ibeacon.IBeaconSubject;
 import com.zkjinshi.svip.ibeacon.RegionVo;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.VIPContext;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import io.yunba.android.manager.YunBaManager;
 
@@ -52,6 +47,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     public static final String TAG = MainActivity.class.getSimpleName();
     SVIPApplication svipApplication;
     public OrderLastResponse lastOrderInfo = null;
+    private ViewPager viewPager;
+    private RadioGroup radioGroup;
+    private ArrayList<Fragment> fragmentList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,16 +78,82 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
-//        if(listenerDialog != null){
-//            listenerDialog.stopAnimation();
-//        }
     }
 
-    private void initView() {
-        //listenerDialog = new ListenerDialog(this);
+    private void initView(){
+        viewPager =(ViewPager)findViewById(R.id.viewPager);
+        radioGroup =(RadioGroup)findViewById(R.id.footer_tab_rg);
+        radioGroup.setOnCheckedChangeListener(new FooterCheckChangeListener());
     }
 
+    private void initViewPager(){
+        HomeFragment weChatFragment=new HomeFragment();
+        ShopFragment contactsFragment=new ShopFragment();
+        MessageFragment discoveryFragment=new MessageFragment();
+        SetFragment meFragment=new SetFragment();
+        fragmentList=new ArrayList<Fragment>();
+        fragmentList.add(weChatFragment);
+        fragmentList.add(contactsFragment);
+        fragmentList.add(discoveryFragment);
+        fragmentList.add(meFragment);
+        viewPager.setAdapter(new FooterFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
+        viewPager.setCurrentItem(0);
+        viewPager.addOnPageChangeListener(new FooterOnPageChangeListener());
+    }
+
+    private class FooterCheckChangeListener implements RadioGroup.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            switch (checkedId){
+                case R.id.footer_tab_rb_home:
+                    viewPager.setCurrentItem(0,false);
+                    break;
+                case R.id.footer_tab_rb_shop:
+                    viewPager.setCurrentItem(1,false);
+                    break;
+                case R.id.footer_tab_rb_message:
+                    viewPager.setCurrentItem(2,false);
+                    break;
+                case R.id.footer_tab_rb_set:
+                    viewPager.setCurrentItem(3,false);
+                    break;
+            }
+        }
+    }
+
+    private class FooterOnPageChangeListener implements ViewPager.OnPageChangeListener{
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            switch (position){
+                case 0:
+                    radioGroup.check(R.id.footer_tab_rb_home);
+                    break;
+                case 1:
+                    radioGroup.check(R.id.footer_tab_rb_shop);
+                    break;
+                case 2:
+                    radioGroup.check(R.id.footer_tab_rb_message);
+                    break;
+                case 3:
+                    radioGroup.check(R.id.footer_tab_rb_set);
+                    break;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    }
     private void initData(){
+        initViewPager();
         initDBName();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
@@ -241,8 +305,10 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         }
     }
 
-    public void changTag(int rbId){
-        TabNavigationFragment.setCurrentNavigationChecked(rbId,this);
+    public void setCurrentItem(int position){
+        if(null != viewPager){
+            viewPager.setCurrentItem(position);
+        }
     }
 
     int waitTime = 2000;

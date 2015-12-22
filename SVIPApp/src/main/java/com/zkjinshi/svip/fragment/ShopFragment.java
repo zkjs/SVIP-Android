@@ -2,6 +2,7 @@ package com.zkjinshi.svip.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,6 +35,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -232,5 +234,6 @@ public class ShopFragment extends BaseFragment {
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
+
 
 }

@@ -29,9 +29,6 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-
-
-
  public class BookingDialog extends Dialog implements View.OnClickListener{
 
      private DisplayImageOptions options;
@@ -57,7 +54,6 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {
-         // TODO Auto-generated method stub
          super.onCreate(savedInstanceState);
          requestWindowFeature(Window.FEATURE_NO_TITLE);
          setCanceledOnTouchOutside(true);
@@ -89,15 +85,6 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
              }
 
          }
-
-
-
-//
-//         Window dialogWindow = getWindow();
-//         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-//         DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-//         lp.width = (int) (d.widthPixels * 0.8); // 高度设置为屏幕的0.6
-//         dialogWindow.setAttributes(lp);
      }
 
     @Override
@@ -135,7 +122,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
             case R.id.choose_btn:
                 if(activity instanceof MainActivity){
                     MainActivity mainActivity = (MainActivity)activity;
-                    mainActivity.changTag(R.id.footer_tab_rb_shop);
+                    mainActivity.setCurrentItem(1);
                 }
                 cancel();
                 break;

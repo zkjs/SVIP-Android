@@ -6,24 +6,19 @@
     android:orientation="vertical"
     tools:context=".activity.common.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/main_frame_content"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
-    </FrameLayout>
+        android:layout_weight="1.0"
+        />
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="#e3e3e3"/>
+        android:background="#cccccc"/>
 
-    <fragment
-        android:id="@+id/main_frame_footer_tab_navigation"
-        android:name="com.zkjinshi.svip.fragment.TabNavigationFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/footer_tab"
-        android:tag="TabNavigationFragment"/>
+    <include
+        layout="@layout/footer_tab"/>
 
 </LinearLayout>

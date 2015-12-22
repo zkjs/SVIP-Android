@@ -25,6 +25,7 @@ import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +148,6 @@ public class MessageFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
+
 
 }

@@ -26,6 +26,8 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
+import java.lang.reflect.Field;
+
 /**
  * 设置Fragment
  *
