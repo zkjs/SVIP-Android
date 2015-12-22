@@ -34,6 +34,7 @@ import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.city.citylist.Setting;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
@@ -270,10 +271,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         ImageLoader.getInstance().clearMemoryCache();
 
                     } else {
-                        DialogUtil.getInstance().showCustomToast(SettingActivity.this, "长传头像失败!", Toast.LENGTH_LONG);
+                        DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
                     }
                 } else {
-                    DialogUtil.getInstance().showCustomToast(SettingActivity.this, "长传头像失败!", Toast.LENGTH_LONG);
+                    DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
                 }
 
             }
