@@ -24,6 +24,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -215,7 +216,6 @@ public class CompleteInfoActivity extends BaseActivity {
                 }
                 httpRequest.setBizParamMap(stringMap);
                 httpRequest.setFileMap(fileMap);
-
                 MineNetController.getInstance().requestSetInfoTask(httpRequest,
                     new ExtNetRequestListener(CompleteInfoActivity.this) {
                     @Override
