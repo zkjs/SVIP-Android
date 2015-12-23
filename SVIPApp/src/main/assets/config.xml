@@ -7,6 +7,7 @@
     <!--测试环境-->
     <http-host>test.zkjinshi.com/papi</http-host>
     <api-host>test.zkjinshi.com/japi</api-host>
+    <data-host>test.zkjinshi.com/data/</data-host>
 
     <!--短信验证码配置ID-->
     <sms-account-sid>8a48b5514d9861c3014d99cf3572024a</sms-account-sid>
