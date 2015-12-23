@@ -609,6 +609,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
+                addLlocalDefaultHomeMsg();
             }
 
             @Override
@@ -646,7 +647,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     homeMsgAdapter.notifyDataSetChanged();
 
                 } catch (Exception e) {
-                    addLlocalDefaultHomeMsg();
                     Log.e(TAG, e.getMessage());
                 }
 
@@ -679,6 +679,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
+                handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
             }
 
             @Override
@@ -713,7 +714,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
 
                 } catch (Exception e) {
-                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                     Log.e(TAG, e.getMessage());
                 }
 

@@ -107,16 +107,16 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId){
                 case R.id.footer_tab_rb_home:
-                    viewPager.setCurrentItem(0,false);
+                    viewPager.setCurrentItem(0,true);
                     break;
                 case R.id.footer_tab_rb_shop:
-                    viewPager.setCurrentItem(1,false);
+                    viewPager.setCurrentItem(1,true);
                     break;
                 case R.id.footer_tab_rb_message:
-                    viewPager.setCurrentItem(2,false);
+                    viewPager.setCurrentItem(2,true);
                     break;
                 case R.id.footer_tab_rb_set:
-                    viewPager.setCurrentItem(3,false);
+                    viewPager.setCurrentItem(3,true);
                     break;
             }
         }
