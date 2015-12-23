@@ -124,7 +124,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                     index = 3;
                     break;
             }
-            ((FooterFragmentPagerAdapter)viewPager.getAdapter()).getItem(index).onResume();
+            //((FooterFragmentPagerAdapter)viewPager.getAdapter()).getItem(index).onResume();
         }
     }
 
