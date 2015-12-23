@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="48dp"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:button="@null"
             android:paddingLeft="0dp"
             android:textColor="#525252"
@@ -31,7 +31,7 @@
             android:button="@null"
             android:layout_height="48dp"
             android:textColor="#525252"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingLeft="0dp"
             android:text="@string/address_book" />
 
