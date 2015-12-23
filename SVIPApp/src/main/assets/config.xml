@@ -5,7 +5,7 @@
     <!--<api-host>app.zkjinshi.com/japi</api-host>-->
 
     <!--测试环境-->
-    <http-host>test.zkjinshi.com</http-host>
+    <http-host>test.zkjinshi.com/papi</http-host>
     <api-host>test.zkjinshi.com/japi</api-host>
 
     <!--短信验证码配置ID-->
