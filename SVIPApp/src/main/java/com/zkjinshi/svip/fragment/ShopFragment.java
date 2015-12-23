@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
@@ -33,6 +34,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Field;
@@ -55,6 +57,8 @@ public class ShopFragment extends BaseFragment {
 
     private ShopAdapter         mShopAdapter;
     private ArrayList<ShopBean> mShopList;
+    private String mUserID;
+
     private int mPage;
     private int mPageSize = 5;
 
@@ -72,12 +76,13 @@ public class ShopFragment extends BaseFragment {
     protected void initData() {
         super.initData();
 
+        mUserID = CacheUtil.getInstance().getUserId();
         if (null == mShopList || mShopList.isEmpty()) {
             mShopList    = new ArrayList<>();
             mShopAdapter = new ShopAdapter(mShopList, mActivity);
             mLvShopList.setAdapter(mShopAdapter);
             mPage = 1;
-            getShopList(mPage, mPageSize);
+            getShopList(mUserID, mPage, mPageSize);
         } else {
             if(null != mShopAdapter){
                 mLvShopList.setAdapter(mShopAdapter);
@@ -183,16 +188,16 @@ public class ShopFragment extends BaseFragment {
 //        }
 //    }
 
-    public void getShopList(int page, int pageSize) {
-        getShopListByCity(null, page, pageSize);
+    public void getShopList(String userID, int page, int pageSize) {
+        getShopListByCity(userID, null, page, pageSize);
     }
 
-    private void getShopListByCity(String city, int page, int pageSize){
+    private void getShopListByCity(String userID, String city, int page, int pageSize){
         String url = null;
         if(!TextUtils.isEmpty(city)){
-            url = ProtocolUtil.getShopListByCityUrl(city, page, pageSize);
+            url = ProtocolUtil.getShopListUserByCityUrl(userID, city, page, pageSize);
         }else{
-            url = ProtocolUtil.getShopListUrl(page, pageSize);
+            url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
         }
 
         NetRequest netRequest = new NetRequest(url);

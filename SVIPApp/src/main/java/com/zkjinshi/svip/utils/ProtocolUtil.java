@@ -400,6 +400,22 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取专属客服全部商家列表
+     * @return
+     */
+    public static String getShopListUserUrl(String userID, int page, int pageSize) {
+        return ConfigUtil.getInst().getApiDomain()+"shop/list/user/"+userID+"/"+page+"/"+pageSize+"/";
+    }
+
+    /**
+     * 根据城市名称获取我的专属客服商家列表
+     * @return
+     */
+    public static String getShopListUserByCityUrl(String userID, String city, int page, int pageSize) {
+        return  ConfigUtil.getInst().getApiDomain()+"shop/list/user/"+userID+"/"+city+"/"+page+"/"+pageSize+"/";
+    }
+
+    /**
      * 根据城市名称获取推荐商家列表
      * @return
      */

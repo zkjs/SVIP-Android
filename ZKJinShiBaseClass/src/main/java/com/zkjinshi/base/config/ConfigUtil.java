@@ -98,14 +98,6 @@ public class ConfigUtil {
         return getConfigValue(Constants.IM_HOST);
     }
 
-    /**
-     * 获取 媒体 Host
-     *
-     * @return String-host	服务器ip
-     */
-    public String getMediaHost() {
-        return getConfigValue(Constants.MEDIA_HOST);
-    }
 
     /**
      * 获取 媒体 Port
