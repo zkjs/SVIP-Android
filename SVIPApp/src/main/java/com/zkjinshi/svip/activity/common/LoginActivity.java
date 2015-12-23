@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
@@ -275,23 +276,29 @@ public class LoginActivity extends BaseActivity {
                     DialogUtil.getInstance().showCustomToast(v.getContext(), "请输入正确格式的手机号码", Gravity.CENTER);
                     return;
                 }
-                getUser(inputPhone);
-//                String verifyCode = mVerifyCode.getText().toString();
-//                String phoneNumber = mInputPhone.getText().toString();
-//                if (verifyCode.length() == 6) {
-//                    if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
-//                        mSmsVerifySuccess = true;//verify success
-//                        mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
-//                    } else {
-//                        mSmsVerifySuccess = false;//verify failed
-//                    }
-//                }
-//                if (mSmsVerifySuccess) {
-//                    thirdBundleData = null;
-//                    getUser(inputPhone);//判断用户是否已经存在
-//                }else {
-//                    DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
-//                }
+                //是否开启短信验证
+                if(Constants.SMS_CHECK_ENABLE){
+                    String verifyCode = mVerifyCode.getText().toString();
+                    String phoneNumber = mInputPhone.getText().toString();
+                    if (verifyCode.length() == 6) {
+                        if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
+                            mSmsVerifySuccess = true;//verify success
+                            mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
+                        } else {
+                            mSmsVerifySuccess = false;//verify failed
+                        }
+                    }
+                    if (mSmsVerifySuccess) {
+                        thirdBundleData = null;
+                        getUser(inputPhone);//判断用户是否已经存在
+                    }else {
+                        DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
+                    }
+                }else{
+                    getUser(inputPhone);
+                }
+
+
             }
         });
 

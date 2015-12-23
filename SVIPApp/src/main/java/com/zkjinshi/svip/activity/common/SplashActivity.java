@@ -25,6 +25,7 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import org.apache.log4j.chainsaw.Main;
@@ -63,7 +64,11 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //CacheUtil.getInstance().setGuide(true);
+        //如果不需要密码引导页
+        if(!Constants.NEED_PASSWORD_GUIDE){
+            //设置已经看过了密码引导页，这样密码页就不会出现。
+            CacheUtil.getInstance().setGuide(true);
+        }
         initBestFitPixel();
         initView();
         initData();
