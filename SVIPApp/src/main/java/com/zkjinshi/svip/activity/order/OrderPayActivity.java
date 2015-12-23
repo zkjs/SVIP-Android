@@ -125,7 +125,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
         String replaceable = String.format("[%s, \\s.]", NumberFormat.getCurrencyInstance(Locale.CHINA).getCurrency().getSymbol(Locale.CHINA));
         String cleanString = amountText.toString().replaceAll(replaceable, "");
         int amount = Integer.valueOf(new BigDecimal(cleanString).toString());
-        amount = amount*100;
+       // amount = amount*100;
 
         // 支付宝，微信支付 按键的点击响应处理
        if (view.getId() == R.id.pay_order_ali_pay_ibtn) {
