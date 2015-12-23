@@ -1,20 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
     <!--正式用环境-->
-    <!--<http-host>120.25.241.196</http-host>-->
-    <!--<im-host>im.zkjinshi.com</im-host>-->
-    <!--<im-port>7777</im-port>-->
+    <!--<http-host>app.zkjinshi.com</http-host>-->
     <!--<api-host>app.zkjinshi.com/japi</api-host>-->
 
     <!--测试环境-->
-    <http-host>112.74.38.81</http-host>
-    <im-host>tim.zkjinshi.com</im-host>
-    <im-port>7777</im-port>
-    <api-host>p.zkjinshi.com/japi</api-host>
-
-    <!--媒体服务器-->
-    <media-host>112.74.205.31</media-host>
-    <media-port>9090</media-port>
+    <!--<http-host>test.zkjinshi.com</http-host>-->
+    <!--<api-host>test.zkjinshi.com/japi</api-host>-->
 
     <!--短信验证码配置ID-->
     <sms-account-sid>8a48b5514d9861c3014d99cf3572024a</sms-account-sid>
