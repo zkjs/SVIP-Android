@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <http-host>app.zkjinshi.com/papi</http-host>
-    <api-host>app.zkjinshi.com/japi</api-host>
+    <!--测试版-->
+    <http-host>test.zkjinshi.com/papi</http-host>
+    <api-host>test.zkjinshi.com/japi</api-host>
+    <data-host>test.zkjinshi.com/data/</data-host>
+    <!--正式版-->
+    <!--<http-host>app.zkjinshi.com/papi</http-host>
+    <api-host>app.zkjinshi.com/japi</api-host>-->
 </config>
