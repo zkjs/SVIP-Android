@@ -31,7 +31,6 @@
                     android:layout_gravity="center"
                     android:layout_centerVertical="true"
                     android:scaleType="center"
-                    android:clickable="true"
                     android:background="@mipmap/ic_main_user_default_photo_nor"/>
 
                 <TextView
