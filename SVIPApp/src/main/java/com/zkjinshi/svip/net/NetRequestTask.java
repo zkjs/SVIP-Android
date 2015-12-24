@@ -69,8 +69,12 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
             this.requestListener.beforeNetworkRequestStart();
         }
 
-        if (isShowLoadingDialog) {
-            DialogUtil.getInstance().showProgressDialog(context);
+        try {
+            if (isShowLoadingDialog) {
+                DialogUtil.getInstance().showProgressDialog(context);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
