@@ -11,9 +11,9 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="256dp"
+            android:orientation="vertical"
             android:src="@color/TransparentBlack">
 
             <ImageView
@@ -26,18 +26,18 @@
 
         <View
             android:id="@+id/v_white_line"
-            android:background="@color/white"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="1dp"></View>
+            android:layout_height="1dp"
+            android:background="@color/white"
+            android:visibility="gone"></View>
 
         <LinearLayout
             android:id="@+id/ll_shop_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="64dp"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:minHeight="64dp"
             android:orientation="vertical">
 
             <TextView
@@ -48,11 +48,12 @@
                 android:ellipsize="end"
                 android:gravity="left|center"
                 android:paddingLeft="20dp"
-                android:textColor="@color/black"
                 android:paddingRight="88dp"
                 android:paddingTop="5dp"
                 android:singleLine="true"
-                android:text="商家描述" />
+                android:text="商家描述"
+                android:textColor="@color/gray666666"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_shop_add"
@@ -64,9 +65,10 @@
                 android:paddingBottom="5dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColor="@color/black"
                 android:singleLine="true"
-                android:text="商家地址" />
+                android:text="商家地址"
+                android:textColor="@color/grayB8B8B8"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -94,7 +96,6 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:singleLine="true"
-                android:text="xxx酒店"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -109,9 +110,8 @@
                 android:lines="2"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="住宿，会议"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -119,8 +119,8 @@
             android:id="@+id/rl_saler_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="128dp"
             android:gravity="center|right"
+            android:minHeight="128dp"
             android:paddingRight="20dp">
 
             <FrameLayout

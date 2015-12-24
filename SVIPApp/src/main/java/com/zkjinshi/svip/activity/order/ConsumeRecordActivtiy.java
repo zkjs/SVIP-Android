@@ -1,10 +1,7 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-
 import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
@@ -30,15 +24,10 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.RefreshListview;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 
 /**
  * 说明：消费记录界面
@@ -54,15 +43,13 @@ public class ConsumeRecordActivtiy extends BaseActivity {
 
     private ImageButton backIBtn;
     private TextView titleTv;
-    private RefreshListview   mSlvBookOrder;
-
+    private RefreshListView mSlvBookOrder;
 
     private ConsumeRecordAdapter    mBookOrderAdapter = null;
 
     private String mUserID;
     private String mToken;
     private int    mCurrentPage;//记录当前查询页
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +69,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
-        mSlvBookOrder = (RefreshListview) findViewById(R.id.slv_history_order);
+        mSlvBookOrder = (RefreshListView) findViewById(R.id.slv_history_order);
         mSlvBookOrder.setEmptyView(emptyView);
     }
 
@@ -260,7 +247,6 @@ public class ConsumeRecordActivtiy extends BaseActivity {
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
-
             }
 
             @Override
@@ -271,8 +257,5 @@ public class ConsumeRecordActivtiy extends BaseActivity {
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
-
-
-
 
 }

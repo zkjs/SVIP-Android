@@ -16,16 +16,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.SvipBaseAdapter;
-import com.zkjinshi.svip.bean.ShopBean;
-import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

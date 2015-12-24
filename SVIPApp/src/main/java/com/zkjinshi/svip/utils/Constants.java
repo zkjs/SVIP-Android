@@ -11,9 +11,6 @@ import com.zkjinshi.base.config.ConfigUtil;
  */
 public class Constants {
 
-    public static final int CHATTYPE_SINGLE = 1;
-    public static final int CHATTYPE_GROUP = 2;
-    public static final int CHATTYPE_CHATROOM = 3;
     //是否开启短信验证
     public static final boolean SMS_CHECK_ENABLE = false;
     //是否需要密码引导页
@@ -41,25 +38,6 @@ public class Constants {
     public static final String QQ_APP_KEY = "c7394704798a158208a74ab60104f0ba";
     //友盟Appkey
     public static final String UMAppKey = "55c31431e0f55a65c1002597";
-
-
-    public final static String DISPLAY_FOR_IMAGE = "[图片]";
-    public final static String DISPLAY_FOR_MIX   = "[图文消息]";
-    public final static String DISPLAY_FOR_AUDIO = "[语音]";
-    public final static String DISPLAY_FOR_ERROR = "[未知消息]";
-
-    public final static int UPDATE_ORDER = 0;
-    public final static int QUREY_ORDER  = 1;
-
-    public final static int POST_SUCCESS = 1;
-    public final static int POST_FAILED  = 0;
-
-    //协议包返回结果
-    public final static int PROTOCAL_SUCCESS = 0;
-    public final static int PROTOCAL_FAILED  = 1;
-
-    public final static String FORMAT_PNG  = ".png";
-    public final static String FORMAT_JPG  = ".jpg";
 
     public final static String HTTP_URL = ConfigUtil.getInst().getHttpDomain();
     //app客户注册登录

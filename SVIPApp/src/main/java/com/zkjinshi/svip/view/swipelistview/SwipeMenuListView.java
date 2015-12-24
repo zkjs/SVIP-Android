@@ -8,11 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
-import com.zkjinshi.svip.view.RefreshListview;
-
-public class SwipeMenuListView extends RefreshListview {
+public class SwipeMenuListView extends RefreshListView {
 
 	private static final int TOUCH_STATE_NONE = 0;
 	private static final int TOUCH_STATE_X = 1;

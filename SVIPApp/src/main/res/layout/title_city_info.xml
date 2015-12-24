@@ -52,7 +52,6 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <View
-        style="@style/GrayLineBorder"></View>
+    <View style="@style/GrayLineBorder"></View>
 
 </LinearLayout>

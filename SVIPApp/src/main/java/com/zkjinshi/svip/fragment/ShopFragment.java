@@ -74,6 +74,7 @@ public class ShopFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
         super.initData();
 
         mUserID = CacheUtil.getInstance().getUserId();
@@ -239,6 +240,5 @@ public class ShopFragment extends BaseFragment {
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
     }
-
 
 }
