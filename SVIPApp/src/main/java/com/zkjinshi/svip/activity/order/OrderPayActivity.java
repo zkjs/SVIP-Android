@@ -1,44 +1,20 @@
 package com.zkjinshi.svip.activity.order;
 
-
-
-import com.zkjinshi.base.util.DeviceUtils;
-import com.zkjinshi.base.util.NetWorkUtil;
-import com.zkjinshi.base.view.CustomDialog;
-import com.zkjinshi.svip.R;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
-
-
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -46,11 +22,12 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
-import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.ItemTitleView;
 
-
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * 订单支付页面
@@ -84,15 +61,10 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
      */
     private static final String CHANNEL_ALIPAY = "alipay";
 
-
-
-
-
     private ImageButton aliPayIBtn, weChatPayIBtn;
     private OrderDetailResponse orderDetailResponse;
 
     private void initView(){
-   ;
         aliPayIBtn = (ImageButton)findViewById(R.id.pay_order_ali_pay_ibtn);
         weChatPayIBtn = (ImageButton)findViewById(R.id.pay_order_we_chat_pay_ibtn);
         aliPayIBtn.setOnClickListener(this);
@@ -100,13 +72,10 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initData(){
-
         orderDetailResponse = (OrderDetailResponse)getIntent().getSerializableExtra("orderDetailResponse");
-
     }
 
     private void initListeners(){
-
         //返回
         findViewById(R.id.pay_order_top_layout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,8 +83,6 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 finish();
             }
         });
-
-
     }
 
     public void onClick(View view) {
@@ -145,51 +112,48 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
        paymentRequest.setBody(orderDetailResponse.getRoom().getFullname());
         return paymentRequest;
     }
-
-    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-
-            //按键点击之后的禁用，防止重复点击
-            weChatPayIBtn.setOnClickListener(null);
-            aliPayIBtn.setOnClickListener(null);
-        }
-
-        @Override
-        protected String doInBackground(PaymentRequest... pr) {
-
-            PaymentRequest paymentRequest = pr[0];
-            String data = null;
-            String json = new Gson().toJson(paymentRequest);
-            try {
-                //向Your Ping++ Server SDK请求数据
-                data = postJson(URL, json);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return data;
-        }
-
-        /**
-         * 获得服务端的charge，调用ping++ sdk。
-         */
-        @Override
-        protected void onPostExecute(String data) {
-            if(null==data){
-                showMsg("请求出错", "请检查URL", "URL无法获取charge");
-                return;
-            }
-            Log.d("charge", data);
-            Intent intent = new Intent();
-            String packageName = getPackageName();
-            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
-            intent.setComponent(componentName);
-            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
-            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-        }
-
-    }
+//
+//    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
+//        @Override
+//        protected void onPreExecute() {
+//            //按键点击之后的禁用，防止重复点击
+//            weChatPayIBtn.setOnClickListener(null);
+//            aliPayIBtn.setOnClickListener(null);
+//        }
+//
+//        @Override
+//        protected String doInBackground(PaymentRequest... pr) {
+//
+//            PaymentRequest paymentRequest = pr[0];
+//            String data = null;
+//            String json = new Gson().toJson(paymentRequest);
+//            try {
+//                //向Your Ping++ Server SDK请求数据
+//                data = postJson(URL, json);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return data;
+//        }
+//
+//        /**
+//         * 获得服务端的charge，调用ping++ sdk。
+//         */
+//        @Override
+//        protected void onPostExecute(String data) {
+//            if(null==data){
+//                showMsg("请求出错", "请检查URL", "URL无法获取charge");
+//                return;
+//            }
+//            Log.d("charge", data);
+//            Intent intent = new Intent();
+//            String packageName = getPackageName();
+//            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
+//            intent.setComponent(componentName);
+//            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
+//            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+//        }
+//    }
 
     /**
      * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
@@ -286,17 +250,16 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
         builder.setPositiveButton("OK", null);
         builder.create().show();
     }
-
-    private static String postJson(String url, String json) throws IOException {
-        MediaType type = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(type, json);
-        Request request = new Request.Builder().url(url).post(body).build();
-
-        OkHttpClient client = new OkHttpClient();
-        Response response = client.newCall(request).execute();
-
-        return response.body().string();
-    }
+//
+//    private static String postJson(String url, String json) throws IOException {
+//        MediaType type = MediaType.parse("application/json; charset=utf-8");
+//        RequestBody body = RequestBody.create(type, json);
+//        Request request = new Request.Builder().url(url).post(body).build();
+//
+//        OkHttpClient client = new OkHttpClient();
+//        Response response = client.newCall(request).execute();
+//        return response.body().string();
+//    }
 
     class PaymentRequest {
         /*
@@ -428,7 +391,6 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
         });
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
-
     }
 
 }
