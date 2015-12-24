@@ -25,6 +25,7 @@ import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.OrderConsumeResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.RefreshListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
