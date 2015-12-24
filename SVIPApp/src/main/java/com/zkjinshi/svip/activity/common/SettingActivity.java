@@ -267,8 +267,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                     BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                     if (null != baseResponse && baseResponse.isSet()) {
-                        ImageLoader.getInstance().clearDiskCache();
-                        ImageLoader.getInstance().clearMemoryCache();
+                        String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                        ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
+                        ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
 
                     } else {
                         DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);

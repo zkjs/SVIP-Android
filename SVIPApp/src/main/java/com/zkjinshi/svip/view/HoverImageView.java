@@ -33,7 +33,7 @@ public class HoverImageView extends ImageView {
 	private Path boundPath;
 	private Path borderPath;
 	private RectF rect = new RectF();
-	private float borderWidth = 1f;
+	private float borderWidth = 0f;
 
 	public HoverImageView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);

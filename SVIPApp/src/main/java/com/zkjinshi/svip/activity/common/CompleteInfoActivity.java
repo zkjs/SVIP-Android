@@ -235,8 +235,9 @@ public class CompleteInfoActivity extends BaseActivity {
                             LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
                             BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
                             if (null != baseResponse && baseResponse.isSet()) {
-                                ImageLoader.getInstance().clearDiskCache();
-                                ImageLoader.getInstance().clearMemoryCache();
+                                String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                                ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
+                                ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
                                 CacheUtil.getInstance().setUserName(nickName);
                                 CacheUtil.getInstance().setSex(sexValue+"");
                                 CacheUtil.getInstance().savePicPath("");
