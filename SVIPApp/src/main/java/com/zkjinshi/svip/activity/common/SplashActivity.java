@@ -122,17 +122,44 @@ public class SplashActivity extends BaseActivity {
         bodyLayout.startAnimation(skyDropOutAnim);
 
         //logo淡入效果
-        //logoFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_logo);
-       // logoIv.startAnimation(logoFadeInAnim);
-        int[] ids = {R.id.guiji01,R.id.guiji02,R.id.guiji03};
-        for(int i=0;i<ids.length;i++){
-            Animation rotate = AnimationUtils.loadAnimation(this,R.anim.anim_guiji);
-            findViewById(ids[i]).startAnimation(rotate);
-        }
+        logoFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_logo);
+        logoIv.startAnimation(logoFadeInAnim);
+        logoFadeInAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                logoFadeOutAnim = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fade_out_logo);
+                logoIv.startAnimation(logoFadeOutAnim);
+                logoFadeOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        logoIv.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
-
-        //logo text 淡入效果
+        //logo淡入效果
         textFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_text);
         textTv.startAnimation(textFadeInAnim);
         textFadeInAnim.setAnimationListener(new Animation.AnimationListener() {
