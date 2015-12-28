@@ -161,4 +161,12 @@
     <string name="footer_tab_txt_set">我</string>
     <string name="chang_sha">长沙</string>
 
+    <!--ListView加载-->
+    <string name="refresh_after_release">松开立即刷新</string>
+    <string name="pull_down_refresh">下拉刷新</string>
+    <string name="loading_more_data">正在加载更多数据</string>
+    <string name="pull_up_load_more_data">上拉加载更多</string>
+    <string name="latest_update">最后更新</string>
+    <string name="refreshing_now">正在刷新中</string>
+
 </resources>

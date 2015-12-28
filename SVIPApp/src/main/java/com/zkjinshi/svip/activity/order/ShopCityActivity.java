@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,19 +13,19 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
+import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.RefreshListView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -46,9 +44,9 @@ public class ShopCityActivity extends BaseActivity {
 
     private RelativeLayout mRlBack;
     private TextView       mTvCity;
-    private ListView       mLvShopList;
-    private List<ShopBean> mShopList;
-    private ShopAdapter        mShopAdapter;
+    private RefreshListView mLvShopList;
+    private List<ShopBean>  mShopList;
+    private ShopAdapter     mShopAdapter;
 
     private int mPage = 1;
     private int mPageSize = 5;
@@ -66,7 +64,7 @@ public class ShopCityActivity extends BaseActivity {
     private void initView() {
         mRlBack     = (RelativeLayout) findViewById(R.id.rl_back);
         mTvCity     = (TextView) findViewById(R.id.tv_city);
-        mLvShopList = (ListView) findViewById(R.id.lv_shop_list);
+        mLvShopList = (RefreshListView) findViewById(R.id.lv_shop_list);
     }
 
     private void initData() {
@@ -84,10 +82,33 @@ public class ShopCityActivity extends BaseActivity {
     }
 
     private void initListener() {
+
         //商店条目点击事件
-        mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onRefreshing() {
+                String city = mTvCity.getText().toString();
+                if (!TextUtils.isEmpty(city)){
+                    mTvCity.setText(city);
+                    getShopListByCity(city, mPage, mPageSize);
+                } else {
+                    getShopList(mPage, mPageSize);
+                }
+            }
+
+            @Override
+            public void onLoadingMore() {
+                String city = mTvCity.getText().toString();
+                if (!TextUtils.isEmpty(city)){
+                    mTvCity.setText(city);
+                    getShopListByCity(city, mPage, mPageSize);
+                } else {
+                    getShopList(mPage, mPageSize);
+                }
+            }
+
+            @Override
+            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
                 if(position > 0){
                     Intent intent = new Intent(ShopCityActivity.this, GoodListActivity.class);
@@ -106,7 +127,6 @@ public class ShopCityActivity extends BaseActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 }
-
             }
         });
 
@@ -140,11 +160,12 @@ public class ShopCityActivity extends BaseActivity {
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
+                mLvShopList.refreshFinish();
             }
 
             @Override
             public void onNetworkRequestCancelled() {
-
+                mLvShopList.refreshFinish();
             }
 
             @Override
@@ -164,6 +185,7 @@ public class ShopCityActivity extends BaseActivity {
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
+                mLvShopList.refreshFinish();
             }
 
             @Override
@@ -171,7 +193,11 @@ public class ShopCityActivity extends BaseActivity {
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        if(mPage == 1){
+            netRequestTask.isShowLoadingDialog = true;
+        } else {
+            netRequestTask.isShowLoadingDialog = false;
+        }
         netRequestTask.execute();
     }
 }
