@@ -104,11 +104,11 @@ public class SplashActivity extends BaseActivity {
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
 
-        if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
-            String userId = CacheUtil.getInstance().getUserId();
-            String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-            ImageLoader.getInstance().displayImage(userPhotoUrl, logoIv, options);
-        }
+//        if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
+//            String userId = CacheUtil.getInstance().getUserId();
+//            String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+//            ImageLoader.getInstance().displayImage(userPhotoUrl, logoIv, options);
+//        }
 
 
     }
