@@ -72,6 +72,7 @@
 
         </LinearLayout>
 
+        <View style="@style/BlackLineBorder"></View>
     </LinearLayout>
 
     <LinearLayout
@@ -143,6 +144,8 @@
             </FrameLayout>
 
         </RelativeLayout>
+
     </LinearLayout>
+
 
 </FrameLayout>

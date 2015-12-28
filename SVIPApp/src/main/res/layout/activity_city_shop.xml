@@ -50,13 +50,12 @@
 
     </LinearLayout>
 
-    <ListView
+    <com.zkjinshi.svip.view.RefreshListView
         android:id="@+id/lv_shop_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:divider="@color/DivederColorBlack"
-        android:dividerHeight="1px"
+        android:divider="@null"
         android:fadingEdge="none"
         android:fadeScrollbars="true" />
 

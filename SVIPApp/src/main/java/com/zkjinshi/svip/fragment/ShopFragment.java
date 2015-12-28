@@ -2,24 +2,19 @@ package com.zkjinshi.svip.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
@@ -27,8 +22,8 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
-import com.zkjinshi.svip.bean.BaseShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
+import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -36,8 +31,8 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.RefreshListView;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +45,9 @@ public class ShopFragment extends BaseFragment {
     private final String TAG = ShopFragment.class.getSimpleName();
 
     public final static int REQUEST_CHOOSE_CITY = 0x00;
-
-    private RelativeLayout mRlDingWei;
-    private EditText       mEtCity;
-    private ListView       mLvShopList;
+    private RelativeLayout  mRlDingWei;
+    private EditText        mEtCity;
+    private RefreshListView mLvShopList;
 
     private ShopAdapter         mShopAdapter;
     private ArrayList<ShopBean> mShopList;
@@ -65,7 +59,7 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_shop, null);
-        mLvShopList = (ListView) view.findViewById(R.id.lv_shop_list);
+        mLvShopList = (RefreshListView) view.findViewById(R.id.lv_shop_list);
         mRlDingWei  = (RelativeLayout) view.findViewById(R.id.rl_dingwei);
         mEtCity     = (EditText) view.findViewById(R.id.et_city);
         SoftInputUtil.hideSoftInputMode(mActivity, mEtCity);
@@ -76,7 +70,6 @@ public class ShopFragment extends BaseFragment {
     protected void initData() {
 
         super.initData();
-
         mUserID = CacheUtil.getInstance().getUserId();
         if (null == mShopList || mShopList.isEmpty()) {
             mShopList    = new ArrayList<>();
@@ -106,10 +99,21 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected void initListener() {
         super.initListener();
-        //商店条目点击事件
-        mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //实现上拉加载下拉刷新
+        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onRefreshing() {
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void onLoadingMore() {
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
                 if(position > 0){
                     Intent intent = new Intent(mActivity, GoodListActivity.class);
@@ -190,17 +194,8 @@ public class ShopFragment extends BaseFragment {
 //    }
 
     public void getShopList(String userID, int page, int pageSize) {
-        getShopListByCity(userID, null, page, pageSize);
-    }
 
-    private void getShopListByCity(String userID, String city, int page, int pageSize){
-        String url = null;
-        if(!TextUtils.isEmpty(city)){
-            url = ProtocolUtil.getShopListUserByCityUrl(userID, city, page, pageSize);
-        }else{
-            url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
-        }
-
+        String url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
@@ -209,11 +204,13 @@ public class ShopFragment extends BaseFragment {
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
+
+                mLvShopList.refreshFinish();
             }
 
             @Override
             public void onNetworkRequestCancelled() {
-
+                mLvShopList.refreshFinish();
             }
 
             @Override
@@ -230,6 +227,7 @@ public class ShopFragment extends BaseFragment {
                     mShopAdapter.setData(mShopList);
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + shopList);
+                mLvShopList.refreshFinish();
             }
 
             @Override
@@ -237,7 +235,11 @@ public class ShopFragment extends BaseFragment {
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        if (mPage == 1) {
+            netRequestTask.isShowLoadingDialog = true;
+        } else {
+            netRequestTask.isShowLoadingDialog = false;
+        }
         netRequestTask.execute();
     }
 

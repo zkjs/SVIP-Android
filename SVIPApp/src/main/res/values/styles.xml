@@ -32,11 +32,15 @@
     </style>
 
     <style name="GrayLineBorder" >
-        <item name="android:background">#E3E3E3</item>
+        <item name="android:background">@color/BackgroundGray</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:layout_marginLeft">0dp</item>
-        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
+    <style name="BlackLineBorder" >
+        <item name="android:background">@color/DivederColorBlack</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
     </style>
 
     <style name="sex_radio_item">
