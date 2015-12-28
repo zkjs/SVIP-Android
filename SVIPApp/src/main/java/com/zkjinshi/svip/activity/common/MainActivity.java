@@ -1,5 +1,10 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,15 +15,20 @@ import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.easemob.EMNotifierEvent;
+import com.easemob.chat.EMChatManager;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
+import com.zkjinshi.svip.emchat.observer.EMessageSubject;
+import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.fragment.MessageFragment;
 import com.zkjinshi.svip.fragment.SetFragment;
@@ -31,6 +41,8 @@ import com.zkjinshi.svip.ibeacon.RegionVo;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.view.BadgeView;
 
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -42,7 +54,7 @@ import java.util.ArrayList;
 
 import io.yunba.android.manager.YunBaManager;
 
-public class MainActivity extends BaseFragmentActivity implements IBeaconObserver{
+public class MainActivity extends BaseFragmentActivity implements IBeaconObserver,IEMessageObserver {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     SVIPApplication svipApplication;
@@ -50,6 +62,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     private ViewPager viewPager;
     private RadioGroup radioGroup;
     private ArrayList<Fragment> fragmentList;
+    private BadgeView bv;
+    private int badgeNum;
+    private UpdateBroadcastReceiver mUpdateReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +76,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         initListeners();
         initIBeaconList();
         IBeaconSubject.getInstance().addObserver(this);
+        addAllObserver();
     }
 
     @Override
@@ -71,6 +87,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     @Override
     protected void onResume(){
         super.onResume();
+        Intent intent = new Intent(Constants.UPDATE_UNREAD_RECEIVER_ACTION);
+        sendBroadcast(intent);
     }
 
     @Override
@@ -78,12 +96,17 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         super.onDestroy();
         IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
+        removeAllObserver();
+        if (null != mUpdateReceiver) {
+            unregisterReceiver(mUpdateReceiver);
+        }
     }
 
     private void initView(){
         viewPager =(ViewPager)findViewById(R.id.viewPager);
         radioGroup =(RadioGroup)findViewById(R.id.footer_tab_rg);
         radioGroup.setOnCheckedChangeListener(new FooterCheckChangeListener());
+        bv = new BadgeView(this, findViewById(R.id.footer_tab_btn_message_num));
     }
 
     private void initViewPager(){
@@ -105,26 +128,20 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            int index = 0;
             switch (checkedId){
                 case R.id.footer_tab_rb_home:
                     viewPager.setCurrentItem(0,true);
-                    index = 0;
                     break;
                 case R.id.footer_tab_rb_shop:
                     viewPager.setCurrentItem(1,true);
-                    index = 1;
                     break;
                 case R.id.footer_tab_rb_message:
                     viewPager.setCurrentItem(2,true);
-                    index = 2;
                     break;
                 case R.id.footer_tab_rb_set:
                     viewPager.setCurrentItem(3,true);
-                    index = 3;
                     break;
             }
-            //((FooterFragmentPagerAdapter)viewPager.getAdapter()).getItem(index).onResume();
         }
     }
 
@@ -158,12 +175,33 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
         }
     }
+
     private void initData(){
         initViewPager();
         initDBName();
+        initBadgeNum();
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
         MainController.getInstance().initBigPic();
+    }
+
+    private void initBadgeNum(){
+        mUpdateReceiver = new UpdateBroadcastReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.UPDATE_UNREAD_RECEIVER_ACTION);
+        registerReceiver(mUpdateReceiver, filter);
+        Drawable right = getResources().getDrawable(
+                R.mipmap.skin_list_newmessage);
+        right.setBounds(0, 0, right.getMinimumWidth(), right.getMinimumHeight());
+        bv.setCompoundDrawables(null, null, right, null);
+        bv.setBackgroundColor(getResources().getColor(R.color.transparent));
+        bv.setPadding(0,0, DisplayUtil.dip2px(this,15),0);
+        badgeNum = EMChatManager.getInstance().getUnreadMsgsCount();
+        if (badgeNum > 0) {
+            bv.show();
+        } else {
+            bv.hide();
+        }
     }
 
     private void initListeners() {
@@ -331,4 +369,51 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             onExit();
         }
     }
+
+    /**
+     * 添加观察者
+     */
+    private void addAllObserver(){
+        EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventOfflineMessage);
+        EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventConversationListChanged);
+    }
+
+    /**
+     * 移除观察者
+     */
+    private void removeAllObserver(){
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventNewMessage);
+        EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+        EMessageSubject.getInstance().removeObserver(this,EMNotifierEvent.Event.EventConversationListChanged);
+    }
+
+    @Override
+    public void receive(EMNotifierEvent event) {
+        switch (event.getEvent()) {
+            case EventNewMessage:
+            case EventOfflineMessage:
+            case EventConversationListChanged:
+                Intent intent = new Intent(Constants.UPDATE_UNREAD_RECEIVER_ACTION);
+                sendBroadcast(intent);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private class UpdateBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            badgeNum = EMChatManager.getInstance().getUnreadMsgsCount();
+            if (badgeNum > 0) {
+                bv.show();
+            } else {
+                bv.hide();
+            }
+        }
+
+    }
+
 }
