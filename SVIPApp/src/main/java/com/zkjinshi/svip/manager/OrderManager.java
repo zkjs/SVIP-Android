@@ -9,7 +9,6 @@ import com.easemob.chat.CmdMessageBody;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.zkjinshi.svip.notification.NotificationHelper;
-import com.zkjinshi.svip.utils.VIPContext;
 
 /**
  * 订单管理器

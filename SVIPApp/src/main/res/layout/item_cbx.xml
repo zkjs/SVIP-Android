@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        android:id="@+id/item_layout">
+        <View
+            android:id="@+id/upline_v"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e3e3e3"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#666666"
+                android:text="双份早餐"
+                android:drawableLeft="@mipmap/ic_zaocan_gary"
+                android:drawablePadding="10dp"
+                android:layout_centerVertical="true"/>
+
+            <CheckBox
+                android:id="@+id/value_cbx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:button="@null"
+                android:clickable="true"
+                android:drawableLeft="@drawable/checkbox_book_selector"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/downline_v"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e3e3e3"/>
+    </LinearLayout>
+
+</LinearLayout>
+

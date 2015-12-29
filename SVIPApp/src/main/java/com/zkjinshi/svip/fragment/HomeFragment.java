@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int NOTIFY_UPDATE_MAIN_TEXT = 0x0002;
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
     private final static int NOTIFY_LOCATION = 0x04;
+    private final static int REQUEST_CONSUME_RECORD = 0x05;
 
     public static String lastLocid = "";
     public Animation fadeAnimation = null;
@@ -215,9 +216,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     case HOME_MSG_ORDER:
                     {
                         Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
-                        getActivity().startActivity(intent);
-                        getActivity().overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
+                        getActivity().startActivityForResult(intent, REQUEST_CONSUME_RECORD);
+                        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     break;
                 }

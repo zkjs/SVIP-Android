@@ -28,4 +28,22 @@
         <attr name="colorback" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="ItemShowView">
+        <attr name="isvTitle" format="string" />
+        <attr name="isvValue" format="string" />
+        <attr name="isvHint"  format="string" />
+        <attr name="haveUpLine" format="boolean" />
+        <attr name="haveDownLine" format="boolean" />
+        <attr name="isMust" format="boolean" />
+        <attr name="isShowIcon" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ItemCbxView">
+        <attr name="icvTitle" format="string" />
+        <attr name="icvValue" format="boolean" />
+        <attr name="icvUpLine" format="boolean" />
+        <attr name="icvDownLine" format="boolean" />
+        <attr name="icvLeftImage" format="reference|integer" />
+    </declare-styleable>
+
 </resources>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f2f5"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:id="@+id/title_layout"
+        android:background="#ffffff">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_fanhui_orange"/>
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="华彬费尔蒙酒店"
+            android:textSize="16sp"
+            android:textColor="#5e5e5e"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_send_booking_order"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="立即预定"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
+    <ScrollView
+        android:scrollbars="none"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_send_booking_order"
+        android:layout_below="@id/title_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_room_img"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/img_dingdanxiangqing"
+                android:visibility="visible"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:id="@+id/ahb_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="到店/离店日期"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="选择日期"
+                zkjinshi:isMust="true"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:id="@+id/ahb_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="房间类型"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="选择房型"
+                zkjinshi:isMust="true"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:id="@+id/ahb_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="房间数量"
+                zkjinshi:isvValue="1"
+                zkjinshi:isvHint="选择数量"
+                zkjinshi:isMust="true"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ahb_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="联系人"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="入住人或联系人姓名"
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:id="@+id/ahb_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="手机号码"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="入住人或联系人手机"
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ahb_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                zkjinshi:isShowIcon="false"
+                zkjinshi:isvTitle="支付方式"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="提交订单后显示"
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemShowView
+                android:id="@+id/ahb_ticket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:isvTitle="发票"
+                zkjinshi:isvValue=""
+                zkjinshi:isvHint="输入发票信息，离店时向商家索取"
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
+            <com.zkjinshi.svip.view.ItemCbxView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ahb_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:icvTitle="双份早餐"
+                zkjinshi:haveDownLine="true"
+                zkjinshi:icvValue="true"
+                zkjinshi:icvLeftImage="@mipmap/ic_zaocan_gary"/>
+
+            <com.zkjinshi.svip.view.ItemCbxView
+                android:id="@+id/ahb_nosmoking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                zkjinshi:icvTitle="无烟房间"
+                zkjinshi:haveDownLine="true"
+                zkjinshi:icvValue="true"
+                zkjinshi:icvLeftImage="@mipmap/ic_wuyan_gary"/>
+
+            <!--订单备注-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/White"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:id="@+id/llt_order_remark">
+
+                <TextView
+                    android:padding="5dp"
+                    android:text="订单备注"
+                    android:textSize="16sp"
+                    android:textColor="#666666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/tv_remark"
+                    android:textColor="#b8b8b8"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="如有有其他需求，请在此说明."/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
