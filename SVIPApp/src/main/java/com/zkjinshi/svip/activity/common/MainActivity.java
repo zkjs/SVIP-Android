@@ -57,6 +57,9 @@ import io.yunba.android.manager.YunBaManager;
 public class MainActivity extends BaseFragmentActivity implements IBeaconObserver,IEMessageObserver {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private final static int REQUEST_CONSUME_RECORD = 0x05;
+
     SVIPApplication svipApplication;
     public OrderLastResponse lastOrderInfo = null;
     private ViewPager viewPager;
@@ -99,6 +102,18 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         removeAllObserver();
         if (null != mUpdateReceiver) {
             unregisterReceiver(mUpdateReceiver);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //请求订单接口返回
+        if(requestCode == REQUEST_CONSUME_RECORD){
+            if(resultCode == RESULT_OK){
+                this.setCurrentItem(1);
+            }
         }
     }
 

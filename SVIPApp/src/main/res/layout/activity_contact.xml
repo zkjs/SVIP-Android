@@ -237,6 +237,7 @@
             android:background="@drawable/bg_btn_orange_to_gray"
             android:text="@string/consult_immediately"
             android:textColor="@color/black" />
+
     </RelativeLayout>
 
 
