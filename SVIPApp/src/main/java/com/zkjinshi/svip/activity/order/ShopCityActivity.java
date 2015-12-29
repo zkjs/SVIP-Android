@@ -110,7 +110,8 @@ public class ShopCityActivity extends BaseActivity {
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
-                if(position > 0){
+                //进入商家详情
+                if(mShopAdapter.getItemViewType(position) == mShopAdapter.ITEM_NORMAL_SHOP){
                     Intent intent = new Intent(ShopCityActivity.this, GoodListActivity.class);
                     String shopid = shopBean.getShopid();
                     intent.putExtra("shopBean", shopBean);

@@ -32,10 +32,9 @@ import java.util.List;
  */
 public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
-    private final static int ITEM_VIEW_COUNT = 2;
-
-    private final static int ITEM_ADVERTISE   = 0x00;
-    private final static int ITEM_NORMAL_SHOP = 0x01;
+    private final static int ITEM_VIEW_COUNT  = 2;
+    public  final static int ITEM_ADVERTISE   = 0x00;
+    public  final static int ITEM_NORMAL_SHOP = 0x01;
 
     private DisplayImageOptions shopOptions;
     private DisplayImageOptions avatarOptions;

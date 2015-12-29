@@ -568,4 +568,7 @@
     <color name="Orangeff9800">#ff9800</color>
 
     <color name="DivederColorBlack">#101010</color>
+
+    <color name="Gray5e5e5e">#5e5e5e</color>
+    <color name="Gray8a8a8a">#8a8a8a</color>
 </resources>

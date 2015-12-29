@@ -174,5 +174,9 @@
     <string name="find_your_next_trip">找到您的下一个旅程</string>
     <string name="search_by_lbs_and_provide_the_best_service">按地点进行搜索，为您推荐最好的服务。</string>
     <string name="discover_service">发现服务</string>
+    <string name="have_no_comment_yet">暂无评论</string>
+    <string name="the_user_do_not_give_a_comment">此用户未进行评价。</string>
+    <string name="comment">评论</string>
+    <string name="no_name">匿名</string>
 
 </resources>
