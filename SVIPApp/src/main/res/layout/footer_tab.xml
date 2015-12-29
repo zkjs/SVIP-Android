@@ -40,4 +40,32 @@
 
     </RadioGroup>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            style="@style/main_tab_bottom"
+            android:background="@drawable/footer_rb_home"
+            android:visibility="invisible" />
+
+        <Button
+            style="@style/main_tab_bottom"
+            android:background="@drawable/footer_rb_shop"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/footer_tab_btn_message_num"
+            style="@style/main_tab_bottom"
+            android:background="@drawable/footer_rb_message"
+            android:visibility="invisible" />
+
+        <Button
+            style="@style/main_tab_bottom"
+            android:background="@drawable/footer_rb_set"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
 </RelativeLayout>

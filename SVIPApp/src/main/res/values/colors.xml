@@ -543,7 +543,6 @@
 
     <color name="voip_interface_text_color">#bababa</color>
 
-    <color name="e3e3e3">#e3e3e3</color>
     <color name="b8b8b8">#b8b8b8</color>
     <color name="gray666666">#666666</color>
     <color name="ffc56e">#ffc56e</color>
@@ -566,6 +565,7 @@
 
     <color name="light_yellow">#ffc56e</color>
     <color name="light_black">#666666</color>
+    <color name="Orangeff9800">#ff9800</color>
 
     <color name="DivederColorBlack">#101010</color>
 </resources>

@@ -37,6 +37,7 @@ public class SetFragment extends Fragment{
     public static final String TAG = SetFragment.class.getSimpleName();
 
     public static final int KILL_MYSELT = 1;
+    private final static int REQUEST_CONSUME_RECORD = 0x05;
 
     private RelativeLayout accountInfoLayout,orderManagerLayout,setLayout;
     private CircleImageView userPhotoIv;
@@ -103,7 +104,7 @@ public class SetFragment extends Fragment{
                     return;
                 }
                 Intent intent = new Intent(getActivity(), ConsumeRecordActivtiy.class);
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, REQUEST_CONSUME_RECORD);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }

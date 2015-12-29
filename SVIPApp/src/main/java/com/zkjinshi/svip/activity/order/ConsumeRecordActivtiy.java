@@ -6,15 +6,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -45,8 +51,13 @@ public class ConsumeRecordActivtiy extends BaseActivity {
     private ImageButton backIBtn;
     private TextView titleTv;
     private RefreshListView mSlvBookOrder;
-
+    private LinearLayout    mEmptyView;
     private ConsumeRecordAdapter    mBookOrderAdapter = null;
+
+    private LinearLayout   mViewNoOrder;
+    private RelativeLayout mViewNoLogin;
+    private TextView       mTvLogin;
+    private Button         mBtnDiscover;
 
     private String mUserID;
     private String mToken;
@@ -69,29 +80,64 @@ public class ConsumeRecordActivtiy extends BaseActivity {
     private void initView() {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
-        TextView emptyView = (TextView) findViewById(R.id.empty_view);
+
+        mEmptyView = (LinearLayout) findViewById(R.id.empty_view);
         mSlvBookOrder = (RefreshListView) findViewById(R.id.slv_history_order);
-        mSlvBookOrder.setEmptyView(emptyView);
+        mSlvBookOrder.setEmptyView(mEmptyView);
+
+        //卡片显示View
+        mViewNoOrder = (LinearLayout)   mEmptyView.findViewById(R.id.ll_no_order_view);
+        mViewNoLogin = (RelativeLayout) mEmptyView.findViewById(R.id.rl_no_login_view);
+        mTvLogin     = (TextView)       mEmptyView.findViewById(R.id.tv_login);
+        mBtnDiscover = (Button)  mEmptyView.findViewById(R.id.btn_discover_service);
     }
 
     private void initData() {
+
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText("订单管理");
 
+        //1.区分登录状态  a.未登录 b.登录无数据
+        boolean isLogin = CacheUtil.getInstance().isLogin();
+        if(!isLogin){
+            mViewNoLogin.setVisibility(View.VISIBLE);
+            return ;
+        }
+
         mUserID = CacheUtil.getInstance().getUserId();
-        mToken = CacheUtil.getInstance().getToken();
+        mToken  = CacheUtil.getInstance().getToken();
         mCurrentPage = 1;
+
         DialogUtil.getInstance().showProgressDialog(this);
         //获取用户订单信息
         getUserOrders(mUserID, mToken, mCurrentPage);
     }
 
     private void initListener() {
+
         /** 返回键监听事件 */
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConsumeRecordActivtiy.this.finish();
+            }
+        });
+
+        /** 进入登录界面 */
+        mTvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goLogin();
+            }
+        });
+
+        /** 进入城市列表选择 */
+        mBtnDiscover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_OK);
+                ConsumeRecordActivtiy.this.finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_right);
             }
         });
 
@@ -134,6 +180,15 @@ public class ConsumeRecordActivtiy extends BaseActivity {
     }
 
     /**
+     * 跳转到登录页面
+     */
+    private void goLogin() {
+        Intent intent = new Intent(ConsumeRecordActivtiy.this, LoginActivity.class);
+        intent.putExtra("isHomeBack",true);
+        ConsumeRecordActivtiy.this.startActivity(intent);
+    }
+
+    /**
      * 获取用户历史订单列表
      * @param userID
      * @param token
@@ -167,6 +222,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
+
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     mSlvBookOrder.refreshFinish();//结束刷新状态
@@ -184,6 +240,12 @@ public class ConsumeRecordActivtiy extends BaseActivity {
                             mBookOrderAdapter.loadMore(bookOrders);
                             mCurrentPage++;//当前页+1
                             mSlvBookOrder.setSelection(mBookOrderAdapter.datalist.size() - 1);
+                        }
+                    } else {
+                        /** 设置是否显示空数据提醒 */
+                        if(mCurrentPage == 1){
+                            mViewNoLogin.setVisibility(View.INVISIBLE);
+                            mViewNoOrder.setVisibility(View.VISIBLE);
                         }
                     }
 

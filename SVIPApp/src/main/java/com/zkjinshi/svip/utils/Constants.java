@@ -90,4 +90,6 @@ public class Constants {
     //修改邮箱
     public static final int FLAG_MODIFY_EMAIL = 11;
 
+    public static final String UPDATE_UNREAD_RECEIVER_ACTION = "com.zkjinshi.svip.UPDATE_UNREAD_RECEIVER_ACTION";
+
 }
