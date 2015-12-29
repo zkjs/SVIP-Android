@@ -510,4 +510,15 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"user/privilege/"+shopid+"/"+locid;
     }
 
+    /**
+     * 获取商家评论列表url
+     * @param shopID
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public static String getShopCommentListUrl(String shopID, int page, int pageSize){
+        return ConfigUtil.getInst().getApiDomain()+"shop/evaluation/get/"+shopID+"/"+page+"/"+pageSize;
+    }
+
 }

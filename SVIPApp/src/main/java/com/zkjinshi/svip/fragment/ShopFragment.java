@@ -18,6 +18,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
+import com.zkjinshi.svip.activity.common.CommentListActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
@@ -45,6 +46,7 @@ public class ShopFragment extends BaseFragment {
     private final String TAG = ShopFragment.class.getSimpleName();
 
     public final static int REQUEST_CHOOSE_CITY = 0x00;
+
     private RelativeLayout  mRlDingWei;
     private EditText        mEtCity;
     private RefreshListView mLvShopList;
@@ -114,8 +116,10 @@ public class ShopFragment extends BaseFragment {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+
                 ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
-                if(position > 0){
+                //进入商家详情
+                if(mShopAdapter.getItemViewType(position) == mShopAdapter.ITEM_NORMAL_SHOP){
                     Intent intent = new Intent(mActivity, GoodListActivity.class);
                     String shopid = shopBean.getShopid();
                     intent.putExtra("shopBean", shopBean);
@@ -123,6 +127,12 @@ public class ShopFragment extends BaseFragment {
                     intent.putExtra("shopid",shopid);
                     mActivity.startActivity(intent);
                     mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+//                    Intent intent = new Intent(mActivity, CommentListActivity.class);
+//                    String shopid = shopBean.getShopid();
+//                    intent.putExtra("shop_id",shopid);
+//                    mActivity.startActivity(intent);
+//                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
                     String linkUrl = shopBean.getShopaddress();
                     if(!TextUtils.isEmpty(linkUrl)){
