@@ -47,10 +47,16 @@ public class ItemShowView extends LinearLayout {
         if(!StringUtil.isEmpty(valueStr)){
             valueTv.setText(valueStr);
             valueTv.setTextColor(Color.parseColor("#5e5e5e"));
+            this.valueStr = valueStr;
         }else if(!StringUtil.isEmpty(hintStr)){
             valueTv.setText(hintStr);
             valueTv.setTextColor(Color.parseColor("#bbbbbb"));
+            this.valueStr = "";
         }
+    }
+
+    public String getValue(){
+        return this.valueStr;
     }
 
 

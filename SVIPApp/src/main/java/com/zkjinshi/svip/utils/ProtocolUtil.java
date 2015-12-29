@@ -510,4 +510,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"user/privilege/"+shopid+"/"+locid;
     }
 
+    /**
+     * 订单新增
+     * @return
+     */
+    public static String orderAddUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"order/add";
+    }
+
 }

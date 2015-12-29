@@ -73,7 +73,11 @@ public class CalendarActivity extends BaseActivity implements DatePickerControll
 
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
             int selectMonth = calendarList.get(0).get(Calendar.MONTH);
-            dayPickerView.setSelection(selectMonth - currentMonth);
+            int del = selectMonth - currentMonth;
+            if(del < 0){
+                del +=12;
+            }
+            dayPickerView.setSelection(del);
         }
     }
 
