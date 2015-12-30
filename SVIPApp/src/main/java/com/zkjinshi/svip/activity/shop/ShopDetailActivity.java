@@ -35,6 +35,8 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
+import com.zkjinshi.svip.activity.order.KTVBookingActivity;
+import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -528,18 +530,29 @@ public class ShopDetailActivity extends BaseActivity {
                     ratingNum = shopVo.getScore();
                     evaluateRb.setRating(ratingNum);
                     imageList = shopVo.getImages();
+                    final String category = shopVo.getCategory();
                     //立即预订
                     commitBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent();
-                            intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                            intent.putExtra("shopid",shopId);
-                            intent.putExtra("shopName",shopName);
-                            if(null != imageList && !imageList.isEmpty()){
-                                intent.putExtra("shopImg",imageList.get(0));
+
+                            if(!TextUtils.isEmpty(category)){
+                                Intent intent = new Intent();
+                                if("酒店行业".equals(category)){
+                                    intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
+                                }else if("KTV行业".equals(category)){
+                                    intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
+                                }else {
+                                    intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
+                                }
+                                intent.putExtra("shopid",shopId);
+                                intent.putExtra("shopName",shopName);
+                                if(null != imageList && !imageList.isEmpty()){
+                                    intent.putExtra("shopImg",imageList.get(0));
+                                }
+                                startActivity(intent);
                             }
-                            startActivity(intent);
+
                         }
                     });
                     if(null != imageList && !imageList.isEmpty()){

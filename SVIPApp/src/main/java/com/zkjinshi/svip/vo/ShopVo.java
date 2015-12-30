@@ -19,6 +19,7 @@ public class ShopVo {
     private String evaluation;
     private int score;
     private String shopdescUrl;
+    private String category;
     private ArrayList<String> images;
 
     public String getShopId() {
@@ -83,5 +84,13 @@ public class ShopVo {
 
     public void setImages(ArrayList<String> images) {
         this.images = images;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
