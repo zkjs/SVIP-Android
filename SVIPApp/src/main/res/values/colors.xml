@@ -111,6 +111,7 @@
 
     <color name="Gray5e5e5e">#5e5e5e</color>
     <color name="Gray8a8a8a">#8a8a8a</color>
+    <color name="province_line_border">#D0D0D0</color>
 
     <drawable name="pressed_color">#48000000</drawable>
     <drawable name="focused_color">#48000000</drawable>
