@@ -103,6 +103,7 @@
                 android:background="#e3e3e3"/>
 
             <RelativeLayout
+                android:id="@+id/shop_detail_layout_evaluate"
                 android:layout_width="match_parent"
                 android:clickable="true"
                 android:background="@drawable/bg_layout_item_selector"
@@ -120,6 +121,7 @@
                     />
 
                 <ImageView
+                    android:id="@+id/shop_detail_iv_right_orange"
                     android:layout_width="8dp"
                     android:layout_height="15dp"
                     android:layout_centerVertical="true"
@@ -127,6 +129,19 @@
                     android:layout_marginRight="15dp"
                     android:src="@mipmap/ic_right_orange"
                     android:scaleType="centerInside"/>
+
+                <RatingBar
+                    android:id="@+id/shop_detail_rb_evaluate"
+                    android:layout_toLeftOf="@id/shop_detail_iv_right_orange"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1"
+                    android:isIndicator="true"
+                    android:layout_centerVertical="true"
+                    style="@style/roomRatingBar"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="11dp"/>
 
             </RelativeLayout>
 
@@ -139,6 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:textSize="16dp"
+                android:visibility="gone"
                 android:text="客人推荐"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -151,12 +167,14 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:textColor="#666666"
+                android:visibility="gone"
                 android:textSize="14sp"
                 android:text="去北京之前特地用招行信用卡积分兑换的酒店，价格很美丽，环境也很不错。出门5分钟就能到达地铁站，超级便捷。可是就在到酒店登记的时候告诉我，目前没有房间了，要求我加钱升级."/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:background="#e3e3e3"/>
 
@@ -202,6 +220,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:visibility="gone"
                 android:layout_marginTop="20dp"
                 android:background="#e3e3e3"/>
 
@@ -209,6 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:textSize="16dp"
+                android:visibility="gone"
                 android:text="商家提醒"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -218,6 +238,7 @@
                 android:id="@+id/shop_detail_tv_remind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:textColor="#666666"

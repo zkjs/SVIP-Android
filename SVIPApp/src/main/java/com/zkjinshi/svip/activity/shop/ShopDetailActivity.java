@@ -25,17 +25,25 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
+import com.zkjinshi.svip.activity.common.CommentListActivity;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.ImageBean;
-import com.zkjinshi.svip.factory.ImageFactory;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ObservableScrollView;
 import com.zkjinshi.svip.view.ScrollViewListener;
+import com.zkjinshi.svip.vo.ShopVo;
 
 import java.util.ArrayList;
 
@@ -54,7 +62,6 @@ public class ShopDetailActivity extends BaseActivity {
     private ObservableScrollView scrollView;
     private ImageButton backIBtn;
     private TextView titleTv;
-    private ArrayList<ImageBean> carouselDesigns;
     private WebView webView;
     private LinearLayout headLayout;
     private TextView headCutLineTv;
@@ -66,6 +73,11 @@ public class ShopDetailActivity extends BaseActivity {
     private SlideShowViewController slideShowViewController;
     private Button commitBtn;
     private TextView addressTv,phoneTv,evaluateTv,recommendTv,remindTv;
+    private RatingBar evaluateRb;
+    private RelativeLayout evaluateLayout;
+    private int ratingNum;
+    private String shopId;
+    private ShopVo shopVo;
 
     private void initView(){
         backIBtn = (ImageButton) findViewById(R.id.header_bar_btn_back);
@@ -81,29 +93,18 @@ public class ShopDetailActivity extends BaseActivity {
         evaluateTv = (TextView)findViewById(R.id.shop_detail_tv_evaluate);
         recommendTv = (TextView)findViewById(R.id.shop_detail_tv_recommend);
         remindTv = (TextView)findViewById(R.id.shop_detail_tv_remind);
+        evaluateRb = (RatingBar)findViewById(R.id.shop_detail_rb_evaluate);
+        evaluateLayout = (RelativeLayout)findViewById(R.id.shop_detail_layout_evaluate);
     }
 
     private void initData(){
-        titleTv.setText("酒店详情");
-        carouselDesigns = new ArrayList<ImageBean>();
-        imageList = new ArrayList<String>();
-        imageList.add("http://b.hiphotos.baidu.com/image/pic/item/14ce36d3d539b60013380ab6eb50352ac65cb738.jpg");
-        imageList.add("http://d.hiphotos.baidu.com/image/pic/item/caef76094b36acaf25b2caf67ed98d1001e99c6d.jpg");
-        imageList.add("http://g.hiphotos.baidu.com/image/pic/item/4bed2e738bd4b31cb1ce7bb285d6277f9f2ff8cd.jpg");
-        imageList.add("http://e.hiphotos.baidu.com/image/pic/item/3b292df5e0fe992510a7b71136a85edf8cb171cc.jpg");
-        slideShowViewController = new SlideShowViewController();
-        slideShowViewController.init(this, imageList);
-        if(null != carouselDesigns && !carouselDesigns.isEmpty()){
-            imageList = ImageFactory.getInstance().buildImageList(carouselDesigns);
-            slideShowViewController = new SlideShowViewController();
-            slideShowViewController.init(this, imageList);
+        if(null != getIntent() && !TextUtils.isEmpty(getIntent().getStringExtra("shopId"))){
+            shopId = getIntent().getStringExtra("shopId");
         }
-        scrollView.fullScroll(ScrollView.FOCUS_UP);
-        promptStr = getResources().getString(R.string.sweet_prompt);// 温馨提示
-        sureStr = getResources().getString(R.string.sure_option);// 确认
-        cancelStr = getResources().getString(R.string.cancel_option);// 取消
+        titleTv.setText("酒店详情");
         webViewURL = "https://www.baidu.com/";
-        initWebView();
+        scrollView.fullScroll(ScrollView.FOCUS_UP);
+        requestShopDetailTask("120");
     }
 
     /**
@@ -161,6 +162,16 @@ public class ShopDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        //评价页面
+        evaluateLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShopDetailActivity.this, CommentListActivity.class);
+                intent.putExtra("shopID",shopId);
+                startActivity(intent);
             }
         });
     }
@@ -473,6 +484,75 @@ public class ShopDetailActivity extends BaseActivity {
      */
     private class RemoteInteractiveController {
 
+    }
+
+    /**
+     * 请求商家详细信息
+     * @param shopId
+     */
+    private void requestShopDetailTask(String shopId){
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getShopDetailUrl(shopId));
+        NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                shopVo = new Gson().fromJson(result.rawResult,ShopVo.class);
+                if(null != shopVo){
+                    String shopName = shopVo.getShopName();
+                    if(!TextUtils.isEmpty(shopName)){
+                        titleTv.setText(shopName);
+                    }
+                    String address = shopVo.getAddress();
+                    if(!TextUtils.isEmpty(address)){
+                        addressTv.setText(address);
+                    }
+                    String evaluate = shopVo.getEvaluation();
+                    if(!TextUtils.isEmpty(evaluate)){
+                        evaluateTv.setText(evaluate);
+                    }
+                    String telephone = shopVo.getTelephone();
+                    if(!TextUtils.isEmpty(telephone)){
+                        phoneTv.setText(telephone);
+                    }
+                    ratingNum = shopVo.getScore();
+                    evaluateRb.setRating(ratingNum);
+                    imageList = shopVo.getImages();
+                    if(null != imageList && !imageList.isEmpty()){
+                        slideShowViewController = new SlideShowViewController();
+                        slideShowViewController.init(ShopDetailActivity.this, imageList);
+                    }
+                    promptStr = getResources().getString(R.string.sweet_prompt);
+                    sureStr = getResources().getString(R.string.sure_option);
+                    cancelStr = getResources().getString(R.string.cancel_option);
+                    String webUrl = shopVo.getShopdescUrl();
+                    if(!TextUtils.isEmpty(webUrl)){
+                        webViewURL = webUrl;
+                    }
+                    initWebView();
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
 }

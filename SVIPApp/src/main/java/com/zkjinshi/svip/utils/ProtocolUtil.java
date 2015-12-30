@@ -529,4 +529,13 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"order/add";
     }
 
+
+    /**
+     * 商家详情
+     */
+    public static String getShopDetailUrl(String shopId){
+        return ConfigUtil.getInst().getApiDomain()+"shop/get/"+shopId;
+    }
+
+
 }
