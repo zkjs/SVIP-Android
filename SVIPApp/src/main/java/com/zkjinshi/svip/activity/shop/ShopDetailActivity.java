@@ -111,7 +111,7 @@ public class ShopDetailActivity extends BaseActivity {
         titleTv.setText("酒店详情");
         webViewURL = "https://www.baidu.com/";
         scrollView.fullScroll(ScrollView.FOCUS_UP);
-        requestShopDetailTask("120");
+        requestShopDetailTask(shopId);
     }
 
     /**
