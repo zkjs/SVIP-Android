@@ -112,6 +112,7 @@ public class CommentListActivity extends BaseActivity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+                int realPostion = position -1;
 
             }
         });

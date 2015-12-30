@@ -15,6 +15,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
+import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.ShopBean;
@@ -109,23 +110,26 @@ public class ShopCityActivity extends BaseActivity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-                ShopBean shopBean = (ShopBean) mShopAdapter.getItem(position);
                 //进入商家详情
-                if(mShopAdapter.getItemViewType(position) == mShopAdapter.ITEM_NORMAL_SHOP){
-                    Intent intent = new Intent(ShopCityActivity.this, GoodListActivity.class);
+                ShopBean shopBean = null;
+                int realPostion = position - 1;
+                int itemType = mShopAdapter.getItemViewType(realPostion);
+                if(itemType == mShopAdapter.ITEM_NORMAL_SHOP){
+                    shopBean = mShopList.get(realPostion);
+                    Intent intent = new Intent(ShopCityActivity.this, ShopDetailActivity.class);
                     String shopid = shopBean.getShopid();
-                    intent.putExtra("shopBean", shopBean);
-                    intent.putExtra("showHeader",true);
-                    intent.putExtra("shopid",shopid);
+                    intent.putExtra("shopId", shopid);
                     ShopCityActivity.this.startActivity(intent);
                     ShopCityActivity.this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                } else {
+
+                }else if(itemType == mShopAdapter.ITEM_ADVERTISE){
+                    shopBean = mShopList.get(realPostion);
                     String linkUrl = shopBean.getShopaddress();
                     if(!TextUtils.isEmpty(linkUrl)){
                         Intent intent = new Intent(ShopCityActivity.this, WebViewActivity.class);
                         intent.putExtra("webview_url", linkUrl);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     }
                 }
             }

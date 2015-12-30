@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <!--<com.zkjinshi.svip.view.CircleImageView-->
+    <!--android:id="@id/civ_user_avatar"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_width="64dp"-->
+    <!--android:layout_height="64dp"-->
+    <!--android:background="@mipmap/ic_launcher" />-->
+
+    <ProgressBar
+        android:id="@+id/pb_orange_circle"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:maxHeight="64dp"
+        android:maxWidth="64dp"
+        android:background="@mipmap/ic_launcher"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/orange_progressbar"
+        android:padding="0dp" />
+
+</FrameLayout>

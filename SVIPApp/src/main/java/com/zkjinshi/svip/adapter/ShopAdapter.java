@@ -32,9 +32,10 @@ import java.util.List;
  */
 public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
-    private final static int ITEM_VIEW_COUNT  = 2;
+    private final static int ITEM_VIEW_COUNT  = 3;
     public  final static int ITEM_ADVERTISE   = 0x00;
     public  final static int ITEM_NORMAL_SHOP = 0x01;
+    public  final static int ITEM_OTHER       = 0x02;
 
     private DisplayImageOptions shopOptions;
     private DisplayImageOptions avatarOptions;
@@ -163,10 +164,16 @@ public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
     @Override
     public int getItemViewType(int position) {
-        if(position > 0){
-            return ITEM_NORMAL_SHOP;
+        Object obj = mDatas.get(position);
+        if(obj instanceof ShopBean){
+            String shopID = ((ShopBean) obj).getShopid();
+            if(!TextUtils.isEmpty(shopID)){
+                return ITEM_NORMAL_SHOP;//商家对象
+            } else {
+                return ITEM_ADVERTISE;//广告栏
+            }
         } else {
-            return ITEM_ADVERTISE;
+            return ITEM_OTHER;
         }
     }
 
