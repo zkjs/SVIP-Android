@@ -20,6 +20,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -63,6 +64,8 @@ public class ShopDetailActivity extends BaseActivity {
     private String promptStr,sureStr,cancelStr;
     private ArrayList<String> imageList;
     private SlideShowViewController slideShowViewController;
+    private Button commitBtn;
+    private TextView addressTv,phoneTv,evaluateTv,recommendTv,remindTv;
 
     private void initView(){
         backIBtn = (ImageButton) findViewById(R.id.header_bar_btn_back);
@@ -72,6 +75,12 @@ public class ShopDetailActivity extends BaseActivity {
         headLayout = (LinearLayout) findViewById(R.id.detail_head_layout);
         loadingBar = (ProgressBar)findViewById(R.id.detail_progress_refresh);
         headCutLineTv = (TextView)findViewById(R.id.head_cut_line);
+        commitBtn = (Button)findViewById(R.id.btn_send_booking_order);
+        addressTv = (TextView)findViewById(R.id.shop_detail_tv_address);
+        phoneTv = (TextView)findViewById(R.id.shop_detail_tv_phone);
+        evaluateTv = (TextView)findViewById(R.id.shop_detail_tv_evaluate);
+        recommendTv = (TextView)findViewById(R.id.shop_detail_tv_recommend);
+        remindTv = (TextView)findViewById(R.id.shop_detail_tv_remind);
     }
 
     private void initData(){
@@ -144,6 +153,14 @@ public class ShopDetailActivity extends BaseActivity {
                     titleTv.setTextColor(getResources().getColor(R.color.white));
                     headCutLineTv.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        //立即预订
+        commitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
