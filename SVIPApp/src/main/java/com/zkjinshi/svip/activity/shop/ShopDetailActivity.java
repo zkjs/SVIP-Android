@@ -34,6 +34,8 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
+import com.zkjinshi.svip.activity.order.HotelBookingActivity;
+import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -98,6 +100,9 @@ public class ShopDetailActivity extends BaseActivity {
     }
 
     private void initData(){
+        headLayout.getBackground().setAlpha(0);
+        titleTv.setTextColor(getResources().getColor(R.color.white));
+        headCutLineTv.setVisibility(View.GONE);
         if(null != getIntent() && !TextUtils.isEmpty(getIntent().getStringExtra("shopId"))){
             shopId = getIntent().getStringExtra("shopId");
         }
@@ -154,14 +159,6 @@ public class ShopDetailActivity extends BaseActivity {
                     titleTv.setTextColor(getResources().getColor(R.color.white));
                     headCutLineTv.setVisibility(View.GONE);
                 }
-            }
-        });
-
-        //立即预订
-        commitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -490,7 +487,7 @@ public class ShopDetailActivity extends BaseActivity {
      * 请求商家详细信息
      * @param shopId
      */
-    private void requestShopDetailTask(String shopId){
+    private void requestShopDetailTask(final String shopId){
         NetRequest netRequest = new NetRequest(ProtocolUtil.getShopDetailUrl(shopId));
         NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
@@ -512,7 +509,7 @@ public class ShopDetailActivity extends BaseActivity {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 shopVo = new Gson().fromJson(result.rawResult,ShopVo.class);
                 if(null != shopVo){
-                    String shopName = shopVo.getShopName();
+                    final String shopName = shopVo.getShopName();
                     if(!TextUtils.isEmpty(shopName)){
                         titleTv.setText(shopName);
                     }
@@ -531,6 +528,19 @@ public class ShopDetailActivity extends BaseActivity {
                     ratingNum = shopVo.getScore();
                     evaluateRb.setRating(ratingNum);
                     imageList = shopVo.getImages();
+                    //立即预订
+                    commitBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(ShopDetailActivity.this, HotelBookingActivity.class);
+                            intent.putExtra("shopid",shopId);
+                            intent.putExtra("shopName",shopName);
+                            if(null != imageList && !imageList.isEmpty()){
+                                intent.putExtra("shopImg",imageList.get(0));
+                            }
+                            startActivity(intent);
+                        }
+                    });
                     if(null != imageList && !imageList.isEmpty()){
                         slideShowViewController = new SlideShowViewController();
                         slideShowViewController.init(ShopDetailActivity.this, imageList);
