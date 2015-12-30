@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:gravity="center"
-                    android:textColor="@color/gray666666"
+                    android:textColor="@color/darkGray"
                     android:text="@string/find_your_next_trip"
                     android:textSize="18sp" />
 
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="@string/search_by_lbs_and_provide_the_best_service"
-                    android:textColor="@color/b8b8b8"
+                    android:textColor="@color/lightGray"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -61,7 +61,7 @@
                     android:padding="2dp"
                     android:gravity="center"
                     android:text="@string/check_your_orders"
-                    android:textColor="@color/gray666666"
+                    android:textColor="@color/darkGray"
                     android:textSize="14sp" />
 
                 <TextView

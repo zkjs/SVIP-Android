@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="top|center_horizontal"
             android:padding="15dp"
-            android:textColor="@color/grayB8B8B8"
+            android:textColor="@color/lightGray"
             android:text="@string/have_no_order_yet"
             android:textSize="14sp" />
 

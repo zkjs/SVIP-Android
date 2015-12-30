@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/loading_more_data"
-            android:textColor="@color/darkgray"
+            android:textColor="@color/darkGray"
             android:textSize="18sp" />
 
     </LinearLayout>

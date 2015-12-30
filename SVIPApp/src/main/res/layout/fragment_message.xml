@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_weight="1"
-                android:background="@color/TextColorOrange"
+                android:background="@color/orange"
                 android:visibility="invisible"
                 ></View>
 
@@ -60,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_weight="1"
-                android:background="@color/TextColorOrange"
+                android:background="@color/orange"
                 android:visibility="invisible"
                 ></View>
         </LinearLayout>

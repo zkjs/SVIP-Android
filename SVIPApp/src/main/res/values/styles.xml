@@ -32,13 +32,13 @@
     </style>
 
     <style name="GrayLineBorder" >
-        <item name="android:background">@color/BackgroundGray</item>
+        <item name="android:background">@color/whiteGray</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
     </style>
 
     <style name="BlackLineBorder" >
-        <item name="android:background">@color/DivederColorBlack</item>
+        <item name="android:background">@color/Black</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
     </style>

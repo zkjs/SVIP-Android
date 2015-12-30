@@ -10,7 +10,7 @@
         android:id="@+id/list_view_start_divider"
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
-        android:background="@color/divider_line_color"
+        android:background="@color/whiteGray"
         android:visibility="gone" />
 
     <LinearLayout
@@ -48,12 +48,12 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
         android:layout_marginLeft="15.0dip"
-        android:background="@color/divider_line_color" />
+        android:background="@color/whiteGray" />
 
     <View
         android:id="@+id/list_view_end_divider"
         android:layout_width="fill_parent"
         android:layout_height="1.0px"
-        android:background="@color/divider_line_color"
+        android:background="@color/whiteGray"
         android:visibility="gone" />
 </LinearLayout>

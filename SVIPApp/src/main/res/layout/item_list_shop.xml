@@ -52,7 +52,7 @@
                 android:paddingTop="5dp"
                 android:singleLine="true"
                 android:text="商家描述"
-                android:textColor="@color/gray666666"
+                android:textColor="@color/darkGray"
                 android:textSize="14sp" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:paddingRight="20dp"
                 android:singleLine="true"
                 android:text="商家地址"
-                android:textColor="@color/grayB8B8B8"
+                android:textColor="@color/lightGray"
                 android:textSize="12sp" />
 
         </LinearLayout>

@@ -191,7 +191,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
            // mRealName.setTextContent2Color(R.color.light_black);
         }else{
             mRealName.setTextContent2("立即补全信息");
-            mRealName.setTextContent2Color(R.color.light_yellow);
+            mRealName.setTextContent2Color(R.color.orange);
         }
         if(null != sex && sex == Sex.BOY){
             mUserSex.setTextContent2("男");
