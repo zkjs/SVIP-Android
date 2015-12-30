@@ -532,7 +532,8 @@ public class ShopDetailActivity extends BaseActivity {
                     commitBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent intent = new Intent(ShopDetailActivity.this, HotelBookingActivity.class);
+                            Intent intent = new Intent();
+                            intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
                             intent.putExtra("shopid",shopId);
                             intent.putExtra("shopName",shopName);
                             if(null != imageList && !imageList.isEmpty()){
