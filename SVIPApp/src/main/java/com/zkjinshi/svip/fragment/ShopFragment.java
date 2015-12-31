@@ -18,6 +18,8 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
+import com.zkjinshi.svip.activity.common.HomeGuideActivity;
+import com.zkjinshi.svip.activity.common.ShopGuideActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
@@ -84,6 +86,11 @@ public class ShopFragment extends BaseFragment {
                 mLvShopList.setAdapter(mShopAdapter);
             }
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override

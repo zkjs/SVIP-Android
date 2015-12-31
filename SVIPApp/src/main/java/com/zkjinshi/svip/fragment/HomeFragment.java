@@ -29,6 +29,7 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.activity.common.HomeGuideActivity;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
@@ -241,6 +242,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(CacheUtil.getInstance().isHomeGuide()){
+            Intent intent = new Intent(getActivity(), HomeGuideActivity.class);
+            startActivity(intent);
+            CacheUtil.getInstance().setHomeGuide(false);
+        }
         mActivity = getActivity();
         LocationManager.getInstance().registerLocation(mActivity);
         LocationManager.getInstance().setLocationChangeListener(this);

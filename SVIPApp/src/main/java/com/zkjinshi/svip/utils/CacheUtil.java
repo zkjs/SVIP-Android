@@ -667,4 +667,40 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putString(key, "").commit();
 	}
+
+	public void setHomeGuide(boolean isGuide) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("home_guide", isGuide).commit();
+	}
+
+	public boolean isHomeGuide() {
+		if (null == context) {
+			return false;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("home_guide", true);
+	}
+
+	public void setShopGuide(boolean isGuide) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("shop_guide", isGuide).commit();
+	}
+
+	public boolean isShopGuide() {
+		if (null == context) {
+			return false;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("shop_guide", true);
+	}
 }
