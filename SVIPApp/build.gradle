@@ -35,4 +35,5 @@ dependencies {
     compile project(':Cloud_TagView')
     compile project(':MaterialSearchViewLibrary')
     compile project(':pinyinSearch')
+    compile files('libs/fastjson-1.1.45.jar')
 }

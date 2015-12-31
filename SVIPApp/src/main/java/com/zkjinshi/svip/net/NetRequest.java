@@ -25,6 +25,11 @@ public class NetRequest {
     private HashMap<String, String> bizParamMap;
 
     /**
+     * 业务层数据Map
+     */
+    private HashMap<String, Object> objectParamMap;
+
+    /**
      * 上传文件路径Map
      */
     private HashMap<String, String> fileParamMap;
@@ -77,5 +82,13 @@ public class NetRequest {
 
     public void setFileMap(HashMap<String, File> fileMap) {
         this.fileMap = fileMap;
+    }
+
+    public HashMap<String, Object> getObjectParamMap() {
+        return objectParamMap;
+    }
+
+    public void setObjectParamMap(HashMap<String, Object> objectParamMap) {
+        this.objectParamMap = objectParamMap;
     }
 }

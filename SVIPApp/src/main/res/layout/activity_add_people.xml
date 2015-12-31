@@ -6,22 +6,34 @@
     android:orientation="vertical"
     >
 
-    <com.zkjinshi.svip.view.ItemTitleView
-        android:id="@+id/itv_setting_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#191223"
-        zkjinshi:itemTitle="添加入住人"
-        zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
-        />
+        android:layout_height="44dp"
+        android:id="@+id/title_layout"
+        android:background="#ffffff">
+        <ImageView
+            android:id="@+id/header_back_iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_fanhui_orange"/>
+        <TextView
+            android:id="@+id/header_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textSize="16sp"
+            android:textColor="#5e5e5e"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="20dp"
-        android:background="@android:color/white">
+        android:background="#f5f2f5">
 
         <EditText
             android:layout_width="match_parent"
@@ -56,7 +68,7 @@
             android:text="保存"
             android:textSize="16sp"
             android:textColor="@color/White"
-            android:background="@drawable/btn_bg_01_selector"/>
+            android:background="@drawable/btn_yellow_selector"/>
     </LinearLayout>
 
 

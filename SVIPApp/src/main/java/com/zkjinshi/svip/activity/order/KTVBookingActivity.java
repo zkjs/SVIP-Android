@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -20,21 +22,31 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
+import com.zkjinshi.svip.activity.im.single.ChatActivity;
+import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.bean.CustomerServiceBean;
+import com.zkjinshi.svip.bean.HeadBean;
+import com.zkjinshi.svip.manager.CustomerServicesManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.AddOrderResponse;
+import com.zkjinshi.svip.response.CustomerServiceListResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
+import com.zkjinshi.svip.utils.Base64Encoder;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemCbxView;
 import com.zkjinshi.svip.view.ItemNumView;
@@ -78,6 +90,12 @@ public class KTVBookingActivity extends Activity {
     private String shopId = "120";
     private String shopName;
     private String shopImg;
+    private String salesId;
+    private String category = "0";
+
+    private CustomerServiceBean customerService = null;
+
+    public static final int SUBMIT_BOOKING = 5;
 
     public static final int GOOD_REQUEST_CODE = 6;
     public static final int PEOPLE_REQUEST_CODE = 7;
@@ -85,6 +103,17 @@ public class KTVBookingActivity extends Activity {
     public static final int REMARK_REQUEST_CODE = 9;
     public static final int PHONE_REQUEST_CODE = 10;
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case SUBMIT_BOOKING:
+                    submitBooking(category);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +124,11 @@ public class KTVBookingActivity extends Activity {
         shopId = getIntent().getStringExtra("shopid");
         shopName = getIntent().getStringExtra("shopName");
         shopImg = getIntent().getStringExtra("shopImg");
+        if(TextUtils.isEmpty(shopId)){
+            shopId = "120";
+            shopName = "长沙芙蓉国温德姆至尊豪廷大酒";
+            shopImg = "http://test.zkjinshi.com/papi/uploads/rooms/1.jpg";
+        }
         initView();
         initData();
         initListener();
@@ -119,10 +153,13 @@ public class KTVBookingActivity extends Activity {
 
     //设置到达的日期
     private void setOrderDate(Date arriveDate) {
-        orderDetailForDisplay.setArrivaldate(arriveDate);
+
         SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH:mm");
         String arriveStr = sdf.format(arriveDate);
         dateTimeIsv.setValue(arriveStr);
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        orderDetailForDisplay.setArrivaldate(sdf2.format(arriveDate));
     }
 
     private void initData() {
@@ -157,7 +194,11 @@ public class KTVBookingActivity extends Activity {
                     startActivity(intent);
                     return;
                 }
-                submitBooking("1");
+                if(TextUtils.isEmpty(orderDetailForDisplay.getRoomtype())){
+                    DialogUtil.getInstance().showToast(KTVBookingActivity.this,"房型不能为空！");
+                    return;
+                }
+                findCustomerService();
             }
         });
         //返回
@@ -173,7 +214,13 @@ public class KTVBookingActivity extends Activity {
         dateTimeIsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Date date= orderDetailForDisplay.getArrivaldate();
+                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date= new Date();
+                try {
+                    date = sdf2.parse(orderDetailForDisplay.getArrivaldate());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 DateFormat df=new SimpleDateFormat("yyyyMMddHHmmss");
                 final DatePickerPopWindow popWindow=new DatePickerPopWindow(KTVBookingActivity.this,df.format(date));
                 popWindow.showAtLocation(findViewById(R.id.root), Gravity.BOTTOM, 0, 0);
@@ -210,7 +257,8 @@ public class KTVBookingActivity extends Activity {
         invoiceTsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(KTVBookingActivity.this, ChooseInvoiceActivity.class);
+                Intent intent = new Intent(KTVBookingActivity.this, SettingTicketsActivity.class);
+                intent.putExtra("isChoose",true);
                 startActivityForResult(intent, TICKET_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
@@ -323,25 +371,77 @@ public class KTVBookingActivity extends Activity {
         roomTypeTsv.setValue(goodInfoVo.getRoom() + goodInfoVo.getType());
     }
 
+    //查询客服
+    public void findCustomerService(){
+        CustomerServicesManager.getInstance().requestServiceListTask(
+                KTVBookingActivity.this,
+                shopId,
+                new ExtNetRequestListener(KTVBookingActivity.this) {
+                    @Override
+                    public void onNetworkRequestError(int errorCode, String errorMessage) {
+                        Log.i(TAG, "errorCode:" + errorCode);
+                        Log.i(TAG, "errorMessage:" + errorMessage);
+                    }
 
+                    @Override
+                    public void onNetworkRequestCancelled() {
 
+                    }
+
+                    @Override
+                    public void onNetworkResponseSucceed(NetResponse result) {
+                        Log.i(TAG, "result:" + result.rawResult);
+                        super.onNetworkResponseSucceed(result);
+                        CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                        if (null != customerServiceListResponse) {
+                            HeadBean head = customerServiceListResponse.getHead();
+                            if (null != head) {
+                                boolean isSet = head.isSet();
+                                if (isSet) {
+                                    ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                                    salesId = head.getExclusive_salesid();
+                                    if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                        if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                        } else {//无专属客服
+                                            customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                            if (TextUtils.isEmpty(salesId)) {
+                                                salesId = customerService.getSalesid();
+                                            }
+                                        }
+                                        handler.sendEmptyMessage(SUBMIT_BOOKING);
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void beforeNetworkRequestStart() {
+
+                    }
+                });
+    }
+
+    //提交订单
     public void submitBooking(String category){
-        if(TextUtils.isEmpty(orderDetailForDisplay.getRoomtype())){
-            DialogUtil.getInstance().showToast(this,"房型不能为空！");
-            return;
-        }
         int num = Integer.parseInt(roomNumTnv.getValue());
         orderDetailForDisplay.setRoomcount(num);
-        String dataJson = new Gson().toJson(orderDetailForDisplay);
+        orderDetailForDisplay.setSaleid(salesId);
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String dataJson = gson.toJson(orderDetailForDisplay);
+        String encryptedData = Base64Encoder.encode(dataJson);// base 64加密
         String url = ProtocolUtil.orderAddUrl();
+        // String url = "http://192.168.199.161:8080/appservice/service/order/add";
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("category", category);
-        bizMap.put("data", dataJson);
-        netRequest.setBizParamMap(bizMap);
+        HashMap<String,Object> objectMap = new HashMap<String,Object>();
+        objectMap.put("category", category);
+        objectMap.put("data", encryptedData);
+        netRequest.setObjectParamMap(objectMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
+        netRequestTask.methodType = MethodType.JSONPOST;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -363,7 +463,26 @@ public class KTVBookingActivity extends Activity {
 
                     AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
                     if(addOrderResponse.isResult()){
-                        DialogUtil.getInstance().showToast(KTVBookingActivity.this,"订单添加成功。");
+                        BaseApplication.getInst().clearLeaveTop();
+                        Intent intent = new Intent(KTVBookingActivity.this, ChatActivity.class);
+                        intent.putExtra("orderDetailForDisplay", orderDetailForDisplay);
+                        intent.putExtra(Constants.EXTRA_USER_ID, salesId);
+                        intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
+                        if(null != customerService){
+                            String userName = customerService.getName();
+                            if (!TextUtils.isEmpty(userName)) {
+                                intent.putExtra(Constants.EXTRA_TO_NAME,userName);
+                            }
+                        }
+                        if (!TextUtils.isEmpty(shopId)) {
+                            intent.putExtra(Constants.EXTRA_SHOP_ID,shopId);
+                        }
+                        if (!TextUtils.isEmpty(shopName)) {
+                            intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
+                        }
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
                     }else{
                         DialogUtil.getInstance().showToast(KTVBookingActivity.this,"订单添加失败。");
                     }

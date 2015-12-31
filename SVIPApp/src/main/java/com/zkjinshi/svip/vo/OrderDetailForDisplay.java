@@ -68,11 +68,11 @@ public class OrderDetailForDisplay implements Serializable {
     /**
      * 到店时间
      */
-    private Date arrivaldate;
+    private String arrivaldate;
     /**
      * 离店时间
      */
-    private Date leavedate;
+    private String leavedate;
     /**
      * 人数
      */
@@ -210,19 +210,19 @@ public class OrderDetailForDisplay implements Serializable {
         this.telephone = telephone;
     }
 
-    public Date getArrivaldate() {
+    public String getArrivaldate() {
         return arrivaldate;
     }
 
-    public void setArrivaldate(Date arrivaldate) {
+    public void setArrivaldate(String arrivaldate) {
         this.arrivaldate = arrivaldate;
     }
 
-    public Date getLeavedate() {
+    public String getLeavedate() {
         return leavedate;
     }
 
-    public void setLeavedate(Date leavedate) {
+    public void setLeavedate(String leavedate) {
         this.leavedate = leavedate;
     }
 

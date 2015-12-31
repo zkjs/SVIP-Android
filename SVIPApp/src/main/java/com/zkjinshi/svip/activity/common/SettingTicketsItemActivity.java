@@ -234,7 +234,6 @@ public class SettingTicketsItemActivity extends BaseActivity {
 
     //回退
     private void back(){
-        startActivity(new Intent(SettingTicketsItemActivity.this,SettingTicketsActivity.class));
         finish();
     }
 }

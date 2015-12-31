@@ -3,11 +3,13 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zkjinshi.base.util.DialogUtil;
@@ -20,7 +22,8 @@ import com.zkjinshi.svip.view.ItemTitleView;
  */
 public class AddRemarkActivity extends BaseActivity implements View.OnClickListener{
 
-    private ItemTitleView mTitle;//返回
+    private TextView titleTv;
+    private ImageView backIv;
     private TextView mTipsTv;
     private EditText mInputEt;
     private Button mSaveBtn;
@@ -40,12 +43,12 @@ public class AddRemarkActivity extends BaseActivity implements View.OnClickListe
         mTipsTv = (TextView)findViewById(R.id.tv_setting_tips);
         mSaveBtn = (Button)findViewById(R.id.btn_confirm);
         mSaveBtn.setOnClickListener(this);
-        mTitle = (ItemTitleView)findViewById(R.id.itv_setting_title);
+        titleTv = (TextView) findViewById(R.id.header_title_tv);
+        backIv = (ImageView)findViewById(R.id.header_back_iv);
     }
 
     private void initData() {
-        mTitle.getmRight().setVisibility(View.INVISIBLE);
-        mTitle.getmLeft().setOnClickListener(new View.OnClickListener() {
+        backIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -56,12 +59,16 @@ public class AddRemarkActivity extends BaseActivity implements View.OnClickListe
         String remark = getIntent().getStringExtra("remark");
         String tips = getIntent().getStringExtra("tips");
         String hint = getIntent().getStringExtra("hint");
-        mTitle.setTextTitle(titleStr);
+        String key = getIntent().getStringExtra("key");
+        titleTv.setText(titleStr);
         mInputEt.setHint(hint);
         mTipsTv.setText(tips);
         if(!TextUtils.isEmpty(remark)){
             mInputEt.setText(remark);
-
+            mInputEt.setSelection(remark.length());//将光标移至文字末尾
+        }
+        if(key.equals("phone")){
+            mInputEt.setInputType(InputType.TYPE_CLASS_PHONE);
         }
 
     }

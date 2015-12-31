@@ -84,12 +84,14 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
         String resultStr = null;
         String requestUrl = null;
         HashMap<String,String> bizParamsMap = null;
+        HashMap<String,Object> objectParamsMap = null;
         HashMap<String,String> fileParamsMap = null;
         HashMap<String,File> fileMap = null;
         try {
             requestUrl = mediaRequest.requestUrl;
             bizParamsMap = mediaRequest.getBizParamMap();
             fileParamsMap = mediaRequest.getFileParamMap();
+            objectParamsMap = mediaRequest.getObjectParamMap();
             fileMap = mediaRequest.getFileMap();
             if(methodType ==  MethodType.POST){
                 resultStr = RequestUtil.sendPostRequest(requestUrl, bizParamsMap, fileParamsMap);
@@ -99,6 +101,8 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
                 resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,fileMap);
             } else if(methodType == MethodType.JSON){
                 resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap);
+            }else if(methodType == MethodType.JSONPOST){
+                resultStr = RequestUtil.sendJsonPostRequest(requestUrl,objectParamsMap);
             }
             if(!TextUtils.isEmpty(resultStr)){
                 resultInfo = responseClazz.newInstance();

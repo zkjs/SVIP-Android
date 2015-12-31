@@ -32,6 +32,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
+import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.swipelistview.SwipeMenu;
@@ -57,6 +58,7 @@ public class SettingTicketsActivity extends BaseActivity {
     private ArrayList<TicketVo> listData = new ArrayList<TicketVo>();
     private MyAdapter myAdapter;
     private int deleteIndex;
+    private boolean isChoose = false;
 
     private class MyAdapter extends BaseAdapter{
 
@@ -117,7 +119,7 @@ public class SettingTicketsActivity extends BaseActivity {
         bundle.putInt("position", position);
         intent.putExtras(bundle);
         startActivity(intent);
-        finish();
+
     }
 
     private void deleteItem(final int position){
@@ -204,9 +206,17 @@ public class SettingTicketsActivity extends BaseActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_ticket_list);
+
+        isChoose = getIntent().getBooleanExtra("isChoose",false);
         initView();
         initData();
         initListener();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        listData.clear();
+        loadTicketsList();
     }
 
     private void initView() {
@@ -220,7 +230,7 @@ public class SettingTicketsActivity extends BaseActivity {
         MineNetController.getInstance().init(this);
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText("发票信息");
-        loadTicketsList();
+
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -257,7 +267,23 @@ public class SettingTicketsActivity extends BaseActivity {
         mTicketsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setItem(position);
+                position = position-1;
+                if(position < 0){
+                    return;
+                }
+                if(isChoose){
+                    Intent intent = new Intent();
+                    OrderInvoiceResponse orderInvoiceResponse = new OrderInvoiceResponse();
+                    orderInvoiceResponse.setId(listData.get(position).getId());
+                    orderInvoiceResponse.setInvoice_title(listData.get(position).getInvoice_title());
+                    orderInvoiceResponse.setInvoice_get_id("1");
+                    intent.putExtra("selectInvoice", orderInvoiceResponse);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    setItem(position);
+                }
+
             }
         });
     }

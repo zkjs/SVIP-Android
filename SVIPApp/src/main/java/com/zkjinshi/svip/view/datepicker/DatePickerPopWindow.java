@@ -8,6 +8,7 @@ import java.util.Date;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,12 @@ public class DatePickerPopWindow extends PopupWindow{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		dateView.findViewById(R.id.header_layout).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				dismiss();
+			}
+		});
 	}
 	private void initWheel() {
 		// TODO Auto-generated method stub
@@ -131,8 +138,8 @@ public class DatePickerPopWindow extends PopupWindow{
 		setContentView(dateView);
 		setWidth(LayoutParams.FILL_PARENT);
 		setHeight(LayoutParams.WRAP_CONTENT);
-		ColorDrawable dw = new ColorDrawable(0xFFFFFFFF);
-		setBackgroundDrawable(dw);
+		//ColorDrawable dw = new ColorDrawable(0xFFFFFFFF);
+		//setBackgroundDrawable(dw);
 		setFocusable(true);
 	}
 	OnWheelScrollListener scrollListener = new OnWheelScrollListener() {
@@ -159,6 +166,23 @@ public class DatePickerPopWindow extends PopupWindow{
 			String minStr = String.format("%02d",minView.getCurrentItem());
 			String birthday = yearStr+"年"+monthStr+"月"+dayStr+"日"+ " "+hourStr+":"+minStr;
 			dateTv.setText(birthday);
+
+			DateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+			try {
+				Date arriveDate = sdf.parse(birthday);
+				Date nowDate = new Date();
+				int result = arriveDate.compareTo(nowDate);
+				if(result > 0){
+					okBtn.setTextColor(Color.parseColor("#ffc56e"));
+					okBtn.setEnabled(true);
+				}else{
+					okBtn.setTextColor(Color.parseColor("#bbbbbb"));
+					okBtn.setEnabled(false);
+				}
+
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 	};
 	private void initDay(int arg1, int arg2) {

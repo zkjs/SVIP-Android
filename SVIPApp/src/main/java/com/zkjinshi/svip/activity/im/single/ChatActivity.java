@@ -45,9 +45,13 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 import static android.view.View.*;
@@ -64,8 +68,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
     private final static String TAG = ChatActivity.class.getSimpleName();
 
     private String  textContext;
-    private OrderDetailResponse orderDetailResponse;
-    private OrderRoomResponse orderRoomResponse;
+    private OrderDetailForDisplay orderDetailForDisplay;
 
     private ItemTitleView titleIv;
     private EditText mMsgTextInput;
@@ -164,49 +167,37 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
         netCheckManager.registernetCheckReceiver();
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setShopId(shopId).setMessageListViewManager(messageListViewManager);
-        if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailResponse")){
-            orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
-            if (null != orderDetailResponse) {
-                orderRoomResponse = orderDetailResponse.getRoom();
-
-                if(null != orderRoomResponse){
+        if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
+            orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
+            if (null != orderDetailForDisplay) {
+                try {
                     bookOrder = new BookOrder();
-                    String arrivalDate = orderRoomResponse.getArrival_date();
-                    String departureDate = orderRoomResponse.getDeparture_date();
+                    SimpleDateFormat mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date aDate = sdf2.parse(orderDetailForDisplay.getArrivaldate());
+                    Date lDate = sdf2.parse(orderDetailForDisplay.getLeavedate());
+                    String arrivalDate = mSimpleFormat.format(aDate);
+                    String departureDate = mSimpleFormat.format(lDate);
                     bookOrder.setArrivalDate(arrivalDate);
                     bookOrder.setDepartureDate(departureDate);
-                    bookOrder.setFullame(orderRoomResponse.getFullname());
+                    bookOrder.setFullame(orderDetailForDisplay.getShopname());
                     bookOrder.setContent("您好，帮我预定这间房");
-                    bookOrder.setImage(orderRoomResponse.getImgurl());
+                    bookOrder.setImage(orderDetailForDisplay.getImgurl());
                     bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
                     bookOrder.setGuest(CacheUtil.getInstance().getUserName());
                     StringBuffer usersStr = new StringBuffer();
 
                     //设置入住人信息
-                    users = orderDetailResponse.getUsers();
-                    String usersString = null;
-                    if(null != users && !users.isEmpty()){
-                        for(OrderUsersResponse user : users){
-                            usersStr.append(user.getRealname()).append(",");
-                        }
-                        if(!TextUtils.isEmpty(usersStr)){
-                            usersString = usersStr.subSequence(0, usersStr.length()-1).toString();
-                            bookOrder.setManInStay(usersString);
-                        }
-                    }
-                    bookOrder.setManInStay(usersString);
-                    bookOrder.setRoomType(orderRoomResponse.getRoom_type());
-                    bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
-                    bookOrder.setRooms("" + orderRoomResponse.getRooms());
-                    bookOrder.setShopID(orderRoomResponse.getShopid());
+                    bookOrder.setManInStay(orderDetailForDisplay.getOrderedby());
+                    bookOrder.setRoomType(orderDetailForDisplay.getRoomtype());
+                    bookOrder.setRoomTypeID(orderDetailForDisplay.getProductid());
+                    bookOrder.setRooms("" + orderDetailForDisplay.getRoomcount());
+                    bookOrder.setShopID(orderDetailForDisplay.getShopid());
                     bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    try {
-                        int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
-                        bookOrder.setDayNum(dayNum);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
+                    int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
+                    bookOrder.setDayNum(dayNum);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 try {
                     bookOrderStr = new Gson().toJson(bookOrder);
