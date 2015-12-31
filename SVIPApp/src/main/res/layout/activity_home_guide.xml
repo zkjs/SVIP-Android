@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_zhijian">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="281dp"
+        android:layout_marginRight="85dp"
+        android:src="@mipmap/jiantou_zhijian"
+        android:scaleType="fitXY"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="303dp"
+        android:layout_marginLeft="67dp"
+        android:src="@mipmap/l_zhijian"/>
+
+    <ImageButton
+        android:id="@+id/home_guide_ibtn_konw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/btn_wozhidaola"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="423dp"
+        android:src="@null"/>
+
+</RelativeLayout>

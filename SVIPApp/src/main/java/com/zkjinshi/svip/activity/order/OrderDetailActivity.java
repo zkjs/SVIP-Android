@@ -187,6 +187,7 @@ public class OrderDetailActivity extends BaseActivity {
                     orderDetailResponse = null;
                     DialogUtil.getInstance().showToast(OrderDetailActivity.this,"获取订单详情失败");
                     finish();
+
                 }
                 if(orderDetailResponse != null){
                     initData();
@@ -629,6 +630,7 @@ public class OrderDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 OrderDetailActivity.this.finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         //修改发票

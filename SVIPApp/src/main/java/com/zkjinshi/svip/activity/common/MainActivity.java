@@ -148,7 +148,13 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                     viewPager.setCurrentItem(0,true);
                     break;
                 case R.id.footer_tab_rb_shop:
+                    if(CacheUtil.getInstance().isShopGuide()){
+                        Intent intent = new Intent(MainActivity.this, ShopGuideActivity.class);
+                        startActivity(intent);
+                        CacheUtil.getInstance().setShopGuide(false);
+                    }
                     viewPager.setCurrentItem(1,true);
+
                     break;
                 case R.id.footer_tab_rb_message:
                     viewPager.setCurrentItem(2,true);
