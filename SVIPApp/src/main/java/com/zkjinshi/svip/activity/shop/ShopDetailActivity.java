@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
+import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
 import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
@@ -538,18 +539,20 @@ public class ShopDetailActivity extends BaseActivity {
 
                             if(!TextUtils.isEmpty(category)){
                                 Intent intent = new Intent();
-                                if("酒店行业".equals(category)){
+                               /* if("酒店行业".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
                                 }else if("KTV行业".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
                                 }else {
                                     intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
-                                }
+                                }*/
                                 intent.putExtra("shopid",shopId);
                                 intent.putExtra("shopName",shopName);
                                 if(null != imageList && !imageList.isEmpty()){
                                     intent.putExtra("shopImg",imageList.get(0));
                                 }
+                                intent.putExtra("showHeader",true);
+                                intent.setClass(ShopDetailActivity.this, GoodListActivity.class);
                                 startActivity(intent);
                             }
 
