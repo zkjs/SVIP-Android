@@ -54,6 +54,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
     private LinearLayout    mEmptyView;
     private ConsumeRecordAdapter    mBookOrderAdapter = null;
 
+    private RelativeLayout mRlNoticeCard;
     private LinearLayout   mViewNoOrder;
     private RelativeLayout mViewNoLogin;
     private TextView       mTvLogin;
@@ -86,6 +87,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
         mSlvBookOrder.setEmptyView(mEmptyView);
 
         //卡片显示View
+        mRlNoticeCard = (RelativeLayout)findViewById(R.id.rl_no_login_view);
         mViewNoOrder = (LinearLayout)   mEmptyView.findViewById(R.id.ll_no_order_view);
         mViewNoLogin = (RelativeLayout) mEmptyView.findViewById(R.id.rl_no_login_view);
         mTvLogin     = (TextView)       mEmptyView.findViewById(R.id.tv_login);
@@ -120,6 +122,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ConsumeRecordActivtiy.this.finish();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -141,24 +144,6 @@ public class ConsumeRecordActivtiy extends BaseActivity {
             }
         });
 
-        mSlvBookOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OrderConsumeResponse bookOrder = (OrderConsumeResponse)mBookOrderAdapter.getItem(position);
-                String orderStatus = bookOrder.getStatus();
-                Intent intent = new Intent();
-                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
-                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
-                    intent.putExtra("bookOrder",bookOrder);
-                }else{
-                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
-                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
-                    intent.putExtra("shopid",bookOrder.getShopid());
-                }
-                startActivity(intent);
-            }
-        });
-
         /** 设置界面刷新加载 */
         mSlvBookOrder.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -174,6 +159,20 @@ public class ConsumeRecordActivtiy extends BaseActivity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+
+                int realPostion = position - 1;
+                OrderConsumeResponse bookOrder = (OrderConsumeResponse)mBookOrderAdapter.getItem(realPostion);
+                String orderStatus = bookOrder.getStatus();
+                Intent intent = new Intent();
+                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
+                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
+                    intent.putExtra("bookOrder",bookOrder);
+                }else{
+                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
+                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
+                    intent.putExtra("shopid",bookOrder.getShopid());
+                }
+                startActivity(intent);
 
             }
         });
@@ -244,6 +243,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
                     } else {
                         /** 设置是否显示空数据提醒 */
                         if(mCurrentPage == 1){
+                            mRlNoticeCard.setVisibility(View.VISIBLE);
                             mViewNoLogin.setVisibility(View.INVISIBLE);
                             mViewNoOrder.setVisibility(View.VISIBLE);
                         }
