@@ -36,6 +36,7 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemCbxView;
+import com.zkjinshi.svip.view.ItemNumView;
 import com.zkjinshi.svip.view.ItemShowView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
 import com.zkjinshi.svip.vo.HomeMsgVo;
@@ -59,7 +60,7 @@ public class HotelBookingActivity extends Activity {
     private ImageView roomIv;
     private ItemShowView dateTimeIsv;
     private ItemShowView roomTypeTsv;
-    private ItemShowView roomNumTsv;
+    private ItemNumView roomNumTnv;
     private ItemShowView contactTsv;
     private ItemShowView phoneTsv;
     private ItemShowView payTypeTsv;
@@ -78,13 +79,14 @@ public class HotelBookingActivity extends Activity {
     private OrderDetailForDisplay orderDetailForDisplay;
     private String shopId = "120";
     private String shopName;
+    private String shopImg;
 
     public static final int GOOD_REQUEST_CODE = 6;
     public static final int PEOPLE_REQUEST_CODE = 7;
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
     public static final int PHONE_REQUEST_CODE = 10;
-    private static final int ROOM_NUM_DIALOG = 11;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,9 @@ public class HotelBookingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_booking);
 
-       // shopId = getIntent().getStringExtra("shopid");
+        shopId = getIntent().getStringExtra("shopid");
+        shopName = getIntent().getStringExtra("shopName");
+        shopImg = getIntent().getStringExtra("shopImg");
         initView();
         initData();
         initListener();
@@ -105,7 +109,7 @@ public class HotelBookingActivity extends Activity {
 
         dateTimeIsv = (ItemShowView)findViewById(R.id.ahb_date);
         roomTypeTsv = (ItemShowView)findViewById(R.id.ahb_type);
-        roomNumTsv = (ItemShowView)findViewById(R.id.ahb_num);
+        roomNumTnv = (ItemNumView)findViewById(R.id.ahb_num);
         contactTsv = (ItemShowView)findViewById(R.id.ahb_people);
         phoneTsv = (ItemShowView)findViewById(R.id.ahb_phone);
         payTypeTsv = (ItemShowView)findViewById(R.id.ahb_pay);
@@ -119,7 +123,7 @@ public class HotelBookingActivity extends Activity {
 
     private void initData() {
         orderDetailForDisplay = new OrderDetailForDisplay();
-        shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+        //shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
         titleTv.setText(shopName);
         orderDetailForDisplay.setShopname(shopName);
         orderDetailForDisplay.setShopid(shopId);
@@ -142,6 +146,7 @@ public class HotelBookingActivity extends Activity {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
+        ImageLoader.getInstance().displayImage(shopImg,roomIv,options);
         //初始化时间
         calendarList = new ArrayList<Calendar>();
         mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -223,6 +228,7 @@ public class HotelBookingActivity extends Activity {
                 intent.putExtra("tips", "如果有其他要求，请在此说明。");
                 intent.putExtra("title", "添加订单备注");
                 intent.putExtra("hint", "请输入订单备注");
+                intent.putExtra("key", "remark");
                 startActivityForResult(intent, REMARK_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
@@ -235,8 +241,9 @@ public class HotelBookingActivity extends Activity {
                 Intent intent = new Intent(HotelBookingActivity.this, AddRemarkActivity.class);
                 intent.putExtra("remark", contactTsv.getValue());
                 intent.putExtra("tips", "");
-                intent.putExtra("title", "编辑入住人");
+                intent.putExtra("title", "编辑联系人");
                 intent.putExtra("hint", "请输入姓名");
+                intent.putExtra("key", "name");
                 startActivityForResult(intent, PEOPLE_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
@@ -251,19 +258,14 @@ public class HotelBookingActivity extends Activity {
                 intent.putExtra("tips", "");
                 intent.putExtra("title", "编辑联系方式");
                 intent.putExtra("hint", "请输入手机号");
+                intent.putExtra("key", "phone");
                 startActivityForResult(intent, PHONE_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
             }
         });
 
-        //房间数量
-        roomNumTsv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog(ROOM_NUM_DIALOG);
-            }
-        });
+
 
         //双早
         breakfastTcv.valueCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -371,52 +373,15 @@ public class HotelBookingActivity extends Activity {
         roomTypeTsv.setValue(goodInfoVo.getRoom() + goodInfoVo.getType());
     }
 
-    /**
-     * 创建单选按钮对话框
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        Dialog dialog=null;
-        switch (id) {
-            case ROOM_NUM_DIALOG:
-                String[] roomArr = {"1间","2间","3间"};
-                int index = 0;
-                if(roomNumTsv != null){
-                    String value = roomNumTsv.getValue();
-                    index = Integer.parseInt(value) - 1;
-                }
 
-                AlertDialog.Builder builder=new android.app.AlertDialog.Builder(this);
-                //设置对话框的图标
-               // builder.setIcon(R.drawable.header);
-                //设置对话框的标题
-                builder.setTitle("房间数量对话框");
-                //0: 默认第一个单选按钮被选中
-                builder.setSingleChoiceItems(roomArr, index, new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-                        int num = which+1;
-                        roomNumTsv.setValue(num+"");
-                    }
-                });
-
-                //添加一个确定按钮
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                //创建一个单选按钮对话框
-                dialog=builder.create();
-                break;
-        }
-        return dialog;
-    }
 
     public void submitBooking(String category){
         if(TextUtils.isEmpty(orderDetailForDisplay.getRoomtype())){
             DialogUtil.getInstance().showToast(this,"房型不能为空！");
             return;
         }
+        int num = Integer.parseInt(roomNumTnv.getValue());
+        orderDetailForDisplay.setRoomcount(num);
         String dataJson = new Gson().toJson(orderDetailForDisplay);
         String url = ProtocolUtil.orderAddUrl();
         Log.i(TAG, url);

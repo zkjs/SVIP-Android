@@ -46,4 +46,13 @@
         <attr name="icvLeftImage" format="reference|integer" />
     </declare-styleable>
 
+    <declare-styleable name="ItemNumView">
+        <attr name="invTitle" format="string" />
+        <attr name="invValue" format="string" />
+        <attr name="invHint"  format="string" />
+        <attr name="invUpLine" format="boolean" />
+        <attr name="invDownLine" format="boolean" />
+        <attr name="invIsMust" format="boolean" />
+    </declare-styleable>
+
 </resources>

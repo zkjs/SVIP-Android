@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5f2f5"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/root">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,15 +68,15 @@
                 zkjinshi:isMust="true"
                 zkjinshi:haveDownLine="true"/>
 
-            <com.zkjinshi.svip.view.ItemShowView
+            <com.zkjinshi.svip.view.ItemNumView
                 android:id="@+id/ahb_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                zkjinshi:isvTitle="人数"
-                zkjinshi:isvValue="5"
-                zkjinshi:isvHint="选择人数"
-                zkjinshi:isMust="true"
-                zkjinshi:haveDownLine="true"/>
+                zkjinshi:invTitle="人数"
+                zkjinshi:invValue="1"
+                zkjinshi:invHint="添加人数"
+                zkjinshi:invIsMust="true"
+                zkjinshi:invDownLine="true"/>
 
             <com.zkjinshi.svip.view.ItemShowView
                 android:layout_marginTop="20dp"
