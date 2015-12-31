@@ -146,7 +146,7 @@ public class ShopDetailActivity extends BaseActivity {
         scrollView.setScrollViewListener(new ScrollViewListener() {
             @Override
             public void onScrollChanged(ScrollView scrollView, int x, int y, int oldx, int oldy) {
-                int headerHeight = DisplayUtil.dip2px(ShopDetailActivity.this, 45);
+                int headerHeight = DisplayUtil.dip2px(ShopDetailActivity.this, 250);
                 if (y <= headerHeight && y > 0) {
                     float f = (float) y / (float) headerHeight;
                     headLayout.getBackground().setAlpha((int) (f * 255));
