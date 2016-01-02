@@ -65,6 +65,7 @@ public class InviteCodeActivity extends BaseActivity {
     private String        mPhoneNum;
     private String        mToken;
     private String        mUserName;
+    private String        mSalerPhone;
 
     private EditText      mEtInviteCode;
     private CircleImageView mCivSalerAvatar;
@@ -170,7 +171,7 @@ public class InviteCodeActivity extends BaseActivity {
                         return ;
                     } else {
                         //邀请码验证成功 开始确认并绑定邀请码
-                        bindTheSalerWithCode(mInviteCode.toUpperCase(), mSalesID, mSalesName, mShopID);
+                        bindTheSalerWithCode(mInviteCode.toUpperCase(), mSalesID, mSalesName, mShopID, mSalerPhone);
                     }
                 } else {
                     Intent goHome = new Intent(InviteCodeActivity.this, MainActivity.class);
@@ -189,7 +190,7 @@ public class InviteCodeActivity extends BaseActivity {
     /**
      * 根据邀请码绑定客服
      */
-    private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID) {
+    private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID, String salerPhone) {
         NetRequest netRequest = new NetRequest(ProtocolUtil.getUserBindInviteCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("userid", mUserID);
@@ -200,6 +201,9 @@ public class InviteCodeActivity extends BaseActivity {
         bizMap.put("user_salesid", salerID);
         bizMap.put("sales_name", salerName);
         bizMap.put("shopid", shopID);
+        if(TextUtils.isEmpty(salerPhone)){
+            bizMap.put("sales_phone", salerPhone);
+        }
 
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(mContext, netRequest, NetResponse.class);
@@ -333,6 +337,8 @@ public class InviteCodeActivity extends BaseActivity {
                         if (!TextUtils.isEmpty(mSalesID)) {
                             String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
                             mSalesName = responseObj.getString("sales_name");
+                            mSalerPhone = responseObj.getString("sales_phone");
+
                             showSalerInfo(true, avatarUrl, mSalesName);
                             commitBtn.setText("确认");
                         }

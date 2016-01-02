@@ -761,8 +761,6 @@ public class OrderDetailActivity extends BaseActivity {
 
     //取消订单
     private void cancelOrder(){
-
-
         String url = ProtocolUtil.updateOrderUrl();
         Log.i(TAG,url);
         NetRequest netRequest = new NetRequest(url);

@@ -87,7 +87,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
         mSlvBookOrder.setEmptyView(mEmptyView);
 
         //卡片显示View
-        mRlNoticeCard = (RelativeLayout)findViewById(R.id.rl_no_login_view);
+        mRlNoticeCard = (RelativeLayout)findViewById(R.id.rl_notice_card);
         mViewNoOrder = (LinearLayout)   mEmptyView.findViewById(R.id.ll_no_order_view);
         mViewNoLogin = (RelativeLayout) mEmptyView.findViewById(R.id.rl_no_login_view);
         mTvLogin     = (TextView)       mEmptyView.findViewById(R.id.tv_login);
@@ -122,7 +122,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ConsumeRecordActivtiy.this.finish();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_right);
             }
         });
 

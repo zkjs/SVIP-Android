@@ -461,8 +461,6 @@ public class HotelBookingActivity extends Activity {
                 });
     }
 
-
-
     //提交订单
     public void submitBooking(String category){
         int num = Integer.parseInt(roomNumTnv.getValue());
