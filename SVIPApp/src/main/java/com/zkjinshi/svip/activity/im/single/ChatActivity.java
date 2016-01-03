@@ -172,6 +172,7 @@ public class ChatActivity extends Activity implements CompoundButton.OnCheckedCh
             if (null != orderDetailForDisplay) {
                 try {
                     bookOrder = new BookOrder();
+                    bookOrder.setReservationNO(orderDetailForDisplay.getOrderno());
                     SimpleDateFormat mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
                     SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date aDate = sdf2.parse(orderDetailForDisplay.getArrivaldate());
