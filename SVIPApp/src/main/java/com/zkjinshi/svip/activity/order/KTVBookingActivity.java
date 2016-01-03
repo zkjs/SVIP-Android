@@ -463,6 +463,7 @@ public class KTVBookingActivity extends Activity {
 
                     AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
                     if(addOrderResponse.isResult()){
+                        orderDetailForDisplay.setOrderno(addOrderResponse.getData());
                         BaseApplication.getInst().clearLeaveTop();
                         Intent intent = new Intent(KTVBookingActivity.this, ChatActivity.class);
                         intent.putExtra("orderDetailForDisplay", orderDetailForDisplay);

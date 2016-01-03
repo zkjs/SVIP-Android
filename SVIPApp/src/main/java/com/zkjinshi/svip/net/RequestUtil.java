@@ -148,15 +148,15 @@ public class RequestUtil {
                 connection.getOutputStream());
         JSONObject obj = new JSONObject();
 
-//        if (null != objectParamsMap) {
-//            Iterator<Map.Entry<String, Object>> bizIterator = objectParamsMap.entrySet().iterator();
-//            while (bizIterator.hasNext()) {
-//                HashMap.Entry<String, Object> bizEntry = (HashMap.Entry<String, Object>) bizIterator.next();
-//                obj.put(bizEntry.getKey(),bizEntry.getValue());
-//            }
-//        }
-        obj.put("data", objectParamsMap.get("data"));
-        obj.put("category", "0");
+        if (null != objectParamsMap) {
+            Iterator<Map.Entry<String, Object>> bizIterator = objectParamsMap.entrySet().iterator();
+            while (bizIterator.hasNext()) {
+                HashMap.Entry<String, Object> bizEntry = (HashMap.Entry<String, Object>) bizIterator.next();
+                obj.put(bizEntry.getKey(),bizEntry.getValue());
+            }
+        }
+//        obj.put("data", objectParamsMap.get("data"));
+//        obj.put("category", "0");
 
         out.write(obj.toString().getBytes("UTF-8"));// 这样可以处理中文乱码问题
         out.flush();
