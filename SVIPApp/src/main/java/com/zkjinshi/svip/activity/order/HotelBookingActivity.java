@@ -300,8 +300,6 @@ public class HotelBookingActivity extends Activity {
             }
         });
 
-
-
         //双早
         breakfastTcv.valueCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
