@@ -529,6 +529,46 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"order/add";
     }
 
+    /**
+     * 获取订单详情
+     * @return
+     */
+    public static String orderGetUrl(String orderno){
+        return ConfigUtil.getInst().getApiDomain()+"order/get/"+orderno;
+    }
+
+    /**
+     * 订单支付
+     * @return
+     */
+    public static String orderPayUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"order/pay";
+    }
+
+    /**
+     * 订单确认
+     * @return
+     */
+    public static String orderConfirmUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"order/confirm";
+    }
+
+    /**
+     * 取消订单
+     * @return
+     */
+    public static String orderCancelUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"order/cancel";
+    }
+
+    /**
+     * 获取订单列表
+     * @return
+     */
+    public static String orderListUrl(String userid,int page,int size){
+        return ConfigUtil.getInst().getApiDomain()+"order/list/"+userid+"/"+page+"/"+size;
+    }
+
 
     /**
      * 商家详情

@@ -5,20 +5,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
 
-import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.response.OrderConsumeResponse;
+
+
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.CircleImageView;
+import com.zkjinshi.svip.vo.OrderForDisplay;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,21 +32,21 @@ import java.util.Date;
  */
 public class ConsumeRecordAdapter extends BaseAdapter {
 
-    public ArrayList<OrderConsumeResponse> datalist = new ArrayList<OrderConsumeResponse>();
+    public ArrayList<OrderForDisplay> datalist = new ArrayList<OrderForDisplay>();
     private Activity activity;
     private DisplayImageOptions options;
 
-    public void loadMore(ArrayList<OrderConsumeResponse> morelist){
+    public void loadMore(ArrayList<OrderForDisplay> morelist){
         datalist.addAll(morelist);
         notifyDataSetChanged();
     }
 
-    public void refresh(ArrayList<OrderConsumeResponse> refreshlist){
+    public void refresh(ArrayList<OrderForDisplay> refreshlist){
         datalist = refreshlist;
         notifyDataSetChanged();
     }
 
-    public ConsumeRecordAdapter(ArrayList<OrderConsumeResponse> datalist, Activity activity) {
+    public ConsumeRecordAdapter(ArrayList<OrderForDisplay> datalist, Activity activity) {
         this.datalist = datalist;
         this.activity = activity;
 
@@ -75,7 +76,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)  {
-        OrderConsumeResponse itemOrder = datalist.get(position);
+        OrderForDisplay itemOrder = datalist.get(position);
         ViewHolder holder = null;
         if(convertView != null) {
             holder = (ViewHolder) convertView.getTag();
@@ -95,55 +96,33 @@ public class ConsumeRecordAdapter extends BaseAdapter {
             String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopid() + ".png";
             ImageLoader.getInstance().displayImage(logoUrl, holder.shopIcon, options);
         }
-        holder.comingDateTv.setText(itemOrder.getArrival_date());
+
         SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat simpleFormat = new SimpleDateFormat("MM/dd");
         try {
-            Date date = detailFormat.parse(itemOrder.getArrival_date());
-            String simpleDate= simpleFormat.format(date) + "入住";
-            String goodstr = itemOrder.getRoom_type()+ " | " + simpleDate+ " | "+"¥ " + itemOrder.getRoom_rate();
+            Date arriveDate = new Date(itemOrder.getCreated());
+            holder.comingDateTv.setText(detailFormat.format(arriveDate));
+            Date date =  new Date(itemOrder.getArrivaldate());
+            String simpleDate= simpleFormat.format(date) + "到店";
+            String roomTypeStr = "";
+            if(!TextUtils.isEmpty(itemOrder.getRoomtype())){
+                roomTypeStr = itemOrder.getRoomtype()+ " | ";
+            }
+            String priceStr = " | 待定价";
+            if(itemOrder.getRoomprice() != null){
+                priceStr =  " | "+"¥ " + itemOrder.getRoomprice();
+            }
+            String goodstr = roomTypeStr + simpleDate + priceStr;
             holder.orderInfoTv.setText(goodstr);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         String shopname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(itemOrder.getShopid());
         holder.hotelNameTv.setText(shopname);
 
-        if(!TextUtils.isEmpty(itemOrder.getStatus())) {
-            switch (Integer.valueOf(itemOrder.getStatus())){
-                case BookOrder.ORDER_UNCONFIRMED:
-                    holder.orderStatusTv.setText(R.string.order_unconfirmed);
-                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    break;
-                case BookOrder.ORDER_CANCELLED:
-                    holder.orderStatusTv.setText(R.string.order_cancelled);
-                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    break;
-                case BookOrder.ORDER_CONFIRMED:
-                    holder.orderStatusTv.setText(R.string.order_confirmed);
-                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    break;
-                case BookOrder.ORDER_FINISHED:
-                    if(itemOrder.getScore().equals("0")){
-                        holder.orderStatusTv.setText("待评价");
-                        holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    }else {
-                        holder.orderStatusTv.setText(R.string.order_finished);
-                        holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai);
-                    }
-                    break;
-                case BookOrder.ORDER_USING:
-                    holder.orderStatusTv.setText(R.string.order_using);
-                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    break;
-                case BookOrder.ORDER_DELETED:
-                    holder.orderStatusTv.setText(R.string.trade_deleted);
-                    holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
-                    break;
-            }
-
-        }
+        holder.orderStatusTv.setText(itemOrder.getOrderstatus());
+        holder.orderStatusTv.setBackgroundResource(R.mipmap.btn_zhuantai_orange);
         return convertView;
     }
 

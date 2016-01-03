@@ -85,17 +85,13 @@
 
             </RelativeLayout>
 
-
-
-
-
             <com.zkjinshi.svip.view.ItemShowView
-                android:id="@+id/ahb_type"
+                android:id="@+id/ahb_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                zkjinshi:isvTitle="房间类型"
+                zkjinshi:isvTitle="到店时间"
                 zkjinshi:isvValue=""
-                zkjinshi:isvHint="选择房型"
+                zkjinshi:isvHint=""
                 zkjinshi:isMust="true"
                 zkjinshi:haveDownLine="true"
                 zkjinshi:isShowIcon="false"/>
@@ -104,23 +100,13 @@
                 android:id="@+id/ahb_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                zkjinshi:invTitle="房间数量"
+                zkjinshi:invTitle="人数"
                 zkjinshi:invValue="1"
-                zkjinshi:invHint="选择数量"
+                zkjinshi:invHint=""
                 zkjinshi:invIsMust="true"
                 zkjinshi:invDownLine="true"
                 zkjinshi:invShowBtn="false"/>
 
-            <com.zkjinshi.svip.view.ItemShowView
-                android:id="@+id/ahb_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                zkjinshi:isvTitle="到店/离店日期"
-                zkjinshi:isvValue=""
-                zkjinshi:isvHint="选择日期"
-                zkjinshi:isMust="true"
-                zkjinshi:haveDownLine="true"
-                zkjinshi:isShowIcon="false"/>
 
             <com.zkjinshi.svip.view.ItemShowView
                 android:layout_marginTop="20dp"

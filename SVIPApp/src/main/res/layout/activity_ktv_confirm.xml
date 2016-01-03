@@ -115,9 +115,9 @@
                 android:id="@+id/ahb_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                zkjinshi:isvTitle="到店/离店日期"
+                zkjinshi:isvTitle="到店时间"
                 zkjinshi:isvValue=""
-                zkjinshi:isvHint="选择日期"
+                zkjinshi:isvHint=""
                 zkjinshi:isMust="true"
                 zkjinshi:haveDownLine="true"
                 zkjinshi:isShowIcon="false"/>
@@ -169,26 +169,6 @@
                 zkjinshi:haveDownLine="true"
                 zkjinshi:isShowIcon="false"/>
 
-            <com.zkjinshi.svip.view.ItemCbxView
-                android:layout_marginTop="20dp"
-                android:id="@+id/ahb_breakfast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                zkjinshi:icvTitle="双份早餐"
-                zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
-                zkjinshi:icvLeftImage="@mipmap/ic_zaocan_gary"
-                android:clickable="false"/>
-
-            <com.zkjinshi.svip.view.ItemCbxView
-                android:id="@+id/ahb_nosmoking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                zkjinshi:icvTitle="无烟房间"
-                zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
-                zkjinshi:icvLeftImage="@mipmap/ic_wuyan_gary"
-                android:clickable="false"/>
 
             <!--订单备注-->
             <LinearLayout
