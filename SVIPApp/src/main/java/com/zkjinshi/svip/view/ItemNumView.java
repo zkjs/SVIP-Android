@@ -22,6 +22,7 @@ public class ItemNumView extends LinearLayout {
     public String valueStr;
     public String hintStr;
 
+    public boolean isShowBtn;
     public boolean haveUpLine;
     public boolean haveDownLine;
     public boolean isMust;
@@ -40,6 +41,7 @@ public class ItemNumView extends LinearLayout {
         haveUpLine = typedArray.getBoolean(R.styleable.ItemNumView_invUpLine,false);
         haveDownLine = typedArray.getBoolean(R.styleable.ItemNumView_invDownLine,true);
         isMust = typedArray.getBoolean(R.styleable.ItemNumView_invIsMust,true);
+        isShowBtn = typedArray.getBoolean(R.styleable.ItemNumView_invShowBtn,true);
         initView(context);
     }
 
@@ -89,36 +91,42 @@ public class ItemNumView extends LinearLayout {
         }else{
             findViewById(R.id.must_tv).setVisibility(View.GONE);
         }
+        if(isShowBtn){
+            findViewById(R.id.add_ibtn).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = 1;
+                    try{
+                        num = Integer.parseInt(getValue());
+                    }catch (Exception e){
+                        num = 1;
+                    }
+                    num +=1;
+                    setValue(num+"");
+                }
+            });
+            findViewById(R.id.sub_ibtn).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int num = 1;
+                    try{
+                        num = Integer.parseInt(getValue());
+                    }catch (Exception e){
+                        num = 1;
+                    }
+                    num -=1;
+                    if(num <=0){
+                        num = 1;
+                    }
+                    setValue(num+"");
+                }
+            });
 
-        findViewById(R.id.add_ibtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = 1;
-                try{
-                    num = Integer.parseInt(getValue());
-                }catch (Exception e){
-                    num = 1;
-                }
-                num +=1;
-                setValue(num+"");
-            }
-        });
-        findViewById(R.id.sub_ibtn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int num = 1;
-                try{
-                    num = Integer.parseInt(getValue());
-                }catch (Exception e){
-                    num = 1;
-                }
-                num -=1;
-                if(num <=0){
-                    num = 1;
-                }
-                setValue(num+"");
-            }
-        });
+        }else{
+            findViewById(R.id.add_ibtn).setVisibility(View.GONE);
+            findViewById(R.id.sub_ibtn).setVisibility(View.GONE);
+        }
+
 
     }
 
