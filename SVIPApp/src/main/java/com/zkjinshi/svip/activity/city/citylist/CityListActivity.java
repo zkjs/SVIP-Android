@@ -33,6 +33,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * 城市选择列表
@@ -119,16 +120,21 @@ public class CityListActivity extends BaseActivity {
         LocationManager.getInstance().setLocationChangeListener(
             new LocationManager.LocationChangeListener() {
                 @Override
-                public void onLocationChanged(AMapLocation aMapLocation) {
+                public void onLocationChanged(final AMapLocation aMapLocation) {
                     if (aMapLocation != null) {
-                        String city = aMapLocation.getCity();
-                        if (!TextUtils.isEmpty(city)) {
-                            //更新城市显示
-                            mCityLocated.setCity(city.substring(0, city.length()-1));
-                            CacheUtil.getInstance().saveCurrentCity(city);
-                            Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
-                            mCityAdapter.notifyDataSetChanged();
-                        }
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               String city = aMapLocation.getCity();
+                               if (!TextUtils.isEmpty(city)) {
+                                   //更新城市显示
+                                   mCityLocated.setCity(city.substring(0, city.length()-1));
+                                   CacheUtil.getInstance().saveCurrentCity(city);
+                                   Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
+                                   mCityAdapter.notifyDataSetChanged();
+                               }
+                           }
+                       });
                     }
                 }
             });
@@ -208,7 +214,6 @@ public class CityListActivity extends BaseActivity {
                     Collections.sort(cityBeans, mCityComparator);
                     if(null != cityBeans && !cityBeans.isEmpty()){
                         mCityAdapter.setData(mCityBeanList);
-                        mCityAdapter.notifyDataSetChanged();
 
                         //添加城市名称进入数据库
                         List<CityModel> cityModels = CityFactory.getInstance().convertCityBeans2CityModels(cityBeans);
