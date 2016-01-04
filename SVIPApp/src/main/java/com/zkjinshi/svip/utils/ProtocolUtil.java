@@ -569,6 +569,14 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"order/list/"+userid+"/"+page+"/"+size;
     }
 
+    /**
+     * 获取未确认订单列表
+     * @return
+     */
+    public static String orderGetUnconfirmedUrl(String userid,int page,int size){
+        return ConfigUtil.getInst().getApiDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
+    }
+
 
     /**
      * 商家详情
