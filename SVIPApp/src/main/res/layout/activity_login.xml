@@ -108,7 +108,7 @@
             android:inputType="number"
             android:drawableLeft="@mipmap/ic_mima_nor"
             android:drawablePadding="10dp"
-            android:maxLength="11"
+            android:maxLength="6"
             android:background="@drawable/bg_login_etv"
             android:padding="10dp"
             android:singleLine="true"

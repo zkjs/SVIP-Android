@@ -61,7 +61,6 @@ public class OrderEvaluateActivity extends BaseActivity {
     private CheckBox poorCb,commonCb,gratifyCb,greatGratifyCb,highlyRecommendCb;
     private CheckBox poorResultCb,commonResultCb,gratifyResultCb,greatGratifyResultCb,highlyRecommendResultCb;
     private EditText inputEvaluateEtv;
-    private RelativeLayout inputEvaluateTipLayout;
     private Animation layoutInBottom, layoutOutTop;
     private Button submitBtn;
     private boolean isFirst = true;
@@ -87,7 +86,6 @@ public class OrderEvaluateActivity extends BaseActivity {
         greatGratifyCb = (CheckBox)findViewById(R.id.order_evaluate_cb_great_gratify);
         highlyRecommendCb = (CheckBox)findViewById(R.id.order_evaluate_cb_highly_recommend);
         inputEvaluateEtv = (EditText)findViewById(R.id.order_evaluate_etv_content);
-        inputEvaluateTipLayout = (RelativeLayout)findViewById(R.id.order_evaluate_layout_tips);
         submitBtn = (Button)findViewById(R.id.order_evaluate_btn_ok);
         bodyScrollView = (ScrollView)findViewById(R.id.order_evaluate_sv_body);
         backIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_back);
@@ -385,7 +383,6 @@ public class OrderEvaluateActivity extends BaseActivity {
      */
     private void showEvaluateInput(){
         if(isFirst){
-            inputEvaluateTipLayout.startAnimation(layoutOutTop);
             inputEvaluateEtv.startAnimation(layoutInBottom);
             layoutInBottom.setAnimationListener(new Animation.AnimationListener() {
                 @Override

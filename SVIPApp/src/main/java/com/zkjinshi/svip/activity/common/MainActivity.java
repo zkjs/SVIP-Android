@@ -58,8 +58,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private final static int REQUEST_CONSUME_RECORD = 0x05;
-
     SVIPApplication svipApplication;
     public OrderLastResponse lastOrderInfo = null;
     private ViewPager viewPager;
@@ -68,6 +66,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     private BadgeView bv;
     private int badgeNum;
     private UpdateBroadcastReceiver mUpdateReceiver;
+    private MessageFragment messageFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,9 +109,16 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         super.onActivityResult(requestCode, resultCode, data);
 
         //请求订单接口返回
-        if(requestCode == REQUEST_CONSUME_RECORD){
+        if(requestCode == Constants.REQUEST_CURRENT_ITEM_TAB_CODE){
             if(resultCode == RESULT_OK){
-                this.setCurrentItem(1);
+                if(null != data){
+                    int currentItem = data.getIntExtra("rootCurrentItem",0);
+                    this.setCurrentItem(currentItem);
+                    if(currentItem == 2){
+                        int childCurrentItem = data.getIntExtra("childCurrentItem",0);
+                        messageFragment.setCurrentItem(childCurrentItem);
+                    }
+                }
             }
         }
     }
@@ -125,15 +131,15 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     }
 
     private void initViewPager(){
-        HomeFragment weChatFragment=new HomeFragment();
-        ShopFragment contactsFragment=new ShopFragment();
-        MessageFragment discoveryFragment=new MessageFragment();
-        SetFragment meFragment=new SetFragment();
+        HomeFragment homeFragment = new HomeFragment();
+        ShopFragment shopFragment = new ShopFragment();
+        messageFragment = new MessageFragment();
+        SetFragment setFragment = new SetFragment();
         fragmentList=new ArrayList<Fragment>();
-        fragmentList.add(weChatFragment);
-        fragmentList.add(contactsFragment);
-        fragmentList.add(discoveryFragment);
-        fragmentList.add(meFragment);
+        fragmentList.add(homeFragment);
+        fragmentList.add(shopFragment);
+        fragmentList.add(messageFragment);
+        fragmentList.add(setFragment);
         viewPager.setAdapter(new FooterFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.setCurrentItem(0);
         viewPager.addOnPageChangeListener(new FooterOnPageChangeListener());
@@ -150,7 +156,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                 case R.id.footer_tab_rb_shop:
                     if(CacheUtil.getInstance().isShopGuide()){
                         Intent intent = new Intent(MainActivity.this, ShopGuideActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,Constants.REQUEST_CURRENT_ITEM_TAB_CODE);
                         CacheUtil.getInstance().setShopGuide(false);
                     }
                     viewPager.setCurrentItem(1,true);
