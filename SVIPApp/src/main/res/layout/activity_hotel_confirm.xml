@@ -155,7 +155,7 @@
                 zkjinshi:isvTitle="支付方式"
                 zkjinshi:isvValue=""
                 zkjinshi:isvHint="提交订单后显示"
-                zkjinshi:isMust="false"
+                zkjinshi:isMust="true"
                 zkjinshi:haveDownLine="true"/>
 
             <com.zkjinshi.svip.view.ItemShowView

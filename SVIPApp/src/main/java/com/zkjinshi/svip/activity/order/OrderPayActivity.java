@@ -11,7 +11,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
@@ -21,10 +23,14 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.AddOrderResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
@@ -62,7 +68,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     private static final String CHANNEL_ALIPAY = "alipay";
 
     private ImageButton aliPayIBtn, weChatPayIBtn;
-    private OrderDetailResponse orderDetailResponse;
+    private OrderDetailForDisplay orderDetailForDisplay;
 
     private void initView(){
         aliPayIBtn = (ImageButton)findViewById(R.id.pay_order_ali_pay_ibtn);
@@ -72,7 +78,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initData(){
-        orderDetailResponse = (OrderDetailResponse)getIntent().getSerializableExtra("orderDetailResponse");
+        orderDetailForDisplay = (OrderDetailForDisplay)getIntent().getSerializableExtra("orderDetailForDisplay");
     }
 
     private void initListeners(){
@@ -86,8 +92,8 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void onClick(View view) {
-        String amountText = orderDetailResponse.getRoom().getRoom_rate();
-        if (amountText.equals("")) return;
+        DecimalFormat df = new DecimalFormat(".00");
+        String amountText = df.format(orderDetailForDisplay.getRoomprice());
 
         String replaceable = String.format("[%s, \\s.]", NumberFormat.getCurrencyInstance(Locale.CHINA).getCurrency().getSymbol(Locale.CHINA));
         String cleanString = amountText.toString().replaceAll(replaceable, "");
@@ -105,11 +111,18 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     }
 
     private PaymentRequest getRequest(String channel,int amount){
+        String orderNo = orderDetailForDisplay.getOrderno();
         PaymentRequest paymentRequest = new PaymentRequest(channel, amount);
-        paymentRequest.setOrder_no(orderDetailResponse.getRoom().getReservation_no());
+        paymentRequest.setOrder_no(orderDetailForDisplay.getOrderno());
         paymentRequest.setClient_ip(NetWorkUtil.getLocalIpAddress(this));
-       paymentRequest.setSubject(orderDetailResponse.getRoom().getRoom_type() + "*" + orderDetailResponse.getRoom().getRooms());
-       paymentRequest.setBody(orderDetailResponse.getRoom().getFullname());
+       paymentRequest.setBody(orderDetailForDisplay.getShopname());
+        if(orderNo.startsWith("H")){
+            paymentRequest.setSubject(orderDetailForDisplay.getRoomtype() + "*" + orderDetailForDisplay.getRoomcount());
+        }else if(orderNo.startsWith("K")){
+            paymentRequest.setSubject(orderDetailForDisplay.getRoomtype() + "*" + orderDetailForDisplay.getRoomcount());
+        }else if(orderNo.startsWith("O")){
+            paymentRequest.setSubject(orderDetailForDisplay.getPersoncount()+"人");
+        }
         return paymentRequest;
     }
 //
@@ -178,9 +191,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
 
                 if(result.equals("success")){
-                    showPaySuccessDialog();
-                    setResult(RESULT_OK);
-                    finish();
+                    paySuccessCallBack();
                 }else if(result.equals("fail")){
                     showPayFailsDialog();
                 }else if(result.equals("invalid")){
@@ -189,6 +200,52 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
 
             }
         }
+    }
+
+    private void paySuccessCallBack(){
+        String url =  ProtocolUtil.orderPayUrl();
+        Log.i(TAG, url);
+        NetRequest netRequest = new NetRequest(url);
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("orderno", orderDetailForDisplay.getOrderno());
+        netRequest.setBizParamMap(bizMap);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.JSON;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
+                    if(addOrderResponse.isResult()){
+                        showPaySuccessDialog();
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
 
     /**

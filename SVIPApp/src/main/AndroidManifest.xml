@@ -63,22 +63,40 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.order.HotelConfirmActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.order.KTVConfirmActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.order.NormalConfirmActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".activity.order.HotelBookingActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.order.KTVBookingActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".activity.order.NormalBookingActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
 

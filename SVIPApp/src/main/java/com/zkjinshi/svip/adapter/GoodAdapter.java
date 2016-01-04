@@ -66,7 +66,7 @@ public class GoodAdapter extends SvipBaseAdapter<GoodInfoVo> {
         String roomStr = goodInfoVo.getRoom();
         String type = goodInfoVo.getType();
 
-        viewHolder.roomTypeTv.setText(roomStr + type);
+        viewHolder.roomTypeTv.setText(roomStr);
 
         String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){

@@ -17,10 +17,10 @@ import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.MainActivity;
+
 import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.base.BaseApplication;
+
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -28,10 +28,11 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseResponse;
-import com.zkjinshi.svip.response.OrderConsumeResponse;
+
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
+import com.zkjinshi.svip.vo.OrderForDisplay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -161,16 +162,27 @@ public class ConsumeRecordActivtiy extends BaseActivity {
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
 
                 int realPostion = position - 1;
-                OrderConsumeResponse bookOrder = (OrderConsumeResponse)mBookOrderAdapter.getItem(realPostion);
-                String orderStatus = bookOrder.getStatus();
+                OrderForDisplay bookOrder = (OrderForDisplay)mBookOrderAdapter.getItem(realPostion);
+                String orderNo = bookOrder.getOrderno();
                 Intent intent = new Intent();
-                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
-                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
-                    intent.putExtra("bookOrder",bookOrder);
-                }else{
-                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
-                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
-                    intent.putExtra("shopid",bookOrder.getShopid());
+//                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
+//                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
+//                    intent.putExtra("bookOrder",bookOrder);
+//                }else{
+//                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
+//                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
+//                    intent.putExtra("shopid",bookOrder.getShopid());
+//                }
+                if(orderNo.startsWith("H")){
+                    intent.setClass(ConsumeRecordActivtiy.this,HotelConfirmActivity.class);
+                    intent.putExtra("orderNo",bookOrder.getOrderno());
+                }else if(orderNo.startsWith("K")){
+                    intent.setClass(ConsumeRecordActivtiy.this,KTVConfirmActivity.class);
+                    intent.putExtra("orderNo",bookOrder.getOrderno());
+                }
+                else if(orderNo.startsWith("O")){
+                    intent.setClass(ConsumeRecordActivtiy.this,NormalConfirmActivity.class);
+                    intent.putExtra("orderNo",bookOrder.getOrderno());
                 }
                 startActivity(intent);
 
@@ -194,17 +206,11 @@ public class ConsumeRecordActivtiy extends BaseActivity {
      * @param currentPage
      */
     private void getUserOrders(final String userID, final String token, final int currentPage) {
-        String url =  ProtocolUtil.getOrderV10list();
+        String url =  ProtocolUtil.orderListUrl(userID,currentPage,10);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", userID);
-        bizMap.put("token", token);
-        bizMap.put("status", "0,2,3,4");
-        bizMap.put("page", currentPage+"");
-        netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.GET;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -225,7 +231,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     mSlvBookOrder.refreshFinish();//结束刷新状态
-                    ArrayList<OrderConsumeResponse> bookOrders = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<OrderConsumeResponse>>(){}.getType());
+                    ArrayList<OrderForDisplay> bookOrders = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<OrderForDisplay>>(){}.getType());
                     if(null != bookOrders && bookOrders.size() > 0){
                         if (mCurrentPage == 1) {
                             if(mBookOrderAdapter == null){
@@ -278,7 +284,7 @@ public class ConsumeRecordActivtiy extends BaseActivity {
         bizMap.put("userid", userID);
         bizMap.put("token", token);
         bizMap.put("status", orderStatus);
-        bizMap.put("reservation_no", mBookOrderAdapter.datalist.get(position).getReservation_no());//订单更新
+        bizMap.put("reservation_no", mBookOrderAdapter.datalist.get(position).getOrderno());//订单更新
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.PUSH;

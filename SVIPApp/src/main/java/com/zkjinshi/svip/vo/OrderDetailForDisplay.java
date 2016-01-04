@@ -97,6 +97,30 @@ public class OrderDetailForDisplay implements Serializable {
      * 备注
      */
     private String remark;
+    /**
+     *用户名
+     */
+    private String username;
+    /**
+     * 订单状态
+     */
+    private String orderstatus;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(String orderstatus) {
+        this.orderstatus = orderstatus;
+    }
 
     public String getOrderno() {
         return orderno;
