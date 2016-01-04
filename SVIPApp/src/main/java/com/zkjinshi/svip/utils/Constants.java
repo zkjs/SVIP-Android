@@ -92,4 +92,6 @@ public class Constants {
 
     public static final String UPDATE_UNREAD_RECEIVER_ACTION = "com.zkjinshi.svip.UPDATE_UNREAD_RECEIVER_ACTION";
 
+    public final static int REQUEST_CURRENT_ITEM_TAB_CODE = 11;
+
 }

@@ -1,11 +1,13 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.utils.Constants;
 
 /**
  * 开发者：JimmyZhang
@@ -29,6 +31,10 @@ public class ShopGuideActivity extends BaseActivity{
         konwIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = getIntent();
+                intent.putExtra("rootCurrentItem",2);
+                intent.putExtra("childCurrentItem",1);
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });

@@ -365,7 +365,7 @@
                         android:id="@+id/order_evaluate_etv_content"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="15dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
@@ -380,23 +380,6 @@
                         android:textColorHint="#828282"
                         android:textColor="#101010"
                         />
-
-                    <RelativeLayout
-                        android:id="@+id/order_evaluate_layout_tips"
-                        android:layout_width="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="10dp"
-                            android:textSize="12sp"
-                            android:textColor="#828282"
-                            android:text="*本次评价可获得25个积分"/>
-
-                    </RelativeLayout>
 
                     <Button
                         android:id="@+id/order_evaluate_btn_ok"

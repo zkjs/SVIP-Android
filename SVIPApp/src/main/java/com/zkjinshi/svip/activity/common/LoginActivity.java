@@ -234,7 +234,8 @@ public class LoginActivity extends BaseActivity {
         useDealTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,UseDealActivity.class);
+                Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom,
                         R.anim.slide_out_top);

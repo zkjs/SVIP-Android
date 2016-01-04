@@ -81,6 +81,12 @@ public class MessageFragment extends Fragment {
         vChat.setVisibility(View.VISIBLE);
     }
 
+    public void setCurrentItem(int position){
+        if(null != mViewPager){
+            mViewPager.setCurrentItem(position);
+        }
+    }
+
     private void initListeners(){
 
         addIv.setOnClickListener(new View.OnClickListener() {
