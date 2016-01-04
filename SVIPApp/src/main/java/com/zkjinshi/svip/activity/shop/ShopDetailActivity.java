@@ -77,6 +77,7 @@ public class ShopDetailActivity extends BaseActivity {
     private SlideShowViewController slideShowViewController;
     private Button commitBtn;
     private TextView addressTv,phoneTv,evaluateTv,recommendTv,remindTv;
+    private RelativeLayout webViewLayout;
     private RatingBar evaluateRb;
     private RelativeLayout evaluateLayout;
     private int ratingNum;
@@ -99,6 +100,7 @@ public class ShopDetailActivity extends BaseActivity {
         remindTv = (TextView)findViewById(R.id.shop_detail_tv_remind);
         evaluateRb = (RatingBar)findViewById(R.id.shop_detail_rb_evaluate);
         evaluateLayout = (RelativeLayout)findViewById(R.id.shop_detail_layout_evaluate);
+        webViewLayout = (RelativeLayout)findViewById(R.id.webview_wrapper);
     }
 
     private void initData(){
@@ -109,7 +111,6 @@ public class ShopDetailActivity extends BaseActivity {
             shopId = getIntent().getStringExtra("shopId");
         }
         titleTv.setText("酒店详情");
-        webViewURL = "https://www.baidu.com/";
         scrollView.fullScroll(ScrollView.FOCUS_UP);
         requestShopDetailTask(shopId);
     }
@@ -565,8 +566,12 @@ public class ShopDetailActivity extends BaseActivity {
                     String webUrl = shopVo.getShopdescUrl();
                     if(!TextUtils.isEmpty(webUrl)){
                         webViewURL = webUrl;
+                        webViewLayout.setVisibility(View.VISIBLE);
+                    }else {
+                        webViewLayout.setVisibility(View.GONE);
                     }
                     initWebView();
+                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                 }
             }
 
