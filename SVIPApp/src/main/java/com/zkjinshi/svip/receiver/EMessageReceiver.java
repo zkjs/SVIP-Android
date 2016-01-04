@@ -13,6 +13,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
+import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
+import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
+import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.notification.NotificationHelper;
@@ -47,7 +51,7 @@ public class EMessageReceiver extends BroadcastReceiver {
     private void showBookHotelSuccDialog(final Context context, final String shopId,final String orderNo) {
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(context);
         customBuilder.setTitle("订单通知");
-        customBuilder.setMessage("您的订单已经生成，请尽快确认");
+        customBuilder.setMessage("您的订单已经更新，请尽快确认");
         customBuilder.setNegativeButton("忽略", new DialogInterface.OnClickListener() {
 
             @Override
@@ -61,10 +65,19 @@ public class EMessageReceiver extends BroadcastReceiver {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+                Intent intent = new Intent();
+                if(orderNo.startsWith("H")){
+                    intent.setClass(context,HotelConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }else if(orderNo.startsWith("K")){
+                    intent.setClass(context,KTVConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }
+                else if(orderNo.startsWith("O")){
+                    intent.setClass(context,NormalConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("reservation_no", orderNo);
-                intent.putExtra("shopid", shopId);
                 context.startActivity(intent);
             }
         });
