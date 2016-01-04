@@ -300,8 +300,6 @@ public class HotelBookingActivity extends Activity {
             }
         });
 
-
-
         //双早
         breakfastTcv.valueCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -404,8 +402,8 @@ public class HotelBookingActivity extends Activity {
             orderDetailForDisplay.setImgurl(imageUrl);
         }
         orderDetailForDisplay.setProductid(goodInfoVo.getId());
-        orderDetailForDisplay.setRoomtype(goodInfoVo.getRoom() + goodInfoVo.getType());
-        roomTypeTsv.setValue(goodInfoVo.getRoom() + goodInfoVo.getType());
+        orderDetailForDisplay.setRoomtype(goodInfoVo.getRoom());
+        roomTypeTsv.setValue(goodInfoVo.getRoom());
     }
 
     //查询客服

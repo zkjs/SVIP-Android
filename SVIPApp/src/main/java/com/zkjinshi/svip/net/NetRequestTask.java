@@ -3,6 +3,7 @@ package com.zkjinshi.svip.net;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.zkjinshi.base.util.DialogUtil;
@@ -89,6 +90,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
         HashMap<String,File> fileMap = null;
         try {
             requestUrl = mediaRequest.requestUrl;
+            Log.d("showurl",requestUrl);
             bizParamsMap = mediaRequest.getBizParamMap();
             fileParamsMap = mediaRequest.getFileParamMap();
             objectParamsMap = mediaRequest.getObjectParamMap();

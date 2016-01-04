@@ -158,10 +158,18 @@ public class NormalConfirmActivity extends Activity {
         titleTv.setText(orderDetailForDisplay.getShopname());
         //订单状态
         if(orderDetailForDisplay.getOrderstatus().equals("待确认")){
-            tipsTv.setVisibility(View.VISIBLE);
-            tipsTv.setText("订单待确认中。如需修改，请联系客服");
-            confirmBtn.setVisibility(View.GONE);
-            deleteTv.setVisibility(View.VISIBLE);
+            payType = orderDetailForDisplay.getPaytype();
+            if(payType == 0){
+                tipsTv.setVisibility(View.VISIBLE);
+                tipsTv.setText("订单待确认中。如需修改，请联系客服");
+                confirmBtn.setVisibility(View.GONE);
+                deleteTv.setVisibility(View.VISIBLE);
+            }else{
+                tipsTv.setVisibility(View.VISIBLE);
+                tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
+                confirmBtn.setVisibility(View.VISIBLE);
+                deleteTv.setVisibility(View.VISIBLE);
+            }
         }else  if(orderDetailForDisplay.getOrderstatus().equals("待支付")){
             tipsTv.setVisibility(View.VISIBLE);
             tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");

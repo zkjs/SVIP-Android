@@ -73,7 +73,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGoodListUrl(String shopId){
-        return ConfigUtil.getInst().getHttpDomain()+"order/goods?shopid="+shopId+"&page=1";
+        return ConfigUtil.getInst().getApiDomain()+"goods/get/"+shopId;
     }
 
     /**
