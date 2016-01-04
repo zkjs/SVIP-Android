@@ -4,30 +4,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_white">
 
-    <LinearLayout
-        android:id="@+id/detail_layout_option"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_send_booking_order"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="立即预定"
-            android:textSize="16sp"
-            android:textColor="@color/White"
-            android:background="@drawable/btn_yellow_selector"/>
-
-    </LinearLayout>
-
     <com.zkjinshi.svip.view.ObservableScrollView
         android:id="@+id/detail_scr_body"
         android:layout_width="match_parent"
+        android:layout_marginBottom="45dp"
         android:layout_height="wrap_content"
-        android:layout_above="@id/detail_layout_option"
         android:scrollbars="none"
         android:scrollbarStyle="insideInset">
 
@@ -188,6 +169,7 @@
                     android:layout_height="48dp"
                     android:textSize="16dp"
                     android:text="商家介绍"
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="#ffc56e"/>
@@ -295,6 +277,25 @@
             android:layout_height="1px"
             android:visibility="gone"
             android:background="#e3e3e3"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/detail_layout_option"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_send_booking_order"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="立即预定"
+            android:textSize="16sp"
+            android:textColor="@color/White"
+            android:background="@drawable/btn_yellow_selector"/>
 
     </LinearLayout>
 
