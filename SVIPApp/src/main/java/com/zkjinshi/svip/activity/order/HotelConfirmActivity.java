@@ -231,13 +231,13 @@ public class HotelConfirmActivity extends Activity {
         if(!TextUtils.isEmpty(orderDetailForDisplay.getOrderedby())){
             contactTsv.setValue(orderDetailForDisplay.getOrderedby());
         }else{
-            contactTsv.setValue("无填写");
+            contactTsv.setValue(" ");
         }
         //联系人号码
         if(!TextUtils.isEmpty(orderDetailForDisplay.getTelephone())){
             phoneTsv.setValue(orderDetailForDisplay.getTelephone());
         }else{
-            contactTsv.setValue("无填写");
+            contactTsv.setValue(" ");
         }
         //支付方式
         initPay();
@@ -245,7 +245,7 @@ public class HotelConfirmActivity extends Activity {
         if(!TextUtils.isEmpty(orderDetailForDisplay.getCompany())){
             invoiceTsv.setValue(orderDetailForDisplay.getCompany());
         }else{
-            invoiceTsv.setValue("无填写");
+            invoiceTsv.setValue(" ");
         }
         //备注
         if(!TextUtils.isEmpty(orderDetailForDisplay.getRemark())){

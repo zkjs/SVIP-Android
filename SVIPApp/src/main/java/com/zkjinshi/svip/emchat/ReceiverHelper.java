@@ -17,6 +17,9 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
+import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
+import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 
 /**
@@ -202,10 +205,24 @@ public class ReceiverHelper {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+//                Intent intent = new Intent(context, OrderDetailActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("reservation_no", orderNo);
+//                intent.putExtra("shopid", shopId);
+//                context.startActivity(intent);
+                Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("reservation_no", orderNo);
-                intent.putExtra("shopid", shopId);
+                if(orderNo.startsWith("H")){
+                    intent.setClass(context,HotelConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }else if(orderNo.startsWith("K")){
+                    intent.setClass(context,KTVConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }
+                else if(orderNo.startsWith("O")){
+                    intent.setClass(context,NormalConfirmActivity.class);
+                    intent.putExtra("orderNo",orderNo);
+                }
                 context.startActivity(intent);
             }
         });
