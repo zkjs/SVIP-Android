@@ -427,29 +427,34 @@ public class HotelBookingActivity extends Activity {
                     public void onNetworkResponseSucceed(NetResponse result) {
                         Log.i(TAG, "result:" + result.rawResult);
                         super.onNetworkResponseSucceed(result);
-                        CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
-                        if (null != customerServiceListResponse) {
-                            HeadBean head = customerServiceListResponse.getHead();
-                            if (null != head) {
-                                boolean isSet = head.isSet();
-                                if (isSet) {
-                                    ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
-                                    salesId = head.getExclusive_salesid();
-                                    if (null != customerServiceList && !customerServiceList.isEmpty()) {
-                                        if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                        } else {//无专属客服
-                                            customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
-                                            if (TextUtils.isEmpty(salesId)) {
-                                                salesId = customerService.getSalesid();
+                        try{
+                            CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                            if (null != customerServiceListResponse) {
+                                HeadBean head = customerServiceListResponse.getHead();
+                                if (null != head) {
+                                    boolean isSet = head.isSet();
+                                    if (isSet) {
+                                        ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
+                                        salesId = head.getExclusive_salesid();
+                                        if (null != customerServiceList && !customerServiceList.isEmpty()) {
+                                            if (!TextUtils.isEmpty(salesId)) {//有专属客服
+                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
+                                            } else {//无专属客服
+                                                customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                if (TextUtils.isEmpty(salesId)) {
+                                                    salesId = customerService.getSalesid();
+                                                }
                                             }
+                                            handler.sendEmptyMessage(SUBMIT_BOOKING);
                                         }
-                                        handler.sendEmptyMessage(SUBMIT_BOOKING);
-                                    }
 
+                                    }
                                 }
                             }
+                        }catch (Exception e){
+                            Log.e(TAG,e.getMessage());
                         }
+
                     }
 
                     @Override
