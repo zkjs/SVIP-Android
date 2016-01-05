@@ -210,6 +210,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         MainController.getInstance().init(this);
         MainController.getInstance().initShop();
         MainController.getInstance().initBigPic();
+        MainController.getInstance().checkAppVersion();
     }
 
     private void initBadgeNum(){
