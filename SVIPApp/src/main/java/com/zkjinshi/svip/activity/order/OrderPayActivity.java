@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.google.gson.Gson;
@@ -252,6 +254,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
      * 支付失败对话框
      */
     private void showPaySuccessDialog(){
+        Dialog dialog = null;
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
         customBuilder.setTitle("温馨提示");
         customBuilder.setMessage("支付成功！");
@@ -263,13 +266,17 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 dialog.dismiss();
             }
         });
-        customBuilder.create().show();
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
     }
 
     /**
      * 支付失败对话框
      */
     private void showPayFailsDialog(){
+        Dialog dialog = null;
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
         customBuilder.setTitle("温馨提示");
         customBuilder.setMessage("支付失败，请重新支付！");
@@ -281,7 +288,10 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 dialog.dismiss();
             }
         });
-        customBuilder.create().show();
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
     }
 
     @Override
