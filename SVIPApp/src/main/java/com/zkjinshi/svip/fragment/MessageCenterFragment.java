@@ -148,10 +148,15 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 conversationList.clear();
                 conversationList.addAll(EMConversationHelper.getInstance().loadConversationList());
                 mChatRoomAdapter.setConversationList(conversationList);
-                if(conversationList.size() > 0){
-                    mTvDialog.setVisibility(View.GONE);
-                }else{
-                    mTvDialog.setVisibility(View.VISIBLE);
+                if(!CacheUtil.getInstance().isLogin()){
+                    unLoginLayout.setVisibility(View.VISIBLE);
+                }else {
+                    if(null == conversationList || conversationList.isEmpty()){
+                        mTvDialog.setVisibility(View.VISIBLE);
+                        mTvDialog.setText("暂无消息");
+                    }else {
+                        mTvDialog.setVisibility(View.GONE);
+                    }
                 }
             }
         });
