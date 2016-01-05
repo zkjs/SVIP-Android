@@ -58,6 +58,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    private final static int REQUEST_CONSUME_RECORD = 0x05;
+
     SVIPApplication svipApplication;
     public OrderLastResponse lastOrderInfo = null;
     private ViewPager viewPager;
@@ -119,6 +121,13 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                         messageFragment.setCurrentItem(childCurrentItem);
                     }
                 }
+            }
+        }
+
+        //请求订单接口返回 用于进入商家列表界面
+        if(requestCode == REQUEST_CONSUME_RECORD){
+            if(resultCode == RESULT_OK){
+                this.setCurrentItem(1);
             }
         }
     }
