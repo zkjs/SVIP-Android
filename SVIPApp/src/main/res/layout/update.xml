@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f5f2f5"
+    android:orientation="vertical" >
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp"
+        android:text="正在下载..."
+        android:textColor="#5e5e5e"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/currentPos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#5e5e5e"
+        android:text="0%"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <ProgressBar
+        android:id="@+id/progressbar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:max="100"
+        android:progress="0" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:minWidth="300dp"
+        android:text="取消"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_yellow_selector"/>
+
+</LinearLayout>

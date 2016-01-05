@@ -577,6 +577,14 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getApiDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
     }
 
+    /**
+     * 获取未确认订单列表
+     * @return
+     */
+    public static String appUpgradeUrl(){
+        return ConfigUtil.getInst().getApiDomain()+"app/upgrade";
+    }
+
 
     /**
      * 商家详情

@@ -28,6 +28,7 @@ import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 
 import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.bean.UpdateBean;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
 import com.zkjinshi.svip.ibeacon.RegionVo;
@@ -60,9 +61,14 @@ public class SVIPApplication extends BaseApplication {
 
     private ECallReceiver callReceiver;
 
+    private boolean isDownload;
+    public UpdateBean updateBean = null;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+        isDownload = false;
         initContext();
         initYunBa();
         initEmchat();
@@ -75,6 +81,14 @@ public class SVIPApplication extends BaseApplication {
         initFace();
         initTest();
 
+    }
+
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean isDownload) {
+        this.isDownload = isDownload;
     }
 
     @Override
