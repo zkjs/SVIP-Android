@@ -373,8 +373,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 if(svipApplication.mRegionList.size() > 0){
                     int index = svipApplication.mRegionList.size()-1;
                     final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                    String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
-                    simpleTextTv.setText("欢迎光临"+fullname);
+                    String fullname =svipApplication.mRegionList.get(index).getiBeacon().getRemark();
+                   // String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
+                    //simpleTextTv.setText("欢迎光临"+fullname);
+                    simpleTextTv.setText("");
                 }
             }else{
                 //用户未激活
