@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             super.handleMessage(msg);
             switch (msg.what){
                 case LOAD_DEFAULT_MSG:
-                    getMessageDefault();
+                    getMessageDefault(false);
                     break;
                 case NOTIFY_UPDATE_MAIN_TEXT:
                     if(mActivity instanceof MainActivity){
@@ -276,12 +276,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         //首页大图区
         setBigPicZone();
         setBigPicAnimation();
-        homeMsgList.clear();
         if(CacheUtil.getInstance().isLogin()){
             checktActivate();
             getOrderMsgUrl();
         }else{
-            getMessageDefault();
+            getMessageDefault(true);
         }
     }
 
@@ -606,7 +605,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
 
     //获取用户推送消息(用户未登陆)
-    private void getMessageDefault(){
+    private synchronized void getMessageDefault(boolean isClear){
+        if(isClear){
+            homeMsgList.clear();
+        }
         String url = ProtocolUtil.getMessageDefaultUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -672,7 +674,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
 
     //获取用户订单状态消息
-    private void getOrderMsgUrl(){
+    private synchronized void getOrderMsgUrl(){
+        homeMsgList.clear();
         String url = ProtocolUtil.getOrderMsgUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
