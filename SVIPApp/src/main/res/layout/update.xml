@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="130dp"
         android:text="正在下载..."
         android:textColor="#5e5e5e"
         android:textSize="16sp"
@@ -38,11 +38,10 @@
 
     <Button
         android:id="@+id/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:minWidth="300dp"
+        android:layout_marginTop="30dp"
         android:text="取消"
         android:textSize="16sp"
         android:textColor="@color/White"

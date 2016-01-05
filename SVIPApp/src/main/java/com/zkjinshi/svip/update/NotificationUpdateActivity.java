@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class NotificationUpdateActivity extends Activity {
 	private Button btn_cancel;// btn_update,
 	private TextView tv_progress;
@@ -53,6 +55,11 @@ public class NotificationUpdateActivity extends Activity {
 				finish();
 			}
 		});
+		File configFile = new File(this.getFilesDir(), "config.xml");
+		if(configFile.exists()){
+			configFile.delete();
+		}
+
 	}
 
 	ServiceConnection conn = new ServiceConnection() {
