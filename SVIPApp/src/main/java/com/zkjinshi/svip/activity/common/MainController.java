@@ -76,7 +76,10 @@ public class MainController {
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
         this.bigOptions = new DisplayImageOptions.Builder()
-                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
+                .showImageOnLoading(R.mipmap.header_img_default)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.header_img_default)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.header_img_default)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
     }
@@ -111,7 +114,12 @@ public class MainController {
 //        }
         bigPicIndex = (bigPicIndex+1)%length;
         String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
-        ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
+        try{
+            ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
+        }catch (Exception e){
+            Log.e(TAG,e.getMessage());
+        }
+
 
     }
 

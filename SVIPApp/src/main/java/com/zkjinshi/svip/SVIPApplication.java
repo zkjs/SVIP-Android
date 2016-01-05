@@ -214,7 +214,7 @@ public class SVIPApplication extends BaseApplication {
         config.memoryCacheSize(2 * 1024 * 1024);
         config.memoryCacheSizePercentage(13);
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024);
+        config.diskCacheSize(500 * 1024 * 1024);
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         config.writeDebugLogs();
         ImageLoader.getInstance().init(config.build());
