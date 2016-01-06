@@ -370,6 +370,7 @@ public class ContactsFragment extends BaseFragment{
             unLoginLayout.setVisibility(View.VISIBLE);
             mSideBar.setVisibility(View.INVISIBLE);
         }else{
+            unLoginLayout.setVisibility(View.GONE);
             if(null == sortLists || sortLists.isEmpty()){
                 mTvDialog.setVisibility(View.VISIBLE);
                 mTvDialog.setText("暂无联系人");

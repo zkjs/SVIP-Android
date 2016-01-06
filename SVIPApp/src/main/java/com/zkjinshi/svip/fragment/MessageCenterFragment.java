@@ -129,6 +129,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         if(!CacheUtil.getInstance().isLogin()){
             unLoginLayout.setVisibility(View.VISIBLE);
         }else {
+            unLoginLayout.setVisibility(View.GONE);
             if(null == conversationList || conversationList.isEmpty()){
                 mTvDialog.setVisibility(View.VISIBLE);
                 mTvDialog.setText("暂无消息");
@@ -151,6 +152,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 if(!CacheUtil.getInstance().isLogin()){
                     unLoginLayout.setVisibility(View.VISIBLE);
                 }else {
+                    unLoginLayout.setVisibility(View.GONE);
                     if(null == conversationList || conversationList.isEmpty()){
                         mTvDialog.setVisibility(View.VISIBLE);
                         mTvDialog.setText("暂无消息");
