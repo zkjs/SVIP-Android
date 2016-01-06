@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -107,39 +109,34 @@ public class MainController {
      * 设置首页动态图
      */
     public void setBigPicAnimation(ImageView homePicIv){
-        bigAnimation = AnimationUtils.loadAnimation(activity, R.anim.anim_bigger);
-        homePicIv.startAnimation(bigAnimation);
+        try {
+            bigAnimation = AnimationUtils.loadAnimation(activity, R.anim.anim_bigger);
+            homePicIv.startAnimation(bigAnimation);
+            if(bigPicResponseList == null) {
+                String rawResult = CacheUtil.getInstance().getListStrCache("bigPicResponseList");
+                if(TextUtils.isEmpty(rawResult)){
+                    return;
+                }
+                Type listType = new TypeToken<ArrayList<BigPicResponse>>() {
+                }.getType();
+                Gson gson = new Gson();
+                bigPicResponseList = gson.fromJson(rawResult, listType);
+            }
 
-        if(bigPicResponseList == null) {
-            String rawResult = CacheUtil.getInstance().getListStrCache("bigPicResponseList");
-            if(TextUtils.isEmpty(rawResult)){
+            int length = bigPicResponseList.size();
+            if(length <= 0){
                 return;
             }
-            Type listType = new TypeToken<ArrayList<BigPicResponse>>() {
-            }.getType();
-            Gson gson = new Gson();
-            bigPicResponseList = gson.fromJson(rawResult, listType);
-        }
-
-        int length = bigPicResponseList.size();
-        if(length <= 0){
-            return;
-        }
-//        int number = new Random().nextInt(length);
-//        if(number == bigPicIndex){
-//            bigPicIndex = (bigPicIndex+1)%length;
-//        }else{
-//            bigPicIndex = number;
-//        }
-        bigPicIndex = (bigPicIndex+1)%length;
-        String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
-        try{
+            bigPicIndex = (bigPicIndex+1)%length;
+            String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
             ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
-        }catch (Exception e){
-            Log.e(TAG,e.getMessage());
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         }
-
-
     }
 
     /**

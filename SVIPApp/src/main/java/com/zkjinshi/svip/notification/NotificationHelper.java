@@ -20,6 +20,9 @@ import com.zkjinshi.base.util.VibratorHelper;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
+import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
+import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
+import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 import com.zkjinshi.svip.activity.order.OrderDetailActivity;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -153,10 +156,21 @@ public class NotificationHelper {
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
 
         // 2.设置点击跳转事件
-        Intent intent = new Intent(context, OrderDetailActivity.class);
+        Intent intent = new Intent();
+        if(orderNo.startsWith("H")){
+            intent.setClass(context,HotelConfirmActivity.class);
+            intent.putExtra("orderNo",orderNo);
+        }else if(orderNo.startsWith("K")){
+            intent.setClass(context,KTVConfirmActivity.class);
+            intent.putExtra("orderNo",orderNo);
+        }
+        else if(orderNo.startsWith("O")){
+            intent.setClass(context,NormalConfirmActivity.class);
+            intent.putExtra("orderNo",orderNo);
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("shopid", shopID);
-        intent.putExtra("reservation_no", orderNo);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         notificationBuilder.setContentIntent(pendingIntent);
 
