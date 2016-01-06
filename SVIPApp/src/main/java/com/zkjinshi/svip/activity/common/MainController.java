@@ -404,9 +404,9 @@ public class MainController {
                 try {
                     UpdateBean updateBean = new Gson().fromJson(result.rawResult,UpdateBean.class);
                     if(currentVersionCode < updateBean.getVersionNo()){
-                        if(updateBean.getIsForceUpgrade() == 2){
+                        if(updateBean.getIsForceUpgrade() == 0){
                             showNormalUpdateDialog(updateBean);
-                        }else if(updateBean.getIsForceUpgrade() == 3){
+                        }else if(updateBean.getIsForceUpgrade() == 1){
                             showForceUpdateDialog(updateBean);
                         }
                     }
