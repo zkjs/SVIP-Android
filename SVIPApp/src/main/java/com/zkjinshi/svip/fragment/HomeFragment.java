@@ -37,6 +37,7 @@ import com.zkjinshi.svip.activity.common.MainController;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.GoodListActivity;
+import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.ibeacon.RegionVo;
@@ -206,9 +207,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     break;
                     case HOME_MSG_LOCATION:
                     {
-                        Intent intent = new Intent(mActivity, GoodListActivity.class);
-                        intent.putExtra("shopid", homeMsgVo.getShopid());
-                        intent.putExtra("showHeader",true);
+                        Intent intent = new Intent(mActivity, ShopDetailActivity.class);
+                        intent.putExtra("shopId", homeMsgVo.getShopid());
                         mActivity.startActivity(intent);
                         mActivity.overridePendingTransition(R.anim.slide_in_right,
                                 R.anim.slide_out_left);
