@@ -20,7 +20,7 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+
 
 /**
  * 消息广播接收帮助类

@@ -23,7 +23,7 @@ import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;

@@ -17,7 +17,7 @@ import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
-import com.zkjinshi.svip.activity.order.OrderDetailActivity;
+
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
