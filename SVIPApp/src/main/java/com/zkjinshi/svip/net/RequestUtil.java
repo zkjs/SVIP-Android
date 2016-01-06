@@ -59,7 +59,7 @@ import java.util.Map;
 public class RequestUtil {
 
 
-    public static int TIMEOUT = 3*1000;  //超时时间
+    public static int TIMEOUT = 5*1000;  //超时时间
 
     /**
      * 发送Get请求
