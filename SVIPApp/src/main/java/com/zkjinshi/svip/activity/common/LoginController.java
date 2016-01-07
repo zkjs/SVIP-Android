@@ -30,7 +30,6 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.UserDetailVo;
 import com.zkjinshi.svip.vo.UserInfoVo;
 
-
 /**
  * 开发者：dujiande
  * 日期：2015/9/17
@@ -57,9 +56,6 @@ public class LoginController {
         this.context = context;
         this.activity = (Activity)context;
     }
-
-
-
 
     /**
      * 获取用户详细信息
@@ -124,7 +120,6 @@ public class LoginController {
                             }else {
                                 goHome();
                             }
-
                         }
                     }
 
@@ -168,7 +163,6 @@ public class LoginController {
             }
         });
     }
-
 
     private void goHome() {
         Intent mainIntent = new Intent(activity, MainActivity.class);

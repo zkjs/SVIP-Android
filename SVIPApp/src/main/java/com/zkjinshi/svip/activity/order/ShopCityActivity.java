@@ -46,7 +46,7 @@ public class ShopCityActivity extends BaseActivity {
     private RelativeLayout mRlBack;
     private TextView       mTvCity;
     private RefreshListView mLvShopList;
-    private ArrayList<ShopBean>  mShopList;
+    private List<ShopBean>  mShopList;
     private ShopAdapter     mShopAdapter;
 
     private int mPage = 1;
@@ -184,7 +184,7 @@ public class ShopCityActivity extends BaseActivity {
                     List<ShopBean> shopBeanList = gson.fromJson(result.rawResult, listType);
                     if(null != shopBeanList && !shopBeanList.isEmpty()){
                         mShopList.addAll(shopBeanList);
-                        mShopAdapter.setShopList(mShopList);
+                        mShopAdapter.setData(mShopList);
                     }
                     LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + mShopList);
                 } catch (Exception e) {

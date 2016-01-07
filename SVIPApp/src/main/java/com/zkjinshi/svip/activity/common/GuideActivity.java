@@ -107,7 +107,6 @@ public class GuideActivity extends Activity {
         GuideActivity.this.startActivity(mainIntent);
         GuideActivity.this.finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-
     }
 }
 

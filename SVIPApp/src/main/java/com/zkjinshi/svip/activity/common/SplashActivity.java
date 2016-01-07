@@ -1,13 +1,10 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
@@ -26,9 +22,6 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.ProtocolUtil;
-
-import org.apache.log4j.chainsaw.Main;
 
 /**
  * 开机启动页面
@@ -253,7 +246,7 @@ public class SplashActivity extends BaseActivity {
     };
 
     private void goGuide() {
-        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+        Intent intent = new Intent(SplashActivity.this, GuideOneActivity.class);
         SplashActivity.this.startActivity(intent);
         SplashActivity.this.finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);

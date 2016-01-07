@@ -1,25 +1,19 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,9 +23,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.adapter.GoodAdapter;
-
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.RecommendShopBean;
 import com.zkjinshi.svip.bean.ShopBean;
 import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -43,9 +35,7 @@ import com.zkjinshi.svip.response.GoodInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
-
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
