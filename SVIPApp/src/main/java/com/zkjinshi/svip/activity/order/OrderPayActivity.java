@@ -197,10 +197,13 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 }else if(result.equals("fail")){
                     showPayFailsDialog();
                 }else if(result.equals("invalid")){
-                    if(errorMsg.equals("wechat_not_installed")|| extraMsg.equals("wechat_not_installed")){
+                    if(extraMsg.equals("wx_app_not_installed")){
                         showPayInvalidDialog("您没有安装微信客户端");
+                    }else{
+                        showPayInvalidDialog("您没有安装对应的支付控件");
+                        //showMsg(result, errorMsg, extraMsg);
                     }
-                    showMsg(result, errorMsg, extraMsg);
+
                 }
 
             }
