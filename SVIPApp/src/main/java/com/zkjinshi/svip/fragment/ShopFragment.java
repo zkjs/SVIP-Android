@@ -113,6 +113,8 @@ public class ShopFragment extends BaseFragment {
         mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefreshing() {
+                mShopList.clear();
+                mPage = 1;
                 getShopList(mUserID, mPage, mPageSize);
             }
 
@@ -233,11 +235,12 @@ public class ShopFragment extends BaseFragment {
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShopBean>>(){}.getType();
 
-                mPage++;
+
                 List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
                 if(null != shopList && !shopList.isEmpty()){
                     mShopList.addAll(shopList);
                     mShopAdapter.setData(mShopList);
+                    mPage++;
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + shopList);
                 mLvShopList.refreshFinish();
