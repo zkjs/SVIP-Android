@@ -55,7 +55,7 @@ public class GoodListActivity extends BaseActivity {
     private ImageView backIv;
     private ListView roomListView;
     private Button bookingBtn;
-    private List<GoodInfoVo> goodInfoList;
+    private ArrayList<GoodInfoVo> goodInfoList;
     private GoodAdapter goodAdapter;
     private GoodInfoVo goodInfoVo = null;
     private ViewHolder viewHolder = null;
@@ -360,10 +360,8 @@ public class GoodListActivity extends BaseActivity {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
-    private void setResponseData(List<GoodInfoVo> goodInfoList){
-//        goodAdapter.mDatas = goodInfoList;
-//        goodAdapter.notifyDataSetChanged();
-        goodAdapter = new GoodAdapter(goodInfoList,GoodListActivity.this);
+    private void setResponseData(ArrayList<GoodInfoVo> goodInfoList){
+        goodAdapter = new GoodAdapter(GoodListActivity.this,goodInfoList);
         roomListView.setAdapter(goodAdapter);
         if(goodInfoVo != null){
             goodAdapter.selectGood(goodInfoVo.getId());

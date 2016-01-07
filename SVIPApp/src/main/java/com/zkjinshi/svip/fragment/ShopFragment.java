@@ -100,7 +100,7 @@ public class ShopFragment extends BaseFragment {
             mPage     = savedInstanceState.getInt("page");
             mShopList = (ArrayList<ShopBean>) savedInstanceState.getSerializable("shop_list");
             if(null != mShopAdapter){
-                mShopAdapter.setData(mShopList);
+                mShopAdapter.setShopList(mShopList);
             }
         }
     }
@@ -235,12 +235,11 @@ public class ShopFragment extends BaseFragment {
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShopBean>>(){}.getType();
 
-
+                mPage++;
                 List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
                 if(null != shopList && !shopList.isEmpty()){
                     mShopList.addAll(shopList);
-                    mShopAdapter.setData(mShopList);
-                    mPage++;
+                    mShopAdapter.setShopList(mShopList);
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopList:" + shopList);
                 mLvShopList.refreshFinish();
