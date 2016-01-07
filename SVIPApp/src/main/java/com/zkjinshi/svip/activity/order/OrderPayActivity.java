@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 
 import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
@@ -197,13 +199,14 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 }else if(result.equals("fail")){
                     showPayFailsDialog();
                 }else if(result.equals("invalid")){
-                    if(extraMsg.equals("wx_app_not_installed")){
+                    if(errorMsg.equals("wx_app_not_installed")){
                         showPayInvalidDialog("您没有安装微信客户端");
                     }else{
                         showPayInvalidDialog("您没有安装对应的支付控件");
                         //showMsg(result, errorMsg, extraMsg);
                     }
-
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"errorMsg:"+errorMsg);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"extraMsg:"+extraMsg);
                 }
 
             }

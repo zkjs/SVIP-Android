@@ -279,6 +279,9 @@ public class HotelConfirmActivity extends Activity {
             case 1:
                 payTypeStr = "在线支付";
                 priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                if(orderDetailForDisplay.getOrderstatus().equals("已确认")){
+                    payTypeStr = "已支付";
+                }
                 confirmBtn.setText(priceStr + "  立即支付");
                 confirmBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
