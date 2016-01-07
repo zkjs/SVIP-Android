@@ -46,7 +46,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private int mCurrentDragUpState = STATE_DRAG_UP_REFRESH;      // 上拉加载默认状态
 
     //头布局界面主要控件
-    private RelativeLayout mHeaderLayout;
+    private LinearLayout mHeaderLayout;
     private ImageView ivArrow;
     private ProgressBar mProgressBar;
     private TextView tvState;
@@ -58,7 +58,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private Animation downAnimation;  // 向下旋转的动画
 
     //尾布局
-    private RelativeLayout mFooterLayout;
+    private LinearLayout mFooterLayout;
     private int mFooterLayoutHeight;
     private TextView mFooterText; // 上拉状态提示
 
@@ -119,7 +119,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private void initHeaderLayout() {
 
         // 加载头布局以及头布局控件
-        mHeaderLayout = (RelativeLayout) View.inflate(getContext(), R.layout.listview_header, null);
+        mHeaderLayout = (LinearLayout) View.inflate(getContext(), R.layout.listview_header, null);
         ivArrow = (ImageView) mHeaderLayout.findViewById(R.id.iv_listview_header_arrow);
         mProgressBar = (ProgressBar) mHeaderLayout.findViewById(R.id.pb_listview_header);
         tvState = (TextView) mHeaderLayout.findViewById(R.id.tv_listview_header_state);
@@ -127,7 +127,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
 
         // 设置最后刷新时间
         tvLastUpdateTime.setText(mContext.getString(R.string.latest_update)
-                              +" "+ TimeUtil.getChatTime(new Date().getTime()));
+                +" "+ TimeUtil.getChatTime(new Date().getTime()));
         // 系统会帮我们测量出headerView的高度
         mHeaderLayout.measure(0, 0);
         mHeaderLayoutHeight = mHeaderLayout.getMeasuredHeight();
@@ -144,7 +144,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
      */
     private void initFooterLayout() {
         // 加载尾布局
-        mFooterLayout = (RelativeLayout) View.inflate(getContext(), R.layout.listview_footer, null);
+        mFooterLayout = (LinearLayout) View.inflate(getContext(), R.layout.listview_footer, null);
         mFooterText = (TextView) mFooterLayout.findViewById(R.id.tv_footer_text);
 
         // 测量出footerView的高度
@@ -213,33 +213,31 @@ public class RefreshListView extends ListView implements OnScrollListener {
                 }
 
                 //当前显示界面已到达最后
-                if(getAdapter() != null && getAdapter().getCount() > 1){
-                    if ((getLastVisiblePosition() == getAdapter().getCount() - 1) && diffY < 0) {
-                        if (onceTouch) {
-                            hiddenTop = ev.getY() + 0.5f;
-                            onceTouch = false;
-                        }
-                        diffY = (int) (hiddenTop - ev.getY() + 0.5f);
-                        // 当前显示的位置是最后一个并且是向上滑动 为上拉 加载
-                        // Log.d(TAG, "mCurrentDragUpState"+mCurrentDragUpState);
-                        // 给底布局设置paddingBottom
-                        int hiddenHeight = (int) (mFooterLayoutHeight - diffY + 0.5f);
-                        mFooterLayout.setPadding(0, 0, 0, -hiddenHeight);
-
-                        if (hiddenHeight > 0 && mCurrentDragUpState == STATE_DRAG_UP_RELEASE_REFRESH) {
-                            // 更新状态
-                            mCurrentDragUpState = STATE_DRAG_UP_REFRESH;
-                            refreshUIByState(mCurrentDragUpState);// UI 更新
-                            Log.d(TAG, "上拉加载更多...");
-                        } else if (hiddenHeight <= 0 && mCurrentDragUpState == STATE_DRAG_UP_REFRESH) {
-                            // 更新状态
-                            mCurrentDragUpState = STATE_DRAG_UP_RELEASE_REFRESH;
-                            refreshUIByState(mCurrentDragUpState);// UI 更新
-                            Log.d(TAG, "松开加载更多...");
-                        }
-                        // 需要自己响应touch 不能返回true
-                        // return true;
+                if ((getLastVisiblePosition() == getAdapter().getCount() - 1) && diffY < 0) {
+                    if (onceTouch) {
+                        hiddenTop = ev.getY() + 0.5f;
+                        onceTouch = false;
                     }
+                    diffY = (int) (hiddenTop - ev.getY() + 0.5f);
+                    // 当前显示的位置是最后一个并且是向上滑动 为上拉 加载
+                    // Log.d(TAG, "mCurrentDragUpState"+mCurrentDragUpState);
+                    // 给底布局设置paddingBottom
+                    int hiddenHeight = (int) (mFooterLayoutHeight - diffY + 0.5f);
+                    mFooterLayout.setPadding(0, 0, 0, -hiddenHeight);
+
+                    if (hiddenHeight > 0 && mCurrentDragUpState == STATE_DRAG_UP_RELEASE_REFRESH) {
+                        // 更新状态
+                        mCurrentDragUpState = STATE_DRAG_UP_REFRESH;
+                        refreshUIByState(mCurrentDragUpState);// UI 更新
+                        Log.d(TAG, "上拉加载更多...");
+                    } else if (hiddenHeight <= 0 && mCurrentDragUpState == STATE_DRAG_UP_REFRESH) {
+                        // 更新状态
+                        mCurrentDragUpState = STATE_DRAG_UP_RELEASE_REFRESH;
+                        refreshUIByState(mCurrentDragUpState);// UI 更新
+                        Log.d(TAG, "松开加载更多...");
+                    }
+                    // 需要自己响应touch 不能返回true
+                    // return true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -402,13 +400,4 @@ public class RefreshListView extends ListView implements OnScrollListener {
         downAnimation.setFillAfter(true);    // 动画结束后, 停留在结束的位置上
     }
 
-//    /**
-//     * 获得当前时间的字符串形式
-//     */
-//    private String getCurrentTimeString() {
-//
-//        long time = System.currentTimeMillis();
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        return sdf.format(new Date(time));
-//    }
 }
