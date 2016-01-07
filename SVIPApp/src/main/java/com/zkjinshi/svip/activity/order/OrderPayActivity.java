@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 
 import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
@@ -197,7 +199,14 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 }else if(result.equals("fail")){
                     showPayFailsDialog();
                 }else if(result.equals("invalid")){
-                    showMsg(result, errorMsg, extraMsg);
+                    if(errorMsg.equals("wx_app_not_installed")){
+                        showPayInvalidDialog("您没有安装微信客户端");
+                    }else{
+                        showPayInvalidDialog("您没有安装对应的支付控件");
+                        //showMsg(result, errorMsg, extraMsg);
+                    }
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"errorMsg:"+errorMsg);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"extraMsg:"+extraMsg);
                 }
 
             }
@@ -280,6 +289,28 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
         customBuilder.setTitle("温馨提示");
         customBuilder.setMessage("支付失败，请重新支付！");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog = customBuilder.create();
+        dialog.setCancelable(false);
+        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        dialog.show();
+    }
+
+    /**
+     * 支付控件没安装对话框
+     */
+    private void showPayInvalidDialog(String msg){
+        Dialog dialog = null;
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
+        customBuilder.setTitle("温馨提示");
+        customBuilder.setMessage(msg);
         customBuilder.setGravity(Gravity.CENTER);
         customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 
