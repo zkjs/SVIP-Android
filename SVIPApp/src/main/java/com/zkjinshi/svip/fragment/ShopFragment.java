@@ -235,11 +235,12 @@ public class ShopFragment extends BaseFragment {
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShopBean>>(){}.getType();
 
-                mPage++;
+
                 List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
                 if(null != shopList && !shopList.isEmpty()){
                     mShopList.addAll(shopList);
                     mShopAdapter.setShopList(mShopList);
+                    mPage++;
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopList:" + shopList);
                 mLvShopList.refreshFinish();
