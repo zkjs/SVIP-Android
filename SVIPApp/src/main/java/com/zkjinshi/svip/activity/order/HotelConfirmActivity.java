@@ -352,8 +352,7 @@ public class HotelConfirmActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (RESULT_OK == resultCode) {
             if(requestCode == PAY_REQUEST_CODE){
-                finish();
-                //loadOrderInfoByOrderNo();
+                loadOrderInfoByOrderNo();
             }
         }
     }

@@ -12,7 +12,6 @@
         android:layout_height="267dp"
         android:background="@mipmap/bg_zhuce">
 
-
         <TextView
             android:id="@+id/login_tv_welcome"
             android:layout_width="wrap_content"

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_default_p_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:background="@mipmap/defoult_p_7" />
+
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/iv_default_p_8"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@mipmap/defoult_p_8" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_9"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@mipmap/defoult_p_9" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/iv_default_p_10"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/defoult_p_10" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone"
+            android:background="@mipmap/defoult_p_11" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_12"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/defoult_p_12" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_13"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/defoult_p_13" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_14"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/defoult_p_14" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_default_p_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:background="@mipmap/defoult_p_15" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_16"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/defoult_p_16" />
+
+        <ImageView
+            android:id="@+id/iv_default_p_17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/defoult_p_17" />
+
+    </RelativeLayout>
+
+</LinearLayout>
