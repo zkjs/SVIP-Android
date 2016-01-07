@@ -85,7 +85,7 @@ public class CityListActivity extends BaseActivity {
 
         mCityBeanList.add(0, mCityLocated);
 
-        mCityAdapter    = new CityAdapter(mCityBeanList, CityListActivity.this);
+        mCityAdapter    = new CityAdapter(CityListActivity.this,mCityBeanList);
         mLvCityList.setAdapter(mCityAdapter);
         //初始化定位
         LocationManager.getInstance().registerLocation(this);
@@ -213,8 +213,7 @@ public class CityListActivity extends BaseActivity {
                     //比较城市名称
                     Collections.sort(cityBeans, mCityComparator);
                     if(null != cityBeans && !cityBeans.isEmpty()){
-                        mCityAdapter.setData(mCityBeanList);
-
+                        mCityAdapter.setCityList(mCityBeanList);
                         //添加城市名称进入数据库
                         List<CityModel> cityModels = CityFactory.getInstance().convertCityBeans2CityModels(cityBeans);
                         CityDBUtil.getInstance().batchAddCityModels(cityModels);

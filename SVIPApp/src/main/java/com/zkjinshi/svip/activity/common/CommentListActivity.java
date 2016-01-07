@@ -47,7 +47,7 @@ public class CommentListActivity extends BaseActivity {
     private LinearLayout    mEmptyView;
 
     private RefreshListView mRlvCommentList;
-    private List<CommentVo> mCommentList;
+    private ArrayList<CommentVo> mCommentList;
     private CommentAdapter  mCommentAdapter;
 
     private String mShopID;
@@ -79,7 +79,7 @@ public class CommentListActivity extends BaseActivity {
         titleTv.setText(getString(R.string.comment));
 
         mCommentList    = new ArrayList<>();
-        mCommentAdapter = new CommentAdapter(mCommentList, CommentListActivity.this);
+        mCommentAdapter = new CommentAdapter(CommentListActivity.this,mCommentList);
 
         //获取商家评论列表
         if (!TextUtils.isEmpty(mShopID)) {
@@ -162,7 +162,7 @@ public class CommentListActivity extends BaseActivity {
                         if(mPage == 1){
                             mRlvCommentList.setAdapter(mCommentAdapter);
                         } else {
-                            mCommentAdapter.setData(mCommentList);
+                            mCommentAdapter.setCommentList(mCommentList);
                         }
                         mPage++;
                     }

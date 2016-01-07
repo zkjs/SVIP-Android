@@ -1,21 +1,22 @@
 package com.zkjinshi.svip.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.base.SvipBaseAdapter;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.CommentVo;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 开发者：WinkyQin
@@ -23,13 +24,26 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CommentAdapter extends SvipBaseAdapter<CommentVo> {
+public class CommentAdapter extends BaseAdapter{
 
     private DisplayImageOptions mOptions;
+    private ArrayList<CommentVo> commentList;
+    private Context context;
+    private LayoutInflater inflater;
 
-    public CommentAdapter(List<CommentVo> datas, Activity activity) {
-        super(datas, activity);
+    public void setCommentList(ArrayList<CommentVo> commentList) {
+        if(null == commentList){
+            this.commentList = new ArrayList<CommentVo>();
+        }else {
+            this.commentList = commentList;
+        }
+        notifyDataSetChanged();
+    }
 
+    public CommentAdapter(Context context,ArrayList<CommentVo> commentList) {
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
+        this.setCommentList(commentList);
         this.mOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.ic_launcher)
                 .showImageForEmptyUri(R.mipmap.ic_launcher)
@@ -47,7 +61,7 @@ public class CommentAdapter extends SvipBaseAdapter<CommentVo> {
             holder = (CommentViewHolder) view.getTag();
         } else {
             holder = new CommentViewHolder();
-            view   = View.inflate(mActivity, R.layout.item_comment_list, null);
+            view   = inflater.inflate(R.layout.item_comment_list, null);
             holder.civUserAvatar = (CircleImageView) view.findViewById(R.id.civ_user_avatar);
             holder.tvUserName    = (TextView) view.findViewById(R.id.tv_user_name);
             holder.tvCreateDate  = (TextView) view.findViewById(R.id.tv_created_date);
@@ -55,7 +69,7 @@ public class CommentAdapter extends SvipBaseAdapter<CommentVo> {
             view.setTag(holder);
         }
 
-        CommentVo commentVo = mDatas.get(position);
+        CommentVo commentVo = commentList.get(position);
         String userID   = commentVo.getUserid();
         long   created  = commentVo.getCreateDate();
         String userName = commentVo.getUserName();
@@ -74,13 +88,13 @@ public class CommentAdapter extends SvipBaseAdapter<CommentVo> {
         if (!TextUtils.isEmpty(userName)) {
             holder.tvUserName.setText(userName);
         } else {
-            holder.tvUserName.setText(mActivity.getString(R.string.no_name));
+            holder.tvUserName.setText(context.getText(R.string.no_name));
         }
 
         if (!TextUtils.isEmpty(content)) {
             holder.tvContent.setText(content);
         } else {
-            holder.tvContent.setText(mActivity.getString(R.string.the_user_do_not_give_a_comment));
+            holder.tvContent.setText(context.getString(R.string.the_user_do_not_give_a_comment));
         }
 
         return view;
@@ -91,5 +105,20 @@ public class CommentAdapter extends SvipBaseAdapter<CommentVo> {
         TextView        tvUserName;
         TextView        tvCreateDate;
         TextView        tvContent;
+    }
+
+    @Override
+    public int getCount() {
+        return commentList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return commentList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }
