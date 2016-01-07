@@ -113,7 +113,6 @@ public class ShopFragment extends BaseFragment {
         mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefreshing() {
-                mShopList.clear();
                 mPage = 1;
                 getShopList(mUserID, mPage, mPageSize);
             }
@@ -237,10 +236,16 @@ public class ShopFragment extends BaseFragment {
 
 
                 List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
-                if(null != shopList && !shopList.isEmpty()){
+
+                if(null != shopList){
+                    if(mPage == 1){
+                        mShopList.clear();
+                    }
                     mShopList.addAll(shopList);
                     mShopAdapter.setShopList(mShopList);
-                    mPage++;
+                    if(!shopList.isEmpty()){
+                        mPage++;
+                    }
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopList:" + shopList);
                 mLvShopList.refreshFinish();

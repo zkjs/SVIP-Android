@@ -605,10 +605,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
 
     //获取用户推送消息(用户未登陆)
-    private synchronized void getMessageDefault(boolean isClear){
-        if(isClear){
-            homeMsgList.clear();
-        }
+    private synchronized void getMessageDefault(final boolean isClear){
         String url = ProtocolUtil.getMessageDefaultUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -634,6 +631,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 try {
                     Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
                     ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
+                    if(isClear){
+                        homeMsgList.clear();
+                    }
                     for(MessageDefaultResponse message : messageList){
 
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
@@ -675,7 +675,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     //获取用户订单状态消息
     private synchronized void getOrderMsgUrl(){
-        homeMsgList.clear();
         String url = ProtocolUtil.getOrderMsgUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -703,7 +702,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-
+                    homeMsgList.clear();
                     Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
                     ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
                     for(MessageDefaultResponse message : messageList){
@@ -718,10 +717,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         homeMsgList.add(homeMsgVo);
 
                     }
-                    if(messageList.size() > 0){
-                        homeMsgAdapter.setDatalist(homeMsgList);
-                        homeMsgAdapter.notifyDataSetChanged();
-                    }
+                    homeMsgAdapter.setDatalist(homeMsgList);
+                    homeMsgAdapter.notifyDataSetChanged();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
 
                 } catch (Exception e) {
