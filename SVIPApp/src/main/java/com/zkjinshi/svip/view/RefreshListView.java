@@ -321,6 +321,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
      * 告知 ListView刷新完成
      */
     public void refreshFinish() {
+
         if (isLoadingMore) {
             // 上拉加载
             mFooterLayout.setPadding(0, 0, 0, -mFooterLayoutHeight);

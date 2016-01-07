@@ -18,10 +18,7 @@ import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
-import com.zkjinshi.svip.activity.common.HomeGuideActivity;
-import com.zkjinshi.svip.activity.common.ShopGuideActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
-import com.zkjinshi.svip.activity.order.GoodListActivity;
 import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
@@ -75,17 +72,11 @@ public class ShopFragment extends BaseFragment {
 
         super.initData();
         mUserID = CacheUtil.getInstance().getUserId();
-        if (null == mShopList || mShopList.isEmpty()) {
-            mShopList    = new ArrayList<>();
-            mShopAdapter = new ShopAdapter(mShopList, mActivity);
-            mLvShopList.setAdapter(mShopAdapter);
-            mPage = 1;
-            getShopList(mUserID, mPage, mPageSize);
-        } else {
-            if(null != mShopAdapter){
-                mLvShopList.setAdapter(mShopAdapter);
-            }
-        }
+        mShopList    = new ArrayList<>();
+        mShopAdapter = new ShopAdapter(mShopList, mActivity);
+        mLvShopList.setAdapter(mShopAdapter);
+        mPage = 1;
+        getShopList(mUserID, mPage, mPageSize);
     }
 
     @Override
@@ -109,21 +100,10 @@ public class ShopFragment extends BaseFragment {
     protected void initListener() {
         super.initListener();
 
-        //实现上拉加载下拉刷新
-        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
+        //单击item栏
+        mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onRefreshing() {
-                mPage = 1;
-                getShopList(mUserID, mPage, mPageSize);
-            }
-
-            @Override
-            public void onLoadingMore() {
-                getShopList(mUserID, mPage, mPageSize);
-            }
-
-            @Override
-            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //进入商家详情
                 ShopBean shopBean = null;
                 int realPostion = position - 1;
@@ -147,6 +127,25 @@ public class ShopFragment extends BaseFragment {
                                 R.anim.slide_out_left);
                     }
                 }
+            }
+        });
+
+        //实现上拉加载下拉刷新
+        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefreshing() {
+                mPage = 1;
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void onLoadingMore() {
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+
             }
         });
 
@@ -188,25 +187,6 @@ public class ShopFragment extends BaseFragment {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(resultCode == mActivity.RESULT_OK){
-//            if(requestCode == REQUEST_CHOOSE_CITY){
-//                if(null != data){
-//                    String city = data.getStringExtra("city");
-//                    if(!city.equals(getString(R.string.locating))){
-//                        mEtCity.setText(city);
-//                    }
-//                    mBaseShopList.removeAll(mBaseShopList);
-//                    mPage = 1;
-//                    getShopListByCity(city, mPage, mPageSize);
-//                }
-//            }
-//        }
-//    }
-
     public void getShopList(String userID, int page, int pageSize) {
 
         String url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
@@ -224,7 +204,7 @@ public class ShopFragment extends BaseFragment {
 
             @Override
             public void onNetworkRequestCancelled() {
-                mLvShopList.refreshFinish();
+
             }
 
             @Override
@@ -261,7 +241,6 @@ public class ShopFragment extends BaseFragment {
         } else {
             netRequestTask.isShowLoadingDialog = false;
         }
-//        netRequestTask.mLayoutResId = R.layout.view_progress_dialog;
         netRequestTask.execute();
     }
 
