@@ -317,7 +317,8 @@ public class KTVConfirmActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (RESULT_OK == resultCode) {
             if(requestCode == PAY_REQUEST_CODE){
-                loadOrderInfoByOrderNo();
+                finish();
+               // loadOrderInfoByOrderNo();
             }
         }
     }

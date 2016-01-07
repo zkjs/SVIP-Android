@@ -100,7 +100,7 @@ public class ShopFragment extends BaseFragment {
             mPage     = savedInstanceState.getInt("page");
             mShopList = (ArrayList<ShopBean>) savedInstanceState.getSerializable("shop_list");
             if(null != mShopAdapter){
-                mShopAdapter.setData(mShopList);
+                mShopAdapter.setShopList(mShopList);
             }
         }
     }
@@ -108,11 +108,12 @@ public class ShopFragment extends BaseFragment {
     @Override
     protected void initListener() {
         super.initListener();
-
         //实现上拉加载下拉刷新
         mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefreshing() {
+                mShopList.clear();
+                mPage = 1;
                 getShopList(mUserID, mPage, mPageSize);
             }
 
@@ -148,7 +149,6 @@ public class ShopFragment extends BaseFragment {
                 }
             }
         });
-
         //输入框点击事件
         mRlDingWei.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,25 +187,6 @@ public class ShopFragment extends BaseFragment {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(resultCode == mActivity.RESULT_OK){
-//            if(requestCode == REQUEST_CHOOSE_CITY){
-//                if(null != data){
-//                    String city = data.getStringExtra("city");
-//                    if(!city.equals(getString(R.string.locating))){
-//                        mEtCity.setText(city);
-//                    }
-//                    mBaseShopList.removeAll(mBaseShopList);
-//                    mPage = 1;
-//                    getShopListByCity(city, mPage, mPageSize);
-//                }
-//            }
-//        }
-//    }
-
     public void getShopList(String userID, int page, int pageSize) {
 
         String url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
@@ -232,12 +213,11 @@ public class ShopFragment extends BaseFragment {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 Gson gson = new Gson();
                 Type type = new TypeToken<List<ShopBean>>(){}.getType();
-
-                mPage++;
                 List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
                 if(null != shopList && !shopList.isEmpty()){
                     mShopList.addAll(shopList);
-                    mShopAdapter.setData(mShopList);
+                    mShopAdapter.setShopList(mShopList);
+                    mPage++;
                 }
                 LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + shopList);
                 mLvShopList.refreshFinish();
@@ -253,7 +233,6 @@ public class ShopFragment extends BaseFragment {
         } else {
             netRequestTask.isShowLoadingDialog = false;
         }
-//        netRequestTask.mLayoutResId = R.layout.view_progress_dialog;
         netRequestTask.execute();
     }
 

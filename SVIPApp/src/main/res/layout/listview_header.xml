@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center_horizontal"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/fl_progress"
-        android:padding="5dp"
-        android:layout_width="56dp"
-        android:layout_height="56dp" >
+        <FrameLayout
+            android:padding="5dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp" >
 
-        <ImageView
-            android:id="@+id/iv_listview_header_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:src="@mipmap/ic_shangjiantou" />
+            <ImageView
+                android:id="@+id/iv_listview_header_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_shangjiantou" />
 
-        <ProgressBar
-            android:id="@+id/pb_listview_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateDrawable="@drawable/common_progressbar"
-            android:visibility="gone" />
+            <ProgressBar
+                android:id="@+id/pb_listview_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateDrawable="@drawable/common_progressbar"
+                android:visibility="gone" />
 
-    </FrameLayout>
+        </FrameLayout>
 
-    <LinearLayout
-        android:layout_toRightOf="@id/fl_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_listview_header_state"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/pull_down_refresh"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tv_listview_header_state"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pull_down_refresh"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tv_listview_header_last_update_time"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_listview_header_last_update_time"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
