@@ -46,25 +46,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical">
-                <EditText
-                    android:id="@+id/input_et"
-                    android:gravity="right|center_vertical"
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="#666666"
-                    android:text=""
-                    android:hint="添加房间数量"
-                    android:textColorHint="#bbbbbb"
-                    android:inputType="number"
-                    android:background="@android:color/transparent"
-                    android:cursorVisible="false"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:layout_marginRight="10dp"/>
-
-
                 <ImageButton
                     android:id="@+id/add_ibtn"
                     android:layout_marginLeft="10dp"
@@ -73,6 +54,22 @@
                     android:src="@mipmap/ic_jia_yellow"
                     android:scaleType="centerInside"
                     android:background="@drawable/bg_btn_num"/>
+                <EditText
+                    android:id="@+id/input_et"
+                    android:gravity="center"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:textSize="15sp"
+                    android:textColor="#666666"
+                    android:text="1"
+                    android:hint="添加房间数量"
+                    android:textColorHint="#bbbbbb"
+                    android:inputType="number"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:editable="false"
+                    android:focusable="false"/>
+
                 <ImageButton
                     android:id="@+id/sub_ibtn"
                     android:layout_width="55dp"
