@@ -469,6 +469,9 @@ public class HotelBookingActivity extends Activity {
         int num = Integer.parseInt(roomNumTnv.getValue());
         orderDetailForDisplay.setRoomcount(num);
         orderDetailForDisplay.setSaleid(salesId);
+        orderDetailForDisplay.setShopname(shopName);
+        orderDetailForDisplay.setShopid(shopId);
+        orderDetailForDisplay.setUserid(CacheUtil.getInstance().getUserId());
         Gson gson = new GsonBuilder().serializeNulls().create();
         String dataJson = gson.toJson(orderDetailForDisplay);
         String encryptedData = Base64Encoder.encode(dataJson);// base 64加密
