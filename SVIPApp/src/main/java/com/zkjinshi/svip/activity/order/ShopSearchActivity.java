@@ -44,7 +44,7 @@ public class ShopSearchActivity extends BaseActivity {
 
     private EditText searchEt;
     private ListView shopListView;
-    private ArrayList<ShopBean> shopResponseList = new ArrayList<ShopBean>();
+    private List<ShopBean> shopResponseList = new ArrayList<ShopBean>();
     private ShopAdapter shopAdapter;
 
     @Override
@@ -147,7 +147,7 @@ public class ShopSearchActivity extends BaseActivity {
                     Gson gson = new Gson();
                     shopResponseList = gson.fromJson(result.rawResult, listType);
                     if(null != shopResponseList){
-                        shopAdapter.setShopList(shopResponseList);
+                        shopAdapter.setData(shopResponseList);
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());

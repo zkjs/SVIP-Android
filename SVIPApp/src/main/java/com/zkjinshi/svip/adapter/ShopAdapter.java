@@ -1,13 +1,11 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,7 +22,6 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,32 +30,18 @@ import java.util.List;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ShopAdapter extends BaseAdapter {
+public class ShopAdapter  extends SvipBaseAdapter<ShopBean> {
 
     private final static int ITEM_VIEW_COUNT  = 3;
     public  final static int ITEM_ADVERTISE   = 0x00;
     public  final static int ITEM_NORMAL_SHOP = 0x01;
     public  final static int ITEM_OTHER       = 0x02;
 
-    private ArrayList<ShopBean> shopList;
-    private DisplayImageOptions avatarOptions;
     private DisplayImageOptions shopOptions;
-    private Context context;
-    private LayoutInflater inflater;
+    private DisplayImageOptions avatarOptions;
 
-    public void setShopList(ArrayList<ShopBean> shopList) {
-        if(null == shopList){
-            this.shopList = new ArrayList<ShopBean>();
-        }else {
-            this.shopList = shopList;
-        }
-        notifyDataSetChanged();
-    }
-
-    public ShopAdapter(ArrayList<ShopBean> shopList,Context context){
-        this.context = context;
-        this.inflater = LayoutInflater.from(context);
-        this.setShopList(shopList);
+    public ShopAdapter(List datas, Activity activity) {
+        super(datas, activity);
         this.shopOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
@@ -66,6 +49,7 @@ public class ShopAdapter extends BaseAdapter {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
+
         this.avatarOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.img_avatar_hotel)// 设置图片下载期间显示的图片
                 .showImageForEmptyUri(R.mipmap.img_avatar_hotel)// 设置图片Uri为空或是错误的时候显示的图片
@@ -79,7 +63,7 @@ public class ShopAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if(null ==  convertView){
-            convertView = inflater.inflate(R.layout.item_list_shop, null);
+            convertView = LayoutInflater.from(mActivity).inflate(R.layout.item_list_shop, null);
             viewHolder = new ViewHolder();
             viewHolder.ivShopLogo     = (ImageView)convertView.findViewById(R.id.iv_shop_logo);
             viewHolder.civSalerAvatar = (CircleImageView)convertView.findViewById(R.id.civ_saler_avatar);
@@ -95,7 +79,7 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        ShopBean shopBean = shopList.get(position);
+        ShopBean shopBean = mDatas.get(position);
         String   shopName = shopBean.getShopname();
         String   shopBusi = shopBean.getShopbusiness();
         String   shopDesc = shopBean.getShopdesc();
@@ -149,15 +133,15 @@ public class ShopAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
                         if(!CacheUtil.getInstance().isLogin()){
-                            Intent intent = new Intent(context,LoginActivity.class);
+                            Intent intent = new Intent(mActivity,LoginActivity.class);
                             intent.putExtra("isHomeBack",true);
-                            context.startActivity(intent);
+                            mActivity.startActivity(intent);
                             return;
                         }
                         // 进入销售主页
-                        Intent intent = new Intent(context, ContactActivity.class);
+                        Intent intent = new Intent(mActivity, ContactActivity.class);
                         intent.putExtra("contact_id", salesID);
-                        context.startActivity(intent);
+                        mActivity.startActivity(intent);
                     }
                 });
             }
@@ -180,7 +164,7 @@ public class ShopAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        Object obj = shopList.get(position);
+        Object obj = mDatas.get(position);
         if(obj instanceof ShopBean){
             String shopID = ((ShopBean) obj).getShopid();
             if(!TextUtils.isEmpty(shopID)){
@@ -198,18 +182,4 @@ public class ShopAdapter extends BaseAdapter {
         return ITEM_VIEW_COUNT;
     }
 
-    @Override
-    public int getCount() {
-        return shopList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return shopList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 }
