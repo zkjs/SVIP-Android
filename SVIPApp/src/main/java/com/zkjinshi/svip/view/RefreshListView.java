@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
@@ -45,7 +46,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private int mCurrentDragUpState = STATE_DRAG_UP_REFRESH;      // 上拉加载默认状态
 
     //头布局界面主要控件
-    private LinearLayout mHeaderLayout;
+    private RelativeLayout mHeaderLayout;
     private ImageView ivArrow;
     private ProgressBar mProgressBar;
     private TextView tvState;
@@ -118,7 +119,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private void initHeaderLayout() {
 
         // 加载头布局以及头布局控件
-        mHeaderLayout = (LinearLayout) View.inflate(getContext(), R.layout.listview_header, null);
+        mHeaderLayout = (RelativeLayout) View.inflate(getContext(), R.layout.listview_header, null);
         ivArrow = (ImageView) mHeaderLayout.findViewById(R.id.iv_listview_header_arrow);
         mProgressBar = (ProgressBar) mHeaderLayout.findViewById(R.id.pb_listview_header);
         tvState = (TextView) mHeaderLayout.findViewById(R.id.tv_listview_header_state);
