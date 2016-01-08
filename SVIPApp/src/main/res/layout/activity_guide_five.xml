@@ -70,7 +70,8 @@
         android:gravity="center"
         android:padding="20dp">
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/ibtn_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/defoult_start" />
