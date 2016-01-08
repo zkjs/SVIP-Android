@@ -1,13 +1,21 @@
 package com.zkjinshi.svip.net;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectTimeoutException;
@@ -26,7 +34,6 @@ import java.util.HashMap;
  * 版权所有
  */
 public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
-
     /** http返回成功 */
     private static final int REQ_RESP_SUCCESS = 200;
 
@@ -72,7 +79,28 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
 
         try {
             if (isShowLoadingDialog) {
-                DialogUtil.getInstance().showProgressDialog(context);
+                //获得当前用户头像
+                String url = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                ImageLoader.getInstance().loadImage(url,
+                    new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String imageUri, View view) {}
+
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            Bitmap avatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+                            DialogUtil.getInstance().showAvatarProgressDialog(context, avatar);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            DialogUtil.getInstance().showAvatarProgressDialog(context, loadedImage);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String imageUri, View view) {}
+                    }
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();

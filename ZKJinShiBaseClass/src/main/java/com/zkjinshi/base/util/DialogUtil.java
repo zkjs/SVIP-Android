@@ -4,10 +4,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zkjinshi.base.R;
+import com.zkjinshi.base.view.CircleImageView;
 
 /**
  * 对话框工具类
@@ -24,7 +27,7 @@ public class DialogUtil {
 
 	private ProgressDialog progressDialog = null;
 
-	private int mLayoutResId = R.layout.view_progress_dialog;
+	private int mLayoutResId = R.layout.view_avatar_progress_dialog;
 
 	public static int mAlertDialogIconId = android.R.drawable.ic_dialog_info;
 
@@ -71,6 +74,39 @@ public class DialogUtil {
 	public void showProgressDialog(Context context) {
 		showProgressDialog(context,
 				context.getString(R.string.loading_please_waiting));
+	}
+
+	/**
+	 * 根据用户头像图片显示加载进度
+	 * @param context
+	 */
+	public void showAvatarProgressDialog(Context context, Bitmap avatar) {
+
+		View layoutView = View.inflate(context, R.layout.view_avatar_progress_dialog, null);
+		showProgressDialog(context, layoutView, avatar);
+	}
+
+	private void showProgressDialog(Context context, View layoutView, Bitmap avatar) {
+
+		if (avatar == null) {
+			showProgressDialog(context);
+			return;
+		}
+
+		CircleImageView userAvatar = (CircleImageView) layoutView.findViewById(R.id.civ_user_avatar);
+		userAvatar.setImageBitmap(avatar);
+
+		cancelProgressDialog();
+
+		progressDialog = new ProgressDialog(context);
+		progressDialog.setIndeterminate(true);
+		progressDialog.setCancelable(true);
+		progressDialog.setCanceledOnTouchOutside(false);
+		if (mOnCancelListener != null) {
+			progressDialog.setOnCancelListener(mOnCancelListener);
+		}
+		progressDialog.show();
+		progressDialog.setContentView(layoutView);
 	}
 
 	/**
