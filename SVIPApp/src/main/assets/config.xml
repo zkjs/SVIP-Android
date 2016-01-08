@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <!--测试版-->
-    <http-host>tap.zkjinshi.com</http-host>
-    <api-host>mmm.zkjinshi.com</api-host>
-    <!--正式版-->
-    <!--<http-host>app.zkjinshi.com/papi</http-host>-->
-    <!--<api-host>app.zkjinshi.com/japi</api-host>-->
+    <!--测试-->
+    <php-host>tst.zkjinshi.com</php-host>
+    <java-host>test.zkjinshi.com/japi</java-host>
+    <!--预生产-->
+    <!--<php-host>rap.zkjinshi.com</php-host>-->
+    <!--<java-host>p.zkjinshi.com/japi</java-host>-->
+    <!--生产-->
+    <!--<php-host>api.zkjinshi.com</php-host>-->
+    <!--<java-host>mmm.zkjinshi.com</java-host>-->
 </config>

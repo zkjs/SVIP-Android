@@ -372,6 +372,7 @@
                         android:padding="10dp"
                         android:gravity="left|top"
                         android:visibility="gone"
+                        android:maxLength="140"
                         android:background="@drawable/bg_order_evaluate_input"
                         android:hint="感谢您的评价，说说您满意的理由"
                         android:textSize="14sp"

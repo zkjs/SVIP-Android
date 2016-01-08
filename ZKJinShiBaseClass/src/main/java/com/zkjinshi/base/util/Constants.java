@@ -10,15 +10,7 @@ package com.zkjinshi.base.util;
 public class Constants {
 
     public static final String ZKJINSHI_BASE_TAG = "ZKJinShi_TAG";
-    public static final String HTTP_HOST = "http-host";
-    public static final String IM_HOST = "im-host";
-    public static final String IM_PORT = "im-port";
-    public static final String MEDIA_HOST = "media-host";
-    public static final String MEDIA_PORT = "media-port";
-    public static final String API_HOST = "api-host";
-
-    public static final String SMS_ACCOUNT_SID = "sms-account-sid";
-    public static final String SMS_APP_ID      = "sms-app-id";
-    public static final String SMS_AUTH_TOKEN  = "sms-auth-token";
+    public static final String PHP_HOST = "php-host";
+    public static final String JAVA_HOST = "java-host";
 
 }

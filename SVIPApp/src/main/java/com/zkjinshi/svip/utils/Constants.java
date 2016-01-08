@@ -39,7 +39,7 @@ public class Constants {
     //友盟Appkey
     public static final String UMAppKey = "55c31431e0f55a65c1002597";
 
-    public final static String HTTP_URL = ConfigUtil.getInst().getHttpDomain();
+    public final static String HTTP_URL = ConfigUtil.getInst().getPhpDomain();
     //app客户注册登录
     public final static String POST_LOGIN_URL     = HTTP_URL + "user/reg?";
     //app客户获取用户

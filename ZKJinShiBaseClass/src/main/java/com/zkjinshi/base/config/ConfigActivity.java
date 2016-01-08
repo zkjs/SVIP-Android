@@ -20,18 +20,18 @@ import java.io.IOException;
  */
 public class ConfigActivity extends Activity {
 
-    private EditText imIpEtv,imPortEtv;
+    private EditText javaDomainEtv, phpDomainEtv;
     private Button saveBtn;
 
     private void initView(){
-        imIpEtv = (EditText)findViewById(R.id.editText_server);
-        imPortEtv = (EditText)findViewById(R.id.editText_port);
+        javaDomainEtv = (EditText)findViewById(R.id.editText_server);
+        phpDomainEtv = (EditText)findViewById(R.id.editText_port);
         saveBtn = (Button)findViewById(R.id.button_save);
     }
 
     private void initData(){
-        imIpEtv.setText(""+ ConfigUtil.getInst().getIMHost());
-        imPortEtv.setText(""+ ConfigUtil.getInst().getIMPort());
+        javaDomainEtv.setText(""+ ConfigUtil.getInst().getJavaDomain());
+        phpDomainEtv.setText(""+ ConfigUtil.getInst().getPhpDomain());
     }
 
     private void initListeners(){
@@ -40,11 +40,11 @@ public class ConfigActivity extends Activity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String iHost = imIpEtv.getText().toString();
-                String iPort = imPortEtv.getText().toString();
+                String iHost = javaDomainEtv.getText().toString();
+                String iPort = phpDomainEtv.getText().toString();
                 try {
-                    ConfigUtil.getInst().put(Constants.IM_HOST, iHost);
-                    ConfigUtil.getInst().put(Constants.IM_PORT, iPort);
+                    ConfigUtil.getInst().put(Constants.JAVA_HOST, iHost);
+                    ConfigUtil.getInst().put(Constants.PHP_HOST, iPort);
                     ConfigUtil.getInst().save(view.getContext());
                 } catch (IllegalArgumentException e) {
                     // TODO Auto-generated catch block

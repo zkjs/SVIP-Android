@@ -431,66 +431,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         handler.sendEmptyMessage(NOTIFY_LOCATION);
     }
 
-
-
-    //获取推荐商家列表
-//    private void getShopRecommended(String city){
-//        String url = ProtocolUtil.getShopRecommendedUrl(city);
-//        Log.i(TAG, url);
-//        NetRequest netRequest = new NetRequest(url);
-//        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-//        netRequestTask.methodType = MethodType.GET;
-//        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
-//            @Override
-//            public void onNetworkRequestError(int errorCode, String errorMessage) {
-//                Log.i(TAG, "errorCode:" + errorCode);
-//                Log.i(TAG, "errorMessage:" + errorMessage);
-//            }
-//
-//            @Override
-//            public void onNetworkRequestCancelled() {
-//
-//            }
-//
-//            @Override
-//            public void onNetworkResponseSucceed(NetResponse result) {
-//                super.onNetworkResponseSucceed(result);
-//                Log.i(TAG, "result.rawResult:" + result.rawResult);
-//                try {
-//                    Type listType = new TypeToken<ArrayList<ShopRecommendedResponse>>() {}.getType();
-//                    ArrayList<ShopRecommendedResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-//
-//                    for(ShopRecommendedResponse message : messageList){
-//
-//                        HomeMsgVo homeMsg= new HomeMsgVo();
-//                        homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
-//                        homeMsg.setClickAble(true);
-//                        homeMsg.setMajorText(message.getRecommend_title());
-//                        homeMsg.setMinorText(message.getRecommend_content());
-//                        homeMsg.setIcon( ConfigUtil.getInst().getHttpDomain()+message.getRecommend_logo());
-//                        homeMsg.setShopid(message.getShopid());
-//                        homeMsgList.add(homeMsg);
-//
-//                    }
-//                    homeMsgAdapter.setDatalist(homeMsgList);
-//                    homeMsgAdapter.notifyDataSetChanged();
-//
-//                } catch (Exception e) {
-//                    Log.e(TAG, e.getMessage());
-//                }
-//
-//            }
-//
-//            @Override
-//            public void beforeNetworkRequestStart() {
-//
-//            }
-//        });
-//        netRequestTask.isShowLoadingDialog = false;
-//        netRequestTask.execute();
-//
-//    }
-
     public void showPrivilegeTips(){
         logoTextTv.setVisibility(View.VISIBLE);
         if(fadeAnimation == null){

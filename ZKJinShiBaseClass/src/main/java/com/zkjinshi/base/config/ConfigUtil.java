@@ -90,78 +90,19 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取 IM Host
-     *
-     * @return String-host	服务器ip
-     */
-    public String getIMHost() {
-        return getConfigValue(Constants.IM_HOST);
-    }
-
-
-    /**
-     * 获取 媒体 Port
-     *
-     * @return String-port	服务器端口号
-     */
-    public int getMediaPort() {
-        return Integer.parseInt(getConfigValue(Constants.MEDIA_PORT));
-    }
-
-    /**
-     * 获取http请求端口
+     * 获取Java请求链接
      * @return
      */
-    public String getIMPort() {
-        return  getConfigValue(Constants.IM_PORT);
+    public String getJavaDomain() {
+        return "http://" + getConfigValue(Constants.JAVA_HOST)+ "/";
     }
 
     /**
-     * 获取媒体http请求链接
+     * 获取Php请求链接
      * @return
      */
-    public String getMediaDomain() {
-        return "http://" + getConfigValue(Constants.MEDIA_HOST)+":"+ getConfigValue(Constants.MEDIA_PORT)+ "/";
-    }
-
-    /**
-     * 获取铁式API请求链接
-     * @return
-     */
-    public String getApiDomain() {
-        return "http://" + getConfigValue(Constants.API_HOST)+ "/";
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getHttpDomain() {
-        return "http://" + getConfigValue(Constants.HTTP_HOST)+ "/";
-    }
-
-    /**
-     * 获取短信SMS_ACCOUNT_SID
-     * @return
-     */
-    public String getSmsAccountSID() {
-        return getConfigValue(Constants.SMS_ACCOUNT_SID);
-    }
-
-    /**
-     * 获取短信SMS_APP_ID
-     * @return
-     */
-    public String getSmsAppID() {
-        return getConfigValue(Constants.SMS_APP_ID);
-    }
-
-    /**
-     * 获取短信SMS_AUTH_TOKEN
-     * @return
-     */
-    public String getSmsAuthToken() {
-        return getConfigValue(Constants.SMS_AUTH_TOKEN);
+    public String getPhpDomain() {
+        return "http://" + getConfigValue(Constants.PHP_HOST)+ "/";
     }
 
     /**

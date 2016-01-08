@@ -20,7 +20,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getCustomerServiceUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/mysemplist";
+        return ConfigUtil.getInst().getPhpDomain()+"user/mysemplist";
     }
 
     /**
@@ -28,7 +28,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOrderDetailUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/v10show";
+        return ConfigUtil.getInst().getPhpDomain()+"order/v10show";
     }
 
     /**
@@ -36,7 +36,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGetEvaluateUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"comment/show";
+        return ConfigUtil.getInst().getPhpDomain()+"comment/show";
     }
 
 
@@ -45,7 +45,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAddEvaluateUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"comment/add";
+        return ConfigUtil.getInst().getPhpDomain()+"comment/add";
     }
 
     /**
@@ -55,7 +55,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserInfoUrl(String token,String userId){
-        return ConfigUtil.getInst().getHttpDomain()+"user/select?userid="+userId+"&token="+token;
+        return ConfigUtil.getInst().getPhpDomain()+"user/select?userid="+userId+"&token="+token;
     }
 
     /**
@@ -64,7 +64,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopLogoUrl(String logo){
-        return ConfigUtil.getInst().getHttpDomain()+logo;
+        return ConfigUtil.getInst().getPhpDomain()+logo;
     }
 
     /**
@@ -73,7 +73,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGoodListUrl(String shopId){
-        return ConfigUtil.getInst().getApiDomain()+"goods/get/"+shopId;
+        return ConfigUtil.getInst().getJavaDomain()+"goods/get/"+shopId;
     }
 
     /**
@@ -82,7 +82,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGoodImgUrl(String imageUrl){
-        return ConfigUtil.getInst().getHttpDomain()+imageUrl;
+        return ConfigUtil.getInst().getPhpDomain()+imageUrl;
     }
 
     /**
@@ -90,7 +90,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getIBeaconListUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"beacon/show";
+        return ConfigUtil.getInst().getPhpDomain()+"beacon/show";
     }
 
     /**
@@ -98,7 +98,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getLocationListUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/location";
+        return ConfigUtil.getInst().getPhpDomain()+"user/location";
     }
 
     /**
@@ -106,7 +106,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAddGpdInfoUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"user/gpsadd";
+        return  ConfigUtil.getInst().getPhpDomain()+"user/gpsadd";
     }
 
     /**
@@ -116,7 +116,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserTagsUrl(String token,String userId){
-        return ConfigUtil.getInst().getHttpDomain()+"tags/user?userid="+userId+"&token="+token;
+        return ConfigUtil.getInst().getPhpDomain()+"tags/user?userid="+userId+"&token="+token;
     }
 
     /**
@@ -124,7 +124,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getRandTagsUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"tags/show";
+        return  ConfigUtil.getInst().getPhpDomain()+"tags/show";
     }
 
     /**
@@ -132,7 +132,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getPostTagsUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"tags/upload";
+        return  ConfigUtil.getInst().getPhpDomain()+"tags/upload";
     }
 
     /**
@@ -140,7 +140,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOrderUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"user/order";
+        return  ConfigUtil.getInst().getPhpDomain()+"user/order";
     }
 
     /**
@@ -149,7 +149,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopInfoUrl(String shopid){
-        return ConfigUtil.getInst().getHttpDomain()+"user/selectshop?shopid="+shopid+"&web=0";
+        return ConfigUtil.getInst().getPhpDomain()+"user/selectshop?shopid="+shopid+"&web=0";
     }
 
     /**
@@ -157,7 +157,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String geTicketListUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/fplist";
+        return ConfigUtil.getInst().getPhpDomain()+"user/fplist";
     }
 
     /**
@@ -165,7 +165,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String addTicketUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/fpadd";
+        return ConfigUtil.getInst().getPhpDomain()+"user/fpadd";
     }
 
     /**
@@ -173,7 +173,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String updateTicketUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/fpupdate";
+        return ConfigUtil.getInst().getPhpDomain()+"user/fpupdate";
     }
 
     /**
@@ -181,7 +181,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOneOrderUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/show";
+        return ConfigUtil.getInst().getPhpDomain()+"order/show";
         // return "http://172.21.7.54/order/show";
     }
 
@@ -190,7 +190,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String updateOrderUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/update2";
+        return ConfigUtil.getInst().getPhpDomain()+"order/update2";
     }
 
     /**
@@ -198,7 +198,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getPeopleListUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/createlist";
+        return ConfigUtil.getInst().getPhpDomain()+"order/createlist";
     }
 
     /**
@@ -206,7 +206,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String addPeopleListUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/useradd";
+        return ConfigUtil.getInst().getPhpDomain()+"order/useradd";
     }
 
     /**
@@ -214,7 +214,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getLastOrder(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/last";
+        return ConfigUtil.getInst().getPhpDomain()+"order/last";
     }
 
     /**
@@ -222,7 +222,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOrderList(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/showlist";
+        return ConfigUtil.getInst().getPhpDomain()+"order/showlist";
     }
 
     /**
@@ -230,7 +230,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserMysemp(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/mysemp";
+        return ConfigUtil.getInst().getPhpDomain()+"user/mysemp";
     }
 
     /**
@@ -238,7 +238,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getNewRandomInviteCodeUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"invitation/random";
+        return ConfigUtil.getInst().getPhpDomain()+"invitation/random";
     }
 
     /**
@@ -246,7 +246,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getEmpInviteCodeUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"invitation/sempcode";
+        return ConfigUtil.getInst().getPhpDomain()+"invitation/sempcode";
     }
 
     /**
@@ -254,7 +254,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getEmpByInviteCodeUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"invitation/getcode";
+        return ConfigUtil.getInst().getPhpDomain()+"invitation/getcode";
     }
 
     /**
@@ -262,7 +262,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserBindInviteCodeUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"invitation/bdcode";
+        return ConfigUtil.getInst().getPhpDomain()+"invitation/bdcode";
     }
 
     /**
@@ -271,7 +271,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAvatarUrl(String userid){
-        return ConfigUtil.getInst().getHttpDomain()+"uploads/users/"+userid+".jpg";
+        return ConfigUtil.getInst().getPhpDomain()+"uploads/users/"+userid+".jpg";
     }
 
     /**
@@ -280,7 +280,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopIconUrl(String shopid){
-        return ConfigUtil.getInst().getHttpDomain()+"uploads/shops/"+shopid+".png";
+        return ConfigUtil.getInst().getPhpDomain()+"uploads/shops/"+shopid+".png";
     }
 
     /**
@@ -288,7 +288,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOrderV10list(){
-        return ConfigUtil.getInst().getHttpDomain()+"order/v10list";
+        return ConfigUtil.getInst().getPhpDomain()+"order/v10list";
     }
 
     /**
@@ -296,7 +296,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAdPush(){
-        return ConfigUtil.getInst().getHttpDomain()+"ad/push";
+        return ConfigUtil.getInst().getPhpDomain()+"ad/push";
     }
 
     /**
@@ -304,7 +304,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAdList(){
-        return ConfigUtil.getInst().getHttpDomain()+"ad/list";
+        return ConfigUtil.getInst().getPhpDomain()+"ad/list";
     }
 
     /**
@@ -316,7 +316,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopList(int page,int type){
-        return ConfigUtil.getInst().getHttpDomain()+"shop/list?page="+page+"&type="+type;
+        return ConfigUtil.getInst().getPhpDomain()+"shop/list?page="+page+"&type="+type;
     }
 
     /**
@@ -324,7 +324,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getPingPayUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"ping/paycharge";
+        return ConfigUtil.getInst().getPhpDomain()+"ping/paycharge";
     }
 
     /**
@@ -332,7 +332,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserSearch(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/search";
+        return ConfigUtil.getInst().getPhpDomain()+"user/search";
     }
 
     /**
@@ -340,7 +340,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getLogoutUrl(String userID) {
-        return ConfigUtil.getInst().getHttpDomain()+"user/logout?userid=" + userID;
+        return ConfigUtil.getInst().getPhpDomain()+"user/logout?userid=" + userID;
     }
 
     /**
@@ -348,7 +348,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserInfoUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"v10/user";
+        return  ConfigUtil.getInst().getPhpDomain()+"v10/user";
     }
 
     /**
@@ -356,7 +356,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String gethximFriendUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"hxim/friend";
+        return  ConfigUtil.getInst().getPhpDomain()+"hxim/friend";
     }
 
     /**
@@ -364,7 +364,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserFriendUrl(){
-        return  ConfigUtil.getInst().getHttpDomain()+"user/friend";
+        return  ConfigUtil.getInst().getPhpDomain()+"user/friend";
     }
 
     /**
@@ -372,7 +372,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getSalesUrl() {
-        return  ConfigUtil.getInst().getHttpDomain()+"user/getsales";
+        return  ConfigUtil.getInst().getPhpDomain()+"user/getsales";
     }
 
     /**
@@ -380,7 +380,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getCityListUrl() {
-        return ConfigUtil.getInst().getHttpDomain()+"arrive/citylist";
+        return ConfigUtil.getInst().getPhpDomain()+"arrive/citylist";
     }
 
     /**
@@ -388,7 +388,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListUrl(int page, int pageSize) {
-        return ConfigUtil.getInst().getApiDomain()+"shop/list"+"/"+page+"/"+pageSize+"/";
+        return ConfigUtil.getInst().getJavaDomain()+"shop/list"+"/"+page+"/"+pageSize+"/";
     }
 
     /**
@@ -396,7 +396,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListByCityUrl(String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getApiDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
+        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
     }
 
     /**
@@ -404,7 +404,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListUserUrl(String userID, int page, int pageSize) {
-        return ConfigUtil.getInst().getApiDomain()+"shop/list/user/"+userID+"/"+page+"/"+pageSize+"/";
+        return ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userID+"/"+page+"/"+pageSize+"/";
     }
 
     /**
@@ -412,7 +412,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopListUserByCityUrl(String userID, String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getApiDomain()+"shop/list/user/"+userID+"/"+city+"/"+page+"/"+pageSize+"/";
+        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userID+"/"+city+"/"+page+"/"+pageSize+"/";
     }
 
     /**
@@ -420,7 +420,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getRecommendedShopListUrl(String city) {
-        return  ConfigUtil.getInst().getApiDomain()+"shop/recommended/" + city;
+        return  ConfigUtil.getInst().getJavaDomain()+"shop/recommended/" + city;
     }
 
     /**
@@ -428,7 +428,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getGroupMemberUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"hxim/member";
+        return ConfigUtil.getInst().getPhpDomain()+"hxim/member";
     }
 
     /**
@@ -436,7 +436,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserUploadUrl(){
-        return ConfigUtil.getInst().getHttpDomain()+"user/upload";
+        return ConfigUtil.getInst().getPhpDomain()+"user/upload";
     }
 
     /**
@@ -444,7 +444,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getBigPicUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"firstpage/icons";
+        return ConfigUtil.getInst().getJavaDomain()+"firstpage/icons";
     }
 
     /**
@@ -452,7 +452,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getMessageDefaultUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"messages/default";
+        return ConfigUtil.getInst().getJavaDomain()+"messages/default";
     }
 
     /**
@@ -460,12 +460,12 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopRecommendedUrl(String city){
-        return ConfigUtil.getInst().getApiDomain()+"shop/recommended/"+city+"/";
+        return ConfigUtil.getInst().getJavaDomain()+"shop/recommended/"+city+"/";
     }
 
 
     public static String getArriveNoticeUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"arrive/notice";
+        return ConfigUtil.getInst().getJavaDomain()+"arrive/notice";
     }
 
     /**
@@ -482,7 +482,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getOrderMsgUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"messages/orders";
+        return ConfigUtil.getInst().getJavaDomain()+"messages/orders";
     }
 
     /**
@@ -490,7 +490,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getServerByPhone(String phone){
-        return ConfigUtil.getInst().getApiDomain()+"user/getuser/"+phone+"/";
+        return ConfigUtil.getInst().getJavaDomain()+"user/getuser/"+phone+"/";
     }
 
 
@@ -499,7 +499,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopBaseInfoUrl(String shopid){
-        return ConfigUtil.getInst().getApiDomain()+"shop/getshop/"+shopid;
+        return ConfigUtil.getInst().getJavaDomain()+"shop/getshop/"+shopid;
     }
 
     /**
@@ -507,7 +507,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserPrivilegeUrl(String shopid,String locid){
-        return ConfigUtil.getInst().getApiDomain()+"user/privilege/"+shopid+"/"+locid;
+        return ConfigUtil.getInst().getJavaDomain()+"user/privilege/"+shopid+"/"+locid;
     }
 
     /**
@@ -518,7 +518,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopCommentListUrl(String shopID, int page, int pageSize){
-        return ConfigUtil.getInst().getApiDomain()+"shop/evaluation/get/"+shopID+"/"+page+"/"+pageSize;
+        return ConfigUtil.getInst().getJavaDomain()+"shop/evaluation/get/"+shopID+"/"+page+"/"+pageSize;
     }
 
     /**
@@ -526,7 +526,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderAddUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"order/add";
+        return ConfigUtil.getInst().getJavaDomain()+"order/add";
     }
 
     /**
@@ -534,7 +534,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderGetUrl(String orderno){
-        return ConfigUtil.getInst().getApiDomain()+"order/get/"+orderno;
+        return ConfigUtil.getInst().getJavaDomain()+"order/get/"+orderno;
     }
 
     /**
@@ -542,7 +542,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderPayUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"order/pay";
+        return ConfigUtil.getInst().getJavaDomain()+"order/pay";
     }
 
     /**
@@ -550,7 +550,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderConfirmUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"order/confirm";
+        return ConfigUtil.getInst().getJavaDomain()+"order/confirm";
     }
 
     /**
@@ -558,7 +558,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderCancelUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"order/cancel";
+        return ConfigUtil.getInst().getJavaDomain()+"order/cancel";
     }
 
     /**
@@ -566,7 +566,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderListUrl(String userid,int page,int size){
-        return ConfigUtil.getInst().getApiDomain()+"order/list/"+userid+"/"+page+"/"+size;
+        return ConfigUtil.getInst().getJavaDomain()+"order/list/"+userid+"/"+page+"/"+size;
     }
 
     /**
@@ -574,7 +574,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String orderGetUnconfirmedUrl(String userid,int page,int size){
-        return ConfigUtil.getInst().getApiDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
+        return ConfigUtil.getInst().getJavaDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
     }
 
     /**
@@ -582,7 +582,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String appUpgradeUrl(){
-        return ConfigUtil.getInst().getApiDomain()+"app/upgrade";
+        return ConfigUtil.getInst().getJavaDomain()+"app/upgrade";
     }
 
 
@@ -590,7 +590,7 @@ public class ProtocolUtil {
      * 商家详情
      */
     public static String getShopDetailUrl(String shopId){
-        return ConfigUtil.getInst().getApiDomain()+"shop/get/"+shopId;
+        return ConfigUtil.getInst().getJavaDomain()+"shop/get/"+shopId;
     }
 
 
