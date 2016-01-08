@@ -227,7 +227,6 @@ public class ShopFragment extends BaseFragment {
                         mPage++;
                     }
                 }
-                LogUtil.getInstance().info(LogLevel.INFO, "getShopList:" + shopList);
                 mLvShopList.refreshFinish();
             }
 
