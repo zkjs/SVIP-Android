@@ -182,6 +182,7 @@ public class GuideFiveActivity extends BaseActivity{
      * 进入主页面
      */
     private void goHome() {
+        CacheUtil.getInstance().setGuide(true);
         Intent mainIntent = new Intent(GuideFiveActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finish();
