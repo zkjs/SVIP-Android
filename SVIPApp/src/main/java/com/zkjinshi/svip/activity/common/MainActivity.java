@@ -69,6 +69,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     private int badgeNum;
     private UpdateBroadcastReceiver mUpdateReceiver;
     private MessageFragment messageFragment;
+    private  HomeFragment homeFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,6 +94,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         super.onResume();
         Intent intent = new Intent(Constants.UPDATE_UNREAD_RECEIVER_ACTION);
         sendBroadcast(intent);
+        if( null != homeFragment && getCurrentItem() == 0){
+            homeFragment.loadHomeData();
+        }
     }
 
     @Override
@@ -140,7 +144,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     }
 
     private void initViewPager(){
-        HomeFragment homeFragment = new HomeFragment();
+        homeFragment = new HomeFragment();
         ShopFragment shopFragment = new ShopFragment();
         messageFragment = new MessageFragment();
         SetFragment setFragment = new SetFragment();
@@ -161,6 +165,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             switch (checkedId){
                 case R.id.footer_tab_rb_home:
                     viewPager.setCurrentItem(0,true);
+
                     break;
                 case R.id.footer_tab_rb_shop:
                     if(CacheUtil.getInstance().isShopGuide()){
@@ -193,6 +198,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             switch (position){
                 case 0:
                     radioGroup.check(R.id.footer_tab_rb_home);
+                    if(null != homeFragment){
+                       homeFragment.loadHomeData();
+                    }
                     break;
                 case 1:
                     radioGroup.check(R.id.footer_tab_rb_shop);
@@ -451,6 +459,14 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             }
         }
 
+    }
+
+    public int getCurrentItem(){
+        int currentItem = 0;
+        if(null != viewPager){
+            currentItem = viewPager.getCurrentItem();
+        }
+        return currentItem;
     }
 
 }

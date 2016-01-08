@@ -57,6 +57,8 @@ import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+import org.apache.log4j.chainsaw.Main;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -251,6 +253,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         LocationManager.getInstance().registerLocation(mActivity);
         LocationManager.getInstance().setLocationChangeListener(this);
         MainController.getInstance().init(mActivity);
+
     }
 
     @Nullable
@@ -259,6 +262,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if (view == null)
         {
             initView(inflater, container);
+            loadHomeData();
         }
         return view;
     }
@@ -270,10 +274,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         initListeners();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void loadHomeData(){
         //首页大图区
+        if(nameTv == null){
+            return;
+        }
         setBigPicZone();
         setBigPicAnimation();
         if(CacheUtil.getInstance().isLogin()){
@@ -282,6 +287,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }else{
             getMessageDefault(true);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void onPause() {
