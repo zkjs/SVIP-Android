@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -34,6 +35,7 @@ public class GuideFiveActivity extends BaseActivity{
     private CircleImageView mCivGuangHuan;
     private ImageView       mIvHuangGuan;
     private ImageView       mIvDefaultText;
+    private ImageButton     mIbtnStart;
 
     private int mScreenWidth;
     @Override
@@ -56,6 +58,7 @@ public class GuideFiveActivity extends BaseActivity{
         mRlDefaultBg  = (RelativeLayout) findViewById(R.id.rl_default_bg);
         mCivGuangHuan = (CircleImageView) findViewById(R.id.civ_guang_huan);
         mIvHuangGuan  = (ImageView) findViewById(R.id.iv_default_huang_guan);
+        mIbtnStart    = (ImageButton) findViewById(R.id.ibtn_start);
 
         AnimatorSet set = new AnimatorSet();
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(mCivGuangHuan, "scaleX", 0, 1f);
@@ -134,7 +137,13 @@ public class GuideFiveActivity extends BaseActivity{
     }
 
     private void initListener() {
-
+        //进入主页面
+        mIbtnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
     }
 
     @Override
@@ -151,8 +160,7 @@ public class GuideFiveActivity extends BaseActivity{
                         //向左移动
                         goPreGuide();
                     } else if (x < 0) {
-                        //向右移动
-                        goHome();
+
                     }
                     return true;
                 }

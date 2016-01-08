@@ -517,6 +517,37 @@
             android:label="@string/app_name"
             android:launchMode="singleTask">
         </activity>
+
+        <activity android:name=".activity.common.GuideOneActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity android:name=".activity.common.GuideTwoActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity android:name=".activity.common.GuideThreeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity android:name=".activity.common.GuideFourActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity android:name=".activity.common.GuideFiveActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+
         <service android:name=".update.DownloadService"></service>
 
         <!--云巴推送-->
