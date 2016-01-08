@@ -14,7 +14,7 @@ public class Constants {
     //是否开启短信验证
     public static final boolean SMS_CHECK_ENABLE = false;
     //是否需要密码引导页
-    public static final boolean NEED_PASSWORD_GUIDE = false;
+    public static final boolean NEED_PASSWORD_GUIDE = true;
 
     public static final String EXTRA_CHAT_TYPE = "chatType";
     public static final String EXTRA_USER_ID = "userId";
