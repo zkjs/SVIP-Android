@@ -190,6 +190,19 @@
                 zkjinshi:icvLeftImage="@mipmap/ic_wuyan_gary"
                 android:clickable="false"/>
 
+            <com.zkjinshi.superservice.view.ItemShowView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ahb_privilege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                zkjinshi:isShowIcon="false"
+                zkjinshi:isvTitle="特权"
+                zkjinshi:isvValue="暂无"
+                zkjinshi:isvHint=""
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
             <!--订单备注-->
             <LinearLayout
                 android:layout_width="match_parent"

@@ -102,6 +102,7 @@ public class KTVBookingActivity extends Activity {
     public static final int TICKET_REQUEST_CODE = 8;
     public static final int REMARK_REQUEST_CODE = 9;
     public static final int PHONE_REQUEST_CODE = 10;
+    public static final int PAY_REQUEST_CODE = 11;
 
     Handler handler = new Handler(){
         @Override
@@ -207,6 +208,19 @@ public class KTVBookingActivity extends Activity {
             public void onClick(View view) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+
+        //支付方式
+        payTypeTsv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(payTypeTsv.isShowIcon){
+                    Intent intent = new Intent(KTVBookingActivity.this, PayTypeActivity.class);
+                    intent.putExtra("orderDetailForDisplay", orderDetailForDisplay);
+                    startActivityForResult(intent, PAY_REQUEST_CODE);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             }
         });
 
@@ -349,6 +363,17 @@ public class KTVBookingActivity extends Activity {
                     String remark = data.getStringExtra("remark");
                     phoneTsv.setValue(remark);
                     orderDetailForDisplay.setTelephone(remark);
+                }
+            }
+            else if(PAY_REQUEST_CODE == requestCode){
+                if(null != data){
+                    String payment = data.getStringExtra("payment");
+                    String payment_name = data.getStringExtra("payment_name");
+                    payTypeTsv.setValue(payment_name);
+                    if(!TextUtils.isEmpty(payment)){
+                        orderDetailForDisplay.setPaytype(Integer.parseInt(payment));
+                    }
+
                 }
             }
         }

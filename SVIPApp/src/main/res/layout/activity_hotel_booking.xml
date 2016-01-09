@@ -117,10 +117,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                zkjinshi:isShowIcon="false"
+                zkjinshi:isShowIcon="true"
                 zkjinshi:isvTitle="支付方式"
                 zkjinshi:isvValue=""
-                zkjinshi:isvHint="提交订单后显示"
+                zkjinshi:isvHint="选择支付方式"
                 zkjinshi:isMust="false"
                 zkjinshi:haveDownLine="true"/>
 
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 zkjinshi:icvTitle="双份早餐"
                 zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
+                zkjinshi:icvValue="false"
                 zkjinshi:icvLeftImage="@mipmap/ic_zaocan_gary"/>
 
             <com.zkjinshi.svip.view.ItemCbxView
@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 zkjinshi:icvTitle="无烟房间"
                 zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
+                zkjinshi:icvValue="false"
                 zkjinshi:icvLeftImage="@mipmap/ic_wuyan_gary"/>
 
             <!--订单备注-->

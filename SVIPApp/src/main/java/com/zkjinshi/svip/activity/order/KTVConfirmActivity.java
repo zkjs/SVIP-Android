@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
@@ -61,6 +63,7 @@ public class KTVConfirmActivity extends Activity {
     private ItemShowView phoneTsv;
     private ItemShowView payTypeTsv;
     private ItemShowView invoiceTsv;
+    private ItemShowView privilegeTsv;
 
     private String orderNo;
     int payType;
@@ -97,10 +100,15 @@ public class KTVConfirmActivity extends Activity {
         phoneTsv = (ItemShowView)findViewById(R.id.ahb_phone);
         payTypeTsv = (ItemShowView)findViewById(R.id.ahb_pay);
         invoiceTsv = (ItemShowView)findViewById(R.id.ahb_ticket);
-
+        privilegeTsv = (ItemShowView)findViewById(R.id.ahb_privilege);
 
 
         confirmBtn = (Button)findViewById(R.id.btn_send_booking_order);
+
+        Drawable drawable =  getResources().getDrawable(R.mipmap.list_ic_tequan_gary);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        privilegeTsv.titleTv.setCompoundDrawables(drawable,null,null,null);
+        privilegeTsv.titleTv.setCompoundDrawablePadding(DisplayUtil.dip2px(this,10));
     }
 
     //根据订单号加载订单详细信息。

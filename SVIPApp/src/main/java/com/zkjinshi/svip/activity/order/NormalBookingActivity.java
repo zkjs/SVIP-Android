@@ -179,6 +179,8 @@ public class NormalBookingActivity extends Activity {
             }
         });
 
+
+
         //日期
         dateTimeIsv.setOnClickListener(new View.OnClickListener() {
             @Override

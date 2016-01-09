@@ -155,26 +155,18 @@
                 zkjinshi:haveDownLine="true"
                 zkjinshi:isShowIcon="false"/>
 
-            <com.zkjinshi.svip.view.ItemCbxView
+            <com.zkjinshi.superservice.view.ItemShowView
                 android:layout_marginTop="20dp"
-                android:id="@+id/ahb_breakfast"
+                android:id="@+id/ahb_privilege"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                zkjinshi:icvTitle="双份早餐"
-                zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
-                zkjinshi:icvLeftImage="@mipmap/ic_zaocan_gary"
-                android:clickable="false"/>
-
-            <com.zkjinshi.svip.view.ItemCbxView
-                android:id="@+id/ahb_nosmoking"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                zkjinshi:icvTitle="无烟房间"
-                zkjinshi:haveDownLine="true"
-                zkjinshi:icvValue="true"
-                zkjinshi:icvLeftImage="@mipmap/ic_wuyan_gary"
-                android:clickable="false"/>
+                android:visibility="visible"
+                zkjinshi:isShowIcon="false"
+                zkjinshi:isvTitle="特权"
+                zkjinshi:isvValue="暂无"
+                zkjinshi:isvHint=""
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
 
             <!--订单备注-->
             <LinearLayout

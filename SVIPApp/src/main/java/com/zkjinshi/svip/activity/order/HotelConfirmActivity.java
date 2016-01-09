@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
@@ -75,6 +77,7 @@ public class HotelConfirmActivity extends Activity {
     private ItemShowView phoneTsv;
     private ItemShowView payTypeTsv;
     private ItemShowView invoiceTsv;
+    private ItemShowView privilegeTsv;
 
     private ItemCbxView breakfastTcv;
     private ItemCbxView noSmokeTcv;
@@ -114,11 +117,17 @@ public class HotelConfirmActivity extends Activity {
         phoneTsv = (ItemShowView)findViewById(R.id.ahb_phone);
         payTypeTsv = (ItemShowView)findViewById(R.id.ahb_pay);
         invoiceTsv = (ItemShowView)findViewById(R.id.ahb_ticket);
+        privilegeTsv = (ItemShowView)findViewById(R.id.ahb_privilege);
 
         breakfastTcv = (ItemCbxView)findViewById(R.id.ahb_breakfast);
         noSmokeTcv = (ItemCbxView)findViewById(R.id.ahb_nosmoking);
 
         confirmBtn = (Button)findViewById(R.id.btn_send_booking_order);
+
+        Drawable drawable =  getResources().getDrawable(R.mipmap.list_ic_tequan_gary);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        privilegeTsv.titleTv.setCompoundDrawables(drawable,null,null,null);
+        privilegeTsv.titleTv.setCompoundDrawablePadding(DisplayUtil.dip2px(this,10));
     }
 
     //根据订单号加载订单详细信息。
@@ -174,34 +183,31 @@ public class HotelConfirmActivity extends Activity {
     private void initData() {
         titleTv.setText(orderDetailForDisplay.getShopname());
         //订单状态
-        if(orderDetailForDisplay.getOrderstatus().equals("待确认")){
+        if(orderDetailForDisplay.getOrderstatus().equals("待处理")){
             payType = orderDetailForDisplay.getPaytype();
-            if(payType == 0){
-                tipsTv.setVisibility(View.VISIBLE);
-                tipsTv.setText("订单待确认中。如需修改，请联系客服");
-                confirmBtn.setVisibility(View.GONE);
-                deleteTv.setVisibility(View.VISIBLE);
-            }else{
-                tipsTv.setVisibility(View.VISIBLE);
-                tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
-                confirmBtn.setVisibility(View.VISIBLE);
-                deleteTv.setVisibility(View.VISIBLE);
-            }
-
-        }else  if(orderDetailForDisplay.getOrderstatus().equals("待支付")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("订单待处理中。如需修改，请联系客服");
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.VISIBLE);
+        }else  if(orderDetailForDisplay.getOrderstatus().equals("待确认")){
             tipsTv.setVisibility(View.VISIBLE);
             tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
             confirmBtn.setVisibility(View.VISIBLE);
             deleteTv.setVisibility(View.VISIBLE);
-        }else  if(orderDetailForDisplay.getOrderstatus().equals("已确认")){
-            tipsTv.setVisibility(View.GONE);
-            confirmBtn.setVisibility(View.GONE);
+        }else  if(orderDetailForDisplay.getOrderstatus().equals("待支付")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
+            confirmBtn.setVisibility(View.VISIBLE);
             deleteTv.setVisibility(View.VISIBLE);
         }else if(orderDetailForDisplay.getOrderstatus().equals("已取消")){
             tipsTv.setVisibility(View.VISIBLE);
             tipsTv.setText("您的订单已经取消");
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
+        }else{
+            tipsTv.setVisibility(View.GONE);
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.VISIBLE);
         }
 
         if( orderDetailForDisplay.getDoublebreakfeast() == 1){
@@ -256,6 +262,14 @@ public class HotelConfirmActivity extends Activity {
         }else{
             invoiceTsv.setValue(" ");
         }
+
+        //特权
+        if(!TextUtils.isEmpty(orderDetailForDisplay.getPriviledgename())){
+            privilegeTsv.setValue(orderDetailForDisplay.getPriviledgename());
+        }else{
+            privilegeTsv.setValue("暂无");
+        }
+
         //备注
         if(!TextUtils.isEmpty(orderDetailForDisplay.getRemark())){
             remarkTv.setText(orderDetailForDisplay.getRemark());
@@ -383,6 +397,7 @@ public class HotelConfirmActivity extends Activity {
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("orderno",orderDetailForDisplay.getOrderno());
+        bizMap.put("status","2");
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.JSON;
