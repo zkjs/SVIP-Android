@@ -190,11 +190,18 @@ public class HotelConfirmActivity extends Activity {
             tipsTv.setText("您的订单已经取消");
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
+        }else if(orderDetailForDisplay.getOrderstatus().equals("待评价")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("请对服务进行评价");
+            confirmBtn.setVisibility(View.VISIBLE);
+            deleteTv.setVisibility(View.GONE);
         }else{
             tipsTv.setVisibility(View.GONE);
             confirmBtn.setVisibility(View.GONE);
-            deleteTv.setVisibility(View.VISIBLE);
+            deleteTv.setVisibility(View.GONE);
         }
+        String orderStatus = orderDetailForDisplay.getOrderstatus();
+
 
         if( orderDetailForDisplay.getDoublebreakfeast() == 1){
             breakfastTcv.valueCbx.setChecked(true);
@@ -267,6 +274,12 @@ public class HotelConfirmActivity extends Activity {
 
     private void initPay(){
         payType = orderDetailForDisplay.getPaytype();
+        String orderStatus = orderDetailForDisplay.getOrderstatus();
+        boolean gotoEvaluate = false;
+        if(orderStatus.equals("待评价")){
+            gotoEvaluate = true;
+        }
+
         String payTypeStr = "";
         String priceStr ="";
         switch (payType){
@@ -283,14 +296,17 @@ public class HotelConfirmActivity extends Activity {
                     payTypeStr = "已支付";
                 }
                 confirmBtn.setText(priceStr + "  立即支付");
-                confirmBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(HotelConfirmActivity.this,OrderPayActivity.class);
-                        intent.putExtra("orderDetailForDisplay",orderDetailForDisplay);
-                        startActivityForResult(intent,PAY_REQUEST_CODE);
-                    }
-                });
+                if(!gotoEvaluate){
+                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(HotelConfirmActivity.this,OrderPayActivity.class);
+                            intent.putExtra("orderDetailForDisplay",orderDetailForDisplay);
+                            startActivityForResult(intent,PAY_REQUEST_CODE);
+                        }
+                    });
+                }
+
 
                 break;
             //到店支付
@@ -298,30 +314,44 @@ public class HotelConfirmActivity extends Activity {
                 payTypeStr = "到店支付";
                 priceStr ="¥"+orderDetailForDisplay.getRoomprice();
                 confirmBtn.setText(priceStr + "  确定");
-                confirmBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        confirmOrder();
-                    }
-                });
+                if(!gotoEvaluate){
+                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            confirmOrder();
+                        }
+                    });
+                }
+
                 break;
             //挂账
             case 3:
                 payTypeStr = "挂账";
                 priceStr ="¥"+orderDetailForDisplay.getRoomprice();
                 confirmBtn.setText(priceStr + "  确定");
-                confirmBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        confirmOrder();
-                    }
-                });
+                if(!gotoEvaluate){
+                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            confirmOrder();
+                        }
+                    });
+                }
+
                 break;
         }
         if(orderDetailForDisplay.getRoomprice() != null){
             payTypeTsv.setValue("¥"+orderDetailForDisplay.getRoomprice()+ "  "+payTypeStr);
         }else{
             payTypeTsv.setValue(payTypeStr);
+        }
+
+        if(gotoEvaluate){
+            confirmBtn.setText("添加评论");
+            confirmBtn.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(this,OrderEvaluateActivity.class);
+            intent.putExtra("orderNo",orderDetailForDisplay.getOrderno());
+            startActivity(intent);
         }
 
     }
