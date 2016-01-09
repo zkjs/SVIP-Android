@@ -515,7 +515,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getUserPrivilegeUrl(String userid,String shopid){
-        return ConfigUtil.getInst().getJavaDomain()+"user/privilege/"+userid+"/"+shopid;
+        return ConfigUtil.getInst().getJavaDomain()+"user/privilege/get/"+userid+"/"+shopid;
     }
 
     /**

@@ -107,6 +107,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private String bestServerid="555711167a31a";
     private ArrayList<HomeMsgVo> homeMsgList;
     private String city = "长沙";
+    ArrayList<PrivilegeResponse> privilegeResponses;
 
     Handler handler = new Handler(){
         @Override
@@ -185,7 +186,21 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getUserPrivilege();
+               //getUserPrivilege();
+                if(cleverDialog != null && privilegeResponses != null && privilegeResponses.size() > 0){
+                    cleverDialog.show();
+                    cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
+                    cleverDialog.setContentText(null,privilegeResponses.get(0).getShopName(),
+                            privilegeResponses
+                    );
+                    cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
+                        @Override
+                        public void callback(PrivilegeResponse privilegeResponse) {
+                            getAllMessages();
+                        }
+                    });
+
+                }
             }
         });
 
@@ -467,11 +482,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         int index = svipApplication.mRegionList.size()-1;
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
-        if(locid.equals(lastLocid) && !TextUtils.isEmpty(lastLocid)){
-            hidePrivilegeTips();
-            return;
-        }
-        showPrivilegeTips();
+//        if(locid.equals(lastLocid) && !TextUtils.isEmpty(lastLocid)){
+//            hidePrivilegeTips();
+//            return;
+//        }
+        //showPrivilegeTips();
+        getUserPrivilege();
     }
 
     //根据酒店区域获取用户特权
@@ -517,21 +533,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
-                    ArrayList<PrivilegeResponse> privilegeResponses = new Gson().fromJson(result.rawResult, listType);
-                    if(cleverDialog != null){
-                        cleverDialog.show();
-                        cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
-                        cleverDialog.setContentText(null,privilegeResponses.get(0).getShopName(),
-                                privilegeResponses
-                        );
-                        cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
-                            @Override
-                            public void callback(PrivilegeResponse privilegeResponse) {
-                                getAllMessages();
-                            }
-                        });
-
+                    privilegeResponses = new Gson().fromJson(result.rawResult, listType);
+                    if(privilegeResponses.size() > 0){
+                        showPrivilegeTips();
+                    }else{
+                        hidePrivilegeTips();
                     }
+
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -643,12 +651,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     homeMsgList.clear();
-
                     MessageResponse messageResponse = new Gson().fromJson(result.rawResult, MessageResponse.class);
                     if(messageResponse!= null){
                         //订单信息
-                        if(messageResponse.getDefaultNotitifications() != null && messageResponse.getDefaultNotitifications().size() > 0){
-                            for(MessageDefaultResponse message : messageResponse.getDefaultNotitifications()){
+                        if(messageResponse.getNotificationForOrder() != null && messageResponse.getNotificationForOrder().size() > 0){
+                            for(MessageDefaultResponse message : messageResponse.getNotificationForOrder()){
 
                                 HomeMsgVo homeMsgVo= new HomeMsgVo();
                                 homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
@@ -673,9 +680,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
                             }
                         }
-                        //推荐商家信息
-                        if(messageResponse.getRecommShop() != null && messageResponse.getRecommShop().size() > 0){
-                            for(MessageDefaultResponse message : messageResponse.getRecommShop()){
+                        //默认信息
+                        if(messageResponse.getDefaultNotitification() != null && messageResponse.getDefaultNotitification().size() > 0){
+                            for(MessageDefaultResponse message : messageResponse.getDefaultNotitification()){
 
                                 HomeMsgVo homeMsgVo= new HomeMsgVo();
                                 if(TextUtils.isEmpty(message.getShopid())){

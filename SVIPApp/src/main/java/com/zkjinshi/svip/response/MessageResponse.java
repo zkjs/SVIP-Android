@@ -7,24 +7,24 @@ import java.util.ArrayList;
  * Created by dujiande on 2016/1/9.
  */
 public class MessageResponse implements Serializable{
-    ArrayList<MessageDefaultResponse> defaultNotitifications;
-    ArrayList<MessageDefaultResponse> recommShop;
+    ArrayList<MessageDefaultResponse> defaultNotitification;
+    ArrayList<MessageDefaultResponse> notificationForOrder;
     ArrayList<PrivilegeResponse> userPrivilege;
 
-    public ArrayList<MessageDefaultResponse> getDefaultNotitifications() {
-        return defaultNotitifications;
+    public ArrayList<MessageDefaultResponse> getDefaultNotitification() {
+        return defaultNotitification;
     }
 
-    public void setDefaultNotitifications(ArrayList<MessageDefaultResponse> defaultNotitifications) {
-        this.defaultNotitifications = defaultNotitifications;
+    public void setDefaultNotitification(ArrayList<MessageDefaultResponse> defaultNotitification) {
+        this.defaultNotitification = defaultNotitification;
     }
 
-    public ArrayList<MessageDefaultResponse> getRecommShop() {
-        return recommShop;
+    public ArrayList<MessageDefaultResponse> getNotificationForOrder() {
+        return notificationForOrder;
     }
 
-    public void setRecommShop(ArrayList<MessageDefaultResponse> recommShop) {
-        this.recommShop = recommShop;
+    public void setNotificationForOrder(ArrayList<MessageDefaultResponse> notificationForOrder) {
+        this.notificationForOrder = notificationForOrder;
     }
 
     public ArrayList<PrivilegeResponse> getUserPrivilege() {
