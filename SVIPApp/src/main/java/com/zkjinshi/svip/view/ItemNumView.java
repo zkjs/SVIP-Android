@@ -130,5 +130,11 @@ public class ItemNumView extends LinearLayout {
 
     }
 
+    public void setUnClick(){
+        findViewById(R.id.add_ibtn).setVisibility(View.GONE);
+        findViewById(R.id.sub_ibtn).setVisibility(View.GONE);
+        isShowBtn = false;
+    }
+
 
 }

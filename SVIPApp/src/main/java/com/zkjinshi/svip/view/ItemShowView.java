@@ -99,5 +99,10 @@ public class ItemShowView extends LinearLayout {
         }
     }
 
+    public void setUnClick(){
+        findViewById(R.id.icon_iv).setVisibility(View.GONE);
+        isShowIcon = false;
+    }
+
 
 }

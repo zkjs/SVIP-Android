@@ -22,7 +22,7 @@
             android:id="@+id/header_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="华彬费尔蒙酒店"
+            android:text="xxxx酒店"
             android:textSize="16sp"
             android:textColor="#5e5e5e"
             android:layout_centerInParent="true"/>
