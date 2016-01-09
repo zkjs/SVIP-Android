@@ -9,15 +9,18 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
@@ -75,6 +78,21 @@ import me.nereo.multi_image_selector.bean.Image;
 
      }
 
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += DisplayUtil.dip2px(mActivity,listItem.getMeasuredHeight())+listView.getDividerHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight; listView.setLayoutParams(params);
+    }
+
     public PrivilegeResponse getPrivilegeResponse() {
         return privilegeResponse;
     }
@@ -115,7 +133,7 @@ import me.nereo.multi_image_selector.bean.Image;
         }
          privilegeAdapter = new PrivilegeAdapter(list,mActivity);
          listView.setAdapter(privilegeAdapter);
-
+         setListViewHeightBasedOnChildren(listView);
     }
 
     @Override

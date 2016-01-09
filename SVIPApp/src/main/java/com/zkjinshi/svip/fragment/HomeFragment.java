@@ -505,9 +505,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
 
-        if(locid.equals(lastLocid)){
-            return;
-        }
         lastLocid = locid;
         hidePrivilegeTips();
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
