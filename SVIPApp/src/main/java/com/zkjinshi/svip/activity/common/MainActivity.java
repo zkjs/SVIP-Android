@@ -388,8 +388,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     }
 
     public void notifyHomeFragment(){
-        if(getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
-            HomeFragment homeFragment = (HomeFragment)getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
+        if(homeFragment != null){
             homeFragment.notifyIbeacon();
         }
     }

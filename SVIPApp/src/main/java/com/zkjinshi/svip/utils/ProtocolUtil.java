@@ -486,6 +486,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取用户订单状态消息
+     * @return
+     */
+    public static String getMsgUrl(String userid,String city){
+        return ConfigUtil.getInst().getJavaDomain()+"messages/"+userid+"/"+city;
+    }
+
+    /**
      * 根据手机号查询服务员
      * @return
      */
@@ -506,8 +514,8 @@ public class ProtocolUtil {
      * 根据酒店区域获取用户特权
      * @return
      */
-    public static String getUserPrivilegeUrl(String shopid,String locid){
-        return ConfigUtil.getInst().getJavaDomain()+"user/privilege/"+shopid+"/"+locid;
+    public static String getUserPrivilegeUrl(String userid,String shopid){
+        return ConfigUtil.getInst().getJavaDomain()+"user/privilege/"+userid+"/"+shopid;
     }
 
     /**

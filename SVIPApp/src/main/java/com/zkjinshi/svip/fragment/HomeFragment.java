@@ -48,6 +48,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
+import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.CleverDialog;
@@ -105,7 +106,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private String bestHotelId="120";
     private String bestServerid="555711167a31a";
     private ArrayList<HomeMsgVo> homeMsgList;
-    private String city = "";
+    private String city = "长沙";
 
     Handler handler = new Handler(){
         @Override
@@ -234,7 +235,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if(resultCode == mActivity.RESULT_OK){
             if(requestCode == ShopFragment.REQUEST_CHOOSE_CITY){
                 if(null != data){
-                    String city = data.getStringExtra("city");
+                    city = data.getStringExtra("city");
                 }
             }
         }
@@ -250,8 +251,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             CacheUtil.getInstance().setHomeGuide(false);
         }
         mActivity = getActivity();
-        LocationManager.getInstance().registerLocation(mActivity);
-        LocationManager.getInstance().setLocationChangeListener(this);
         MainController.getInstance().init(mActivity);
 
     }
@@ -279,11 +278,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if(nameTv == null){
             return;
         }
+        LocationManager.getInstance().registerLocation(mActivity);
+        LocationManager.getInstance().setLocationChangeListener(this);
         setBigPicZone();
         setBigPicAnimation();
         if(CacheUtil.getInstance().isLogin()){
             checktActivate();
-            getOrderMsgUrl();
+            getAllMessages();
         }else{
             getMessageDefault(true);
         }
@@ -493,7 +494,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         lastLocid = locid;
         hidePrivilegeTips();
-        String url = ProtocolUtil.getUserPrivilegeUrl(shopid,locid);
+        String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
@@ -515,25 +516,18 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    PrivilegeResponse privilegeResponse = new Gson().fromJson(result.rawResult, PrivilegeResponse.class);
+                    Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
+                    ArrayList<PrivilegeResponse> privilegeResponses = new Gson().fromJson(result.rawResult, listType);
                     if(cleverDialog != null){
                         cleverDialog.show();
-                        cleverDialog.setPrivilegeResponse(privilegeResponse);
-                        cleverDialog.setContentText(null,privilegeResponse.getShopName(),
-                                privilegeResponse.getPrivilegeName(),
-                                privilegeResponse.getPrivilegeDesc(),
-                                privilegeResponse.getPrivilegeIcon()
+                        cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
+                        cleverDialog.setContentText(null,privilegeResponses.get(0).getShopName(),
+                                privilegeResponses
                         );
                         cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
                             @Override
                             public void callback(PrivilegeResponse privilegeResponse) {
-                                HomeMsgVo homeMsg= new HomeMsgVo();
-                                homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
-                                homeMsg.setClickAble(false);
-                                homeMsg.setMajorText(privilegeResponse.getMessageCard().getTitle());
-                                homeMsg.setMinorText(privilegeResponse.getMessageCard().getContent());
-                                homeMsgList.add(0,homeMsg);
-                                homeMsgAdapter.notifyDataSetChanged();
+                                getAllMessages();
                             }
                         });
 
@@ -623,18 +617,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     }
 
-
-    //获取用户订单状态消息
-    private synchronized void getOrderMsgUrl(){
-        String url = ProtocolUtil.getOrderMsgUrl();
+    //获取登录后的所有信息
+    private void getAllMessages(){
+        String url = ProtocolUtil.getMsgUrl(CacheUtil.getInstance().getUserId(),city);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("token", CacheUtil.getInstance().getToken());
-        netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
+        netRequestTask.methodType = MethodType.GET;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -654,23 +643,60 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     homeMsgList.clear();
-                    Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
-                    ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-                    for(MessageDefaultResponse message : messageList){
 
-                        HomeMsgVo homeMsgVo= new HomeMsgVo();
-                        homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
-                        homeMsgVo.setClickAble(true);
-                        homeMsgVo.setMajorText(message.getTitle());
-                        homeMsgVo.setMinorText(message.getDesc());
-                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
-                        homeMsgVo.setOrderNo(message.getOrderNo());
-                        homeMsgList.add(homeMsgVo);
+                    MessageResponse messageResponse = new Gson().fromJson(result.rawResult, MessageResponse.class);
+                    if(messageResponse!= null){
+                        //订单信息
+                        if(messageResponse.getDefaultNotitifications() != null && messageResponse.getDefaultNotitifications().size() > 0){
+                            for(MessageDefaultResponse message : messageResponse.getDefaultNotitifications()){
 
+                                HomeMsgVo homeMsgVo= new HomeMsgVo();
+                                homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
+                                homeMsgVo.setClickAble(true);
+                                homeMsgVo.setMajorText(message.getTitle());
+                                homeMsgVo.setMinorText(message.getDesc());
+                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                                homeMsgVo.setOrderNo(message.getOrderNo());
+                                homeMsgList.add(homeMsgVo);
+
+                            }
+                        }
+                        //订单特权信息
+                        if(messageResponse.getUserPrivilege() != null && messageResponse.getUserPrivilege().size() > 0){
+                            for(PrivilegeResponse privilegeResponse : messageResponse.getUserPrivilege()){
+                                HomeMsgVo homeMsg= new HomeMsgVo();
+                                homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
+                                homeMsg.setClickAble(false);
+                                homeMsg.setMajorText(privilegeResponse.getMessageCard().getTitle());
+                                homeMsg.setMinorText(privilegeResponse.getMessageCard().getContent());
+                                homeMsgList.add(homeMsg);
+
+                            }
+                        }
+                        //推荐商家信息
+                        if(messageResponse.getRecommShop() != null && messageResponse.getRecommShop().size() > 0){
+                            for(MessageDefaultResponse message : messageResponse.getRecommShop()){
+
+                                HomeMsgVo homeMsgVo= new HomeMsgVo();
+                                if(TextUtils.isEmpty(message.getShopid())){
+                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+                                    homeMsgVo.setClickAble(true);
+                                }else{
+                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+                                    homeMsgVo.setShopid(message.getShopid());
+                                    homeMsgVo.setClickAble(true);
+                                }
+                                homeMsgVo.setMajorText(message.getTitle());
+                                homeMsgVo.setMinorText(message.getDesc());
+                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                                homeMsgList.add(homeMsgVo);
+
+                            }
+                        }
                     }
+
                     homeMsgAdapter.setDatalist(homeMsgList);
                     homeMsgAdapter.notifyDataSetChanged();
-                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -685,19 +711,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         });
         netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
-
     }
-
-
-
-    public void notifyMainTextChange(){
-        handler.sendEmptyMessage(NOTIFY_UPDATE_MAIN_TEXT);
-    }
-
-
-
-
-
 
     /**
      * 改变主语句
@@ -708,20 +722,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
 
-
-    /**
-     * 判断用户是否在最近订单所在的酒店中 如果在则返回true 否则 返回false。
-     */
-    private boolean checkIfInOrderShop(){
-        if(svipApplication.mRegionList.size() <= 0){
-            return false;
-        }
-        RegionVo regionVo = svipApplication.mRegionList.get(svipApplication.mRegionList.size() - 1);
-        if(lastOrderInfo!= null && regionVo.getiBeacon().getShopid().equals(lastOrderInfo.getShopid())) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * 判读是否已经激活

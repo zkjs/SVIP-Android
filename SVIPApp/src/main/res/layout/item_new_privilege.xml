@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="51dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/logo_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_v_orange"/>
+
+        <TextView
+            android:id="@+id/privilege_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="早餐升级"
+            android:textColor="#666666"
+            android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/ad_des_tv"
+        android:layout_width="320dp"
+        android:layout_height="21dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:text="您获得了特权，无早升单早、单早升双早"
+        android:textColor="#666666"
+        android:paddingLeft="35dp"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>
