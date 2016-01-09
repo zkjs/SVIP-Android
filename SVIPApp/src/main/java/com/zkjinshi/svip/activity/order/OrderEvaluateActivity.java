@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -35,8 +33,6 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.EvaluateResponse;
-import com.zkjinshi.svip.response.OrderConsumeResponse;
-import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderEvaluateResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -69,8 +65,7 @@ public class OrderEvaluateActivity extends BaseActivity {
     private ImageButton backIBtn,moreIBtn;
     private LinearLayout evaluateLayout,compleEvaluateLayout;
     private TextView compleEvaluateTv;
-    private OrderConsumeResponse bookOrder;
-    private String reservationNo;
+    private String orderNo;
     private ImageView hotelIconIv;
     private TextView hotelNameTv,roomInfoTv,priceTv,checkInDateTv,checkInNamesTv,invoiceInfoTv,remarkInfoTv;
     private DisplayImageOptions goodsIconOptions,shopLogoOptions,salsePhotoOption;
@@ -130,37 +125,11 @@ public class OrderEvaluateActivity extends BaseActivity {
                 .build();
         layoutInBottom = AnimationUtils.loadAnimation(this, R.anim.layout_in_bottom);
         layoutOutTop = AnimationUtils.loadAnimation(this, R.anim.layout_out_top);
-        if(null != getIntent() && null != getIntent().getSerializableExtra("bookOrder")){
-            bookOrder = (OrderConsumeResponse)getIntent().getSerializableExtra("bookOrder");
-            if(null != bookOrder){
-                reservationNo = bookOrder.getReservation_no();
-                String shopId = bookOrder.getShopid();
-                if(null != shopId){
-                    String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
-                    //titleTv.setText(shopName);
-                    if(!TextUtils.isEmpty(shopName)){
-                        hotelNameTv.setText(shopName);
-                    }
-                    String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
-                    if(!TextUtils.isEmpty(logo)){
-                        String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
-                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
-                    }
-                    String roomType = bookOrder.getRoom_type();
-                    String rooms = bookOrder.getRooms();
-                    roomInfoTv.setText(roomType + "*" + rooms);
-                    String roomRate = bookOrder.getRoom_rate();
-                    if(!TextUtils.isEmpty(roomRate)){
-                        priceTv.setText("¥"+roomRate);
-                    }
-                    String checkInDate = bookOrder.getArrival_date();
-                    String checkOutDate = bookOrder.getDeparture_date();
-                    checkInDateTv.setText(checkInDate + "到" + checkOutDate);
-                }
-            }
+        if(null != getIntent() && !TextUtils.isEmpty(getIntent().getStringExtra("orderNo"))){
+            orderNo = getIntent().getStringExtra("orderNo");
         }
-        requestGetEvaluateTask(reservationNo);
-        requestOrderDetailTask(reservationNo);
+        requestGetEvaluateTask(orderNo);
+        requestOrderDetailTask(orderNo);
     }
 
     private void initListeners(){
@@ -242,7 +211,7 @@ public class OrderEvaluateActivity extends BaseActivity {
                     return;
                 }
                 if(!TextUtils.isEmpty(evaluateContent)){
-                    requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, reservationNo);
+                    requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, orderNo);
                 }
 
             }
