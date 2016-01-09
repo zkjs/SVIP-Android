@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.adapter;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,9 @@ import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
+import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
+import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
+import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.net.ext.DownloadRequestListener;
@@ -313,7 +317,7 @@ public class ChatAdapter extends BaseAdapter {
             try {
                 int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
                 TextMessageBody txtBody = (TextMessageBody) message.getBody();
-                String content = txtBody.getMessage();
+                final String content = txtBody.getMessage();
                 if(TxtExtType.DEFAULT.getVlaue() == extType){//普通文本消息
                     if (!TextUtils.isEmpty(content)) {
                         String key = message.getMsgId();
@@ -385,8 +389,9 @@ public class ChatAdapter extends BaseAdapter {
                     vh.time.setVisibility(View.GONE);
                     vh.cardLayout.setVisibility(View.GONE);
                 }else{//卡片类型消息
-                    BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
+                    final BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
                     if (!isDelEnabled) {
+
                         vh.contentLayout
                                 .setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -396,6 +401,27 @@ public class ChatAdapter extends BaseAdapter {
                                         return true;
                                     }
                                 });
+
+                        //跳转订单详情页面
+                        vh.contentLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String orderNo = bookOrder.getReservationNO();
+                                Intent intent = new Intent();
+                                if(orderNo.startsWith("H")){
+                                    intent.setClass(context,HotelConfirmActivity.class);
+                                    intent.putExtra("orderNo",orderNo);
+                                }else if(orderNo.startsWith("K")){
+                                    intent.setClass(context,KTVConfirmActivity.class);
+                                    intent.putExtra("orderNo",orderNo);
+                                }
+                                else if(orderNo.startsWith("O")){
+                                    intent.setClass(context,NormalConfirmActivity.class);
+                                    intent.putExtra("orderNo",orderNo);
+                                }
+                                context.startActivity(intent);
+                            }
+                        });
                     }
                     if (null != bookOrder) {
                         String roomType = bookOrder.getRoomType();

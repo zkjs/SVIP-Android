@@ -182,14 +182,11 @@ public class GuideFiveActivity extends BaseActivity{
      * 进入主页面
      */
     private void goHome() {
-        LoginController.getInstance().init(this);
-        LoginController.getInstance().getUserDetailInfo(
-                    CacheUtil.getInstance().getUserId(),
-                    CacheUtil.getInstance().getToken(),
-                    false,
-                    false,
-                    null);
-        GuideFiveActivity.this.finish();
+        CacheUtil.getInstance().setGuide(true);
+        Intent mainIntent = new Intent(GuideFiveActivity.this, MainActivity.class);
+        startActivity(mainIntent);
+        finish();
+        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
     }
 
 }

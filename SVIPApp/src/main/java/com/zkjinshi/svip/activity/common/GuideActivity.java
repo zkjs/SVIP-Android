@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.utils.CacheUtil;
 
 /**
  * Created by dujiande on 2015/12/22.
@@ -51,7 +50,7 @@ public class GuideActivity extends Activity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               goHome();
+               openGuild();
             }
         });
 
@@ -101,9 +100,8 @@ public class GuideActivity extends Activity {
         });
     }
 
-    public void goHome(){
-        CacheUtil.getInstance().setGuide(true);
-        Intent mainIntent = new Intent(GuideActivity.this, MainActivity.class);
+    public void openGuild(){
+        Intent mainIntent = new Intent(GuideActivity.this, GuideOneActivity.class);
         GuideActivity.this.startActivity(mainIntent);
         GuideActivity.this.finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);

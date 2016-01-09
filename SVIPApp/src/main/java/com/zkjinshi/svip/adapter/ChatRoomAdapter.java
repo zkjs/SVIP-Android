@@ -129,40 +129,36 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             }else {
                 try {
-                    String shopId = message.getStringAttribute("shopId");
-                    if(!TextUtils.isEmpty(shopId) && chatType == EMConversation.EMConversationType.Chat){
-                        String shopLogoUrl = ProtocolUtil.getShopIconUrl(shopId);
+                    String userId = conversation.getUserName();
+                    if(!TextUtils.isEmpty(userId) && chatType == EMConversation.EMConversationType.Chat){
+                        String shopLogoUrl = ProtocolUtil.getAvatarUrl(userId);
                         ImageLoader.getInstance().displayImage(shopLogoUrl, ((ChatRoomViewHolder)holder).shopIcon, options);
                     }else {
                         ((ChatRoomViewHolder)holder).shopIcon.setImageResource(R.mipmap.ic_launcher);
                     }
-                    String shopName = message.getStringAttribute("shopName");
-                    if(!TextUtils.isEmpty(shopName)){
-                        ((ChatRoomViewHolder)holder).shopName.setText(shopName);
-                    }
                     String fromName = message.getStringAttribute("fromName");
                     String toName = message.getStringAttribute("toName");
-                    String content = null;
+
                     if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
-                        content = "["+fromName+"]";
+                        ((ChatRoomViewHolder)holder).shopName.setText(fromName);
                     }else {
                         if(!TextUtils.isEmpty(toName)){
-                            content = "["+toName+"]";
+                            ((ChatRoomViewHolder)holder).shopName.setText(toName);
                         }
                     }
                     if (msgType == EMMessage.Type.IMAGE) {
-                        ((ChatRoomViewHolder)holder).chatContent.setText(content+"[图片]");
+                        ((ChatRoomViewHolder)holder).chatContent.setText("[图片]");
                     } else if (msgType ==  EMMessage.Type.VOICE) {
-                        ((ChatRoomViewHolder)holder).chatContent.setText(content+"[语音]");
+                        ((ChatRoomViewHolder)holder).chatContent.setText("[语音]");
                     } else if(msgType == EMMessage.Type.TXT){
                         try {
                             int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
                             if(TxtExtType.DEFAULT.getVlaue() == extType){
                                 TextMessageBody txtBody = (TextMessageBody) message.getBody();
-                                content = content + txtBody.getMessage();
+                                String content  = txtBody.getMessage();
                                 ((ChatRoomViewHolder)holder).chatContent.setText(content);
                             }else{
-                                ((ChatRoomViewHolder)holder).chatContent.setText(content+"[订单]");
+                                ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
                             }
                         } catch (EaseMobException e) {
                             e.printStackTrace();

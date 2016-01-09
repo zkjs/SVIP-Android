@@ -22,6 +22,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
@@ -275,16 +276,11 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
             if(!TextUtils.isEmpty(userId)){
                 titleTv.setTextTitle(userId);
             }
-            if(null != conversation){
-                if(conversation.getIsGroup()){
-                    EMGroup group = EMGroupManager.getInstance().getGroup(userId);
-                    if (group != null){
-                        titleTv.setTextTitle(group.getGroupName());
-                    }
-                }else {
-                    if(!TextUtils.isEmpty(shopName)){
-                        titleTv.setTextTitle(shopName);
-                    }
+            if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
+                titleTv.setTextTitle(fromName);
+            }else {
+                if(!TextUtils.isEmpty(toName)){
+                    titleTv.setTextTitle(toName);
                 }
             }
         }

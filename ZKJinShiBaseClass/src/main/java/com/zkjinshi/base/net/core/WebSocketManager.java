@@ -53,7 +53,7 @@ public class WebSocketManager extends Handler implements IMessageProcess, WebSoc
         isLogoutIM = false;
         messageReceiver = new MessageReceiver();
         messageSender = new MessageSender();
-        uri = URI.create("ws://" + ConfigUtil.getInst().getIMHost() + ":" + ConfigUtil.getInst().getIMPort() + "/zkjs2");
+        uri = URI.create("ws://" + ConfigUtil.getInst().getPhpDomain() + ":" + ConfigUtil.getInst().getJavaDomain() + "/zkjs2");
         webSocketClient = new WebSocketClient(uri, this);
         messageSender.setWebSocketClient(webSocketClient);
         if (null != sendThread) {
