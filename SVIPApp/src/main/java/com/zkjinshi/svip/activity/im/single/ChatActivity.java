@@ -36,6 +36,7 @@ import com.zkjinshi.svip.activity.im.single.actions.MoreViewPagerManager;
 import com.zkjinshi.svip.activity.im.single.actions.NetCheckManager;
 import com.zkjinshi.svip.activity.im.single.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.single.actions.VoiceRecordManager;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderRoomResponse;
@@ -63,7 +64,7 @@ import static android.view.View.*;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class ChatActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class ChatActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
     private final static String TAG = ChatActivity.class.getSimpleName();
 

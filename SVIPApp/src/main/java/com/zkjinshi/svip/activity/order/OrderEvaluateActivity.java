@@ -1,5 +1,9 @@
 package com.zkjinshi.svip.activity.order;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,15 +17,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.EvaluateBean;
 import com.zkjinshi.svip.bean.HeadBean;
@@ -32,13 +40,19 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.EvaluateOrderResponse;
 import com.zkjinshi.svip.response.EvaluateResponse;
+import com.zkjinshi.svip.response.OrderConsumeResponse;
+import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.response.OrderEvaluateResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
+import com.zkjinshi.svip.utils.Base64Encoder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.EvaluateLevel;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
+import com.zkjinshi.svip.vo.OrderEvaluationVo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +79,8 @@ public class OrderEvaluateActivity extends BaseActivity {
     private ImageButton backIBtn,moreIBtn;
     private LinearLayout evaluateLayout,compleEvaluateLayout;
     private TextView compleEvaluateTv;
-    private String orderNo;
+    private OrderDetailForDisplay orderDetailForDisplay;
+    private String reservationNo;
     private ImageView hotelIconIv;
     private TextView hotelNameTv,roomInfoTv,priceTv,checkInDateTv,checkInNamesTv,invoiceInfoTv,remarkInfoTv;
     private DisplayImageOptions goodsIconOptions,shopLogoOptions,salsePhotoOption;
@@ -73,6 +88,7 @@ public class OrderEvaluateActivity extends BaseActivity {
     private CircleImageView salesIconIv;
     private ImageView goodsIconIv;
     private TextView titleTv;
+    private OrderEvaluationVo orderEvaluationVo;
 
     private void initView(){
         poorCb = (CheckBox)findViewById(R.id.order_evaluate_cb_poor);
@@ -125,11 +141,35 @@ public class OrderEvaluateActivity extends BaseActivity {
                 .build();
         layoutInBottom = AnimationUtils.loadAnimation(this, R.anim.layout_in_bottom);
         layoutOutTop = AnimationUtils.loadAnimation(this, R.anim.layout_out_top);
-        if(null != getIntent() && !TextUtils.isEmpty(getIntent().getStringExtra("orderNo"))){
-            orderNo = getIntent().getStringExtra("orderNo");
+        if(null != getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
+            orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
+            if(null != orderDetailForDisplay){
+                reservationNo = orderDetailForDisplay.getOrderno();
+                String shopId = orderDetailForDisplay.getShopid();
+                if(null != shopId){
+                    String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
+                    //titleTv.setText(shopName);
+                    if(!TextUtils.isEmpty(shopName)){
+                        hotelNameTv.setText(shopName);
+                    }
+                    String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
+                    if(!TextUtils.isEmpty(logo)){
+                        String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
+                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
+                    }
+                    String roomType = orderDetailForDisplay.getRoomtype();
+                    int rooms = orderDetailForDisplay.getRoomcount();
+                    roomInfoTv.setText(roomType + "*" + rooms);
+                    String roomRate = ""+orderDetailForDisplay.getRoomprice();
+                    if(!TextUtils.isEmpty(roomRate)){
+                        priceTv.setText("¥"+roomRate);
+                    }
+                    String checkInDate = orderDetailForDisplay.getArrivaldate();
+                    String checkOutDate = orderDetailForDisplay.getLeavedate();
+                    checkInDateTv.setText(checkInDate + "到" + checkOutDate);
+                }
+            }
         }
-        requestGetEvaluateTask(orderNo);
-        requestOrderDetailTask(orderNo);
     }
 
     private void initListeners(){
@@ -211,7 +251,7 @@ public class OrderEvaluateActivity extends BaseActivity {
                     return;
                 }
                 if(!TextUtils.isEmpty(evaluateContent)){
-                    requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, orderNo);
+                    requestAddEvaluateTask(evaluateLevel.getVlaue(), evaluateContent, reservationNo);
                 }
 
             }
@@ -384,201 +424,6 @@ public class OrderEvaluateActivity extends BaseActivity {
     }
 
     /**
-     * 获取订单信息
-     * @param reservationNo
-     */
-    private void requestOrderDetailTask(String reservationNo){
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getOrderDetailUrl());
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("token",CacheUtil.getInstance().getToken());
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("reservation_no", reservationNo);
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                if (null != result && !TextUtils.isEmpty(result.rawResult)) {
-                    Log.i(TAG, "result.rawResult:" + result.rawResult);
-                    try {
-                        OrderEvaluateResponse orderDetailResponse = new Gson().fromJson(result.rawResult, OrderEvaluateResponse.class);
-                        if (null != orderDetailResponse) {
-                            HeadBean headBean = orderDetailResponse.getHead();
-                            if (null != headBean) {
-                                boolean isSet = headBean.isSet();
-                                if (isSet) {
-                                    OrderDetailBean orderDetailBean = orderDetailResponse.getData();
-                                    String shopId = orderDetailBean.getShopid();
-                                    String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
-                                    if(!TextUtils.isEmpty(shopName)){
-                                        hotelNameTv.setText(shopName);
-                                    }
-                                    String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
-                                    if(!TextUtils.isEmpty(logo)){
-                                        String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
-                                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
-                                    }
-                                    String roomType = orderDetailBean.getRoom_type();
-                                    int rooms = orderDetailBean.getRooms();
-                                    roomInfoTv.setText(roomType + "*" + rooms);
-                                    String roomRate = orderDetailBean.getRoom_rate();
-                                    if(!TextUtils.isEmpty(roomRate)){
-                                        priceTv.setText("¥"+roomRate);
-                                    }
-                                    String checkInDate = orderDetailBean.getArrival_date();
-                                    String checkOutDate = orderDetailBean.getDeparture_date();
-                                    checkInDateTv.setText(checkInDate + "到" + checkOutDate);
-                                    ArrayList<UserBean> userList = orderDetailBean.getUsers();
-                                    StringBuffer userNamesSb = new StringBuffer();
-                                    if(null != userList && !userList.isEmpty()){
-                                        for(UserBean userBean: userList){
-                                            String realName = userBean.getRealname();
-                                            if(!TextUtils.isEmpty(realName)){
-                                                userNamesSb.append(""+realName+",");
-                                            }
-                                        }
-                                        checkInNamesTv.setText(userNamesSb.subSequence(0,userNamesSb.length()-1));
-                                    }
-                                    String remark = orderDetailBean.getRemark();
-                                    if(!TextUtils.isEmpty(remark)){
-                                        remarkInfoTv.setText(remark);
-                                    }
-                                    String salesName = orderDetailBean.getSale_name();
-                                    if (!TextUtils.isEmpty(salesName)) {
-                                        salesNameTv.setText(salesName);
-                                    }
-                                    String salesId = orderDetailBean.getSalesid();
-                                    if (!TextUtils.isEmpty(salesId)) {
-                                        String salesIconUrl = ProtocolUtil.getAvatarUrl(salesId);
-                                        if (!TextUtils.isEmpty(salesIconUrl)) {
-                                            ImageLoader.getInstance().displayImage(salesIconUrl, salesIconIv, salsePhotoOption);
-                                        }
-                                    }
-                                    String imageUrl = orderDetailBean.getImgurl();
-                                    if (!TextUtils.isEmpty(imageUrl)) {
-                                        String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
-                                        ImageLoader.getInstance().displayImage(logoUrl, goodsIconIv, goodsIconOptions);
-                                    }
-                                    String invoiceInfo = orderDetailBean.getInvoice_title();
-                                    if(!TextUtils.isEmpty(invoiceInfo)){
-                                        invoiceInfoTv.setText(invoiceInfo);
-                                    }
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }
-
-    /**
-     * 获取评价信息
-     * @param reservationNo
-     */
-    private void requestGetEvaluateTask(String reservationNo){
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getGetEvaluateUrl());
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("token",CacheUtil.getInstance().getToken());
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("reservation_no", reservationNo);
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                if (null != result && !TextUtils.isEmpty(result.rawResult)) {
-                    Log.i(TAG, "result.rawResult:" + result.rawResult);
-                    try {
-                        EvaluateResponse evaluateResponse = new Gson().fromJson(result.rawResult, EvaluateResponse.class);
-                        if (null != evaluateResponse) {
-                            HeadBean headBean = evaluateResponse.getHead();
-                            if (null != headBean) {
-                                boolean isSet = headBean.isSet();
-                                if (isSet) {
-                                    String errorInfo = headBean.getErr();
-                                    if (!TextUtils.isEmpty(errorInfo) && "404".equals(errorInfo)) {//还未评价
-                                        evaluateLayout.setVisibility(View.VISIBLE);
-                                        compleEvaluateLayout.setVisibility(View.GONE);
-                                    } else {
-                                        EvaluateBean evaluateBean = evaluateResponse.getData();
-                                        if (null != evaluateBean) {
-                                            evaluateLayout.setVisibility(View.GONE);
-                                            compleEvaluateLayout.setVisibility(View.VISIBLE);
-                                            //设置评价内容和几颗星
-                                            String content = evaluateBean.getContent();
-                                            if (!TextUtils.isEmpty(content)) {
-                                                compleEvaluateTv.setText(content);
-                                            }
-                                            int score = evaluateBean.getScore();
-                                            if (1 == score) {
-                                                evaluateLevel = EvaluateLevel.POOR;
-                                            } else if (2 == score) {
-                                                evaluateLevel = EvaluateLevel.COMMON;
-                                            } else if (3 == score) {
-                                                evaluateLevel = EvaluateLevel.GRATIFY;
-                                            } else if (4 == score) {
-                                                evaluateLevel = EvaluateLevel.GREAT_GRATIFY;
-                                            } else {
-                                                evaluateLevel = EvaluateLevel.HIGHLY_RECOMMEND;
-                                            }
-                                            setEvaluateStar(evaluateLevel);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, e.getMessage());
-                    }
-                }
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
-    }
-
-    /**
      * 新增订单评价
      * @param score 评分 12345
      * @param content 评论的的内容
@@ -586,16 +431,20 @@ public class OrderEvaluateActivity extends BaseActivity {
      */
     private void requestAddEvaluateTask(int score, final String content, String reservationNo){
 
+        orderEvaluationVo = new OrderEvaluationVo();
+        orderEvaluationVo.setContent(content);
+        orderEvaluationVo.setOrderNo(reservationNo);
+        orderEvaluationVo.setScore(score);
+        orderEvaluationVo.setUserid(CacheUtil.getInstance().getUserId());
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String dataJson = gson.toJson(orderEvaluationVo);
+        String encryptedData = Base64Encoder.encode(dataJson);
         NetRequest netRequest = new NetRequest(ProtocolUtil.getAddEvaluateUrl());
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid",CacheUtil.getInstance().getUserId());
-        bizMap.put("token",CacheUtil.getInstance().getToken());
-        bizMap.put("score", score+"");
-        bizMap.put("content", content);
-        bizMap.put("reservation_no", reservationNo);
-        netRequest.setBizParamMap(bizMap);
+        HashMap<String,Object> objectMap = new HashMap<String,Object>();
+        objectMap.put("data", encryptedData);
+        netRequest.setObjectParamMap(objectMap);
         NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.JSONPOST;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -614,15 +463,16 @@ public class OrderEvaluateActivity extends BaseActivity {
                 if (null != result && !TextUtils.isEmpty(result.rawResult)) {
                     Log.i(TAG, "result.rawResult:" + result.rawResult);
                     try {
-                        BaseBean baseBean = new Gson().fromJson(result.rawResult, BaseBean.class);
-                        if (null != baseBean) {
-                            boolean isSet = baseBean.isSet();
-                            if (isSet) {
+                        EvaluateOrderResponse evaluateOrderResponse = new Gson().fromJson(result.rawResult, EvaluateOrderResponse.class);
+                        if (null != evaluateOrderResponse) {
+                            boolean isSuccess = evaluateOrderResponse.isResult();
+                            if (isSuccess) {
                                 evaluateLayout.setVisibility(View.GONE);
                                 compleEvaluateLayout.setVisibility(View.VISIBLE);
                                 if (!TextUtils.isEmpty(content)) {
                                     compleEvaluateTv.setText(content);
                                 }
+                                showEvaluateDialog();
                             }
                         }
                     } catch (Exception e) {
@@ -638,5 +488,21 @@ public class OrderEvaluateActivity extends BaseActivity {
         });
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
+    }
+
+    private void showEvaluateDialog(){
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
+        customBuilder.setTitle("提示");
+        customBuilder.setMessage("评价成功，关闭页面？");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                BaseApplication.getInst().clearLeaveTop();
+            }
+        });
+        customBuilder.create().show();
     }
 }

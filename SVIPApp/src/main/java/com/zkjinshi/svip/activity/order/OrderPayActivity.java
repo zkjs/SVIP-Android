@@ -22,6 +22,7 @@ import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -129,48 +130,6 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
         }
         return paymentRequest;
     }
-//
-//    class PaymentTask extends AsyncTask<PaymentRequest, Void, String> {
-//        @Override
-//        protected void onPreExecute() {
-//            //按键点击之后的禁用，防止重复点击
-//            weChatPayIBtn.setOnClickListener(null);
-//            aliPayIBtn.setOnClickListener(null);
-//        }
-//
-//        @Override
-//        protected String doInBackground(PaymentRequest... pr) {
-//
-//            PaymentRequest paymentRequest = pr[0];
-//            String data = null;
-//            String json = new Gson().toJson(paymentRequest);
-//            try {
-//                //向Your Ping++ Server SDK请求数据
-//                data = postJson(URL, json);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return data;
-//        }
-//
-//        /**
-//         * 获得服务端的charge，调用ping++ sdk。
-//         */
-//        @Override
-//        protected void onPostExecute(String data) {
-//            if(null==data){
-//                showMsg("请求出错", "请检查URL", "URL无法获取charge");
-//                return;
-//            }
-//            Log.d("charge", data);
-//            Intent intent = new Intent();
-//            String packageName = getPackageName();
-//            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
-//            intent.setComponent(componentName);
-//            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
-//            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-//        }
-//    }
 
     /**
      * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
@@ -273,6 +232,7 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                BaseApplication.getInst().clearLeaveTop();
             }
         });
         dialog = customBuilder.create();

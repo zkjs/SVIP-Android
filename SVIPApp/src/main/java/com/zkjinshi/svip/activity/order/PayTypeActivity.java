@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.PayAdapter;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.PayBean;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by dujiande on 2016/1/9.
  */
-public class PayTypeActivity extends Activity  implements AdapterView.OnItemClickListener{
+public class PayTypeActivity extends BaseActivity implements AdapterView.OnItemClickListener{
     private final static String TAG = PayTypeActivity.class.getSimpleName();
 
     private OrderDetailForDisplay orderDetailForDisplay;

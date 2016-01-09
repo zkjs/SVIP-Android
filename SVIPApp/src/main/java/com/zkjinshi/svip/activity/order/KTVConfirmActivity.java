@@ -22,6 +22,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
@@ -48,7 +49,7 @@ import java.util.HashMap;
 /**
  * Created by dujiande on 2015/12/29.
  */
-public class KTVConfirmActivity extends Activity {
+public class KTVConfirmActivity extends BaseActivity {
 
     private final static String TAG = KTVConfirmActivity.class.getSimpleName();
 

@@ -23,6 +23,7 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
@@ -50,7 +51,7 @@ import java.util.HashMap;
 /**
  * Created by dujiande on 2015/12/29.
  */
-public class HotelConfirmActivity extends Activity {
+public class HotelConfirmActivity extends BaseActivity {
 
     private final static String TAG = HotelConfirmActivity.class.getSimpleName();
 
@@ -353,9 +354,14 @@ public class HotelConfirmActivity extends Activity {
         if(gotoEvaluate){
             confirmBtn.setText("添加评论");
             confirmBtn.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(this,OrderEvaluateActivity.class);
-            intent.putExtra("orderNo",orderDetailForDisplay.getOrderno());
-            startActivity(intent);
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HotelConfirmActivity.this,OrderEvaluateActivity.class);
+                    intent.putExtra("orderDetailForDisplay",orderDetailForDisplay);
+                    startActivity(intent);
+                }
+            });
         }
 
     }

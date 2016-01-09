@@ -16,11 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 
 /**
  * Created by dujiande on 2015/12/22.
  */
-public class GuideActivity extends Activity {
+public class GuideActivity extends BaseActivity {
     private final static String TAG = GuideActivity.class.getSimpleName();
 
     private EditText passwordEt;

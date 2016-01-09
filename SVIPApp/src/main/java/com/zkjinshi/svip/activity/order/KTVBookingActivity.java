@@ -23,6 +23,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
@@ -56,7 +57,7 @@ import java.util.HashMap;
 /**
  * Created by dujiande on 2015/12/29.
  */
-public class KTVBookingActivity extends Activity {
+public class KTVBookingActivity extends BaseActivity {
 
     private final static String TAG = KTVBookingActivity.class.getSimpleName();
 

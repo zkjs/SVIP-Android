@@ -45,7 +45,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAddEvaluateUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"comment/add";
+        return ConfigUtil.getInst().getJavaDomain()+"order/evaluation";
     }
 
     /**
