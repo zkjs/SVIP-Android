@@ -33,7 +33,7 @@
         android:id="@+id/btn_send_booking_order"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="立即预定"
+        android:text="提交订单"
         android:textSize="16sp"
         android:textColor="@color/White"
         android:background="@drawable/btn_yellow_selector"/>

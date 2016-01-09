@@ -195,12 +195,16 @@ public class HotelConfirmActivity extends Activity {
             tipsTv.setText("请对服务进行评价");
             confirmBtn.setVisibility(View.VISIBLE);
             deleteTv.setVisibility(View.GONE);
+        }else if(orderDetailForDisplay.getOrderstatus().equals("已完成")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("该订单已经完成");
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.GONE);
         }else{
             tipsTv.setVisibility(View.GONE);
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
         }
-        String orderStatus = orderDetailForDisplay.getOrderstatus();
 
 
         if( orderDetailForDisplay.getDoublebreakfeast() == 1){

@@ -162,31 +162,34 @@ public class KTVConfirmActivity extends Activity {
     private void initData() {
         titleTv.setText(orderDetailForDisplay.getShopname());
         //订单状态
-        if(orderDetailForDisplay.getOrderstatus().equals("待确认")){
+        if(orderDetailForDisplay.getOrderstatus().equals("待处理")){
             payType = orderDetailForDisplay.getPaytype();
-            if(payType == 0){
-                tipsTv.setVisibility(View.VISIBLE);
-                tipsTv.setText("订单待确认中。如需修改，请联系客服");
-                confirmBtn.setVisibility(View.GONE);
-                deleteTv.setVisibility(View.VISIBLE);
-            }else{
-                tipsTv.setVisibility(View.VISIBLE);
-                tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
-                confirmBtn.setVisibility(View.VISIBLE);
-                deleteTv.setVisibility(View.VISIBLE);
-            }
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("订单待处理中。如需修改，请联系客服");
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.VISIBLE);
+        }else  if(orderDetailForDisplay.getOrderstatus().equals("待确认")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
+            confirmBtn.setVisibility(View.VISIBLE);
+            deleteTv.setVisibility(View.VISIBLE);
         }else  if(orderDetailForDisplay.getOrderstatus().equals("待支付")){
             tipsTv.setVisibility(View.VISIBLE);
             tipsTv.setText("请您核对订单，并确认。如需修改，请联系客服");
             confirmBtn.setVisibility(View.VISIBLE);
             deleteTv.setVisibility(View.VISIBLE);
-        }else  if(orderDetailForDisplay.getOrderstatus().equals("已确认")){
-            tipsTv.setVisibility(View.GONE);
-            confirmBtn.setVisibility(View.GONE);
-            deleteTv.setVisibility(View.VISIBLE);
         }else if(orderDetailForDisplay.getOrderstatus().equals("已取消")){
             tipsTv.setVisibility(View.VISIBLE);
             tipsTv.setText("您的订单已经取消");
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.GONE);
+        }else if(orderDetailForDisplay.getOrderstatus().equals("待评价")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("请对服务进行评价");
+            confirmBtn.setVisibility(View.VISIBLE);
+            deleteTv.setVisibility(View.GONE);
+        }else{
+            tipsTv.setVisibility(View.GONE);
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
         }
