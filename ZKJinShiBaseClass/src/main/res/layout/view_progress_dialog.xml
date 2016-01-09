@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="horizontal" >
+    android:gravity="center">
+
+    <com.zkjinshi.base.view.CircleImageView
+        android:id="@+id/civ_loading_icon"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
 
     <ProgressBar
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/oahprogressbar"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:indeterminateDrawable="@drawable/bg_progress_dialog" />
+        android:id="@+id/pb_orange_circle"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:indeterminateDrawable="@drawable/orange_progressbar" />
 
-</LinearLayout>
+</FrameLayout>

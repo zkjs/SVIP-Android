@@ -1,7 +1,6 @@
 package com.zkjinshi.svip;
 
 import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -23,10 +22,8 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogConfig;
 import com.zkjinshi.base.log.LogSwitch;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.net.util.ImCacheUtil;
 import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
-
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.UpdateBean;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
@@ -36,6 +33,7 @@ import com.zkjinshi.svip.receiver.ECallReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -75,7 +73,6 @@ public class SVIPApplication extends BaseApplication {
         saveConfig();
         initLog();
         initCache();
-        initImCache();
         initImageLoader();
         initDevice();
         initFace();
@@ -208,13 +205,6 @@ public class SVIPApplication extends BaseApplication {
      */
     private void initCache(){
         CacheUtil.getInstance().init(this);
-    }
-
-    /**
-     * 初始化IM缓存
-     */
-    private void initImCache(){
-        ImCacheUtil.getInstance().init(this);
     }
 
     /**

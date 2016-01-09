@@ -10,15 +10,11 @@ import android.view.Gravity;
 import android.view.WindowManager;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
-
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 
