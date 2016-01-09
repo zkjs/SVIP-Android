@@ -3,7 +3,6 @@ package com.zkjinshi.svip.activity.order;
 import android.app.Activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +22,6 @@ import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
@@ -57,7 +55,6 @@ import com.zkjinshi.svip.vo.GoodInfoVo;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -468,9 +465,9 @@ public class HotelBookingActivity extends Activity {
                                         salesId = head.getExclusive_salesid();
                                         if (null != customerServiceList && !customerServiceList.isEmpty()) {
                                             if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                            } else {//无专属客服
-                                                customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
+                                            } else {//商家客服
+                                                customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
                                                 if (TextUtils.isEmpty(salesId)) {
                                                     salesId = customerService.getSalesid();
                                                 }

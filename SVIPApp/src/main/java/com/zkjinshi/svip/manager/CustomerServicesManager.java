@@ -60,7 +60,7 @@ public class CustomerServicesManager {
      * @param salesId
      * @return
      */
-    public CustomerServiceBean getExclusiveCustomerServic(ArrayList<CustomerServiceBean> customerServiceList,String salesId){
+    public CustomerServiceBean getExclusiveCustomerService(ArrayList<CustomerServiceBean> customerServiceList, String salesId){
         CustomerServiceBean customerService = null;
         String mSalesId = null;
         for(CustomerServiceBean customerServiceBean : customerServiceList){
@@ -77,10 +77,28 @@ public class CustomerServicesManager {
      * @param customerServiceList
      * @return
      */
-    public CustomerServiceBean getRandomCustomerServic(ArrayList<CustomerServiceBean> customerServiceList){
+    public CustomerServiceBean getRandomCustomerService(ArrayList<CustomerServiceBean> customerServiceList){
         Random random = new Random();
         int size = customerServiceList.size();
         CustomerServiceBean customerService = customerServiceList.get(random.nextInt(size));
+        return customerService;
+    }
+
+    /**
+     * 获得随机管理员商家
+     */
+    public CustomerServiceBean getRandomAdminService(ArrayList<CustomerServiceBean> customerServiceList){
+        ArrayList<CustomerServiceBean> adminServiceList = new ArrayList<CustomerServiceBean>();
+        int roleType = 0;
+        for(CustomerServiceBean customerServiceBean : customerServiceList){
+            roleType = customerServiceBean.getRoleid();
+            if(roleType == 1){
+                adminServiceList.add(customerServiceBean);
+            }
+        }
+        Random random = new Random();
+        int size = adminServiceList.size();
+        CustomerServiceBean customerService = adminServiceList.get(random.nextInt(size));
         return customerService;
     }
 }

@@ -165,14 +165,6 @@ public class ConsumeRecordActivtiy extends BaseActivity {
                 OrderForDisplay bookOrder = (OrderForDisplay)mBookOrderAdapter.getItem(realPostion);
                 String orderNo = bookOrder.getOrderno();
                 Intent intent = new Intent();
-//                if(!TextUtils.isEmpty(orderStatus) && "3".equals(orderStatus)){
-//                    intent.setClass(ConsumeRecordActivtiy.this, OrderEvaluateActivity.class);
-//                    intent.putExtra("bookOrder",bookOrder);
-//                }else{
-//                    intent.setClass(ConsumeRecordActivtiy.this,OrderDetailActivity.class);
-//                    intent.putExtra("reservation_no",bookOrder.getReservation_no());
-//                    intent.putExtra("shopid",bookOrder.getShopid());
-//                }
                 if(orderNo.startsWith("H")){
                     intent.setClass(ConsumeRecordActivtiy.this,HotelConfirmActivity.class);
                     intent.putExtra("orderNo",bookOrder.getOrderno());

@@ -352,9 +352,9 @@ public class OrderBookingActivity extends BaseActivity {
                                         CustomerServiceBean customerService = null;
                                         if (null != customerServiceList && !customerServiceList.isEmpty()) {
                                             if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                            } else {//无专属客服
-                                                customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
+                                            } else {//商家客服
+                                                customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
                                                 if (TextUtils.isEmpty(salesId)) {
                                                     salesId = customerService.getSalesid();
                                                 }
