@@ -108,7 +108,7 @@ public class HotelConfirmActivity extends BaseActivity {
 
         breakfastTcv = (ItemCbxView)findViewById(R.id.ahb_breakfast);
         noSmokeTcv = (ItemCbxView)findViewById(R.id.ahb_nosmoking);
-
+        breakfastTcv.setVisibility(View.GONE);
         confirmBtn = (Button)findViewById(R.id.btn_send_booking_order);
 
         Drawable drawable =  getResources().getDrawable(R.mipmap.list_ic_tequan_gary);
