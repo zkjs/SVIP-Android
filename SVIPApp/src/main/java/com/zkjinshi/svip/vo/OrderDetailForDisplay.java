@@ -106,17 +106,11 @@ public class OrderDetailForDisplay implements Serializable {
      */
     private String orderstatus;
 
-    private Date created;
+    private String created;
 
     private String priviledgename;  //特权名称
 
-    public Date getCreated() {
-        return created;
-    }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
 
     public String getPriviledgename() {
         return priviledgename;
