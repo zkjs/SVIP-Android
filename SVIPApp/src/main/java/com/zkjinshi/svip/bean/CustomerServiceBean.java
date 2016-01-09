@@ -13,6 +13,7 @@ public class CustomerServiceBean implements Serializable {
     private String name;
     private String phone;
     private String salesid;
+    private int roleid;// 1:管理员
 
     public String getName() {
         return name;
@@ -36,5 +37,13 @@ public class CustomerServiceBean implements Serializable {
 
     public void setSalesid(String salesid) {
         this.salesid = salesid;
+    }
+
+    public int getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(int roleid) {
+        this.roleid = roleid;
     }
 }

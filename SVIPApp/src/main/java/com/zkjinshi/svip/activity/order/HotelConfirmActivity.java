@@ -5,20 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
@@ -26,10 +22,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.SettingTicketsActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
@@ -39,25 +32,18 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.AddOrderResponse;
-import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
-import com.zkjinshi.svip.response.OrderDetailResponse;
-import com.zkjinshi.svip.response.OrderInvoiceResponse;
-import com.zkjinshi.svip.utils.Base64Encoder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemCbxView;
 import com.zkjinshi.svip.view.ItemNumView;
 import com.zkjinshi.svip.view.ItemShowView;
-import com.zkjinshi.svip.vo.GoodInfoVo;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -449,9 +435,9 @@ public class HotelConfirmActivity extends Activity {
                                                     CustomerServiceBean customerService = null;
                                                     if (null != customerServiceList && !customerServiceList.isEmpty()) {
                                                         if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                                        } else {//无专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
+                                                        } else {//商家客服
+                                                            customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
                                                             if(null != salesId){
                                                                 salesId = customerService.getSalesid();
                                                             }
@@ -563,9 +549,9 @@ public class HotelConfirmActivity extends Activity {
                                                     CustomerServiceBean customerService = null;
                                                     if (null != customerServiceList && !customerServiceList.isEmpty()) {
                                                         if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerServic(customerServiceList, salesId);
-                                                        } else {//无专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getRandomCustomerServic(customerServiceList);
+                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
+                                                        } else {//商家客服
+                                                            customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
                                                             if(null != salesId){
                                                                 salesId = customerService.getSalesid();
                                                             }

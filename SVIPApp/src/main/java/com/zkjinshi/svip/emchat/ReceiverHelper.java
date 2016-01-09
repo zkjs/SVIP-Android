@@ -205,11 +205,6 @@ public class ReceiverHelper {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-//                Intent intent = new Intent(context, OrderDetailActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.putExtra("reservation_no", orderNo);
-//                intent.putExtra("shopid", shopId);
-//                context.startActivity(intent);
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 if(orderNo.startsWith("H")){
