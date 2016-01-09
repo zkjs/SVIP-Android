@@ -5,10 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.R;
 import com.zkjinshi.base.view.CircleImageView;
 
@@ -21,21 +24,21 @@ import com.zkjinshi.base.view.CircleImageView;
  */
 public class DialogUtil {
 
-	private static Dialog loadingDialog;
-
 	public static DialogUtil dialogUtil;
 
 	private ProgressDialog progressDialog = null;
 
-	private int mLayoutResId = R.layout.view_avatar_progress_dialog;
+	private int mLayoutResId = R.layout.view_progress_dialog;
 
 	public static int mAlertDialogIconId = android.R.drawable.ic_dialog_info;
 
 	private DialogInterface.OnCancelListener mOnCancelListener;
 
 	public static DialogUtil getInstance() {
-		if (null == dialogUtil)
+		if (null == dialogUtil){
 			dialogUtil = new DialogUtil();
+		}
+
 		return dialogUtil;
 	}
 
@@ -80,24 +83,21 @@ public class DialogUtil {
 	 * 根据用户头像图片显示加载进度
 	 * @param context
 	 */
-	public void showAvatarProgressDialog(Context context, Bitmap avatar) {
+	public void showAvatarProgressDialog(Context context,String imageUrl) {
 
-		View layoutView = View.inflate(context, R.layout.view_avatar_progress_dialog, null);
-		showProgressDialog(context, layoutView, avatar);
+		View layoutView = View.inflate(context, R.layout.view_progress_dialog, null);
+		showProgressDialog(context, layoutView, imageUrl);
 	}
 
-	private void showProgressDialog(Context context, View layoutView, Bitmap avatar) {
+	private void showProgressDialog(Context context, View layoutView, String imageUrl) {
 
-		if (avatar == null) {
+		if (TextUtils.isEmpty(imageUrl)) {
 			showProgressDialog(context);
 			return;
 		}
-
-		CircleImageView userAvatar = (CircleImageView) layoutView.findViewById(R.id.civ_user_avatar);
-		userAvatar.setImageBitmap(avatar);
-
+		CircleImageView userAvatar = (CircleImageView) layoutView.findViewById(R.id.civ_loading_icon);
+		ImageLoader.getInstance().displayImage(imageUrl,userAvatar);
 		cancelProgressDialog();
-
 		progressDialog = new ProgressDialog(context);
 		progressDialog.setIndeterminate(true);
 		progressDialog.setCancelable(true);
@@ -119,9 +119,7 @@ public class DialogUtil {
 			showProgressDialog(context);
 			return;
 		}
-
 		cancelProgressDialog();
-
 		progressDialog = new ProgressDialog(context);
 		progressDialog.setMessage(message);
 		progressDialog.setIndeterminate(true);

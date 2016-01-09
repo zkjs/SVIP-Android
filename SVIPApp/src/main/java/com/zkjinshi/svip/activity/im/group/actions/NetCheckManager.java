@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.svip.R;

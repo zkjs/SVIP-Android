@@ -1,10 +1,8 @@
 package com.zkjinshi.svip.activity.mine;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -12,9 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.net.core.WebSocketManager;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
@@ -22,16 +17,7 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.VIPContext;
-
-import java.util.Set;
 
 /**
  * 开发者：JimmyZhang

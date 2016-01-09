@@ -79,28 +79,8 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
 
         try {
             if (isShowLoadingDialog) {
-                //获得当前用户头像
-                String url = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
-                ImageLoader.getInstance().loadImage(url,
-                    new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String imageUri, View view) {}
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            Bitmap avatar = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
-                            DialogUtil.getInstance().showAvatarProgressDialog(context, avatar);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            DialogUtil.getInstance().showAvatarProgressDialog(context, loadedImage);
-                        }
-
-                        @Override
-                        public void onLoadingCancelled(String imageUri, View view) {}
-                    }
-                );
+                String imageUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                DialogUtil.getInstance().showAvatarProgressDialog(context,imageUrl);
             }
         } catch (Exception e) {
             e.printStackTrace();

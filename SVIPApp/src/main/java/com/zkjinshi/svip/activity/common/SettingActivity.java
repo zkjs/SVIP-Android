@@ -2,12 +2,9 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,28 +15,19 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.net.core.WebSocketManager;
-import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.city.citylist.Setting;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -50,19 +38,14 @@ import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.VIPContext;
 import com.zkjinshi.svip.view.CircleImageView;
-import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.Sex;
 import com.zkjinshi.svip.vo.UserInfoVo;
 
 import java.io.File;
 import java.util.HashMap;
-
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * Created by djd on 2015/8/17.
