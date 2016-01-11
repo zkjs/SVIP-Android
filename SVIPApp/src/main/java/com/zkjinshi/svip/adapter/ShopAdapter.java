@@ -139,24 +139,10 @@ public class ShopAdapter extends BaseAdapter {
                 ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
             }
 
-            if(!TextUtils.isEmpty(salesID)){
-                String avatarUrl = ProtocolUtil.getAvatarUrl(salesID);
-                ImageLoader.getInstance().displayImage(avatarUrl, viewHolder.civSalerAvatar, avatarOptions);
-                viewHolder.civSalerAvatar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(!CacheUtil.getInstance().isLogin()){
-                            Intent intent = new Intent(context,LoginActivity.class);
-                            intent.putExtra("isHomeBack",true);
-                            context.startActivity(intent);
-                            return;
-                        }
-                        // 进入销售主页
-                        Intent intent = new Intent(context, ContactActivity.class);
-                        intent.putExtra("contact_id", salesID);
-                        context.startActivity(intent);
-                    }
-                });
+            String shopId = shopBean.getShopid();
+            if(!TextUtils.isEmpty(shopId)){
+                String shopLogoUrl = ProtocolUtil.getShopIconUrl(shopId);
+                ImageLoader.getInstance().displayImage(shopLogoUrl, viewHolder.civSalerAvatar, avatarOptions);
             }
         }
 
