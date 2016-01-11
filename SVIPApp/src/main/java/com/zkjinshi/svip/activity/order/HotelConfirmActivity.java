@@ -271,8 +271,8 @@ public class HotelConfirmActivity extends BaseActivity {
         }
 
         //特权
-        if(!TextUtils.isEmpty(orderDetailForDisplay.getPriviledgeName())){
-            privilegeTsv.setValue(orderDetailForDisplay.getPriviledgeName());
+        if(!TextUtils.isEmpty(orderDetailForDisplay.getPrivilegeName())){
+            privilegeTsv.setValue(orderDetailForDisplay.getPrivilegeName());
         }else{
             privilegeTsv.setValue("暂无");
         }
