@@ -64,6 +64,7 @@ import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
 import com.zkjinshi.svip.vo.MessageVo;
 import com.zkjinshi.svip.vo.MimeType;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 import com.zkjinshi.svip.vo.SendStatus;
 import com.zkjinshi.svip.vo.TxtExtType;
 
@@ -389,7 +390,7 @@ public class ChatAdapter extends BaseAdapter {
                     vh.time.setVisibility(View.GONE);
                     vh.cardLayout.setVisibility(View.GONE);
                 }else{//卡片类型消息
-                    final BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
+                    final OrderDetailForDisplay bookOrder = new Gson().fromJson(content, OrderDetailForDisplay.class);
                     if (!isDelEnabled) {
 
                         vh.contentLayout
@@ -406,7 +407,7 @@ public class ChatAdapter extends BaseAdapter {
                         vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String orderNo = bookOrder.getReservationNO();
+                                String orderNo = bookOrder.getOrderno();
                                 Intent intent = new Intent();
                                 if(orderNo.startsWith("H")){
                                     intent.setClass(context,HotelConfirmActivity.class);
@@ -424,10 +425,10 @@ public class ChatAdapter extends BaseAdapter {
                         });
                     }
                     if (null != bookOrder) {
-                        String roomType = bookOrder.getRoomType();
-                        String arrivaDate = bookOrder.getArrivalDate();
-                        String departureDate = bookOrder.getDepartureDate();
-                        String imageUrl = bookOrder.getImage();
+                        String roomType = bookOrder.getRoomtype();
+                        String arrivaDate = bookOrder.getArrivaldate();
+                        String departureDate = bookOrder.getLeavedate();
+                        String imageUrl = bookOrder.getImgurl();
                         int dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
                         vh.contentTip.setText(bookOrder.getContent());
                         vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");

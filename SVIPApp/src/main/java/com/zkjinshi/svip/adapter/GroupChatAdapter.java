@@ -60,6 +60,7 @@ import com.zkjinshi.svip.view.ActionItem;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.io.File;
@@ -384,7 +385,7 @@ public class GroupChatAdapter extends BaseAdapter {
                     vh.time.setVisibility(View.GONE);
                     vh.cardLayout.setVisibility(View.GONE);
                 }else{//卡片类型消息
-                    BookOrder bookOrder = new Gson().fromJson(content, BookOrder.class);
+                    OrderDetailForDisplay bookOrder = new Gson().fromJson(content, OrderDetailForDisplay.class);
                     if (!isDelEnabled) {
                         vh.contentLayout
                                 .setOnLongClickListener(new View.OnLongClickListener() {
@@ -397,10 +398,10 @@ public class GroupChatAdapter extends BaseAdapter {
                                 });
                     }
                     if (null != bookOrder) {
-                        String roomType = bookOrder.getRoomType();
-                        String arrivaDate = bookOrder.getArrivalDate();
-                        String departureDate = bookOrder.getDepartureDate();
-                        String imageUrl = bookOrder.getImage();
+                        String roomType = bookOrder.getRoomtype();
+                        String arrivaDate = bookOrder.getArrivaldate();
+                        String departureDate = bookOrder.getLeavedate();
+                        String imageUrl = bookOrder.getImgurl();
                         int dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
                         vh.contentTip.setText(bookOrder.getContent());
                         vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");

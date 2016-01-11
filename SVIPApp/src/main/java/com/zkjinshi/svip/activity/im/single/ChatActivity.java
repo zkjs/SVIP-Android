@@ -97,7 +97,6 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
     private String bookOrderStr;
-    private BookOrder bookOrder;
     private ArrayList<OrderUsersResponse> users;
     private String filePath;
     private int voiceTime;
@@ -171,38 +170,9 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
         if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
             orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
             if (null != orderDetailForDisplay) {
+                orderDetailForDisplay.setContent("您好，帮我预定这间房");
                 try {
-                    bookOrder = new BookOrder();
-                    bookOrder.setReservationNO(orderDetailForDisplay.getOrderno());
-                    SimpleDateFormat mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date aDate = sdf2.parse(orderDetailForDisplay.getArrivaldate());
-                    Date lDate = sdf2.parse(orderDetailForDisplay.getLeavedate());
-                    String arrivalDate = mSimpleFormat.format(aDate);
-                    String departureDate = mSimpleFormat.format(lDate);
-                    bookOrder.setArrivalDate(arrivalDate);
-                    bookOrder.setDepartureDate(departureDate);
-                    bookOrder.setFullame(orderDetailForDisplay.getShopname());
-                    bookOrder.setContent("您好，帮我预定这间房");
-                    bookOrder.setImage(orderDetailForDisplay.getImgurl());
-                    bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
-                    bookOrder.setGuest(CacheUtil.getInstance().getUserName());
-                    StringBuffer usersStr = new StringBuffer();
-
-                    //设置入住人信息
-                    bookOrder.setManInStay(orderDetailForDisplay.getOrderedby());
-                    bookOrder.setRoomType(orderDetailForDisplay.getRoomtype());
-                    bookOrder.setRoomTypeID(orderDetailForDisplay.getProductid());
-                    bookOrder.setRooms("" + orderDetailForDisplay.getRoomcount());
-                    bookOrder.setShopID(orderDetailForDisplay.getShopid());
-                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
-                    bookOrder.setDayNum(dayNum);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try {
-                    bookOrderStr = new Gson().toJson(bookOrder);
+                    bookOrderStr = new Gson().toJson(orderDetailForDisplay);
                     if (!TextUtils.isEmpty(bookOrderStr)) {
                         messageListViewManager.sendCardMessage(bookOrderStr);
                     }

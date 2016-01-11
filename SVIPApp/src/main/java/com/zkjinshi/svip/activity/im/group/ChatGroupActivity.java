@@ -46,6 +46,7 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,8 +68,7 @@ public class ChatGroupActivity extends BaseActivity implements CompoundButton.On
     private final static String TAG = ChatGroupActivity.class.getSimpleName();
 
     private String  textContext;
-    private OrderDetailResponse orderDetailResponse;
-    private OrderRoomResponse orderRoomResponse;
+    private OrderDetailForDisplay orderDetailForDisplay;
 
     private ItemTitleView titleIv;
     private EditText mMsgTextInput;
@@ -91,7 +91,6 @@ public class ChatGroupActivity extends BaseActivity implements CompoundButton.On
     private String            choosePicName;//选择图片名称
     private ArrayList<String> chooseImageList = new ArrayList<String>();
     private String bookOrderStr;
-    private BookOrder bookOrder;
     private ArrayList<OrderUsersResponse> users;
     private String filePath;
     private int voiceTime;
@@ -151,52 +150,12 @@ public class ChatGroupActivity extends BaseActivity implements CompoundButton.On
         netCheckManager.registernetCheckReceiver();
         //初始化快捷菜单
         QuickMenuManager.getInstance().init(this).setMessageListViewManager(messageListViewManager);
-        if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailResponse")){
-            orderDetailResponse = (OrderDetailResponse) getIntent().getSerializableExtra("orderDetailResponse");
-            if (null != orderDetailResponse) {
-                orderRoomResponse = orderDetailResponse.getRoom();
-
-                if(null != orderRoomResponse){
-                    bookOrder = new BookOrder();
-                    String arrivalDate = orderRoomResponse.getArrival_date();
-                    String departureDate = orderRoomResponse.getDeparture_date();
-                    bookOrder.setArrivalDate(arrivalDate);
-                    bookOrder.setDepartureDate(departureDate);
-                    bookOrder.setFullame(orderRoomResponse.getFullname());
-                    bookOrder.setContent("您好，帮我预定这间房");
-                    bookOrder.setImage(orderRoomResponse.getImgurl());
-                    bookOrder.setGuestTel(CacheUtil.getInstance().getUserPhone());
-                    bookOrder.setGuest(CacheUtil.getInstance().getUserName());
-                    StringBuffer usersStr = new StringBuffer();
-
-                    //设置入住人信息
-                    users = orderDetailResponse.getUsers();
-                    String usersString = null;
-                    if(null != users && !users.isEmpty()){
-                        for(OrderUsersResponse user : users){
-                            usersStr.append(user.getRealname()).append(",");
-                        }
-                        if(!TextUtils.isEmpty(usersStr)){
-                            usersString = usersStr.subSequence(0, usersStr.length()-1).toString();
-                            bookOrder.setManInStay(usersString);
-                        }
-                    }
-                    bookOrder.setManInStay(usersString);
-                    bookOrder.setRoomType(orderRoomResponse.getRoom_type());
-                    bookOrder.setRoomTypeID(orderRoomResponse.getRoom_typeid());
-                    bookOrder.setRooms("" + orderRoomResponse.getRooms());
-                    bookOrder.setShopID(orderRoomResponse.getShopid());
-                    bookOrder.setUserID(CacheUtil.getInstance().getUserId());
-                    try {
-                        int dayNum = TimeUtil.daysBetween(arrivalDate,departureDate);
-                        bookOrder.setDayNum(dayNum);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
+        if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
+            orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
+            if (null != orderDetailForDisplay) {
+                orderDetailForDisplay.setContent("您好，帮我预定这间房");
                 try {
-                    bookOrderStr = new Gson().toJson(bookOrder);
+                    bookOrderStr = new Gson().toJson(orderDetailForDisplay);
                     if (!TextUtils.isEmpty(bookOrderStr)) {
                         messageListViewManager.sendCardMessage(bookOrderStr);
                     }

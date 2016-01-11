@@ -110,7 +110,7 @@ public class OrderDetailForDisplay implements Serializable {
 
     private String priviledgename;  //特权名称
 
-
+    private String content;
 
     public String getPriviledgename() {
         return priviledgename;
@@ -310,5 +310,21 @@ public class OrderDetailForDisplay implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
