@@ -235,7 +235,11 @@ public class SVIPApplication extends BaseApplication {
      * 初始化云测试
      */
     private void initTest(){
-        TestinAgent.init(this);
+        try {
+            TestinAgent.init(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
