@@ -122,10 +122,13 @@ public class LoginController {
                             if(isHomeBack){
                                 Intent intent = activity.getIntent();
                                 String category = intent.getStringExtra("category");
+                                /**
+                                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+                                 */
                                 if(!StringUtil.isEmpty(category)){
-                                    if("酒店行业".equals(category)){
+                                    if("50".equals(category)){
                                         intent.setClass(activity, HotelBookingActivity.class);
-                                    }else if("KTV".equals(category)){
+                                    }else if("60".equals(category)){
                                         intent.setClass(activity, KTVBookingActivity.class);
                                     }else {
                                         intent.setClass(activity, NormalBookingActivity.class);
