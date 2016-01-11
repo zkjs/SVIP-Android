@@ -74,7 +74,7 @@ public class CommentListActivity extends BaseActivity {
 
     private void initData() {
 
-        mShopID = getIntent().getStringExtra("shop_id");
+        mShopID = getIntent().getStringExtra("shopID");
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText(getString(R.string.comment));
 
@@ -89,7 +89,6 @@ public class CommentListActivity extends BaseActivity {
     }
 
     private void initListener() {
-
         //返回
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override

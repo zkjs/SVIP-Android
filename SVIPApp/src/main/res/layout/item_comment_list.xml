@@ -15,8 +15,7 @@
         <com.zkjinshi.svip.view.CircleImageView
             android:id="@+id/civ_user_avatar"
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@mipmap/ic_launcher" />
+            android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/tv_user_name"
