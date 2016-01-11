@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    android:visibility="gone"
     android:background="@drawable/skin_aio_input_bar_bg"
     android:gravity="center_horizontal"
     android:orientation="horizontal"
