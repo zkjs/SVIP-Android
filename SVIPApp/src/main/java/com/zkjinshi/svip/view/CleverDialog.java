@@ -87,10 +87,12 @@ import me.nereo.multi_image_selector.bean.Image;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(0, 0);
-            totalHeight += DisplayUtil.dip2px(mActivity,listItem.getMeasuredHeight())+listView.getDividerHeight();
+           // totalHeight += DisplayUtil.dip2px(mActivity,listItem.getMeasuredHeight())+listView.getDividerHeight();
+            totalHeight += listItem.getMeasuredHeight()+listView.getDividerHeight();
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight; listView.setLayoutParams(params);
+        params.height = totalHeight;
+        listView.setLayoutParams(params);
     }
 
     public PrivilegeResponse getPrivilegeResponse() {
@@ -133,7 +135,8 @@ import me.nereo.multi_image_selector.bean.Image;
         }
          privilegeAdapter = new PrivilegeAdapter(list,mActivity);
          listView.setAdapter(privilegeAdapter);
-         setListViewHeightBasedOnChildren(listView);
+         //setListViewHeightBasedOnChildren(listView);
+         DisplayUtil.getTotalHeightofListView(listView);
     }
 
     @Override
