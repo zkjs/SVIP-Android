@@ -465,7 +465,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         logoTextTv.setVisibility(View.GONE);
     }
 
-    public synchronized void notifyIbeacon(){
+    public  void notifyIbeacon(){
         if(!CacheUtil.getInstance().isLogin()){
             logoIv.setVisibility(View.VISIBLE);
             return;
