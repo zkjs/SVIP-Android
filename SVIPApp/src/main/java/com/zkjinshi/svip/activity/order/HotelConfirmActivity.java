@@ -313,7 +313,9 @@ public class HotelConfirmActivity extends BaseActivity {
             //在线支付
             case 1:
                 payTypeStr = "在线支付";
-                priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                if(orderDetailForDisplay.getRoomprice() != null){
+                    priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                }
                 if(orderDetailForDisplay.getOrderstatus().equals("已确认")){
                     payTypeStr = "已支付";
                 }
@@ -334,7 +336,9 @@ public class HotelConfirmActivity extends BaseActivity {
             //到店支付
             case 2:
                 payTypeStr = "到店支付";
-                priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                if(orderDetailForDisplay.getRoomprice() != null){
+                    priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                }
                 confirmBtn.setText(priceStr + "  确定");
                 if(!gotoEvaluate){
                     confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -349,7 +353,9 @@ public class HotelConfirmActivity extends BaseActivity {
             //挂账
             case 3:
                 payTypeStr = "挂账";
-                priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                if(orderDetailForDisplay.getRoomprice() != null){
+                    priceStr ="¥"+orderDetailForDisplay.getRoomprice();
+                }
                 confirmBtn.setText(priceStr + "  确定");
                 if(!gotoEvaluate){
                     confirmBtn.setOnClickListener(new View.OnClickListener() {
