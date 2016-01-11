@@ -239,7 +239,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 zkjinshi:itemSettingTitle="房间数量"
-                android:background="#ffffff"/>
+                android:background="@drawable/bg_white"/>
 
         </LinearLayout>
     </ScrollView>

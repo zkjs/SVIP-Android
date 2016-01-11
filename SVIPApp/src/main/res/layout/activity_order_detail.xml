@@ -244,7 +244,7 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 zkjinshi:itemSettingTitle="房间数量"
-                android:background="#ffffff"/>
+                android:background="@drawable/bg_white"/>
 
             <!--入住人-->
             <LinearLayout
@@ -261,7 +261,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="入住人1"
-                    android:background="#ffffff"/>
+                    android:background="@drawable/bg_white"/>
 
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/aod_customer2"
@@ -270,7 +270,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="入住人2"
-                    android:background="#ffffff"/>
+                    android:background="@drawable/bg_white"/>
                 <com.zkjinshi.svip.view.ItemUserSettingView
                     android:id="@+id/aod_customer3"
                     android:layout_width="match_parent"
@@ -278,7 +278,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     zkjinshi:itemSettingTitle="入住人3"
-                    android:background="#ffffff"/>
+                    android:background="@drawable/bg_white"/>
             </LinearLayout>
 
             <!--支付方式-->

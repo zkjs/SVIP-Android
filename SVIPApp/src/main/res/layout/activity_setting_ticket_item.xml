@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="@drawable/bg_white">
 
     <include
         android:id="@+id/head_bar_layout"
@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:background="#ffffff">
+        android:background="@drawable/bg_white">
 
         <LinearLayout
             android:layout_width="match_parent"

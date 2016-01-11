@@ -32,7 +32,7 @@
         android:id="@+id/ad_des_tv"
         android:layout_width="320dp"
         android:layout_height="21dp"
-        android:background="#ffffff"
+        android:background="@drawable/bg_white"
         android:gravity="center_vertical"
         android:textSize="14sp"
         android:text="您获得了特权，无早升单早、单早升双早"

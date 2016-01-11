@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#ffffff">
+        android:background="@drawable/bg_white">
 
         <ImageView
             android:id="@+id/list_room_pic_iv"

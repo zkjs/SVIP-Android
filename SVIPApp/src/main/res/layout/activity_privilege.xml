@@ -13,7 +13,7 @@
         android:background="#191223"
         zkjinshi:leftImage="@mipmap/ic_fanhui"
         zkjinshi:rightImage="@mipmap/ic_gengduo"
-        zkjinshi:itemTitleColor="#FFFFFF">
+        zkjinshi:itemTitleColor="@drawable/bg_white">
 
     </com.zkjinshi.svip.view.ItemTitleView>
 

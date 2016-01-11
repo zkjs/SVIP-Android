@@ -24,7 +24,7 @@
                 android:id="@+id/rl_user_icon_img"
                 android:layout_width="match_parent"
                 android:layout_height="85dp"
-                android:background="#FFFFFF"
+                android:background="@drawable/bg_white"
                 android:clickable="true"
                 android:gravity="center_vertical">
 

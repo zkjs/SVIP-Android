@@ -10,7 +10,7 @@
         android:paddingRight="15dp"
         android:paddingTop="50dp"
         android:paddingBottom="50dp"
-        android:background="#ffffff">
+        android:background="@drawable/bg_white">
         
         <ImageView
             android:id="@+id/item_icon_iv"
