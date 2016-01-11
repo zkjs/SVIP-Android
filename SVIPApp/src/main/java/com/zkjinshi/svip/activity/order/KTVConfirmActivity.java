@@ -243,6 +243,13 @@ public class KTVConfirmActivity extends BaseActivity {
         }else{
             invoiceTsv.setValue(" ");
         }
+
+        //特权
+        if(!TextUtils.isEmpty(orderDetailForDisplay.getPriviledgeName())){
+            privilegeTsv.setValue(orderDetailForDisplay.getPriviledgeName());
+        }else{
+            privilegeTsv.setValue("暂无");
+        }
         //备注
         if(!TextUtils.isEmpty(orderDetailForDisplay.getRemark())){
             remarkTv.setText(orderDetailForDisplay.getRemark());
