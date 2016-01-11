@@ -21,6 +21,15 @@ public class ShopVo {
     private String shopdescUrl;
     private String category;
     private ArrayList<String> images;
+    private int shopStatus;//1代表上线，0代表不上线
+
+    public int getShopStatus() {
+        return shopStatus;
+    }
+
+    public void setShopStatus(int shopStatus) {
+        this.shopStatus = shopStatus;
+    }
 
     public String getShopId() {
         return shopId;

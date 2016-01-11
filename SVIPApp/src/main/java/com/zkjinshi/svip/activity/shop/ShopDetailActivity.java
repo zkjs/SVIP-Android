@@ -29,8 +29,10 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
@@ -85,6 +87,7 @@ public class ShopDetailActivity extends BaseActivity {
     private int ratingNum;
     private String shopId;
     private ShopVo shopVo;
+    private int shopStatus;
 
     private void initView(){
         backIBtn = (ImageButton) findViewById(R.id.header_bar_btn_back);
@@ -515,6 +518,7 @@ public class ShopDetailActivity extends BaseActivity {
                 shopVo = new Gson().fromJson(result.rawResult,ShopVo.class);
                 if(null != shopVo){
                     final String shopName = shopVo.getShopName();
+                    shopStatus = shopVo.getShopStatus();
                     if(!TextUtils.isEmpty(shopName)){
                         titleTv.setText(shopName);
                     }
@@ -551,11 +555,19 @@ public class ShopDetailActivity extends BaseActivity {
                                 return;
                             }
 
+                            if(shopStatus == 0){
+                                DialogUtil.getInstance().showCustomToast(ShopDetailActivity.this,"商家未上线", Toast.LENGTH_LONG);
+                                return;
+                            }
+
                             if(!TextUtils.isEmpty(category)){
+                                /**
+                                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+                                 */
                                 Intent intent = new Intent();
-                                if("酒店行业".equals(category)){
+                                if("50".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                                }else if("KTV".equals(category)){
+                                }else if("60".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
                                 }else {
                                     intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
