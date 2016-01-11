@@ -100,11 +100,21 @@ public class ShopFragment extends BaseFragment {
     protected void initListener() {
         super.initListener();
 
-        //单击item栏
-        mLvShopList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //实现上拉加载下拉刷新
+        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //进入商家详情
+            public void onRefreshing() {
+                mPage = 1;
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void onLoadingMore() {
+                getShopList(mUserID, mPage, mPageSize);
+            }
+
+            @Override
+            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 ShopBean shopBean = null;
                 int realPostion = position - 1;
                 int itemType = mShopAdapter.getItemViewType(realPostion);
@@ -127,25 +137,6 @@ public class ShopFragment extends BaseFragment {
                                 R.anim.slide_out_left);
                     }
                 }
-            }
-        });
-
-        //实现上拉加载下拉刷新
-        mLvShopList.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefreshing() {
-                mPage = 1;
-                getShopList(mUserID, mPage, mPageSize);
-            }
-
-            @Override
-            public void onLoadingMore() {
-                getShopList(mUserID, mPage, mPageSize);
-            }
-
-            @Override
-            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
 
