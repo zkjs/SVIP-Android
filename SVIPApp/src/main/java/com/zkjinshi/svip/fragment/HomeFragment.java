@@ -375,13 +375,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         HashMap<String,ArrayList<PrivilegeResponse>> all =  privilegeMap.getPrivilegeMap();
 
         HashMap<String,ArrayList<PrivilegeResponse>> resultmap = new  HashMap<String,ArrayList<PrivilegeResponse>>();
-        Iterator iter = all.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry entry = (Map.Entry) iter.next();
-            String useridShopidKey = (String)entry.getKey();
-            ArrayList<PrivilegeResponse> privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
-            if(useridShopidKey.startsWith(CacheUtil.getInstance().getUserId())){
-                resultmap.put(useridShopidKey,privilegeResponses);
+        if(null != all && !all.isEmpty()){
+            Iterator iter = all.entrySet().iterator();
+            while(iter.hasNext()){
+                Map.Entry entry = (Map.Entry) iter.next();
+                String useridShopidKey = (String)entry.getKey();
+                ArrayList<PrivilegeResponse> privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
+                if(useridShopidKey.startsWith(CacheUtil.getInstance().getUserId())){
+                    resultmap.put(useridShopidKey,privilegeResponses);
+                }
             }
         }
         return resultmap;
