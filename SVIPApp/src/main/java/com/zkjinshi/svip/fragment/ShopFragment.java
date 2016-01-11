@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
@@ -179,8 +177,12 @@ public class ShopFragment extends BaseFragment {
     }
 
     public void getShopList(String userID, int page, int pageSize) {
-
-        String url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
+        String url = null;
+        if(CacheUtil.getInstance().isLogin()){
+            url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
+        }else {
+            url = ProtocolUtil.getShopListUnLoginUrl(page,pageSize);
+        }
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:gravity="center_vertical"
-    android:background="#ffffff">
+    android:background="@drawable/bg_white">
 
     <TextView
         android:id="@+id/tv_city_name"

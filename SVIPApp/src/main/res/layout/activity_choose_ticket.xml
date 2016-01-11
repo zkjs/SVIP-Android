@@ -12,7 +12,7 @@
         android:background="#191223"
         zkjinshi:itemTitle="选择发票"
         zkjinshi:leftImage="@mipmap/ic_fanhui"
-        zkjinshi:itemTitleColor="#FFFFFF"
+        zkjinshi:itemTitleColor="@drawable/bg_white"
         />
 
     <LinearLayout

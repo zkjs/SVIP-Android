@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="@drawable/bg_white">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,7 +26,7 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:gravity="center"
-                android:background="#ffffff"
+                android:background="@drawable/bg_white"
                 android:layout_centerInParent="true">
             <EditText
                 android:padding="10dp"

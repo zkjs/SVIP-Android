@@ -5,17 +5,16 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="51dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:background="@drawable/bg_white">
+        android:paddingLeft="10dp">
 
         <ImageView
             android:id="@+id/logo_iv"
             android:layout_width="20dp"
-            android:layout_height="51dp"
+            android:layout_height="20dp"
             android:scaleType="centerInside"
             android:src="@mipmap/ic_v_orange"/>
 

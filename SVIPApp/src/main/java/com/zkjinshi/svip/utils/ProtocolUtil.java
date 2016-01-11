@@ -408,6 +408,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 获取专属客服全部商家列表
+     * @return
+     */
+    public static String getShopListUnLoginUrl(int page, int pageSize) {
+        return ConfigUtil.getInst().getJavaDomain()+"shop/list/"+page+"/"+pageSize+"/";
+    }
+
+    /**
      * 根据城市名称获取我的专属客服商家列表
      * @return
      */

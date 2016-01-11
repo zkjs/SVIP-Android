@@ -23,6 +23,7 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.bean.HeadBean;
 import com.zkjinshi.svip.manager.CustomerServicesManager;
@@ -324,7 +325,9 @@ public class KTVConfirmActivity extends BaseActivity {
         findViewById(R.id.header_back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(KTVConfirmActivity.this,ConsumeRecordActivtiy.class);
+                startActivity(intent);
+                BaseApplication.getInst().clearLeaveTop();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
