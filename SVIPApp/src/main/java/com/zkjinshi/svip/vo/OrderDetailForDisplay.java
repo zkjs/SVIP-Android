@@ -108,16 +108,16 @@ public class OrderDetailForDisplay implements Serializable {
 
     private String created;
 
-    private String priviledgename;  //特权名称
+    private String priviledgeName;  //特权名称
 
     private String content;
 
-    public String getPriviledgename() {
-        return priviledgename;
+    public String getPriviledgeName() {
+        return priviledgeName;
     }
 
-    public void setPriviledgename(String priviledgename) {
-        this.priviledgename = priviledgename;
+    public void setPriviledgeName(String priviledgeName) {
+        this.priviledgeName = priviledgeName;
     }
 
     public String getUsername() {
