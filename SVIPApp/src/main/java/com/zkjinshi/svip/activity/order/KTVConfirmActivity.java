@@ -427,7 +427,7 @@ public class KTVConfirmActivity extends BaseActivity {
                                                             customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
                                                         } else {//商家客服
                                                             customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != salesId){
+                                                            if(null != customerService){
                                                                 salesId = customerService.getSalesid();
                                                             }
                                                         }
@@ -541,7 +541,7 @@ public class KTVConfirmActivity extends BaseActivity {
                                                             customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
                                                         } else {//商家客服
                                                             customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != salesId){
+                                                            if(null != customerService){
                                                                 salesId = customerService.getSalesid();
                                                             }
                                                         }
@@ -609,6 +609,7 @@ public class KTVConfirmActivity extends BaseActivity {
         customerBuilder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 cancelOrder();
             }
         });

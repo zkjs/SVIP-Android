@@ -592,7 +592,7 @@ public class ShopDetailActivity extends BaseActivity {
                     cancelStr = getResources().getString(R.string.cancel_option);
                     String webUrl = shopVo.getShopdescUrl();
                     if(!TextUtils.isEmpty(webUrl)){
-                        webViewURL = webUrl;
+                        webContent = webUrl;
                         webViewLayout.setVisibility(View.VISIBLE);
                     }else {
                         webViewLayout.setVisibility(View.GONE);

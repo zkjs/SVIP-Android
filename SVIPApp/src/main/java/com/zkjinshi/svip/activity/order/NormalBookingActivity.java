@@ -349,7 +349,7 @@ public class NormalBookingActivity extends BaseActivity {
                                                 customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
                                             } else {//商家客服
                                                 customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                if (TextUtils.isEmpty(salesId)) {
+                                                if (null != customerService) {
                                                     salesId = customerService.getSalesid();
                                                 }
                                             }

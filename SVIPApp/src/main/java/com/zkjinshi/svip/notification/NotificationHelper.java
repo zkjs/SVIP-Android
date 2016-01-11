@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
+import android.util.Log;
+
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
@@ -147,6 +149,8 @@ public class NotificationHelper {
      */
     public void showNotification(Context context, String shopID, String orderNo) {
 
+        Log.i(com.zkjinshi.base.util.Constants.ZKJINSHI_BASE_TAG,"orderNo:"+orderNo);
+
         NotificationCompat.Builder notificationBuilder = null;
 
         // 1.设置显示信息
@@ -169,9 +173,11 @@ public class NotificationHelper {
             intent.putExtra("orderNo",orderNo);
         }
 
+        ++NOTIFY_ID;
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFY_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
 
         // 3.设置通知栏其他属性
@@ -179,7 +185,7 @@ public class NotificationHelper {
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(context);
-        notificationManager.notify(++NOTIFY_ID, notificationBuilder.build());
+        notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
     }
 
     /**

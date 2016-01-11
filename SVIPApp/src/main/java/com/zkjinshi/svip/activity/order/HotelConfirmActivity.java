@@ -86,6 +86,7 @@ public class HotelConfirmActivity extends BaseActivity {
         setContentView(R.layout.activity_hotel_confirm);
 
         orderNo = getIntent().getStringExtra("orderNo");
+        Log.i(com.zkjinshi.base.util.Constants.ZKJINSHI_BASE_TAG,"订单详情页面"+orderNo);
         initView();
         initListener();
         loadOrderInfoByOrderNo();
@@ -496,7 +497,7 @@ public class HotelConfirmActivity extends BaseActivity {
                                                             customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
                                                         } else {//商家客服
                                                             customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != salesId){
+                                                            if(null != customerService){
                                                                 salesId = customerService.getSalesid();
                                                             }
                                                         }
@@ -610,7 +611,7 @@ public class HotelConfirmActivity extends BaseActivity {
                                                             customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
                                                         } else {//商家客服
                                                             customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != salesId){
+                                                            if(null != customerService){
                                                                 salesId = customerService.getSalesid();
                                                             }
                                                         }
@@ -678,6 +679,7 @@ public class HotelConfirmActivity extends BaseActivity {
         customerBuilder.setPositiveButton("是", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 cancelOrder();
             }
         });
