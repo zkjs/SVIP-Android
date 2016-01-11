@@ -493,13 +493,15 @@ public class OrderEvaluateActivity extends BaseActivity {
     private void showEvaluateDialog(){
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(this);
         customBuilder.setTitle("提示");
-        customBuilder.setMessage("评价成功，关闭页面？");
+        customBuilder.setMessage("订单评价成功");
         customBuilder.setGravity(Gravity.CENTER);
         customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Intent intent = new Intent(OrderEvaluateActivity.this,ConsumeRecordActivtiy.class);
+                startActivity(intent);
                 BaseApplication.getInst().clearLeaveTop();
             }
         });

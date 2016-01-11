@@ -95,7 +95,9 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         if (!chatAdapter.isEmpty()) {
             messageListView.setSelection(chatAdapter.getCount() - 1);
         }
-        currentMessageList = conversation.getAllMessages();
+        if(null != conversation){
+            currentMessageList = conversation.getAllMessages();
+        }
         chatAdapter.setMessageList(currentMessageList);
         scrollBottom();
         addAllObserver();

@@ -232,6 +232,8 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Intent intent = new Intent(OrderPayActivity.this,ConsumeRecordActivtiy.class);
+                startActivity(intent);
                 BaseApplication.getInst().clearLeaveTop();
             }
         });
