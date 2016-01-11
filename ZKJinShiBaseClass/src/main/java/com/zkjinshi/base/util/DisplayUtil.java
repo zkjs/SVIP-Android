@@ -4,6 +4,10 @@ package com.zkjinshi.base.util;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 /**
  * 分辨率操作工具类
@@ -86,6 +90,28 @@ public class DisplayUtil {
     public static int sp2px(Context context, float spValue) {  
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;  
         return (int) (spValue * fontScale + 0.5f);  
-    }  
+    }
+
+	//动态获取ListView的高度
+	public static void getTotalHeightofListView(ListView listView) {
+		ListAdapter mAdapter = listView.getAdapter();
+		if (mAdapter == null) {
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0; i < mAdapter.getCount(); i++) {
+			View mView = mAdapter.getView(i, null, listView);
+			mView.measure(
+					View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+					View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+			//mView.measure(0, 0);
+			totalHeight += mView.getMeasuredHeight()+ dip2px(listView.getContext(),20);
+
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight  + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+		listView.requestLayout();
+	}
 
 }

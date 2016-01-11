@@ -1,7 +1,9 @@
 package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,9 +64,13 @@ import org.apache.log4j.chainsaw.Main;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 首页Fragment
@@ -103,11 +109,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private CleverDialog cleverDialog = null;
     public static double geoLat = 100;
     public static double geoLng;
-    private String bestHotelId="120";
-    private String bestServerid="555711167a31a";
     private ArrayList<HomeMsgVo> homeMsgList;
     private String city = "长沙";
-    ArrayList<PrivilegeResponse> privilegeResponses;
+
+    private HashMap<String, ArrayList<PrivilegeResponse>> privilegeMap = null;
+    private ArrayList<PrivilegeResponse> privilegeResponses = null;
+    private String shopidKey = "";
+
 
     Handler handler = new Handler(){
         @Override
@@ -182,11 +190,32 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         homeMsgAdapter.notifyDataSetChanged();
     }
 
+
+    //突出获得的特权
+    private ArrayList<PrivilegeResponse> popPrivileges(){
+        ArrayList<PrivilegeResponse> privilegeResponses = null;
+        Iterator iter = privilegeMap.entrySet().iterator();
+        if(iter.hasNext()){
+            Map.Entry entry = (Map.Entry) iter.next();
+            privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
+            return privilegeResponses;
+        }
+        return null;
+    }
+
+
+
     private void initListeners(){
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //getUserPrivilege();
+
+                Iterator iter = privilegeMap.entrySet().iterator();
+                if(iter.hasNext()){
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    shopidKey = (String)entry.getKey();
+                    privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
+                }
                 if(cleverDialog != null && privilegeResponses != null && privilegeResponses.size() > 0){
                     cleverDialog.show();
                     cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
@@ -196,6 +225,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
                         @Override
                         public void callback(PrivilegeResponse privilegeResponse) {
+                            privilegeMap.remove(shopidKey);
+                            if(privilegeMap.isEmpty()){
+                                hidePrivilegeTips();
+                            }
+                            privilegeResponses = null;
                             getAllMessages();
                         }
                     });
@@ -276,6 +310,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if (view == null)
         {
             initView(inflater, container);
+            privilegeMap = getPrivilegeMapCache();
+            if(privilegeMap == null){
+                privilegeMap = new HashMap<String,ArrayList<PrivilegeResponse>>();
+            }
             loadHomeData();
         }
         return view;
@@ -325,6 +363,18 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public void setBigPicAnimation(){
         MainController.getInstance().setBigPicAnimation(homePicIv);
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        if(privilegeMap != null && !privilegeMap.isEmpty()){
+            CacheUtil.getInstance().saveObjCache(privilegeMap);
+        }
+    }
+
+    public HashMap<String,ArrayList<PrivilegeResponse>> getPrivilegeMapCache(){
+        HashMap<String,ArrayList<PrivilegeResponse>> privilegeMap = new HashMap<String,ArrayList<PrivilegeResponse>>();
+        return (HashMap<String,ArrayList<PrivilegeResponse>>)CacheUtil.getInstance().getObjCache(privilegeMap);
     }
 
 
@@ -501,9 +551,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if(svipApplication.mRegionList.size() <= 0){
             return;
         }
+
         int index = svipApplication.mRegionList.size()-1;
-        final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+        //final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
         final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
+        final String shopid = "120";
 
         lastLocid = locid;
         hidePrivilegeTips();
@@ -530,13 +582,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
                     Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
-                    privilegeResponses = new Gson().fromJson(result.rawResult, listType);
+                    ArrayList<PrivilegeResponse> privilegeResponses = new Gson().fromJson(result.rawResult, listType);
                     if(privilegeResponses.size() > 0){
                         showPrivilegeTips();
-                    }else{
-                        hidePrivilegeTips();
+                        privilegeMap.put(shopid,privilegeResponses);
                     }
-
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
@@ -549,7 +599,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
     }
 
