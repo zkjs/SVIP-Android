@@ -65,6 +65,7 @@ public class HotelConfirmActivity extends BaseActivity {
     private ItemShowView payTypeTsv;
     private ItemShowView invoiceTsv;
     private ItemShowView privilegeTsv;
+    private ItemShowView noTsv;
 
     private ItemCbxView breakfastTcv;
     private ItemCbxView noSmokeTcv;
@@ -106,6 +107,7 @@ public class HotelConfirmActivity extends BaseActivity {
         invoiceTsv = (ItemShowView)findViewById(R.id.ahb_ticket);
         privilegeTsv = (ItemShowView)findViewById(R.id.ahb_privilege);
 
+
         breakfastTcv = (ItemCbxView)findViewById(R.id.ahb_breakfast);
         noSmokeTcv = (ItemCbxView)findViewById(R.id.ahb_nosmoking);
         breakfastTcv.setVisibility(View.GONE);
@@ -115,6 +117,9 @@ public class HotelConfirmActivity extends BaseActivity {
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         privilegeTsv.titleTv.setCompoundDrawables(drawable,null,null,null);
         privilegeTsv.titleTv.setCompoundDrawablePadding(DisplayUtil.dip2px(this,10));
+
+        noTsv = (ItemShowView)findViewById(R.id.ahb_no);
+        noTsv.setValue(orderNo);
     }
 
     //根据订单号加载订单详细信息。

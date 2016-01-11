@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.order.HotelBookingActivity;
+import com.zkjinshi.svip.activity.order.KTVBookingActivity;
+import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
@@ -27,6 +30,7 @@ import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.vo.UserDetailVo;
 import com.zkjinshi.svip.vo.UserInfoVo;
 
@@ -116,7 +120,21 @@ public class LoginController {
                             activity.finish();
                         } else {
                             if(isHomeBack){
+                                Intent intent = activity.getIntent();
+                                String category = intent.getStringExtra("category");
+                                if(!StringUtil.isEmpty(category)){
+                                    if("酒店行业".equals(category)){
+                                        intent.setClass(activity, HotelBookingActivity.class);
+                                    }else if("KTV".equals(category)){
+                                        intent.setClass(activity, KTVBookingActivity.class);
+                                    }else {
+                                        intent.setClass(activity, NormalBookingActivity.class);
+                                    }
+                                    activity.startActivity(intent);
+                                }
                                 activity.finish();
+
+
                             }else {
                                 goHome();
                             }

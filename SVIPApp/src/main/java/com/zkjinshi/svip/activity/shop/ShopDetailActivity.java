@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
 import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
@@ -44,6 +45,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ObservableScrollView;
 import com.zkjinshi.svip.view.ScrollViewListener;
@@ -536,12 +538,24 @@ public class ShopDetailActivity extends BaseActivity {
                     commitBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(!CacheUtil.getInstance().isLogin()){
+                                Intent intent = new Intent(ShopDetailActivity.this,LoginActivity.class);
+                                intent.putExtra("isHomeBack",true);
+                                intent.putExtra("shopid",shopId);
+                                intent.putExtra("shopName",shopName);
+                                if(null != imageList && !imageList.isEmpty()){
+                                    intent.putExtra("shopImg",imageList.get(0));
+                                }
+                                intent.putExtra("category",category);
+                                startActivity(intent);
+                                return;
+                            }
 
                             if(!TextUtils.isEmpty(category)){
                                 Intent intent = new Intent();
                                 if("酒店行业".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                                }else if("KTV休闲".equals(category)){
+                                }else if("KTV".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
                                 }else {
                                     intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);

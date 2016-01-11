@@ -63,6 +63,7 @@ public class KTVConfirmActivity extends BaseActivity {
     private ItemShowView payTypeTsv;
     private ItemShowView invoiceTsv;
     private ItemShowView privilegeTsv;
+    private ItemShowView noTsv;
 
     private String orderNo;
     int payType;
@@ -108,6 +109,9 @@ public class KTVConfirmActivity extends BaseActivity {
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         privilegeTsv.titleTv.setCompoundDrawables(drawable,null,null,null);
         privilegeTsv.titleTv.setCompoundDrawablePadding(DisplayUtil.dip2px(this,10));
+
+        noTsv = (ItemShowView)findViewById(R.id.ahb_no);
+        noTsv.setValue(orderNo);
     }
 
     //根据订单号加载订单详细信息。

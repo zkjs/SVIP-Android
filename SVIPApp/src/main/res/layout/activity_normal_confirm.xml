@@ -200,6 +200,19 @@
                     android:text="如有有其他需求，请在此说明."/>
             </LinearLayout>
 
+            <com.zkjinshi.svip.view.ItemShowView
+                android:layout_marginTop="20dp"
+                android:id="@+id/ahb_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                zkjinshi:isShowIcon="false"
+                zkjinshi:isvTitle="订单号"
+                zkjinshi:isvValue="未设置"
+                zkjinshi:isvHint="订单号"
+                zkjinshi:isMust="false"
+                zkjinshi:haveDownLine="true"/>
+
         </LinearLayout>
     </ScrollView>
 
