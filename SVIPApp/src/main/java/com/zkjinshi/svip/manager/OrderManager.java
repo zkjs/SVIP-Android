@@ -44,11 +44,11 @@ public class OrderManager {
                         final String shopId = message.getStringAttribute("shopId");
                         final String orderNo = message.getStringAttribute("orderNo");
                         //1. 通过广播确认生成订单通知对话框
-                        Intent intent = new Intent();
+                       /* Intent intent = new Intent();
                         intent.setAction("com.zkjinshi.svip.ACTION_ORDER");
                         intent.putExtra("shopId", shopId);
                         intent.putExtra("orderNo", orderNo);
-                        context.sendBroadcast(intent);
+                        context.sendBroadcast(intent);*/
                         //2. 生成Notification通知
                         NotificationHelper.getInstance().showNotification(context, shopId, orderNo);
                     }

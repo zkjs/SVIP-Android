@@ -66,7 +66,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         initView();//初始化view
