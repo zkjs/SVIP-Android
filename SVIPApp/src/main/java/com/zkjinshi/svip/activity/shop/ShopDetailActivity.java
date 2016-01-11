@@ -519,6 +519,13 @@ public class ShopDetailActivity extends BaseActivity {
                 if(null != shopVo){
                     final String shopName = shopVo.getShopName();
                     shopStatus = shopVo.getShopStatus();
+                    if(shopStatus == 0){
+                        commitBtn.setText("即将入驻");
+                        commitBtn.setEnabled(false);
+                    }else {
+                        commitBtn.setText("立即预定");
+                        commitBtn.setEnabled(true);
+                    }
                     if(!TextUtils.isEmpty(shopName)){
                         titleTv.setText(shopName);
                     }
@@ -554,12 +561,6 @@ public class ShopDetailActivity extends BaseActivity {
                                 startActivity(intent);
                                 return;
                             }
-
-                            if(shopStatus == 0){
-                                DialogUtil.getInstance().showCustomToast(ShopDetailActivity.this,"商家未上线", Toast.LENGTH_LONG);
-                                return;
-                            }
-
                             if(!TextUtils.isEmpty(category)){
                                 /**
                                  行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
