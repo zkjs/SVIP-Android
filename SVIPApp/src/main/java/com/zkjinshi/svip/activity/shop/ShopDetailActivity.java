@@ -553,9 +553,9 @@ public class ShopDetailActivity extends BaseActivity {
 
                             if(!TextUtils.isEmpty(category)){
                                 Intent intent = new Intent();
-                                if("酒店行业".equals(category)){
+                                if("50".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                                }else if("KTV".equals(category)){
+                                }else if("60".equals(category)){
                                     intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
                                 }else {
                                     intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);

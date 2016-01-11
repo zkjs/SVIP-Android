@@ -206,6 +206,11 @@ public class HotelConfirmActivity extends BaseActivity {
             tipsTv.setText("该订单已经完成");
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
+        }else  if(orderDetailForDisplay.getOrderstatus().equals("已确认")){
+            tipsTv.setVisibility(View.VISIBLE);
+            tipsTv.setText("订单已经确认");
+            confirmBtn.setVisibility(View.GONE);
+            deleteTv.setVisibility(View.VISIBLE);
         }else{
             tipsTv.setVisibility(View.GONE);
             confirmBtn.setVisibility(View.GONE);
@@ -255,7 +260,7 @@ public class HotelConfirmActivity extends BaseActivity {
         if(!TextUtils.isEmpty(orderDetailForDisplay.getTelephone())){
             phoneTsv.setValue(orderDetailForDisplay.getTelephone());
         }else{
-            contactTsv.setValue(" ");
+            phoneTsv.setValue(" ");
         }
         //支付方式
         initPay();
