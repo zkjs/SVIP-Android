@@ -89,7 +89,6 @@ public class CommentListActivity extends BaseActivity {
     }
 
     private void initListener() {
-
         //返回
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
