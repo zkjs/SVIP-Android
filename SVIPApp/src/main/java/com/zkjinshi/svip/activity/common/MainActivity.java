@@ -387,7 +387,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if((currentTime-touchTime)>=waitTime) {
-            Toast.makeText(this, "再按一次退出", 10).show();
             touchTime = currentTime;
         }else {
             onExit();

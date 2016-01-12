@@ -23,7 +23,7 @@ public class IBeaconEntity implements Serializable {
     private String remark;
 
     public String getBeaconKey(){
-        return getUuid()+getMajor()+getMinior();
+        return getUuid()+getMajor();
     }
 
     public String getLocid() {

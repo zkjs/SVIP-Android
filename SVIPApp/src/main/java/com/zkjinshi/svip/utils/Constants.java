@@ -12,7 +12,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 public class Constants {
 
     //是否开启短信验证
-    public static final boolean SMS_CHECK_ENABLE = false;
+    public static final boolean SMS_CHECK_ENABLE = true;
     //是否需要密码引导页
     public static final boolean NEED_PASSWORD_GUIDE = true;
 
