@@ -71,23 +71,16 @@ public class OrderEvaluateActivity extends BaseActivity {
     private CheckBox poorCb,commonCb,gratifyCb,greatGratifyCb,highlyRecommendCb;
     private CheckBox poorResultCb,commonResultCb,gratifyResultCb,greatGratifyResultCb,highlyRecommendResultCb;
     private EditText inputEvaluateEtv;
-    private Animation layoutInBottom, layoutOutTop;
+    private Animation layoutInBottom;
     private Button submitBtn;
     private boolean isFirst = true;
     private ScrollView bodyScrollView;
     private EvaluateLevel evaluateLevel;
-    private ImageButton backIBtn,moreIBtn;
+    private ImageButton backIBtn;
     private LinearLayout evaluateLayout,compleEvaluateLayout;
     private TextView compleEvaluateTv;
     private OrderDetailForDisplay orderDetailForDisplay;
     private String reservationNo;
-    private ImageView hotelIconIv;
-    private TextView hotelNameTv,roomInfoTv,priceTv,checkInDateTv,checkInNamesTv,invoiceInfoTv,remarkInfoTv;
-    private DisplayImageOptions goodsIconOptions,shopLogoOptions,salsePhotoOption;
-    private TextView salesNameTv;
-    private CircleImageView salesIconIv;
-    private ImageView goodsIconIv;
-    private TextView titleTv;
     private OrderEvaluationVo orderEvaluationVo;
 
     private void initView(){
@@ -99,8 +92,7 @@ public class OrderEvaluateActivity extends BaseActivity {
         inputEvaluateEtv = (EditText)findViewById(R.id.order_evaluate_etv_content);
         submitBtn = (Button)findViewById(R.id.order_evaluate_btn_ok);
         bodyScrollView = (ScrollView)findViewById(R.id.order_evaluate_sv_body);
-        backIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_back);
-        moreIBtn = (ImageButton)findViewById(R.id.order_evaluate_ibtn_more);
+        backIBtn = (ImageButton)findViewById(R.id.header_back_iv);
         evaluateLayout = (LinearLayout)findViewById(R.id.order_evaluate_layout);
         compleEvaluateLayout = (LinearLayout)findViewById(R.id.order_evaluate_result_layout);
         compleEvaluateTv = (TextView)findViewById(R.id.order_evaluate_result_etv_content);
@@ -109,65 +101,14 @@ public class OrderEvaluateActivity extends BaseActivity {
         gratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_gratify);
         greatGratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_great_gratify);
         highlyRecommendResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_highly_recommend);
-        hotelIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_hotel_photo);
-        hotelNameTv = (TextView)findViewById(R.id.order_evaluate_tv_hotel_name);
-        roomInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_room_info);
-        priceTv = (TextView)findViewById(R.id.order_evaluate_tv_room_total_price);
-        checkInDateTv = (TextView)findViewById(R.id.order_evaluate_tv_check_in_date);
-        checkInNamesTv = (TextView)findViewById(R.id.order_evaluate_tv_check_in_names);
-        invoiceInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_invoice_info);
-        remarkInfoTv = (TextView)findViewById(R.id.order_evaluate_tv_remark_info);
-        salesNameTv = (TextView)findViewById(R.id.order_evaluate_iv_sales_name);
-        salesIconIv = (CircleImageView)findViewById(R.id.order_evaluate_iv_sales_photo);
-        goodsIconIv = (ImageView)findViewById(R.id.order_evaluate_iv_goods);
-        titleTv = (TextView)findViewById(R.id.order_evaluate_tv_title);
     }
 
     private void initData(){
-        goodsIconOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
-        shopLogoOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_avatar_hotel)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
-        salsePhotoOption = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_logo_zhanwei)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
         layoutInBottom = AnimationUtils.loadAnimation(this, R.anim.layout_in_bottom);
-        layoutOutTop = AnimationUtils.loadAnimation(this, R.anim.layout_out_top);
         if(null != getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
             orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
             if(null != orderDetailForDisplay){
                 reservationNo = orderDetailForDisplay.getOrderno();
-                String shopId = orderDetailForDisplay.getShopid();
-                if(null != shopId){
-                    String shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
-                    //titleTv.setText(shopName);
-                    if(!TextUtils.isEmpty(shopName)){
-                        hotelNameTv.setText(shopName);
-                    }
-                    String logo = ShopDetailDBUtil.getInstance().queryShopLogoByShopID(shopId);
-                    if(!TextUtils.isEmpty(logo)){
-                        String logoUrl = ProtocolUtil.getShopLogoUrl(logo);
-                        ImageLoader.getInstance().displayImage(logoUrl, hotelIconIv, shopLogoOptions);
-                    }
-                    String roomType = orderDetailForDisplay.getRoomtype();
-                    int rooms = orderDetailForDisplay.getRoomcount();
-                    roomInfoTv.setText(roomType + "*" + rooms);
-                    String roomRate = ""+orderDetailForDisplay.getRoomprice();
-                    if(!TextUtils.isEmpty(roomRate)){
-                        priceTv.setText("¥"+roomRate);
-                    }
-                    String checkInDate = orderDetailForDisplay.getArrivaldate();
-                    String checkOutDate = orderDetailForDisplay.getLeavedate();
-                    checkInDateTv.setText(checkInDate + "到" + checkOutDate);
-                }
             }
         }
     }
