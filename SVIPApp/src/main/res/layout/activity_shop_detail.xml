@@ -21,11 +21,11 @@
                 layout="@layout/layout_slideshow"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"/>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/bg_white"
+                android:background="@android:color/white"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -44,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|left"
                     android:layout_gravity="center_vertical"
-                    android:text="长沙市芙蓉区芙蓉中路二段 106 号"
+                    android:text="@null"
+                    android:layout_marginRight="15dp"
                     android:textSize="14sp"
                     android:textColor="#8a8a8a"/>
 
@@ -53,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/bg_white"
+                android:background="@android:color/white"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -73,6 +74,7 @@
                     android:gravity="center_vertical|left"
                     android:layout_gravity="center_vertical"
                     android:text="010-85117777"
+                    android:layout_marginRight="15dp"
                     android:textSize="14sp"
                     android:textColor="#8a8a8a"/>
 
@@ -150,7 +152,7 @@
                 android:textColor="#666666"
                 android:visibility="gone"
                 android:textSize="14sp"
-                android:text="去北京之前特地用招行信用卡积分兑换的酒店，价格很美丽，环境也很不错。出门5分钟就能到达地铁站，超级便捷。可是就在到酒店登记的时候告诉我，目前没有房间了，要求我加钱升级."/>
+                android:text="@null"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -226,7 +228,7 @@
                 android:textColor="#666666"
                 android:layout_marginBottom="15dp"
                 android:textSize="14sp"
-                android:text="此次费尔蒙酒店落户华彬，使得华彬中心不仅改写了所在区域的商务历史，同时也拥有了国际五星级酒店的全方位配套。华彬中心作为长安街上的地标性建筑，以其国际化的背景吸引了众多高端跨国企业的入驻。而华彬中心在拥有了国际顶尖酒店配套后，结合自身的其它业态，势必再次引发国际、国内知名公司入驻的狂潮。全球顶级酒店携手CBD区域顶级全业态商务综合体，必将再次缔造CBD商务的巅峰辉煌。"/>
+                android:text="@null"/>
 
         </LinearLayout>
 
@@ -236,7 +238,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/detail_head_layout"
-        android:background="@drawable/bg_white"
+        android:background="@android:color/white"
         android:orientation="vertical">
 
         <RelativeLayout
