@@ -284,11 +284,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //if(CacheUtil.getInstance().isHomeGuide()){
+        if(CacheUtil.getInstance().isHomeGuide()){
             Intent intent = new Intent(getActivity(), HomeGuideActivity.class);
             startActivity(intent);
             CacheUtil.getInstance().setHomeGuide(false);
-        //}
+        }
         mActivity = getActivity();
         MainController.getInstance().init(mActivity);
 
