@@ -30,7 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
+            android:textColor="@drawable/bg_white"
             android:text="@string/svip_cut"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"
+            android:textColor="@drawable/bg_white"
             android:text="@string/mine_finish"/>
 
     </RelativeLayout>

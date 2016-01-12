@@ -69,7 +69,7 @@
             <View
                 android:layout_below="@id/mine_set_user_name_etv"
                 android:layout_height="1px"
-                android:background="@android:color/white"
+                android:background="@drawable/bg_white"
                 android:layout_width="173dp"
                 android:layout_centerHorizontal="true"/>
 
@@ -92,7 +92,7 @@
             <View
                 android:layout_below="@id/mine_set_user_position_etv"
                 android:layout_height="1px"
-                android:background="@android:color/white"
+                android:background="@drawable/bg_white"
                 android:layout_width="173dp"
                 android:layout_centerHorizontal="true"/>
 
@@ -115,7 +115,7 @@
             <View
                 android:layout_below="@id/mine_set_user_unit_etv"
                 android:layout_height="1px"
-                android:background="@android:color/white"
+                android:background="@drawable/bg_white"
                 android:layout_width="173dp"
                 android:layout_centerHorizontal="true"/>
 

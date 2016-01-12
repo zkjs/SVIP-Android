@@ -15,7 +15,7 @@
             android:id="@+id/Itv_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@android:color/white"
+            android:background="@drawable/bg_white"
             zkjinshi:leftImage="@mipmap/ic_fanhui"
             zkjinshi:rightImage="@mipmap/ic_quxiao">
         </com.zkjinshi.svip.view.ItemTitleView>

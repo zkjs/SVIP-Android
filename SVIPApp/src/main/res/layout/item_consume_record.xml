@@ -69,7 +69,7 @@
             android:gravity="center"
             android:textSize="14sp"
             android:background="@mipmap/btn_zhuantai_orange"
-            android:textColor="@android:color/white"/>
+            android:textColor="@drawable/bg_white"/>
 
     </RelativeLayout>
 
