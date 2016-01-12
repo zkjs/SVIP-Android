@@ -17,12 +17,13 @@ import com.zkjinshi.base.log.LogUtil;
 public class DBOpenHelper extends SQLiteOpenHelper{
 
     public static String DB_NAME = "svip_sqlite.db";//根据每个用户创建一份数据库
-    public static final int VERSION = 1;// 数据库版本
+    public static final int VERSION = 2;// 数据库版本
     public static final String USER_INFO_TBL   = "userinfotbl";//用户个人信息表
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
     public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
     public static final String PERSON_CHECK_IN_TBL   = "person_check_in_tbl";//订单入住人表
     public static final String CITY_TBL              = "city_tbl";//城市名列表
+    public static final String PRIVILEGE_TBL              = "privilege_tbl";//城市名列表
 
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSION);

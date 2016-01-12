@@ -133,6 +133,17 @@ public class TableOpenHelper {
                     + " city_name text primary key," //城市名称
                     + " name_sort text " //城市排序字母
                     + " )";
+    /** 特权列表 */
+    public static String PRIVILEGE_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.PRIVILEGE_TBL
+                    + "("
+                    + " privilegeDesc text ," //特权描述
+                    + " privilegeIcon text ," //特权url
+                    + " privilegeName text ," //特权名字
+                    + " shopid text ," //商店id
+                    + " shopName text " //商家名
+                    + " )";
 
     /**
      * 获取数据库所有表名
@@ -144,6 +155,7 @@ public class TableOpenHelper {
             DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
             DBOpenHelper.SERVER_PERSONAL_TBL,    //专属客服表
             DBOpenHelper.PERSON_CHECK_IN_TBL,    //入住人表
+            DBOpenHelper.PRIVILEGE_TBL,          //特权
             DBOpenHelper.CITY_TBL                //城市名列表
         };
     }

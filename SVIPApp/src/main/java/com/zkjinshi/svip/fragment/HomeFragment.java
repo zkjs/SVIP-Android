@@ -47,6 +47,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
+import com.zkjinshi.svip.sqlite.PrivilegeDBUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int NOTIFY_LOCATION = 0x04;
     private final static int REQUEST_CONSUME_RECORD = 0x05;
 
-    public static String lastLocid = "";
+
     public Animation fadeAnimation = null;
 
     private View view = null;
@@ -101,10 +102,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     public static double geoLng;
     private ArrayList<HomeMsgVo> homeMsgList;
     private String city = "长沙";
-
-    private HashMap<String, ArrayList<PrivilegeResponse>> privilegeMap = null;
-    private ArrayList<PrivilegeResponse> privilegeResponses = null;
-    private String useridShopidKey = "";
 
 
     Handler handler = new Handler(){
@@ -181,31 +178,15 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
 
-    //突出获得的特权
-    private ArrayList<PrivilegeResponse> popPrivileges(){
-        ArrayList<PrivilegeResponse> privilegeResponses = null;
-        Iterator iter = privilegeMap.entrySet().iterator();
-        if(iter.hasNext()){
-            Map.Entry entry = (Map.Entry) iter.next();
-            privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
-            return privilegeResponses;
-        }
-        return null;
-    }
-
-
-
     private void initListeners(){
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Iterator iter = privilegeMap.entrySet().iterator();
-                if(iter.hasNext()){
-                    Map.Entry entry = (Map.Entry) iter.next();
-                    useridShopidKey = (String)entry.getKey();
-                    privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
+                final String shopid = PrivilegeDBUtil.getInstance().getTopPrivilegeShopid();
+                if(TextUtils.isEmpty(shopid)){
+                    return;
                 }
+                ArrayList<PrivilegeResponse> privilegeResponses = PrivilegeDBUtil.getInstance().queryPrivilegeByShopid(shopid);
                 if(cleverDialog != null && privilegeResponses != null && privilegeResponses.size() > 0){
                     cleverDialog.show();
                     cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
@@ -215,11 +196,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
                         @Override
                         public void callback(PrivilegeResponse privilegeResponse) {
-                            privilegeMap.remove(useridShopidKey);
-                            if(privilegeMap.isEmpty()){
+                            PrivilegeDBUtil.getInstance().deletePrivilegeByShopid(shopid);
+                            String nextShopid = PrivilegeDBUtil.getInstance().getTopPrivilegeShopid();
+                            if(TextUtils.isEmpty(nextShopid)){
                                 hidePrivilegeTips();
                             }
-                            privilegeResponses = null;
                             getAllMessages();
                         }
                     });
@@ -300,10 +281,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if (view == null)
         {
             initView(inflater, container);
-            privilegeMap = getPrivilegeMapCache();
-            if(privilegeMap == null){
-                privilegeMap = new HashMap<String,ArrayList<PrivilegeResponse>>();
-            }
             loadHomeData();
         }
         return view;
@@ -331,9 +308,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }else{
             getMessageDefault(true);
         }
-        if(!privilegeMap.isEmpty()){
+        String shopid = PrivilegeDBUtil.getInstance().getTopPrivilegeShopid();
+        if(!TextUtils.isEmpty(shopid)){
             showPrivilegeTips();
         }
+        requestUserPrivilegeFromApi();
+
     }
 
     @Override
@@ -353,11 +333,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     public void onStop() {
         super.onStop();
         ImageLoader.getInstance().clearMemoryCache();
-        if(privilegeMap != null && !privilegeMap.isEmpty()){
-            PrivilegeMapVo privilegeMapVo = new PrivilegeMapVo();
-            privilegeMapVo.setPrivilegeMap(privilegeMap);
-            CacheUtil.getInstance().saveObjCache(privilegeMapVo);
-        }
     }
 
     public void setBigPicAnimation(){
@@ -368,30 +343,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         super.onDestroy();
 
     }
-
-    public HashMap<String,ArrayList<PrivilegeResponse>> getPrivilegeMapCache(){
-        PrivilegeMapVo privilegeMap = new PrivilegeMapVo();
-        privilegeMap = (PrivilegeMapVo)CacheUtil.getInstance().getObjCache(privilegeMap);
-        HashMap<String,ArrayList<PrivilegeResponse>> all =  privilegeMap.getPrivilegeMap();
-
-        HashMap<String,ArrayList<PrivilegeResponse>> resultmap = new  HashMap<String,ArrayList<PrivilegeResponse>>();
-        if(null != all && !all.isEmpty()){
-            Iterator iter = all.entrySet().iterator();
-            while(iter.hasNext()){
-                Map.Entry entry = (Map.Entry) iter.next();
-                String useridShopidKey = (String)entry.getKey();
-                ArrayList<PrivilegeResponse> privilegeResponses = (ArrayList<PrivilegeResponse>)entry.getValue();
-                if(useridShopidKey.startsWith(CacheUtil.getInstance().getUserId())){
-                    resultmap.put(useridShopidKey,privilegeResponses);
-                }
-            }
-        }
-        return resultmap;
-    }
-
-
-
-
 
     /**
      * 设置首页大图区信息
@@ -509,6 +460,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         handler.sendEmptyMessage(NOTIFY_LOCATION);
     }
 
+    //特权闪
     public void showPrivilegeTips(){
         logoTextTv.setVisibility(View.VISIBLE);
         if(fadeAnimation == null){
@@ -518,6 +470,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     }
 
+    //特权不闪
     public void hidePrivilegeTips(){
         if(fadeAnimation != null){
             fadeAnimation.cancel();
@@ -527,6 +480,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         logoTextTv.setVisibility(View.GONE);
     }
 
+    //有ibeacon通知时调用该函数
     public  void notifyIbeacon(){
         if(!CacheUtil.getInstance().isLogin()){
             logoIv.setVisibility(View.VISIBLE);
@@ -541,13 +495,11 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
             return;
         }
-        int index = svipApplication.mRegionList.size()-1;
-        final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
-        getUserPrivilege();
+        requestUserPrivilegeFromApi();
     }
 
     //根据酒店区域获取用户特权
-    private void getUserPrivilege(){
+    private void requestUserPrivilegeFromApi(){
         if(!CacheUtil.getInstance().isLogin()){
             return;
         }
@@ -555,15 +507,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             return;
         }
         if(svipApplication.mRegionList.size() <= 0){
-            return;
+           return;
         }
-
         int index = svipApplication.mRegionList.size()-1;
-        //final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-        final String locid = svipApplication.mRegionList.get(index).getiBeacon().getLocid();
-        final String shopid = "120";
+        final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+        //final String shopid = "120";
 
-        lastLocid = locid;
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -589,8 +538,13 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                     Type listType = new TypeToken<ArrayList<PrivilegeResponse>>() {}.getType();
                     ArrayList<PrivilegeResponse> privilegeResponses = new Gson().fromJson(result.rawResult, listType);
                     if(privilegeResponses.size() > 0){
+                        PrivilegeDBUtil.getInstance().batchAddPrivilegeModels(privilegeResponses,shopid);
                         showPrivilegeTips();
-                        privilegeMap.put(CacheUtil.getInstance().getUserId()+shopid,privilegeResponses);
+                    }else{
+                        String shopid = PrivilegeDBUtil.getInstance().getTopPrivilegeShopid();
+                        if(!TextUtils.isEmpty(shopid)){
+                            showPrivilegeTips();
+                        }
                     }
 
                 } catch (Exception e) {
@@ -610,7 +564,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
 
     //获取用户推送消息(用户未登陆)
-    private synchronized void getMessageDefault(final boolean isClear){
+    private  void getMessageDefault(final boolean isClear){
         String url = ProtocolUtil.getMessageDefaultUrl();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
@@ -791,7 +745,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         if(CacheUtil.getInstance().isActivate()){
             setBigPicZone();
-            notifyIbeacon();
             return;
         }
         String url = ProtocolUtil.getUserMysemp();
