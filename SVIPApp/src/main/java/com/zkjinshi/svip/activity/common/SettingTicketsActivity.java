@@ -361,7 +361,6 @@ public class SettingTicketsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SettingTicketsActivity.this,SettingTicketsItemActivity.class));
-                finish();
             }
         });
     }
