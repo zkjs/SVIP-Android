@@ -20,7 +20,7 @@ public class IBeaconVo implements Serializable{
     private int rssi;
 
     public String getBeaconKey(){
-        return getProximityUuid()+getMajor()+getMinor();
+        return getProximityUuid()+getMajor();
     }
 
     public String getName() {
