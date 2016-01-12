@@ -218,7 +218,7 @@ public class SplashActivity extends BaseActivity {
     };
 
     private void goGuide() {
-        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+        Intent intent = new Intent(SplashActivity.this, GuideOneActivity.class);
         SplashActivity.this.startActivity(intent);
         SplashActivity.this.finish();
         overridePendingTransition(R.anim.activity_new, R.anim.activity_out);

@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.utils;
 
 import com.zkjinshi.base.config.ConfigUtil;
+import com.zkjinshi.base.util.*;
 
 /**
  * 协议接口工具类
@@ -280,7 +281,15 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopIconUrl(String shopid){
-        return ConfigUtil.getInst().getPhpDomain()+"uploads/shops/"+shopid+".png";
+            return ConfigUtil.getInst().getPhpDomain()+"uploads/shops/"+shopid+".png";
+    }
+
+    /**
+     * 获得商家logo
+     * @return
+     */
+    public static String getShoplogoUrl(String shopLogo){
+        return "http://" + ConfigUtil.getInst().getConfigValue(com.zkjinshi.base.util.Constants.PHP_HOST)+shopLogo;
     }
 
     /**
