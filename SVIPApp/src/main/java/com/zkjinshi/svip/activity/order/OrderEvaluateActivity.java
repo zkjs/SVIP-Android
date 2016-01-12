@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -101,6 +102,16 @@ public class OrderEvaluateActivity extends BaseActivity {
         gratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_gratify);
         greatGratifyResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_great_gratify);
         highlyRecommendResultCb = (CheckBox)findViewById(R.id.order_evaluate_result_cb_highly_recommend);
+
+        //设置EditText的显示方式为多行文本输入
+        inputEvaluateEtv.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        //文本显示的位置在EditText的最上方
+        inputEvaluateEtv.setGravity(Gravity.TOP);
+        inputEvaluateEtv.setSingleLine(false);
+        //水平滚动设置为False
+        inputEvaluateEtv.setHorizontallyScrolling(false);
+
+
     }
 
     private void initData(){
