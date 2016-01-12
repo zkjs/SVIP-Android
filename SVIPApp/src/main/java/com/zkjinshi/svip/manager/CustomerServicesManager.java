@@ -90,15 +90,18 @@ public class CustomerServicesManager {
     public CustomerServiceBean getRandomAdminService(ArrayList<CustomerServiceBean> customerServiceList){
         ArrayList<CustomerServiceBean> adminServiceList = new ArrayList<CustomerServiceBean>();
         int roleType = 0;
+        CustomerServiceBean customerService = null;
         for(CustomerServiceBean customerServiceBean : customerServiceList){
             roleType = customerServiceBean.getRoleid();
             if(roleType == 1){
                 adminServiceList.add(customerServiceBean);
             }
         }
-        Random random = new Random();
-        int size = adminServiceList.size();
-        CustomerServiceBean customerService = adminServiceList.get(random.nextInt(size));
+        if(!adminServiceList.isEmpty()){
+            Random random = new Random();
+            int size = adminServiceList.size();
+            customerService = adminServiceList.get(random.nextInt(size));
+        }
         return customerService;
     }
 }

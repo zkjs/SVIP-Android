@@ -472,14 +472,20 @@ public class HotelBookingActivity extends BaseActivity {
                                                     salesId = customerService.getSalesid();
                                                 }
                                             }
-                                            handler.sendEmptyMessage(SUBMIT_BOOKING);
+                                            if(!TextUtils.isEmpty(salesId)){
+                                                handler.sendEmptyMessage(SUBMIT_BOOKING);
+                                            }
+
                                         }
 
                                     }
                                 }
                             }
                         }catch (Exception e){
-                            Log.e(TAG,e.getMessage());
+                            if(e != null){
+                                Log.e(TAG,e.getMessage());
+                            }
+
                         }
 
                     }
