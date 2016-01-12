@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -19,9 +20,11 @@ import com.zkjinshi.svip.utils.Constants;
 public class HomeGuideActivity extends BaseActivity{
 
     private ImageButton konwIBtn;
+    private RelativeLayout homeGuideLayout;
 
     private void initView(){
         konwIBtn = (ImageButton)findViewById(R.id.home_guide_ibtn_konw);
+        homeGuideLayout = (RelativeLayout)findViewById(R.id.home_guide_layout);
     }
 
     private void initData(){
@@ -29,14 +32,29 @@ public class HomeGuideActivity extends BaseActivity{
     }
 
     private void initListeners(){
+
+        //知道
         konwIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // if(CacheUtil.getInstance().isShopGuide()){
+                if(CacheUtil.getInstance().isShopGuide()){
                     Intent intent = new Intent(HomeGuideActivity.this, ShopGuideActivity.class);
                     startActivity(intent);
                     CacheUtil.getInstance().setShopGuide(false);
-               // }
+                }
+                finish();
+            }
+        });
+
+        //整个布局
+        homeGuideLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CacheUtil.getInstance().isShopGuide()){
+                    Intent intent = new Intent(HomeGuideActivity.this, ShopGuideActivity.class);
+                    startActivity(intent);
+                    CacheUtil.getInstance().setShopGuide(false);
+                }
                 finish();
             }
         });

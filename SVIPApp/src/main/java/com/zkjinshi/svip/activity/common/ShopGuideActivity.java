@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -18,9 +19,11 @@ import com.zkjinshi.svip.utils.Constants;
 public class ShopGuideActivity extends BaseActivity{
 
     private ImageButton konwIBtn;
+    private RelativeLayout shopGuideLayout;
 
     private void initView(){
         konwIBtn = (ImageButton)findViewById(R.id.shop_guide_ibtn_konw);
+        shopGuideLayout = (RelativeLayout)findViewById(R.id.shop_guide_layout);
     }
 
     private void initData(){
@@ -28,7 +31,17 @@ public class ShopGuideActivity extends BaseActivity{
     }
 
     private void initListeners(){
+
+        //知道
         konwIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //整个布局
+        shopGuideLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
