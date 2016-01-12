@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_zhijian">
+    android:background="@color/light_transparent">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -29,5 +29,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="423dp"
         android:src="@null"/>
+
+
+    <ImageView
+        android:layout_marginTop="292dp"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/circle_bg"
+        android:src="@mipmap/ic_zhijian_white"/>
 
 </RelativeLayout>

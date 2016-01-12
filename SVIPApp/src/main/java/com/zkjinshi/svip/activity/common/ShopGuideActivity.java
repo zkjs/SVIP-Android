@@ -31,10 +31,6 @@ public class ShopGuideActivity extends BaseActivity{
         konwIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = getIntent();
-                intent.putExtra("rootCurrentItem",2);
-                intent.putExtra("childCurrentItem",1);
-                setResult(RESULT_OK,intent);
                 finish();
             }
         });

@@ -136,7 +136,8 @@ public class ShopAdapter extends BaseAdapter {
             }
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
+                String shopImgUrl = ProtocolUtil.getShoplogoUrl(imgUrl);
+                ImageLoader.getInstance().displayImage(shopImgUrl, viewHolder.ivShopLogo, shopOptions);
             }
 
             String shopLogo = shopBean.getShoplogo();

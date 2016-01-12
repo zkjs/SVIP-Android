@@ -114,19 +114,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //请求订单接口返回
-        if(requestCode == Constants.REQUEST_CURRENT_ITEM_TAB_CODE){
-            if(resultCode == RESULT_OK){
-                if(null != data){
-                    int currentItem = data.getIntExtra("rootCurrentItem",0);
-                    this.setCurrentItem(currentItem);
-                    if(currentItem == 2){
-                        int childCurrentItem = data.getIntExtra("childCurrentItem",0);
-                        messageFragment.setCurrentItem(childCurrentItem);
-                    }
-                }
-            }
-        }
 
         //请求订单接口返回 用于进入商家列表界面
         if(requestCode == REQUEST_CONSUME_RECORD){
@@ -165,16 +152,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             switch (checkedId){
                 case R.id.footer_tab_rb_home:
                     viewPager.setCurrentItem(0,true);
-
                     break;
                 case R.id.footer_tab_rb_shop:
-                    if(CacheUtil.getInstance().isShopGuide()){
-                        Intent intent = new Intent(MainActivity.this, ShopGuideActivity.class);
-                        startActivityForResult(intent,Constants.REQUEST_CURRENT_ITEM_TAB_CODE);
-                        CacheUtil.getInstance().setShopGuide(false);
-                    }
                     viewPager.setCurrentItem(1,true);
-
                     break;
                 case R.id.footer_tab_rb_message:
                     viewPager.setCurrentItem(2,true);

@@ -1,11 +1,14 @@
 package com.zkjinshi.svip.activity.common;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 
 /**
  * 开发者：JimmyZhang
@@ -29,6 +32,11 @@ public class HomeGuideActivity extends BaseActivity{
         konwIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // if(CacheUtil.getInstance().isShopGuide()){
+                    Intent intent = new Intent(HomeGuideActivity.this, ShopGuideActivity.class);
+                    startActivity(intent);
+                    CacheUtil.getInstance().setShopGuide(false);
+               // }
                 finish();
             }
         });
@@ -42,4 +50,5 @@ public class HomeGuideActivity extends BaseActivity{
         initData();
         initListeners();
     }
+
 }
