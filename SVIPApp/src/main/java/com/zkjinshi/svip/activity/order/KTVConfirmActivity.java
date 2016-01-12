@@ -625,4 +625,12 @@ public class KTVConfirmActivity extends BaseActivity {
         customerBuilder.create().show();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(KTVConfirmActivity.this,ConsumeRecordActivtiy.class);
+        startActivity(intent);
+        BaseApplication.getInst().clearLeaveTop();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
 }
