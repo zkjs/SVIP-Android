@@ -65,7 +65,9 @@ import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -402,9 +404,15 @@ public class GroupChatAdapter extends BaseAdapter {
                         String arrivaDate = bookOrder.getArrivaldate();
                         String departureDate = bookOrder.getLeavedate();
                         String imageUrl = bookOrder.getImgurl();
-                        int dayNum = TimeUtil.daysBetween(arrivaDate,departureDate);
+                        SimpleDateFormat descFormat = new SimpleDateFormat("MM月dd日");
+                        SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date arrivalDate = sourceFormat.parse(arrivaDate);
+                        Date leaveDate = sourceFormat.parse(departureDate);
+                        String arriveStr = descFormat.format(arrivalDate);
+                        String leaveStr = descFormat.format(leaveDate);
+                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
                         vh.contentTip.setText(bookOrder.getContent());
-                        vh.orderContent.setText(roomType + " | " + arrivaDate + "入住 | " + dayNum + "晚");
+                        vh.orderContent.setText(roomType + " | " + arriveStr+"到"+leaveStr + " | " + dayNum + "晚");
                         if (!TextUtils.isEmpty(imageUrl)) {
                             String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
                             ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
