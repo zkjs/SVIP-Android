@@ -76,8 +76,8 @@ public class QuickMenuManager {
     }
 
     private void initData(){
-        quickMenuLayout.setVisibility(View.VISIBLE);
-        chatKeyboardLayout.setVisibility(View.GONE);
+        quickMenuLayout.setVisibility(View.GONE);
+        chatKeyboardLayout.setVisibility(View.VISIBLE);
         menuInBottom = AnimationUtils.loadAnimation(context,R.anim.menu_in_bottom);
         menuOutTop = AnimationUtils.loadAnimation(context,R.anim.menu_out_top);
         menuGroupList = QuickMenuController.getInstance().getNoOrderMenuGroupList();
