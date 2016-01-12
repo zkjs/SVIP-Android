@@ -70,7 +70,7 @@ public class AddRemarkActivity extends BaseActivity implements View.OnClickListe
             mInputEt.setInputType(InputType.TYPE_CLASS_PHONE);
         }
 
-        if(key.equals("remark") && remark.equals("如有有其他需求，请在此说明.")){
+        if(key.equals("remark") && remark.equals("如有其他需求，请在此说明.")){
             mInputEt.setText("");
         }
 
