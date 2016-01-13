@@ -1,16 +1,16 @@
 package com.zkjinshi.svip.activity.city.citylist;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
@@ -18,13 +18,12 @@ import com.zkjinshi.svip.activity.city.model.Contacts;
 import com.zkjinshi.svip.activity.order.ShopCityActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 
-import java.util.ArrayList;
-
 public class SearchActivity extends BaseActivity {
 
     private ListView searchresult;
     private EditText input;
-    private ImageButton clear, left;
+    private ImageButton clear;
+    private ImageButton left;
     private RelativeLayout mBack;
 //    private SQLiteDatabase database;
     private CitysearchAdapter adapter;
@@ -37,7 +36,7 @@ public class SearchActivity extends BaseActivity {
         searchresult = (ListView) findViewById(R.id.searchresult);
         input = (EditText) findViewById(R.id.input);
         clear = (ImageButton) findViewById(R.id.clear);
-        left  = (ImageButton) findViewById(R.id.left_title_button);
+//        left  = (ImageButton) findViewById(R.id.left_title_button);
         mBack = (RelativeLayout) findViewById(R.id.rl_back);
 
 //        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
