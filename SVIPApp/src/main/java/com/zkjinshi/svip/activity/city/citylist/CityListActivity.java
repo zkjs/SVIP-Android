@@ -2,8 +2,11 @@ package com.zkjinshi.svip.activity.city.citylist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.adapter.CityAdapter;
 import com.zkjinshi.svip.activity.city.helper.CityComparator;
@@ -34,7 +38,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * 城市选择列表
@@ -46,6 +49,7 @@ import java.util.logging.Handler;
 public class CityListActivity extends BaseActivity {
 
     private final static String TAG = CityListActivity.class.getSimpleName();
+    private final static int NOTIFY_DATA_CHANGED = 0x00;
 
     private TextView            citysearch;
     private RelativeLayout      mBack;
@@ -54,6 +58,16 @@ public class CityListActivity extends BaseActivity {
     private ArrayList<CityBean> mCityBeanList;
     private CityComparator      mCityComparator;
     private CityAdapter         mCityAdapter;
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == NOTIFY_DATA_CHANGED){
+                mCityAdapter.setCityList(mCityBeanList);
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,12 +86,13 @@ public class CityListActivity extends BaseActivity {
     }
 
     private void initData() {
+
         mCityComparator = new CityComparator();
         mCityBeanList   = new ArrayList<>();
         mCityLocated    = new CityBean();
         mCityLocated.setCityLocated(true);
-        String currentCity = CacheUtil.getInstance().getCurrentCity();
 
+        String currentCity = CacheUtil.getInstance().getCurrentCity();
         if (!TextUtils.isEmpty(currentCity)) {
             mCityLocated.setCity(currentCity);
         } else {
@@ -129,10 +144,10 @@ public class CityListActivity extends BaseActivity {
                                String city = aMapLocation.getCity();
                                if (!TextUtils.isEmpty(city)) {
                                    //更新城市显示
-                                   mCityLocated.setCity(city.substring(0, city.length()-1));
+                                   mCityLocated.setCity(city);
                                    CacheUtil.getInstance().saveCurrentCity(city);
                                    Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
-                                   mCityAdapter.notifyDataSetChanged();
+                                   handler.sendEmptyMessage(NOTIFY_DATA_CHANGED);
                                }
                            }
                        });
@@ -158,9 +173,12 @@ public class CityListActivity extends BaseActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    startActivity(intent);
+//                    Intent intent = new Intent(CityListActivity.this, ShopCityActivity.class);
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                    startActivity(intent);
+                    DialogUtil.getInstance().showCustomToast(CityListActivity.this,
+                                 "待城市定位成功后进行商家查询。", Gravity.CENTER);
+                    return ;
                 }
             }
         });
@@ -217,8 +235,8 @@ public class CityListActivity extends BaseActivity {
                         if(null != cityBeans && !cityBeans.isEmpty()){
                             //比较城市名称
                             Collections.sort(cityBeans, mCityComparator);
-                            mCityAdapter.setCityList(mCityBeanList);
                             mCityBeanList.addAll(cityBeans);
+                            handler.sendEmptyMessage(NOTIFY_DATA_CHANGED);
 
                             //添加城市名称进入数据库
                             List<CityModel> cityModels = CityFactory.getInstance().
