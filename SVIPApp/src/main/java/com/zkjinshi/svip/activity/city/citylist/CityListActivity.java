@@ -59,6 +59,7 @@ public class CityListActivity extends BaseActivity {
     private CityComparator      mCityComparator;
     private CityAdapter         mCityAdapter;
 
+    //UI线程刷新界面
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
