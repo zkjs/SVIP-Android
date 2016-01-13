@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private void addLlocalDefaultHomeMsg(){
         HomeMsgVo welcomeMsg= new HomeMsgVo();
         welcomeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-        welcomeMsg.setClickAble(true);
+        welcomeMsg.setClickAble(false);
         welcomeMsg.setMajorText("欢迎使用超级身份");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
         homeMsgList.add(welcomeMsg);
@@ -223,11 +223,14 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 switch (homeMsgVo.getMsgType()){
                     case HOME_MSG_DEFAULT:
                     {
-                        Intent intent = new Intent(mActivity, WebViewActivity.class);
-                        intent.putExtra("webview_url","http://www.zkjinshi.com/about_us/about_svip.html");
-                        mActivity.startActivity(intent);
-                        mActivity.overridePendingTransition(R.anim.slide_in_right,
-                                R.anim.slide_out_left);
+                        if(homeMsgVo.isClickAble()){
+                            Intent intent = new Intent(mActivity, WebViewActivity.class);
+                            intent.putExtra("webview_url","http://www.zkjinshi.com/about_us/about_svip.html");
+                            mActivity.startActivity(intent);
+                            mActivity.overridePendingTransition(R.anim.slide_in_right,
+                                    R.anim.slide_out_left);
+                        }
+
                     }
                     break;
                     case HOME_MSG_LOCATION:
@@ -611,7 +614,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         HomeMsgVo homeMsgVo= new HomeMsgVo();
                         if(TextUtils.isEmpty(message.getShopid())){
                             homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                            homeMsgVo.setClickAble(true);
+                            homeMsgVo.setClickAble(false);
                         }else{
                             homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
                             homeMsgVo.setShopid(message.getShopid());
@@ -706,7 +709,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                                 HomeMsgVo homeMsgVo= new HomeMsgVo();
                                 if(TextUtils.isEmpty(message.getShopid())){
                                     homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                                    homeMsgVo.setClickAble(true);
+                                    homeMsgVo.setClickAble(false);
                                 }else{
                                     homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
                                     homeMsgVo.setShopid(message.getShopid());
