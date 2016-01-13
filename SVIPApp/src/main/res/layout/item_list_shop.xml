@@ -19,12 +19,37 @@
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
+                android:background="@mipmap/img_dingdanxiangqing"
                 android:scaleType="fitXY" />
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
+                android:layout_height="100dp"
                 android:background="@drawable/bg_mask" />
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:text="酒店名"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_shop_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_shop_name"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="酒店副标题"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"/>
         </RelativeLayout>
 
         <View
@@ -90,33 +115,6 @@
             android:orientation="vertical"
             android:paddingTop="64dp"
             android:weightSum="2">
-
-            <TextView
-                android:id="@+id/tv_shop_name"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/tv_shop_business"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_below="@+id/tv_shop_name"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:gravity="top|center_horizontal"
-                android:lines="2"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
         </LinearLayout>
 
         <RelativeLayout
@@ -139,10 +137,12 @@
                     android:clickable="true"
                     android:src="@mipmap/img_avatar_hotel" />
 
-                <View
+                <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:background="@drawable/bg_avatar_ring" />
+                    android:background="@drawable/circle_bg"
+                    android:src="@mipmap/logo_white"
+                    android:scaleType="centerInside"/>
 
             </FrameLayout>
 
