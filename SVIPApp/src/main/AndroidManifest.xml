@@ -443,14 +443,6 @@
 
         <meta-data android:name="TESTIN_APPKEY" android:value="ced4cd6e19b606a268819bbaced9c339"/>
 
-        <!--IM消息服务-->
-        <service android:name="com.zkjinshi.base.net.core.MessageService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.zkjinshi.svip.im.Message_SERVICE"/>
-            </intent-filter>
-        </service>
-
         <service android:name=".ibeacon.IBeaconService">
             <intent-filter>
                 <action android:name="com.zkjinshi.svip.im.Beacon_SERVICE"/>
@@ -461,6 +453,7 @@
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="zkjs#svip" />
+
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService"
             android:exported="true"
