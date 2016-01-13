@@ -19,7 +19,6 @@
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:background="@mipmap/img_dingdanxiangqing"
                 android:scaleType="fitXY" />
 
             <ImageView
@@ -33,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:text="酒店名"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"/>
