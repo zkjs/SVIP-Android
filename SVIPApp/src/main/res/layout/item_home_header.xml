@@ -45,7 +45,7 @@
                 android:layout_height="60dp"
                 android:scaleType="centerInside"
                 android:background="@drawable/circle_bg"
-                android:src="@mipmap/ic_zhijian_white"/>
+                android:src="@mipmap/logo_white"/>
 
             <TextView
                 android:id="@+id/logo_text"

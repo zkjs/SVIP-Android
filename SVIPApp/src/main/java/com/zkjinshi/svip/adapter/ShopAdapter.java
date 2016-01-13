@@ -57,9 +57,9 @@ public class ShopAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
         this.setShopList(shopList);
         this.shopOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_dingdanxiangqing)// 设置图片加载或解码过程中发生错误显示的图片
+//                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
+//                .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
+//                .showImageOnFail(R.mipmap.img_dingdanxiangqing)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
@@ -124,7 +124,7 @@ public class ShopAdapter extends BaseAdapter {
             }
 
             if(!TextUtils.isEmpty(shopBusi)){
-                viewHolder.tvShopBusiness.setText(shopBusi);
+                viewHolder.tvShopBusiness.setText(shopDesc);
             }
 
             if(!TextUtils.isEmpty(shopDesc)){
