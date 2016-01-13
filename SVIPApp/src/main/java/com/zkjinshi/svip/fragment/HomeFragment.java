@@ -481,12 +481,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     }
 
     //有ibeacon通知时调用该函数
-    public  void notifyIbeacon(){
-        if(!CacheUtil.getInstance().isLogin()){
-            logoIv.setVisibility(View.VISIBLE);
+    public void notifyIbeacon(){
+        if(null == logoIv){
             return;
-        }else{
-            logoIv.setVisibility(View.GONE);
         }
         if(!CacheUtil.getInstance().isActivate()){
             return;
@@ -494,6 +491,12 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if(svipApplication.mRegionList.size() <= 0){
 
             return;
+        }
+        if(!CacheUtil.getInstance().isLogin()){
+            logoIv.setVisibility(View.VISIBLE);
+            return;
+        }else{
+            logoIv.setVisibility(View.GONE);
         }
         requestUserPrivilegeFromApi();
     }
