@@ -414,7 +414,7 @@ public class GroupChatAdapter extends BaseAdapter {
                         vh.contentTip.setText(bookOrder.getContent());
                         vh.orderContent.setText(roomType + " | " + arriveStr+"到"+leaveStr + " | " + dayNum + "晚");
                         if (!TextUtils.isEmpty(imageUrl)) {
-                            String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
                             ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
                         }
                     }

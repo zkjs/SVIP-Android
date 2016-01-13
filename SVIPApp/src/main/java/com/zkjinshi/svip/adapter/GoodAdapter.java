@@ -80,7 +80,7 @@ public class GoodAdapter extends BaseAdapter {
 
         String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){
-            String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl,viewHolder.roomPicTv,options);
         }
 

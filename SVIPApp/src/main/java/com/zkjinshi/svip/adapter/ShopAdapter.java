@@ -106,7 +106,7 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(imgUrl, viewHolder.ivShopLogo, shopOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions);
             }
 
             if(!TextUtils.isEmpty(shopName)){
@@ -136,14 +136,12 @@ public class ShopAdapter extends BaseAdapter {
             }
 
             if(!TextUtils.isEmpty(imgUrl)){
-                String shopImgUrl = ProtocolUtil.getShoplogoUrl(imgUrl);
-                ImageLoader.getInstance().displayImage(shopImgUrl, viewHolder.ivShopLogo, shopOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions);
             }
 
             String shopLogo = shopBean.getShoplogo();
             if(!TextUtils.isEmpty(shopLogo)){
-                String shopLogoUrl = ProtocolUtil.getShoplogoUrl(shopLogo);
-                ImageLoader.getInstance().displayImage(shopLogoUrl, viewHolder.civSalerAvatar, avatarOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopLogo), viewHolder.civSalerAvatar, avatarOptions);
             }
         }
 

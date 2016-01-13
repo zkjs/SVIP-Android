@@ -2,6 +2,7 @@ package com.zkjinshi.svip.utils;
 
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.util.*;
+import com.zkjinshi.base.util.Constants;
 
 /**
  * 协议接口工具类
@@ -11,10 +12,6 @@ import com.zkjinshi.base.util.*;
  * 版权所有
  */
 public class ProtocolUtil {
-
-    public static int MY_SOCKET_TIMEOUT_MS = 3000; //超时时间
-    public static int DEFAULT_MAX_RETRIES = 0; //增加重试次数
-    public static float DEFAULT_BACKOFF_MULT = 1f;//它允许你指定一个退避乘数可以用来实现“指数退避”来从RESTful服务器请求数据。
 
     /**
      * 获取客服列表 URL
@@ -77,14 +74,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"goods/get/"+shopId;
     }
 
-    /**
-     * 获得商品图片
-     * @param imageUrl
-     * @return
-     */
-    public static String getGoodImgUrl(String imageUrl){
-        return ConfigUtil.getInst().getPhpDomain()+imageUrl;
-    }
+
 
     /**
      * 获取Ibeancon列表
@@ -266,31 +256,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getPhpDomain()+"invitation/bdcode";
     }
 
-    /**
-     * 获得用户头像
-     * @param userid
-     * @return
-     */
-    public static String getAvatarUrl(String userid){
-        return ConfigUtil.getInst().getPhpDomain()+"uploads/users/"+userid+".jpg";
-    }
 
-    /**
-     * 获得商家logo
-     * @param shopid
-     * @return
-     */
-    public static String getShopIconUrl(String shopid){
-            return ConfigUtil.getInst().getPhpDomain()+"uploads/shops/"+shopid+".png";
-    }
-
-    /**
-     * 获得商家logo
-     * @return
-     */
-    public static String getShoplogoUrl(String shopLogo){
-        return "http://" + ConfigUtil.getInst().getConfigValue(com.zkjinshi.base.util.Constants.PHP_HOST)+shopLogo;
-    }
 
     /**
      * V0.9.1 订单列表带评论状态
@@ -485,14 +451,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"arrive/notice";
     }
 
-    /**
-     * 获取合适分辨率的图片URL
-     * @return
-     */
-    public static String getFitPicUrl(String path,String file){
-        return path+"andriod/"+CacheUtil.getInstance().getBestFitPixel()+"/"+file;
 
-    }
 
     /**
      * 获取用户订单状态消息
@@ -618,5 +577,31 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"shop/get/"+shopId;
     }
 
+    /**
+     * 拼接图片路径
+     * @param apiUrl
+     * @return
+     */
+    public static String getHostImgUrl(String apiUrl){
+       return Constants.IMG_HOST+apiUrl;
+    }
+
+    /**
+     * 获得用户头像
+     * @param userid
+     * @return
+     */
+    public static String getAvatarUrl(String userid){
+        return Constants.IMG_HOST+"uploads/users/"+userid+".jpg";
+    }
+
+    /**
+     * 获取合适分辨率的图片URL
+     * @return
+     */
+    public static String getFitPicUrl(String path,String file){
+        return path+"/picture/android/"+CacheUtil.getInstance().getBestFitPixel()+"/"+file;
+
+    }
 
 }

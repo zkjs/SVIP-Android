@@ -12,5 +12,7 @@ public class Constants {
     public static final String ZKJINSHI_BASE_TAG = "ZKJinShi_TAG";
     public static final String PHP_HOST = "php-host";
     public static final String JAVA_HOST = "java-host";
+    //图片host
+    public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";
 
 }

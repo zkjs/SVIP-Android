@@ -212,7 +212,7 @@ public class NormalConfirmActivity extends BaseActivity {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-        String logoUrl = ProtocolUtil.getGoodImgUrl(orderDetailForDisplay.getImgurl());
+        String logoUrl = ProtocolUtil.getHostImgUrl(orderDetailForDisplay.getImgurl());
         ImageLoader.getInstance().displayImage(logoUrl, roomIv, options);
 
         //房型

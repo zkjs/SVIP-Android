@@ -170,7 +170,7 @@ public class KTVBookingActivity extends BaseActivity {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-        ImageLoader.getInstance().displayImage(shopImg,roomIv,options);
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg),roomIv,options);
         //初始化时间
         setOrderDate(new Date());
     }
@@ -376,7 +376,7 @@ public class KTVBookingActivity extends BaseActivity {
         lastGoodInfoVo = goodInfoVo;
         String imageUrl = goodInfoVo.getImgurl();
         if (!TextUtils.isEmpty(imageUrl)) {
-            String logoUrl = ProtocolUtil.getGoodImgUrl(imageUrl);
+            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
             ImageLoader.getInstance().displayImage(logoUrl, roomIv, options);
         }
         orderDetailForDisplay.setImgurl(imageUrl);

@@ -11,26 +11,21 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.UpdateBean;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -38,22 +33,17 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BigPicResponse;
-import com.zkjinshi.svip.sqlite.ServerPeronalDBUtil;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.update.NotificationUpdateActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.vo.ServerPersonalVo;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * 开发者：dujiande
@@ -128,7 +118,7 @@ public class MainController {
                 return;
             }
             bigPicIndex = (bigPicIndex+1)%length;
-            String bigPicUrl = bigPicResponseList.get(bigPicIndex).getUrl();
+            String bigPicUrl = ProtocolUtil.getHostImgUrl(bigPicResponseList.get(bigPicIndex).getUrl());
             ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();

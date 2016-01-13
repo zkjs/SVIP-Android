@@ -147,7 +147,7 @@ public class NormalBookingActivity extends BaseActivity {
                 .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
-        ImageLoader.getInstance().displayImage(shopImg,roomIv,options);
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg),roomIv,options);
         //初始化时间
         setOrderDate(new Date());
     }

@@ -16,6 +16,7 @@ import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.OrderForDisplay;
 
@@ -92,9 +93,8 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         }
 
         //获得shopID网络路径
-        if(!TextUtils.isEmpty(itemOrder.getShopid())){
-            String logoUrl = Constants.GET_SHOP_LOGO + itemOrder.getShopid() + ".png";
-            ImageLoader.getInstance().displayImage(logoUrl, holder.shopIcon, options);
+        if(!TextUtils.isEmpty(itemOrder.getShoplogo())){
+            ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(itemOrder.getShoplogo()), holder.shopIcon, options);
         }
 
         SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd");

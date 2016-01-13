@@ -21,6 +21,8 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
+import com.zkjinshi.svip.utils.ProtocolUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -125,7 +127,7 @@ public class SlideShowViewController {
         public Object instantiateItem(View container, int position) {
             ImageView imageView = imageViewsList.get(position);
 
-            imageLoader.displayImage(imageView.getTag() + "", imageView);
+            imageLoader.displayImage(ProtocolUtil.getHostImgUrl(imageView.getTag()+ ""), imageView);
 
             ((ViewPager)container).addView(imageViewsList.get(position));
             return imageViewsList.get(position);

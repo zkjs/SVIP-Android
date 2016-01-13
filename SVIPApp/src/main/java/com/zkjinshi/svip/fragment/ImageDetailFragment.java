@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.photoview.PhotoViewAttacher;;
 
 public class ImageDetailFragment extends Fragment {
@@ -90,7 +91,7 @@ public class ImageDetailFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		ImageLoader.getInstance().displayImage(mImageUrl, mImageView,
+		ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(mImageUrl), mImageView,
 				imageOptions, new SimpleImageLoadingListener() {
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {

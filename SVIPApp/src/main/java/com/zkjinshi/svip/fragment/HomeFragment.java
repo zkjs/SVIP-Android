@@ -23,9 +23,11 @@ import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.HomeGuideActivity;
@@ -272,16 +274,14 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         mActivity = getActivity();
         MainController.getInstance().init(mActivity);
-
+        loadHomeData();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (view == null)
-        {
+        if (view == null){
             initView(inflater, container);
-            loadHomeData();
         }
         return view;
     }
@@ -348,12 +348,22 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
      * 设置首页大图区信息
      */
     public void setBigPicZone(){
-        //设置头像
 
+        //设置头像
         if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
             String userId = CacheUtil.getInstance().getUserId();
             String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-            MainController.getInstance().setPhoto(userPhotoUrl,avatarCiv);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
+                    .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
+                    .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
+                    .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                    .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                    .build();
+            ImageLoader.getInstance().displayImage(userPhotoUrl,avatarCiv,options);
+
+            logoIv.setVisibility(View.GONE);
+
         }
 
         //设置时间问候语
@@ -607,7 +617,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
                         homeMsgVo.setMajorText(message.getTitle());
                         homeMsgVo.setMinorText(message.getDesc());
-                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
                         homeMsgList.add(homeMsgVo);
 
 
@@ -668,7 +678,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                                 homeMsgVo.setClickAble(true);
                                 homeMsgVo.setMajorText(message.getTitle());
                                 homeMsgVo.setMinorText(message.getDesc());
-                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
                                 homeMsgVo.setOrderNo(message.getOrderNo());
                                 homeMsgList.add(homeMsgVo);
 
@@ -701,7 +711,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                                 }
                                 homeMsgVo.setMajorText(message.getTitle());
                                 homeMsgVo.setMinorText(message.getDesc());
-                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(message.getIconbaseurl(),message.getIconfilename()));
+                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
                                 homeMsgList.add(homeMsgVo);
 
                             }
