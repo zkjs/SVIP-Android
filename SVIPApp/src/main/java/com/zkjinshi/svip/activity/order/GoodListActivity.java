@@ -166,8 +166,6 @@ public class GoodListActivity extends BaseActivity {
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
         String   shopName = shopBean.getShopname();
-        String   shopBusi = shopBean.getShopbusiness();
-        String   shopDesc = shopBean.getShopdesc();
         String   shopAdd  = shopBean.getShopaddress();
         final String   salesID  = shopBean.getSalesid();
         String   imgUrl   = shopBean.getBgImgUrl();
@@ -176,12 +174,12 @@ public class GoodListActivity extends BaseActivity {
             viewHolder.tvShopName.setText(shopName);
         }
 
-        if(!TextUtils.isEmpty(shopBusi)){
-            viewHolder.tvShopBusiness.setText(shopBusi);
+        if(!TextUtils.isEmpty(shopBean.getShoptitle())){
+            viewHolder.tvShopBusiness.setText(shopBean.getShoptitle());
         }
 
-        if(!TextUtils.isEmpty(shopDesc)){
-            viewHolder.tvShopDes.setText(shopDesc);
+        if(!TextUtils.isEmpty(shopBean.getRecommtitle())){
+            viewHolder.tvShopDes.setText(shopBean.getRecommtitle());
         }
 
         if(!TextUtils.isEmpty(shopAdd)){

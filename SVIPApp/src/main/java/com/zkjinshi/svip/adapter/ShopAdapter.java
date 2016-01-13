@@ -60,14 +60,14 @@ public class ShopAdapter extends BaseAdapter {
 //                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
 //                .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
 //                .showImageOnFail(R.mipmap.img_dingdanxiangqing)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
         this.avatarOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_avatar_hotel)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_avatar_hotel)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_avatar_hotel)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
+                .showImageOnLoading(R.mipmap.logo_white)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.logo_white)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.logo_white)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
     }
@@ -95,7 +95,6 @@ public class ShopAdapter extends BaseAdapter {
         ShopBean shopBean = shopList.get(position);
         String   shopName = shopBean.getShopname();
         String   shopBusi = shopBean.getShopbusiness();
-        String   shopDesc = shopBean.getShopdesc();
         String   shopAdd  = shopBean.getShopaddress();
         final String   salesID  = shopBean.getSalesid();
         String   imgUrl   = shopBean.getBgImgUrl();
@@ -113,8 +112,8 @@ public class ShopAdapter extends BaseAdapter {
                 viewHolder.tvShopName.setText(shopName);
             }
 
-            if(!TextUtils.isEmpty(shopDesc)){
-                viewHolder.tvShopBusiness.setText(shopDesc);
+            if(!TextUtils.isEmpty(shopBean.getShoptitle())){
+                viewHolder.tvShopBusiness.setText(shopBean.getShoptitle());
             }
 
         } else {
@@ -123,12 +122,12 @@ public class ShopAdapter extends BaseAdapter {
                 viewHolder.tvShopName.setText(shopName);
             }
 
-            if(!TextUtils.isEmpty(shopBusi)){
-                viewHolder.tvShopBusiness.setText(shopDesc);
+            if(!TextUtils.isEmpty(shopBean.getShoptitle())){
+                viewHolder.tvShopBusiness.setText(shopBean.getShoptitle());
             }
 
-            if(!TextUtils.isEmpty(shopDesc)){
-                viewHolder.tvShopDes.setText(shopDesc);
+            if(!TextUtils.isEmpty(shopBean.getRecommtitle())){
+                viewHolder.tvShopDes.setText(shopBean.getRecommtitle());
             }
 
             if(!TextUtils.isEmpty(shopAdd)){

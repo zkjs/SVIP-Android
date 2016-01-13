@@ -505,12 +505,18 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
             return;
         }
-        if(!CacheUtil.getInstance().isLogin()){
-            logoIv.setVisibility(View.VISIBLE);
-            return;
-        }else{
-            logoIv.setVisibility(View.GONE);
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(!CacheUtil.getInstance().isLogin()){
+                    logoIv.setVisibility(View.VISIBLE);
+                    return;
+                }else{
+                    logoIv.setVisibility(View.GONE);
+                }
+            }
+        });
+
         requestUserPrivilegeFromApi();
     }
 
@@ -530,7 +536,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         //final String shopid = "120";
 
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
-        Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;

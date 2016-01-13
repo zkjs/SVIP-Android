@@ -12,11 +12,28 @@ public class ShopBean extends BaseShopBean implements Serializable {
 
     private String salesid;
     private String shopbusiness;
-    private String shopdesc;
+    private String shoptitle;
+    private String recommtitle;
     private String shopaddress;
     private String shoplogo;
     private String shopname;
     private String bgImgUrl;
+
+    public String getShoptitle() {
+        return shoptitle;
+    }
+
+    public void setShoptitle(String shoptitle) {
+        this.shoptitle = shoptitle;
+    }
+
+    public String getRecommtitle() {
+        return recommtitle;
+    }
+
+    public void setRecommtitle(String recommtitle) {
+        this.recommtitle = recommtitle;
+    }
 
     public String getSalesid() {
         return salesid;
@@ -34,13 +51,6 @@ public class ShopBean extends BaseShopBean implements Serializable {
         this.shopbusiness = shopbusiness;
     }
 
-    public String getShopdesc() {
-        return shopdesc;
-    }
-
-    public void setShopdesc(String shopdesc) {
-        this.shopdesc = shopdesc;
-    }
 
     public String getShopaddress() {
         return shopaddress;

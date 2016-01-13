@@ -367,11 +367,19 @@ public class ProtocolUtil {
     }
 
     /**
-     * 根据城市名称获取商家列表
+     * 根据城市获取商家(未登录用户)
      * @return
      */
     public static String getShopListByCityUrl(String city, int page, int pageSize) {
         return  ConfigUtil.getInst().getJavaDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
+    }
+
+    /**
+     * 根据城市获取商家(登录用户)
+     * @return
+     */
+    public static String getShopListByCityUrl(String userid,String city, int page, int pageSize) {
+        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userid+"/"+city+"/"+page+"/"+pageSize+"/";
     }
 
     /**

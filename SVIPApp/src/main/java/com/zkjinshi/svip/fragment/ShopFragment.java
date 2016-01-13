@@ -50,7 +50,6 @@ public class ShopFragment extends BaseFragment {
 
     private ShopAdapter         mShopAdapter;
     private ArrayList<ShopBean> mShopList;
-    private String mUserID;
 
     private int mPage;
     private int mPageSize = 5;
@@ -69,12 +68,12 @@ public class ShopFragment extends BaseFragment {
     protected void initData() {
 
         super.initData();
-        mUserID = CacheUtil.getInstance().getUserId();
+
         mShopList    = new ArrayList<>();
         mShopAdapter = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
         mPage = 1;
-        getShopList(mUserID, mPage, mPageSize);
+        getShopList( mPage, mPageSize);
     }
 
     @Override
@@ -103,12 +102,12 @@ public class ShopFragment extends BaseFragment {
             @Override
             public void onRefreshing() {
                 mPage = 1;
-                getShopList(mUserID, mPage, mPageSize);
+                getShopList( mPage, mPageSize);
             }
 
             @Override
             public void onLoadingMore() {
-                getShopList(mUserID, mPage, mPageSize);
+                getShopList( mPage, mPageSize);
             }
 
             @Override
@@ -176,10 +175,10 @@ public class ShopFragment extends BaseFragment {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
-    public void getShopList(String userID, int page, int pageSize) {
+    public void getShopList(int page, int pageSize) {
         String url = null;
         if(CacheUtil.getInstance().isLogin()){
-            url = ProtocolUtil.getShopListUserUrl(userID, page, pageSize);
+            url = ProtocolUtil.getShopListUserUrl(CacheUtil.getInstance().getUserId(), page, pageSize);
         }else {
             url = ProtocolUtil.getShopListUnLoginUrl(page,pageSize);
         }

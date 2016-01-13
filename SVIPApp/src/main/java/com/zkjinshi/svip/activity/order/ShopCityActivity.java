@@ -25,6 +25,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 
@@ -89,6 +90,7 @@ public class ShopCityActivity extends BaseActivity {
             @Override
             public void onRefreshing() {
                 String city = mTvCity.getText().toString();
+                mPage = 1;
                 if (!TextUtils.isEmpty(city)){
                     mTvCity.setText(city);
                     getShopListByCity(city, mPage, mPageSize);
@@ -152,7 +154,12 @@ public class ShopCityActivity extends BaseActivity {
     private void getShopListByCity(String city, int page, int pageSize){
         String url = null;
         if(!TextUtils.isEmpty(city)){
-            url = ProtocolUtil.getShopListByCityUrl(city, page, pageSize);
+            if(CacheUtil.getInstance().isLogin()){
+                url = ProtocolUtil.getShopListByCityUrl(CacheUtil.getInstance().getUserId(),city, page, pageSize);
+            }else{
+                url = ProtocolUtil.getShopListByCityUrl(city, page, pageSize);
+            }
+
         }else{
             url = ProtocolUtil.getShopListUrl(page, pageSize);
         }
@@ -180,11 +187,17 @@ public class ShopCityActivity extends BaseActivity {
                 try {
                     Type listType = new TypeToken<List<ShopBean>>(){}.getType();
                     Gson gson     = new Gson();
-                    mPage++;
+
                     List<ShopBean> shopBeanList = gson.fromJson(result.rawResult, listType);
-                    if(null != shopBeanList && !shopBeanList.isEmpty()){
+                    if(null != shopBeanList){
+                        if(mPage == 1){
+                            mShopList.clear();
+                        }
                         mShopList.addAll(shopBeanList);
                         mShopAdapter.setShopList(mShopList);
+                        if(!mShopList.isEmpty()){
+                            mPage++;
+                        }
                     }
                     LogUtil.getInstance().info(LogLevel.INFO, "getShopListByCity:" + mShopList);
                 } catch (Exception e) {
