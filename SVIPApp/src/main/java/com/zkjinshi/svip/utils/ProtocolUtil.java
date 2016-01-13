@@ -600,7 +600,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getFitPicUrl(String path,String file){
-        return path+"/picture/android/"+CacheUtil.getInstance().getBestFitPixel()+"/"+file;
+        return path+"picture/android/"+CacheUtil.getInstance().getBestFitPixel()+file;
 
     }
 
