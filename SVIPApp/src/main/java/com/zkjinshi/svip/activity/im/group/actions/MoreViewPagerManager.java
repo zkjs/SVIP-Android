@@ -16,14 +16,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.Toast;
 
-import com.easemob.chat.EMChatManager;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.single.VideoCallActivity;
-import com.zkjinshi.svip.activity.im.single.VoiceCallActivity;
 import com.zkjinshi.svip.adapter.GroupMoreAdapter;
-import com.zkjinshi.svip.adapter.MoreAdapter;
 import com.zkjinshi.svip.adapter.MorePageAdapter;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -52,17 +47,10 @@ public class MoreViewPagerManager extends Handler {
 
 	private static final int CHOOSE_IMAGE = 0;// 图片
 	private static final int TAKE_PHOTO = 1;// 拍照
-	private static final int VOICE_CALL = 2;// 语音电话
-	private static final int VIDEO_CALL = 3;// 视频电话
-	private static final int CALL_CARD = 4;// 名片
-	private static final int MY_LOCATION = 5;// 位置
-	private static final int CHOOSE_FILE = 6;// 文件
 
 	private Context context;
 	private JazzyViewPager moreViewPager;
 	private LinearLayout moreLinearLayout;
-	
-	private String picName;
 
 	public MoreViewPagerManager(Context context, LinearLayout moreLinearLayout) {
 		this.context = context;

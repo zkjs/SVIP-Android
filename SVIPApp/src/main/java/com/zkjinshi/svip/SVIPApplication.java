@@ -2,7 +2,6 @@ package com.zkjinshi.svip;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
@@ -29,7 +28,6 @@ import com.zkjinshi.svip.bean.UpdateBean;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
 import com.zkjinshi.svip.ibeacon.RegionVo;
-import com.zkjinshi.svip.receiver.ECallReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
@@ -56,12 +54,8 @@ public class SVIPApplication extends BaseApplication {
     public static final String TAG = SVIPApplication.class.getSimpleName();
 
     public Vector<RegionVo> mRegionList = new Vector<RegionVo>();
-
-    private ECallReceiver callReceiver;
-
     private boolean isDownload;
     public UpdateBean updateBean = null;
-
 
     @Override
     public void onCreate() {
@@ -135,12 +129,6 @@ public class SVIPApplication extends BaseApplication {
         options.setRequireDeliveryAck(true);
         // 设置从db初始化加载时, 每个conversation需要加载msg的个数
         options.setNumberOfMessagesLoaded(10);
-        IntentFilter callFilter = new IntentFilter(EMChatManager.getInstance().getIncomingCallBroadcastAction());
-        if(callReceiver == null){
-            callReceiver = new ECallReceiver();
-        }
-        //注册通话广播接收者
-        registerReceiver(callReceiver, callFilter);
         EasemobIMHelper.getInstance().initConnectionListener();
         EMGroupManager.getInstance().addGroupChangeListener(new EGroupReomveListener());
     }

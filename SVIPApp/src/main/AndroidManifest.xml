@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="82"
-    android:versionName="1.8.1">
+    android:versionCode="83"
+    android:versionName="1.8.2">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <!--<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />-->
@@ -474,20 +474,7 @@
         </receiver>
 
         <!-- 语音通话 -->
-        <activity
-            android:name=".activity.im.single.VoiceCallActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/android:Theme.NoTitleBar" >
-        </activity>
         <!-- 视频通话 -->
-        <activity
-            android:name=".activity.im.single.VideoCallActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/horizontal_slide" >
-        </activity>
 
         <activity android:name=".activity.common.ContactActivity"
             android:screenOrientation="portrait"

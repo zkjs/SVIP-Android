@@ -25,8 +25,6 @@ import android.widget.Toast;
 
 import com.easemob.chat.EMChatManager;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.single.VideoCallActivity;
-import com.zkjinshi.svip.activity.im.single.VoiceCallActivity;
 import com.zkjinshi.svip.adapter.MoreAdapter;
 import com.zkjinshi.svip.adapter.MorePageAdapter;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -50,34 +48,17 @@ public class MoreViewPagerManager extends Handler {
 
 	private static final int CHOOSE_IMAGE = 0;// 图片
 	private static final int TAKE_PHOTO = 1;// 拍照
-	private static final int VOICE_CALL = 2;// 语音电话
-	private static final int VIDEO_CALL = 3;// 视频电话
-	private static final int CALL_CARD = 4;// 名片
-	private static final int MY_LOCATION = 5;// 位置
-	private static final int CHOOSE_FILE = 6;// 文件
 
 	private Context context;
 	private JazzyViewPager moreViewPager;
 	private LinearLayout moreLinearLayout;
-	private Intent intent;
-	
-	private String picName;
-
-	private String userId;
-	private String toName;
-	private String shopId;
-	private String shopName;
 
 	public MoreViewPagerManager(Context context, LinearLayout moreLinearLayout) {
 		this.context = context;
 		this.moreLinearLayout = moreLinearLayout;
 	}
 
-	public void init(String userId,String toName,String shopId,String shopName) {
-		this.userId = userId;
-		this.toName = toName;
-		this.shopId = shopId;
-		this.shopName = shopName;
+	public void init() {
 		initView((Activity) context);
 		initMorePage();
 	}
@@ -152,24 +133,6 @@ public class MoreViewPagerManager extends Handler {
 					i.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(new File(FileUtil.getInstance().getImageTempPath() + photoFileName)));
 					((Activity)context).startActivityForResult(i, Constants.FLAG_CHOOSE_PHOTO);
-					}
-					break;
-				case VOICE_CALL: {// 语音通话
-						if (!EMChatManager.getInstance().isConnected()) {
-							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
-						} else {
-							context.startActivity(new Intent(context, VoiceCallActivity.class).putExtra("username", userId).putExtra("toName", toName)
-									.putExtra("shopId", shopId).putExtra("shopName", shopName).putExtra("isComingCall", false));
-						}
-					}
-					break;
-				case VIDEO_CALL: {// 视频通话
-						if (!EMChatManager.getInstance().isConnected())
-							Toast.makeText(context, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
-						else {
-							context.startActivity(new Intent(context, VideoCallActivity.class).putExtra("username", userId).putExtra("toName",toName)
-									.putExtra("shopId",shopId).putExtra("shopName",shopName).putExtra("isComingCall", false));
-						}
 					}
 					break;
 				default:

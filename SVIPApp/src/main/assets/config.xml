@@ -4,9 +4,9 @@
     <php-host>tst.zkjinshi.com</php-host>
     <java-host>test.zkjinshi.com/japi</java-host>
     <!--预生产-->
-    <!--<php-host>rap.zkjinshi.com</php-host>-->
-    <!--<java-host>p.zkjinshi.com/japi</java-host>-->
+    <!--<php-host>rap.zkjinshi.com</php-host>
+    <java-host>p.zkjinshi.com/japi</java-host>-->
     <!--生产-->
-    <!--<php-host>api.zkjinshi.com</php-host>-->
-    <!--<java-host>mmm.zkjinshi.com</java-host>-->
+    <!--<php-host>api.zkjinshi.com</php-host>
+    <java-host>mmm.zkjinshi.com</java-host>-->
 </config>

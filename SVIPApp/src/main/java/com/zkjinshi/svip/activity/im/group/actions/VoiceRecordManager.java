@@ -112,28 +112,32 @@ public class VoiceRecordManager extends Handler {
      * 录音开始
      */
     public void start() {
-        voiceView.setVisibility(View.VISIBLE);
-        recordAudioLayout.setVisibility(View.GONE);
-        loadingLayout.setVisibility(View.VISIBLE);
-        tooShortLayout.setVisibility(View.GONE);
+        try {
+            voiceView.setVisibility(View.VISIBLE);
+            recordAudioLayout.setVisibility(View.GONE);
+            loadingLayout.setVisibility(View.VISIBLE);
+            tooShortLayout.setVisibility(View.GONE);
 
-        postDelayed(new Runnable() {
-            public void run() {
-                if (!CacheUtil.getInstance().isVoiceTooShort()) {
-                    loadingLayout.setVisibility(View.GONE);
-                    cancelRecordTv.setText(context.getResources().getString(R.string.chatfooter_cancel_rcd));
-                    animAreaLayout.setVisibility(View.VISIBLE);
-                    cancelAreaLayout.setVisibility(View.GONE);
-                    recordAudioLayout.setVisibility(View.VISIBLE);
+            postDelayed(new Runnable() {
+                public void run() {
+                    if (!CacheUtil.getInstance().isVoiceTooShort()) {
+                        loadingLayout.setVisibility(View.GONE);
+                        cancelRecordTv.setText(context.getResources().getString(R.string.chatfooter_cancel_rcd));
+                        animAreaLayout.setVisibility(View.VISIBLE);
+                        cancelAreaLayout.setVisibility(View.GONE);
+                        recordAudioLayout.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-        }, 300);
+            }, 300);
 
-        postDelayed(mPollTask, 300);//执行录音动画更新
-        recordFileName = System.currentTimeMillis() + ".aac";
-        mSensor   	   = new SoundMeter();
-        mSensor.start(recordFileName);//执行开始录音
-        startRecordCountDown();
+            postDelayed(mPollTask, 300);//执行录音动画更新
+            recordFileName = System.currentTimeMillis() + ".aac";
+            mSensor = new SoundMeter();
+            mSensor.start(recordFileName);//执行开始录音
+            startRecordCountDown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -151,13 +155,17 @@ public class VoiceRecordManager extends Handler {
      * 录音结束
      */
     public void stop() {
-        recordAudioLayout.setVisibility(View.GONE);
-        voiceView.setVisibility(View.GONE);
-        removeCallbacks(mSleepTask);
-        removeCallbacks(mPollTask);
-        volumeIv.setImageResource(R.mipmap.amp1);
-        /** 录音停止 */
-        mSensor.stop();
+        try {
+            recordAudioLayout.setVisibility(View.GONE);
+            voiceView.setVisibility(View.GONE);
+            removeCallbacks(mSleepTask);
+            removeCallbacks(mPollTask);
+            volumeIv.setImageResource(R.mipmap.amp1);
+            /** 录音停止 */
+            mSensor.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void showRecordShortLayout() {
@@ -236,9 +244,13 @@ public class VoiceRecordManager extends Handler {
      */
     private Runnable mPollTask = new Runnable() {
         public void run() {
-            Double amp = mSensor.getAmplitude();
-            updateDisplay(amp);//跟新界面显示
-            postDelayed(mPollTask, 300);//定时更新界面
+            try {
+                Double amp = mSensor.getAmplitude();
+                updateDisplay(amp);//跟新界面显示
+                postDelayed(mPollTask, 300);//定时更新界面
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     };
 
