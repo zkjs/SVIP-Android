@@ -30,6 +30,7 @@ import com.zkjinshi.svip.sqlite.CityDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -207,17 +208,23 @@ public class CityListActivity extends BaseActivity {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Gson gson = new Gson();
-                    List<CityBean> cityBeans = gson.fromJson(result.rawResult,
-                        new TypeToken<ArrayList<CityBean>>(){}.getType());
-                    //比较城市名称
-                    Collections.sort(cityBeans, mCityComparator);
-                    if(null != cityBeans && !cityBeans.isEmpty()){
-                        mCityAdapter.setCityList(mCityBeanList);
-                        //添加城市名称进入数据库
-                        List<CityModel> cityModels = CityFactory.getInstance().convertCityBeans2CityModels(cityBeans);
-                        CityDBUtil.getInstance().batchAddCityModels(cityModels);
-                        mCityBeanList.addAll(cityBeans);
+                    String json = result.rawResult;
+                    if(!TextUtils.isEmpty(json)){
+                        Gson gson = new Gson();
+                        Type cityType = new TypeToken<ArrayList<CityBean>>(){}.getType();
+                        List<CityBean> cityBeans = gson.fromJson(json, cityType);
+
+                        if(null != cityBeans && !cityBeans.isEmpty()){
+                            //比较城市名称
+                            Collections.sort(cityBeans, mCityComparator);
+                            mCityAdapter.setCityList(mCityBeanList);
+                            mCityBeanList.addAll(cityBeans);
+
+                            //添加城市名称进入数据库
+                            List<CityModel> cityModels = CityFactory.getInstance().
+                                             convertCityBeans2CityModels(cityBeans);
+                            CityDBUtil.getInstance().batchAddCityModels(cityModels);
+                        }
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
