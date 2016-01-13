@@ -40,6 +40,7 @@
         android:targetPackage="com.zkjinshi.svip" />
 
     <application
+        android:largeHeap="true"
         android:name=".SVIPApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
