@@ -63,6 +63,11 @@ public class ShopCityActivity extends BaseActivity {
         initListener();
     }
 
+    public void onStop(){
+        super.onStop();
+        ShopAdapter.AnimateFirstDisplayListener.displayedImages.clear();
+    }
+
     private void initView() {
         mRlBack     = (RelativeLayout) findViewById(R.id.rl_back);
         mTvCity     = (TextView) findViewById(R.id.tv_city);
@@ -192,10 +197,13 @@ public class ShopCityActivity extends BaseActivity {
                     if(null != shopBeanList){
                         if(mPage == 1){
                             mShopList.clear();
+                            mShopList.addAll(shopBeanList);
+                            mShopAdapter.setShopList(mShopList);
+                        }else if(!shopBeanList.isEmpty()){
+                            mShopList.addAll(shopBeanList);
+                            mShopAdapter.setShopList(mShopList);
                         }
-                        mShopList.addAll(shopBeanList);
-                        mShopAdapter.setShopList(mShopList);
-                        if(!mShopList.isEmpty()){
+                        if(!shopBeanList.isEmpty()){
                             mPage++;
                         }
                     }

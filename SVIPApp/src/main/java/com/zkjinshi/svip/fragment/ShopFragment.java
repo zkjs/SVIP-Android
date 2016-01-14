@@ -212,9 +212,12 @@ public class ShopFragment extends BaseFragment {
                 if(null != shopList){
                     if(mPage == 1){
                         mShopList.clear();
+                        mShopList.addAll(shopList);
+                        mShopAdapter.setShopList(mShopList);
+                    }else if(!shopList.isEmpty()){
+                        mShopList.addAll(shopList);
+                        mShopAdapter.setShopList(mShopList);
                     }
-                    mShopList.addAll(shopList);
-                    mShopAdapter.setShopList(mShopList);
                     if(!shopList.isEmpty()){
                         mPage++;
                     }
@@ -233,6 +236,11 @@ public class ShopFragment extends BaseFragment {
             netRequestTask.isShowLoadingDialog = false;
         }
         netRequestTask.execute();
+    }
+
+    public void onStop(){
+        super.onStop();
+        ShopAdapter.AnimateFirstDisplayListener.displayedImages.clear();
     }
 
 }

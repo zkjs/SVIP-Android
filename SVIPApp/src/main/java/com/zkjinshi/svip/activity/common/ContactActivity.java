@@ -27,7 +27,7 @@ import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
-import com.zkjinshi.svip.adapter.ShopAdapter;
+
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.SalerInfoBean;
 import com.zkjinshi.svip.fragment.contacts.Contact;

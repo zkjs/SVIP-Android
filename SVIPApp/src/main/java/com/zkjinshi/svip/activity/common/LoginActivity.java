@@ -263,6 +263,15 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String inputPhone = mInputPhone.getText().toString();
+                if (TextUtils.isEmpty(inputPhone)) {
+                    DialogUtil.getInstance().showCustomToast(view.getContext(), "输入的手机号码不能为空", Gravity.CENTER);
+                    return;
+                }
+                if(!IntentUtil.isMobileNO(inputPhone)){
+                    DialogUtil.getInstance().showCustomToast(view.getContext(), "请输入正确格式的手机号码", Gravity.CENTER);
+                    return;
+                }
+
                 mVerifyCode.setFocusable(true);
                 mVerifyCode.setFocusableInTouchMode(true);
                 mVerifyCode.requestFocus();
