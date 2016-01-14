@@ -307,6 +307,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if(null != regionVo){
             try {
                 IBeaconEntity iBeaconEntity = regionVo.getiBeacon();
+                /**
+
+                 */
                 String locId = iBeaconEntity.getLocid();
                 String shopid = iBeaconEntity.getShopid();
                 String locdesc = iBeaconEntity.getLocdesc();
