@@ -13,6 +13,7 @@ import com.easemob.chat.EMChatOptions;
 import com.easemob.chat.EMGroupManager;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -200,6 +201,9 @@ public class SVIPApplication extends BaseApplication {
      */
     private void initImageLoader() {
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
+        config.memoryCacheExtraOptions(1080, 780); // maxwidth, max height，即保存的每个缓存文件的最大长宽
+        config.threadPoolSize(3);//线程池内加载的数量
+        config.defaultDisplayImageOptions(DisplayImageOptions.createSimple());
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.memoryCache(new LruMemoryCache(2 * 1024 * 1024));
