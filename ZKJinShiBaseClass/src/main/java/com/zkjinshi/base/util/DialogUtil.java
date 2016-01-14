@@ -96,7 +96,7 @@ public class DialogUtil {
 			return;
 		}
 		CircleImageView userAvatar = (CircleImageView) layoutView.findViewById(R.id.civ_loading_icon);
-		ImageLoader.getInstance().displayImage(imageUrl,userAvatar);
+		//ImageLoader.getInstance().displayImage(imageUrl,userAvatar);
 		cancelProgressDialog();
 		progressDialog = new ProgressDialog(context);
 		progressDialog.setIndeterminate(true);
