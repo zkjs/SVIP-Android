@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
@@ -72,6 +73,7 @@ public class ShopFragment extends BaseFragment {
         mShopList    = new ArrayList<>();
         mShopAdapter = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
+        //mLvShopList.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
         mPage = 1;
         getShopList( mPage, mPageSize);
     }

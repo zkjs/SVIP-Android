@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
@@ -78,6 +80,7 @@ public class ShopCityActivity extends BaseActivity {
         mShopList    = new ArrayList<>();
         mShopAdapter = new ShopAdapter(mShopList, this);
         mLvShopList.setAdapter(mShopAdapter);
+        //mLvShopList.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
 
         String city = getIntent().getStringExtra("city");
         if (!TextUtils.isEmpty(city)){
