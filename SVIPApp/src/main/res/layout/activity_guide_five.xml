@@ -74,7 +74,8 @@
             android:id="@+id/ibtn_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@mipmap/defoult_start" />
+            android:scaleType="fitCenter"
+            android:background="@drawable/bg_defoult_start" />
 
     </RelativeLayout>
 
