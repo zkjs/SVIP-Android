@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.util.Iterator;
@@ -103,7 +105,7 @@ public class IBeaconManager {
 				public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
 					ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
-						if(IBeaconContext.getInstance().getBeanconMap().containsKey(ibeacon.getBeaconKey())){
+						if(IBeaconContext.getInstance().getBeanconMap().containsKey(ibeacon.getBeaconKey()) && CacheUtil.getInstance().isLogin()){//只对登录用户进行到店记录
 							IBeaconEntity beaconEntity =  IBeaconContext.getInstance().getBeanconMap().get(ibeacon.getBeaconKey());
 							RegionVo.Builder builder = new RegionVo.Builder();
 							RegionVo regionVo = builder.setiBeacon(beaconEntity).build();
