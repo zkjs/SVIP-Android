@@ -154,6 +154,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             logoIv = (ImageView)headerView.findViewById(R.id.logo_iv);
             avatarCiv = (CircleImageView)headerView.findViewById(R.id.avatar_civ);
             activeCodeTv = (TextView)headerView.findViewById(R.id.active_code_tv);
+
+            activeCodeTv.setVisibility(View.GONE);
         }
 
         homeMsgList = new ArrayList<HomeMsgVo>();
