@@ -137,7 +137,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="验证码"
+            android:text="发送验证码"
             android:background="@drawable/bg_login_etv_default_shape"
             android:textColor="#666666"
             android:textSize="14sp" />
