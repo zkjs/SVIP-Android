@@ -125,7 +125,6 @@ public class GuideFiveActivity extends BaseActivity{
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-
             }
         });
         set.setDuration(300);
