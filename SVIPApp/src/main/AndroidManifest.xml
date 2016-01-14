@@ -113,6 +113,7 @@
             android:name=".activity.common.MainActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:label="@string/app_name" >
 
         </activity>

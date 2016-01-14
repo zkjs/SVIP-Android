@@ -17,6 +17,8 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.ibeacon.IBeaconContext;
+import com.zkjinshi.svip.ibeacon.IBeaconController;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 /**
@@ -110,10 +112,14 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().setUserName("");
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
+                //移除蓝牙服务
+                IBeaconController.getInstance().stopBeaconService();
+                IBeaconContext.getInstance().clearReginCycle();
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 startActivity(intent);
+
             }
         });
         customerBuilder.create().show();

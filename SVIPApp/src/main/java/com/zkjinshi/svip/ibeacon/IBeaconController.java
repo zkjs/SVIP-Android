@@ -58,7 +58,6 @@ public class IBeaconController {
      */
     private void requestIBeanconList(){
         String url = ProtocolUtil.getLocationListUrl();
-        Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
