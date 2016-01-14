@@ -2,6 +2,7 @@ package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.ContactActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
@@ -23,6 +27,9 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 开发者：JimmyZhang
@@ -43,6 +50,8 @@ public class ShopAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
 
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+
     public void setShopList(ArrayList<ShopBean> shopList) {
         if(null == shopList){
             this.shopList = new ArrayList<ShopBean>();
@@ -57,16 +66,13 @@ public class ShopAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
         this.setShopList(shopList);
         this.shopOptions = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.img_dingdanxiangqing)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.img_dingdanxiangqing)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.img_dingdanxiangqing)// 设置图片加载或解码过程中发生错误显示的图片
+                .showImageOnLoading(R.drawable.bg_white)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.bg_white)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.bg_white)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
         this.avatarOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.logo_white)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.logo_white)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.logo_white)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
                 .build();
@@ -105,7 +111,7 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions,animateFirstListener);
             }
 
             if(!TextUtils.isEmpty(shopName)){
@@ -135,12 +141,12 @@ public class ShopAdapter extends BaseAdapter {
             }
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions,animateFirstListener);
             }
 
             String shopLogo = shopBean.getShoplogo();
             if(!TextUtils.isEmpty(shopLogo)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopLogo), viewHolder.civSalerAvatar, avatarOptions);
+                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopLogo), viewHolder.civSalerAvatar, avatarOptions,animateFirstListener);
             }
         }
 
@@ -157,6 +163,26 @@ public class ShopAdapter extends BaseAdapter {
         View            vWhiteLine;
         LinearLayout    llShopInfo;
         RelativeLayout  rlSalerInfo;
+    }
+
+    /** 图片加载监听事件 **/
+    public static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+
+        public static final List<String> displayedImages = Collections
+                .synchronizedList(new LinkedList<String>());
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view,
+                                      Bitmap loadedImage) {
+            if (loadedImage != null) {
+                ImageView imageView = (ImageView) view;
+                boolean firstDisplay = !displayedImages.contains(imageUri);
+                if (firstDisplay) {
+                    FadeInBitmapDisplayer.animate(imageView, 500); // 设置image隐藏动画500ms
+                    displayedImages.add(imageUri); // 将图片uri添加到集合中
+                }
+            }
+        }
     }
 
     @Override
