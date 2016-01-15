@@ -10,7 +10,7 @@
         android:id="@+id/rl_card"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_gray_border"
+        android:background="@drawable/bg_white"
         android:padding="10dp">
 
         <FrameLayout
