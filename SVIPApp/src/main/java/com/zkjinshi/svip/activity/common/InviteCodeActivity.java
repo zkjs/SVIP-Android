@@ -106,6 +106,8 @@ public class InviteCodeActivity extends BaseActivity {
         mToken    = CacheUtil.getInstance().getToken();
         mUserName = CacheUtil.getInstance().getUserName();
         mOptions = new DisplayImageOptions.Builder()
+                .showImageOnFail(R.mipmap.ic_main_user_default_photo_press)
+                .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_press)
                 .showImageOnLoading(R.mipmap.ic_main_user_default_photo_press)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
