@@ -11,6 +11,8 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
@@ -174,8 +176,10 @@ public class LoginController {
 
             @Override
             public void onError(int i, String s) {
-                Log.i(TAG, "errorCode:" + i);
-                Log.i(TAG, "errorMessage:" + s);
+                Log.i(TAG, "环信登录失败-errorCode:" + i);
+                Log.i(TAG, "环信登录失败-errorMessage:" + s);
+                LogUtil.getInstance().info(LogLevel.ERROR,"环信登录失败-errorCode:" + i);
+                LogUtil.getInstance().info(LogLevel.ERROR,"环信登录失败-errorMessage:" + s);
             }
 
             @Override
