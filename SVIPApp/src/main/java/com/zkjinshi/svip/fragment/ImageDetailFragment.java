@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
@@ -48,6 +49,8 @@ public class ImageDetailFragment extends Fragment {
 				.showImageOnFail(R.mipmap.url_image_failed) //
 				.cacheInMemory(true)
 				.cacheOnDisk(true)
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+				.bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
 				.build();
 		mImageUrl = getArguments() != null ? getArguments().getString("url")
 				: null;

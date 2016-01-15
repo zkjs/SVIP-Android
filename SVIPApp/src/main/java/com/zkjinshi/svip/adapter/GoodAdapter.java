@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.GoodInfoVo;
@@ -49,11 +51,13 @@ public class GoodAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
         this.setGoodList(goodList);
         this.options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.ic_room_pic_default)// 设置图片加载或解码过程中发生错误显示的图片
+                .showImageOnLoading(R.mipmap.url_image_loading)
+                .showImageForEmptyUri(R.mipmap.url_image_failed)
+                .showImageOnFail(R.mipmap.url_image_failed)
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
                 .build();
         this.selectMap = new HashMap<String,Boolean>();
     }

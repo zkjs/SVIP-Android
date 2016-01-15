@@ -3,6 +3,7 @@ package com.zkjinshi.svip;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.util.Log;

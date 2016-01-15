@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -66,18 +67,22 @@ public class ShopAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
         this.setShopList(shopList);
         this.shopOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.bg_white)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.bg_white)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.bg_white)// 设置图片加载或解码过程中发生错误显示的图片
+                .showImageOnLoading(R.drawable.bg_transparent)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.bg_transparent)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.bg_transparent)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
                 .build();
         this.avatarOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.bg_white)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.bg_white)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.bg_white)// 设置图片加载或解码过程中发生错误显示的图片
+                .showImageOnLoading(R.drawable.bg_transparent)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.drawable.bg_transparent)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.drawable.bg_transparent)// 设置图片加载或解码过程中发生错误显示的图片
                 .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                 .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
                 .build();
     }
 

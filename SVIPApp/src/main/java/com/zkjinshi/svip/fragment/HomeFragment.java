@@ -2,6 +2,7 @@ package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.Constants;
@@ -364,6 +366,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 //                    .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
                     .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
                     .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+                    .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
                     .build();
             ImageLoader.getInstance().displayImage(userPhotoUrl,avatarCiv,options);
 
