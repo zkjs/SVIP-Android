@@ -99,10 +99,7 @@
             android:src="@mipmap/ic_tianjia_w"
             android:scaleType="centerInside"/>
 
-        
-        
-    </RelativeLayout>
 
-    
+    </RelativeLayout>
 
 </LinearLayout>

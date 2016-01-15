@@ -5,7 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.easemob.EMNotifierEvent;
@@ -14,6 +16,7 @@ import com.easemob.chat.EMMessage;
 import com.easemob.exceptions.EaseMobException;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.group.ChatGroupActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.adapter.ChatRoomAdapter;
@@ -40,7 +43,11 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
     private ChatRoomAdapter mChatRoomAdapter;
     private ArrayList<EMConversation> conversationList;
     private TextView mTvDialog;
-    private LinearLayout unLoginLayout;
+    private RelativeLayout unLoginLayout;
+
+    private LinearLayout discoverLayout;
+    private LinearLayout loginLayout;
+    private Button discoverBtn;
 
     @Override
     protected View initView() {
@@ -51,7 +58,13 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         mLayoutManager = new LinearLayoutManager(mActivity);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRcvMsgCenter.setLayoutManager(mLayoutManager);
-        unLoginLayout = (LinearLayout)view.findViewById(R.id.contacts_layout_unlogin);
+        unLoginLayout = (RelativeLayout)view.findViewById(R.id.contacts_layout_unlogin);
+
+        discoverLayout = (LinearLayout)view.findViewById(R.id.llt_discover);
+        loginLayout = (LinearLayout)view.findViewById(R.id.llt_login);
+        discoverBtn = (Button)view.findViewById(R.id.btn_discover_service);
+
+        unLoginLayout.setVisibility(View.GONE);
         return view;
     }
 
@@ -108,13 +121,26 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
             }
         });
 
-        //未登录按钮栏
-        unLoginLayout.setOnClickListener(new View.OnClickListener() {
+
+
+        discoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                intent.putExtra("isHomeBack",true);
-                startActivity(intent);
+            public void onClick(View view) {
+                if(getActivity() instanceof MainActivity){
+                    MainActivity mainActivity = (MainActivity)getActivity();
+                    mainActivity.setCurrentItem(1);
+                }
+            }
+        });
+
+        loginLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -126,18 +152,29 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
         EMConversationHelper.getInstance().requestGroupListTask();
         conversationList = (ArrayList<EMConversation>) EMConversationHelper.getInstance().loadConversationList();
         mChatRoomAdapter.setConversationList(conversationList);
+        checkViewVisiable();
+    }
+
+    public void checkViewVisiable(){
         if(!CacheUtil.getInstance().isLogin()){
             unLoginLayout.setVisibility(View.VISIBLE);
+            discoverLayout.setVisibility(View.VISIBLE);
+            loginLayout.setVisibility(View.VISIBLE);
         }else {
-            unLoginLayout.setVisibility(View.GONE);
+            unLoginLayout.setVisibility(View.VISIBLE);
+            loginLayout.setVisibility(View.GONE);
             if(null == conversationList || conversationList.isEmpty()){
                 mTvDialog.setVisibility(View.VISIBLE);
                 mTvDialog.setText("暂无消息");
+                discoverLayout.setVisibility(View.VISIBLE);
             }else {
                 mTvDialog.setVisibility(View.GONE);
+                discoverLayout.setVisibility(View.GONE);
             }
         }
     }
+
+
 
     /**
      * 刷新页面
@@ -149,17 +186,7 @@ public class MessageCenterFragment extends BaseFragment implements IEMessageObse
                 conversationList.clear();
                 conversationList.addAll(EMConversationHelper.getInstance().loadConversationList());
                 mChatRoomAdapter.setConversationList(conversationList);
-                if(!CacheUtil.getInstance().isLogin()){
-                    unLoginLayout.setVisibility(View.VISIBLE);
-                }else {
-                    unLoginLayout.setVisibility(View.GONE);
-                    if(null == conversationList || conversationList.isEmpty()){
-                        mTvDialog.setVisibility(View.VISIBLE);
-                        mTvDialog.setText("暂无消息");
-                    }else {
-                        mTvDialog.setVisibility(View.GONE);
-                    }
-                }
+                checkViewVisiable();
             }
         });
     }

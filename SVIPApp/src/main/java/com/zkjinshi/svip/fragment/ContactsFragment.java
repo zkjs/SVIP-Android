@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.fragment.contacts.CharacterParser;
@@ -60,10 +63,14 @@ public class ContactsFragment extends BaseFragment{
     private List<SortModel>     mSortList;
     private PinyinComparator    mPinyinComparator;
     private CharacterParser     mCharacterParser;
-    private LinearLayout unLoginLayout;
+    private RelativeLayout unLoginLayout;
 
     private SideBar     mSideBar;
     private TextView    mTvDialog;
+
+    private LinearLayout discoverLayout;
+    private LinearLayout loginLayout;
+    private Button discoverBtn;
 
     @Override
     protected View initView() {
@@ -79,7 +86,13 @@ public class ContactsFragment extends BaseFragment{
         mSideBar  = (SideBar)  view.findViewById(R.id.sb_sidebar);
         mTvDialog = (TextView) view.findViewById(R.id.tv_dialog);
         mSideBar.setTextView(mTvDialog);
-        unLoginLayout = (LinearLayout)view.findViewById(R.id.contacts_layout_unlogin);
+        unLoginLayout = (RelativeLayout)view.findViewById(R.id.contacts_layout_unlogin);
+
+        discoverLayout = (LinearLayout)view.findViewById(R.id.llt_discover);
+        loginLayout = (LinearLayout)view.findViewById(R.id.llt_login);
+        discoverBtn = (Button)view.findViewById(R.id.btn_discover_service);
+
+        unLoginLayout.setVisibility(View.GONE);
 
         return view;
     }
@@ -152,6 +165,27 @@ public class ContactsFragment extends BaseFragment{
 
         //网络获取环信好友
         loadHttpContacts();
+
+        discoverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(getActivity() instanceof MainActivity){
+                    MainActivity mainActivity = (MainActivity)getActivity();
+                    mainActivity.setCurrentItem(1);
+                }
+            }
+        });
+
+        loginLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(),LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
 
@@ -368,19 +402,24 @@ public class ContactsFragment extends BaseFragment{
     private void updateListView(List<SortModel> sortLists) {
         if(!CacheUtil.getInstance().isLogin()){
             unLoginLayout.setVisibility(View.VISIBLE);
+            discoverLayout.setVisibility(View.VISIBLE);
+            loginLayout.setVisibility(View.VISIBLE);
             mSideBar.setVisibility(View.INVISIBLE);
         }else{
-            unLoginLayout.setVisibility(View.GONE);
+            unLoginLayout.setVisibility(View.VISIBLE);
+            loginLayout.setVisibility(View.GONE);
             if(null == sortLists || sortLists.isEmpty()){
                 mTvDialog.setVisibility(View.VISIBLE);
                 mTvDialog.setText("暂无联系人");
                 mSideBar.setVisibility(View.INVISIBLE);
+                discoverLayout.setVisibility(View.VISIBLE);
             }else {
                 // 根据a-z进行排序源数据
                 mTvDialog.setVisibility(View.GONE);
                 mSideBar.setVisibility(View.VISIBLE);
                 Collections.sort(sortLists, mPinyinComparator);
                 mContactsAdapter.updateListView(sortLists);
+                discoverLayout.setVisibility(View.GONE);
             }
         }
     }
