@@ -64,6 +64,8 @@ public class SetFragment extends Fragment{
         accountInfoLayout = (RelativeLayout)view.findViewById(R.id.set_layout_user_account_info);
         orderManagerLayout = (RelativeLayout)view.findViewById(R.id.set_layout_order_manager);
         setLayout = (RelativeLayout)view.findViewById(R.id.set_layout_set);
+
+        orderNumTv.setVisibility(View.GONE);
     }
 
     private void initData(){
