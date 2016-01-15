@@ -205,7 +205,7 @@ public class ContactsFragment extends BaseFragment{
                         String sortKey      = contactName;
                         SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
                         if(TextUtils.isEmpty( friendResponse.getShop_name()) && !TextUtils.isEmpty(friendResponse.getShopid())){
-                            sortModel.shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(friendResponse.getShopid());
+                            sortModel.shopName = "无";
                         }else{
                             sortModel.shopName = friendResponse.getShop_name();
                         }

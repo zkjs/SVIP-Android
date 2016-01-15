@@ -205,7 +205,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         initDBName();
         initBadgeNum();
         MainController.getInstance().init(this);
-        MainController.getInstance().initShop();
         MainController.getInstance().initBigPic();
         MainController.getInstance().checkAppVersion();
     }

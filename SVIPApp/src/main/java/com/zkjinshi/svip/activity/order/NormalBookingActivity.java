@@ -133,7 +133,6 @@ public class NormalBookingActivity extends BaseActivity {
 
     private void initData() {
         orderDetailForDisplay = new OrderDetailForDisplay();
-        shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
         titleTv.setText(shopName);
         orderDetailForDisplay.setShopname(shopName);
         orderDetailForDisplay.setShopid(shopId);

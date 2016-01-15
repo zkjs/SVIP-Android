@@ -118,7 +118,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        String shopname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(itemOrder.getShopid());
+        String shopname = itemOrder.getShopname();
         holder.hotelNameTv.setText(shopname);
 
         holder.orderStatusTv.setText(itemOrder.getOrderstatus());
