@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_btn_default"
     android:gravity="center_vertical"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/catalog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f0f0f0"
-        android:padding="8dip"
         android:gravity="center_vertical"
+        android:padding="8dip"
         android:textColor="#000" />
 
     <LinearLayout
@@ -22,92 +22,45 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:focusableInTouchMode="true"
-            android:focusable="true"
-            android:padding="8dip"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:padding="8dip">
 
             <TextView
                 android:id="@+id/tv_contact_avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:textSize="20sp"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:gravity="center" />
+                android:textSize="20sp" />
 
             <com.zkjinshi.svip.view.CircleImageView
                 android:id="@+id/civ_contact_avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:clickable="true"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:clickable="true" />
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:paddingTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:id="@+id/rl_contact_info"
+            <TextView
+                android:id="@+id/tv_contact_name"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp">
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical|left"
+                android:singleLine="true"
+                android:text="名字"
+                android:textColor="#101010"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/tv_contact_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:singleLine="true"
-                    android:gravity="center_vertical|left"
-                    android:textColor="#101010"
-                    android:textSize="14sp"
-                    android:text="名字"/>
 
-                <TextView
-                    android:id="@+id/tv_contact_des"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical|left"
-                    android:layout_toRightOf="@+id/tv_contact_name"
-                    android:textSize="14sp"
-                    android:text=""/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_below="@id/rl_contact_info"
-                android:id="@+id/rl_contact_on_status"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp">
-
-                <TextView
-                    android:id="@+id/tv_contact_on_line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:singleLine="true"
-                    android:textColor="@color/blue"
-                    android:gravity="center_vertical|left"
-                    android:textSize="14sp"
-                    android:text=""/>
-
-                <TextView
-                    android:id="@+id/tv_contact_on_shop"
-                    android:layout_toRightOf="@+id/tv_contact_on_line"
-                    android:layout_marginLeft="0dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|left"
-                    android:singleLine="true"
-                    android:textColor="#949494"
-                    android:textSize="14sp"
-                    android:text="酒店名"/>
-
-            </RelativeLayout>
         </RelativeLayout>
 
     </LinearLayout>

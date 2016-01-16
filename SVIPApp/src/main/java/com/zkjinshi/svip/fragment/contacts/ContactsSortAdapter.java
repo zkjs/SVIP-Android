@@ -124,12 +124,6 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             myHolder.tvContactAvatar.setBackgroundResource(RandomDrawbleUtil.getRandomDrawable());
             myHolder.tvContactName.setText(clientName);
         }
-        //显示酒店名
-        if(!TextUtils.isEmpty(sortModel.shopName)){
-            myHolder.tvContactOnShop.setText(sortModel.shopName);
-        }else{
-            myHolder.tvContactOnShop.setText("");
-        }
     }
 
     public void setOnItemClickListener(RecyclerItemClickListener listener) {
@@ -142,10 +136,6 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public CircleImageView  civContactAvatar;
         public TextView         tvContactAvatar;
         public TextView         tvContactName;
-        public TextView         tvContactDes;
-        public RelativeLayout   rlContactOnStatus;
-        public TextView         tvContactOnLine;
-        public TextView         tvContactOnShop;
 
         private RecyclerItemClickListener mItemClickListener;
 
@@ -155,10 +145,6 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             civContactAvatar = (CircleImageView) view.findViewById(R.id.civ_contact_avatar);
             tvContactAvatar  = (TextView) view.findViewById(R.id.tv_contact_avatar);
             tvContactName    = (TextView) view.findViewById(R.id.tv_contact_name);
-            tvContactDes     = (TextView) view.findViewById(R.id.tv_contact_des);
-            rlContactOnStatus  = (RelativeLayout) view.findViewById(R.id.rl_contact_on_status);
-            tvContactOnLine    = (TextView) view.findViewById(R.id.tv_contact_on_line);
-            tvContactOnShop    = (TextView) view.findViewById(R.id.tv_contact_on_shop);
             this.mItemClickListener = itemClickListener;
 
                 view.setOnClickListener(new View.OnClickListener() {
