@@ -151,15 +151,6 @@ public class ContactsFragment extends BaseFragment{
             }
         });
 
-        //未登录按钮栏
-        unLoginLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                intent.putExtra("isHomeBack",true);
-                startActivity(intent);
-            }
-        });
         //载入联系人
         //loadContacts();
 
