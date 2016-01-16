@@ -183,86 +183,86 @@ public class ContactsFragment extends BaseFragment{
     @Override
     public void onResume() {
         super.onResume();
-        updateListView(mSortList);
+        loadHttpContacts();
     }
 
     /**
      * 获取网络联系人数据
      */
     private void loadHttpContacts() {
-        if(!CacheUtil.getInstance().isLogin()){
-            return;
-        }
-
-        String url = ProtocolUtil.getUserFriendUrl();
-        Log.i(TAG,url);
-        NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("token", CacheUtil.getInstance().getToken());
-        bizMap.put("set", "showFriend");
-        bizMap.put("fuid", "");
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                mSortList = new ArrayList<>();
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    ArrayList<UserFriendResponse> friendResponses = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<UserFriendResponse>>(){}.getType());
-                    for(UserFriendResponse friendResponse : friendResponses){
-                        String contactName  = friendResponse.getFname();
-                        String phoneNumber = friendResponse.getPhone();
-                        String sortKey      = contactName;
-                        SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
-                        if(TextUtils.isEmpty( friendResponse.getShop_name()) && !TextUtils.isEmpty(friendResponse.getShopid())){
-                            sortModel.shopName = "无";
-                        }else{
-                            sortModel.shopName = friendResponse.getShop_name();
-                        }
-
-                        sortModel.fuid = friendResponse.getFuid();
-                        sortModel.shopid = friendResponse.getShopid();
-                        String sortLetters  = getSortLetterBySortKey(sortKey);
-
-                        if (sortLetters == null ) {
-                            sortLetters = getSortLetter(contactName);
-                        }
-                        sortModel.sortLetters = sortLetters;
-                        sortModel.sortToken   = parseSortKey(sortKey);
-                        mSortList.add(sortModel);
-                    }
-
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }finally {
-                    ContactsFragment.this.updateListView(mSortList);
+        if(CacheUtil.getInstance().isLogin()){
+            String url = ProtocolUtil.getUserFriendUrl();
+            NetRequest netRequest = new NetRequest(url);
+            HashMap<String,String> bizMap = new HashMap<String,String>();
+            bizMap.put("userid", CacheUtil.getInstance().getUserId());
+            bizMap.put("token", CacheUtil.getInstance().getToken());
+            bizMap.put("set", "showFriend");
+            bizMap.put("fuid", "");
+            netRequest.setBizParamMap(bizMap);
+            NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.PUSH;
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
                 }
 
-            }
+                @Override
+                public void onNetworkRequestCancelled() {
 
-            @Override
-            public void beforeNetworkRequestStart() {
+                }
 
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    mSortList = new ArrayList<>();
+                    Log.i(TAG, "result.rawResult:" + result.rawResult);
+                    try {
+                        ArrayList<UserFriendResponse> friendResponses = new Gson().fromJson(result.rawResult, new TypeToken<ArrayList<UserFriendResponse>>(){}.getType());
+                        for(UserFriendResponse friendResponse : friendResponses){
+                            String contactName  = friendResponse.getFname();
+                            String phoneNumber = friendResponse.getPhone();
+                            String sortKey      = contactName;
+                            SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
+                            if(TextUtils.isEmpty( friendResponse.getShop_name()) && !TextUtils.isEmpty(friendResponse.getShopid())){
+                                sortModel.shopName = "无";
+                            }else{
+                                sortModel.shopName = friendResponse.getShop_name();
+                            }
+
+                            sortModel.fuid = friendResponse.getFuid();
+                            sortModel.shopid = friendResponse.getShopid();
+                            String sortLetters  = getSortLetterBySortKey(sortKey);
+
+                            if (sortLetters == null ) {
+                                sortLetters = getSortLetter(contactName);
+                            }
+                            sortModel.sortLetters = sortLetters;
+                            sortModel.sortToken   = parseSortKey(sortKey);
+                            mSortList.add(sortModel);
+                        }
+
+
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }finally {
+                        ContactsFragment.this.updateListView(mSortList);
+                    }
+
+                }
+
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+            netRequestTask.isShowLoadingDialog = false;
+            netRequestTask.execute();
+        }else {
+            mSortList = null;
+            updateListView(mSortList);
+        }
     }
 
     /**
@@ -396,6 +396,10 @@ public class ContactsFragment extends BaseFragment{
             discoverLayout.setVisibility(View.VISIBLE);
             loginLayout.setVisibility(View.VISIBLE);
             mSideBar.setVisibility(View.INVISIBLE);
+            if(null == sortLists || sortLists.isEmpty()){
+                mTvDialog.setVisibility(View.VISIBLE);
+                mTvDialog.setText("暂无联系人");
+            }
         }else{
             unLoginLayout.setVisibility(View.VISIBLE);
             loginLayout.setVisibility(View.GONE);
@@ -409,9 +413,9 @@ public class ContactsFragment extends BaseFragment{
                 mTvDialog.setVisibility(View.GONE);
                 mSideBar.setVisibility(View.VISIBLE);
                 Collections.sort(sortLists, mPinyinComparator);
-                mContactsAdapter.updateListView(sortLists);
                 discoverLayout.setVisibility(View.GONE);
             }
         }
+        mContactsAdapter.updateListView(sortLists);
     }
 }
