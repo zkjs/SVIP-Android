@@ -139,27 +139,27 @@ public class ShopFragment extends BaseFragment {
             }
         });
 
-        //输入框点击事件
-        mRlDingWei.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-            }
-        });
-
-        //输入框点击事件
-        mEtCity.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-                    startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-                return false;
-            }
-        });
+//        //输入框点击事件
+//        mRlDingWei.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
+//                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+//            }
+//        });
+//
+//        //输入框点击事件
+//        mEtCity.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                    Intent cityChoose = new Intent(mActivity, CityListActivity.class);
+//                    startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
+//                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override
