@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/rl_card"
         android:layout_width="310dp"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:background="@drawable/bg_white"
         android:padding="10dp">
 

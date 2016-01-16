@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:gravity="top|center_horizontal"
             android:padding="15dp"
-            android:textColor="@color/lightGray"
-            android:text="@string/have_no_order_yet"
+            android:textColor="#b8b8b8"
+            android:text="您还没有订单，有预订时，将会在此查看订单。"
             android:textSize="14sp" />
 
         <include layout="@layout/notice_card"></include>
