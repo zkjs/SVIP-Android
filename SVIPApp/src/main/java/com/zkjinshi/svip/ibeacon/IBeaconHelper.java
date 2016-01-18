@@ -64,7 +64,7 @@ public class IBeaconHelper {
         iBeacon.setMajor((scanData[startByte+20] & 0xff) * 0x100 + (scanData[startByte+21] & 0xff));
         iBeacon.setMinor((scanData[startByte + 22] & 0xff) * 0x100 + (scanData[startByte + 23] & 0xff));
         iBeacon.setTxPower((int)scanData[startByte+24]);
-        iBeacon.setTxPower((int)scanData[startByte+24]);
+        iBeacon.setRssi(rssi);
 
         byte[] proximityUuidBytes = new byte[16];
         System.arraycopy(scanData, startByte+4, proximityUuidBytes, 0, 16);
