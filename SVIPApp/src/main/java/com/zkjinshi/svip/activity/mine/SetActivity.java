@@ -59,6 +59,16 @@ public class SetActivity extends BaseActivity {
                 finish();
             }
         });
+        //意见反馈
+        findViewById(R.id.set_layout_advice).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SetActivity.this, AdviceActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+            }
+        });
 
         //关于我们
         aboutLayout.setOnClickListener(new View.OnClickListener() {
