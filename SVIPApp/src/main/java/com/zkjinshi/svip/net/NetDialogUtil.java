@@ -31,6 +31,7 @@ public class NetDialogUtil {
         customerBuilder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 CacheUtil.getInstance().setLogin(false);
                 CacheUtil.getInstance().setActivate(false);
                 CacheUtil.getInstance().setUserId("");

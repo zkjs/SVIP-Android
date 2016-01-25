@@ -32,6 +32,7 @@ import com.zkjinshi.svip.response.AddOrderResponse;
 import com.zkjinshi.svip.response.OrderDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.PayDialog;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 import java.math.BigDecimal;
@@ -200,12 +201,11 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
                 try {
                     AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
                     if(addOrderResponse.isResult()){
-                        showPaySuccessDialog();
                         setResult(RESULT_OK);
-                        finish();
+                        showPaySuccessDialog();
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                    Log.i(TAG, "回调"+ProtocolUtil.orderPayUrl()+"返回异常。");
                 }
             }
 
@@ -219,50 +219,70 @@ public class OrderPayActivity extends BaseActivity implements View.OnClickListen
     }
 
     /**
-     * 支付失败对话框
+     * 支付成功对话框
      */
     private void showPaySuccessDialog(){
-        Dialog dialog = null;
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
-        customBuilder.setTitle("温馨提示");
-        customBuilder.setMessage("支付成功！");
-        customBuilder.setGravity(Gravity.CENTER);
-        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//        Dialog dialog = null;
+//        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
+//        customBuilder.setTitle("温馨提示");
+//        customBuilder.setMessage("支付成功！");
+//        customBuilder.setGravity(Gravity.CENTER);
+//        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                Intent intent = new Intent(OrderPayActivity.this,ConsumeRecordActivtiy.class);
+//                startActivity(intent);
+//                BaseApplication.getInst().clearLeaveTop();
+//            }
+//        });
+//        dialog = customBuilder.create();
+//        dialog.setCancelable(false);
+//        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//        dialog.show();
 
+        final PayDialog payDialog = new PayDialog(this,true);
+        payDialog.show();
+        payDialog.lookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent(OrderPayActivity.this,ConsumeRecordActivtiy.class);
-                startActivity(intent);
-                BaseApplication.getInst().clearLeaveTop();
+            public void onClick(View view) {
+                payDialog.dismiss();
+                finish();
             }
         });
-        dialog = customBuilder.create();
-        dialog.setCancelable(false);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        dialog.show();
+
     }
 
     /**
      * 支付失败对话框
      */
     private void showPayFailsDialog(){
-        Dialog dialog = null;
-        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
-        customBuilder.setTitle("温馨提示");
-        customBuilder.setMessage("支付失败，请重新支付！");
-        customBuilder.setGravity(Gravity.CENTER);
-        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-
+//        Dialog dialog = null;
+//        CustomDialog.Builder customBuilder = new CustomDialog.Builder(getApplicationContext());
+//        customBuilder.setTitle("温馨提示");
+//        customBuilder.setMessage("支付失败，请重新支付！");
+//        customBuilder.setGravity(Gravity.CENTER);
+//        customBuilder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog = customBuilder.create();
+//        dialog.setCancelable(false);
+//        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+//        dialog.show();
+        final PayDialog payDialog = new PayDialog(this,false);
+        payDialog.show();
+        payDialog.lookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+            public void onClick(View view) {
+                payDialog.dismiss();
             }
         });
-        dialog = customBuilder.create();
-        dialog.setCancelable(false);
-        dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        dialog.show();
+
     }
 
     /**
