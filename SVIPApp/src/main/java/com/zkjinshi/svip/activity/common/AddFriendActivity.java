@@ -161,7 +161,7 @@ public class AddFriendActivity extends BaseActivity {
                     Type listType = new TypeToken<ArrayList<UserGetuserResponse>>() {}.getType();
                     ArrayList<UserGetuserResponse> userList = new Gson().fromJson(result.rawResult, listType);
                     if(userList.size() > 0){
-                        Intent intent = new Intent(AddFriendActivity.this, ContactActivity.class);
+                        Intent intent = new Intent(AddFriendActivity.this, AddFriendDetailActivity.class);
                         intent.putExtra("contact_id", userList.get(0).getUserId());
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
