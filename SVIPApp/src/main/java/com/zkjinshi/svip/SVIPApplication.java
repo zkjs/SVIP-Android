@@ -27,9 +27,10 @@ import com.zkjinshi.base.util.BaseContext;
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.UpdateBean;
+import com.zkjinshi.svip.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
-import com.zkjinshi.svip.ibeacon.RegionVo;
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.VIPContext;
@@ -55,7 +56,7 @@ public class SVIPApplication extends BaseApplication {
 
     public static final String TAG = SVIPApplication.class.getSimpleName();
 
-    public Vector<RegionVo> mRegionList = new Vector<RegionVo>();
+    public Vector<IBeaconVo> mRegionList = new Vector<IBeaconVo>();
     private boolean isDownload;
     public UpdateBean updateBean = null;
 
@@ -74,6 +75,7 @@ public class SVIPApplication extends BaseApplication {
         initFace();
         initTest();
 
+        LocationManager.getInstance().init(this);
     }
 
     public boolean isDownload() {
@@ -83,6 +85,7 @@ public class SVIPApplication extends BaseApplication {
     public void setDownload(boolean isDownload) {
         this.isDownload = isDownload;
     }
+
 
     @Override
     protected void attachBaseContext(Context base) {

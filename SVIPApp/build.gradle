@@ -36,4 +36,6 @@ dependencies {
     compile project(':MaterialSearchViewLibrary')
     compile project(':pinyinSearch')
     compile files('libs/fastjson-1.1.45.jar')
+    compile files('libs/AMap_Search_V2.8.0_20160105.jar')
+    compile files('libs/AMap_Location_v2.3.0_20160112.jar')
 }

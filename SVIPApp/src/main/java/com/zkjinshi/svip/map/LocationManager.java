@@ -1,22 +1,18 @@
 package com.zkjinshi.svip.map;
 
-import android.app.Activity;
 import android.content.Context;
-import android.location.Location;
-import android.os.Bundle;
 import android.util.Log;
 
+
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.LocationManagerProxy;
-import com.amap.api.location.LocationProviderProxy;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.svip.utils.CacheUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * 高德定位管理器
@@ -29,20 +25,36 @@ public class LocationManager{
 
     public static final String TAG = LocationManager.class.getSimpleName();
 
+    private static final long LOCATION_PERIOD_TIME = 1000 * 60 * 5;  //单位毫秒
+
     private LocationManager (){}
     private static LocationManager instance;
-    private LocationManagerProxy mLocationManagerProxy;
-    private AMapLocationListener aMapLocationListener;
 
-    private LocationChangeListener locationChangeListener = null;
+    //声明AMapLocationClient类对象
+    private AMapLocationClient mLocationClient = null;
 
-    public interface LocationChangeListener{
-        public void onLocationChanged(AMapLocation aMapLocation);
-    }
+    private AMapLocationClientOption mLocationOption = null;
+    private AMapLocation mAMapLocation = null;
 
-    public void setLocationChangeListener(LocationChangeListener locationChangeListener) {
-        this.locationChangeListener = locationChangeListener;
-    }
+    //声明定位回调监听器
+    private AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            if (aMapLocation != null) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    mAMapLocation = aMapLocation;
+                    Log.i("LocationManager",aMapLocation.toString());
+                } else {
+                    //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                    LogUtil.getInstance().info(LogLevel.ERROR,"location Error, ErrCode:"
+                            + aMapLocation.getErrorCode() + ", errInfo:"
+                            + aMapLocation.getErrorInfo());
+
+                }
+            }
+        }
+    };
+
 
     public static synchronized LocationManager getInstance(){
         if(null == instance){
@@ -51,85 +63,75 @@ public class LocationManager{
         return instance;
     }
 
-    public void registerLocation(final Context context){
-        mLocationManagerProxy = LocationManagerProxy.getInstance(context);
-        aMapLocationListener =  new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-
-                if(aMapLocation != null ){
-                    Log.i(TAG,"aMapLocation.getAMapException().getErrorCode()="+aMapLocation.getAMapException().getErrorCode());
-                }
-
-                if(aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0) {
-                    //获取位置信息
-                    Double geoLat = aMapLocation.getLatitude();//经度
-                    Double geoLng = aMapLocation.getLongitude();//纬度
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String desc = "";
-                    Bundle locBundle = aMapLocation.getExtras();
-                    if (locBundle != null) {
-                        desc = locBundle.getString("desc");
-                    }
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "高德定位信息");
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "纬度:" + geoLat);
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "经度:" + geoLng);
-                    LogUtil.getInstance().info(LogLevel.DEBUG, "街道:" + desc);
-                    Log.i(TAG, "高德定位信息");
-                    Log.i(TAG, "纬度" + geoLat);
-                    Log.i(TAG, "经度" + geoLng);
-                    Log.i(TAG, "街道" + desc);
-                    HashMap<String,String> requestMap = new HashMap<String,String>();
-                    requestMap.put("userid", CacheUtil.getInstance().getUserId());
-                    requestMap.put("token",CacheUtil.getInstance().getToken());
-                    requestMap.put("map_latitude",geoLat+"");
-                    requestMap.put("map_longitude",geoLng+"");
-                    requestMap.put("trace_time",sdf.format(new Date()));
-                    LocationController.getInstance().init(context);
-                    LocationController.getInstance().requestAddGpsInfoTask(requestMap);
-                    if(locationChangeListener != null){
-                        locationChangeListener.onLocationChanged(aMapLocation);
-                    }
-                }
-            }
-
-            @Override
-            public void onLocationChanged(Location location) {
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-        //此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-        //注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求
-        //在定位结束后，在合适的生命周期调用destroy()方法     
-        //其中如果间隔时间为-1，则定位只定一次
-        mLocationManagerProxy.requestLocationData(
-                LocationProviderProxy.AMapNetwork, 60 * 1000, 15,aMapLocationListener);
-        mLocationManagerProxy.setGpsEnable(false);
+    public void init(Context context){
+        mLocationClient = new AMapLocationClient(context.getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
     }
 
-    public void removeLocation(){
-        if (mLocationManagerProxy != null) {
-            if(null != aMapLocationListener){
-                mLocationManagerProxy.removeUpdates(aMapLocationListener);
-            }
-            mLocationManagerProxy.destroy();
+    //启动定位
+    public void startLocation(){
+        if(mLocationClient == null){
+            LogUtil.getInstance().info(LogLevel.ERROR,"高德地图还没初始化");
+            return;
         }
-        mLocationManagerProxy = null;
+        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图定位服务开启。。。");
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(false);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔,单位毫秒,默认为2000ms
+        mLocationOption.setInterval(LOCATION_PERIOD_TIME);
+
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
     }
 
+    //停止定位
+    public void stopLocation(){
+
+        if(mLocationClient == null){
+            LogUtil.getInstance().info(LogLevel.ERROR,"高德地图还没初始化");
+            return;
+        }
+        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图定位服务停止。。。");
+        mLocationClient.stopLocation();//停止定位
+    }
+
+    //销毁定位客户端之后，若要重新开启定位请重新New一个AMapLocationClient对象。
+    public void destroyLocation(){
+        if(mLocationClient == null){
+            LogUtil.getInstance().info(LogLevel.ERROR,"高德地图还没初始化");
+            return;
+        }
+        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图定位服务销毁。。。");
+        mLocationClient.onDestroy();//销毁定位客户端。
+    }
+
+    //获取最近的位置信息
+    public AMapLocation getmAMapLocation() {
+        return mAMapLocation;
+    }
+
+    //获取当前城市
+    public String getCurrentCity(){
+        String city = "";
+        AMapLocation aMapLocation = getmAMapLocation();
+        if(aMapLocation == null){
+            city = "长沙";
+        }else{
+            city = aMapLocation.getCity();
+            city = city.replace("市","");
+        }
+        return  city;
+    }
 }

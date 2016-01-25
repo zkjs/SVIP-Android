@@ -24,6 +24,7 @@ import com.zkjinshi.svip.activity.city.helper.CityComparator;
 import com.zkjinshi.svip.activity.city.helper.ContactsHelper;
 import com.zkjinshi.svip.activity.order.ShopCityActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -104,10 +105,16 @@ public class CityListActivity extends BaseActivity {
 
         mCityAdapter    = new CityAdapter(CityListActivity.this,mCityBeanList);
         mLvCityList.setAdapter(mCityAdapter);
-        //初始化定位
-        LocationManager.getInstance().registerLocation(this);
+
         //获取当前热门城市列表
         getCityList();
+
+        //更新城市显示
+        String city = HomeFragment.mCity;
+        mCityLocated.setCity(city);
+        CacheUtil.getInstance().saveCurrentCity(city);
+        Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
+        handler.sendEmptyMessage(NOTIFY_DATA_CHANGED);
     }
 
     private void initListener() {
@@ -133,28 +140,6 @@ public class CityListActivity extends BaseActivity {
             }
         });
 
-        //获取位置
-        LocationManager.getInstance().setLocationChangeListener(
-            new LocationManager.LocationChangeListener() {
-                @Override
-                public void onLocationChanged(final AMapLocation aMapLocation) {
-                    if (aMapLocation != null) {
-                       runOnUiThread(new Runnable() {
-                           @Override
-                           public void run() {
-                               String city = aMapLocation.getCity();
-                               if (!TextUtils.isEmpty(city)) {
-                                   //更新城市显示
-                                   mCityLocated.setCity(city);
-                                   CacheUtil.getInstance().saveCurrentCity(city);
-                                   Setting.Save2SharedPreferences(CityListActivity.this, "city", city);
-                                   handler.sendEmptyMessage(NOTIFY_DATA_CHANGED);
-                               }
-                           }
-                       });
-                    }
-                }
-            });
 
         //设置条目点击事件
         mLvCityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -261,7 +246,7 @@ public class CityListActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        LocationManager.getInstance().removeLocation();
+
         super.onDestroy();
     }
 

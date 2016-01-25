@@ -181,10 +181,12 @@
 -keep class com.pingplusplus.android.**{ *; }
 
 #高德地图
--dontwarn com.amap.api.location.**
--keep class com.amap.api.location.**{ *; }
--dontwarn com.aps.**
--keep class com.aps.**{ *; }
+-dontwarn com.amap.api.**
+-keep class com.amap.api.**{ *; }
+-dontwarn com.autonavi.aps.amapapi.model.**
+-keep class com.autonavi.aps.amapapi.model.**{ *; }
+-dontwarn com.loc.**
+-keep class com.loc.**{ *; }
 
 #云巴
 -dontwarn io.yunba.android.**

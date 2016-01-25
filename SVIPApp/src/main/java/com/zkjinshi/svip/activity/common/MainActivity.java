@@ -26,6 +26,10 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
+import com.zkjinshi.svip.bluetooth.IBeaconController;
+import com.zkjinshi.svip.bluetooth.IBeaconObserver;
+import com.zkjinshi.svip.bluetooth.IBeaconSubject;
+import com.zkjinshi.svip.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
@@ -33,11 +37,8 @@ import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.fragment.MessageFragment;
 import com.zkjinshi.svip.fragment.SetFragment;
 import com.zkjinshi.svip.fragment.ShopFragment;
-import com.zkjinshi.svip.ibeacon.IBeaconController;
-import com.zkjinshi.svip.ibeacon.IBeaconEntity;
-import com.zkjinshi.svip.ibeacon.IBeaconObserver;
-import com.zkjinshi.svip.ibeacon.IBeaconSubject;
-import com.zkjinshi.svip.ibeacon.RegionVo;
+;
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -252,46 +253,42 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
 
     @Override
-    public void intoRegion(RegionVo regionVo) {
+    public void intoRegion(IBeaconVo iBeaconVo) {
         LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎惠顾酒店-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG,"inTime:"+regionVo.getInTime());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + regionVo.getiBeacon().toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
         LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
-        reginAdPush(regionVo);
-        addRegionVo(regionVo);
+        reginAdPush(iBeaconVo);
+        addRegionVo(iBeaconVo);
         notifyHomeFragment();
     }
 
     @Override
-    public void outRegin(RegionVo regionVo) {
+    public void outRegin(IBeaconVo iBeaconVo) {
         LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎下次光临-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG,"inTime:"+regionVo.getInTime());
-        LogUtil.getInstance().info(LogLevel.DEBUG,"outTime:"+regionVo.getOutTime());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "standTime:"+regionVo.getStandTime());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + regionVo.getiBeacon().toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
         LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
-        removeRegionVo(regionVo);
+        removeRegionVo(iBeaconVo);
         notifyHomeFragment();
     }
 
     //添加蓝牙设备
-    private void addRegionVo(RegionVo regionVo){
+    private void addRegionVo(IBeaconVo iBeaconVo){
 
-        for(RegionVo item : svipApplication.mRegionList){
-            if(item.getiBeacon().getBeaconKey().equals(regionVo.getiBeacon().getBeaconKey())){
+        for(IBeaconVo item : svipApplication.mRegionList){
+            if(item.getBeaconKey().equals(iBeaconVo.getBeaconKey())){
                 svipApplication.mRegionList.remove(item);
                 break;
             }
         }
-        svipApplication.mRegionList.add(regionVo);
+        svipApplication.mRegionList.add(iBeaconVo);
     }
 
     //移除蓝牙设备
-    private void removeRegionVo(RegionVo regionVo){
-        for(RegionVo item : svipApplication.mRegionList){
-            if(item.getiBeacon().getBeaconKey().equals(regionVo.getiBeacon().getBeaconKey())){
+    private void removeRegionVo(IBeaconVo iBeaconVo){
+        for(IBeaconVo item : svipApplication.mRegionList){
+            if(item.getBeaconKey().equals(iBeaconVo.getBeaconKey())){
                 svipApplication.mRegionList.remove(item);
                 break;
             }
@@ -300,18 +297,15 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
     /**
      * 区域广告通知
-     * @param regionVo
+     * @param iBeaconVo
      */
-    private void reginAdPush(RegionVo regionVo){
-        if(null != regionVo){
+    private void reginAdPush(IBeaconVo iBeaconVo){
+        if(null != iBeaconVo){
             try {
-                IBeaconEntity iBeaconEntity = regionVo.getiBeacon();
-                /**
 
-                 */
-                String locId = iBeaconEntity.getLocid();
-                String shopid = iBeaconEntity.getShopid();
-                String locdesc = iBeaconEntity.getLocdesc();
+                String locId = iBeaconVo.getLocid();
+                String shopid = iBeaconVo.getShopid();
+                String locdesc = iBeaconVo.getLocdesc();
                 String sexStr = CacheUtil.getInstance().getSex();
                 LocPushBean locPushBean = new LocPushBean();
                 int sex = Integer.parseInt(sexStr);

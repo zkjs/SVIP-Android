@@ -1,6 +1,4 @@
-package com.zkjinshi.svip.ibeacon;
-
-import com.zkjinshi.svip.utils.PayResult;
+package com.zkjinshi.svip.bluetooth;
 
 import java.io.Serializable;
 
@@ -10,7 +8,7 @@ import java.io.Serializable;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class IBeaconEntity implements Serializable {
+public class NetBeaconVo implements Serializable {
 
     private String locid;
     private String shopid;
@@ -98,18 +96,5 @@ public class IBeaconEntity implements Serializable {
         this.remark = remark;
     }
 
-    @Override
-    public String toString() {
-        return "IBeaconEntity{" +
-                "locid='" + locid + '\'' +
-                ", shopid='" + shopid + '\'' +
-                ", sensorid='" + sensorid + '\'' +
-                ", uuid='" + uuid + '\'' +
-                ", major='" + major + '\'' +
-                ", minior='" + minior + '\'' +
-                ", locdesc='" + locdesc + '\'' +
-                ", status='" + status + '\'' +
-                ", remark='" + remark + '\'' +
-                '}';
-    }
+
 }

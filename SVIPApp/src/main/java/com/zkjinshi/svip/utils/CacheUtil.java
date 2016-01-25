@@ -6,14 +6,13 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.zkjinshi.svip.ibeacon.IBeaconEntity;
-import com.zkjinshi.svip.ibeacon.RegionVo;
+
+
 import com.zkjinshi.svip.response.OrderRoomResponse;
 
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * 缓存工具类
@@ -458,26 +457,6 @@ public class CacheUtil {
 		sp.edit().putBoolean("is_in_"+shopId+"_area",  isInArea).commit();
 	}
 
-	/**
-	 * 获取区域信息
-	 *
-	 * @param shopId
-	 * @return
-	 */
-	public RegionVo getRegionInfo(String shopId) {
-		RegionVo regionVo = new RegionVo();
-		return (RegionVo) getObjCache(regionVo);
-	}
-
-	/**
-	 * 设置区域信息
-	 *
-	 * @param shopId
-	 * @param regionVo
-	 */
-	public void setRegionInfo(String shopId, RegionVo regionVo) {
-		saveObjCache(regionVo);
-	}
 
 	/**
 	 * 获取最近浏览商品信息

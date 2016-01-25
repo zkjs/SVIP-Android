@@ -12,13 +12,16 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.bluetooth.IBeaconContext;
+import com.zkjinshi.svip.bluetooth.IBeaconController;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
-import com.zkjinshi.svip.ibeacon.IBeaconContext;
-import com.zkjinshi.svip.ibeacon.IBeaconController;
+
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 /**
@@ -114,9 +117,12 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().savePicPath("");
                 //移除蓝牙服务
                 IBeaconController.getInstance().stopBeaconService();
-                IBeaconContext.getInstance().clearReginCycle();
+                IBeaconContext.getInstance().clearIBeaconMap();
+                ((SVIPApplication)getApplication()).mRegionList.clear();
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
+                //停止高德地图定位API
+                LocationManager.getInstance().stopLocation();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 startActivity(intent);
 

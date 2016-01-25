@@ -22,6 +22,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -70,7 +73,7 @@ import java.util.Map;
 /**
  * 首页Fragment
  */
-public class HomeFragment extends Fragment implements LocationManager.LocationChangeListener{
+public class HomeFragment extends Fragment{
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -79,7 +82,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     private final static int REQUEST_ACTIVATE_INVITE_CODE = 0x03;
     private final static int NOTIFY_LOCATION = 0x04;
     private final static int REQUEST_CONSUME_RECORD = 0x05;
-
+    public static String mCity = "长沙";
 
     public Animation fadeAnimation = null;
 
@@ -102,11 +105,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     SVIPApplication svipApplication;
     private OrderLastResponse lastOrderInfo = null;
     private CleverDialog cleverDialog = null;
-    public static double geoLat = 100;
-    public static double geoLng;
     private ArrayList<HomeMsgVo> homeMsgList;
-    private String city = "长沙";
-
+    AMapLocationClient locationClient = null;
+    AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
 
     Handler handler = new Handler(){
         @Override
@@ -121,7 +122,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                         MainActivity mainActivity = (MainActivity)mActivity;
                         mainActivity.lastOrderInfo = lastOrderInfo;
                     }
-                    changeMainText();
                     break;
                 case NOTIFY_LOCATION:
                 {
@@ -262,11 +262,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == mActivity.RESULT_OK){
-            if(requestCode == ShopFragment.REQUEST_CHOOSE_CITY){
-                if(null != data){
-                    city = data.getStringExtra("city");
-                }
-            }
+
         }
 
     }
@@ -281,7 +277,36 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         }
         mActivity = getActivity();
         MainController.getInstance().init(mActivity);
+
+        initMap();
         loadHomeData();
+    }
+
+    //初始高德地图客户端
+    private void initMap(){
+        locationClient = new AMapLocationClient(getActivity());
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                Log.i(TAG,"onLocationChanged");
+                if (aMapLocation != null) {
+                    if (aMapLocation.getErrorCode() == 0) {
+                        Log.i(TAG,aMapLocation.toString());
+                        mCity = aMapLocation.getCity().replace("市","");
+                    }
+                }
+            }
+        });
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+        mLocationOption.setOnceLocation(true);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否强制刷新WIFI，默认为强制刷新
+        mLocationOption.setWifiActiveScan(true);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        locationClient.setLocationOption(mLocationOption);
     }
 
     @Nullable
@@ -305,8 +330,10 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         if(nameTv == null){
             return;
         }
-        LocationManager.getInstance().registerLocation(mActivity);
-        LocationManager.getInstance().setLocationChangeListener(this);
+        if(locationClient!= null && !locationClient.isStarted()){
+            locationClient.startLocation();
+        }
+
         setBigPicZone();
         setBigPicAnimation();
         if(CacheUtil.getInstance().isLogin()){
@@ -320,8 +347,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
             showPrivilegeTips();
         }
         requestUserPrivilegeFromApi();
-
     }
+
+
 
     @Override
     public void onResume() {
@@ -332,7 +360,6 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     public void onPause() {
         super.onPause();
-        LocationManager.getInstance().removeLocation();
         MainController.getInstance().pauseBigPicAnimation();
     }
 
@@ -430,8 +457,8 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
                 //到店
                 if(svipApplication.mRegionList.size() > 0){
                     int index = svipApplication.mRegionList.size()-1;
-                    final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
-                    String fullname =svipApplication.mRegionList.get(index).getiBeacon().getRemark();
+                    final String shopid = svipApplication.mRegionList.get(index).getShopid();
+                    String fullname =svipApplication.mRegionList.get(index).getRemark();
                    // String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
                     //simpleTextTv.setText("欢迎光临"+fullname);
                     simpleTextTv.setText("");
@@ -464,20 +491,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         getActivity().startActivity(intent);
     }
 
-    @Override
-    public void onLocationChanged(AMapLocation aMapLocation) {
-        //获取位置信息
-        geoLat = aMapLocation.getLatitude();//纬度
-        geoLng = aMapLocation.getLongitude();//经度
-        LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图返回位置信息：("+geoLat+","+geoLng+")");
 
-        city = aMapLocation.getCity();
-        city = city.replace("市","");
-        if(!TextUtils.isEmpty(city)){
-            CacheUtil.getInstance().saveCurrentCity(city);
-        }
-        handler.sendEmptyMessage(NOTIFY_LOCATION);
-    }
 
     //特权闪
     public void showPrivilegeTips(){
@@ -538,7 +552,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
            return;
         }
         int index = svipApplication.mRegionList.size()-1;
-        final String shopid = svipApplication.mRegionList.get(index).getiBeacon().getShopid();
+        final String shopid = svipApplication.mRegionList.get(index).getShopid();
         //final String shopid = "120";
 
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
@@ -660,7 +674,7 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
 
     //获取登录后的所有信息
     private void getAllMessages(){
-        String url = ProtocolUtil.getMsgUrl(CacheUtil.getInstance().getUserId(),city);
+        String url = ProtocolUtil.getMsgUrl(CacheUtil.getInstance().getUserId(),mCity);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
@@ -753,13 +767,9 @@ public class HomeFragment extends Fragment implements LocationManager.LocationCh
         netRequestTask.execute();
     }
 
-    /**
-     * 改变主语句
-     */
-    public synchronized void changeMainText(){
 
 
-    }
+
 
 
 

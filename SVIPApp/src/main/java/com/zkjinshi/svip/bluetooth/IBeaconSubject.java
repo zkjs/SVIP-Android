@@ -1,15 +1,10 @@
-package com.zkjinshi.svip.ibeacon;
+package com.zkjinshi.svip.bluetooth;
 
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Vector;
 
 /**
- * 开发者：JimmyZhang
- * 日期：2015/8/6
+ * 开发者：杜健德
+ * 日期：2016/01/21
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
@@ -21,11 +16,7 @@ public class IBeaconSubject {
 
     private Vector<IBeaconObserver> obsVector;
 
-    private Iterator<Map.Entry<RegionVo, Long>> iterator;
-    private Map.Entry<RegionVo, Long> entry;
-    private RegionVo regionVo;
-    private Map<RegionVo, Long> beaconsFoundInScanCycle;
-    private long intoTime,outTime,standTime;
+
 
     public synchronized static IBeaconSubject getInstance(){
         if(null == instance){
@@ -60,11 +51,11 @@ public class IBeaconSubject {
     /**
      * 进入区域通知所有观察着
      */
-    public void notifyObserversInto(RegionVo regionVo){
+    public void notifyObserversInto(IBeaconVo iBeaconVo){
         if(null != obsVector && !obsVector.isEmpty()){
             for (IBeaconObserver observer : obsVector){
-                if(null != regionVo){
-                    observer.intoRegion(regionVo);
+                if(null != iBeaconVo){
+                    observer.intoRegion(iBeaconVo);
                 }
             }
         }
@@ -73,17 +64,13 @@ public class IBeaconSubject {
     /**
      * 离开区域通知所有观察着
      */
-    public void notifyObserversOut(RegionVo regionVo){
+    public void notifyObserversOut(IBeaconVo iBeaconVo){
         if(null != obsVector && !obsVector.isEmpty()){
-            regionVo.setOutTime(System.currentTimeMillis());
-            intoTime = regionVo.getInTime();
-            outTime = regionVo.getOutTime();
-            standTime = outTime - intoTime;
-            regionVo.setStandTime(standTime);
             for (IBeaconObserver observer : obsVector) {
-                observer.outRegin(regionVo);
+                if(null != iBeaconVo) {
+                    observer.outRegin(iBeaconVo);
+                }
             }
-            IBeaconContext.getInstance().removeRegion(regionVo);
         }
     }
 }

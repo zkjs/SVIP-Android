@@ -1,6 +1,8 @@
-package com.zkjinshi.svip.ibeacon;
+package com.zkjinshi.svip.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
+
+
 
 /**
  * IBeacon解析帮助类
@@ -18,7 +20,7 @@ public class IBeaconHelper {
      * @param scanData
      * @return
      */
-    public static IBeaconVo fromScanData(BluetoothDevice device, int rssi,byte[] scanData) {
+    public static IBeaconVo fromScanData(BluetoothDevice device, int rssi, byte[] scanData) {
 
         int startByte = 2;
         boolean patternFound = false;

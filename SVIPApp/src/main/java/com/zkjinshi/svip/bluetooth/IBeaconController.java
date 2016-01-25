@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.ibeacon;
+package com.zkjinshi.svip.bluetooth;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,6 @@ import com.zkjinshi.svip.utils.VIPContext;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * 开发者：JimmyZhang
@@ -38,8 +37,6 @@ public class IBeaconController {
     private IBeaconController(){}
 
     private static IBeaconController instance;
-
-    private ArrayList<IBeaconEntity> beaconList;
 
     public synchronized static IBeaconController getInstance(){
         if(null == instance){
@@ -68,12 +65,12 @@ public class IBeaconController {
                 Log.i(TAG, "errorMessage:" + errorMessage);
                 String listStr =  CacheUtil.getInstance().getListStrCache(IBeaconController.class.getSimpleName());
                 if(!TextUtils.isEmpty(listStr)){
-                    Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
+                    Type listType = new TypeToken<ArrayList<NetBeaconVo>>(){}.getType();
                     Gson gson = new Gson();
-                    beaconList = gson.fromJson(listStr, listType);
+                    ArrayList<NetBeaconVo> beaconList = gson.fromJson(listStr, listType);
                     if (null != beaconList && !beaconList.isEmpty()) {
-                        for (IBeaconEntity beancon : beaconList) {
-                            IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                        for (NetBeaconVo beancon : beaconList) {
+                            IBeaconContext.getInstance().getNetBeaconMap().put(beancon.getBeaconKey(), beancon);
                         }
                         startBeaconService();
                     }
@@ -89,13 +86,13 @@ public class IBeaconController {
             public void onNetworkResponseSucceed(NetResponse result) {
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-                    Type listType = new TypeToken<ArrayList<IBeaconEntity>>(){}.getType();
+                    Type listType = new TypeToken<ArrayList<NetBeaconVo>>(){}.getType();
                     Gson gson = new Gson();
-                    beaconList = gson.fromJson( result.rawResult, listType);
+                    ArrayList<NetBeaconVo> beaconList = gson.fromJson( result.rawResult, listType);
                     if(null != beaconList && !beaconList.isEmpty()) {
                         //将List转为成Map
-                        for (IBeaconEntity beancon : beaconList) {
-                            IBeaconContext.getInstance().getBeanconMap().put(beancon.getBeaconKey(), beancon);
+                        for (NetBeaconVo beancon : beaconList) {
+                            IBeaconContext.getInstance().getNetBeaconMap().put(beancon.getBeaconKey(), beancon);
                         }
                         startBeaconService();
                         CacheUtil.getInstance().saveListCache(IBeaconController.class.getSimpleName(), beaconList);
@@ -120,6 +117,7 @@ public class IBeaconController {
      * 启动IBeacon蓝牙扫描服务
      */
     public void startBeaconService(){
+        LogUtil.getInstance().info(LogLevel.DEBUG, "启动IBeacon蓝牙扫描服务");
         Intent intent = new Intent(VIPContext.getInstance().getContext(), IBeaconService.class);
         intent.setAction("com.zkjinshi.svip.im.Beacon_SERVICE");
         VIPContext.getInstance().getContext().startService(intent);
@@ -129,6 +127,7 @@ public class IBeaconController {
      * 停止IBeacon蓝牙扫描服务
      */
     public void stopBeaconService(){
+        LogUtil.getInstance().info(LogLevel.DEBUG, "停止IBeacon蓝牙扫描服务");
         Intent intent = new Intent(VIPContext.getInstance().getContext(), IBeaconService.class);
         intent.setAction("com.zkjinshi.svip.im.Beacon_SERVICE");
         VIPContext.getInstance().getContext().stopService(intent);
