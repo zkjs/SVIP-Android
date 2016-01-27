@@ -58,6 +58,15 @@ public class UserInfoResponse extends BaseResponse {
     private String english_name;
     private String idcard;
     private int tagopen;
+    private boolean activated;
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
 
     public String getEnglishName() {
         return english_name;

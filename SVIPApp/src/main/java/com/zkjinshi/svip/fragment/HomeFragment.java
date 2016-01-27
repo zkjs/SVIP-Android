@@ -337,7 +337,7 @@ public class HomeFragment extends Fragment{
         setBigPicZone();
         setBigPicAnimation();
         if(CacheUtil.getInstance().isLogin()){
-            checktActivate();
+            //checktActivate();
             getAllMessages();
         }else{
             getMessageDefault(true);

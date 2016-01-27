@@ -110,6 +110,7 @@ public class LoginController {
                             CacheUtil.getInstance().setUserRealName(userInfoVo.getRealName());
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                             CacheUtil.getInstance().setSex(userDetailVo.getSex());
+                            CacheUtil.getInstance().setActivate(userInfoResponse.isActivated());
                         }
                         loginHxUser();
                         MobclickAgent.onProfileSignIn(userInfoVo.getUserid());

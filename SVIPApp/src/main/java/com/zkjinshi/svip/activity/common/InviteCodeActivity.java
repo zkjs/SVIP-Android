@@ -232,6 +232,7 @@ public class InviteCodeActivity extends BaseActivity {
                     JSONObject responseObj = new JSONObject(jsonResult);
                     Boolean    isSuccess   = responseObj.getBoolean("set");
                     if(isSuccess) {
+                        CacheUtil.getInstance().setActivate(true);
                         //本地缓存绑定邀请码
                         if(!TextUtils.isEmpty(mSalesID)) {
                             EMConversationHelper.getInstance().sendInviteCmdMessage(
