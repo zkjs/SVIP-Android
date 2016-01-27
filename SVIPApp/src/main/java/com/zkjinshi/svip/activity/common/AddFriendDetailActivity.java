@@ -21,9 +21,12 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.ClipboardUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.SalerInfoBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -120,8 +123,7 @@ public class AddFriendDetailActivity extends BaseActivity {
                     startActivity(intent);
                     return;
                 }
-                //AddContact();
-
+                addContact();
             }
         });
     }
@@ -210,15 +212,24 @@ public class AddFriendDetailActivity extends BaseActivity {
         }
     }
 
-    public void AddContact(){
-        String url = "";
+
+
+    //添加好友
+    public void addContact(){
+        if(TextUtils.isEmpty(mSalerInfo.getShopid())){
+            return;
+        }
+        String url = ProtocolUtil.addfuser();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("text", "test");
+        bizMap.put("fuid", mContactID);
+        bizMap.put("userid",CacheUtil.getInstance().getUserId());
+        bizMap.put("token", CacheUtil.getInstance().getToken());
+        bizMap.put("shopid",mSalerInfo.getShopid());
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(AddFriendDetailActivity.this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
+        netRequestTask.methodType = MethodType.PUSH;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(AddFriendDetailActivity.this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -236,7 +247,19 @@ public class AddFriendDetailActivity extends BaseActivity {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-
+                    BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
+                    if(baseBean != null){
+                        if(baseBean.isSet()){
+                            DialogUtil.getInstance().showToast(AddFriendDetailActivity.this,"添加联系人成功!");
+                            BaseApplication.getInst().clearLeaveTop();
+                        }else{
+                            if(baseBean.getErr().equals("304")){
+                                DialogUtil.getInstance().showToast(AddFriendDetailActivity.this,"同一商家只能添加一名联系人!");
+                            }else{
+                                DialogUtil.getInstance().showToast(AddFriendDetailActivity.this,"添加联系人失败!");
+                            }
+                        }
+                    }
 
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());

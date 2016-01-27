@@ -11,6 +11,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 
+import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.svip.R;
@@ -111,6 +112,7 @@ public class LoginController {
                             CacheUtil.getInstance().setSex(userDetailVo.getSex());
                         }
                         loginHxUser();
+                        MobclickAgent.onProfileSignIn(userInfoVo.getUserid());
                         //判读是否新注册用户
                         if(isNewRegister){
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);

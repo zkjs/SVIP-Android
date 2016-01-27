@@ -67,7 +67,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 
          if(isSuccess){
              textTv.setText("支付成功");
-             lookBtn.setText("查看订单");
+             lookBtn.setText("确认");
              logoIv.setImageResource(R.mipmap.ic_zhifuchenggong);
          }else{
              textTv.setText("支付失败");

@@ -558,6 +558,7 @@ public class WebViewActivity extends BaseActivity {
         Button titleBtn = (Button) layout.findViewById(R.id.dialog_btn_title);
         titleBtn.setText(context.getString(R.string.option_prompty));
         Button mianqiantaiBtn = (Button)layout.findViewById(R.id.dialog_btn_mianqiantai);//免前台
+        mianqiantaiBtn.setVisibility(View.GONE);
         Button copeBtn = (Button) layout.findViewById(R.id.dialog_btn_cope_url);// 复制链接
         Button cancelBtn = (Button) layout.findViewById(R.id.dialog_btn_cancel);// 取消
         Button browserBtn = (Button)layout.findViewById(R.id.dialog_btn_open_browser);

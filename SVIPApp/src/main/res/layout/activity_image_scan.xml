@@ -34,4 +34,11 @@
         android:src="@mipmap/aio_gallery_more"
         android:scaleType="centerInside" />
 
+    <ImageView
+        android:id="@+id/header_back_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_fanhui_orange"/>
+
 </FrameLayout>

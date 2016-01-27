@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
@@ -133,6 +134,8 @@ public class SetActivity extends BaseActivity {
                 ImageLoader.getInstance().clearMemoryCache();
                 //停止高德地图定位API
                 LocationManager.getInstance().stopLocation();
+                //友盟统计登出
+                MobclickAgent.onProfileSignOff();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 startActivity(intent);
 

@@ -198,6 +198,24 @@
 -dontwarn com.testin.agent.**
 -keep class com.testin.agent.** { *; }
 
+ #友盟统计
+-dontwarn com.umeng.analytics.**
+-keep class com.umeng.analytics.** { *; }
+-dontwarn u.aly.**
+-keep class u.aly.** { *; }
+
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keep public class com.zkjinshi.svip.R$*{
+    public static final int *;
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
 #环信
 -keep class com.easemob.** {*;}
 -keep class org.jivesoftware.** {*;}

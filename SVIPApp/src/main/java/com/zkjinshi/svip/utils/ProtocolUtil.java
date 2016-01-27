@@ -586,6 +586,27 @@ public class ProtocolUtil {
     }
 
     /**
+     * 用户添加反馈
+     */
+    public static String feedbackAdd(){
+        return ConfigUtil.getInst().getPhpDomain()+"feedback/add";
+    }
+
+    /**
+     * 用户查询用户绑定关系
+     */
+    public static String sempAubdts(){
+        return ConfigUtil.getInst().getPhpDomain()+"semp/aubdts";
+    }
+
+    /**
+     * 客人发起绑定服务员
+     */
+    public static String addfuser(){
+        return ConfigUtil.getInst().getPhpDomain()+"user/addfuser";
+    }
+
+    /**
      * 拼接图片路径
      * @param apiUrl
      * @return

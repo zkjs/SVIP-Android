@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
 
+
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -170,7 +172,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
         String result = writer.toString();  
         sb.append(result);
         Log.e(TAG,"crash info:"+sb.toString());
-        try {  
+        try {
+            //友盟错误统计
+            //MobclickAgent.reportError(mContext,sb.toString());
+
             long timestamp = System.currentTimeMillis();  
             String time = formatter.format(new Date());  
             String fileName = "crash-" + time + "-" + timestamp + ".log";  

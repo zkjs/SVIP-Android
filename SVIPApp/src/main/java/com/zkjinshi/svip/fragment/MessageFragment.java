@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.AddFriendActivity;
+import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragment;

@@ -3,6 +3,8 @@ package com.zkjinshi.svip.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.umeng.analytics.MobclickAgent;
+
 /**
  * FragmentActivity基类
  * 开发者：JimmyZhang
@@ -23,6 +25,16 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     protected void onDestroy() {
         BaseApplication.getInst().remove(this);
         super.onDestroy();
+    }
+
+    protected void onResume(){
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     /**

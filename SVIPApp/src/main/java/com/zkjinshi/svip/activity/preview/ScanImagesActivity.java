@@ -92,6 +92,14 @@ public class ScanImagesActivity extends BaseFragmentActivity {
                 //TODO Jimmy 后期增加优化
             }
         });
+
+        findViewById(R.id.header_back_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
     }
 
     @Override

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_white">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_fanhui_orange"
+            android:scaleType="centerInside"/>
+
+        <ImageView
+            android:id="@+id/close_iv"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/ic_quxiao_orange"
+            android:scaleType="centerInside"/>
+
+        <EditText
+            android:id="@+id/input_et"
+            android:layout_toRightOf="@id/back_iv"
+            android:layout_toLeftOf="@id/close_iv"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:text=""
+            android:hint="想去哪里"
+            android:textColor="#666666"
+            android:textColorHint="#b8b8b8"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:inputType="text"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e3e3e3" />
+    <LinearLayout
+        android:id="@+id/show_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_search_orange"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:id="@+id/showtextTv"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="111111"
+                android:textColor="#666666"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e3e3e3" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_white_to_gray"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_city_layout">
+
+        <TextView
+            android:id="@+id/tv_city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:paddingLeft="20dp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:text="@string/nearby"
+            android:textColor="@color/darkGray"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_dingwei"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/ic_dingwei_orange"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_city_located"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:layout_toLeftOf="@+id/iv_dingwei"
+            android:textColor="@color/darkGray"
+            android:textSize="14sp"
+            android:text="长沙"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/search_history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#e3e3e3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="left|center_vertical"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:text="历史记录"
+            android:paddingLeft="20dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#e3e3e3" />
+
+        <ListView
+            android:id="@+id/lv_keys_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/city_search_bg"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/whiteGray"
+            android:dividerHeight="0.50dp"
+            android:listSelector="@android:color/transparent" />
+
+    </LinearLayout>
+
+</LinearLayout>

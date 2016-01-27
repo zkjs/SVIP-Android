@@ -172,6 +172,15 @@ public class KTVBookingActivity extends BaseActivity {
         ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg),roomIv,options);
         //初始化时间
         setOrderDate(new Date());
+
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+            contactTsv.setValue(CacheUtil.getInstance().getUserName());
+            orderDetailForDisplay.setOrderedby(CacheUtil.getInstance().getUserName());
+        }
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserPhone())){
+            phoneTsv.setValue(CacheUtil.getInstance().getUserPhone());
+            orderDetailForDisplay.setTelephone(CacheUtil.getInstance().getUserPhone());
+        }
     }
 
     private void initListener() {

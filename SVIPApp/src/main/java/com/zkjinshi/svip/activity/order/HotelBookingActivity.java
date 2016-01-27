@@ -192,6 +192,15 @@ public class HotelBookingActivity extends BaseActivity {
         tomorrow.add(Calendar.DAY_OF_YEAR, 1); //下一天
         calendarList.add(tomorrow);
         setOrderDate(calendarList);
+
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+            contactTsv.setValue(CacheUtil.getInstance().getUserName());
+            orderDetailForDisplay.setOrderedby(CacheUtil.getInstance().getUserName());
+        }
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserPhone())){
+            phoneTsv.setValue(CacheUtil.getInstance().getUserPhone());
+            orderDetailForDisplay.setTelephone(CacheUtil.getInstance().getUserPhone());
+        }
     }
 
     private void initListener() {

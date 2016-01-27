@@ -503,6 +503,12 @@
             android:label="@string/app_name">
         </activity>
 
+        <activity android:name=".activity.shop.SearchShopActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+        </activity>
+
         <activity android:name=".activity.city.citylist.SearchActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"
@@ -574,8 +580,18 @@
 
         <meta-data android:name="YUNBA_APPKEY" android:value="566563014407a3cd028aa72f" />
 
+        <!--高德定位-->
         <service android:name="com.amap.api.location.APSService"></service>
 
+        <!--友盟统计-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55c314f567e58e0ef5004d19" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Yingyongbao" >
+        </meta-data>
     </application>
 
 </manifest>

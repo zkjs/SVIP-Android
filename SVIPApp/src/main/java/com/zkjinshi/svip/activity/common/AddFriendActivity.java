@@ -26,6 +26,7 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.UserGetuserResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.lang.reflect.Type;
@@ -136,6 +137,12 @@ public class AddFriendActivity extends BaseActivity {
 
     //根据手机号查找服务员ID并跳转
     public void getServeirByPhone(String phone){
+        if(!CacheUtil.getInstance().isActivate()){
+            Intent goInvitesCode = new Intent(this, InviteCodeActivity.class);
+           startActivity(goInvitesCode);
+           overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            return;
+        }
         String url = ProtocolUtil.getServerByPhone(phone);
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);

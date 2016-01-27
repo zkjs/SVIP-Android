@@ -2,6 +2,8 @@ package com.zkjinshi.svip.activity.mine;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +25,7 @@ import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.UpdateBean;
 import com.zkjinshi.svip.bluetooth.IBeaconContext;
 import com.zkjinshi.svip.bluetooth.IBeaconController;
@@ -81,26 +84,39 @@ public class AdviceActivity extends BaseActivity {
                     DialogUtil.getInstance().showToast(AdviceActivity.this,"意见不能为空。");
                     return;
                 }
-                //submitAdvice(text);
+                submitAdvice(text);
             }
         });
     }
 
     //调用API反馈意见
     private void submitAdvice(String text) {
-        String url = "";
+        PackageManager manager = getPackageManager();
+        String appVersion = "";
+        int currentVersionCode = 0;
+        try {
+            PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+            appVersion = info.versionName; // 版本名
+            currentVersionCode = info.versionCode; // 版本号
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String url = ProtocolUtil.feedbackAdd();
         Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("text", text);
+        bizMap.put("app_version", currentVersionCode +"");
+        bizMap.put("content", text);
+        bizMap.put("userid", CacheUtil.getInstance().getUserId());
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(AdviceActivity.this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
+        netRequestTask.methodType = MethodType.PUSH;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(AdviceActivity.this) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
+                DialogUtil.getInstance().showToast(AdviceActivity.this,"反馈意见提交失败。");
             }
 
             @Override
@@ -113,9 +129,15 @@ public class AdviceActivity extends BaseActivity {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-
-
+                    BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
+                    if(baseBean != null && baseBean.isSet()){
+                        DialogUtil.getInstance().showToast(AdviceActivity.this,"反馈意见提交成功。");
+                        finish();
+                    }else{
+                        DialogUtil.getInstance().showToast(AdviceActivity.this,"反馈意见提交失败。");
+                    }
                 } catch (Exception e) {
+                    DialogUtil.getInstance().showToast(AdviceActivity.this,"反馈意见提交失败。");
                     Log.e(TAG, e.getMessage());
                 }
 

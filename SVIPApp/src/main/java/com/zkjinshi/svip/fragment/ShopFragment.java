@@ -13,12 +13,11 @@ import android.widget.RelativeLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.city.citylist.CityListActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
+import com.zkjinshi.svip.activity.shop.SearchShopActivity;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.bean.ShopBean;
@@ -139,27 +138,28 @@ public class ShopFragment extends BaseFragment {
             }
         });
 
-//        //输入框点击事件
-//        mRlDingWei.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-//                startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-//            }
-//        });
-//
-//        //输入框点击事件
-//        mEtCity.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if(event.getAction() == MotionEvent.ACTION_DOWN){
-//                    Intent cityChoose = new Intent(mActivity, CityListActivity.class);
-//                    startActivityForResult(cityChoose, REQUEST_CHOOSE_CITY);
-//                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                }
-//                return false;
-//            }
-//        });
+        //输入框点击事件
+        mRlDingWei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, SearchShopActivity.class);
+                startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        //输入框点击事件
+        mEtCity.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    Intent intent = new Intent(mActivity, SearchShopActivity.class);
+                    startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
