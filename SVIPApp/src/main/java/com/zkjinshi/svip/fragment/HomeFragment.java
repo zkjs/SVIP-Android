@@ -433,7 +433,7 @@ public class HomeFragment extends Fragment{
                     goLogin();
                 }
             });
-            simpleTextTv.setText("使用超级身份，享受超凡个性服务");
+            simpleTextTv.setText("");
             activeCodeTv.setVisibility(View.GONE);
 
         }else{//用户已经登录
@@ -453,7 +453,7 @@ public class HomeFragment extends Fragment{
                 //用户已经激活
             if(CacheUtil.getInstance().isActivate()){
                 activeCodeTv.setVisibility(View.GONE);
-                simpleTextTv.setText("使用超级身份，享受超凡个性服务");
+                simpleTextTv.setText("");
                 //到店
                 if(svipApplication.mRegionList.size() > 0){
                     int index = svipApplication.mRegionList.size()-1;
@@ -474,7 +474,7 @@ public class HomeFragment extends Fragment{
                         mActivity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                 });
-                simpleTextTv.setText("输入邀请码激活身份，享受超凡个性服务");
+                simpleTextTv.setText("");
 
             }
         }
