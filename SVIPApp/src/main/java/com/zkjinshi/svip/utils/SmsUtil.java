@@ -15,11 +15,11 @@ public class SmsUtil {
     private final static String SERVER_PORT = "8883";
 
     private final static String ACCOUNT_SID = "8a48b5514d9861c3014d99cf3572024a";
-    private final static String APP_ID      = "aaf98f894d985d36014d9a1e19f702bb";
+    private final static String APP_ID      = "8a48b5514f73ea32014f8d1d3f71344d";
     private final static String AUTH_TOKEN  = "137d18e0111643ffb9e06401f214cc8d";
 
-    private final static String TEMPLATE_ID = "22143";
-    private final static int    VERIFY_TIME = 2;
+    private final static String TEMPLATE_ID = "50157";
+    private final static int    VERIFY_TIME = 30;
 
     private static SmsUtil ccpRestSms;
 
