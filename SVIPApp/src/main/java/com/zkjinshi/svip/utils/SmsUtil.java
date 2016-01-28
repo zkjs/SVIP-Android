@@ -19,7 +19,7 @@ public class SmsUtil {
     private final static String AUTH_TOKEN  = "137d18e0111643ffb9e06401f214cc8d";
 
     private final static String TEMPLATE_ID = "50157";
-    private final static int    VERIFY_TIME = 30;
+    private final static int    VERIFY_TIME = 30;//验证时间
 
     private static SmsUtil ccpRestSms;
 
