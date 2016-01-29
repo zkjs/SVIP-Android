@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.easemob.EMCallBack;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,6 +29,7 @@ import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.SalerInfoBean;
+import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -250,6 +252,47 @@ public class AddFriendDetailActivity extends BaseActivity {
                     BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
                     if(baseBean != null){
                         if(baseBean.isSet()){
+                            EMConversationHelper.getInstance().sendSaleCmdMessage(
+                                    CacheUtil.getInstance().getUserId(),
+                                    CacheUtil.getInstance().getUserName(),
+                                    mContactID,
+                                    new EMCallBack() {
+                                        @Override
+                                        public void onSuccess() {
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送成功");
+                                        }
+
+                                        @Override
+                                        public void onError(int i, String s) {
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送失败");
+                                        }
+
+                                        @Override
+                                        public void onProgress(int i, String s) {
+
+                                        }
+                                    }
+                            );
+
+//                            EMConversationHelper.getInstance().sendTxtMessage(
+//                                    "客人"+CacheUtil.getInstance().getUserName()+"已添加你为联系人",
+//                                    mContactID,
+//                                    new EMCallBack() {
+//                                @Override
+//                                public void onSuccess() {
+//
+//                                }
+//
+//                                @Override
+//                                public void onError(int i, String s) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onProgress(int i, String s) {
+//
+//                                }
+//                            });
                             DialogUtil.getInstance().showToast(AddFriendDetailActivity.this,"添加联系人成功!");
                             BaseApplication.getInst().clearLeaveTop();
                         }else{

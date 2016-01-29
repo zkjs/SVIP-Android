@@ -17,7 +17,9 @@ import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EaseMobException;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.zkjinshi.base.util.ActivityManagerHelper;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.VibratorHelper;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
@@ -177,6 +179,44 @@ public class NotificationHelper {
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFY_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        // 3.设置通知栏其他属性
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(context);
+        notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
+    }
+
+    /**
+     * 通知用户被销售添加了
+     * @param context
+     * @param salesId
+     * @param salesName
+     */
+    public void showAddGuestNotification(Context context, String salesId, String salesName) {
+
+        NotificationCompat.Builder notificationBuilder = null;
+
+        // 1.设置显示信息
+        notificationBuilder = new NotificationCompat.Builder(context);
+        notificationBuilder.setContentTitle(salesName+"已添加您为专属客人.");
+        notificationBuilder.setContentText(salesName+"已添加您为专属客人.");
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+
+        String imageUrl =  ProtocolUtil.getAvatarUrl(salesId);
+        ImageSize imageSize = new ImageSize(DisplayUtil.dip2px(context,36), DisplayUtil.dip2px(context,36));
+        Bitmap bitmap = ImageLoader.getInstance().loadImageSync(imageUrl,imageSize);
+        notificationBuilder.setLargeIcon(bitmap);
+
+        // 2.设置点击跳转事件
+        Intent intent = new Intent();
+        intent.setClass(context,MainActivity.class);
+        intent.putExtra("pageIndex",3);
+        ++NOTIFY_ID;
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFY_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
 

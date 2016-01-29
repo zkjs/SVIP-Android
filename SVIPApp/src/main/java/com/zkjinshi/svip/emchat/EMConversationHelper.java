@@ -46,6 +46,24 @@ public class EMConversationHelper {
     }
 
     /**
+     * 发送命令消息(添加销售)
+     * @param userId
+     * @param userName
+     * @param emCallBack
+     */
+    public void sendSaleCmdMessage(String userId,String userName,String toId, EMCallBack emCallBack){
+        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+        cmdMsg.setChatType(EMMessage.ChatType.Chat);
+        cmdMsg.setAttribute("userId", userId);
+        cmdMsg.setAttribute("userName", userName);
+        String action="addSales";
+        CmdMessageBody cmdBody=new CmdMessageBody(action);
+        cmdMsg.addBody(cmdBody);
+        cmdMsg.setReceipt(toId);
+        EMChatManager.getInstance().sendMessage(cmdMsg, emCallBack);
+    }
+
+    /**
      * 发送命令消息(邀请加入)
      * @param userId
      * @param userName

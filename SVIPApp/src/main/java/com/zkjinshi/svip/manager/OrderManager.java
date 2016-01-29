@@ -52,6 +52,12 @@ public class OrderManager {
                         //2. 生成Notification通知
                         NotificationHelper.getInstance().showNotification(context, shopId, orderNo);
                     }
+                    else if(!TextUtils.isEmpty(aciton) && "addGuest".equals(aciton)){
+                        final String salesName = message.getStringAttribute("salesName");
+                        final String salesId = message.getStringAttribute("salesId");
+                        //2. 生成Notification通知
+                        NotificationHelper.getInstance().showAddGuestNotification(context, salesId, salesName);
+                    }
                 } catch (EaseMobException e) {
                     e.printStackTrace();
                 }
