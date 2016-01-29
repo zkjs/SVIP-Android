@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JsPromptResult;
@@ -32,6 +33,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
@@ -42,6 +51,9 @@ import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.bean.MscBookBean;
+import com.zkjinshi.svip.bean.SemanticBean;
+import com.zkjinshi.svip.bean.SlotsBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -54,6 +66,7 @@ import com.zkjinshi.svip.view.ScrollViewListener;
 import com.zkjinshi.svip.vo.ShopVo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商家详情页面
@@ -361,27 +374,29 @@ public class ShopDetailActivity extends BaseActivity {
             @Override
             public boolean onJsConfirm(WebView view, String url,
                                        String message, JsResult result) {
-                // TODO Auto-generated method stub
+
                 Log.i(TAG, "onJsConfirm");
                 final JsResult newResult = result;
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         view.getContext());
                 builder.setTitle(promptStr)
-                        .setMessage(message)
-                        .setPositiveButton(sureStr,
-                                new android.app.AlertDialog.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        newResult.confirm();
-                                    }
-                                })
-                        .setNeutralButton(cancelStr,
-                                new android.app.AlertDialog.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        newResult.cancel();
-                                    }
-                                });
+                    .setMessage(message)
+                    .setPositiveButton(
+                        sureStr,
+                        new android.app.AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                newResult.confirm();
+                            }
+                        })
+                    .setNeutralButton(
+                        cancelStr,
+                        new android.app.AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                newResult.cancel();
+                            }
+                        });
+
                 builder.setOnCancelListener(new android.app.AlertDialog.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
@@ -394,11 +409,11 @@ public class ShopDetailActivity extends BaseActivity {
                     @Override
                     public boolean onKey(DialogInterface dialog, int keyCode,
                                          KeyEvent event) {
-                        Log.v("onJsConfirm", "keyCode==" + keyCode + "event="
-                                + event);
+                        Log.v("onJsConfirm", "keyCode==" + keyCode + "event=" + event);
                         return true;
                     }
                 });
+
                 // 禁止响应按back键的事件
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -411,26 +426,21 @@ public class ShopDetailActivity extends BaseActivity {
             @Override
             public boolean onJsPrompt(WebView view, String url, String message,
                                       String defaultValue, JsPromptResult result) {
-                // TODO Auto-generated method stub
                 final JsPromptResult newResult = result;
                 Log.i(TAG, "onJsPrompt");
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
                         view.getContext());
 
                 builder.setTitle(promptStr).setMessage(message);
-
                 final EditText et = new EditText(view.getContext());
                 et.setSingleLine();
                 et.setText(defaultValue);
                 builder.setView(et)
                         .setPositiveButton(sureStr,
                                 new android.app.AlertDialog.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        newResult.confirm(et.getText()
-                                                .toString());
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        newResult.confirm(et.getText().toString());
                                     }
-
                                 })
                         .setNeutralButton(cancelStr,
                                 new android.app.AlertDialog.OnClickListener() {
@@ -462,7 +472,6 @@ public class ShopDetailActivity extends BaseActivity {
             @Override
             public boolean onJsBeforeUnload(WebView view, String url,
                                             String message, JsResult result) {
-                // TODO Auto-generated method stub
                 Log.i(TAG, "onJsBeforeUnload");
                 return super.onJsBeforeUnload(view, url, message, result);
             }
@@ -526,17 +535,21 @@ public class ShopDetailActivity extends BaseActivity {
                         commitBtn.setText("立即预定");
                         commitBtn.setEnabled(true);
                     }
+
                     if(!TextUtils.isEmpty(shopName)){
                         titleTv.setText(shopName);
                     }
+
                     String address = shopVo.getAddress();
                     if(!TextUtils.isEmpty(address)){
                         addressTv.setText(address);
                     }
+
                     String evaluate = shopVo.getEvaluation();
                     if(!TextUtils.isEmpty(evaluate)){
                         evaluateTv.setText(evaluate);
                     }
+
                     String telephone = shopVo.getTelephone();
                     if(!TextUtils.isEmpty(telephone)){
                         phoneTv.setText(telephone);
@@ -544,51 +557,97 @@ public class ShopDetailActivity extends BaseActivity {
                     ratingNum = shopVo.getScore();
                     evaluateRb.setRating(ratingNum);
                     imageList = shopVo.getImages();
+
                     final String category = shopVo.getCategory();
+
+                    //长点击发送语音订房
+//                    commitBtn.setOnLongClickListener(new View.OnLongClickListener() {
+//                        @Override
+//                        public boolean onLongClick(View v) {
+//                            //设置按钮长点击语音听写
+//                            //1.创建RecognizerDialog对象
+//                            RecognizerDialog mDialog = new RecognizerDialog(
+//                                    ShopDetailActivity.this,
+//                                    new InitListener() {
+//                                        @Override
+//                                        public void onInit(int i) {
+//                                            //接受语音成功
+//                                            LogUtil.getInstance().info(LogLevel.INFO, TAG+"开始语音听写");
+//                                        }
+//                                    });
+//
+//                            // 2.设置accent、language等参数
+//                            mDialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+//                            mDialog.setParameter(SpeechConstant.ACCENT, "mandarin");
+//
+//                            // 若要将UI控件用于语义理解，必须添加以下参数设置，设置之后onResult回调返回将是语义理解
+//                            mDialog.setParameter("asr_sch", "1");
+//                            mDialog.setParameter("nlp_version", "2.0");
+//
+//                            // 3.设置回调接口
+//                            mDialog.setListener(new RecognizerDialogListener() {
+//                                @Override
+//                                public void onResult(RecognizerResult recognizerResult, boolean b) {
+//                                    //接收语音成功
+//                                    String result = recognizerResult.getResultString();
+//                                    LogUtil.getInstance().info(LogLevel.INFO, TAG + "语音识别成功" + result);
+//                                    Gson gson = new Gson();
+//                                    MscBookBean mscBookBean = gson.fromJson(result, MscBookBean.class);
+//                                    if(null != mscBookBean){
+//                                        int rc = mscBookBean.getRc();
+//                                        SemanticBean semanticBean = mscBookBean.getSemantic();
+//                                        if(null != semanticBean){
+//                                            SlotsBean slotsBean = semanticBean.getSlots();
+//                                            if(null != slotsBean){
+//                                                if(rc != 0){
+//                                                    //返回失败
+//                                                    //开启语音合成提示
+//                                                    goBook(shopId, shopName, category, null);
+//                                                } else {
+//                                                    if(null != slotsBean) {
+//                                                        //时间
+//                                                        String date     = slotsBean.date;
+//                                                        //房型
+//                                                        String roomType = slotsBean.roomType;
+//                                                        Bundle bundle = new Bundle();
+//                                                        bundle.putString("date", date);
+//                                                        bundle.putString("roomType", roomType);
+//                                                        goBook(shopId, shopName, category, bundle);
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onError(SpeechError speechError) {
+//                                    //语音识别失败
+//                                    LogUtil.getInstance().info(LogLevel.INFO, TAG+"语音识别失败" +
+//                                                                speechError.getErrorDescription());
+//                                }
+//                            });
+//                            // 4.显示dialog，接收语音输入
+//                            mDialog.show();
+//                            return false;
+//                        }
+//                    });
+
                     //立即预订
                     commitBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(!CacheUtil.getInstance().isLogin()){
-                                Intent intent = new Intent(ShopDetailActivity.this,LoginActivity.class);
-                                intent.putExtra("isHomeBack",true);
-                                intent.putExtra("shopid",shopId);
-                                intent.putExtra("shopName",shopName);
-                                if(null != imageList && !imageList.isEmpty()){
-                                    intent.putExtra("shopImg",imageList.get(0));
-                                }
-                                intent.putExtra("category",category);
-                                startActivity(intent);
-                                return;
-                            }
-                            if(!TextUtils.isEmpty(category)){
-                                /**
-                                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
-                                 */
-                                Intent intent = new Intent();
-                                if("50".equals(category)){
-                                    intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                                }else if("60".equals(category)){
-                                    intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
-                                }else {
-                                    intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
-                                }
-                                intent.putExtra("shopid",shopId);
-                                intent.putExtra("shopName",shopName);
-                                if(null != imageList && !imageList.isEmpty()){
-                                    intent.putExtra("shopImg",imageList.get(0));
-                                }
-                                startActivity(intent);
-                            }
-
+                            goBook(shopId, shopName, category, null);
                         }
                     });
+
                     if(null != imageList && !imageList.isEmpty()){
                         slideShowViewController = new SlideShowViewController();
                         slideShowViewController.init(ShopDetailActivity.this, imageList);
                     }
+
                     promptStr = getResources().getString(R.string.sweet_prompt);
-                    sureStr = getResources().getString(R.string.sure_option);
+                    sureStr   = getResources().getString(R.string.sure_option);
                     cancelStr = getResources().getString(R.string.cancel_option);
                     String webUrl = shopVo.getShopdescUrl();
                     if(!TextUtils.isEmpty(webUrl)){
@@ -609,6 +668,48 @@ public class ShopDetailActivity extends BaseActivity {
         });
         netRequestTask.isShowLoadingDialog = true;
         netRequestTask.execute();
+    }
+
+    /**
+     * 发起预订服务
+     */
+    private void goBook(String shopID, String shopName, String category, Bundle bundle) {
+        if(!CacheUtil.getInstance().isLogin()){
+            Intent intent = new Intent(ShopDetailActivity.this, LoginActivity.class);
+            intent.putExtra("isHomeBack",true);
+            intent.putExtra("shopid",shopID);
+            intent.putExtra("shopName",shopName);
+
+            if(null != imageList && !imageList.isEmpty()){
+                intent.putExtra("shopImg",imageList.get(0));
+            }
+            intent.putExtra("category", category);
+            startActivity(intent);
+            return;
+        } else {
+            if(!TextUtils.isEmpty(category)){
+                /**
+                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+                 */
+                Intent intent = new Intent();
+                if("50".equals(category)){
+                    intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
+                }else if("60".equals(category)){
+                    intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
+                }else {
+                    intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
+                }
+                intent.putExtra("shopid",shopId);
+                intent.putExtra("shopName",shopName);
+                if(null != imageList && !imageList.isEmpty()){
+                    intent.putExtra("shopImg",imageList.get(0));
+                }
+                if(null != bundle){
+                    intent.putExtra("bundle", bundle);
+                }
+                startActivity(intent);
+            }
+        }
     }
 
 }

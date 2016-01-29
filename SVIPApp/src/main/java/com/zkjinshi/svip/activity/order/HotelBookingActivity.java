@@ -1,7 +1,5 @@
 package com.zkjinshi.svip.activity.order;
 
-import android.app.Activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,13 +7,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,22 +35,16 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.AddOrderResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
-
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
-
 import com.zkjinshi.svip.utils.Base64Encoder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-
 import com.zkjinshi.svip.view.ItemCbxView;
 import com.zkjinshi.svip.view.ItemNumView;
 import com.zkjinshi.svip.view.ItemShowView;
 import com.zkjinshi.svip.vo.GoodInfoVo;
-
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
-
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,22 +68,21 @@ public class HotelBookingActivity extends BaseActivity {
     private ItemShowView payTypeTsv;
     private ItemShowView invoiceTsv;
 
-
     private ItemCbxView breakfastTcv;
     private ItemCbxView noSmokeTcv;
-
     private Button confirmBtn;
 
     private ArrayList<Calendar> calendarList = null;
-    private SimpleDateFormat mSimpleFormat;
-    private SimpleDateFormat mChineseFormat;
+    private SimpleDateFormat    mChineseFormat;
     private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo = null;
     private OrderDetailForDisplay orderDetailForDisplay;
+    private SimpleDateFormat mSimpleFormat;
     private String shopId = "120";
     private String shopName;
     private String shopImg;
     private String salesId;
+    private Bundle bundle;
     private String category = "0";
 
     private CustomerServiceBean customerService = null;
@@ -106,7 +94,6 @@ public class HotelBookingActivity extends BaseActivity {
     public static final int REMARK_REQUEST_CODE = 9;
     public static final int PHONE_REQUEST_CODE = 10;
     public static final int PAY_REQUEST_CODE = 11;
-
 
     Handler handler = new Handler(){
         @Override
@@ -120,15 +107,15 @@ public class HotelBookingActivity extends BaseActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_booking);
 
-        shopId = getIntent().getStringExtra("shopid");
+        shopId   = getIntent().getStringExtra("shopid");
         shopName = getIntent().getStringExtra("shopName");
-        shopImg = getIntent().getStringExtra("shopImg");
+        shopImg  = getIntent().getStringExtra("shopImg");
+
         initView();
         initData();
         initListener();
@@ -148,15 +135,26 @@ public class HotelBookingActivity extends BaseActivity {
         invoiceTsv = (ItemShowView)findViewById(R.id.ahb_ticket);
 
         breakfastTcv = (ItemCbxView)findViewById(R.id.ahb_breakfast);
-        noSmokeTcv = (ItemCbxView)findViewById(R.id.ahb_nosmoking);
+        noSmokeTcv   = (ItemCbxView)findViewById(R.id.ahb_nosmoking);
         breakfastTcv.setVisibility(View.GONE);
         confirmBtn = (Button)findViewById(R.id.btn_send_booking_order);
-
     }
 
     private void initData() {
+
+        bundle   = getIntent().getBundleExtra("bundle");
+        String date = null;
+        String roomType = null;
+        if(null != bundle){
+            date     = bundle.getString("date");
+            roomType = bundle.getString("roomType");
+        }
+
+        if(!TextUtils.isEmpty(roomType)){
+            roomTypeTsv.valueTv.setText(roomType);
+        }
+
         orderDetailForDisplay = new OrderDetailForDisplay();
-        //shopName = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopId);
         titleTv.setText(shopName);
         orderDetailForDisplay.setShopname(shopName);
         orderDetailForDisplay.setShopid(shopId);
@@ -171,27 +169,9 @@ public class HotelBookingActivity extends BaseActivity {
         }else{
             orderDetailForDisplay.setNosmoking(0);
         }
-        //初始化图片
-        this.options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.ic_room_pic_default)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg),roomIv,options);
-        //初始化时间
-        calendarList = new ArrayList<Calendar>();
-        mSimpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-        mChineseFormat = new SimpleDateFormat("MM月dd日");
-        Calendar today = Calendar.getInstance();
-        today.setTime(new Date()); //当天
-        calendarList.add(today);
-        Calendar tomorrow = Calendar.getInstance();
-        tomorrow.setTime(new Date());
-        tomorrow.add(Calendar.DAY_OF_YEAR, 1); //下一天
-        calendarList.add(tomorrow);
-        setOrderDate(calendarList);
+
+        initShopImage();
+        initCalendarList(date);
 
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             contactTsv.setValue(CacheUtil.getInstance().getUserName());
@@ -203,16 +183,72 @@ public class HotelBookingActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 初始化商家图片
+     */
+    private void initShopImage() {
+        //初始化图片
+        this.options = new DisplayImageOptions.Builder()
+//                .showImageOnLoading(R.mipmap.ic_room_pic_default)
+//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)
+//                .showImageOnFail(R.mipmap.ic_room_pic_default)
+                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .build();
+        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg), roomIv, options);
+    }
+
+    /**
+     * 初始化日历控件
+     */
+    private void initCalendarList(String date) {
+        calendarList   = new ArrayList<>();
+        mSimpleFormat  = new SimpleDateFormat("yyyy-MM-dd");
+        mChineseFormat = new SimpleDateFormat("MM月dd日");
+        if ("今天".equals(date)){
+            calendarList.add(getCalendarDate(0));//today
+            calendarList.add(getCalendarDate(1));//today + 1
+        } else if ("明天".equals(date)) {
+            calendarList.add(getCalendarDate(1));//tomorrow
+            calendarList.add(getCalendarDate(2));//tomorrow + 1
+        } else if ("后天".equals(date)) {
+            calendarList.add(getCalendarDate(2));//the day after tomorrow
+            calendarList.add(getCalendarDate(3));//the day after tomorrow + 1
+        } else if ("大后天".equals(date)) {
+            calendarList.add(getCalendarDate(3));//the day after tomorrow + 1
+            calendarList.add(getCalendarDate(4));//the day after tomorrow + 2
+        } else {
+            calendarList.add(getCalendarDate(0));//today
+            calendarList.add(getCalendarDate(1));//today + 1
+        }
+        setOrderDate(calendarList);
+    }
+
+    /**
+     * 获取具体时间类型 默认获取当前时间类型
+     * @return
+     */
+    private Calendar getCalendarDate(int addDay){
+        Calendar Date = Calendar.getInstance();
+        Date.setTime(new Date());
+        if(addDay > 0){
+            Date.add(Calendar.DAY_OF_YEAR, addDay);
+        }
+        return Date ;
+    }
+
     private void initListener() {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(!CacheUtil.getInstance().isLogin()){
-                    Intent intent = new Intent(HotelBookingActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(HotelBookingActivity.this, LoginActivity.class);
                     intent.putExtra("isHomeBack",true);
                     startActivity(intent);
                     return;
                 }
+
                 if(TextUtils.isEmpty(orderDetailForDisplay.getRoomtype())){
                     DialogUtil.getInstance().showToast(HotelBookingActivity.this,"房型不能为空！");
                     return;
@@ -255,14 +291,17 @@ public class HotelBookingActivity extends BaseActivity {
                         R.anim.slide_out_left);
             }
         });
+
         //房型
         roomTypeTsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String roomType = roomTypeTsv.getValue();
                 Intent intent = new Intent(HotelBookingActivity.this, GoodListActivity.class);
                 intent.putExtra("GoodInfoVo", lastGoodInfoVo);
-                intent.putExtra("shopid",shopId);
-                intent.putExtra("showHeader",false);
+                intent.putExtra("shopid", shopId);
+                intent.putExtra("roomType", roomType);
+                intent.putExtra("showHeader", false);
                 startActivityForResult(intent, GOOD_REQUEST_CODE);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);

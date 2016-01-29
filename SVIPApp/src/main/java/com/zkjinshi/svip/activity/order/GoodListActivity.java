@@ -52,36 +52,38 @@ public class GoodListActivity extends BaseActivity {
 
     private final static String TAG = GoodListActivity.class.getSimpleName();
 
-    private ImageView backIv;
-    private ListView roomListView;
-    private Button bookingBtn;
+    private ImageView   backIv;
+    private ListView    roomListView;
+    private Button      bookingBtn;
     private ArrayList<GoodInfoVo> goodInfoList;
     private GoodAdapter goodAdapter;
-    private GoodInfoVo goodInfoVo = null;
-    private ViewHolder viewHolder = null;
-    private View headerView;
+    private GoodInfoVo  goodInfoVo = null;
+    private ViewHolder  viewHolder = null;
+    private View        headerView;
     private LinearLayout headerLayout;
     private ShopBean shopBean = null;
-    private String shopid;
+    private String  shopid;
     private boolean showHeader = false;
 
     private DisplayImageOptions shopOptions;
     private DisplayImageOptions avatarOptions;
 
+    private String mCheckedRoomType;
 
     private void initView(){
+
         backIv = (ImageView)findViewById(R.id.back_iv);
         headerLayout = (LinearLayout)findViewById(R.id.headerLayout);
         roomListView = (ListView)findViewById(R.id.good_list_list_view);
-        bookingBtn = (Button)findViewById(R.id.btn_send_booking_order);
-
-        showHeader = getIntent().getBooleanExtra("showHeader",false);
+        bookingBtn   = (Button)findViewById(R.id.btn_send_booking_order);
+        showHeader   = getIntent().getBooleanExtra("showHeader",false);
 
         if(getIntent().getSerializableExtra("shopBean") != null){
             showHeader = true;
             shopBean = (ShopBean)getIntent().getSerializableExtra("shopBean");
             initHeader();
         }
+
         if(showHeader && shopBean == null){
             shopid = getIntent().getStringExtra("shopid");
             getShopBaseInfo(shopid);
@@ -113,7 +115,6 @@ public class GoodListActivity extends BaseActivity {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
                 try {
-
                     shopBean = new Gson().fromJson(result.rawResult, ShopBean.class);
                     if (null != shopBean) {
                         initHeader();
@@ -212,6 +213,8 @@ public class GoodListActivity extends BaseActivity {
     }
 
     private void initData(){
+
+        mCheckedRoomType = getIntent().getStringExtra("roomType");
         if(getIntent().getSerializableExtra("GoodInfoVo") != null){
             goodInfoVo = (GoodInfoVo)getIntent().getSerializableExtra("GoodInfoVo");
         }
@@ -347,6 +350,7 @@ public class GoodListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_list);
+
         initView();
         initData();
         initListeners();
@@ -358,11 +362,22 @@ public class GoodListActivity extends BaseActivity {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
+    /**
+     * 设置数据显示
+     * @param goodInfoList
+     */
     private void setResponseData(ArrayList<GoodInfoVo> goodInfoList){
         goodAdapter = new GoodAdapter(GoodListActivity.this,goodInfoList);
         roomListView.setAdapter(goodAdapter);
         if(goodInfoVo != null){
             goodAdapter.selectGood(goodInfoVo.getId());
+        } else if (!TextUtils.isEmpty(mCheckedRoomType)){
+            for(GoodInfoVo goodInfo : goodInfoList){
+                String roomType = goodInfo.getType();
+                if(roomType.equals(roomType)){
+                    goodAdapter.selectGood(goodInfo.getId());
+                }
+            }
         }
     }
 

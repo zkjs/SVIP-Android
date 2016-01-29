@@ -12,6 +12,8 @@ import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
 import com.easemob.chat.EMGroupManager;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -74,6 +76,7 @@ public class SVIPApplication extends BaseApplication {
         initDevice();
         initFace();
         initTest();
+        initMsc();
 
         LocationManager.getInstance().init(this);
     }
@@ -243,6 +246,13 @@ public class SVIPApplication extends BaseApplication {
      */
     private void initFace(){
         EmotionUtil.getInstance().initEmotion();
+    }
+
+    /**
+     * 初始化语音识别
+     */
+    private void initMsc(){
+        SpeechUtility.createUtility(getApplicationContext(), SpeechConstant.APPID +"=56a381b8");
     }
 
 }
