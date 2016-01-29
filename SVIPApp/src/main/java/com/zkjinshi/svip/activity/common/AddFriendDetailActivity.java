@@ -252,6 +252,7 @@ public class AddFriendDetailActivity extends BaseActivity {
                     BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
                     if(baseBean != null){
                         if(baseBean.isSet()){
+                            //发送透传信息
                             EMConversationHelper.getInstance().sendSaleCmdMessage(
                                     CacheUtil.getInstance().getUserId(),
                                     CacheUtil.getInstance().getUserName(),
@@ -259,12 +260,12 @@ public class AddFriendDetailActivity extends BaseActivity {
                                     new EMCallBack() {
                                         @Override
                                         public void onSuccess() {
-                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送成功");
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "透传信息发送成功");
                                         }
 
                                         @Override
                                         public void onError(int i, String s) {
-                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送失败");
+                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "透传信息发送失败");
                                         }
 
                                         @Override
@@ -273,19 +274,23 @@ public class AddFriendDetailActivity extends BaseActivity {
                                         }
                                     }
                             );
-
+                            //发送文本信息
                             EMConversationHelper.getInstance().sendTxtMessage(
                                     "我已添加你为联系人",
                                     mContactID,
+                                    mSalerInfo.getUsername(),
+                                    CacheUtil.getInstance().getUserName(),
+                                    mSalerInfo.getShopid(),
+                                    mSalerInfo.getShop_name(),
                                     new EMCallBack() {
                                 @Override
                                 public void onSuccess() {
-
+                                    LogUtil.getInstance().info(LogLevel.INFO, TAG + "文本信息发送成功");
                                 }
 
                                 @Override
                                 public void onError(int i, String s) {
-
+                                    LogUtil.getInstance().info(LogLevel.INFO, TAG + "文本信息发送失败");
                                 }
 
                                 @Override

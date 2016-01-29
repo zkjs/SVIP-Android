@@ -16,6 +16,8 @@ import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VoiceMessageBody;
 import com.easemob.exceptions.EaseMobException;
+import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,6 +85,36 @@ public class EMConversationHelper {
         cmdMsg.addBody(cmdBody);
         cmdMsg.setReceipt(toId);
         EMChatManager.getInstance().sendMessage(cmdMsg, emCallBack);
+    }
+
+    /**
+     * 发送文本消息
+     *
+     */
+    public void sendTxtMessage(String content,String salesId,String toName,String fromName,String shopId,String shopName,EMCallBack emCallBack){
+        EMConversation conversation = EMChatManager.getInstance().getConversation(salesId);
+        EMMessage message = EMMessage.createTxtSendMessage(content, salesId);
+        message.setAttribute(Constants.MSG_TXT_EXT_TYPE, TxtExtType.DEFAULT.getVlaue());
+        message.setAttribute("toName","");
+        if(!TextUtils.isEmpty(toName)){
+            message.setAttribute("toName",toName);
+        }
+        message.setAttribute("fromName","");
+        if(!TextUtils.isEmpty(fromName)){
+            message.setAttribute("fromName",fromName);
+        }
+        if(!TextUtils.isEmpty(shopId)){
+            message.setAttribute("shopId",shopId);
+        }
+
+        if(!TextUtils.isEmpty(shopName)){
+            message.setAttribute("shopName",shopName);
+        }
+        message.setChatType(EMMessage.ChatType.Chat);
+        message.status = EMMessage.Status.INPROGRESS;
+        //把消息加入到此会话对象中
+        conversation.addMessage(message);
+        EMChatManager.getInstance().sendMessage(message,emCallBack);
     }
 
     /**
@@ -208,7 +240,6 @@ public class EMConversationHelper {
     /**
      * 获取会话列表
      *
-     * @param context
      * @return
     +    */
     public List<EMConversation> loadConversationList(){
@@ -247,7 +278,6 @@ public class EMConversationHelper {
     /**
      * 根据最后一条消息的时间排序
      *
-     * @param usernames
      */
     private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
         Collections.sort(conversationList, new Comparator<Pair<Long, EMConversation>>() {
