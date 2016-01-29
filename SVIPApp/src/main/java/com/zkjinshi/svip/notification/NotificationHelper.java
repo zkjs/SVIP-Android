@@ -202,7 +202,7 @@ public class NotificationHelper {
 
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
-        notificationBuilder.setContentTitle(salesName+"已添加您为专属客人.");
+        notificationBuilder.setContentTitle(context.getString(R.string.app_name));
         notificationBuilder.setContentText(salesName+"已添加您为专属客人.");
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
 
