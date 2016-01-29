@@ -144,6 +144,11 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         viewPager.setAdapter(new FooterFragmentPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.setCurrentItem(0);
         viewPager.addOnPageChangeListener(new FooterOnPageChangeListener());
+
+        int pageIndex = getIntent().getIntExtra("pageIndex",0);
+        if(pageIndex == 2 ){
+            viewPager.setCurrentItem(2,true);
+        }
     }
 
     private class FooterCheckChangeListener implements RadioGroup.OnCheckedChangeListener{

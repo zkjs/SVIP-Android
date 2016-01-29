@@ -214,7 +214,7 @@ public class NotificationHelper {
         // 2.设置点击跳转事件
         Intent intent = new Intent();
         intent.setClass(context,MainActivity.class);
-        intent.putExtra("pageIndex",3);
+        intent.putExtra("pageIndex",2);
         ++NOTIFY_ID;
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFY_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
