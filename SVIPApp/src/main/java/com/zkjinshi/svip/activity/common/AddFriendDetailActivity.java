@@ -274,25 +274,25 @@ public class AddFriendDetailActivity extends BaseActivity {
                                     }
                             );
 
-//                            EMConversationHelper.getInstance().sendTxtMessage(
-//                                    "客人"+CacheUtil.getInstance().getUserName()+"已添加你为联系人",
-//                                    mContactID,
-//                                    new EMCallBack() {
-//                                @Override
-//                                public void onSuccess() {
-//
-//                                }
-//
-//                                @Override
-//                                public void onError(int i, String s) {
-//
-//                                }
-//
-//                                @Override
-//                                public void onProgress(int i, String s) {
-//
-//                                }
-//                            });
+                            EMConversationHelper.getInstance().sendTxtMessage(
+                                    "我已添加你为联系人",
+                                    mContactID,
+                                    new EMCallBack() {
+                                @Override
+                                public void onSuccess() {
+
+                                }
+
+                                @Override
+                                public void onError(int i, String s) {
+
+                                }
+
+                                @Override
+                                public void onProgress(int i, String s) {
+
+                                }
+                            });
                             DialogUtil.getInstance().showToast(AddFriendDetailActivity.this,"添加联系人成功!");
                             BaseApplication.getInst().clearLeaveTop();
                         }else{
