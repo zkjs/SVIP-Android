@@ -1,6 +1,9 @@
 package com.zkjinshi.svip.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.AddFriendActivity;
@@ -25,6 +30,7 @@ import com.zkjinshi.svip.base.BaseFragment;
 import com.zkjinshi.svip.net.NetDialogUtil;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -37,7 +43,7 @@ public class MessageFragment extends Fragment {
 
     private FragmentActivity mActivity;
 
-
+    public static final String TAG = MessageFragment.class.getSimpleName();
     private View vChat;
     private View vAddressBook;
     private ImageView addIv;
@@ -46,6 +52,17 @@ public class MessageFragment extends Fragment {
     private RadioGroup     mRgOperation;
     private List<BaseFragment>   mFragmentList;
     private FragmentPagerAdapter mFragmentPagerAdapter;
+
+    private ShowContactPageReceiver mShowContactPageReceiver;
+    private class ShowContactPageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            if(mViewPager != null){
+                mViewPager.setCurrentItem(1,true);
+                LogUtil.getInstance().info(LogLevel.DEBUG,TAG+"收到显示通信录列表广播");
+            }
+        }
+    }
 
     private void initView(View view){
         addIv       = (ImageView) view.findViewById(R.id.add_iv);
@@ -80,6 +97,11 @@ public class MessageFragment extends Fragment {
         mViewPager.setCurrentItem(0);
         mRgOperation.check(R.id.rb_chat);
         vChat.setVisibility(View.VISIBLE);
+
+        mShowContactPageReceiver = new ShowContactPageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.SHOW_CONTACT_F_RECEIVER_ACTION);
+        getActivity().registerReceiver(mShowContactPageReceiver, filter);
     }
 
     public void setCurrentItem(int position){
@@ -154,6 +176,13 @@ public class MessageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        if(null != mShowContactPageReceiver){
+            getActivity().unregisterReceiver(mShowContactPageReceiver);
+        }
     }
 
 

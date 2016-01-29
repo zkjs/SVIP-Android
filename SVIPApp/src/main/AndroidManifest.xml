@@ -60,6 +60,10 @@
             android:value="d06f35454ae1e8fe52ccefa4155167ed" />
 
         <uses-library android:name="android.test.runner"/>
+        <!-- 通知栏点击监听广播 -->
+        <receiver android:name=".receiver.NotificationClickReceiver">
+
+        </receiver>
 
         <!-- 通用模块 -->
         <activity

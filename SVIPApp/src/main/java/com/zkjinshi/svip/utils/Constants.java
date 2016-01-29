@@ -91,5 +91,6 @@ public class Constants {
     public static final int FLAG_MODIFY_EMAIL = 11;
 
     public static final String UPDATE_UNREAD_RECEIVER_ACTION = "com.zkjinshi.svip.UPDATE_UNREAD_RECEIVER_ACTION";
-
+    public static final String SHOW_CONTACT_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_CONTACT_RECEIVER_ACTION";
+    public static final String SHOW_CONTACT_F_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_CONTACT_F_RECEIVER_ACTION";
 }

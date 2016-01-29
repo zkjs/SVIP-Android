@@ -29,6 +29,7 @@ import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 
 import com.zkjinshi.svip.emchat.EMConversationHelper;
+import com.zkjinshi.svip.receiver.NotificationClickReceiver;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
@@ -212,12 +213,15 @@ public class NotificationHelper {
         notificationBuilder.setLargeIcon(bitmap);
 
         // 2.设置点击跳转事件
-        Intent intent = new Intent();
-        intent.setClass(context,MainActivity.class);
-        intent.putExtra("pageIndex",2);
+        Intent  realIntent = new Intent();
+        realIntent.setClass(context,MainActivity.class);
+        realIntent.putExtra("pageIndex",2);
+        realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ++NOTIFY_ID;
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFY_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent clickIntent = new Intent(context, NotificationClickReceiver.class); //点击 Intent
+        clickIntent.putExtra("realIntent", realIntent);
+        clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIFY_ID, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
 
         // 3.设置通知栏其他属性

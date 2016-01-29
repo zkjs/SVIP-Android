@@ -72,6 +72,20 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     private MessageFragment messageFragment;
     private  HomeFragment homeFragment;
 
+    private ShowMessagePageReceiver mShowMessagePageReceiver;
+    private class ShowMessagePageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            if(viewPager != null){
+                viewPager.setCurrentItem(2,true);
+                LogUtil.getInstance().info(LogLevel.DEBUG,TAG+"收到显示通信录列表广播");
+
+                Intent showContactIntent = new Intent(Constants.SHOW_CONTACT_F_RECEIVER_ACTION);
+                sendBroadcast(showContactIntent);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +126,10 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         removeAllObserver();
         if (null != mUpdateReceiver) {
             unregisterReceiver(mUpdateReceiver);
+        }
+
+        if(null != mShowMessagePageReceiver){
+            unregisterReceiver(mShowMessagePageReceiver);
         }
     }
 
@@ -214,6 +232,11 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         MainController.getInstance().init(this);
         MainController.getInstance().initBigPic();
         MainController.getInstance().checkAppVersion();
+
+        mShowMessagePageReceiver = new ShowMessagePageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.SHOW_CONTACT_RECEIVER_ACTION);
+        registerReceiver(mShowMessagePageReceiver, filter);
     }
 
     private void initBadgeNum(){
@@ -447,5 +470,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         }
         return currentItem;
     }
+
+
 
 }
