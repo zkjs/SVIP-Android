@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="88"
-    android:versionName="1.10">
+    android:versionCode="90"
+    android:versionName="1.12">
 
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -419,12 +419,6 @@
         <meta-data
             android:name="TESTIN_APPKEY"
             android:value="ced4cd6e19b606a268819bbaced9c339" />
-
-        <service android:name=".bluetooth.IBeaconService">
-            <intent-filter>
-                <action android:name="com.zkjinshi.svip.im.Beacon_SERVICE" />
-            </intent-filter>
-        </service>
 
         <!-- 设置环信应用的appkey -->
         <meta-data

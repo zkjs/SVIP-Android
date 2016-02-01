@@ -1,4 +1,6 @@
-package com.zkjinshi.svip.bluetooth;
+package com.zkjinshi.pyxis.bluetooth;
+
+import android.util.Log;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -41,7 +43,8 @@ public class IBeaconContext {
     }
 
     public void clearIBeaconMap(){
-        if(iBeanconMap == null){
+        Log.d(TAG,"clearIBeaconMap");
+        if(iBeanconMap != null){
             iBeanconMap.clear();
         }
     }

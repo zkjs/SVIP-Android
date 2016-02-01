@@ -5,8 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CalendarListView/CalendarListView.iml" filepath="$PROJECT_DIR$/CalendarListView/CalendarListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" filepath="$PROJECT_DIR$/Cloud_TagView/Cloud_TagView.iml" />
       <module fileurl="file://$PROJECT_DIR$/MaterialSearchViewLibrary/MaterialSearchViewLibrary.iml" filepath="$PROJECT_DIR$/MaterialSearchViewLibrary/MaterialSearchViewLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MaterialSearchViewLibrary/MaterialSearchViewLibrary.iml" filepath="$PROJECT_DIR$/MaterialSearchViewLibrary/MaterialSearchViewLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SVIP-1.10Android.iml" filepath="$PROJECT_DIR$/SVIP-1.10Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SVIP-1.12-Android.iml" filepath="$PROJECT_DIR$/SVIP-1.12-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/SVIP-2.0-Android.iml" filepath="$PROJECT_DIR$/SVIP-2.0-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/SVIP-Android-1.0.iml" filepath="$PROJECT_DIR$/SVIP-Android-1.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/SVIPApp/SVIPApp.iml" filepath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
@@ -14,7 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" filepath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" filepath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinyinSearch/pinyinSearch.iml" filepath="$PROJECT_DIR$/pinyinSearch/pinyinSearch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pinyinSearch/pinyinSearch.iml" filepath="$PROJECT_DIR$/pinyinSearch/pinyinSearch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pyxis/pyxis.iml" filepath="$PROJECT_DIR$/pyxis/pyxis.iml" />
     </modules>
   </component>
 </project>

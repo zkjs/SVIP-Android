@@ -12,14 +12,14 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
-import com.zkjinshi.svip.bluetooth.IBeaconContext;
-import com.zkjinshi.svip.bluetooth.IBeaconController;
+
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 
 import com.zkjinshi.svip.map.LocationManager;
@@ -128,7 +128,6 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().savePicPath("");
                 //移除蓝牙服务
                 IBeaconController.getInstance().stopBeaconService();
-                IBeaconContext.getInstance().clearIBeaconMap();
                 ((SVIPApplication)getApplication()).mRegionList.clear();
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();

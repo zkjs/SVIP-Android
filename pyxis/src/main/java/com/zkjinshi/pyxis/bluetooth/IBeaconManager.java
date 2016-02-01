@@ -1,4 +1,4 @@
-package com.zkjinshi.svip.bluetooth;
+package com.zkjinshi.pyxis.bluetooth;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
@@ -6,11 +6,10 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.DistanceUtil;
+
+import com.zkjinshi.pyxis.utils.DistanceUtil;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -20,11 +19,9 @@ import java.util.TimerTask;
 
 @SuppressLint("NewApi")
 public class IBeaconManager {
+	public static String TAG = IBeaconManager.class.getSimpleName();
 
 	private static final long SCAN_DELAY_TIME = 1000L;
-	private static final long SCAN_PERIOD_TIME = 1500L;
-	private static final int FAIL_SCAN_TIME = 4;
-
 	private int scantime_dp = 0;
 	private Timer timer;
 
@@ -61,11 +58,11 @@ public class IBeaconManager {
 	}
 
 	public void scanLeDevice() {
-		LogUtil.getInstance().info(LogLevel.DEBUG, "scanLeDevice");
+		Log.d(TAG,"scanLeDevice");
 		cancelScheduleScan();
 		TimerTask task = new TimerTask(){
 			public void run() {
-				scantime_dp = ((scantime_dp + 1) % 3);
+				scantime_dp = ((scantime_dp + 1) % 2);
 				switch (scantime_dp) {
 					case 0:
 						stopScan();
@@ -77,14 +74,11 @@ public class IBeaconManager {
 			}
 		};
 		this.timer = new Timer(true);
-		this.timer.schedule(task, SCAN_DELAY_TIME, SCAN_PERIOD_TIME);
+		this.timer.schedule(task, SCAN_DELAY_TIME, IBeaconController.scanPeriodTime);
 	}
 
-	private void startScan(){
-		//LogUtil.getInstance().info(LogLevel.DEBUG, "startScan");
-		if( !CacheUtil.getInstance().isLogin()){
-			return;
-		}
+	public void startScan(){
+		Log.d(TAG,"startScan");
 		if(null == bluetoothAdapter){
 			return;
 		}
@@ -92,8 +86,8 @@ public class IBeaconManager {
 		bluetoothAdapter.startLeScan(mLeScanCallback);
 	}
 
-	private void stopScan(){
-		//LogUtil.getInstance().info(LogLevel.DEBUG, "stopScan");
+	public void stopScan(){
+		Log.d(TAG,"stopScan");
 		bluetoothAdapter.stopLeScan(mLeScanCallback);
 		if( !IBeaconContext.getInstance().getiBeaconMap().isEmpty()){
 			Iterator<Map.Entry<String, IBeaconVo>> iterator = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
@@ -101,7 +95,7 @@ public class IBeaconManager {
 				Map.Entry<String, IBeaconVo> entry = iterator.next();
 				IBeaconVo iBeaconVo = entry.getValue();
 				//连续5次扫描不到就认为离开该区域
-				if(iBeaconVo != null && iBeaconVo.getDisappearTime() > FAIL_SCAN_TIME){
+				if(iBeaconVo != null && iBeaconVo.getDisappearTime() > IBeaconController.failScanTime){
 					leaveArea(iBeaconVo);
 				}else{
 					iBeaconVo.setDisappearTime(iBeaconVo.getDisappearTime() + 1);
@@ -118,7 +112,7 @@ public class IBeaconManager {
 				public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
 					IBeaconVo ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
-						if(IBeaconContext.getInstance().getNetBeaconMap().containsKey(ibeacon.getBeaconKey()) && CacheUtil.getInstance().isLogin()){//只对登录用户进行到店记录
+						if(IBeaconContext.getInstance().getNetBeaconMap().containsKey(ibeacon.getBeaconKey()) ){
 							NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
 							long currentTime = System.currentTimeMillis();
 							double distance = DistanceUtil.calculateAccuracy(ibeacon.getTxPower(),ibeacon.getRssi());
@@ -157,6 +151,7 @@ public class IBeaconManager {
 	}
 
 	public void cancelScheduleScan(){
+		Log.d(TAG,"cancelScheduleScan");
 		if(this.timer != null){
 			this.timer.cancel();
 			this.timer = null;

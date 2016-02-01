@@ -21,15 +21,16 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
+import com.zkjinshi.pyxis.bluetooth.IBeaconController;
+import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
+import com.zkjinshi.pyxis.bluetooth.IBeaconSubject;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
-import com.zkjinshi.svip.bluetooth.IBeaconController;
-import com.zkjinshi.svip.bluetooth.IBeaconObserver;
-import com.zkjinshi.svip.bluetooth.IBeaconSubject;
-import com.zkjinshi.svip.bluetooth.IBeaconVo;
+
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
@@ -95,7 +96,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         initData();
         initListeners();
         initIBeaconList();
-        IBeaconSubject.getInstance().addObserver(this);
         addAllObserver();
     }
 
@@ -116,6 +116,12 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if(pageIndex == 2 ){
             viewPager.setCurrentItem(2,true);
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if(CacheUtil.getInstance().isLogin() && !IBeaconController.getInstance().isRuning()){
+                MainController.getInstance().startIbeaconService();
+            }
+        }
+
     }
 
     @Override
@@ -276,9 +282,12 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
      */
     private void initIBeaconList(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init(this);
+            IBeaconController.getInstance().init(this,3000L,2);
+            IBeaconSubject.getInstance().addObserver(this);
         }
     }
+
+
 
 
     @Override

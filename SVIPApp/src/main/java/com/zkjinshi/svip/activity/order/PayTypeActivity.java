@@ -47,10 +47,10 @@ public class PayTypeActivity extends BaseActivity implements AdapterView.OnItemC
     private void initData() {
         selelectId = orderDetailForDisplay.getPaytype();
         payBeanList = new ArrayList<PayBean>();
-        String payTypeArr[] = {"在线支付","到店支付","挂账"};
+        String payTypeArr[] = {"到店支付","挂账"};
         for(int i=0;i<payTypeArr.length;i++){
             PayBean payBean = new PayBean();
-            payBean.setPay_id(i+1);
+            payBean.setPay_id(i+2);
             payBean.setPay_name(payTypeArr[i]);
             payBeanList.add(payBean);
         }

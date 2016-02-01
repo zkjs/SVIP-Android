@@ -24,6 +24,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.pyxis.bluetooth.IBeaconController;
+import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.bean.BaseBean;
@@ -470,6 +472,71 @@ public class MainController {
         activity.startActivity(intent);
         app.setDownload(true);
         app.updateBean = updateBean;
+    }
+
+    /**
+     * 请求蓝牙区域信息
+     */
+    public void startIbeaconService(){
+        String url = ProtocolUtil.getLocationListUrl();
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+                String listStr =  CacheUtil.getInstance().getListStrCache("NetBeanconList");
+                if(!TextUtils.isEmpty(listStr)){
+                    Type listType = new TypeToken<ArrayList<NetBeaconVo>>(){}.getType();
+                    Gson gson = new Gson();
+                    ArrayList<NetBeaconVo> beaconList = gson.fromJson(listStr, listType);
+                    if (null != beaconList && !beaconList.isEmpty()) {
+                        if(CacheUtil.getInstance().isLogin()){
+                            if(activity instanceof MainActivity){
+                                IBeaconController.getInstance().setListenBeancons(beaconList);
+                                IBeaconController.getInstance().startBeaconService();
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                try {
+                    Type listType = new TypeToken<ArrayList<NetBeaconVo>>(){}.getType();
+                    Gson gson = new Gson();
+                    ArrayList<NetBeaconVo> beaconList = gson.fromJson( result.rawResult, listType);
+                    if(null != beaconList && !beaconList.isEmpty()) {
+                        if(CacheUtil.getInstance().isLogin()){
+                            if(activity instanceof MainActivity){
+                                IBeaconController.getInstance().setListenBeancons(beaconList);
+                                IBeaconController.getInstance().startBeaconService();
+                            }
+                        }
+                        CacheUtil.getInstance().saveListCache("NetBeanconList", beaconList);
+                    }
+                } catch (Exception e) {
+                   e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
     }
     
 }

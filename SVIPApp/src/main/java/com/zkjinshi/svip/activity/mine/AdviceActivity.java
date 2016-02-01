@@ -1,36 +1,29 @@
 package com.zkjinshi.svip.activity.mine;
 
-import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
+
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.view.CustomDialog;
+
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.SVIPApplication;
-import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.WebViewActivity;
+
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.base.BaseApplication;
+
 import com.zkjinshi.svip.bean.BaseBean;
-import com.zkjinshi.svip.bean.UpdateBean;
-import com.zkjinshi.svip.bluetooth.IBeaconContext;
-import com.zkjinshi.svip.bluetooth.IBeaconController;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
-import com.zkjinshi.svip.map.LocationManager;
+
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;

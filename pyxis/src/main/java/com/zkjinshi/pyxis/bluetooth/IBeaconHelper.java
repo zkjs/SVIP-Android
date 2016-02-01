@@ -1,12 +1,11 @@
-package com.zkjinshi.svip.bluetooth;
+package com.zkjinshi.pyxis.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 
 
-
 /**
  * IBeacon解析帮助类
- * 开发者：JimmyZhang
+ * 开发者：dujiande
  * 日期：2015/8/5
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
