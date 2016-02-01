@@ -124,16 +124,38 @@ public class NotificationHelper {
                             }
                             notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
                             // 2.设置点击跳转事件
-                            Intent intent = new Intent(context, MainActivity.class);
-                            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                                    intent, 0);
-                            notificationBuilder.setContentIntent(pendingIntent);
-                            // 3.设置通知栏其他属性
-                            notificationBuilder.setAutoCancel(true);
-                            notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
-                            NotificationManagerCompat notificationManager =
-                                    NotificationManagerCompat.from(context);
-                            notificationManager.notify(nofifyFlag, notificationBuilder.build());
+                            boolean bindClient = message.getBooleanAttribute("bindClient",false);
+                            if(bindClient){
+                                Intent  realIntent = new Intent();
+                                realIntent.setClass(context,MainActivity.class);
+                                realIntent.putExtra("pageIndex",2);
+                                realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                ++NOTIFY_ID;
+                                Intent clickIntent = new Intent(context, NotificationClickReceiver.class); //点击 Intent
+                                clickIntent.putExtra("realIntent", realIntent);
+                                clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIFY_ID, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                notificationBuilder.setContentIntent(pendingIntent);
+                                // 3.设置通知栏其他属性
+                                notificationBuilder.setAutoCancel(true);
+                                notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+                                NotificationManagerCompat notificationManager =
+                                        NotificationManagerCompat.from(context);
+                                notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
+                            }else{
+                                Intent intent = new Intent(context, MainActivity.class);
+                                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, 0);
+                                notificationBuilder.setContentIntent(pendingIntent);
+                                // 3.设置通知栏其他属性
+                                notificationBuilder.setAutoCancel(true);
+                                notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+                                NotificationManagerCompat notificationManager =
+                                        NotificationManagerCompat.from(context);
+                                notificationManager.notify(nofifyFlag, notificationBuilder.build());
+                            }
+
+
+
                         } else {
                             MediaPlayerUtil.playNotifyVoice(context);
                             VibratorHelper.vibratorShark(context);

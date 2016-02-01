@@ -282,6 +282,7 @@ public class AddFriendDetailActivity extends BaseActivity {
                                     CacheUtil.getInstance().getUserName(),
                                     mSalerInfo.getShopid(),
                                     mSalerInfo.getShop_name(),
+                                    true,
                                     new EMCallBack() {
                                 @Override
                                 public void onSuccess() {

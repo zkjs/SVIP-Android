@@ -55,8 +55,7 @@ public class OrderManager {
                     else if(!TextUtils.isEmpty(aciton) && "addGuest".equals(aciton)){
                         final String salesName = message.getStringAttribute("salesName");
                         final String salesId = message.getStringAttribute("salesId");
-                        //2. 生成Notification通知
-                        NotificationHelper.getInstance().showAddGuestNotification(context, salesId, salesName);
+                        //NotificationHelper.getInstance().showAddGuestNotification(context, salesId, salesName);
                     }
                 } catch (EaseMobException e) {
                     e.printStackTrace();

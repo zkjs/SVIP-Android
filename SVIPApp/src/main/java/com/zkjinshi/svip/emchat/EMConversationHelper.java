@@ -91,10 +91,11 @@ public class EMConversationHelper {
      * 发送文本消息
      *
      */
-    public void sendTxtMessage(String content,String salesId,String toName,String fromName,String shopId,String shopName,EMCallBack emCallBack){
+    public void sendTxtMessage(String content,String salesId,String toName,String fromName,String shopId,String shopName,boolean bindClient,EMCallBack emCallBack){
         EMConversation conversation = EMChatManager.getInstance().getConversation(salesId);
         EMMessage message = EMMessage.createTxtSendMessage(content, salesId);
         message.setAttribute(Constants.MSG_TXT_EXT_TYPE, TxtExtType.DEFAULT.getVlaue());
+        message.setAttribute("bindClient",bindClient);
         message.setAttribute("toName","");
         if(!TextUtils.isEmpty(toName)){
             message.setAttribute("toName",toName);
