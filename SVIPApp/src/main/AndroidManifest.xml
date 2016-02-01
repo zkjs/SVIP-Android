@@ -56,6 +56,9 @@
 
         <uses-library android:name="android.test.runner" />
 
+        <receiver android:name=".receiver.NotificationClickReceiver">
+        </receiver>
+
         <!-- 通用模块 -->
         <activity
             android:name=".activity.common.SplashActivity"
