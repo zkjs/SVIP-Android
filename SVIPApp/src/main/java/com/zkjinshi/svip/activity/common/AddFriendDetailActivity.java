@@ -56,8 +56,6 @@ public class AddFriendDetailActivity extends BaseActivity {
     private TextView       mTvPhoneNumber;//手机号
     private TextView       mTvShopName;//所属商家
     private Button addBtn;//添加到通讯录
-
-
     private DisplayImageOptions mOptions;
 
     private String mContactID;
