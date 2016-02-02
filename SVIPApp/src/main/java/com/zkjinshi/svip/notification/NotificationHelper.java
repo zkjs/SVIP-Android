@@ -76,7 +76,7 @@ public class NotificationHelper {
                     String titleName = null;
                     if(!username.equals(CacheUtil.getInstance().getUserId())){
                         EMMessage.Type msgType = message.getType();
-                        if (ActivityManagerHelper.isRunningBackground(context)) {
+                        if (true || ActivityManagerHelper.isRunningBackground(context)) {
                             NotificationCompat.Builder notificationBuilder = null;
                             notificationBuilder = new NotificationCompat.Builder(context);
                             if (message.getChatType() == EMMessage.ChatType.GroupChat || message.getChatType() == EMMessage.ChatType.ChatRoom) {

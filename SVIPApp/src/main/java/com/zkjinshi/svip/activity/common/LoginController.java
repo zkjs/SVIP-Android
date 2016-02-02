@@ -175,6 +175,7 @@ public class LoginController {
                 EMChatManager.getInstance().loadAllConversations();
                 EMessageListener.getInstance().registerEventListener();
                 EMConversationHelper.getInstance().requestGroupListTask();
+                EMChatManager.getInstance().updateCurrentUserNick(CacheUtil.getInstance().getUserName());
             }
 
             @Override
