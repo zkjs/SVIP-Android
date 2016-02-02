@@ -76,7 +76,8 @@ public class NotificationHelper {
                     String titleName = null;
                     if(!username.equals(CacheUtil.getInstance().getUserId())){
                         EMMessage.Type msgType = message.getType();
-                        if (true || ActivityManagerHelper.isRunningBackground(context)) {
+                        boolean bindClient = message.getBooleanAttribute("bindClient",false);
+                        if ( ActivityManagerHelper.isRunningBackground(context) || bindClient) {
                             NotificationCompat.Builder notificationBuilder = null;
                             notificationBuilder = new NotificationCompat.Builder(context);
                             if (message.getChatType() == EMMessage.ChatType.GroupChat || message.getChatType() == EMMessage.ChatType.ChatRoom) {
@@ -124,7 +125,6 @@ public class NotificationHelper {
                             }
                             notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
                             // 2.设置点击跳转事件
-                            boolean bindClient = message.getBooleanAttribute("bindClient",false);
                             if(bindClient){
                                 Intent  realIntent = new Intent();
                                 realIntent.setClass(context,MainActivity.class);
