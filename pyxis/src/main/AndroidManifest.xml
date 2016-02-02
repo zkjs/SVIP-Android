@@ -1,16 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.pyxis">
 
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-
     <application android:allowBackup="true">
-        <service android:name=".bluetooth.IBeaconService">
-            <intent-filter>
-                <action android:name="com.zkjinshi.pyxis.Beacon_SERVICE"/>
-            </intent-filter>
-        </service>
     </application>
-
 </manifest>

@@ -538,6 +538,12 @@
 
         <!--高德定位-->
         <service android:name="com.amap.api.location.APSService"></service>
+        <!--pyxis sdk-->
+        <service android:name="com.zkjinshi.pyxis.bluetooth.IBeaconService">
+            <intent-filter>
+                <action android:name="com.zkjinshi.pyxis.Beacon_SERVICE"/>
+            </intent-filter>
+        </service>
 
         <!--友盟统计-->
         <meta-data

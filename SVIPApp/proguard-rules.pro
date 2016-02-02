@@ -100,7 +100,6 @@
 -keep class com.zkjinshi.svip.fragment.**{ *; }
 -keep class com.zkjinshi.svip.activity.**{ *; }
 -keep class com.zkjinshi.svip.view.**{ *; }
--keep class com.zkjinshi.svip.bluetooth.**{ *; }
 -keep class com.zkjinshi.base.util.**{ *;}
 
 #保留扩展控件不被混淆
@@ -197,6 +196,19 @@
  #云测包
 -dontwarn com.testin.agent.**
 -keep class com.testin.agent.** { *; }
+
+#fastjson-1.1.45
+-keep class com.alibaba.fastjson.** { *;}
+
+#科大讯飞
+-keep class com.a.** {*;}
+-keep class com.b.** {*;}
+-keep class com.chinaMobile.** {*;}
+-keep class com.iflytek.** {*;}
+
+ #Pyxis sdk
+-keep class com.zkjinshi.pyxis.bluetooth.** { *; }
+-keep class com.zkjinshi.pyxis.utils.** { *; }
 
  #友盟统计
 -dontwarn com.umeng.analytics.**
