@@ -37,6 +37,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.TxtExtType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 消息通知帮助类
@@ -69,22 +70,22 @@ public class NotificationHelper {
     public void showNotification(Context context, EMNotifierEvent event) {
         int nofifyFlag = 0;
         switch (event.getEvent()) {
-            case EventNewMessage:
+            case EventNewMessage: {// 接收新消息
                 EMMessage message = (EMMessage) event.getData();
-                if(null != message){
+                if (null != message) {
                     String username = message.getFrom();
                     String titleName = null;
-                    if(!username.equals(CacheUtil.getInstance().getUserId())){
+                    if (!username.equals(CacheUtil.getInstance().getUserId())) {
                         EMMessage.Type msgType = message.getType();
-                        boolean bindClient = message.getBooleanAttribute("bindClient",false);
-                        if ( ActivityManagerHelper.isRunningBackground(context) || bindClient) {
+                        boolean bindClient = message.getBooleanAttribute("bindClient", false);
+                        if (ActivityManagerHelper.isRunningBackground(context) || bindClient) {
                             NotificationCompat.Builder notificationBuilder = null;
                             notificationBuilder = new NotificationCompat.Builder(context);
                             if (message.getChatType() == EMMessage.ChatType.GroupChat || message.getChatType() == EMMessage.ChatType.ChatRoom) {
                                 EMConversationHelper.getInstance().requestGroupListTask();
                                 String groupId = message.getTo();
                                 EMGroup group = EMGroupManager.getInstance().getGroup(groupId);
-                                if (group != null){
+                                if (group != null) {
                                     titleName = group.getGroupName();
                                 }
                             } else {
@@ -92,10 +93,10 @@ public class NotificationHelper {
                                 try {
                                     String fromName = message.getStringAttribute("fromName");
                                     String toName = message.getStringAttribute("toName");
-                                    if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
+                                    if (!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())) {
                                         titleName = fromName;
-                                    }else{
-                                        if(!TextUtils.isEmpty(toName)){
+                                    } else {
+                                        if (!TextUtils.isEmpty(toName)) {
                                             titleName = toName;
                                         }
                                     }
@@ -107,11 +108,11 @@ public class NotificationHelper {
                             if (msgType == EMMessage.Type.TXT) {
                                 try {
                                     int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
-                                    if(TxtExtType.DEFAULT.getVlaue() == extType){
+                                    if (TxtExtType.DEFAULT.getVlaue() == extType) {
                                         TextMessageBody txtBody = (TextMessageBody) message.getBody();
                                         String content = txtBody.getMessage();
                                         notificationBuilder.setContentText("" + content);
-                                    }else{
+                                    } else {
                                         notificationBuilder.setContentText("[订单]");
                                     }
                                 } catch (EaseMobException e) {
@@ -120,15 +121,15 @@ public class NotificationHelper {
 
                             } else if (msgType == EMMessage.Type.IMAGE) {
                                 notificationBuilder.setContentText("[图片]");
-                            } else if(msgType ==  EMMessage.Type.VOICE){
+                            } else if (msgType == EMMessage.Type.VOICE) {
                                 notificationBuilder.setContentText("[语音]");
                             }
                             notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
                             // 2.设置点击跳转事件
-                            if(bindClient){
-                                Intent  realIntent = new Intent();
-                                realIntent.setClass(context,MainActivity.class);
-                                realIntent.putExtra("pageIndex",2);
+                            if (bindClient) {
+                                Intent realIntent = new Intent();
+                                realIntent.setClass(context, MainActivity.class);
+                                realIntent.putExtra("pageIndex", 2);
                                 realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 ++NOTIFY_ID;
                                 Intent clickIntent = new Intent(context, NotificationClickReceiver.class); //点击 Intent
@@ -142,9 +143,9 @@ public class NotificationHelper {
                                 NotificationManagerCompat notificationManager =
                                         NotificationManagerCompat.from(context);
                                 notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
-                            }else{
+                            } else {
                                 Intent intent = new Intent(context, MainActivity.class);
-                                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,intent, 0);
+                                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
                                 notificationBuilder.setContentIntent(pendingIntent);
                                 // 3.设置通知栏其他属性
                                 notificationBuilder.setAutoCancel(true);
@@ -155,7 +156,6 @@ public class NotificationHelper {
                             }
 
 
-
                         } else {
                             MediaPlayerUtil.playNotifyVoice(context);
                             VibratorHelper.vibratorShark(context);
@@ -163,6 +163,61 @@ public class NotificationHelper {
                     }
                 }
                 break;
+            }
+            case EventOfflineMessage: {//接收离线消息
+                List<EMMessage> messages = (List<EMMessage>) event.getData();
+                for(EMMessage message : messages){
+                    if(null != message){
+                        String username = message.getFrom();
+                        String titleName = null;
+                        if (!username.equals(CacheUtil.getInstance().getUserId())) {
+                            boolean bindClient = message.getBooleanAttribute("bindClient", false);
+                            if (bindClient) {
+                                NotificationCompat.Builder notificationBuilder = null;
+                                notificationBuilder = new NotificationCompat.Builder(context);
+                                titleName = message.getFrom();
+                                try {
+                                    String fromName = message.getStringAttribute("fromName");
+                                    String toName = message.getStringAttribute("toName");
+                                    if (!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())) {
+                                        titleName = fromName;
+                                    } else {
+                                        if (!TextUtils.isEmpty(toName)) {
+                                            titleName = toName;
+                                        }
+                                    }
+                                } catch (EaseMobException e) {
+                                    e.printStackTrace();
+                                }
+                                notificationBuilder.setContentTitle("" + titleName);
+                                TextMessageBody txtBody = (TextMessageBody) message.getBody();
+                                String content = txtBody.getMessage();
+                                notificationBuilder.setContentText("" + content);
+                                notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                                // 2.设置点击跳转事件
+                                Intent realIntent = new Intent();
+                                realIntent.setClass(context, MainActivity.class);
+                                realIntent.putExtra("pageIndex", 2);
+                                realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                ++NOTIFY_ID;
+                                Intent clickIntent = new Intent(context, NotificationClickReceiver.class); //点击 Intent
+                                clickIntent.putExtra("realIntent", realIntent);
+                                clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, NOTIFY_ID, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                notificationBuilder.setContentIntent(pendingIntent);
+                                // 3.设置通知栏其他属性
+                                notificationBuilder.setAutoCancel(true);
+                                notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+                                NotificationManagerCompat notificationManager =
+                                        NotificationManagerCompat.from(context);
+                                notificationManager.notify(NOTIFY_ID, notificationBuilder.build());
+
+                            }
+                        }
+                    }
+                }
+                break;
+            }
         }
     }
 

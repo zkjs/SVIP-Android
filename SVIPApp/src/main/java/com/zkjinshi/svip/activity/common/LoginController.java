@@ -171,6 +171,7 @@ public class LoginController {
         EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
             @Override
             public void onSuccess() {
+                Log.i(TAG, "环信登录成功");
                 EMGroupManager.getInstance().loadAllGroups();
                 EMChatManager.getInstance().loadAllConversations();
                 EMessageListener.getInstance().registerEventListener();

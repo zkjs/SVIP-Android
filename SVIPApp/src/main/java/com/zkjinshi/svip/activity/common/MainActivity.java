@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.easemob.EMCallBack;
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
 
+import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
@@ -137,6 +139,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if(null != mShowMessagePageReceiver){
             unregisterReceiver(mShowMessagePageReceiver);
         }
+        Log.d(TAG,TAG+".onDestroy");
+        logoutHx();
     }
 
     @Override
@@ -422,6 +426,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if((currentTime-touchTime)>=waitTime) {
             touchTime = currentTime;
         }else {
+            logoutHx();
             onExit();
         }
     }
@@ -478,6 +483,30 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             currentItem = viewPager.getCurrentItem();
         }
         return currentItem;
+    }
+
+    public void logoutHx(){
+        //环信接口退出
+        Log.i(TAG, "环信接口退出");
+        EMChatManager.getInstance().logout(new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "环信退出onSuccess");
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                Log.i(TAG, "环信退出onProgress");
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Log.i(TAG, "环信退出onError");
+
+            }
+        });
     }
 
 
