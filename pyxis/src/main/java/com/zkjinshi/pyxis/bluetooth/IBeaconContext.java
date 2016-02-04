@@ -2,6 +2,9 @@ package com.zkjinshi.pyxis.bluetooth;
 
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -49,4 +52,21 @@ public class IBeaconContext {
         }
     }
 
+    public void setNetBeanconMap(ConcurrentHashMap<String, NetBeaconVo> netBeanconMap) {
+        this.netBeanconMap = netBeanconMap;
+    }
+
+    public void setNetBeanconMap(HashMap<String, NetBeaconVo> hashMap) {
+        if(hashMap == null || hashMap.isEmpty()){
+            return;
+        }
+        netBeanconMap = new ConcurrentHashMap<String,NetBeaconVo>();
+        Iterator<Map.Entry<String, NetBeaconVo>> iter = hashMap.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, NetBeaconVo> entry = (Map.Entry) iter.next();
+            String key = entry.getKey();
+            NetBeaconVo val = entry.getValue();
+            netBeanconMap.put(key,val);
+        }
+    }
 }

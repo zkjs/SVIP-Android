@@ -20,6 +20,7 @@ import com.zkjinshi.svip.activity.common.WebViewActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 
 import com.zkjinshi.svip.map.LocationManager;
@@ -127,7 +128,7 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
                 //移除蓝牙服务
-                IBeaconController.getInstance().stopBeaconService();
+                BlueToothManager.getInstance().stopIBeaconService();
                 ((SVIPApplication)getApplication()).mRegionList.clear();
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();

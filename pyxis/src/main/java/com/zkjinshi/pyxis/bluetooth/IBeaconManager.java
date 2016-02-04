@@ -113,6 +113,7 @@ public class IBeaconManager {
 					IBeaconVo ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
 						if(IBeaconContext.getInstance().getNetBeaconMap().containsKey(ibeacon.getBeaconKey()) ){
+							Log.d(TAG,ibeacon.getBeaconKey());
 							NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
 							long currentTime = System.currentTimeMillis();
 							double distance = DistanceUtil.calculateAccuracy(ibeacon.getTxPower(),ibeacon.getRssi());

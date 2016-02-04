@@ -29,9 +29,11 @@ import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.bean.LocPushBean;
 
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
@@ -97,7 +99,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         initView();
         initData();
         initListeners();
-        initIBeaconList();
         addAllObserver();
     }
 
@@ -119,7 +120,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             viewPager.setCurrentItem(2,true);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if(CacheUtil.getInstance().isLogin() && !IBeaconController.getInstance().isRuning()){
+            if(CacheUtil.getInstance().isLogin() && !BlueToothManager.getInstance().isIBeaconServiceRunning()){
                 MainController.getInstance().startIbeaconService();
             }
         }
@@ -129,7 +130,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        IBeaconSubject.getInstance().removeObserver(this);
         EMessageListener.getInstance().unregisterEventListener();
         removeAllObserver();
         if (null != mUpdateReceiver) {
@@ -281,15 +281,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         }
     }
 
-    /**
-     * 初始化beacon列表
-     */
-    private void initIBeaconList(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init(this,3000L,2);
-            IBeaconSubject.getInstance().addObserver(this);
-        }
-    }
+
 
 
 
@@ -300,7 +292,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
         LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
 
-        reginAdPush(iBeaconVo);
+       // reginAdPush(iBeaconVo);
         addRegionVo(iBeaconVo);
         notifyHomeFragment();
     }
@@ -426,8 +418,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if((currentTime-touchTime)>=waitTime) {
             touchTime = currentTime;
         }else {
-            logoutHx();
-            onExit();
+            //logoutHx();
+            //onExit();
+            BaseApplication.getInst().clear();
         }
     }
 
@@ -435,6 +428,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
      * 添加观察者
      */
     private void addAllObserver(){
+        BlueToothManager.getInstance().addObserver(this);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventNewMessage);
         EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventOfflineMessage);
         EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventConversationListChanged);

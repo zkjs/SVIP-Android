@@ -49,6 +49,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:persistent="true"
         android:theme="@style/Theme.App.Translucent.NoTitleBar">
 
         <meta-data
@@ -539,8 +540,10 @@
         <!--高德定位-->
         <service android:name="com.amap.api.location.APSService"></service>
         <!--pyxis sdk-->
-        <service android:name="com.zkjinshi.pyxis.bluetooth.IBeaconService">
-            <intent-filter>
+        <service
+            android:name="com.zkjinshi.pyxis.bluetooth.IBeaconService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
                 <action android:name="com.zkjinshi.pyxis.Beacon_SERVICE"/>
             </intent-filter>
         </service>

@@ -7,8 +7,10 @@ import android.os.IBinder;
 
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
 
-;
 
 /**
  * IBeaconService服务
@@ -20,6 +22,11 @@ import android.util.Log;
 public class IBeaconService extends Service{
 
     public static String TAG = IBeaconService.class.getSimpleName();
+    public static boolean killMyself = false;
+    public Intent intent;
+    public HashMap<String, NetBeaconVo> netBeaconMap = null;
+
+    public static IBeaconObserver mIBeaconObserver = null;
 
     @Override
     public void onCreate() {
@@ -31,16 +38,40 @@ public class IBeaconService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG,"IBeaconService.onStartCommand()");
-        return Service.START_NOT_STICKY;
+        this.intent = intent;
+        if(intent == null){
+            Log.d(TAG,"intent == null");
+        }else if(netBeaconMap == null){
+            netBeaconMap = (HashMap<String, NetBeaconVo>)intent.getSerializableExtra("netBeaconMap");
+            IBeaconContext.getInstance().setNetBeanconMap(netBeaconMap);
+             Log.d(TAG,"netBeaconMap:"+netBeaconMap.toString());
+            if(IBeaconService.mIBeaconObserver != null){
+                IBeaconSubject.getInstance().addObserver(IBeaconService.mIBeaconObserver);
+            }else{
+                Log.d(TAG,"IBeaconService.mIBeaconObserver == null");
+            }
+
+        }
+        if(killMyself){
+            return START_NOT_STICKY;
+        }else{
+            return  START_REDELIVER_INTENT;
+        }
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
-        IBeaconManager.getInstance().stopScan();
-        IBeaconManager.getInstance().cancelScheduleScan();
-        IBeaconContext.getInstance().clearIBeaconMap();
+
+        if(killMyself){
+            IBeaconManager.getInstance().stopScan();
+            IBeaconManager.getInstance().cancelScheduleScan();
+            IBeaconContext.getInstance().clearIBeaconMap();
+        }else if(intent != null){
+            getApplicationContext().startService(intent);
+        }
+
         Log.d(TAG,"IBeaconService.onDestroy()");
+        super.onDestroy();
     }
 
 

@@ -30,6 +30,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.bean.BaseBean;
 import com.zkjinshi.svip.bean.UpdateBean;
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.fragment.HomeFragment;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -495,8 +496,7 @@ public class MainController {
                     if (null != beaconList && !beaconList.isEmpty()) {
                         if(CacheUtil.getInstance().isLogin()){
                             if(activity instanceof MainActivity){
-                                IBeaconController.getInstance().setListenBeancons(beaconList);
-                                IBeaconController.getInstance().startBeaconService();
+                                BlueToothManager.getInstance().startIBeaconService(beaconList);
                             }
                         }
                     }

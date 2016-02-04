@@ -31,6 +31,7 @@ import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.UpdateBean;
 
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
 import com.zkjinshi.svip.map.LocationManager;
@@ -80,6 +81,7 @@ public class SVIPApplication extends BaseApplication {
         initMsc();
 
         LocationManager.getInstance().init(this);
+        BlueToothManager.getInstance().init(this);
     }
 
     public boolean isDownload() {

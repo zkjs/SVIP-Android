@@ -18,6 +18,7 @@ import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -66,7 +67,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
                     CacheUtil.getInstance().setUserPhone("");
                     CacheUtil.getInstance().savePicPath("");
                     //移除蓝牙服务
-                    IBeaconController.getInstance().stopBeaconService();
+                    BlueToothManager.getInstance().stopIBeaconService();
                     ((SVIPApplication)((Activity) context).getApplication()).mRegionList.clear();
                     //ImageLoader.getInstance().clearDiskCache();
                     ImageLoader.getInstance().clearMemoryCache();

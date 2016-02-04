@@ -62,11 +62,13 @@ public class IBeaconController {
             Log.e(TAG,"还没正确初始化");
             return;
         }
-        isRuning = true;
         Log.d(TAG,"启动IBeacon蓝牙扫描服务");
-        Intent intent = new Intent(context.getApplicationContext(), IBeaconService.class);
+        IBeaconService.killMyself = false;
+        Intent intent = new Intent(context, IBeaconService.class);
+        intent.putExtra("netBeaconMap",IBeaconContext.getInstance().getNetBeaconMap());
         intent.setAction("com.zkjinshi.pyxis.Beacon_SERVICE");
-        context.getApplicationContext().startService(intent);
+        context.startService(intent);
+        isRuning = true;
     }
 
     /**
@@ -79,9 +81,10 @@ public class IBeaconController {
         }
         isRuning = false;
         Log.d(TAG,"停止IBeacon蓝牙扫描服务");
-        Intent intent = new Intent(context.getApplicationContext(), IBeaconService.class);
-       intent.setAction("com.zkjinshi.pyxis.Beacon_SERVICE");
-        context.getApplicationContext().stopService(intent);
+        IBeaconService.killMyself = true;
+        Intent intent = new Intent(context, IBeaconService.class);
+        intent.setAction("com.zkjinshi.pyxis.Beacon_SERVICE");
+        context.stopService(intent);
     }
 
     public boolean isRuning() {
