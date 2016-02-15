@@ -12,6 +12,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.pyxis.bluetooth.IBeaconContext;
 import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
 import com.zkjinshi.pyxis.bluetooth.IBeaconService;
@@ -231,6 +232,14 @@ public class BlueToothManager {
      */
     public void removeObserver(IBeaconObserver observer){
         IBeaconSubject.getInstance().removeObserver(observer);
+    }
+
+    /**
+     * 返回最近检测到的IBeacon信息
+     * @return
+     */
+    public IBeaconVo getLastIBeaconVo(){
+        return IBeaconContext.getInstance().getLastIBeaconVo();
     }
 
 }

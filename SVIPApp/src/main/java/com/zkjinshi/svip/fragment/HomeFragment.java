@@ -33,6 +33,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.Constants;
+import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.common.HomeGuideActivity;
@@ -45,6 +47,7 @@ import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
 import com.zkjinshi.svip.activity.shop.ShopDetailActivity;
 import com.zkjinshi.svip.adapter.HomeMsgAdapter;
 import com.zkjinshi.svip.bean.BaseBean;
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -73,7 +76,7 @@ import java.util.Map;
 /**
  * 首页Fragment
  */
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements IBeaconObserver {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -277,7 +280,7 @@ public class HomeFragment extends Fragment{
         }
         mActivity = getActivity();
         MainController.getInstance().init(mActivity);
-
+        BlueToothManager.getInstance().addObserver(this);
         initMap();
         loadHomeData();
     }
@@ -455,12 +458,7 @@ public class HomeFragment extends Fragment{
                 activeCodeTv.setVisibility(View.GONE);
                 simpleTextTv.setText("");
                 //到店
-                if(svipApplication.mRegionList.size() > 0){
-                    int index = svipApplication.mRegionList.size()-1;
-                    final String shopid = svipApplication.mRegionList.get(index).getShopid();
-                    String fullname =svipApplication.mRegionList.get(index).getRemark();
-                   // String fullname = ShopDetailDBUtil.getInstance().queryShopNameByShopID(shopid);
-                    //simpleTextTv.setText("欢迎光临"+fullname);
+                if(BlueToothManager.getInstance().getLastIBeaconVo() != null){
                     simpleTextTv.setText("");
                 }
             }else{
@@ -521,8 +519,7 @@ public class HomeFragment extends Fragment{
         if(!CacheUtil.getInstance().isActivate()){
             return;
         }
-        if(svipApplication.mRegionList.size() <= 0){
-
+        if(BlueToothManager.getInstance().getLastIBeaconVo() == null){
             return;
         }
         getActivity().runOnUiThread(new Runnable() {
@@ -548,12 +545,11 @@ public class HomeFragment extends Fragment{
         if(!CacheUtil.getInstance().isActivate()){
             return;
         }
-        if(svipApplication.mRegionList.size() <= 0){
+        if(BlueToothManager.getInstance().getLastIBeaconVo() == null){
            return;
         }
-        int index = svipApplication.mRegionList.size()-1;
-        final String shopid = svipApplication.mRegionList.get(index).getShopid();
-        //final String shopid = "120";
+
+        final String shopid = BlueToothManager.getInstance().getLastIBeaconVo().getShopid();
 
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
         NetRequest netRequest = new NetRequest(url);
@@ -769,10 +765,6 @@ public class HomeFragment extends Fragment{
 
 
 
-
-
-
-
     /**
      * 判读是否已经激活
      */
@@ -833,4 +825,19 @@ public class HomeFragment extends Fragment{
         netRequestTask.execute();
     }
 
+    @Override
+    public void intoRegion(IBeaconVo iBeaconVo) {
+        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎惠顾酒店-----");
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
+        notifyIbeacon();
+    }
+
+    @Override
+    public void outRegin(IBeaconVo iBeaconVo) {
+        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎下次光临-----");
+        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
+        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
+        notifyIbeacon();
+    }
 }

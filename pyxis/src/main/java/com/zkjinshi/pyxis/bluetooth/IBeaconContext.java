@@ -69,4 +69,40 @@ public class IBeaconContext {
             netBeanconMap.put(key,val);
         }
     }
+
+    /**
+     * 返回是否检测到IBeacon
+     * @return
+     */
+    public boolean isIBeaconEmpty(){
+        if(iBeanconMap == null){
+            return true;
+        }
+        return iBeanconMap.isEmpty();
+    }
+
+    /**
+     * 返回最近检测到的IBeacon信息
+     * @return
+     */
+    public IBeaconVo getLastIBeaconVo(){
+        if(isIBeaconEmpty()){
+            return null;
+        }
+
+        IBeaconVo lastIBeaconVo = null;
+        Iterator<Map.Entry<String, IBeaconVo>> iter = iBeanconMap.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, IBeaconVo> entry = (Map.Entry) iter.next();
+            IBeaconVo val = entry.getValue();
+            if(lastIBeaconVo == null){
+                lastIBeaconVo = val;
+            }else if(val.getTimestamp() > lastIBeaconVo.getTimestamp()){
+                lastIBeaconVo = val;
+            }
+        }
+        return lastIBeaconVo;
+    }
+
+
 }

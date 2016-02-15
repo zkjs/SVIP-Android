@@ -129,7 +129,6 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().savePicPath("");
                 //移除蓝牙服务
                 BlueToothManager.getInstance().stopIBeaconService();
-                ((SVIPApplication)getApplication()).mRegionList.clear();
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 //停止高德地图定位API

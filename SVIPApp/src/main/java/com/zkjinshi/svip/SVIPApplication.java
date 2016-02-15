@@ -60,7 +60,6 @@ public class SVIPApplication extends BaseApplication {
 
     public static final String TAG = SVIPApplication.class.getSimpleName();
 
-    public Vector<IBeaconVo> mRegionList = new Vector<IBeaconVo>();
     private boolean isDownload;
     public UpdateBean updateBean = null;
 

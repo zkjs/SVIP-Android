@@ -68,7 +68,6 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
                     CacheUtil.getInstance().savePicPath("");
                     //移除蓝牙服务
                     BlueToothManager.getInstance().stopIBeaconService();
-                    ((SVIPApplication)((Activity) context).getApplication()).mRegionList.clear();
                     //ImageLoader.getInstance().clearDiskCache();
                     ImageLoader.getInstance().clearMemoryCache();
                     //停止高德地图定位API

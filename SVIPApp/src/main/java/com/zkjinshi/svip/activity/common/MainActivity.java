@@ -60,7 +60,7 @@ import java.util.ArrayList;
 
 import io.yunba.android.manager.YunBaManager;
 
-public class MainActivity extends BaseFragmentActivity implements IBeaconObserver,IEMessageObserver {
+public class MainActivity extends BaseFragmentActivity implements IEMessageObserver {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -281,127 +281,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         }
     }
 
-
-
-
-
-
-    @Override
-    public void intoRegion(IBeaconVo iBeaconVo) {
-        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎惠顾酒店-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
-
-       // reginAdPush(iBeaconVo);
-        addRegionVo(iBeaconVo);
-        notifyHomeFragment();
-    }
-
-    @Override
-    public void outRegin(IBeaconVo iBeaconVo) {
-        LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎下次光临-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
-
-        removeRegionVo(iBeaconVo);
-        notifyHomeFragment();
-    }
-
-    //添加蓝牙设备
-    private void addRegionVo(IBeaconVo iBeaconVo){
-
-        for(IBeaconVo item : svipApplication.mRegionList){
-            if(item.getBeaconKey().equals(iBeaconVo.getBeaconKey())){
-                svipApplication.mRegionList.remove(item);
-                break;
-            }
-        }
-        svipApplication.mRegionList.add(iBeaconVo);
-    }
-
-    //移除蓝牙设备
-    private void removeRegionVo(IBeaconVo iBeaconVo){
-        for(IBeaconVo item : svipApplication.mRegionList){
-            if(item.getBeaconKey().equals(iBeaconVo.getBeaconKey())){
-                svipApplication.mRegionList.remove(item);
-                break;
-            }
-        }
-    }
-
-    /**
-     * 区域广告通知
-     * @param iBeaconVo
-     */
-    private void reginAdPush(IBeaconVo iBeaconVo){
-        if(null != iBeaconVo){
-            try {
-
-                String locId = iBeaconVo.getLocid();
-                String shopid = iBeaconVo.getShopid();
-                String locdesc = iBeaconVo.getLocdesc();
-                String sexStr = CacheUtil.getInstance().getSex();
-                LocPushBean locPushBean = new LocPushBean();
-                int sex = Integer.parseInt(sexStr);
-                locPushBean.setSex(sex);
-                locPushBean.setUserid(CacheUtil.getInstance().getUserId());
-                locPushBean.setUsername(CacheUtil.getInstance().getUserName());
-                if(!TextUtils.isEmpty(locId)){
-                    locPushBean.setLocid(locId);
-                }
-                if(!TextUtils.isEmpty(shopid)){
-                    locPushBean.setShopid(shopid);
-                }
-                if(!TextUtils.isEmpty(locdesc)){
-                    locPushBean.setLocdesc(locdesc);
-                }
-                String alert = "";
-                String msg = new Gson().toJson(locPushBean);
-                if(sex == 0){
-                    alert = CacheUtil.getInstance().getUserName()+"女士到达"+locdesc;
-                }else{
-                    alert = CacheUtil.getInstance().getUserName()+"先生到达"+locdesc;
-                }
-                Log.i(TAG,"云巴推送订阅内容:"+msg);
-                JSONObject opts = new JSONObject();
-                JSONObject apn_json = new JSONObject();
-                JSONObject aps = new JSONObject();
-                aps.put("sound", "default");
-                aps.put("badge", 1);
-                aps.put("alert", alert);
-                apn_json.put("aps", aps);
-                opts.put("apn_json", apn_json);
-                YunBaManager.publish2(getApplicationContext(), locId, msg, opts,
-                        new IMqttActionListener() {
-                            @Override
-                            public void onSuccess(IMqttToken asyncActionToken) {
-                                Log.i(TAG,"订阅云巴推送消息成功");
-                            }
-
-                            @Override
-                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                                if (exception instanceof MqttException) {
-                                    MqttException ex = (MqttException)exception;
-                                    String msg =  "publish failed with error code : " + ex.getReasonCode();
-                                    Log.i(TAG,"订阅云巴推送消息失败:"+msg);
-                                }
-                            }
-                        }
-                );
-                //区域位置变化通知
-                MainController.getInstance().requestArriveNoticeTask(shopid,locId);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void notifyHomeFragment(){
-        if(homeFragment != null){
-            homeFragment.notifyIbeacon();
-        }
-    }
-
     public void setCurrentItem(int position){
         if(null != viewPager){
             viewPager.setCurrentItem(position);
@@ -428,7 +307,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
      * 添加观察者
      */
     private void addAllObserver(){
-        BlueToothManager.getInstance().addObserver(this);
         EMessageSubject.getInstance().addObserver(this, EMNotifierEvent.Event.EventNewMessage);
         EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventOfflineMessage);
         EMessageSubject.getInstance().addObserver(this,EMNotifierEvent.Event.EventConversationListChanged);
