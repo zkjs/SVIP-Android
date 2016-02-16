@@ -184,7 +184,7 @@ public class BlueToothManager {
     public void init(Context context){
         this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init(context,3000L,2);
+            IBeaconController.getInstance().init(context,2000L,3);
             IBeaconService.mIBeaconObserver = mIBeaconObserver;
         }
     }
