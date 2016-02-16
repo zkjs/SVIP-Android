@@ -23,6 +23,8 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.listener.RecyclerItemClickListener;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.EmotionType;
+import com.zkjinshi.svip.utils.EmotionUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.MessageVo;
@@ -156,7 +158,11 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             if(TxtExtType.DEFAULT.getVlaue() == extType){
                                 TextMessageBody txtBody = (TextMessageBody) message.getBody();
                                 String content  = txtBody.getMessage();
-                                ((ChatRoomViewHolder)holder).chatContent.setText(content);
+                                CharSequence txt = EmotionUtil.getInstance()
+                                        .convertStringToSpannable(context,
+                                                content,
+                                                EmotionType.CHAT_LIST);
+                                ((ChatRoomViewHolder)holder).chatContent.setText(txt);
                             }else{
                                 ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
                             }
