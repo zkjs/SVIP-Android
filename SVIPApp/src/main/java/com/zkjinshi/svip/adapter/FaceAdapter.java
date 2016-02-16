@@ -81,7 +81,7 @@ public class FaceAdapter extends BaseAdapter {
 			viewHolder.faceIV.setBackgroundDrawable(null);
 		} else {
 			int count = EmotionUtil.NUM * currentPage + position;
-			if (count < 107) {
+			if (count < 35) {
                 viewHolder.faceIV.setImageBitmap(EmotionUtil.getInstance().createEmotionBitmap(mContext, EmotionType.FACE_KEYBOARD, faceList.get(count)));
 			} else {
 				viewHolder.faceIV.setImageDrawable(null);
