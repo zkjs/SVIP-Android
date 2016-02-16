@@ -828,16 +828,16 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
     @Override
     public void intoRegion(IBeaconVo iBeaconVo) {
         LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎惠顾酒店-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
+       // LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
+        //LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
         notifyIbeacon();
     }
 
     @Override
     public void outRegin(IBeaconVo iBeaconVo) {
         LogUtil.getInstance().info(LogLevel.DEBUG,"--欢迎下次光临-----");
-        LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
-        LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
+        //LogUtil.getInstance().info(LogLevel.DEBUG, "beacon info:" + iBeaconVo.toString());
+       // LogUtil.getInstance().info(LogLevel.DEBUG, "---------------------");
         notifyIbeacon();
     }
 }

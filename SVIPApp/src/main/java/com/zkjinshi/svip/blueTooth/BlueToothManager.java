@@ -60,13 +60,13 @@ public class BlueToothManager {
     private IBeaconObserver mIBeaconObserver = new IBeaconObserver() {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
-            Log.d(TAG,"进入："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
             reginAdPush(iBeaconVo);
         }
 
         @Override
         public void outRegin(IBeaconVo iBeaconVo) {
-            Log.d(TAG,"离开："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo);
         }
     };
 
@@ -184,7 +184,7 @@ public class BlueToothManager {
     public void init(Context context){
         this.context = context;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
-            IBeaconController.getInstance().init(context,2000L,3);
+            IBeaconController.getInstance().init(context,3000L,2);
             IBeaconService.mIBeaconObserver = mIBeaconObserver;
         }
     }
