@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.blueware.agent.android.BlueWare;
 import com.easemob.EMCallBack;
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
@@ -94,6 +97,8 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/"+TAG);
+        BlueWare.withApplicationToken("48253A521296A801A544BD1E163B1F6D55").start(this.getApplication());
         setContentView(R.layout.activity_main);
         svipApplication = (SVIPApplication)getApplication();
         initView();
@@ -130,6 +135,7 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
     @Override
     protected void onDestroy() {
         super.onDestroy();
+       // Debug.stopMethodTracing();
         EMessageListener.getInstance().unregisterEventListener();
         removeAllObserver();
         if (null != mUpdateReceiver) {
