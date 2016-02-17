@@ -522,6 +522,9 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         if(BlueToothManager.getInstance().getLastIBeaconVo() == null){
             return;
         }
+        if(getActivity() == null){
+            return;
+        }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
