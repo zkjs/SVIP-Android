@@ -121,7 +121,12 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
                         if(TxtExtType.DEFAULT.getVlaue() == extType){
                             TextMessageBody txtBody = (TextMessageBody) message.getBody();
-                            ((ChatRoomViewHolder)holder).chatContent.setText(txtBody.getMessage());
+                            String content  = txtBody.getMessage();
+                            CharSequence txt = EmotionUtil.getInstance()
+                                    .convertStringToSpannable(context,
+                                            content,
+                                            EmotionType.CHAT_LIST);
+                            ((ChatRoomViewHolder)holder).chatContent.setText(txt);
                         }else{
                             ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
                         }
