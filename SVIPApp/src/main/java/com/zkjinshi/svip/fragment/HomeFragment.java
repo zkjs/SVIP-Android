@@ -494,10 +494,8 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
     //特权闪
     public void showPrivilegeTips(){
         logoTextTv.setVisibility(View.VISIBLE);
-        if(fadeAnimation == null){
-            fadeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fade);
-            logoTextTv.startAnimation(fadeAnimation);
-        }
+        fadeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_fade);
+        logoTextTv.startAnimation(fadeAnimation);
 
     }
 
