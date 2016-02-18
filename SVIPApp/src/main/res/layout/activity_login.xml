@@ -114,7 +114,8 @@
             android:singleLine="true"
             android:textColor="#666666"
             android:textColorHint="#b8b8b8"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:imeOptions="actionGo"/>
 
             <ImageView
                 android:id="@+id/login_iv_verify_code"

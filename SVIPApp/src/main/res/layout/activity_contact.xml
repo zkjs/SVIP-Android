@@ -20,19 +20,36 @@
             android:layout_height="match_parent"
             android:background="@color/TransparentLightGray">
 
-            <RelativeLayout
-                android:id="@+id/rl_back"
-                android:layout_width="48dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_height="48dp"
-                android:clickable="true">
 
-                <ImageView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/header_bar_btn_back"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/header_ibtn_back"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_contact_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/header_ibtn_back_orange" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@android:color/white"
+                    android:text="@string/app_name"/>
 
             </RelativeLayout>
 
@@ -42,13 +59,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="5dp"
                     android:text="@string/latest"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -58,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="5dp"
+                    android:paddingLeft="10dp"
                     android:text="@string/no_login"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
@@ -71,19 +89,11 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/ll_online_info"
                 android:gravity="center"
-                android:padding="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tv_contact_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/tv_shop_name"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
 
         </RelativeLayout>
     </FrameLayout>
@@ -236,7 +246,7 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg_btn_orange_to_gray"
             android:text="@string/consult_immediately"
-            android:textColor="@color/black" />
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
 

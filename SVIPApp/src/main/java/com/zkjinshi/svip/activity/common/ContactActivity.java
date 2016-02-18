@@ -58,7 +58,6 @@ public class ContactActivity extends BaseActivity {
 
     private final String TAG = ContactActivity.class.getSimpleName();
 
-    private RelativeLayout mRlBack;//返回
     private ImageView      mIvAvatar;//用户头像
     private TextView       mTvLatestOnline;//最近在线时间
     private TextView       mTvShopName;//所属商家
@@ -93,7 +92,6 @@ public class ContactActivity extends BaseActivity {
     }
 
     private void initView() {
-        mRlBack   = (RelativeLayout) findViewById(R.id.rl_back);
         mIvAvatar = (ImageView) findViewById(R.id.iv_avatar);
         mTvLatestOnline  = (TextView) findViewById(R.id.tv_latest_online);
         mTvShopName      = (TextView) findViewById(R.id.tv_shop_name);
@@ -133,7 +131,7 @@ public class ContactActivity extends BaseActivity {
 
     private void initListener() {
 
-        mRlBack.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.header_bar_btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ContactActivity.this.finish();

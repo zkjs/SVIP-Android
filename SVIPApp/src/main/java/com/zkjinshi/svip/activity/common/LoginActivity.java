@@ -14,8 +14,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -406,6 +409,27 @@ public class LoginActivity extends BaseActivity {
                     useDealTipTv.setVisibility(View.GONE);
                     commitBtn.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        mVerifyCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String code = mVerifyCode.getText().toString();
+                String inputPhone = mInputPhone.getText().toString();
+                /*判断是否是“go”键*/
+                if(actionId == EditorInfo.IME_ACTION_GO && !TextUtils.isEmpty(code) && code.length() == 6){
+                    /*隐藏软键盘*/
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    if (imm.isActive()) {
+                        imm.hideSoftInputFromWindow( v.getApplicationWindowToken(), 0);
+                    }
+                    getUser(inputPhone);
+                    return true;
+                }
+                return false;
             }
         });
     }

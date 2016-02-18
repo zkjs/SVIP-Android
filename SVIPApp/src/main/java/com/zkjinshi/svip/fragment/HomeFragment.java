@@ -403,6 +403,8 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
             logoIv.setVisibility(View.GONE);
 
+        }else{
+            logoIv.setVisibility(View.VISIBLE);
         }
 
         //设置时间问候语

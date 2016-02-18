@@ -158,6 +158,9 @@ public class NormalBookingActivity extends BaseActivity {
             phoneTsv.setValue(CacheUtil.getInstance().getUserPhone());
             orderDetailForDisplay.setTelephone(CacheUtil.getInstance().getUserPhone());
         }
+
+        BookingController.getInstance().init(this);
+        BookingController.getInstance().setDefaultInvoice(invoiceTsv);
     }
 
     private void initListener() {
