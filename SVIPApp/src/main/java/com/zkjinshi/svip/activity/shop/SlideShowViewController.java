@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.shop;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
@@ -14,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -31,10 +36,9 @@ import java.util.concurrent.TimeUnit;
 
 public class SlideShowViewController {
 
-    private ImageLoader imageLoader = ImageLoader.getInstance();
     private boolean isAutoPlay = true;
     private ArrayList<String> imageUrls;
-    private List<ImageView> imageViewsList;
+    private List<SimpleDraweeView> imageViewsList;
     private List<View> dotViewsList;
     private ViewPager viewPager;
     private int currentItem  = 0;
@@ -74,7 +78,7 @@ public class SlideShowViewController {
     }
 
     private void initData(Context context,ArrayList<String> imageUrls){
-        imageViewsList = new ArrayList<ImageView>();
+        imageViewsList = new ArrayList<SimpleDraweeView>();
         dotViewsList = new ArrayList<View>();
         this.imageUrls = imageUrls;
         initView(context);
@@ -86,9 +90,15 @@ public class SlideShowViewController {
         LinearLayout dotLayout = (LinearLayout)((Activity)context).findViewById(R.id.dotLayout);
         dotLayout.removeAllViews();
         for (int i = 0; i < imageUrls.size(); i++) {
-            ImageView view =  new ImageView(context);
+            SimpleDraweeView view =  new SimpleDraweeView(context);
             view.setTag(imageUrls.get(i));
-            view.setScaleType(ScaleType.FIT_XY);
+            GenericDraweeHierarchyBuilder builder =
+                    new GenericDraweeHierarchyBuilder(context.getResources());
+            GenericDraweeHierarchy hierarchy = builder
+                    .setFadeDuration(300)
+                   .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
+                    .build();
+            view.setHierarchy(hierarchy);
             view.setClickable(true);
             view.setId(i);
             view.setOnClickListener(new View.OnClickListener() {
@@ -125,10 +135,8 @@ public class SlideShowViewController {
 
         @Override
         public Object instantiateItem(View container, int position) {
-            ImageView imageView = imageViewsList.get(position);
-
-            imageLoader.displayImage(ProtocolUtil.getHostImgUrl(imageView.getTag()+ ""), imageView);
-
+            SimpleDraweeView simpleDraweeView = imageViewsList.get(position);
+            simpleDraweeView.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(simpleDraweeView.getTag()+ "")));
             ((ViewPager)container).addView(imageViewsList.get(position));
             return imageViewsList.get(position);
         }
