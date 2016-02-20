@@ -3,6 +3,7 @@ package com.zkjinshi.svip.fragment.contacts;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
@@ -37,21 +39,11 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<SortModel> mList;
     private Context         mContext;
-    private DisplayImageOptions options;
-
     private RecyclerItemClickListener mRecyclerItemClickListener;
 
     public ContactsSortAdapter(Context mContext, List<SortModel> list) {
         this.mContext = mContext;
         this.mList    = list;
-
-        this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(Color.TRANSPARENT)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(Color.TRANSPARENT)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(Color.TRANSPARENT)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
 
     }
 
@@ -113,9 +105,7 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }
         });
-
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(sortModel.fuid),
-                                                      myHolder.civContactAvatar,options);
+        myHolder.civContactAvatar.setImageURI(Uri.parse(ProtocolUtil.getAvatarUrl(sortModel.fuid)));
 
         //显示客户名称
         String clientName = sortModel.name;
@@ -133,7 +123,7 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class ClientViewHolder extends RecyclerView.ViewHolder{
 
         public TextView         tvLetter;
-        public CircleImageView  civContactAvatar;
+        public SimpleDraweeView civContactAvatar;
         public TextView         tvContactAvatar;
         public TextView         tvContactName;
 
@@ -142,7 +132,7 @@ public class ContactsSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ClientViewHolder(View view, RecyclerItemClickListener itemClickListener) {
             super(view);
             tvLetter         = (TextView) view.findViewById(R.id.catalog);
-            civContactAvatar = (CircleImageView) view.findViewById(R.id.civ_contact_avatar);
+            civContactAvatar = (SimpleDraweeView) view.findViewById(R.id.civ_contact_avatar);
             tvContactAvatar  = (TextView) view.findViewById(R.id.tv_contact_avatar);
             tvContactName    = (TextView) view.findViewById(R.id.tv_contact_name);
             this.mItemClickListener = itemClickListener;

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.base.BaseUiController;
@@ -160,6 +161,57 @@ public class MineUiController extends BaseUiController{
                         displayBitmap = ImageUtil.loadThumbBitmap(context,displayBitmap);
                         imageView.setImageBitmap(displayBitmap);
                     }
+                    CacheUtil.getInstance().savePicPath(photoFilePath);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 选择图片回调
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * @param simpleDraweeView
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data,SimpleDraweeView simpleDraweeView){
+
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case Constants.FLAG_CHOOSE_IMG:// 选择本地图片
+                    if (data != null) {
+                        List<String> pathList = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                        Intent intent = new Intent(context,
+                                CutActivity.class);
+                        intent.putExtra("path", pathList.get(0));
+                        ((Activity)context).startActivityForResult(intent,
+                                Constants.FLAG_MODIFY_FINISH);
+                    }
+                    break;
+
+                case Constants.FLAG_CHOOSE_PHOTO:// 打开照相机
+                    Intent intent = new Intent(context, CutActivity.class);
+                    String photoFileName = CacheUtil.getInstance().getPicName();
+                    intent.putExtra("path", FileUtil.getInstance().getImageTempPath()+ photoFileName);
+                    ((Activity)context). startActivityForResult(intent, Constants.FLAG_MODIFY_FINISH);
+                    break;
+
+                case Constants.FLAG_MODIFY_FINISH:// 修改完成
+                    if (data != null) {
+                        photoFilePath = data.getStringExtra("path");
+                    }else{
+                        photoFilePath =  FileUtil.getInstance().getImageTempPath() + CacheUtil.getInstance().getPicName();
+                    }
+//                    File file = new File(photoFilePath);
+//                    if (file.exists()) {
+//                        displayBitmap = ImageUtil.getBitmapFromFile(file,198,198);
+//                        displayBitmap = ImageUtil.loadThumbBitmap(context,displayBitmap);
+//                        imageView.setImageBitmap(displayBitmap);
+//                    }
+                    simpleDraweeView.setImageURI(Uri.parse("file://"+photoFilePath));
                     CacheUtil.getInstance().savePicPath(photoFilePath);
                     break;
 

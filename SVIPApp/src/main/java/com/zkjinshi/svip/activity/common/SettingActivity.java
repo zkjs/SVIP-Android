@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.log.LogLevel;
@@ -56,7 +60,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     private ImageButton backIBtn;
     private TextView titleTv;
-    private CircleImageView mUserIcon;//用户头像
+    private SimpleDraweeView mUserIcon;//用户头像
     private RelativeLayout mItemUserIcon;//头像条目
     private ItemUserSettingView mUserPhone;//用户手机
     private ItemUserSettingView mUserSex;//用户性别
@@ -76,7 +80,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void initView() {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
-        mUserIcon        = (CircleImageView)     findViewById(R.id.civ_user_icon);
+        mUserIcon        = (SimpleDraweeView)     findViewById(R.id.civ_user_icon);
         mItemUserIcon    = (RelativeLayout)      findViewById(R.id.rl_user_icon_img);
         mUserPhone      = (ItemUserSettingView) findViewById(R.id.ius_user_phone);
         mUserSex        = (ItemUserSettingView) findViewById(R.id.ius_user_sex);
@@ -166,7 +170,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         String userId = CacheUtil.getInstance().getUserId();
         String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
         if(!TextUtils.isEmpty(userPhotoUrl)){
-            MineUiController.getInstance().setUserPhoto(userPhotoUrl,mUserIcon);
+            mUserIcon.setImageURI(Uri.parse(userPhotoUrl));
         }
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             mRealName.setTextContent2(CacheUtil.getInstance().getUserName());
@@ -252,6 +256,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
                         ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
                         ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
+                        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+                        Uri uri = Uri.parse(userPhotoUrl);
+                        imagePipeline.evictFromMemoryCache(uri);
+                        imagePipeline.evictFromDiskCache(uri);
 
                     } else {
                         DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);

@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.common;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -239,6 +242,12 @@ public class CompleteInfoActivity extends BaseActivity {
                                 String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
                                 ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
                                 ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
+
+                                ImagePipeline imagePipeline = Fresco.getImagePipeline();
+                                Uri uri = Uri.parse(userPhotoUrl);
+                                imagePipeline.evictFromMemoryCache(uri);
+                                imagePipeline.evictFromDiskCache(uri);
+
                                 CacheUtil.getInstance().setUserName(nickName);
                                 CacheUtil.getInstance().setSex(sexValue+"");
                                 CacheUtil.getInstance().savePicPath("");

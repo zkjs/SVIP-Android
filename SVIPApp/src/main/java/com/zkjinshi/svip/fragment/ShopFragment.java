@@ -242,7 +242,6 @@ public class ShopFragment extends BaseFragment {
 
     public void onStop(){
         super.onStop();
-        ShopAdapter.AnimateFirstDisplayListener.displayedImages.clear();
     }
 
 }

@@ -67,7 +67,6 @@ public class ShopCityActivity extends BaseActivity {
 
     public void onStop(){
         super.onStop();
-        ShopAdapter.AnimateFirstDisplayListener.displayedImages.clear();
     }
 
     private void initView() {

@@ -1,36 +1,21 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.ContactActivity;
-import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.bean.ShopBean;
-import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.view.CircleImageView;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+
 
 /**
  * 开发者：JimmyZhang
@@ -46,12 +31,8 @@ public class ShopAdapter extends BaseAdapter {
     public  final static int ITEM_OTHER       = 0x02;
 
     private ArrayList<ShopBean> shopList;
-    private DisplayImageOptions avatarOptions;
-    private DisplayImageOptions shopOptions;
     private Context context;
     private LayoutInflater inflater;
-
-    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 
     public void setShopList(ArrayList<ShopBean> shopList) {
         if(null == shopList){
@@ -66,24 +47,7 @@ public class ShopAdapter extends BaseAdapter {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.setShopList(shopList);
-        this.shopOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.bg_transparent)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.bg_transparent)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.bg_transparent)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                .build();
-        this.avatarOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.bg_transparent)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.drawable.bg_transparent)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.drawable.bg_transparent)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                .build();
+
     }
 
     @Override
@@ -92,8 +56,8 @@ public class ShopAdapter extends BaseAdapter {
         if(null ==  convertView){
             convertView = inflater.inflate(R.layout.item_list_shop, null);
             viewHolder = new ViewHolder();
-            viewHolder.ivShopLogo     = (ImageView)convertView.findViewById(R.id.iv_shop_logo);
-            viewHolder.civSalerAvatar = (CircleImageView)convertView.findViewById(R.id.civ_saler_avatar);
+            viewHolder.ivShopLogo     = (SimpleDraweeView)convertView.findViewById(R.id.iv_shop_logo);
+            viewHolder.civSalerAvatar = (SimpleDraweeView)convertView.findViewById(R.id.civ_saler_avatar);
             viewHolder.vWhiteLine     = convertView.findViewById(R.id.v_white_line);
             viewHolder.tvShopName     = (TextView) convertView.findViewById(R.id.tv_shop_name);
             viewHolder.tvShopBusiness = (TextView) convertView.findViewById(R.id.tv_shop_business);
@@ -119,7 +83,7 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder.rlSalerInfo.setVisibility(View.GONE);
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions,animateFirstListener);
+                viewHolder.ivShopLogo.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(imgUrl)));
             }
 
             if(!TextUtils.isEmpty(shopName)){
@@ -149,12 +113,12 @@ public class ShopAdapter extends BaseAdapter {
             }
 
             if(!TextUtils.isEmpty(imgUrl)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(imgUrl), viewHolder.ivShopLogo, shopOptions,animateFirstListener);
+                viewHolder.ivShopLogo.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(imgUrl)));
             }
 
             String shopLogo = shopBean.getShoplogo();
             if(!TextUtils.isEmpty(shopLogo)){
-                ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopLogo), viewHolder.civSalerAvatar, avatarOptions,animateFirstListener);
+                viewHolder.civSalerAvatar.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(shopLogo)));
             }
         }
 
@@ -162,8 +126,8 @@ public class ShopAdapter extends BaseAdapter {
     }
 
     static class ViewHolder{
-        ImageView       ivShopLogo;
-        CircleImageView civSalerAvatar;
+        SimpleDraweeView ivShopLogo;
+        SimpleDraweeView civSalerAvatar;
         TextView        tvShopName;
         TextView        tvShopBusiness;
         TextView        tvShopDes;
@@ -173,25 +137,7 @@ public class ShopAdapter extends BaseAdapter {
         RelativeLayout  rlSalerInfo;
     }
 
-    /** 图片加载监听事件 **/
-    public static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
 
-        public static final List<String> displayedImages = Collections
-                .synchronizedList(new LinkedList<String>());
-
-        @Override
-        public void onLoadingComplete(String imageUri, View view,
-                                      Bitmap loadedImage) {
-            if (loadedImage != null) {
-                ImageView imageView = (ImageView) view;
-                boolean firstDisplay = !displayedImages.contains(imageUri);
-                if (firstDisplay) {
-                    FadeInBitmapDisplayer.animate(imageView, 500); // 设置image隐藏动画500ms
-                    displayedImages.add(imageUri); // 将图片uri添加到集合中
-                }
-            }
-        }
-    }
 
     @Override
     public int getItemViewType(int position) {

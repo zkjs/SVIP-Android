@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white"
@@ -15,11 +16,11 @@
             android:layout_height="256dp"
             android:orientation="vertical">
 
-            <ImageView
+            <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/iv_shop_logo"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:scaleType="fitXY" />
+                fresco:fadeDuration="300"/>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -134,12 +135,13 @@
                     android:src="@mipmap/logo_white"
                     android:scaleType="centerInside"/>
 
-                <com.zkjinshi.svip.view.CircleImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/civ_saler_avatar"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:clickable="true"
-                    android:scaleType="centerCrop"/>
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:roundAsCircle="true"
+                    fresco:roundedCornerRadius="0dp"/>
 
 
 

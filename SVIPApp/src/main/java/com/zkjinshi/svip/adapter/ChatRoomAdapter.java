@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.exceptions.EaseMobException;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.TimeUtil;
@@ -44,19 +46,11 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Context context;
     private ArrayList<EMConversation> conversationList;
-    private DisplayImageOptions options;
     private RecyclerItemClickListener mRecyclerItemClickListener;
 
     public ChatRoomAdapter(ArrayList<EMConversation> conversationList,Context context) {
         this.context = context;
         this.setConversationList(conversationList);
-        this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_logo_zhanwei)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_logo_zhanwei)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_logo_zhanwei)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
     }
 
     public void setConversationList(ArrayList<EMConversation> conversationList) {
@@ -111,7 +105,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             String strChatTime = TimeUtil.getChatTime(chatTime);
             ((ChatRoomViewHolder)holder).latestChatTime.setText(strChatTime);
             if(chatType != EMConversation.EMConversationType.Chat){
-                ((ChatRoomViewHolder)holder).shopIcon.setImageResource(R.mipmap.ic_launcher);
+                ((ChatRoomViewHolder)holder).shopIcon.setImageURI(Uri.parse("res:///"+R.mipmap.ic_launcher));
                 if (msgType == EMMessage.Type.IMAGE) {
                     ((ChatRoomViewHolder)holder).chatContent.setText("[图片]");
                 } else if (msgType ==  EMMessage.Type.VOICE) {
@@ -139,9 +133,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     String userId = conversation.getUserName();
                     if(!TextUtils.isEmpty(userId) && chatType == EMConversation.EMConversationType.Chat){
                         String shopLogoUrl = ProtocolUtil.getAvatarUrl(userId);
-                        ImageLoader.getInstance().displayImage(shopLogoUrl, ((ChatRoomViewHolder)holder).shopIcon, options);
+                        ((ChatRoomViewHolder)holder).shopIcon.setImageURI(Uri.parse(shopLogoUrl));
                     }else {
-                        ((ChatRoomViewHolder)holder).shopIcon.setImageResource(R.mipmap.ic_launcher);
+                        ((ChatRoomViewHolder)holder).shopIcon.setImageURI(Uri.parse("res:///"+R.mipmap.ic_launcher));
                     }
                     String fromName = message.getStringAttribute("fromName");
                     String toName = message.getStringAttribute("toName");
@@ -190,7 +184,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     static class ChatRoomViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView shopIcon;
+        SimpleDraweeView shopIcon;
         TextView        unReadCount;
         TextView        shopName;
         TextView        chatContent;
@@ -200,7 +194,7 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ChatRoomViewHolder(View view, RecyclerItemClickListener itemClickListener) {
 
             super(view);
-            shopIcon       = (CircleImageView) view.findViewById(R.id.iv_shop_icon);
+            shopIcon       = (SimpleDraweeView) view.findViewById(R.id.iv_shop_icon);
             unReadCount    = (TextView) view.findViewById(R.id.tv_unread_message_count);
             shopName       = (TextView) view.findViewById(R.id.tv_shop_name);
             chatContent    = (TextView) view.findViewById(R.id.tv_chat_content);

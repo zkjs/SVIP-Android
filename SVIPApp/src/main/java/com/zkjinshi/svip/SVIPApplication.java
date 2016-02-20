@@ -45,7 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import io.yunba.android.manager.YunBaManager;
 
@@ -81,6 +81,7 @@ public class SVIPApplication extends BaseApplication {
 
         LocationManager.getInstance().init(this);
         BlueToothManager.getInstance().init(this);
+        Fresco.initialize(this);
     }
 
     public boolean isDownload() {

@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
@@ -69,7 +71,7 @@ public class HomeMsgAdapter extends BaseAdapter {
         if (convertView == null) {
             vh = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_home_card, null, false);
-            vh.iconIv = (ImageView)convertView.findViewById(R.id.item_icon_iv);
+            vh.iconIv = (SimpleDraweeView)convertView.findViewById(R.id.item_icon_iv);
             vh.clickIv = (ImageView)convertView.findViewById(R.id.item_click_iv);
             vh.majorText = (TextView)convertView.findViewById(R.id.major_text_tv);
             vh.minorText = (TextView)convertView.findViewById(R.id.minor_text_tv);
@@ -101,22 +103,26 @@ public class HomeMsgAdapter extends BaseAdapter {
 
             if(TextUtils.isEmpty(homeMsgVo.getIcon())){
                 if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT){
-                    vh.iconIv.setImageResource(R.mipmap.ic_liwu_orange);
+                    //vh.iconIv.setImageResource(R.mipmap.ic_liwu_orange);
+                    vh.iconIv.setImageURI(Uri.parse("res:///"+R.mipmap.ic_liwu_orange));
                 }else if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION){
-                    vh.iconIv.setImageResource(R.mipmap.ic_dingwei_orange);
+                    //vh.iconIv.setImageResource(R.mipmap.ic_dingwei_orange);
+                    vh.iconIv.setImageURI(Uri.parse("res:///"+R.mipmap.ic_dingwei_orange));
                 }else if(homeMsgVo.getMsgType() == HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE){
-                    vh.iconIv.setImageResource(R.mipmap.ic_v_orange);
+                    //vh.iconIv.setImageResource(R.mipmap.ic_v_orange);
+                    vh.iconIv.setImageURI(Uri.parse("res:///"+R.mipmap.ic_v_orange));
                 }
             }else{
                 String path = homeMsgVo.getIcon();
-                ImageLoader.getInstance().displayImage(path,vh.iconIv,options);
+                //ImageLoader.getInstance().displayImage(path,vh.iconIv,options);
+                vh.iconIv.setImageURI(Uri.parse(path));
             }
         }
        return  convertView;
     }
 
     public static class ViewHolder {
-        public ImageView iconIv;
+        public SimpleDraweeView iconIv;
         public ImageView clickIv;
         public TextView majorText;
         public TextView minorText;

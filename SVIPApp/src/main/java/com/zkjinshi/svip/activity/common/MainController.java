@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -107,7 +109,7 @@ public class MainController {
     /**
      * 设置首页动态图
      */
-    public void setBigPicAnimation(ImageView homePicIv){
+    public void setBigPicAnimation(SimpleDraweeView homePicIv){
         try {
             bigAnimation = AnimationUtils.loadAnimation(activity, R.anim.anim_bigger);
             homePicIv.startAnimation(bigAnimation);
@@ -128,7 +130,8 @@ public class MainController {
             }
             bigPicIndex = (bigPicIndex+1)%length;
             String bigPicUrl = ProtocolUtil.getHostImgUrl(bigPicResponseList.get(bigPicIndex).getUrl());
-            ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
+            //ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
+            homePicIv.setImageURI(Uri.parse(bigPicUrl));
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         } catch (JsonSyntaxException e) {
@@ -148,66 +151,6 @@ public class MainController {
         }
     }
 
-    /**
-     * 设置头像图片
-     * @param photoUrl
-     * @param photoImageView
-     */
-    public void setPhoto(String photoUrl,ImageView photoImageView){
-        if(!TextUtils.isEmpty(photoUrl) && photoImageView != null){
-            ImageLoader.getInstance().displayImage(photoUrl, photoImageView, options);
-        }
-
-    }
-
-
-
-    /**
-     * 初始化商家列表信息
-     */
-    public void initShop(){
-        String url = Constants.GET_SHOP_LIST;
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<List<ShopDetailVo>>(){}.getType();
-                    Gson gson = new Gson();
-                    List<ShopDetailVo> shopResponseList = gson.fromJson(result.rawResult, listType);
-                    ShopDetailDBUtil.getInstance().batchAddShopInfo(shopResponseList);
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
-
-    }
 
 
     /**

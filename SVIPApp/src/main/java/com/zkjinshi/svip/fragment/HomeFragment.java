@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +26,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -91,14 +93,14 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
     private View view = null;
     private View headerView = null;
-    private ImageView homePicIv;
+    private SimpleDraweeView homePicIv;
     private TextView hiTextTv;
     private TextView nameTv;
     private TextView activeCodeTv;
     private TextView simpleTextTv;
     private TextView logoTextTv;
     private ImageView logoIv;
-    private CircleImageView avatarCiv;
+    private SimpleDraweeView avatarCiv;
 
     private Activity mActivity;
     public ListView listView;
@@ -150,14 +152,14 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
             headerView = inflater.inflate(R.layout.item_home_header,null,false);
             listView.addHeaderView(headerView);
 
-            homePicIv = (ImageView)headerView.findViewById(R.id.home_pic_iv);
+            homePicIv = (SimpleDraweeView)headerView.findViewById(R.id.home_pic_iv);
             hiTextTv = (TextView)headerView.findViewById(R.id.hi_text_tv);
             nameTv = (TextView)headerView.findViewById(R.id.name_tv);
             simpleTextTv = (TextView)headerView.findViewById(R.id.simple_text_tv);
             logoTextTv = (TextView) headerView.findViewById(R.id.logo_text);
             logoTextTv.setVisibility(View.GONE);
             logoIv = (ImageView)headerView.findViewById(R.id.logo_iv);
-            avatarCiv = (CircleImageView)headerView.findViewById(R.id.avatar_civ);
+            avatarCiv = (SimpleDraweeView)headerView.findViewById(R.id.avatar_civ);
             activeCodeTv = (TextView)headerView.findViewById(R.id.active_code_tv);
 
             activeCodeTv.setVisibility(View.GONE);
@@ -390,17 +392,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
             String userId = CacheUtil.getInstance().getUserId();
             String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-            DisplayImageOptions options = new DisplayImageOptions.Builder()
-//                    .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
-//                    .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
-//                    .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
-                    .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                    .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                    .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                    .build();
-            ImageLoader.getInstance().displayImage(userPhotoUrl,avatarCiv,options);
-
+            avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
             logoIv.setVisibility(View.GONE);
 
         }else{
