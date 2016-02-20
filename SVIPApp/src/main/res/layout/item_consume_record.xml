@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -8,17 +9,19 @@
         android:layout_height="100dp"
         android:background="@color/White">
 
-        <com.zkjinshi.svip.view.CircleImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/order_item_cv_hotel_photo"
             android:layout_height="64dp"
             android:layout_width="64dp"
-            android:scaleType="fitXY"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="18dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/img_hotel_anli03" />
+            fresco:actualImageScaleType="focusCrop"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="0dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

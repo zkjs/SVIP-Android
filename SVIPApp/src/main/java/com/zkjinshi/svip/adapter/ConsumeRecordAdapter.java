@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.svip.R;
@@ -35,7 +37,6 @@ public class ConsumeRecordAdapter extends BaseAdapter {
 
     public ArrayList<OrderForDisplay> datalist = new ArrayList<OrderForDisplay>();
     private Activity activity;
-    private DisplayImageOptions options;
 
     public void loadMore(ArrayList<OrderForDisplay> morelist){
         datalist.addAll(morelist);
@@ -51,13 +52,6 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         this.datalist = datalist;
         this.activity = activity;
 
-        this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_hotel_anli03)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.img_hotel_anli03)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.img_hotel_anli03)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
     }
 
     @Override
@@ -84,7 +78,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
         }else {
             holder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.item_consume_record, null);
-            holder.shopIcon     = (CircleImageView) convertView.findViewById(R.id.order_item_cv_hotel_photo);
+            holder.shopIcon     = (SimpleDraweeView) convertView.findViewById(R.id.order_item_cv_hotel_photo);
             holder.hotelNameTv = (TextView)convertView.findViewById(R.id.order_item_tv_hotel_name);
             holder.orderInfoTv = (TextView)convertView.findViewById(R.id.order_item_tv_order_info);
             holder.comingDateTv = (TextView)convertView.findViewById(R.id.order_item_tv_coming_date);
@@ -94,7 +88,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
 
         //获得shopID网络路径
         if(!TextUtils.isEmpty(itemOrder.getShoplogo())){
-            ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(itemOrder.getShoplogo()), holder.shopIcon, options);
+            holder.shopIcon.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(itemOrder.getShoplogo())));
         }
 
         SimpleDateFormat detailFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -127,7 +121,7 @@ public class ConsumeRecordAdapter extends BaseAdapter {
     }
 
     static class ViewHolder{
-        CircleImageView shopIcon;
+        SimpleDraweeView shopIcon;
         TextView hotelNameTv,orderInfoTv,comingDateTv,orderStatusTv;
 
     }

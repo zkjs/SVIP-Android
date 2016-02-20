@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.activity.order;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -59,7 +62,7 @@ public class HotelBookingActivity extends BaseActivity {
     private final static String TAG = HotelBookingActivity.class.getSimpleName();
 
     private TextView titleTv,remarkTv;
-    private ImageView roomIv;
+    private SimpleDraweeView roomIv;
     private ItemShowView dateTimeIsv;
     private ItemShowView roomTypeTsv;
     private ItemNumView roomNumTnv;
@@ -74,7 +77,6 @@ public class HotelBookingActivity extends BaseActivity {
 
     private ArrayList<Calendar> calendarList = null;
     private SimpleDateFormat    mChineseFormat;
-    private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo = null;
     private OrderDetailForDisplay orderDetailForDisplay;
     private SimpleDateFormat mSimpleFormat;
@@ -124,7 +126,7 @@ public class HotelBookingActivity extends BaseActivity {
     private void initView() {
         titleTv = (TextView)findViewById(R.id.header_title_tv);
         remarkTv = (TextView)findViewById(R.id.tv_remark);
-        roomIv = (ImageView)findViewById(R.id.iv_room_img);
+        roomIv = (SimpleDraweeView)findViewById(R.id.iv_room_img);
 
         dateTimeIsv = (ItemShowView)findViewById(R.id.ahb_date);
         roomTypeTsv = (ItemShowView)findViewById(R.id.ahb_type);
@@ -190,15 +192,7 @@ public class HotelBookingActivity extends BaseActivity {
      * 初始化商家图片
      */
     private void initShopImage() {
-        //初始化图片
-        this.options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.ic_room_pic_default)
-//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)
-//                .showImageOnFail(R.mipmap.ic_room_pic_default)
-                .cacheInMemory(false) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg), roomIv, options);
+        roomIv.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(shopImg)));
     }
 
     /**
@@ -476,7 +470,7 @@ public class HotelBookingActivity extends BaseActivity {
         String imageUrl = goodInfoVo.getImgurl();
         if (!TextUtils.isEmpty(imageUrl)) {
             String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
-            ImageLoader.getInstance().displayImage(logoUrl, roomIv, options);
+            roomIv.setImageURI(Uri.parse(logoUrl));
             orderDetailForDisplay.setImgurl(imageUrl);
         }
         orderDetailForDisplay.setProductid(goodInfoVo.getId());

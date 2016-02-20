@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:paddingTop="10dp"
@@ -11,12 +12,15 @@
         android:layout_height="180dp"
         android:background="@drawable/bg_white">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/list_room_pic_iv"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:src="@null"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/url_image_loading"
+            fresco:placeholderImageScaleType="centerInside"
+            fresco:failureImage="@mipmap/url_image_failed"
+            fresco:failureImageScaleType="centerInside"
             />
 
         <ImageView
