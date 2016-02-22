@@ -15,16 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.easemob.EMCallBack;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.im.single.ChatActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.bean.BaseBean;
@@ -51,12 +48,12 @@ public class AddFriendDetailActivity extends BaseActivity {
 
     private ImageButton backIBtn;
     private TextView titleTv;
-    private CircleImageView mIvAvatar;//用户头像
+    private SimpleDraweeView mIvAvatar;//用户头像
     private TextView       mTvContactName;//姓名
     private TextView       mTvPhoneNumber;//手机号
     private TextView       mTvShopName;//所属商家
     private Button addBtn;//添加到通讯录
-    private DisplayImageOptions mOptions;
+
 
     private String mContactID;
     private SalerInfoBean mSalerInfo;
@@ -75,7 +72,7 @@ public class AddFriendDetailActivity extends BaseActivity {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
 
-        mIvAvatar = (CircleImageView) findViewById(R.id.civ_avatar);
+        mIvAvatar = (SimpleDraweeView) findViewById(R.id.civ_avatar);
         mTvShopName      = (TextView) findViewById(R.id.shopName_tv);
         mTvContactName   = (TextView) findViewById(R.id.name_tv);
         mTvPhoneNumber   = (TextView) findViewById(R.id.phone_tv);
@@ -87,16 +84,6 @@ public class AddFriendDetailActivity extends BaseActivity {
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText("添加");
         mContactID = getIntent().getStringExtra("contact_id");
-
-        this.mOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)
-                .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)
-                .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                .build();
 
         if(!TextUtils.isEmpty(mContactID)){
             getContactInfoByUserID(CacheUtil.getInstance().getUserId(), CacheUtil.getInstance().getToken(), mContactID);
@@ -195,7 +182,7 @@ public class AddFriendDetailActivity extends BaseActivity {
 
         if(!TextUtils.isEmpty(userID)){
             String avatarUrl = ProtocolUtil.getAvatarUrl(userID);
-            ImageLoader.getInstance().displayImage(avatarUrl, mIvAvatar, mOptions);
+            mIvAvatar.setImageURI(Uri.parse(avatarUrl));
         }
 
         if(!TextUtils.isEmpty(userName)){

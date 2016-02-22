@@ -17,35 +17,31 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.ClipboardUtil;
-import com.zkjinshi.base.util.DialogUtil;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
 
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.bean.SalerInfoBean;
-import com.zkjinshi.svip.fragment.contacts.Contact;
+
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BaseResponse;
-import com.zkjinshi.svip.response.ShopListResponse;
+
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.vo.TicketVo;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * 联系人主页显示（销售员主页）
@@ -58,7 +54,7 @@ public class ContactActivity extends BaseActivity {
 
     private final String TAG = ContactActivity.class.getSimpleName();
 
-    private ImageView      mIvAvatar;//用户头像
+    private SimpleDraweeView mIvAvatar;//用户头像
     private TextView       mTvLatestOnline;//最近在线时间
     private TextView       mTvShopName;//所属商家
     private TextView       mTvContactName;//联想人姓名
@@ -79,7 +75,7 @@ public class ContactActivity extends BaseActivity {
     private String  mContactID;
     private SalerInfoBean mSalerInfo;
 
-    private DisplayImageOptions mOptions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +88,7 @@ public class ContactActivity extends BaseActivity {
     }
 
     private void initView() {
-        mIvAvatar = (ImageView) findViewById(R.id.iv_avatar);
+        mIvAvatar = (SimpleDraweeView) findViewById(R.id.iv_avatar);
         mTvLatestOnline  = (TextView) findViewById(R.id.tv_latest_online);
         mTvShopName      = (TextView) findViewById(R.id.tv_shop_name);
         mTvContactName   = (TextView) findViewById(R.id.tv_contact_name);
@@ -120,13 +116,7 @@ public class ContactActivity extends BaseActivity {
             getContactInfoByUserID(mUserID, mToken, mContactID);
         }
 
-        this.mOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.img_hotel_anli03)
-                .showImageForEmptyUri(R.mipmap.img_hotel_anli03)
-                .showImageOnFail(R.mipmap.img_hotel_anli03)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
+
     }
 
     private void initListener() {
@@ -298,7 +288,7 @@ public class ContactActivity extends BaseActivity {
 
         if(!TextUtils.isEmpty(userID)){
             String avatarUrl = ProtocolUtil.getAvatarUrl(userID);
-            ImageLoader.getInstance().displayImage(avatarUrl, mIvAvatar, mOptions);
+            mIvAvatar.setImageURI(Uri.parse(avatarUrl));
         }
 
         if(!TextUtils.isEmpty(userName)){
