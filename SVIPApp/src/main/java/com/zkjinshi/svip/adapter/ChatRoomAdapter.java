@@ -113,7 +113,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 } else if(msgType == EMMessage.Type.TXT){
                     try {
                         int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
-                        if(TxtExtType.DEFAULT.getVlaue() == extType){
+                        if(TxtExtType.CARD.getVlaue() == extType){
+                            ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
+                        }else{
                             TextMessageBody txtBody = (TextMessageBody) message.getBody();
                             String content  = txtBody.getMessage();
                             CharSequence txt = EmotionUtil.getInstance()
@@ -121,8 +123,6 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                             content,
                                             EmotionType.CHAT_LIST);
                             ((ChatRoomViewHolder)holder).chatContent.setText(txt);
-                        }else{
-                            ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
                         }
                     } catch (EaseMobException e) {
                         e.printStackTrace();
@@ -139,7 +139,6 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                     String fromName = message.getStringAttribute("fromName");
                     String toName = message.getStringAttribute("toName");
-
                     if(!TextUtils.isEmpty(fromName) && !fromName.equals(CacheUtil.getInstance().getUserName())){
                         ((ChatRoomViewHolder)holder).shopName.setText(fromName);
                     }else {
@@ -154,7 +153,9 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     } else if(msgType == EMMessage.Type.TXT){
                         try {
                             int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
-                            if(TxtExtType.DEFAULT.getVlaue() == extType){
+                            if(TxtExtType.CARD.getVlaue() == extType){
+                                ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
+                            }else{
                                 TextMessageBody txtBody = (TextMessageBody) message.getBody();
                                 String content  = txtBody.getMessage();
                                 CharSequence txt = EmotionUtil.getInstance()
@@ -162,8 +163,6 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                                 content,
                                                 EmotionType.CHAT_LIST);
                                 ((ChatRoomViewHolder)holder).chatContent.setText(txt);
-                            }else{
-                                ((ChatRoomViewHolder)holder).chatContent.setText("[订单]");
                             }
                         } catch (EaseMobException e) {
                             e.printStackTrace();
