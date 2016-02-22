@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.order;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -62,7 +64,7 @@ public class KTVBookingActivity extends BaseActivity {
     private final static String TAG = KTVBookingActivity.class.getSimpleName();
 
     private TextView titleTv,remarkTv;
-    private ImageView roomIv;
+    private SimpleDraweeView roomIv;
     private ItemShowView dateTimeIsv;
     private ItemShowView roomTypeTsv;
     private ItemNumView roomNumTnv;
@@ -75,7 +77,6 @@ public class KTVBookingActivity extends BaseActivity {
 
     private SimpleDateFormat mSimpleFormat;
     private SimpleDateFormat mChineseFormat;
-    private DisplayImageOptions options;
     private GoodInfoVo lastGoodInfoVo = null;
     private OrderDetailForDisplay orderDetailForDisplay;
     private String shopId = "120";
@@ -128,7 +129,7 @@ public class KTVBookingActivity extends BaseActivity {
     private void initView() {
         titleTv = (TextView)findViewById(R.id.header_title_tv);
         remarkTv = (TextView)findViewById(R.id.tv_remark);
-        roomIv = (ImageView)findViewById(R.id.iv_room_img);
+        roomIv = (SimpleDraweeView)findViewById(R.id.iv_room_img);
 
         dateTimeIsv = (ItemShowView)findViewById(R.id.ahb_date);
         roomTypeTsv = (ItemShowView)findViewById(R.id.ahb_type);
@@ -160,16 +161,7 @@ public class KTVBookingActivity extends BaseActivity {
         orderDetailForDisplay.setShopid(shopId);
         orderDetailForDisplay.setUserid(CacheUtil.getInstance().getUserId());
 
-
-        //初始化图片
-        this.options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.ic_room_pic_default)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getHostImgUrl(shopImg),roomIv,options);
+        roomIv.setImageURI(Uri.parse(ProtocolUtil.getHostImgUrl(shopImg)));
         //初始化时间
         setOrderDate(new Date());
 
@@ -388,7 +380,7 @@ public class KTVBookingActivity extends BaseActivity {
         String imageUrl = goodInfoVo.getImgurl();
         if (!TextUtils.isEmpty(imageUrl)) {
             String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
-            ImageLoader.getInstance().displayImage(logoUrl, roomIv, options);
+            roomIv.setImageURI(Uri.parse(logoUrl));
         }
         orderDetailForDisplay.setImgurl(imageUrl);
         orderDetailForDisplay.setProductid(goodInfoVo.getId());

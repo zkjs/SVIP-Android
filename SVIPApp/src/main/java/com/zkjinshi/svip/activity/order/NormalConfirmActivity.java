@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -55,7 +57,7 @@ public class NormalConfirmActivity extends BaseActivity {
     private final static String TAG = NormalConfirmActivity.class.getSimpleName();
 
     private TextView titleTv,remarkTv,tipsTv,deleteTv;
-    private ImageView roomIv;
+    private SimpleDraweeView roomIv;
     private ItemShowView dateTimeIsv;
     private ItemShowView roomTypeTsv;
     private ItemNumView roomNumTnv;
@@ -71,7 +73,6 @@ public class NormalConfirmActivity extends BaseActivity {
     int payType;
 
     private Button confirmBtn;
-    private DisplayImageOptions options;
     private OrderDetailForDisplay orderDetailForDisplay = null;
 
     public static final int PAY_REQUEST_CODE = 10;
@@ -92,7 +93,7 @@ public class NormalConfirmActivity extends BaseActivity {
         remarkTv = (TextView)findViewById(R.id.tv_remark);
         tipsTv = (TextView)findViewById(R.id.tips_tv);
         deleteTv = (TextView)findViewById(R.id.delete_text);
-        roomIv = (ImageView)findViewById(R.id.iv_room_img);
+        roomIv = (SimpleDraweeView)findViewById(R.id.iv_room_img);
 
         dateTimeIsv = (ItemShowView)findViewById(R.id.ahb_date);
         roomTypeTsv = (ItemShowView)findViewById(R.id.ahb_type);
@@ -204,16 +205,9 @@ public class NormalConfirmActivity extends BaseActivity {
             confirmBtn.setVisibility(View.GONE);
             deleteTv.setVisibility(View.GONE);
         }
-        //初始化图片
-        this.options = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.ic_room_pic_default)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.ic_room_pic_default)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.ic_room_pic_default)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .build();
+
         String logoUrl = ProtocolUtil.getHostImgUrl(orderDetailForDisplay.getImgurl());
-        ImageLoader.getInstance().displayImage(logoUrl, roomIv, options);
+        roomIv.setImageURI(Uri.parse(logoUrl));
 
         //房型
         if(!TextUtils.isEmpty(orderDetailForDisplay.getRoomtype())){
