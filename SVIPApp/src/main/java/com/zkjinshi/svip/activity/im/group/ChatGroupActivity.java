@@ -153,7 +153,6 @@ public class ChatGroupActivity extends BaseActivity implements CompoundButton.On
         if(null!= getIntent() && null != getIntent().getSerializableExtra("orderDetailForDisplay")){
             orderDetailForDisplay = (OrderDetailForDisplay) getIntent().getSerializableExtra("orderDetailForDisplay");
             if (null != orderDetailForDisplay) {
-                orderDetailForDisplay.setContent("您好，帮我预定这间房");
                 try {
                     bookOrderStr = new Gson().toJson(orderDetailForDisplay);
                     if (!TextUtils.isEmpty(bookOrderStr)) {

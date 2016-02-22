@@ -565,6 +565,7 @@ public class KTVConfirmActivity extends BaseActivity {
                                                     if (!TextUtils.isEmpty(shopName)) {
                                                         intent.putExtra(Constants.EXTRA_SHOP_NAME,shopName);
                                                     }
+                                                    intent.putExtra("orderDetailForDisplay",orderDetailForDisplay);
                                                     intent.putExtra("text_context", "您好，我已取消该订单，请跟进。");
                                                     startActivity(intent);
                                                     overridePendingTransition(R.anim.slide_in_right,

@@ -492,6 +492,7 @@ public class KTVBookingActivity extends BaseActivity {
                         orderDetailForDisplay.setOrderno(addOrderResponse.getData());
                         BaseApplication.getInst().clearLeaveTop();
                         Intent intent = new Intent(KTVBookingActivity.this, ChatActivity.class);
+                        intent.putExtra("text_context", "您好，帮我预定这间房");
                         intent.putExtra("orderDetailForDisplay", orderDetailForDisplay);
                         intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                         intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());

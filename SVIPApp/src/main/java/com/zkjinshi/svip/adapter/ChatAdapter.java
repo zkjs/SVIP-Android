@@ -278,7 +278,6 @@ public class ChatAdapter extends BaseAdapter {
         vh.time = (TextView) convertView.findViewById(R.id.tv_time);
         vh.selectCb = (CheckBox) convertView.findViewById(R.id.cb_select);
         vh.cardLayout = (LinearLayout) convertView.findViewById(R.id.card_layout);
-        vh.contentTip = (TextView) convertView.findViewById(R.id.msg_content_tips);
         vh.orderContent = (TextView) convertView.findViewById(R.id.msg_order_content);
         vh.hotelImage = (ImageView) convertView.findViewById(R.id.msg_hotel_image);
     }
@@ -438,7 +437,6 @@ public class ChatAdapter extends BaseAdapter {
                         String arriveStr = descFormat.format(arrivalDate);
                         String leaveStr = descFormat.format(leaveDate);
                         int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
-                        vh.contentTip.setText(bookOrder.getContent());
                         vh.orderContent.setText(roomType + " | " + arriveStr+"到"+leaveStr + " | " + dayNum + "晚");
                         if (!TextUtils.isEmpty(imageUrl)) {
                             String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
@@ -770,7 +768,7 @@ public class ChatAdapter extends BaseAdapter {
         CheckBox        selectCb;
         LinearLayout    contentLayout;
         LinearLayout cardLayout;
-        TextView contentTip, orderContent;
+        TextView orderContent;
         ImageView hotelImage;
     }
 
