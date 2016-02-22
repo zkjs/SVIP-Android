@@ -141,7 +141,8 @@ public class BlueToothManager {
     }
 
     public void requestArriveNoticeTask(String shopId,String locId){{
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getArriveNoticeUrl());
+        String url = ProtocolUtil.getArriveNoticeUrl();
+        NetRequest netRequest = new NetRequest(url);
         HashMap<String,String> bizMap = new HashMap<String,String>();
         bizMap.put("userid", CacheUtil.getInstance().getUserId());
         bizMap.put("locid", locId);
@@ -149,6 +150,8 @@ public class BlueToothManager {
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.JSON;
+        LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
+        LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -164,7 +167,8 @@ public class BlueToothManager {
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                //Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.DEBUG,"API推送成功");
             }
 
             @Override
