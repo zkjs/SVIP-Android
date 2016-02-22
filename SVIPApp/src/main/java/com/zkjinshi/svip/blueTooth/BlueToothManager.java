@@ -103,7 +103,8 @@ public class BlueToothManager {
                 }else{
                     alert = CacheUtil.getInstance().getUserName()+"先生到达"+locdesc;
                 }
-                Log.i(TAG,"云巴推送订阅内容:"+msg);
+                //Log.i(TAG,"云巴推送订阅内容:"+msg);
+                LogUtil.getInstance().info(LogLevel.DEBUG,"云巴推送订阅内容:"+msg);
                 JSONObject opts = new JSONObject();
                 JSONObject apn_json = new JSONObject();
                 JSONObject aps = new JSONObject();
@@ -116,7 +117,8 @@ public class BlueToothManager {
                         new IMqttActionListener() {
                             @Override
                             public void onSuccess(IMqttToken asyncActionToken) {
-                                Log.i(TAG,"订阅云巴推送消息成功");
+                                //Log.i(TAG,"订阅云巴推送消息成功");
+                                LogUtil.getInstance().info(LogLevel.DEBUG,"订阅云巴推送消息成功");
                             }
 
                             @Override
@@ -124,7 +126,8 @@ public class BlueToothManager {
                                 if (exception instanceof MqttException) {
                                     MqttException ex = (MqttException)exception;
                                     String msg =  "publish failed with error code : " + ex.getReasonCode();
-                                    Log.i(TAG,"订阅云巴推送消息失败:"+msg);
+                                    //Log.i(TAG,"订阅云巴推送消息失败:"+msg);
+                                    LogUtil.getInstance().info(LogLevel.DEBUG,"订阅云巴推送消息失败:"+msg);
                                 }
                             }
                         }
