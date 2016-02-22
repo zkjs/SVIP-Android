@@ -110,8 +110,6 @@ public class OrderDetailForDisplay implements Serializable {
 
     private String privilegeName;  //特权名称
 
-    private String content;
-
     public String getPrivilegeName() {
         return privilegeName;
     }
@@ -320,11 +318,4 @@ public class OrderDetailForDisplay implements Serializable {
         this.created = created;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

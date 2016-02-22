@@ -421,6 +421,7 @@ public class NormalBookingActivity extends BaseActivity {
                         BaseApplication.getInst().clearLeaveTop();
                         Intent intent = new Intent(NormalBookingActivity.this, ChatActivity.class);
                         intent.putExtra("orderDetailForDisplay", orderDetailForDisplay);
+                        intent.putExtra("text_context", "您好，帮我预定这间房");
                         intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                         intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
                         if(null != customerService){

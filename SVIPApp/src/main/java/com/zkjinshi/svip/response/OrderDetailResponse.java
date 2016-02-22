@@ -17,16 +17,6 @@ public class OrderDetailResponse extends NetResponse {
     private String user_applevel;
     private String user_shoplevel;
 
-    private String content;
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public OrderRoomResponse getRoom() {
         return room;
     }

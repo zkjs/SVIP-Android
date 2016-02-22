@@ -321,7 +321,6 @@ public class OrderBookingActivity extends BaseActivity {
                     String shopId = orderDetailResponse.getRoom().getShopid();
 
                     orderDetailResponse.setUsers(mUserList);
-                    orderDetailResponse.setContent("您好，帮我预定这间房");
                     CustomerServicesManager.getInstance().requestServiceListTask(
                         OrderBookingActivity.this,
                         shopId,
@@ -363,6 +362,7 @@ public class OrderBookingActivity extends BaseActivity {
                                         BaseApplication.getInst().clearLeaveTop();
                                         Intent intent = new Intent(OrderBookingActivity.this, ChatActivity.class);
                                         intent.putExtra("orderDetailResponse", orderDetailResponse);
+                                        intent.putExtra("text_context", "您好，帮我预定这间房");
                                         String shopId = orderDetailResponse.getRoom().getShopid();
                                         intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                                         intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());

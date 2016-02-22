@@ -348,7 +348,7 @@
             android:name=".activity.common.AddFriendActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <activity
             android:name=".activity.im.single.ChatActivity"
