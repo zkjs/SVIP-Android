@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
@@ -35,6 +36,7 @@ import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VoiceMessageBody;
 import com.easemob.exceptions.EaseMobException;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -92,7 +94,7 @@ public class ChatAdapter extends BaseAdapter {
     private static final int TYPE_RECV_ITEM = 0; // 接收
     private static final int TYPE_SEND_ITEM = 1; // 发送
 
-    DisplayImageOptions options, imageOptions, cardOptions; // DisplayImageOptions是用于设置图片显示的类
+    DisplayImageOptions  imageOptions, cardOptions; // DisplayImageOptions是用于设置图片显示的类
     private Context context;
     private LayoutInflater inflater;
     private List<EMMessage> messageList;
@@ -109,11 +111,7 @@ public class ChatAdapter extends BaseAdapter {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.setMessageList(messageList);
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_launcher)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .build();
+
         imageOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.url_image_loading)
                 .cacheInMemory(true)
@@ -270,7 +268,7 @@ public class ChatAdapter extends BaseAdapter {
      */
     private void setViewHolder(ViewHolder vh, View convertView) {
         vh.contentLayout = (LinearLayout) convertView.findViewById(R.id.content_layout);
-        vh.head = (CircleImageView) convertView.findViewById(R.id.icon);
+        vh.head = (SimpleDraweeView) convertView.findViewById(R.id.icon);
         vh.date = (TextView) convertView.findViewById(R.id.datetime);
         vh.msg = (TextView) convertView.findViewById(R.id.message);
         vh.img = (ImageView) convertView.findViewById(R.id.image);
@@ -303,7 +301,7 @@ public class ChatAdapter extends BaseAdapter {
         boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
         final String userId = message.getFrom();
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(userId), vh.head, options);
+        vh.head.setImageURI(Uri.parse(ProtocolUtil.getAvatarUrl(userId)));
         if(isComMsg){
             vh.head.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -759,7 +757,7 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        CircleImageView head;
+        SimpleDraweeView head;
         TextView        date;
         TextView        msg;
         ImageView       img;
