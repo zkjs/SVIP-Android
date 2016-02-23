@@ -284,7 +284,7 @@ public class GroupChatAdapter extends BaseAdapter {
         vh.selectCb = (CheckBox) convertView.findViewById(R.id.cb_select);
         vh.cardLayout = (LinearLayout) convertView.findViewById(R.id.card_layout);
         vh.orderContent = (TextView) convertView.findViewById(R.id.msg_order_content);
-        vh.hotelImage = (ImageView) convertView.findViewById(R.id.msg_hotel_image);
+//        vh.hotelImage = (ImageView) convertView.findViewById(R.id.msg_hotel_image);
     }
 
     /**
@@ -333,18 +333,19 @@ public class GroupChatAdapter extends BaseAdapter {
                         String arrivaDate = bookOrder.getArrivaldate();
                         String departureDate = bookOrder.getLeavedate();
                         String imageUrl = bookOrder.getImgurl();
-                        SimpleDateFormat descFormat = new SimpleDateFormat("MM月dd日");
+                        SimpleDateFormat descFormat = new SimpleDateFormat("MM/dd");
                         SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date arrivalDate = sourceFormat.parse(arrivaDate);
-                        Date leaveDate = sourceFormat.parse(departureDate);
+//                        Date leaveDate = sourceFormat.parse(departureDate);
                         String arriveStr = descFormat.format(arrivalDate);
-                        String leaveStr = descFormat.format(leaveDate);
-                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
-                        vh.orderContent.setText(roomType + " | " + arriveStr+"到"+leaveStr + " | " + dayNum + "晚");
-                        if (!TextUtils.isEmpty(imageUrl)) {
-                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
-                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
-                        }
+//                        String leaveStr = descFormat.format(leaveDate);
+//                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
+                        vh.orderContent.setText(arriveStr + " " + roomType);
+
+//                        if (!TextUtils.isEmpty(imageUrl)) {
+//                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
+//                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
+//                        }
                     }
                     vh.msg.setVisibility(View.GONE);
                     vh.img.setVisibility(View.GONE);
@@ -772,8 +773,8 @@ public class GroupChatAdapter extends BaseAdapter {
         CheckBox        selectCb;
         LinearLayout    contentLayout;
         LinearLayout cardLayout;
-        TextView contentTip, orderContent;
-        ImageView hotelImage;
+        TextView  orderContent; //contentTip,
+//        ImageView hotelImage;
     }
 
     static class RecvViewHolder extends ViewHolder {

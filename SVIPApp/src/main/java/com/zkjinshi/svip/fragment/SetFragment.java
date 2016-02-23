@@ -2,7 +2,6 @@ package com.zkjinshi.svip.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -22,16 +20,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.MemberCreditActivity;
 import com.zkjinshi.svip.activity.common.SettingActivity;
 import com.zkjinshi.svip.activity.mine.SetActivity;
 import com.zkjinshi.svip.activity.order.ConsumeRecordActivtiy;
-
-import com.zkjinshi.svip.adapter.ConsumeRecordAdapter;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetDialogUtil;
-
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
@@ -40,7 +34,6 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.vo.OrderForDisplay;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -55,27 +48,44 @@ public class SetFragment extends Fragment{
     private final static int REQUEST_CONSUME_RECORD = 0x05;
 
     private RelativeLayout accountInfoLayout,orderManagerLayout,setLayout;
-    private SimpleDraweeView userPhotoIv;
+    private RelativeLayout rlCredit;
+    private TextView       tvCredit;
+    private CircleImageView userPhotoIv;
     private TextView userNameTv,orderNumTv;
+    private DisplayImageOptions options;
 
     private void initView(View view){
-        userPhotoIv = (SimpleDraweeView)view.findViewById(R.id.set_uv_user_photo);
+        userPhotoIv = (CircleImageView)view.findViewById(R.id.set_uv_user_photo);
         userNameTv = (TextView)view.findViewById(R.id.set_uv_user_name);
         orderNumTv = (TextView)view.findViewById(R.id.set_layout_order_num);
         accountInfoLayout = (RelativeLayout)view.findViewById(R.id.set_layout_user_account_info);
         orderManagerLayout = (RelativeLayout)view.findViewById(R.id.set_layout_order_manager);
         setLayout = (RelativeLayout)view.findViewById(R.id.set_layout_set);
+        rlCredit = (RelativeLayout)view.findViewById(R.id.rl_credit);
+        tvCredit = (TextView) view.findViewById(R.id.tv_credit_num);
+
         orderNumTv.setVisibility(View.GONE);
     }
 
     private void initData(){
+        this.options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
+                .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
+                .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
+                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
+                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
+                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
+                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
+                .build();
+
         if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
             String userId = CacheUtil.getInstance().getUserId();
             String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-            userPhotoIv.setImageURI(Uri.parse(userPhotoUrl));
+            ImageLoader.getInstance().displayImage(userPhotoUrl, userPhotoIv, options);
         }else {
-            userPhotoIv.setImageURI(Uri.parse("res:///"+R.mipmap.ic_main_user_default_photo_nor));
+            userPhotoIv.setImageResource(R.mipmap.ic_main_user_default_photo_nor);
         }
+
         if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
             userNameTv.setText(CacheUtil.getInstance().getUserName());
         }else {
@@ -173,6 +183,22 @@ public class SetFragment extends Fragment{
             }
         });
 
+        //我的积分
+        rlCredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!CacheUtil.getInstance().isLogin()){
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra("isHomeBack",true);
+                    startActivity(intent);
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), MemberCreditActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+            }
+        });
+
         //设置
         setLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,8 +217,6 @@ public class SetFragment extends Fragment{
         });
 
     }
-
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

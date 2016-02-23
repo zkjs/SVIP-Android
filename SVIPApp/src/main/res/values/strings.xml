@@ -178,5 +178,14 @@
     <string name="the_user_do_not_give_a_comment">此用户未进行评价。</string>
     <string name="comment">评论</string>
     <string name="no_name">匿名</string>
+    <string name="credit_introduction">
+        一、消费积分累计规则：\n
+        "       "消费积分：消费金额10元=1积分；积分计算过程中，不足10元的数值取整。\n
+        示例：张先生预订酒店，订单消费金额为259元，则其积分回馈为25分（259*10=25.9，取整为25分）。\n
+        "       "生成时间：按每笔订单消费完成后，发放至用户的积分账户\n
+        二、积分说明：\n
+        "       "超级身份VIP积分计划是为答谢用户对我们的支持与厚爱而推出的一项用户回馈服务。
+        累计的积分之后可以通过积分商城等渠道兑换丰富多样的商品。
+    </string>
 
 </resources>
