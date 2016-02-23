@@ -58,7 +58,6 @@ public class BlueToothManager {
     private BlueToothManager(){}
     private static BlueToothManager instance;
     private Context context;
-    SVIPApplication svipApplication;
 
     private IBeaconObserver mIBeaconObserver = new IBeaconObserver() {
         @Override
@@ -151,6 +150,7 @@ public class BlueToothManager {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             String appVersion = info.versionName; // 版本名
             int currentVersionCode = info.versionCode; // 版本号
+            String phoneNumber = CacheUtil.getInstance().getUserPhone();
 
             String url = ProtocolUtil.getArriveNoticeUrl();
             NetRequest netRequest = new NetRequest(url);
@@ -158,7 +158,7 @@ public class BlueToothManager {
             bizMap.put("userid", CacheUtil.getInstance().getUserId());
             bizMap.put("locid", locId);
             bizMap.put("shopid", shopId);
-            bizMap.put("info", "phoneOs="+phoneOs +";appVersion="+ appVersion +";versionCode="+ currentVersionCode);
+            bizMap.put("info", phoneOs +";"+ appVersion +";"+ currentVersionCode+";"+phoneNumber);
             netRequest.setBizParamMap(bizMap);
             NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
             netRequestTask.methodType = MethodType.JSON;
