@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.blueTooth;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.pyxis.bluetooth.IBeaconContext;
 import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
@@ -140,45 +143,59 @@ public class BlueToothManager {
         }
     }
 
-    public void requestArriveNoticeTask(String shopId,String locId){{
-        String url = ProtocolUtil.getArriveNoticeUrl();
-        NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("locid", locId);
-        bizMap.put("shopid", shopId);
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
-        LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
-        LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
+    public void requestArriveNoticeTask(String shopId,String locId){
+        try {
+            DeviceUtils.init(context);
+            String phoneOs = DeviceUtils.getOS()+" "+DeviceUtils.getSdk();
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            String appVersion = info.versionName; // 版本名
+            int currentVersionCode = info.versionCode; // 版本号
 
-            @Override
-            public void onNetworkRequestCancelled() {
+            String url = ProtocolUtil.getArriveNoticeUrl();
+            NetRequest netRequest = new NetRequest(url);
+            HashMap<String,String> bizMap = new HashMap<String,String>();
+            bizMap.put("userid", CacheUtil.getInstance().getUserId());
+            bizMap.put("locid", locId);
+            bizMap.put("shopid", shopId);
+            bizMap.put("info", "phoneOs="+phoneOs +";appVersion="+ appVersion +";versionCode="+ currentVersionCode);
+            netRequest.setBizParamMap(bizMap);
+            NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.JSON;
+            LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
+                }
 
-            }
+                @Override
+                public void onNetworkRequestCancelled() {
 
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                //Log.i(TAG, "result.rawResult:" + result.rawResult);
-                LogUtil.getInstance().info(LogLevel.DEBUG,"API推送成功");
-            }
+                }
 
-            @Override
-            public void beforeNetworkRequestStart() {
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    //Log.i(TAG, "result.rawResult:" + result.rawResult);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"API推送成功");
+                }
 
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }}
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+            netRequestTask.isShowLoadingDialog = false;
+            netRequestTask.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     public static synchronized BlueToothManager getInstance(){
