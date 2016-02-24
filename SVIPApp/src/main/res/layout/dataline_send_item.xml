@@ -137,9 +137,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@id/icon"
-            android:layout_width="40.0dip"
-            android:layout_height="40.0dip"
-            android:layout_marginTop="5.0dip"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
             fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@mipmap/list_img_selfish"
             fresco:placeholderImageScaleType="centerInside"

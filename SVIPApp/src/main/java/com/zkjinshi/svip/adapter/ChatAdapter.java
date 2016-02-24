@@ -161,8 +161,7 @@ public class ChatAdapter extends BaseAdapter {
     public int getItemViewType(int position) {
         EMMessage messageVo = messageList.get(position);
         String userId = messageVo.getFrom();
-        boolean isComMsg = !CacheUtil.getInstance().getUserId()
-                .equals(userId);
+        boolean isComMsg = !CacheUtil.getInstance().getUserId().equals(userId);
         return isComMsg ? TYPE_RECV_ITEM : TYPE_SEND_ITEM;
     }
 
@@ -213,12 +212,14 @@ public class ChatAdapter extends BaseAdapter {
                     break;
             }
         }
-        String userName = message.getFrom();
-        try {
-            userName = message.getStringAttribute("fromName");
-        } catch (EaseMobException e) {
-            e.printStackTrace();
-        }
+
+//        String userName = message.getFrom();
+//        try {
+//            userName = message.getStringAttribute("fromName");
+//        } catch (EaseMobException e) {
+//            e.printStackTrace();
+//        }
+
         switch (itemType) {
             case TYPE_RECV_ITEM: // 别人发送的布局
                 setViewValues(rvh, position, true);
@@ -307,52 +308,59 @@ public class ChatAdapter extends BaseAdapter {
                 }
             });
         }
+
         EMMessage.Type mimeType = message.getType();
         if (mimeType.equals(EMMessage.Type.TXT)) {// 文本消息
             try {
                 int extType = message.getIntAttribute(Constants.MSG_TXT_EXT_TYPE);
                 TextMessageBody txtBody = (TextMessageBody) message.getBody();
                 final String content = txtBody.getMessage();
-                if(TxtExtType.CARD.getVlaue() == extType){//卡片类型消息
+                //卡片类型消息
+                if(TxtExtType.CARD.getVlaue() == extType){
                     final OrderDetailForDisplay bookOrder = new Gson().fromJson(content, OrderDetailForDisplay.class);
                     if (!isDelEnabled) {
-
-                        vh.contentLayout
-                                .setOnLongClickListener(new View.OnLongClickListener() {
-
-                                    @Override
-                                    public boolean onLongClick(View v) {
-                                        showChildQuickActionBar(v, isComMsg, position);
-                                        return true;
-                                    }
-                                });
+                        vh.contentLayout.setOnLongClickListener(
+                            new View.OnLongClickListener() {
+                                @Override
+                                public boolean onLongClick(View v) {
+                                    showChildQuickActionBar(v, isComMsg, position);
+                                    return true;
+                                }
+                            });
 
                         //跳转订单详情页面
-                        vh.contentLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String orderNo = bookOrder.getOrderno();
-                                Intent intent = new Intent();
-                                if(orderNo.startsWith("H")){
-                                    intent.setClass(context,HotelConfirmActivity.class);
-                                    intent.putExtra("orderNo",orderNo);
-                                }else if(orderNo.startsWith("K")){
-                                    intent.setClass(context,KTVConfirmActivity.class);
-                                    intent.putExtra("orderNo",orderNo);
+                        vh.contentLayout.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String orderNo = bookOrder.getOrderno();
+                                    Intent intent = new Intent();
+                                    if (orderNo.startsWith("H")) {
+                                        intent.setClass(context,HotelConfirmActivity.class);
+                                        intent.putExtra("orderNo",orderNo);
+                                    } else if (orderNo.startsWith("K")) {
+                                        intent.setClass(context,KTVConfirmActivity.class);
+                                        intent.putExtra("orderNo",orderNo);
+                                    } else if (orderNo.startsWith("O")) {
+                                        intent.setClass(context,NormalConfirmActivity.class);
+                                        intent.putExtra("orderNo",orderNo);
+                                    }
+                                    context.startActivity(intent);
                                 }
-                                else if(orderNo.startsWith("O")){
-                                    intent.setClass(context,NormalConfirmActivity.class);
-                                    intent.putExtra("orderNo",orderNo);
-                                }
-                                context.startActivity(intent);
                             }
-                        });
+                        );
                     }
-                    if (null != bookOrder) {
+
+                    if(isComMsg) {
+                        vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_blue);
+                        vh.cardLayout.setBackgroundResource(R.color.theme_primary);
+                    }
+
+                    if(null != bookOrder){
                         String roomType = bookOrder.getRoomtype();
                         String arrivaDate = bookOrder.getArrivaldate();
-                        String departureDate = bookOrder.getLeavedate();
-                        String imageUrl = bookOrder.getImgurl();
+//                        String departureDate = bookOrder.getLeavedate();
+//                        String imageUrl = bookOrder.getImgurl();
                         SimpleDateFormat descFormat = new SimpleDateFormat("MM/dd");
                         SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date arrivalDate = sourceFormat.parse(arrivaDate);
@@ -362,7 +370,6 @@ public class ChatAdapter extends BaseAdapter {
 //                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
                         //  vh.contentTip.setText(bookOrder.getContent());
                         vh.orderContent.setText(arriveStr + " " + roomType);
-
 //                        if (!TextUtils.isEmpty(imageUrl)) {
 //                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
 //                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
@@ -373,7 +380,13 @@ public class ChatAdapter extends BaseAdapter {
                     vh.voice.setVisibility(View.GONE);
                     vh.time.setVisibility(View.GONE);
                     vh.cardLayout.setVisibility(View.VISIBLE);
-                }else{//普通文本消息
+                } else {
+
+                    //普通文本消息
+                    if(isComMsg) {
+                        vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_white);
+                    }
+
                     if (!TextUtils.isEmpty(content)) {
                         String key = message.getMsgId();
                         CharSequence charSequence = (CharSequence) msgCacheMap
@@ -453,16 +466,23 @@ public class ChatAdapter extends BaseAdapter {
             }
 
         } else if (mimeType.equals(EMMessage.Type.IMAGE)) {// 图片
+            //图片蓝色背景
+            if(isComMsg) {
+                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_blue);
+            } else {
+                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_right_orange);
+            }
             ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
             if (!isDelEnabled) {
-                vh.contentLayout
-                        .setOnLongClickListener(new View.OnLongClickListener() {
+                vh.contentLayout.setOnLongClickListener(
+                    new View.OnLongClickListener() {
 
-                            @Override
-                            public boolean onLongClick(View v) {
-                                return true;
-                            }
-                        });
+                        @Override
+                        public boolean onLongClick(View v) {
+                            return true;
+                        }
+                    }
+                );
                 vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -512,15 +532,23 @@ public class ChatAdapter extends BaseAdapter {
             vh.cardLayout.setVisibility(View.GONE);
         } else if (mimeType.equals(EMMessage.Type.VOICE)) {// 语音
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
+            //语音蓝色背景
+            if(isComMsg) {
+                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_blue);
+            } else {
+                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_right_orange);
+            }
+
             if (!isDelEnabled) {
-                vh.contentLayout
-                        .setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v) {
-                                showChildQuickActionBar(v, isComMsg, position);
-                                return true;
-                            }
-                        });
+                vh.contentLayout.setOnLongClickListener(
+                    new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            showChildQuickActionBar(v, isComMsg, position);
+                            return true;
+                        }
+                    }
+                );
 
                 if (isComMsg) {// 别人
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
@@ -602,7 +630,6 @@ public class ChatAdapter extends BaseAdapter {
                 } else {// 自己
                     vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-
                             EMMessage message = (EMMessage) v.getTag();
                             VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
                             //播放语音文件

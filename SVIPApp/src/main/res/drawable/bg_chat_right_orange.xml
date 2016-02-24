@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/ic_liaotian_y_pre" />
-    <item android:drawable="@drawable/ic_liaotian_y" />
+    <item android:state_pressed="true" android:drawable="@drawable/ic_liaotiankuang_r_orange_pre" />
+    <item android:drawable="@drawable/ic_liaotiankuang_r_orange" />
 </selector>
