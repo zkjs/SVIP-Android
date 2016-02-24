@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_white">
+    android:background="@drawable/bg_white"
+    android:orientation="vertical">
 
     <ScrollView
-        android:scrollbars="none"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,129 +19,163 @@
             <RelativeLayout
                 android:id="@+id/set_layout_user_account_info"
                 android:layout_width="match_parent"
-                android:clickable="true"
+                android:layout_height="80dp"
                 android:background="@drawable/bg_layout_item_selector"
-                android:layout_height="80dp">
+                android:clickable="true">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <com.zkjinshi.svip.view.CircleImageView
                     android:id="@+id/set_uv_user_photo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_gravity="center"
                     android:layout_centerVertical="true"
-                    fresco:roundAsCircle="true"
-                    fresco:roundedCornerRadius="0dp"
-                    fresco:actualImageScaleType="centerCrop"
-                    fresco:placeholderImage="@mipmap/ic_main_user_default_photo_nor"
-                    fresco:placeholderImageScaleType="centerCrop"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:background="@mipmap/ic_main_user_default_photo_nor"
+                    android:scaleType="center" />
 
                 <TextView
                     android:id="@+id/set_uv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/set_uv_user_photo"
-                    android:layout_marginLeft="10dp"
-                    android:text="登录/注册"
-                    android:textSize="14sp"
-                    android:textColor="#666666"
                     android:layout_centerVertical="true"
-                    />
-                
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/set_uv_user_photo"
+                    android:text="登录/注册"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="15dp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_right_orange"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_right_orange" />
 
             </RelativeLayout>
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#e3e3e3"/>
+                android:background="#e3e3e3" />
 
             <RelativeLayout
                 android:id="@+id/set_layout_order_manager"
                 android:layout_width="match_parent"
-                android:clickable="true"
+                android:layout_height="48dp"
                 android:background="@drawable/bg_layout_item_selector"
-                android:layout_height="48dp">
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
                     android:text="订单管理"
-                    android:textSize="16sp"
                     android:textColor="#666666"
-                    android:layout_centerVertical="true"
-                    />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="15dp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_right_orange"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_right_orange" />
 
                 <TextView
                     android:id="@+id/set_layout_order_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="45dp"
                     android:text="0个待确认订单"
                     android:textColor="#ffc56e"
-                    android:textSize="14sp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="45dp"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#e3e3e3"/>
+                android:background="#e3e3e3" />
 
             <RelativeLayout
-                android:id="@+id/set_layout_set"
+                android:id="@+id/rl_credit"
                 android:layout_width="match_parent"
-                android:clickable="true"
+                android:layout_height="48dp"
                 android:background="@drawable/bg_layout_item_selector"
-                android:layout_height="48dp">
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="设置"
-                    android:textSize="16sp"
-                    android:textColor="#666666"
                     android:layout_centerVertical="true"
-                    />
+                    android:layout_marginLeft="16dp"
+                    android:text="积分"
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="15dp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/ic_right_orange"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_right_orange" />
+
+                <TextView
+                    android:id="@+id/tv_credit_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="45dp"
+                    android:textColor="#ffc56e"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#e3e3e3"/>
+                android:background="#e3e3e3" />
+
+            <RelativeLayout
+                android:id="@+id/set_layout_set"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_layout_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="设置"
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ic_right_orange" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e3e3e3" />
 
         </LinearLayout>
 

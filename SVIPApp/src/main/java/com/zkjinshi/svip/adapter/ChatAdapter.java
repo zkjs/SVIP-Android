@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.adapter;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +49,6 @@ import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
-import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.net.ext.DownloadRequestListener;
 import com.zkjinshi.svip.net.ext.DownloadTask;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -64,10 +62,7 @@ import com.zkjinshi.svip.view.ActionItem;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
-import com.zkjinshi.svip.vo.MessageVo;
-import com.zkjinshi.svip.vo.MimeType;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
-import com.zkjinshi.svip.vo.SendStatus;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.io.File;
@@ -190,7 +185,7 @@ public class ChatAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.dataline_recv_item, parent, false);
                     rvh = new RecvViewHolder();
                     setViewHolder(rvh, convertView);
-                    rvh.name = (TextView) convertView.findViewById(R.id.name);
+//                    rvh.name = (TextView) convertView.findViewById(R.id.name);
                     convertView.setTag(rvh);
                     break;
 
@@ -199,7 +194,7 @@ public class ChatAdapter extends BaseAdapter {
                             parent, false);
                     svh = new SendViewHolder();
                     setViewHolder(svh, convertView);
-                    svh.name = (TextView) convertView.findViewById(R.id.name);
+//                    svh.name = (TextView) convertView.findViewById(R.id.name);
                     svh.progressBar = (ProgressBar) convertView
                             .findViewById(R.id.sendtextprogressbar);
                     svh.errIconIv = (ImageView) convertView
@@ -227,16 +222,16 @@ public class ChatAdapter extends BaseAdapter {
         switch (itemType) {
             case TYPE_RECV_ITEM: // 别人发送的布局
                 setViewValues(rvh, position, true);
-                if (!TextUtils.isEmpty(userName)) {
-                    rvh.name.setText(userName + "：");
-                    rvh.name.setVisibility(View.VISIBLE);
-                }
+//                if (!TextUtils.isEmpty(userName)) {
+//                    rvh.name.setText(userName + "：");
+//                    rvh.name.setVisibility(View.VISIBLE);
+//                }
                 break;
 
             case TYPE_SEND_ITEM: // 自己发送的布局
                 setViewValues(svh, position, false);
-                svh.name.setText("我：");
-                svh.name.setVisibility(View.VISIBLE);
+//                svh.name.setText("我：");
+//                svh.name.setVisibility(View.VISIBLE);
                 EMMessage.Status sendStatus = message.status;
                 if (EMMessage.Status.INPROGRESS.equals(sendStatus)) { // 正在发送
                     svh.progressBar.setVisibility(View.VISIBLE);
@@ -277,7 +272,7 @@ public class ChatAdapter extends BaseAdapter {
         vh.selectCb = (CheckBox) convertView.findViewById(R.id.cb_select);
         vh.cardLayout = (LinearLayout) convertView.findViewById(R.id.card_layout);
         vh.orderContent = (TextView) convertView.findViewById(R.id.msg_order_content);
-        vh.hotelImage = (ImageView) convertView.findViewById(R.id.msg_hotel_image);
+//        vh.orderType = (TextView) convertView.findViewById(R.id.msg_order_type);
     }
 
     /**
@@ -358,18 +353,20 @@ public class ChatAdapter extends BaseAdapter {
                         String arrivaDate = bookOrder.getArrivaldate();
                         String departureDate = bookOrder.getLeavedate();
                         String imageUrl = bookOrder.getImgurl();
-                        SimpleDateFormat descFormat = new SimpleDateFormat("MM月dd日");
+                        SimpleDateFormat descFormat = new SimpleDateFormat("MM/dd");
                         SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         Date arrivalDate = sourceFormat.parse(arrivaDate);
-                        Date leaveDate = sourceFormat.parse(departureDate);
+//                        Date leaveDate = sourceFormat.parse(departureDate);
                         String arriveStr = descFormat.format(arrivalDate);
-                        String leaveStr = descFormat.format(leaveDate);
-                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
-                        vh.orderContent.setText(roomType + " | " + arriveStr+"到"+leaveStr + " | " + dayNum + "晚");
-                        if (!TextUtils.isEmpty(imageUrl)) {
-                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
-                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
-                        }
+//                        String leaveStr = descFormat.format(leaveDate);
+//                        int dayNum = TimeUtil.daysBetween(arrivalDate, leaveDate);
+                        //  vh.contentTip.setText(bookOrder.getContent());
+                        vh.orderContent.setText(arriveStr + " " + roomType);
+
+//                        if (!TextUtils.isEmpty(imageUrl)) {
+//                            String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
+//                            ImageLoader.getInstance().displayImage(logoUrl, vh.hotelImage, cardOptions);
+//                        }
                     }
                     vh.msg.setVisibility(View.GONE);
                     vh.img.setVisibility(View.GONE);
@@ -767,17 +764,17 @@ public class ChatAdapter extends BaseAdapter {
         LinearLayout    contentLayout;
         LinearLayout cardLayout;
         TextView orderContent;
-        ImageView hotelImage;
+//        ImageView hotelImage;
     }
 
     static class RecvViewHolder extends ViewHolder {
-        TextView name;
+//        TextView name;
     }
 
     static class SendViewHolder extends ViewHolder {
         ProgressBar progressBar;
         ImageView errIconIv;
-        TextView name;
+//        TextView name;
     }
 
     static class TipsViewHolder {

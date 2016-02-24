@@ -25,23 +25,22 @@
             android:layout_weight="1.0"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="13dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical|right"
-                android:singleLine="true"
-                android:text="@null"
-                android:textColor="#6C6C6C"
-                android:textSize="12sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/name"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_gravity="center_vertical|right"-->
+                <!--android:layout_marginRight="13dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:gravity="center_vertical|right"-->
+                <!--android:singleLine="true"-->
+                <!--android:text="@null"-->
+                <!--android:textColor="#6C6C6C"-->
+                <!--android:textSize="12sp" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_below="@id/name"
                 android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -83,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:addStatesFromChildren="true"
-                    android:background="@drawable/aio_user_bg"
+                    android:background="@drawable/bg_chat_right_orange"
                     android:clickable="true"
                     android:lineSpacingExtra="2.0dip"
                     android:paddingBottom="10.0dip"
@@ -100,7 +99,7 @@
                         android:lineSpacingExtra="2.0dip"
                         android:maxWidth="270dp"
                         android:padding="7.0dip"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="16sp"
                         android:visibility="visible" />
 
