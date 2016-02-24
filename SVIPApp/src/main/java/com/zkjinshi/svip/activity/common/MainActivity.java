@@ -124,10 +124,13 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
         if(pageIndex == 2 ){
             viewPager.setCurrentItem(2,true);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if(CacheUtil.getInstance().isLogin() && !BlueToothManager.getInstance().isIBeaconServiceRunning()){
+
+
+        if(CacheUtil.getInstance().isLogin()){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !BlueToothManager.getInstance().isIBeaconServiceRunning()) {
                 MainController.getInstance().startIbeaconService();
             }
+            LocationManager.getInstance().startLocation();
         }
 
     }

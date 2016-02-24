@@ -43,7 +43,10 @@ public class LocationManager{
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
                     mAMapLocation = aMapLocation;
+                    //aMapLocation.getLatitude();//获取纬度
+                    //aMapLocation.getLongitude();//获取经度
                     Log.i("LocationManager",aMapLocation.toString());
+
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                     LogUtil.getInstance().info(LogLevel.ERROR,"location Error, ErrCode:"
@@ -64,7 +67,7 @@ public class LocationManager{
     }
 
     public void init(Context context){
-        mLocationClient = new AMapLocationClient(context.getApplicationContext());
+        mLocationClient = new AMapLocationClient(context);
         //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
     }
