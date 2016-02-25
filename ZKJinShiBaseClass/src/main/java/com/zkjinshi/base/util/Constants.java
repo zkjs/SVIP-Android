@@ -14,5 +14,8 @@ public class Constants {
     public static final String JAVA_HOST = "java-host";
     //图片host
     public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";
+    //宝强API
+    public final static String BQ_HOST = "http://120.25.80.143:3000/";
+
 
 }

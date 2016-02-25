@@ -138,6 +138,8 @@
 -dontwarn com.zkjinshi.base.**
 -keep class com.zkjinshi.base.** { *; }
 
+-keep class com.facebook.**{*;}
+
 #---配置library工程包over---#
 
 #----根据 Android Private Libraries 配置lib jar包start---#
