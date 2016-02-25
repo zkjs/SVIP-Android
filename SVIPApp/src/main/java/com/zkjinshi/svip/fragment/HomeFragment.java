@@ -545,6 +545,9 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         }
 
         final String shopid = BlueToothManager.getInstance().getLastIBeaconVo().getShopid();
+        if(shopid == null){
+            return;
+        }
 
         String url = ProtocolUtil.getUserPrivilegeUrl(CacheUtil.getInstance().getUserId(),shopid);
         NetRequest netRequest = new NetRequest(url);

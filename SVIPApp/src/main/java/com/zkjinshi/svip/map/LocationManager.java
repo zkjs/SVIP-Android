@@ -10,9 +10,18 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * 高德定位管理器
@@ -25,7 +34,7 @@ public class LocationManager{
 
     public static final String TAG = LocationManager.class.getSimpleName();
 
-    private static final long LOCATION_PERIOD_TIME = 1000 * 60 * 2;  //单位毫秒
+    private static final long LOCATION_PERIOD_TIME = 1000 * 60 * 5;  //单位毫秒
 
     private LocationManager (){}
     private static LocationManager instance;
@@ -35,6 +44,7 @@ public class LocationManager{
 
     private AMapLocationClientOption mLocationOption = null;
     private AMapLocation mAMapLocation = null;
+    private Context context;
 
     //声明定位回调监听器
     private AMapLocationListener mLocationListener = new AMapLocationListener() {
@@ -46,6 +56,7 @@ public class LocationManager{
                     //aMapLocation.getLatitude();//获取纬度
                     //aMapLocation.getLongitude();//获取经度
                     Log.i("LocationManager",aMapLocation.toString());
+                    pushGps(aMapLocation);
 
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -67,6 +78,7 @@ public class LocationManager{
     }
 
     public void init(Context context){
+        this.context = context;
         mLocationClient = new AMapLocationClient(context);
         //设置定位回调监听
         mLocationClient.setLocationListener(mLocationListener);
@@ -136,5 +148,61 @@ public class LocationManager{
             city = city.replace("市","");
         }
         return  city;
+    }
+
+    public void pushGps(AMapLocation aMapLocation){
+        try {
+            String url = ProtocolUtil.lbsLocGps();
+            NetRequest netRequest = new NetRequest(url);
+            HashMap<String,Object> bizMap = new HashMap<String,Object>();
+
+            bizMap.put("latitude",aMapLocation.getLatitude());
+            bizMap.put("longitude",aMapLocation.getLongitude());
+            bizMap.put("altitude", aMapLocation.getAltitude());
+            bizMap.put("token", CacheUtil.getInstance().getToken());
+            bizMap.put("timestamp",System.currentTimeMillis());
+
+           /* bizMap.put("latitude","1");
+            bizMap.put("longitude","2");
+            bizMap.put("altitude", "3");
+            bizMap.put("token", "head.payload.sign");
+            bizMap.put("timestamp",1455870706863L);*/
+
+            netRequest.setObjectParamMap(bizMap);
+            NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.PUT;
+            LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
+                }
+
+                @Override
+                public void onNetworkRequestCancelled() {
+
+                }
+
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    //Log.i(TAG, "result.rawResult:" + result.rawResult);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"API推送成功");
+                }
+
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+            netRequestTask.isShowLoadingDialog = false;
+            netRequestTask.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

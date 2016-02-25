@@ -63,7 +63,7 @@ public class BlueToothManager {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
-            reginAdPush(iBeaconVo);
+            pushIbeacon(iBeaconVo);
         }
 
         @Override
@@ -134,34 +134,37 @@ public class BlueToothManager {
                             }
                         }
                 );
-                //区域位置变化通知
-                requestArriveNoticeTask(shopid,locId);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void requestArriveNoticeTask(String shopId,String locId){
+    public void pushIbeacon(IBeaconVo iBeaconVo){
         try {
-            DeviceUtils.init(context);
-            String phoneOs = DeviceUtils.getOS()+" "+DeviceUtils.getSdk();
-            PackageManager manager = context.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            String appVersion = info.versionName; // 版本名
-            int currentVersionCode = info.versionCode; // 版本号
-            String phoneNumber = CacheUtil.getInstance().getUserPhone();
-
-            String url = ProtocolUtil.getArriveNoticeUrl();
+            String url = ProtocolUtil.lbsLocBeacon();
             NetRequest netRequest = new NetRequest(url);
-            HashMap<String,String> bizMap = new HashMap<String,String>();
-            bizMap.put("userid", CacheUtil.getInstance().getUserId());
-            bizMap.put("locid", locId);
-            bizMap.put("shopid", shopId);
-            bizMap.put("info", phoneOs +";"+ appVersion +";"+ currentVersionCode+";"+phoneNumber);
-            netRequest.setBizParamMap(bizMap);
+            HashMap<String,Object> bizMap = new HashMap<String,Object>();
+            bizMap.put("locid",iBeaconVo.getMajor()+"");
+            bizMap.put("major", iBeaconVo.getMajor()+"");
+            bizMap.put("minor", iBeaconVo.getMinor()+"");
+            bizMap.put("uuid", iBeaconVo.getProximityUuid());
+            bizMap.put("sensorid", iBeaconVo.getBluetoothAddress());
+            bizMap.put("token", CacheUtil.getInstance().getToken());
+            bizMap.put("timestamp", iBeaconVo.getTimestamp());
+
+            /*bizMap.put("locid","1");
+            bizMap.put("major","2");
+            bizMap.put("minior", "3");
+            bizMap.put("uuid", "uuid-uuid-uuid-uuid");
+            bizMap.put("sensorid","sensorid");
+            bizMap.put("token", "head.payload.sign");
+            bizMap.put("timestamp", 1455870706863L);*/
+
+            netRequest.setObjectParamMap(bizMap);
             NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
-            netRequestTask.methodType = MethodType.JSON;
+            netRequestTask.methodType = MethodType.PUT;
             LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
             LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
             netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
@@ -196,6 +199,8 @@ public class BlueToothManager {
         }
 
     }
+
+
 
 
     public static synchronized BlueToothManager getInstance(){

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.zkjinshi.pyxis.utils.DistanceUtil;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
@@ -28,6 +29,7 @@ public class IBeaconManager {
 	private BluetoothManager bluetoothManager;
 	private BluetoothAdapter bluetoothAdapter;
 	private Context context;
+	private HashMap<String,String> filterMap;
 
 
 	private static IBeaconManager instance;
@@ -44,6 +46,9 @@ public class IBeaconManager {
 	public IBeaconManager init(Context context){
 		this.context = context;
 		scantime_dp = 0;
+		filterMap = new HashMap<String,String>();
+		filterMap.put("fda50693-a4e2-4fb1-afcf-c6eb07647835","1");
+		filterMap.put("931ddf8e-10e4-11e5-9493-1697f925ec7b","1");
 		return  this;
 	}
 
@@ -112,9 +117,9 @@ public class IBeaconManager {
 				public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
 					IBeaconVo ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
-						if(IBeaconContext.getInstance().getNetBeaconMap().containsKey(ibeacon.getBeaconKey()) ){
+						if(filterMap.containsKey(ibeacon.getProximityUuid()) ){
 							Log.d(TAG,ibeacon.getBeaconKey());
-							NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
+							//NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
 							long currentTime = System.currentTimeMillis();
 							double distance = DistanceUtil.calculateAccuracy(ibeacon.getTxPower(),ibeacon.getRssi());
 							//计算得到的属性
@@ -122,14 +127,14 @@ public class IBeaconManager {
 							ibeacon.setDistance(distance);
 							ibeacon.setDisappearTime(0);
 							//从API得到的Beacon属性
-							ibeacon.setLocid(netBeaconVo.getLocid());
-							ibeacon.setShopid(netBeaconVo.getShopid());
-							ibeacon.setSensorid(netBeaconVo.getSensorid());
-							ibeacon.setUuid(netBeaconVo.getUuid());
-							ibeacon.setMinior(netBeaconVo.getMinior());
-							ibeacon.setLocdesc(netBeaconVo.getLocdesc());
-							ibeacon.setStatus(netBeaconVo.getStatus());
-							ibeacon.setRemark(netBeaconVo.getRemark());
+//							ibeacon.setLocid(netBeaconVo.getLocid());
+//							ibeacon.setShopid(netBeaconVo.getShopid());
+//							ibeacon.setSensorid(netBeaconVo.getSensorid());
+//							ibeacon.setUuid(netBeaconVo.getUuid());
+//							ibeacon.setMinior(netBeaconVo.getMinior());
+//							ibeacon.setLocdesc(netBeaconVo.getLocdesc());
+//							ibeacon.setStatus(netBeaconVo.getStatus());
+//							ibeacon.setRemark(netBeaconVo.getRemark());
 
 							intoArea(ibeacon);
 						}

@@ -633,4 +633,20 @@ public class ProtocolUtil {
 
     }
 
+    /**
+     * 推送/更新室内位置
+     * @return
+     */
+    public static String lbsLocBeacon(){
+        return Constants.BQ_HOST+"lbs/loc/beacon";
+    }
+
+    /**
+     * 推送/更新室外位置
+     * @return
+     */
+    public static String lbsLocGps(){
+        return Constants.BQ_HOST+"lbs/loc/gps";
+    }
+
 }

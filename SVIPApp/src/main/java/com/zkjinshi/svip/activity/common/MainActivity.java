@@ -29,6 +29,7 @@ import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
 import com.zkjinshi.pyxis.bluetooth.IBeaconSubject;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
+import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
@@ -128,7 +129,7 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
 
         if(CacheUtil.getInstance().isLogin()){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !BlueToothManager.getInstance().isIBeaconServiceRunning()) {
-                MainController.getInstance().startIbeaconService();
+                BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
             }
             LocationManager.getInstance().startLocation();
         }
