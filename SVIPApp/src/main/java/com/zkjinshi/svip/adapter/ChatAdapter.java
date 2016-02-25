@@ -320,34 +320,35 @@ public class ChatAdapter extends BaseAdapter {
                     final OrderDetailForDisplay bookOrder = new Gson().fromJson(content, OrderDetailForDisplay.class);
                     if (!isDelEnabled) {
                         vh.contentLayout.setOnLongClickListener(
-                            new View.OnLongClickListener() {
-                                @Override
-                                public boolean onLongClick(View v) {
-                                    showChildQuickActionBar(v, isComMsg, position);
-                                    return true;
+                                new View.OnLongClickListener() {
+                                    @Override
+                                    public boolean onLongClick(View v) {
+                                        showChildQuickActionBar(v, isComMsg, position);
+                                        return true;
+                                    }
                                 }
-                            });
+                        );
 
                         //跳转订单详情页面
                         vh.contentLayout.setOnClickListener(
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    String orderNo = bookOrder.getOrderno();
-                                    Intent intent = new Intent();
-                                    if (orderNo.startsWith("H")) {
-                                        intent.setClass(context,HotelConfirmActivity.class);
-                                        intent.putExtra("orderNo",orderNo);
-                                    } else if (orderNo.startsWith("K")) {
-                                        intent.setClass(context,KTVConfirmActivity.class);
-                                        intent.putExtra("orderNo",orderNo);
-                                    } else if (orderNo.startsWith("O")) {
-                                        intent.setClass(context,NormalConfirmActivity.class);
-                                        intent.putExtra("orderNo",orderNo);
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String orderNo = bookOrder.getOrderno();
+                                        Intent intent = new Intent();
+                                        if (orderNo.startsWith("H")) {
+                                            intent.setClass(context,HotelConfirmActivity.class);
+                                            intent.putExtra("orderNo",orderNo);
+                                        } else if (orderNo.startsWith("K")) {
+                                            intent.setClass(context,KTVConfirmActivity.class);
+                                            intent.putExtra("orderNo",orderNo);
+                                        } else if (orderNo.startsWith("O")) {
+                                            intent.setClass(context,NormalConfirmActivity.class);
+                                            intent.putExtra("orderNo",orderNo);
+                                        }
+                                        context.startActivity(intent);
                                     }
-                                    context.startActivity(intent);
                                 }
-                            }
                         );
                     }
 
@@ -381,7 +382,6 @@ public class ChatAdapter extends BaseAdapter {
                     vh.time.setVisibility(View.GONE);
                     vh.cardLayout.setVisibility(View.VISIBLE);
                 } else {
-
                     //普通文本消息
                     if(isComMsg) {
                         vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_white);
@@ -441,15 +441,16 @@ public class ChatAdapter extends BaseAdapter {
                         }
                     }
                     if (!isDelEnabled) {
-                        vh.contentLayout
-                                .setOnLongClickListener(new View.OnLongClickListener() {
+                        vh.contentLayout.setOnLongClickListener(
+                                new View.OnLongClickListener() {
 
                                     @Override
                                     public boolean onLongClick(View v) {
                                         showChildQuickActionBar(v, isComMsg, position);
                                         return true;
                                     }
-                                });
+                                }
+                        );
                     }
                     vh.msg.setVisibility(View.VISIBLE);
                     vh.img.setVisibility(View.GONE);
@@ -475,13 +476,13 @@ public class ChatAdapter extends BaseAdapter {
             ImageMessageBody imgBody = (ImageMessageBody) message.getBody();
             if (!isDelEnabled) {
                 vh.contentLayout.setOnLongClickListener(
-                    new View.OnLongClickListener() {
+                        new View.OnLongClickListener() {
 
-                        @Override
-                        public boolean onLongClick(View v) {
-                            return true;
+                            @Override
+                            public boolean onLongClick(View v) {
+                                return true;
+                            }
                         }
-                    }
                 );
                 vh.contentLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -541,13 +542,13 @@ public class ChatAdapter extends BaseAdapter {
 
             if (!isDelEnabled) {
                 vh.contentLayout.setOnLongClickListener(
-                    new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            showChildQuickActionBar(v, isComMsg, position);
-                            return true;
+                        new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                showChildQuickActionBar(v, isComMsg, position);
+                                return true;
+                            }
                         }
-                    }
                 );
 
                 if (isComMsg) {// 别人
@@ -635,8 +636,7 @@ public class ChatAdapter extends BaseAdapter {
                             //播放语音文件
                             String mediaName = voiceBody.getFileName();
                             String mediaPath = FileUtil.getInstance().getAudioPath()+mediaName;
-                            vh.voice = (ImageView) v
-                                    .getTag(R.id.content_layout);
+                            vh.voice = (ImageView) v.getTag(R.id.content_layout);
                             vh.voice.setImageResource(R.drawable.self_record_animation_list);
                             final AnimationDrawable animation = (AnimationDrawable) vh.voice
                                     .getDrawable();
@@ -708,7 +708,7 @@ public class ChatAdapter extends BaseAdapter {
             VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
             int voiceTime = voiceBody.getLength();
             setTimeView(voiceTime, vh.time, vh.contentLayout);
-            vh.msg.setVisibility(View.GONE);
+            vh.msg.setVisibility(View.INVISIBLE);
             vh.img.setVisibility(View.GONE);
             vh.voice.setVisibility(View.VISIBLE);
             vh.time.setVisibility(View.VISIBLE);
