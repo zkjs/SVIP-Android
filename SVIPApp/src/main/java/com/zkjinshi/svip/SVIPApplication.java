@@ -34,6 +34,7 @@ import com.zkjinshi.svip.bean.UpdateBean;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EGroupReomveListener;
+import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.EmotionUtil;
@@ -239,6 +240,7 @@ public class SVIPApplication extends BaseApplication {
     private void initTest(){
         try {
             TestinAgent.init(this);
+            SSOManager.getInstance().ssoDecode();
         } catch (Exception e) {
             e.printStackTrace();
         }
