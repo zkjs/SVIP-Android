@@ -1,7 +1,10 @@
 package com.zkjinshi.svip.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -137,6 +140,14 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         }
     };
 
+    private ShowIBeaconPushMsgReceiver mShowIBeaconPushMsgReceiver;
+    private class ShowIBeaconPushMsgReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+
+        }
+    }
+
 
     private void initView(LayoutInflater inflater, ViewGroup container){
         svipApplication = (SVIPApplication)getActivity().getApplication();
@@ -173,7 +184,10 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
     }
 
     private void initData(){
-
+        mShowIBeaconPushMsgReceiver = new ShowIBeaconPushMsgReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        getActivity().registerReceiver(mShowIBeaconPushMsgReceiver, filter);
     }
 
     //加载本地预设信息
