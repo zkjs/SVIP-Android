@@ -13,6 +13,7 @@ public class YunBaMsgVo {
     private String webUrl;
     private String userId;
     private String userName;
+    private int type;//消息类型 1、GPS 2、蓝牙
 
     public String getTitle() {
         return title;
@@ -52,5 +53,13 @@ public class YunBaMsgVo {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
