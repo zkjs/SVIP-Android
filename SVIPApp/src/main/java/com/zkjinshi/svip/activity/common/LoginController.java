@@ -24,6 +24,7 @@ import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -111,6 +112,7 @@ public class LoginController {
                             CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
                             CacheUtil.getInstance().setSex(userDetailVo.getSex());
                             CacheUtil.getInstance().setActivate(userInfoResponse.isActivated());
+                            YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
                         }
                         loginHxUser();
                         MobclickAgent.onProfileSignIn(userInfoVo.getUserid());
