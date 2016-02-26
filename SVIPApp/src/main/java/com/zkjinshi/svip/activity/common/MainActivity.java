@@ -7,15 +7,14 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
-import android.os.Environment;
+
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+
 
 import com.blueware.agent.android.BlueWare;
 import com.easemob.EMCallBack;
@@ -25,20 +24,16 @@ import com.google.gson.Gson;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
-import com.zkjinshi.pyxis.bluetooth.IBeaconController;
-import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
-import com.zkjinshi.pyxis.bluetooth.IBeaconSubject;
-import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.adapter.FooterFragmentPagerAdapter;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
-import com.zkjinshi.svip.bean.LocPushBean;
+
 
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
+
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
@@ -53,16 +48,12 @@ import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.BadgeView;
+import com.zkjinshi.svip.view.BeaconMsgDialog;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
-
-import io.yunba.android.manager.YunBaManager;
 
 public class MainActivity extends BaseFragmentActivity implements IEMessageObserver {
 
@@ -91,6 +82,19 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
 
                 Intent showContactIntent = new Intent(Constants.SHOW_CONTACT_F_RECEIVER_ACTION);
                 sendBroadcast(showContactIntent);
+            }
+        }
+    }
+    private ShowIBeaconPushMsgReceiver mShowIBeaconPushMsgReceiver;
+    private class ShowIBeaconPushMsgReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            String msg = intent.getStringExtra("msg");
+            YunBaMsgVo yunBaMsgVo = new Gson().fromJson(msg,YunBaMsgVo.class);
+            if(yunBaMsgVo != null && yunBaMsgVo.getType() == 2){
+                BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
+                beaconMsgDialog.show();
+                beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
             }
         }
     }
@@ -149,6 +153,10 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
 
         if(null != mShowMessagePageReceiver){
             unregisterReceiver(mShowMessagePageReceiver);
+        }
+
+        if(null != mShowIBeaconPushMsgReceiver){
+            unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
         Log.d(TAG,TAG+".onDestroy");
         logoutHx();
@@ -258,6 +266,11 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.SHOW_CONTACT_RECEIVER_ACTION);
         registerReceiver(mShowMessagePageReceiver, filter);
+
+        mShowIBeaconPushMsgReceiver = new ShowIBeaconPushMsgReceiver();
+        IntentFilter filter2 = new IntentFilter();
+        filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
     }
 
     private void initBadgeNum(){
