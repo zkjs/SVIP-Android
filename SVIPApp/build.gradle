@@ -21,6 +21,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -39,4 +42,5 @@ dependencies {
     compile project(':pinyinSearch')
     compile project(':drawee-backends:drawee-pipeline')
     compile project(':pyxis')
+    testCompile 'junit:junit:4.12'
 }
