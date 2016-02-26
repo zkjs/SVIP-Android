@@ -117,8 +117,8 @@ public class IBeaconManager {
 				public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
 					IBeaconVo ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
+						Log.d(TAG,ibeacon.toString());
 						if(filterMap.containsKey(ibeacon.getProximityUuid()) ){
-							Log.d(TAG,ibeacon.getBeaconKey());
 							//NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
 							long currentTime = System.currentTimeMillis();
 							double distance = DistanceUtil.calculateAccuracy(ibeacon.getTxPower(),ibeacon.getRssi());

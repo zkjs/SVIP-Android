@@ -45,6 +45,7 @@ public class LocationManager{
     private AMapLocationClientOption mLocationOption = null;
     private AMapLocation mAMapLocation = null;
     private Context context;
+    private boolean isRuning = false;
 
     //声明定位回调监听器
     private AMapLocationListener mLocationListener = new AMapLocationListener() {
@@ -109,6 +110,7 @@ public class LocationManager{
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+        isRuning = true;
     }
 
     //停止定位
@@ -120,6 +122,7 @@ public class LocationManager{
         }
         LogUtil.getInstance().info(LogLevel.DEBUG,"高德地图定位服务停止。。。");
         mLocationClient.stopLocation();//停止定位
+        isRuning = false;
     }
 
     //销毁定位客户端之后，若要重新开启定位请重新New一个AMapLocationClient对象。
@@ -204,5 +207,13 @@ public class LocationManager{
             e.printStackTrace();
         }
 
+    }
+
+    public boolean isRuning() {
+        return isRuning;
+    }
+
+    public void setRuning(boolean runing) {
+        isRuning = runing;
     }
 }

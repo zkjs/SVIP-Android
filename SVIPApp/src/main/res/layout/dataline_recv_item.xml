@@ -26,7 +26,7 @@
             android:layout_height="48.0dip"
             fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@mipmap/list_img_selfish"
-            fresco:placeholderImageScaleType="centerInside"
+            fresco:placeholderImageScaleType="fitCenter"
             fresco:roundAsCircle="true"
             fresco:roundedCornerRadius="0dp" />
 

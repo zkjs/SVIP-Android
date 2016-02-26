@@ -131,9 +131,10 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !BlueToothManager.getInstance().isIBeaconServiceRunning()) {
                 BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
             }
-            LocationManager.getInstance().startLocation();
+            if(!LocationManager.getInstance().isRuning()){
+                LocationManager.getInstance().startLocation();
+            }
         }
-
     }
 
     @Override
