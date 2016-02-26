@@ -63,6 +63,7 @@ import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.sqlite.PrivilegeDBUtil;
+import com.zkjinshi.svip.view.BeaconMsgDialog;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.CleverDialog;
 import com.zkjinshi.svip.vo.HomeMsgVo;
@@ -70,6 +71,7 @@ import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PrivilegeMapVo;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -140,13 +142,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         }
     };
 
-    private ShowIBeaconPushMsgReceiver mShowIBeaconPushMsgReceiver;
-    private class ShowIBeaconPushMsgReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context ctx, Intent intent) {
 
-        }
-    }
 
 
     private void initView(LayoutInflater inflater, ViewGroup container){
@@ -184,10 +180,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
     }
 
     private void initData(){
-        mShowIBeaconPushMsgReceiver = new ShowIBeaconPushMsgReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
-        getActivity().registerReceiver(mShowIBeaconPushMsgReceiver, filter);
+
     }
 
     //加载本地预设信息
@@ -207,6 +200,13 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* Intent showIntent = new Intent(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+                 YunBaMsgVo yunBaMsgVo = new YunBaMsgVo();
+                 yunBaMsgVo.setTitle("我是标题");
+                 yunBaMsgVo.setContent("哈哈哈哈哈哈");
+                 yunBaMsgVo.setType(2);
+                showIntent.putExtra("msg",new Gson().toJson(yunBaMsgVo));
+                getActivity().sendBroadcast(showIntent);*/
                 final String shopid = PrivilegeDBUtil.getInstance().getTopPrivilegeShopid();
                 if(TextUtils.isEmpty(shopid)){
                     return;
@@ -388,14 +388,14 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         ImageLoader.getInstance().clearMemoryCache();
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
     public void setBigPicAnimation(){
         MainController.getInstance().setBigPicAnimation(homePicIv);
     }
 
-    public void onDestroy(){
-        super.onDestroy();
-
-    }
 
     /**
      * 设置首页大图区信息
