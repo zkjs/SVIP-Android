@@ -535,7 +535,7 @@ public class ChatAdapter extends BaseAdapter {
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
             //语音蓝色背景
             if(isComMsg) {
-                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_blue);
+                vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_left_white);
             } else {
                 vh.contentLayout.setBackgroundResource(R.drawable.bg_chat_right_orange);
             }
@@ -708,7 +708,7 @@ public class ChatAdapter extends BaseAdapter {
             VoiceMessageBody voiceBody = (VoiceMessageBody) message.getBody();
             int voiceTime = voiceBody.getLength();
             setTimeView(voiceTime, vh.time, vh.contentLayout);
-            vh.msg.setVisibility(View.INVISIBLE);
+            vh.msg.setVisibility(View.GONE);
             vh.img.setVisibility(View.GONE);
             vh.voice.setVisibility(View.VISIBLE);
             vh.time.setVisibility(View.VISIBLE);
