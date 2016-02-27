@@ -39,11 +39,14 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BasePavoResponse;
 import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
+import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.wxapi.WXEntryActivity;
@@ -93,7 +96,7 @@ public class LoginActivity extends BaseActivity {
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
 
-    private Map<String, String>       mPhoneVerifyMap = new HashMap<String, String>();//指定手机对应验证码
+
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;
 
@@ -106,41 +109,23 @@ public class LoginActivity extends BaseActivity {
             super.handleMessage(msg);
             switch(msg.what){
                 case WX_REQUEST_LOGIN:
-                    getUser(thirdBundleData.getString("openid"));
+                   // getUser(thirdBundleData.getString("openid"));
                     break;
                 case  SEND_SMS_VERIFY:
-                    mResultMap = (Map<String, Object>) msg.obj;
-                    String statusCode = (String) mResultMap.get("statusCode");
-                    LogUtil.getInstance().info(LogLevel.INFO,  "短信验证码验证状态" + statusCode);
-                    if("000000".equals(statusCode)){
-                        //验证发送成功
-                        sendVerifyCode.setEnabled(false);
-                        if(mPhoneVerifyMap == null){
-                            mPhoneVerifyMap = new HashMap<>();
-                        } else {
-                            mPhoneVerifyMap.clear();//清空之前数据
-                        }
-
-                        Bundle bundle = msg.getData();//获得手机和对应验证码
-                        if(null != bundle){
-                            String phoneNumber = (String) bundle.get("phone_number");
-                            String verifyCode  = (String) bundle.get("verify_code");
-                            mPhoneVerifyMap.put(phoneNumber, verifyCode);
-                        }
-
-                        mSmsVerifyStatus = SMS_SENDED;//验证码请求成功开启倒计时
-                        if(mTimer != null){
-                            mTimer.cancel();
-                            mTimer = null;
-                        }
-                        if(mSmsCountTask != null){
-                            mSmsCountTask.cancel();
-                            mSmsCountTask = null;
-                        }
-                        mTimer = new Timer();
-                        mSmsCountTask = new SmsCountTask();
-                        mTimer.schedule(mSmsCountTask, 1000, 1000);
+                    //验证发送成功
+                    sendVerifyCode.setEnabled(false);
+                    mSmsVerifyStatus = SMS_SENDED;//验证码请求成功开启倒计时
+                    if(mTimer != null){
+                        mTimer.cancel();
+                        mTimer = null;
                     }
+                    if(mSmsCountTask != null){
+                        mSmsCountTask.cancel();
+                        mSmsCountTask = null;
+                    }
+                    mTimer = new Timer();
+                    mSmsCountTask = new SmsCountTask();
+                    mTimer.schedule(mSmsCountTask, 1000, 1000);
                     break;
                 case SMS_COUNTING_DOWN:
                     int countSeconds = msg.arg1;
@@ -288,6 +273,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 String inputPhone = mInputPhone.getText().toString();
+                String verifyCode = mVerifyCode.getText().toString();
                 if (TextUtils.isEmpty(inputPhone)) {
                     DialogUtil.getInstance().showCustomToast(v.getContext(), "输入的手机号码不能为空", Gravity.CENTER);
                     return;
@@ -298,24 +284,18 @@ public class LoginActivity extends BaseActivity {
                 }
                 //是否开启短信验证
                 if(Constants.SMS_CHECK_ENABLE){
-                    String verifyCode = mVerifyCode.getText().toString();
-                    String phoneNumber = mInputPhone.getText().toString();
                     if (verifyCode.length() == 6) {
-                        if (mPhoneVerifyMap.containsKey(phoneNumber) && StringUtil.isEquals(verifyCode, mPhoneVerifyMap.get(phoneNumber))) {
-                            mSmsVerifySuccess = true;//verify success
-                            mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
-                        } else {
-                            mSmsVerifySuccess = false;//verify failed
-                        }
-                    }
-                    if (mSmsVerifySuccess) {
+                        mSmsVerifySuccess = true;//verify success
+                        mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
                         thirdBundleData = null;
-                        getUser(inputPhone);//判断用户是否已经存在
-                    }else {
+                       // getUser(inputPhone);//判断用户是否已经存在
+                        getToken(inputPhone,verifyCode);
+                    }else{
                         DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
                     }
                 }else{
-                    getUser(inputPhone);
+                    //getUser(inputPhone);
+                    getToken(inputPhone,verifyCode);
                 }
 
 
@@ -426,7 +406,8 @@ public class LoginActivity extends BaseActivity {
                     if (imm.isActive()) {
                         imm.hideSoftInputFromWindow( v.getApplicationWindowToken(), 0);
                     }
-                    getUser(inputPhone);
+                    //getUser(inputPhone);
+                    getToken(inputPhone,code);
                     return true;
                 }
                 return false;
@@ -439,23 +420,57 @@ public class LoginActivity extends BaseActivity {
      * @param phoneNumber
      */
     private void sendVerifyCodeForPhone(final String phoneNumber) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //生成成员变量随机验证码
-                String verifyCode = SmsUtil.getInstance().generateVerifyCode();
-                Map<String, Object> result =  SmsUtil.getInstance().sendTemplateSMS(
-                        phoneNumber, verifyCode);
-                Message msg = Message.obtain();
-                msg.what    = SEND_SMS_VERIFY;
-                msg.obj     = result;
-                Bundle bundle = new Bundle();
-                bundle.putString("phone_number", phoneNumber);
-                bundle.putString("verify_code", verifyCode);
-                msg.setData(bundle);
-                handler.sendMessage(msg);
-            }
-        }).start();
+        try{
+            String url = ProtocolUtil.ssoVcode();
+            NetRequest netRequest = new NetRequest(url);
+            HashMap<String,Object> bizMap = new HashMap<String,Object>();
+            String phoneStr = AESUtil.encrypt(phoneNumber, com.zkjinshi.base.util.Constants.PAVO_KEY);
+            bizMap.put("phone",phoneStr);
+            netRequest.setObjectParamMap(bizMap);
+            NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.JSONPOST;
+            LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
+                }
+
+                @Override
+                public void onNetworkRequestCancelled() {
+
+                }
+
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    try{
+                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        if(basePavoResponse != null){
+                            if(basePavoResponse.getRes() == 0){
+                                handler.sendEmptyMessage(SEND_SMS_VERIFY);
+                            }else{
+                                Log.e(TAG,"获取手机验证码错误"+basePavoResponse.toString());
+                            }
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+            netRequestTask.isShowLoadingDialog = true;
+            netRequestTask.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -671,6 +686,68 @@ public class LoginActivity extends BaseActivity {
                 handler.sendMessage(msg);
                 mSmsCountSeconds = 0;//短信倒数置为0
             }
+        }
+    }
+
+    /**
+     * 使用手机验证码创建Token
+     * @param phone
+     * @param code
+     */
+    private void getToken(final String phone,final String code){
+        try{
+            String url = ProtocolUtil.ssoToken();
+            NetRequest netRequest = new NetRequest(url);
+            HashMap<String,Object> bizMap = new HashMap<String,Object>();
+            bizMap.put("phone",phone);
+            bizMap.put("code",code);
+            netRequest.setObjectParamMap(bizMap);
+            NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.JSONPOST;
+            LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(TAG, "errorCode:" + errorCode);
+                    Log.i(TAG, "errorMessage:" + errorMessage);
+                }
+
+                @Override
+                public void onNetworkRequestCancelled() {
+
+                }
+
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    try{
+                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        if(basePavoResponse != null){
+                            if(basePavoResponse.getRes() == 0){
+                                if(!StringUtil.isEmpty(basePavoResponse.getToken())){
+                                    CacheUtil.getInstance().setToken(basePavoResponse.getToken());
+                                    getUser(phone);
+                                }
+                            }else{
+                                Log.e(TAG,"使用手机验证码创建Token错误"+basePavoResponse.toString());
+                            }
+                        }
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void beforeNetworkRequestStart() {
+
+                }
+            });
+            netRequestTask.isShowLoadingDialog = true;
+            netRequestTask.execute();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
