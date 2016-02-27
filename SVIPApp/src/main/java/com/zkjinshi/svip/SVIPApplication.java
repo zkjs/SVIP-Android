@@ -240,7 +240,6 @@ public class SVIPApplication extends BaseApplication {
     private void initTest(){
         try {
             TestinAgent.init(this);
-            SSOManager.getInstance().ssoDecode();
         } catch (Exception e) {
             e.printStackTrace();
         }
