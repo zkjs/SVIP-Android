@@ -149,6 +149,32 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 保存统一认证登录token
+	 * @param token
+	 */
+	public void setExtToken(String token) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putString("extToken", token).commit();
+	}
+
+	/**
+	 * 获取统一认证登录token
+	 * @return
+	 */
+	public String getExtToken() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getString("extToken", null);
+	}
+
+	/**
 	 * 保存用户id
 	 * @param userCheckInId
 	 */
