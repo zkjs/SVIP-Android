@@ -7,7 +7,7 @@
     android:paddingBottom="6.0dip"
     android:paddingLeft="10.0dip"
     android:paddingRight="10.0dip"
-    android:paddingTop="6.0dip" >
+    android:paddingTop="6.0dip">
 
     <include
         android:id="@id/datetime"
@@ -17,13 +17,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/datetime" >
+        android:layout_below="@id/datetime">
 
         <RelativeLayout
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <!--<TextView-->
             <!--android:id="@+id/name"-->
@@ -41,9 +41,9 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@id/erricon"
@@ -73,6 +73,7 @@
                     android:gravity="left|center_vertical"
                     android:lineSpacingExtra="2dp"
                     android:minHeight="50dp"
+                    android:padding="5dp"
                     android:textColor="#ff000000"
                     android:textSize="15sp" />
 
@@ -86,10 +87,10 @@
                     android:clickable="true"
                     android:gravity="center_vertical"
                     android:lineSpacingExtra="2.0dip"
-                    android:paddingBottom="10.0dip"
-                    android:paddingLeft="13.0dip"
-                    android:paddingRight="13.0dip"
-                    android:paddingTop="10.0dip">
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="17dp"
+                    android:paddingTop="8dp">
 
                     <TextView
                         android:id="@+id/message"
@@ -122,15 +123,15 @@
                         android:clickable="false"
                         android:gravity="center"
                         android:scaleType="centerInside"
-                        android:visibility="gone"
-                        android:src="@mipmap/skin_aio_ptt_record_user_nor"/>
+                        android:src="@mipmap/skin_aio_ptt_record_user_nor"
+                        android:visibility="gone" />
 
                     <include
-                        android:clickable="false"
-                        android:visibility="gone"
+                        layout="@layout/dataline_card_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        layout="@layout/dataline_card_item" />
+                        android:clickable="false"
+                        android:visibility="gone" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -144,7 +145,7 @@
             fresco:placeholderImage="@mipmap/list_img_selfish"
             fresco:placeholderImageScaleType="fitCenter"
             fresco:roundAsCircle="true"
-            fresco:roundedCornerRadius="0dp"/>
+            fresco:roundedCornerRadius="0dp" />
 
         <CheckBox
             android:id="@+id/cb_select"
