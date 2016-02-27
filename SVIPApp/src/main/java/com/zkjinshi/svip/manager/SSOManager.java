@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.manager;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -11,7 +12,9 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BasePavoResponse;
 import com.zkjinshi.svip.utils.Base64Decoder;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
@@ -58,70 +61,47 @@ public class SSOManager {
      * 刷新token
      */
     public void requestRefreshToken(final Context context){
-        String url = ProtocolUtil.getTokenRefreshUrl();
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUT;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorCode:" + errorCode);
-                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorMessage:" + errorMessage);
-            }
+        boolean isLogin = CacheUtil.getInstance().isLogin();
+        if(isLogin){
+            String url = ProtocolUtil.getTokenRefreshUrl();
+            NetRequest netRequest = new NetRequest(url);
+            NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+            netRequestTask.methodType = MethodType.PUT;
+            netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+                @Override
+                public void onNetworkRequestError(int errorCode, String errorMessage) {
+                    Log.i(Constants.ZKJINSHI_BASE_TAG, "errorCode:" + errorCode);
+                    Log.i(Constants.ZKJINSHI_BASE_TAG, "errorMessage:" + errorMessage);
+                }
 
-            @Override
-            public void onNetworkRequestCancelled() {
+                @Override
+                public void onNetworkRequestCancelled() {
 
-            }
+                }
 
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
-            }
+                @Override
+                public void onNetworkResponseSucceed(NetResponse result) {
+                    super.onNetworkResponseSucceed(result);
+                    if(null != result && !TextUtils.isEmpty(result.rawResult)){
+                        Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
+                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        if(null != basePavoResponse){
+                            String token = basePavoResponse.getToken();
+                            if(!TextUtils.isEmpty(token)){
+                                CacheUtil.getInstance().setToken(token);
+                            }
+                        }
+                    }
+                }
 
-            @Override
-            public void beforeNetworkRequestStart() {
+                @Override
+                public void beforeNetworkRequestStart() {
 
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }
-
-    /**
-     * 退出登录，删除token
-     */
-    public void requestDeleteToken(final Context context){
-        String url = ProtocolUtil.getTokenDeleteUrl();
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.DELETE;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorCode:" + errorCode);
-                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
+                }
+            });
+            netRequestTask.isShowLoadingDialog = false;
+            netRequestTask.execute();
+        }
     }
 
 }

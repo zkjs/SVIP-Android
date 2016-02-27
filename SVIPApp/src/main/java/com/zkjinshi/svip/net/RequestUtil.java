@@ -191,6 +191,10 @@ public class RequestUtil {
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        String token = CacheUtil.getInstance().getToken();
+        if(!TextUtils.isEmpty(token)){
+            connection.setRequestProperty("Token",token);
+        }
         connection.connect();
         // POST请求
         DataOutputStream out = new DataOutputStream(
