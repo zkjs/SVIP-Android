@@ -726,7 +726,7 @@ public class LoginActivity extends BaseActivity {
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 if(!StringUtil.isEmpty(basePavoResponse.getToken())){
-                                    CacheUtil.getInstance().setToken(basePavoResponse.getToken());
+                                    CacheUtil.getInstance().setExtToken(basePavoResponse.getToken());
                                     getUser(phone);
                                 }
                             }else{

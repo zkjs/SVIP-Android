@@ -88,7 +88,7 @@ public class SSOManager {
                         if(null != basePavoResponse){
                             String token = basePavoResponse.getToken();
                             if(!TextUtils.isEmpty(token)){
-                                CacheUtil.getInstance().setToken(token);
+                                CacheUtil.getInstance().setExtToken(token);
                             }
                         }
                     }
