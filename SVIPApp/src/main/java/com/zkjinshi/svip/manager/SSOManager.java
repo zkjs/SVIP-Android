@@ -1,11 +1,18 @@
 package com.zkjinshi.svip.manager;
 
+import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zkjinshi.base.util.Constants;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.utils.Base64Decoder;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
 /**
@@ -45,6 +52,76 @@ public class SSOManager {
             payloadVo = new Gson().fromJson(payloadDecode,PayloadVo.class);
         }
         return payloadVo;
+    }
+
+    /**
+     * 刷新token
+     */
+    public void requestRefreshToken(final Context context){
+        String url = ProtocolUtil.getTokenRefreshUrl();
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.PUT;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorCode:" + errorCode);
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
+    }
+
+    /**
+     * 退出登录，删除token
+     */
+    public void requestDeleteToken(final Context context){
+        String url = ProtocolUtil.getTokenDeleteUrl();
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.DELETE;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorCode:" + errorCode);
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.execute();
     }
 
 }

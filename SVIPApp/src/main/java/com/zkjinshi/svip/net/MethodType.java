@@ -14,7 +14,8 @@ public enum MethodType {
     PUSH(2),
     JSON(3),
     JSONPOST(4),
-    PUT(5);
+    PUT(5),
+    DELETE(6);
 
     private MethodType(int value){
         this.value = value;

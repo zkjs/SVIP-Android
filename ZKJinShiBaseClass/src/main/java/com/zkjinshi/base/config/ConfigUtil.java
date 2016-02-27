@@ -90,7 +90,15 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取Java请求链接
+     * 获取php请求链接
+     * @return
+     */
+    public String getPhpDomain() {
+        return "http://" + getConfigValue(Constants.PHP_HOST)+ "/";
+    }
+
+    /**
+     * 获取java请求链接
      * @return
      */
     public String getJavaDomain() {
@@ -98,11 +106,11 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取Php请求链接
+     * 获得统一登录认证链接
      * @return
      */
-    public String getPhpDomain() {
-        return "http://" + getConfigValue(Constants.PHP_HOST)+ "/";
+    public String getSsoDomain(){
+        return "http://" + getConfigValue(Constants.SSO_HOST)+ "/";
     }
 
     /**
@@ -118,7 +126,6 @@ public class ConfigUtil {
             value = configValue.get(key.toLowerCase());
         return value;
     }
-
 
     /**
      * 取得配置文件键值对

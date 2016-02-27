@@ -649,4 +649,20 @@ public class ProtocolUtil {
         return Constants.BQ_HOST+"lbs/loc/gps";
     }
 
+    /**
+     * 获得刷新token Url
+     * @return
+     */
+    public static String getTokenRefreshUrl(){
+        return ConfigUtil.getInst().getSsoDomain()+"/sso/token/v1";
+    }
+
+    /**
+     * 删除token Url
+     * @return
+     */
+    public static String getTokenDeleteUrl(){
+        return ConfigUtil.getInst().getSsoDomain()+"/sso/token/v1";
+    }
+
 }
