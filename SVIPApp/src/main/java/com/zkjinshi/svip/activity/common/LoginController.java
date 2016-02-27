@@ -203,4 +203,5 @@ public class LoginController {
         activity.finish();
         activity.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
     }
+
 }

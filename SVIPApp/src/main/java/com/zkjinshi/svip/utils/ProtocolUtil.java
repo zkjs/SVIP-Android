@@ -649,4 +649,20 @@ public class ProtocolUtil {
         return Constants.BQ_HOST+"lbs/loc/gps";
     }
 
+    /**
+     * 获取手机验证码
+     * @return
+     */
+    public static String ssoVcode(){
+        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si";
+    }
+
+    /**
+     * 获取手机验证码
+     * @return
+     */
+    public static String ssoToken(){
+        return Constants.PAVO_HOST+"sso/token/"+Constants.PAVO_VERSION+"/phone/si";
+    }
+
 }
