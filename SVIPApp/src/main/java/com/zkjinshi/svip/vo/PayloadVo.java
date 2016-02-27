@@ -12,7 +12,7 @@ public class PayloadVo implements Serializable {
 
     private String sub;//用户Id
     private int type;//Token的获得途径(1代表超级身份手机号, 2代表超级服务手机号, 3代表超级服务用户名),
-    private int expire;//有效期
+    private long expire;//有效期
     private String shopid;//商家id
     private String[] roles;//角色编号
     private String[] feature;//功能编号
@@ -41,11 +41,11 @@ public class PayloadVo implements Serializable {
         this.type = type;
     }
 
-    public int getExpire() {
+    public long getExpire() {
         return expire;
     }
 
-    public void setExpire(int expire) {
+    public void setExpire(long expire) {
         this.expire = expire;
     }
 

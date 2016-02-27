@@ -638,7 +638,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocBeacon(){
-        return Constants.BQ_HOST+"lbs/loc/beacon";
+        return Constants.BQ_HOST+"lbs/v1/loc/beacon";
     }
 
     /**
@@ -646,7 +646,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocGps(){
-        return Constants.BQ_HOST+"lbs/loc/gps";
+        return Constants.BQ_HOST+"lbs/v1/loc/gps";
     }
 
     /**
