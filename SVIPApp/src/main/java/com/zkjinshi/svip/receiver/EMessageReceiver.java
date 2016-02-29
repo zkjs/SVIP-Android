@@ -15,6 +15,7 @@ import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.HotelConfirmActivity;
 import com.zkjinshi.svip.activity.order.KTVConfirmActivity;
 import com.zkjinshi.svip.activity.order.NormalConfirmActivity;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -106,6 +107,8 @@ public class EMessageReceiver extends BroadcastReceiver {
                 CacheUtil.getInstance().setUserName("");
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
+                //取消订阅别名
+                YunBaSubscribeManager.getInstance().setAlias(context,"");
                 //ImageLoader.getInstance().clearDiskCache();
                 ImageLoader.getInstance().clearMemoryCache();
                 Intent intent = new Intent(context, LoginActivity.class);

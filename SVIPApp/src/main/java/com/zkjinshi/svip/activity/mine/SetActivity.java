@@ -23,6 +23,7 @@ import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
 
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -127,6 +128,8 @@ public class SetActivity extends BaseActivity {
                 CacheUtil.getInstance().setUserName("");
                 CacheUtil.getInstance().setUserPhone("");
                 CacheUtil.getInstance().savePicPath("");
+                //取消订阅别名
+                YunBaSubscribeManager.getInstance().setAlias(SetActivity.this,"");
                 //移除蓝牙服务
                 BlueToothManager.getInstance().stopIBeaconService();
                 //ImageLoader.getInstance().clearDiskCache();
