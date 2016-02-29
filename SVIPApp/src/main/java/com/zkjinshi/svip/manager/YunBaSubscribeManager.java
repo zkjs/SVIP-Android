@@ -84,10 +84,12 @@ public class YunBaSubscribeManager {
                 JSONObject result = iMqttToken.getResult();
                 try {
                     JSONArray topics = result.getJSONArray("topics");
-                    String[]  locIDs = topics.join(",").split(",");
-
                     //当前存在订阅频道
-                    if(null != locIDs && locIDs.length > 0){
+                    if(null != topics && topics.length() > 0){
+                        String[]  locIDs = new String[topics.length()];
+                        for(int i=0; i <topics.length(); i++){
+                            locIDs[i] = topics.get(i).toString();
+                        }
                         YunBaManager.unsubscribe(
                                 BaseContext.getInstance().getContext(),
                                 locIDs,
