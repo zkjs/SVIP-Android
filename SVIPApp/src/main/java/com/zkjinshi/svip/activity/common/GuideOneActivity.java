@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.view.CircleImageView;
 
 /**
@@ -44,6 +45,8 @@ public class GuideOneActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_one);
+
+        YunBaSubscribeManager.getInstance().unSubscribe(this);
 
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         mScreenWidth = windowManager.getDefaultDisplay().getWidth();
