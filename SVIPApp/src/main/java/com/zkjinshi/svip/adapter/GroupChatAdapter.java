@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Spannable;
@@ -34,6 +35,7 @@ import com.easemob.chat.ImageMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VoiceMessageBody;
 import com.easemob.exceptions.EaseMobException;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,7 +47,6 @@ import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
-import com.zkjinshi.svip.bean.BookOrder;
 import com.zkjinshi.svip.bean.MemberBean;
 import com.zkjinshi.svip.net.ext.DownloadRequestListener;
 import com.zkjinshi.svip.net.ext.DownloadTask;
@@ -57,7 +58,6 @@ import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.MediaPlayerUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ActionItem;
-import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
@@ -275,7 +275,7 @@ public class GroupChatAdapter extends BaseAdapter {
      */
     private void setViewHolder(ViewHolder vh, View convertView) {
         vh.contentLayout = (LinearLayout) convertView.findViewById(R.id.content_layout);
-        vh.head = (CircleImageView) convertView.findViewById(R.id.icon);
+        vh.head = (SimpleDraweeView) convertView.findViewById(R.id.icon);
         vh.date = (TextView) convertView.findViewById(R.id.datetime);
         vh.msg = (TextView) convertView.findViewById(R.id.message);
         vh.img = (ImageView) convertView.findViewById(R.id.image);
@@ -308,7 +308,7 @@ public class GroupChatAdapter extends BaseAdapter {
         boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
         String userId = message.getFrom();
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(userId), vh.head, options);
+        vh.head.setImageURI(Uri.parse(ProtocolUtil.getAvatarUrl(userId)));
         EMMessage.Type mimeType = message.getType();
         if (mimeType.equals(EMMessage.Type.TXT)) {// 文本消息
             try {
@@ -482,12 +482,13 @@ public class GroupChatAdapter extends BaseAdapter {
                     //ToDo Jimmy 获取图片链接
                     String thumbUrl =  imgBody.getThumbnailUrl();
                     if(!TextUtils.isEmpty(thumbUrl)){
-                        ImageLoader.getInstance().displayImage(thumbUrl, vh.img,
+                        ImageLoader.getInstance().displayImage(
+                                thumbUrl,
+                                vh.img,
                                 imageOptions, new ImageLoadingListener() {
 
                                     @Override
-                                    public void onLoadingStarted(String imageUri,
-                                                                 View view) {
+                                    public void onLoadingStarted(String imageUri, View view) {
                                     }
 
                                     @Override
@@ -498,16 +499,12 @@ public class GroupChatAdapter extends BaseAdapter {
                                     @Override
                                     public void onLoadingComplete(String imageUri,
                                                                   View view, Bitmap loadedImage) {
-                                        File file = new File(
-                                                FileUtil.getInstance().getImagePath()
-                                                        + fileName);
-                                        ImageUtil.saveBitmap(loadedImage,
-                                                file.getPath());
+                                        File file = new File(FileUtil.getInstance().getImagePath()+ fileName);
+                                        ImageUtil.saveBitmap(loadedImage, file.getPath());
                                     }
 
                                     @Override
-                                    public void onLoadingCancelled(String imageUri,
-                                                                   View view) {
+                                    public void onLoadingCancelled(String imageUri, View view) {
                                     }
                                 });
                     }
@@ -523,8 +520,7 @@ public class GroupChatAdapter extends BaseAdapter {
         } else if (mimeType.equals(EMMessage.Type.VOICE)) {// 语音
             vh.contentLayout.setTag(R.id.content_layout, vh.voice);
             if (!isDelEnabled) {
-                vh.contentLayout
-                        .setOnLongClickListener(new View.OnLongClickListener() {
+                vh.contentLayout.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View v) {
                                 showChildQuickActionBar(v, isComMsg, position);
@@ -540,8 +536,7 @@ public class GroupChatAdapter extends BaseAdapter {
                             //播放语音文件
                             String mediaName = voiceBody.getFileName();
                             String mediaPath = FileUtil.getInstance().getAudioPath() + mediaName;
-                            vh.voice = (ImageView) v
-                                    .getTag(R.id.content_layout);
+                            vh.voice = (ImageView) v.getTag(R.id.content_layout);
                             vh.voice.setImageResource(R.drawable.other_record_animation_list);
                             final AnimationDrawable animation = (AnimationDrawable) vh.voice
                                     .getDrawable();
@@ -726,11 +721,11 @@ public class GroupChatAdapter extends BaseAdapter {
      * @param position
      */
     private void showChildQuickActionBar(final View view,
-                                         final boolean isComMsg, final int position) {
+                                         final boolean isComMsg,
+                                         final int position) {
         QuickAction quickAction = new QuickAction(context,
                 QuickAction.HORIZONTAL);
-        EMMessage message = (EMMessage) view
-                .getTag();
+        EMMessage message = (EMMessage) view.getTag();
         int extType = 0;
         if(null != message){
             EMMessage.Type msgType = message.getType();
@@ -744,19 +739,19 @@ public class GroupChatAdapter extends BaseAdapter {
             if (msgType.equals(EMMessage.Type.TXT)) {
                 if(TxtExtType.DEFAULT.getVlaue() == extType) {//普通文本消息
                     quickAction.addActionItem(new ActionItem(0, "复制"));
-                    quickAction
-                            .setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+                    quickAction.setOnActionItemClickListener(
+                        new QuickAction.OnActionItemClickListener() {
 
-                                @Override
-                                public void onItemClick(QuickAction source, int pos,
-                                                        int actionId) {
-                                    switch (actionId) {
-                                        case 0:// 复制
-                                            ClipboardUtil.copy(content, context);
-                                            break;
-                                    }
+                            @Override
+                            public void onItemClick(QuickAction source, int pos, int actionId) {
+                                switch (actionId) {
+                                    case 0:// 复制
+                                        ClipboardUtil.copy(content, context);
+                                        break;
                                 }
-                            });
+                            }
+                        }
+                    );
                     quickAction.show(view);
                 }
             }
@@ -764,7 +759,7 @@ public class GroupChatAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        CircleImageView head;
+        SimpleDraweeView head;
         TextView        date;
         TextView        msg;
         ImageView       img;
