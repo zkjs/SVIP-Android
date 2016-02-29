@@ -43,4 +43,5 @@ dependencies {
     compile project(':drawee-backends:drawee-pipeline')
     compile project(':pyxis')
     testCompile 'junit:junit:4.12'
+    compile project(':drawee')
 }

@@ -118,6 +118,7 @@
     <orderEntry type="module" module-name="multi-image-selector" exported="" />
     <orderEntry type="module" module-name="CalendarListView" exported="" />
     <orderEntry type="module" module-name="Cloud_TagView" exported="" />
+    <orderEntry type="module" module-name="drawee" exported="" />
     <orderEntry type="module" module-name="pinyinSearch" exported="" />
   </component>
 </module>
