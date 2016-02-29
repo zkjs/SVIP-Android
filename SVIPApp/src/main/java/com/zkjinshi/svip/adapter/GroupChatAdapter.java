@@ -193,7 +193,7 @@ public class GroupChatAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.dataline_recv_item, parent, false);
                     rvh = new RecvViewHolder();
                     setViewHolder(rvh, convertView);
-                    rvh.name = (TextView) convertView.findViewById(R.id.name);
+//                    rvh.name = (TextView) convertView.findViewById(R.id.name);
                     convertView.setTag(rvh);
                     break;
 
@@ -202,7 +202,7 @@ public class GroupChatAdapter extends BaseAdapter {
                             parent, false);
                     svh = new SendViewHolder();
                     setViewHolder(svh, convertView);
-                    svh.name = (TextView) convertView.findViewById(R.id.name);
+//                    svh.name = (TextView) convertView.findViewById(R.id.name);
                     svh.progressBar = (ProgressBar) convertView
                             .findViewById(R.id.sendtextprogressbar);
                     svh.errIconIv = (ImageView) convertView
@@ -234,16 +234,16 @@ public class GroupChatAdapter extends BaseAdapter {
                         }
                     }
                 }
-                if (!TextUtils.isEmpty(userName)) {
-                    rvh.name.setText(userName + "：");
-                    rvh.name.setVisibility(View.VISIBLE);
-                }
+//                if (!TextUtils.isEmpty(userName)) {
+//                    rvh.name.setText(userName + "：");
+//                    rvh.name.setVisibility(View.VISIBLE);
+//                }
                 break;
 
             case TYPE_SEND_ITEM: // 自己发送的布局
                 setViewValues(svh, position, false);
-                svh.name.setText("我：");
-                svh.name.setVisibility(View.VISIBLE);
+//                svh.name.setText("我：");
+//                svh.name.setVisibility(View.VISIBLE);
                 EMMessage.Status sendStatus = message.status;
                 if (EMMessage.Status.INPROGRESS.equals(sendStatus)) { // 正在发送
                     svh.progressBar.setVisibility(View.VISIBLE);
@@ -741,7 +741,6 @@ public class GroupChatAdapter extends BaseAdapter {
                     quickAction.addActionItem(new ActionItem(0, "复制"));
                     quickAction.setOnActionItemClickListener(
                         new QuickAction.OnActionItemClickListener() {
-
                             @Override
                             public void onItemClick(QuickAction source, int pos, int actionId) {
                                 switch (actionId) {
@@ -773,13 +772,13 @@ public class GroupChatAdapter extends BaseAdapter {
     }
 
     static class RecvViewHolder extends ViewHolder {
-        TextView name;
+//        TextView name;
     }
 
     static class SendViewHolder extends ViewHolder {
         ProgressBar progressBar;
         ImageView errIconIv;
-        TextView name;
+//        TextView name;
     }
 
     static class TipsViewHolder {
