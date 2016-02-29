@@ -34,7 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="8dp">
 
             <TextView
                 android:id="@+id/name"
@@ -43,9 +44,9 @@
                 android:layout_marginLeft="13dp"
                 android:layout_marginTop="5dp"
                 android:text="@null"
-                android:visibility="gone"
                 android:textColor="#6C6C6C"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -61,10 +62,10 @@
                     android:clickable="true"
                     android:gravity="center_vertical|left"
                     android:lineSpacingExtra="2.0dip"
+                    android:paddingBottom="8dp"
                     android:paddingLeft="17.0dip"
                     android:paddingRight="8dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
+                    android:paddingTop="8dp">
 
                     <TextView
                         android:id="@+id/message"
@@ -118,9 +119,9 @@
                     android:clickable="false"
                     android:focusable="true"
                     android:gravity="center"
-                    android:padding="5dp"
                     android:lineSpacingExtra="2dp"
                     android:minHeight="50dp"
+                    android:padding="5dp"
                     android:text=""
                     android:textColor="#ff000000"
                     android:textSize="15sp" />
