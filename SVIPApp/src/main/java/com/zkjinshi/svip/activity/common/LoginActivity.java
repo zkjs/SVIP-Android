@@ -46,6 +46,7 @@ import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.JsonUtil;
+import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
@@ -452,7 +453,7 @@ public class LoginActivity extends BaseActivity {
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
                             }else{
-                                Log.e(TAG,"获取手机验证码错误"+basePavoResponse.toString());
+                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getRes());
                             }
                         }
 
@@ -730,7 +731,7 @@ public class LoginActivity extends BaseActivity {
                                     getUser(phone);
                                 }
                             }else{
-                                Log.e(TAG,"使用手机验证码创建Token错误"+basePavoResponse.toString());
+                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getRes());
                             }
                         }
 
