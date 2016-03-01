@@ -44,4 +44,5 @@ dependencies {
     compile project(':pyxis')
     testCompile 'junit:junit:4.12'
     compile project(':drawee')
+    compile 'com.loopj.android:android-async-http:1.4.9'
 }

@@ -12,6 +12,10 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DeviceUtils;
@@ -39,9 +43,11 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cz.msebera.android.httpclient.Header;
 import io.yunba.android.manager.YunBaManager;
 
 /**
@@ -64,6 +70,7 @@ public class BlueToothManager {
         public void intoRegion(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
             pushIbeacon(iBeaconVo);
+            //testRequest(iBeaconVo);
         }
 
         @Override
@@ -72,74 +79,6 @@ public class BlueToothManager {
         }
     };
 
-    /**
-     * 区域广告通知
-     * @param iBeaconVo
-     */
-    private void reginAdPush(IBeaconVo iBeaconVo){
-        if(null != iBeaconVo){
-            try {
-
-                String locId = iBeaconVo.getLocid();
-                String shopid = iBeaconVo.getShopid();
-                String locdesc = iBeaconVo.getLocdesc();
-                String sexStr = CacheUtil.getInstance().getSex();
-                LocPushBean locPushBean = new LocPushBean();
-                int sex = Integer.parseInt(sexStr);
-                locPushBean.setSex(sex);
-                locPushBean.setUserid(CacheUtil.getInstance().getUserId());
-                locPushBean.setUsername(CacheUtil.getInstance().getUserName());
-                if(!TextUtils.isEmpty(locId)){
-                    locPushBean.setLocid(locId);
-                }
-                if(!TextUtils.isEmpty(shopid)){
-                    locPushBean.setShopid(shopid);
-                }
-                if(!TextUtils.isEmpty(locdesc)){
-                    locPushBean.setLocdesc(locdesc);
-                }
-                String alert = "";
-                String msg = new Gson().toJson(locPushBean);
-                if(sex == 0){
-                    alert = CacheUtil.getInstance().getUserName()+"女士到达"+locdesc;
-                }else{
-                    alert = CacheUtil.getInstance().getUserName()+"先生到达"+locdesc;
-                }
-                //Log.i(TAG,"云巴推送订阅内容:"+msg);
-                LogUtil.getInstance().info(LogLevel.DEBUG,"云巴推送订阅内容:"+msg);
-                JSONObject opts = new JSONObject();
-                JSONObject apn_json = new JSONObject();
-                JSONObject aps = new JSONObject();
-                aps.put("sound", "default");
-                aps.put("badge", 1);
-                aps.put("alert", alert);
-                apn_json.put("aps", aps);
-                opts.put("apn_json", apn_json);
-                YunBaManager.publish2(context, locId, msg, opts,
-                        new IMqttActionListener() {
-                            @Override
-                            public void onSuccess(IMqttToken asyncActionToken) {
-                                //Log.i(TAG,"订阅云巴推送消息成功");
-                                LogUtil.getInstance().info(LogLevel.DEBUG,"订阅云巴推送消息成功");
-                            }
-
-                            @Override
-                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                                if (exception instanceof MqttException) {
-                                    MqttException ex = (MqttException)exception;
-                                    String msg =  "publish failed with error code : " + ex.getReasonCode();
-                                    //Log.i(TAG,"订阅云巴推送消息失败:"+msg);
-                                    LogUtil.getInstance().info(LogLevel.DEBUG,"订阅云巴推送消息失败:"+msg);
-                                }
-                            }
-                        }
-                );
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public void pushIbeacon(IBeaconVo iBeaconVo){
         try {
@@ -151,7 +90,7 @@ public class BlueToothManager {
             bizMap.put("minor", iBeaconVo.getMinor()+"");
             bizMap.put("uuid", iBeaconVo.getProximityUuid());
             bizMap.put("sensorid", iBeaconVo.getBluetoothAddress());
-            bizMap.put("token", CacheUtil.getInstance().getToken());
+            bizMap.put("token", CacheUtil.getInstance().getExtToken());
             bizMap.put("timestamp", iBeaconVo.getTimestamp());
 
             /*bizMap.put("locid","1");
@@ -200,8 +139,64 @@ public class BlueToothManager {
 
     }
 
+    public void testRequest(IBeaconVo iBeaconVo){
+        String url = ProtocolUtil.lbsLocBeacon();
+        url = "http://192.168.199.112:8080/lbs/v1/loc/beacon";
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setMaxRetriesAndTimeout(3,500);
+        client.setTimeout(3000);
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("locid",iBeaconVo.getMajor()+"");
+        requestParams.put("major", iBeaconVo.getMajor()+"");
+        requestParams.put("minor", iBeaconVo.getMinor()+"");
+        requestParams.put("uuid", iBeaconVo.getProximityUuid());
+        requestParams.put("sensorid", iBeaconVo.getBluetoothAddress());
+        requestParams.put("token", CacheUtil.getInstance().getExtToken());
+        requestParams.put("timestamp", iBeaconVo.getTimestamp());
+
+        client.addHeader("Content-Type","application/json; charset=UTF-8");
+        client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+
+        client.put(url,requestParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String result = getResponseString(responseBody);
+                Log.d(TAG,result);
+                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功");
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                //408 Request Timeout
+                if(statusCode == 408){
+
+                }
+                String result = getResponseString(responseBody);
+                Log.d(TAG,result);
+                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.d(TAG,"retryNo:"+retryNo);
+                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
+
+            }
+        });
 
 
+    }
+
+    public String getResponseString(byte[] responseBody){
+        String result = "";
+        try {
+           result = new String(responseBody,"utf-8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  result;
+    }
 
     public static synchronized BlueToothManager getInstance(){
         if(null == instance){

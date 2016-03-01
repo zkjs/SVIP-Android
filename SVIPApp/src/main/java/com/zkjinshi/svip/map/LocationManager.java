@@ -162,7 +162,7 @@ public class LocationManager{
             bizMap.put("latitude",aMapLocation.getLatitude());
             bizMap.put("longitude",aMapLocation.getLongitude());
             bizMap.put("altitude", aMapLocation.getAltitude());
-            bizMap.put("token", CacheUtil.getInstance().getToken());
+            bizMap.put("token", CacheUtil.getInstance().getExtToken());
             bizMap.put("timestamp",System.currentTimeMillis());
 
            /* bizMap.put("latitude","1");
