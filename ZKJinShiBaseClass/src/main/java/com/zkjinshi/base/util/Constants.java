@@ -23,5 +23,5 @@ public class Constants {
     //PAVO 认证服务API 版本
     public final static String PAVO_VERSION = "v1";
     //PAVO 秘钥
-    public final static String PAVO_KEY = "7E/rYyOhzJW+QV8MOJC1Wg==";
+    public final static String PAVO_KEY = "X2VOV0+W7szslb+@kd7d44Im&JUAWO0y";
 }

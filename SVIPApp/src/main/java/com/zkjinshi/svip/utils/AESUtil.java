@@ -1,10 +1,13 @@
 package com.zkjinshi.svip.utils;
 
+import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.util.Arrays;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.GeneralSecurityException;
-import java.security.Key;
 
 /**
  * Created by laiqingquan on 16/2/3.
@@ -33,9 +36,11 @@ public class AESUtil {
      * */
     public static String encrypt(String data, String key) throws GeneralSecurityException{
         //还原密钥
-        Key k = toKey(Base64Decoder.decodeToBytes(key));
+        Key k = toKey(key.getBytes(StandardCharsets.UTF_8));
+        final byte[] jvb = new byte[16];
+        Arrays.fill(jvb,(byte)0x00);
         //采用密钥作为初始化向量
-        IvParameterSpec iv = new IvParameterSpec(Base64Decoder.decodeToBytes(key));
+        IvParameterSpec iv = new IvParameterSpec(jvb);
         //实例化Cipher对象，它用于完成实际的加密操作
         Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
         //初始化Cipher对象，设置为加密模式
