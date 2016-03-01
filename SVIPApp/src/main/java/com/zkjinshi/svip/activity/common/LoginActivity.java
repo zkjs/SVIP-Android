@@ -453,7 +453,7 @@ public class LoginActivity extends BaseActivity {
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
                             }else{
-                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getRes());
+                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getResDesc());
                             }
                         }
 
@@ -731,7 +731,7 @@ public class LoginActivity extends BaseActivity {
                                     getUser(phone);
                                 }
                             }else{
-                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getRes());
+                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getResDesc());
                             }
                         }
 
