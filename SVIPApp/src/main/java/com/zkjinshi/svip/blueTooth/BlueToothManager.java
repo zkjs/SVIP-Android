@@ -35,6 +35,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
@@ -144,13 +145,6 @@ public class BlueToothManager {
     public void lbsLocBeaconRequest(IBeaconVo iBeaconVo){
         try {
             String url = ProtocolUtil.lbsLocBeacon();
-            //url = "http://192.168.199.112:8080/lbs/v1/loc/beacon";
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.setMaxRetriesAndTimeout(3,500);
-            client.setTimeout(3000);
-
-            client.addHeader("Content-Type","application/json; charset=UTF-8");
-            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("locid",iBeaconVo.getMajor()+"");
             jsonObject.put("major", iBeaconVo.getMajor()+"");
@@ -159,8 +153,7 @@ public class BlueToothManager {
             jsonObject.put("sensorid", iBeaconVo.getBluetoothAddress());
             jsonObject.put("token", CacheUtil.getInstance().getExtToken());
             jsonObject.put("timestamp", iBeaconVo.getTimestamp());
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            client.put(context,url, stringEntity, "application/json", new JsonHttpResponseHandler(){
+            SvipHttpClient.put(context,url, jsonObject, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.d(TAG,response.toString());
@@ -183,8 +176,6 @@ public class BlueToothManager {
                 }
             });
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 

@@ -8,6 +8,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
@@ -16,12 +17,18 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 高德定位管理器
@@ -57,7 +64,8 @@ public class LocationManager{
                     //aMapLocation.getLatitude();//获取纬度
                     //aMapLocation.getLongitude();//获取经度
                     Log.i("LocationManager",aMapLocation.toString());
-                    pushGps(aMapLocation);
+                    //pushGps(aMapLocation);
+                    lbsLocGps(aMapLocation);
 
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -69,6 +77,42 @@ public class LocationManager{
             }
         }
     };
+
+    private void lbsLocGps(AMapLocation aMapLocation) {
+        try {
+            String url = ProtocolUtil.lbsLocGps();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("latitude",aMapLocation.getLatitude());
+            jsonObject.put("longitude",aMapLocation.getLongitude());
+            jsonObject.put("altitude", aMapLocation.getAltitude());
+            jsonObject.put("token", CacheUtil.getInstance().getExtToken());
+            jsonObject.put("timestamp",System.currentTimeMillis());
+            SvipHttpClient.put(context,url, jsonObject, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d(TAG,response.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送成功");
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+
+                    Log.d(TAG,errorResponse.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送失败");
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                    Log.d(TAG,"retryNo:"+retryNo);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送重连"+ retryNo );
+
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static synchronized LocationManager getInstance(){
