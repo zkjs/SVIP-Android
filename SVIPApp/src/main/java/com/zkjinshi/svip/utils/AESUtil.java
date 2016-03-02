@@ -36,7 +36,7 @@ public class AESUtil {
      * */
     public static String encrypt(String data, String key) throws GeneralSecurityException{
         //还原密钥
-        Key k = toKey(key.getBytes(StandardCharsets.UTF_8));
+        Key k = toKey(key.getBytes());
         final byte[] jvb = new byte[16];
         Arrays.fill(jvb,(byte)0x00);
         //采用密钥作为初始化向量
