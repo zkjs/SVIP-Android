@@ -14,6 +14,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
 import com.zkjinshi.base.log.LogLevel;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 import io.yunba.android.manager.YunBaManager;
 
 /**
@@ -69,8 +71,8 @@ public class BlueToothManager {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
-            pushIbeacon(iBeaconVo);
-            //testRequest(iBeaconVo);
+            //pushIbeacon(iBeaconVo);
+            lbsLocBeaconRequest(iBeaconVo);
         }
 
         @Override
@@ -139,52 +141,52 @@ public class BlueToothManager {
 
     }
 
-    public void testRequest(IBeaconVo iBeaconVo){
-        String url = ProtocolUtil.lbsLocBeacon();
-        url = "http://192.168.199.112:8080/lbs/v1/loc/beacon";
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.setMaxRetriesAndTimeout(3,500);
-        client.setTimeout(3000);
-        RequestParams requestParams = new RequestParams();
-        requestParams.put("locid",iBeaconVo.getMajor()+"");
-        requestParams.put("major", iBeaconVo.getMajor()+"");
-        requestParams.put("minor", iBeaconVo.getMinor()+"");
-        requestParams.put("uuid", iBeaconVo.getProximityUuid());
-        requestParams.put("sensorid", iBeaconVo.getBluetoothAddress());
-        requestParams.put("token", CacheUtil.getInstance().getExtToken());
-        requestParams.put("timestamp", iBeaconVo.getTimestamp());
+    public void lbsLocBeaconRequest(IBeaconVo iBeaconVo){
+        try {
+            String url = ProtocolUtil.lbsLocBeacon();
+            //url = "http://192.168.199.112:8080/lbs/v1/loc/beacon";
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setMaxRetriesAndTimeout(3,500);
+            client.setTimeout(3000);
 
-        client.addHeader("Content-Type","application/json; charset=UTF-8");
-        client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("locid",iBeaconVo.getMajor()+"");
+            jsonObject.put("major", iBeaconVo.getMajor()+"");
+            jsonObject.put("minor", iBeaconVo.getMinor()+"");
+            jsonObject.put("uuid", iBeaconVo.getProximityUuid());
+            jsonObject.put("sensorid", iBeaconVo.getBluetoothAddress());
+            jsonObject.put("token", CacheUtil.getInstance().getExtToken());
+            jsonObject.put("timestamp", iBeaconVo.getTimestamp());
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            client.put(context,url, stringEntity, "application/json", new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.d(TAG,response.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功");
+                }
 
-        client.put(url,requestParams, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String result = getResponseString(responseBody);
-                Log.d(TAG,result);
-                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功");
-            }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                //408 Request Timeout
-                if(statusCode == 408){
+                    Log.d(TAG,errorResponse.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                    Log.d(TAG,"retryNo:"+retryNo);
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
 
                 }
-                String result = getResponseString(responseBody);
-                Log.d(TAG,result);
-                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
-            }
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-                Log.d(TAG,"retryNo:"+retryNo);
-                LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
-
-            }
-        });
-
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
     }
 
