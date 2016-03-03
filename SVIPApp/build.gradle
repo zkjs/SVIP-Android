@@ -10,8 +10,8 @@ android {
         applicationId "com.zkjinshi.svip"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 91
-        versionName "1.12.1"
+        versionCode 96
+        versionName "1.12.5"
         multiDexEnabled true
     }
 
@@ -37,6 +37,5 @@ dependencies {
     compile project(':Cloud_TagView')
     compile project(':MaterialSearchViewLibrary')
     compile project(':pinyinSearch')
-    compile project(':drawee-backends:drawee-pipeline')
-    compile project(':pyxis')
+    compile 'com.facebook.fresco:fresco:0.9.0'
 }
