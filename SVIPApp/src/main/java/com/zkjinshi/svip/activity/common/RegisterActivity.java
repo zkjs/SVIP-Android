@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -27,31 +26,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.zkjinshi.base.config.ConfigUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BasePavoResponse;
-import com.zkjinshi.svip.response.GetUserResponse;
 import com.zkjinshi.svip.response.RegisterResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.JsonUtil;
 import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 import com.zkjinshi.svip.wxapi.WXEntryActivity;
@@ -64,14 +60,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 开发者：JimmyZhang
- * 日期：2015/7/20
+ * 开发者：dujiande
+ * 日期：2016/3/3
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class LoginActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity {
 
-    private final static String TAG = LoginActivity.class.getSimpleName();
+    private final static String TAG = RegisterActivity.class.getSimpleName();
 
     private final static int SMS_UNSEND         = 0;  //默认状态，尚未申请点击发送验证码
     private final static int SMS_SENDED         = 1;  //请求点击发送验证码状态
@@ -100,7 +96,7 @@ public class LoginActivity extends BaseActivity {
     private ImageButton backIBtn;
 
     private Boolean   mSmsVerifySuccess = false;            //短信验证是否正确
-    public Bundle thirdBundleData = null;
+
 
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;
@@ -160,7 +156,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         WXEntryActivity.resp = null;
         initView();
         initData();
@@ -215,16 +211,6 @@ public class LoginActivity extends BaseActivity {
 
     private void initListener() {
 
-        //注册
-        findViewById(R.id.login_tv_register).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
         //返回
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,7 +223,7 @@ public class LoginActivity extends BaseActivity {
         useDealTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, WebViewActivity.class);
                 intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_bottom,
@@ -302,12 +288,12 @@ public class LoginActivity extends BaseActivity {
                     if (verifyCode.length() == 6) {
                         mSmsVerifySuccess = true;//verify success
                         mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
-                        getToken(inputPhone,verifyCode);
+                        registerSi(inputPhone,verifyCode);
                     }else{
                         DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
                     }
                 }else{
-                    getToken(inputPhone,verifyCode);
+                    registerSi(inputPhone,verifyCode);
                 }
 
 
@@ -418,7 +404,7 @@ public class LoginActivity extends BaseActivity {
                     if (imm.isActive()) {
                         imm.hideSoftInputFromWindow( v.getApplicationWindowToken(), 0);
                     }
-                    getToken(inputPhone,code);
+                    registerSi(inputPhone,code);
                     return true;
                 }
                 return false;
@@ -432,7 +418,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void sendVerifyCodeForPhone(final String phoneNumber) {
         try{
-            String url = ProtocolUtil.ssoVcodeLogin();
+            String url = ProtocolUtil.ssoVcodeRegister();
             NetRequest netRequest = new NetRequest(url);
             HashMap<String,Object> bizMap = new HashMap<String,Object>();
             String phoneStr = AESUtil.encrypt(phoneNumber, com.zkjinshi.base.util.Constants.PAVO_KEY);
@@ -461,7 +447,7 @@ public class LoginActivity extends BaseActivity {
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
                             }else{
-                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getResDesc());
+                                PavoUtil.showErrorMsg(RegisterActivity.this,basePavoResponse.getResDesc());
                             }
                         }
 
@@ -482,7 +468,74 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 注册si用户
+     */
+    public void registerSi(final String phone,final String code){
+        String url = ProtocolUtil.registerSi();
+        NetRequest netRequest = new NetRequest(url);
+        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.JSON;
+        HashMap<String,String> bizMap = new HashMap<String,String>();
+        bizMap.put("phone", phone);
+        bizMap.put("code", code);
+        netRequest.setBizParamMap(bizMap);
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
 
+            @Override
+            public void onNetworkRequestCancelled() {
+
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG, "result.rawResult:" + result.rawResult);
+                LogUtil.getInstance().info(LogLevel.INFO, "result.rawResult:" + result.rawResult);
+                try {
+                    Gson gson = new Gson();
+                    RegisterResponse registerResponse = gson.fromJson(result.rawResult,RegisterResponse.class);
+                    if(registerResponse.getRes() == 0){//注册成功
+                        String token = registerResponse.getToken();
+                        PayloadVo payloadVo = SSOManager.getInstance().decodeToken(token);
+                        String userid = payloadVo.getSub();
+                        CacheUtil.getInstance().setUserId(userid);
+                        CacheUtil.getInstance().setLogin(true);
+                        DBOpenHelper.DB_NAME = userid +".db";
+                        //LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), true,isHomeBack, null);
+                        CacheUtil.getInstance().setUserPhone(phone);
+                        YunBaSubscribeManager.getInstance().setAlias(RegisterActivity.this,CacheUtil.getInstance().getUserId());
+                        LoginController.getInstance().loginHxUser();
+                        MobclickAgent.onProfileSignIn(userid);
+                        Intent intent = new Intent(RegisterActivity.this, CompleteInfoActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (registerResponse.getRes() == 30001){//用户已经存在
+                        Toast.makeText(RegisterActivity.this,"该手机号码已经注册。",Toast.LENGTH_SHORT).show();
+                    }else if (registerResponse.getRes() == 30002) {//添加数据出错
+                        Toast.makeText(RegisterActivity.this,"注册失败。",Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+            @Override
+            public void beforeNetworkRequestStart() {
+
+            }
+        });
+        netRequestTask.isShowLoadingDialog = true;
+        netRequestTask.execute();
+    }
 
     private String strContent;
     private String patternCoder = "(?<!--\\d)\\d{6}(?!\\d)";
@@ -554,73 +607,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 使用手机验证码创建Token
-     * @param phone
-     * @param code
-     */
-    private void getToken(final String phone,final String code){
-        try{
-            String url = ProtocolUtil.ssoToken();
-            NetRequest netRequest = new NetRequest(url);
-            HashMap<String,Object> bizMap = new HashMap<String,Object>();
-            bizMap.put("phone",phone);
-            bizMap.put("code",code);
-            netRequest.setObjectParamMap(bizMap);
-            NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-            netRequestTask.methodType = MethodType.JSONPOST;
-            netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-                @Override
-                public void onNetworkRequestError(int errorCode, String errorMessage) {
-                    Log.i(TAG, "errorCode:" + errorCode);
-                    Log.i(TAG, "errorMessage:" + errorMessage);
-                }
 
-                @Override
-                public void onNetworkRequestCancelled() {
-
-                }
-
-                @Override
-                public void onNetworkResponseSucceed(NetResponse result) {
-                    super.onNetworkResponseSucceed(result);
-                    try{
-                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
-                        if(basePavoResponse != null){
-                            if(basePavoResponse.getRes() == 0){
-                                if(!StringUtil.isEmpty(basePavoResponse.getToken())){//成功
-                                    PayloadVo payloadVo = SSOManager.getInstance().decodeToken(basePavoResponse.getToken());
-                                    String userid = payloadVo.getSub();
-                                    CacheUtil.getInstance().setExtToken(basePavoResponse.getToken());
-                                    CacheUtil.getInstance().setUserId(userid);
-                                    CacheUtil.getInstance().setLogin(true);
-                                    DBOpenHelper.DB_NAME = userid +".db";
-                                    LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), false,isHomeBack,null);
-                                }
-                            }else if(basePavoResponse.getRes() == 11){//资料不全
-                                Intent intent = new Intent(LoginActivity.this, CompleteInfoActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }else{
-                                PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getResDesc());
-                            }
-                        }
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void beforeNetworkRequestStart() {
-
-                }
-            });
-            netRequestTask.isShowLoadingDialog = true;
-            netRequestTask.execute();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
 }

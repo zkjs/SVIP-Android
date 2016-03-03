@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -30,13 +32,20 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.vo.UserDetailVo;
 import com.zkjinshi.svip.vo.UserInfoVo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 开发者：dujiande
@@ -73,49 +82,27 @@ public class LoginController {
      */
     public void getUserDetailInfo(final String userid, String token,final boolean isNewRegister,final boolean isHomeBack,final Bundle thirdBundleData) {
 
-        String url =  Constants.GET_USER_DETAIL_URL + "userid=" + userid + "&token=" + token;
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
+        String url = ProtocolUtil.querySiAll();
+        JSONObject jsonObject = new JSONObject();
+        SvipHttpClient.get(context,url, jsonObject, new JsonHttpResponseHandler(){
             @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(LoginController.class.getSimpleName(), "errorCode:" + errorCode);
-                Log.i(LoginController.class.getSimpleName(), "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(LoginController.class.getSimpleName(), "result.rawResult:" + result.rawResult);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    Gson gson = new Gson();
-                    UserInfoResponse userInfoResponse =  gson.fromJson(result.rawResult, UserInfoResponse.class);
-                    if(null != userInfoResponse && userInfoResponse.isSet()){
-                        //存数据库
-                        UserDetailVo userDetailVo = gson.fromJson(result.rawResult, UserDetailVo.class);
-                        UserDetailDBUtil.getInstance().addUserDetail(userDetailVo);
-                        //存缓存
-                        UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
-                        if(null != userInfoVo){
-                            CacheUtil.getInstance().setUserId(userInfoVo.getUserid());
-                            CacheUtil.getInstance().saveTagsOpen(userInfoVo.isTagopen());
-                            CacheUtil.getInstance().setUserPhone(userInfoVo.getMobilePhoto());
-                            CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
-                            CacheUtil.getInstance().setUserRealName(userInfoVo.getRealName());
-                            CacheUtil.getInstance().setUserApplevel(userDetailVo.getUser_applevel());
-                            CacheUtil.getInstance().setSex(userDetailVo.getSex());
-                            CacheUtil.getInstance().setActivate(userInfoResponse.isActivated());
-                            YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
-                        }
+                    int res = response.getInt("res");
+                    if(res == 0){
+                        JSONObject data = response.getJSONObject("data");
+                        CacheUtil.getInstance().setUserId(data.getString("userid"));
+                        CacheUtil.getInstance().setUserPhone(data.getString("phone"));
+                        CacheUtil.getInstance().setUserName(data.getString("username"));
+                        CacheUtil.getInstance().setUserRealName(data.getString("realname"));
+                        CacheUtil.getInstance().setUserApplevel(data.getString("viplevel"));
+                        CacheUtil.getInstance().setSex(data.getString("sex"));
+                        CacheUtil.getInstance().setActivate(data.getInt("userstatus")==0? false : true);
+                        YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
+
                         loginHxUser();
-                        MobclickAgent.onProfileSignIn(userInfoVo.getUserid());
+                        MobclickAgent.onProfileSignIn(data.getString("userid"));
+
                         //判读是否新注册用户
                         if(isNewRegister){
                             Intent intent = new Intent(activity, CompleteInfoActivity.class);
@@ -143,33 +130,34 @@ public class LoginController {
                                     activity.startActivity(intent);
                                 }
                                 activity.finish();
-
-
                             }else {
                                 goHome();
                             }
                         }
+
+                    }else{
+                        Toast.makeText(context,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
                     }
 
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }
 
             @Override
-            public void beforeNetworkRequestStart() {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                Log.d(TAG,errorResponse.toString());
 
             }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
 
+        });
     }
+
     /**
      * 登录环信IM
      */
-    private void loginHxUser(){
+    public void loginHxUser(){
         EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
             @Override
             public void onSuccess() {

@@ -34,4 +34,17 @@ public class SvipHttpClient {
 
     }
 
+    public static void get(Context context, String url, JSONObject jsonObject, JsonHttpResponseHandler handler){
+        try{
+            client.setTimeout(5000);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            client.get(context,url, stringEntity, "application/json", handler);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

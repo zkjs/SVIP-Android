@@ -9,8 +9,8 @@
     <RelativeLayout
         android:id="@+id/login_layout_head"
         android:layout_width="match_parent"
-        android:layout_height="267dp"
-        android:background="@mipmap/bg_zhuce">
+        android:layout_height="45dp"
+        android:background="@drawable/bg_white">
 
         <ImageButton
             android:id="@+id/header_bar_btn_back"
@@ -28,22 +28,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Welcome"
-            android:textColor="@android:color/white"
-            android:textSize="40sp"/>
-
-        <TextView
-            android:id="@+id/login_tv_tips"
-            android:layout_below="@id/login_tv_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
-            android:text="感受尊贵的超级服务"
-            android:textColor="@android:color/white"
+            android:text="注册"
+            android:textColor="#666666"
             android:textSize="18sp"/>
 
+
     </RelativeLayout>
+
+    <View
+        android:layout_below="@id/login_layout_head"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e3e3e3"/>
 
     <RelativeLayout
         android:id="@+id/layout_input_phone"
@@ -179,22 +175,10 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="确定"
+        android:text="注册"
         android:visibility="gone"
         android:textSize="14sp"
         android:textColor="@color/White"
         android:background="@drawable/btn_yellow_selector"/>
-
-    <TextView
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="65dp"
-        android:id="@+id/login_tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="立即注册"
-        android:clickable="true"
-        android:textColor="@color/orange"
-        android:textSize="14sp"/>
 
 </RelativeLayout>

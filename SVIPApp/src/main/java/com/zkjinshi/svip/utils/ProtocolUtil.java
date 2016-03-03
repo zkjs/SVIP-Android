@@ -650,11 +650,19 @@ public class ProtocolUtil {
     }
 
     /**
-     * 获取手机验证码
+     * 登录获取手机验证码
      * @return
      */
-    public static String ssoVcode(){
-        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si";
+    public static String ssoVcodeLogin(){
+        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si?source=login";
+    }
+
+    /**
+     * 注册获取手机验证码
+     * @return
+     */
+    public static String ssoVcodeRegister(){
+        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si?source=register";
     }
 
     /**
@@ -679,6 +687,30 @@ public class ProtocolUtil {
      */
     public static String getTokenDeleteUrl(){
         return ConfigUtil.getInst().getSsoDomain()+"/sso/token/v1";
+    }
+
+    /**
+     * 注册si用户
+     * @return
+     */
+    public static String registerSi(){
+        return Constants.FORNAX_HOST+"res/v1/register/si";
+    }
+
+    /**
+     * 注册流程-更新si信息
+     * @return
+     */
+    public static String registerUpdateSi(){
+        return Constants.FORNAX_HOST+"res/v1/register/update/si";
+    }
+
+    /**
+     * 获取用户资料
+     * @return
+     */
+    public static String querySiAll(){
+        return Constants.FORNAX_HOST+"res/v1/query/si/all";
     }
 
 }
