@@ -137,6 +137,13 @@ public class LoginController {
 
                     }else{
                         Toast.makeText(context,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
+                        if(activity instanceof LoginActivity){
+
+                        }else{
+                            Intent intent = new Intent(activity,LoginActivity.class);
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }
                     }
 
                 } catch (JSONException e) {

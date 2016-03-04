@@ -118,7 +118,6 @@ public class SetActivity extends BaseActivity {
         customerBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                BaseApplication.getInst().clearLeaveTop();
                 //环信接口退出
                 EasemobIMHelper.getInstance().logout();
                 //修改登录状态
@@ -138,8 +137,11 @@ public class SetActivity extends BaseActivity {
                 LocationManager.getInstance().stopLocation();
                 //友盟统计登出
                 MobclickAgent.onProfileSignOff();
+                //BaseApplication.getInst().clearLeaveTop();
+                finish();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 startActivity(intent);
+                dialog.dismiss();
 
             }
         });

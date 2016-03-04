@@ -598,6 +598,12 @@ public class LoginActivity extends BaseActivity {
                                     LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), false,isHomeBack,null);
                                 }
                             }else if(basePavoResponse.getRes() == 11){//资料不全
+                                PayloadVo payloadVo = SSOManager.getInstance().decodeToken(basePavoResponse.getToken());
+                                String userid = payloadVo.getSub();
+                                CacheUtil.getInstance().setExtToken(basePavoResponse.getToken());
+                                CacheUtil.getInstance().setUserId(userid);
+                                CacheUtil.getInstance().setLogin(true);
+                                DBOpenHelper.DB_NAME = userid +".db";
                                 Intent intent = new Intent(LoginActivity.this, CompleteInfoActivity.class);
                                 startActivity(intent);
                                 finish();

@@ -638,7 +638,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocBeacon(){
-        return Constants.BQ_HOST+"lbs/v1/loc/beacon";
+        return Constants.PYXIS_HOST+"lbs/v1/loc/beacon";
     }
 
     /**
@@ -646,7 +646,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocGps(){
-        return Constants.BQ_HOST+"lbs/v1/loc/gps";
+        return Constants.PYXIS_HOST+"lbs/v1/loc/gps";
     }
 
     /**
@@ -694,7 +694,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String registerSi(){
-        return Constants.FORNAX_HOST+"res/v1/register/si";
+        return Constants.PAVO_HOST+"res/v1/register/si";
     }
 
     /**

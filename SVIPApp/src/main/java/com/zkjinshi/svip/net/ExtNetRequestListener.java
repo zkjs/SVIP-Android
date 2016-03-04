@@ -56,7 +56,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
         try{
             BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
             if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
-                if(context instanceof Activity){
+                /*if(context instanceof Activity){
                     //环信接口退出
                     EasemobIMHelper.getInstance().logout();
                     //修改登录状态
@@ -75,7 +75,7 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
                     //友盟统计登出
                     MobclickAgent.onProfileSignOff();
                   NetDialogUtil.showLoginDialog((Activity) context);
-                }
+                }*/
             }
         }catch (Exception e){
            // Log.e(ExtNetRequestListener.class.getSimpleName(),e.getMessage());

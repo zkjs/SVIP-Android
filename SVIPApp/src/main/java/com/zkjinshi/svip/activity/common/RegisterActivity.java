@@ -506,9 +506,11 @@ public class RegisterActivity extends BaseActivity {
                         String userid = payloadVo.getSub();
                         CacheUtil.getInstance().setUserId(userid);
                         CacheUtil.getInstance().setLogin(true);
+                        CacheUtil.getInstance().setExtToken(token);
                         DBOpenHelper.DB_NAME = userid +".db";
                         //LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), true,isHomeBack, null);
                         CacheUtil.getInstance().setUserPhone(phone);
+                        CacheUtil.getInstance().setActivate(false);
                         YunBaSubscribeManager.getInstance().setAlias(RegisterActivity.this,CacheUtil.getInstance().getUserId());
                         LoginController.getInstance().loginHxUser();
                         MobclickAgent.onProfileSignIn(userid);
@@ -520,6 +522,8 @@ public class RegisterActivity extends BaseActivity {
                         Toast.makeText(RegisterActivity.this,"该手机号码已经注册。",Toast.LENGTH_SHORT).show();
                     }else if (registerResponse.getRes() == 30002) {//添加数据出错
                         Toast.makeText(RegisterActivity.this,"注册失败。",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(RegisterActivity.this,registerResponse.getResDesc(),Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {

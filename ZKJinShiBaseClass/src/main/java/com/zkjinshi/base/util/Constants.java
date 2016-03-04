@@ -15,13 +15,18 @@ public class Constants {
     public static final String SSO_HOST = "sso-host";
 
     //图片host
-    public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";
-    //宝强API
-    public final static String BQ_HOST = "http://120.25.80.143:8082/";
+    //public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";
+    public final static String IMG_HOST = "http://for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com/";
+    //PYXIS 位置服务API
+    public final static String PYXIS_HOST = "http://120.25.80.143:8082/";
     //PAVO 认证服务API
     public final static String PAVO_HOST = "http://120.25.80.143:8080/";
     //PAVO 认证服务API 版本
     public final static String PAVO_VERSION = "v1";
     //PAVO 秘钥
     public final static String PAVO_KEY = "X2VOV0+W7szslb+@kd7d44Im&JUAWO0y";
+    //天炉座API
+ //   public final static String FORNAX_HOST = "http://192.168.0.119:9090/forn-0.1/";
+    public final static String FORNAX_HOST = "http://192.168.0.119:8080/";
+
 }

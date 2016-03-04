@@ -268,6 +268,8 @@ public class CompleteInfoActivity extends BaseActivity {
             String url = ProtocolUtil.registerUpdateSi();
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(5000);
+            String token = CacheUtil.getInstance().getExtToken();
+            client.addHeader("Token", token);
             RequestParams params = new RequestParams();
             params.put("userid",CacheUtil.getInstance().getUserId());
             params.put("sex",sex);
@@ -301,7 +303,7 @@ public class CompleteInfoActivity extends BaseActivity {
                             imagePipeline.evictFromMemoryCache(uri);
                             imagePipeline.evictFromDiskCache(uri);
 
-                            CacheUtil.getInstance().setExtToken(updateSiResponse.getData().getToken());
+                            CacheUtil.getInstance().setExtToken(updateSiResponse.getToken());
                             CacheUtil.getInstance().setUserName(mEtNickName.getText().toString().trim());
                             CacheUtil.getInstance().setSex(sexValue+"");
                             CacheUtil.getInstance().savePicPath("");

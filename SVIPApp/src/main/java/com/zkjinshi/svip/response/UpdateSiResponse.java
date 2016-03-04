@@ -6,15 +6,15 @@ package com.zkjinshi.svip.response;
  * Created by dujiande on 2016/3/3.
  */
 public class UpdateSiResponse extends BaseFornaxResponse {
-    private UpdateSiResponseData data;
-    public UpdateSiResponseData getData() {
-        return data;
+    private String token;
+
+    public String getToken() {
+        return token;
     }
 
-    public void setData(UpdateSiResponseData data) {
-        this.data = data;
+    public void setToken(String token) {
+        this.token = token;
     }
-
 }
 
 
