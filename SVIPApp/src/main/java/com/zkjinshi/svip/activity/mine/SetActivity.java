@@ -137,8 +137,7 @@ public class SetActivity extends BaseActivity {
                 LocationManager.getInstance().stopLocation();
                 //友盟统计登出
                 MobclickAgent.onProfileSignOff();
-                //BaseApplication.getInst().clearLeaveTop();
-                finish();
+                BaseApplication.getInst().clearLeaveTop();
                 Intent intent = new Intent(SetActivity.this,LoginActivity.class);
                 startActivity(intent);
                 dialog.dismiss();

@@ -86,8 +86,6 @@ public class SplashActivity extends BaseActivity {
      * 初始化界面元素
      */
     private void initData() {
-        //增加sso静默登录
-        SSOManager.getInstance().requestRefreshToken(this);
         //背景星空下移动画
         skyDropOutAnim = AnimationUtils.loadAnimation(this, R.anim.translate_drop_out);
         bodyLayout.startAnimation(skyDropOutAnim);
@@ -192,9 +190,13 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goHome() {
-
-        LoginController.getInstance().init(this);
-        LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,false,null);
+        SSOManager.getInstance().requestRefreshToken(this, new SSOManager.SSOCallBack() {
+            @Override
+            public void onNetworkResponseSucceed() {
+                LoginController.getInstance().init(SplashActivity.this);
+                LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,false,null);
+            }
+        });
     }
 
     Handler handler = new Handler() {

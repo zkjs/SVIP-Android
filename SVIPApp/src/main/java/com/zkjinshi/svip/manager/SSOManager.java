@@ -63,7 +63,7 @@ public class SSOManager {
     /**
      * 刷新token
      */
-    public void requestRefreshToken(final Context context){
+    public void requestRefreshToken(final Context context,final SSOCallBack ssoCallBack){
         boolean isLogin = CacheUtil.getInstance().isLogin();
         if(isLogin){
             String url = ProtocolUtil.getTokenRefreshUrl();
@@ -107,6 +107,9 @@ public class SSOManager {
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     }
+                    if(null != ssoCallBack){
+                        ssoCallBack.onNetworkResponseSucceed();
+                    }
                 }
 
                 @Override
@@ -117,6 +120,10 @@ public class SSOManager {
             netRequestTask.isShowLoadingDialog = false;
             netRequestTask.execute();
         }
+    }
+
+    public interface SSOCallBack{
+        public void onNetworkResponseSucceed();
     }
 
 }
