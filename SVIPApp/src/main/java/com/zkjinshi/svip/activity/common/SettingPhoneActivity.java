@@ -32,6 +32,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -412,41 +413,13 @@ public class SettingPhoneActivity extends BaseActivity {
 
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
-        String url = ProtocolUtil.getUserUploadUrl();
-        NetRequest httpRequest = new NetRequest(url);
-
-        HashMap<String, String> stringMap = new HashMap<String, String>();
-        stringMap.put("userid",CacheUtil.getInstance().getUserId());
-        stringMap.put("token", CacheUtil.getInstance().getToken());
-        stringMap.put(fieldKey, fieldValue);
-        httpRequest.setBizParamMap(stringMap);
-
-        MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest, new ExtNetRequestListener(SettingPhoneActivity.this) {
+        MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-
-                if (null != result && null != result.rawResult) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
-                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
-                    if (null != baseResponse && baseResponse.isSet()) {
-                        String inputPhone = mInputPhone.getText().toString();
-                        CacheUtil.getInstance().setUserPhone(inputPhone);
-                        DialogUtil.getInstance().showToast(SettingPhoneActivity.this,"修改手机号码成功。");
-                        finish();
-                    }
-                }
+            public void successCallback(BaseFornaxResponse updateSiResponse) {
+                String inputPhone = mInputPhone.getText().toString();
+                CacheUtil.getInstance().setUserPhone(inputPhone);
+                DialogUtil.getInstance().showToast(SettingPhoneActivity.this,"修改手机号码成功。");
+                finish();
             }
         });
     }

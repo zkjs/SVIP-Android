@@ -24,32 +24,46 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
+import com.zkjinshi.svip.activity.order.HotelBookingActivity;
+import com.zkjinshi.svip.activity.order.KTVBookingActivity;
+import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.factory.UserInfoFactory;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.SvipHttpClient;
+import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
 import com.zkjinshi.svip.vo.Sex;
 import com.zkjinshi.svip.vo.UserInfoVo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.HashMap;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by djd on 2015/8/17.
@@ -110,89 +124,74 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText("账户信息");
 
+        getUserInfo();
+    }
 
-        String url = ProtocolUtil.getUserInfoUrl(CacheUtil.getInstance().getToken(),CacheUtil.getInstance().getUserId());
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
+    public void getUserInfo(){
+        String url = ProtocolUtil.querySiAll();
+        JSONObject jsonObject = new JSONObject();
+        SvipHttpClient.get(this,url, jsonObject, new JsonHttpResponseHandler(){
+
+            public void onStart(){
+                super.onStart();
+                DialogUtil.getInstance().showAvatarProgressDialog(SettingActivity.this,"");
             }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
+            public void onFinish(){
+                super.onFinish();
+                DialogUtil.getInstance().cancelProgressDialog();
             }
-
             @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
-                    UserInfoResponse userInfoResponse =  new Gson().fromJson(result.rawResult, UserInfoResponse.class);
-                    if(null != userInfoResponse){
-                        UserInfoVo userInfoVo = UserInfoFactory.getInstance().buildUserInfoVo(userInfoResponse);
-                        if(null != userInfoVo){
-                            setViewData(userInfoVo);
+                    int res = response.getInt("res");
+                    if(res == 0){
+                        JSONObject data = response.getJSONObject("data");
+
+
+                        String emailStr = data.getString("email");
+                        String userId = CacheUtil.getInstance().getUserId();
+                        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+                        if(!TextUtils.isEmpty(userPhotoUrl)){
+                            mUserIcon.setImageURI(Uri.parse(userPhotoUrl));
                         }
+                        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+                            mRealName.setTextContent2(data.getString("username"));
+                        }else{
+                            mRealName.setTextContent2("立即补全信息");
+                            mRealName.setTextContent2Color(R.color.orange);
+                        }
+                        if(data.getString("sex").equals("1")){
+                            mUserSex.setTextContent2("男");
+                        }
+                        else{
+                            mUserSex.setTextContent2("女");
+                        }
+                        if(!TextUtils.isEmpty(emailStr)){
+                            mEmail.setTextContent2(emailStr);
+                        }
+
+                    }else{
+                        Toast.makeText(SettingActivity.this,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
                     }
 
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }
 
             @Override
-            public void beforeNetworkRequestStart() {
-
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                if(null != errorResponse){
+                    Log.d(TAG,errorResponse.toString());
+                }
+                Toast.makeText(SettingActivity.this,"获取用户资料失败",Toast.LENGTH_SHORT).show();
             }
+
         });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
-
     }
 
-    /**
-     * 根据UserInfoVo设置页面数据
-     * @param userInfoVo
-     */
-    private void setViewData(UserInfoVo userInfoVo){
-        String userPhotoSuffix = userInfoVo.getUserAvatar();
-        String mobilePhoneStr = userInfoVo.getMobilePhoto();
-        Sex sex = userInfoVo.getSex();
-        String emailStr = userInfoVo.getEmail();
 
-        String userId = CacheUtil.getInstance().getUserId();
-        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-        if(!TextUtils.isEmpty(userPhotoUrl)){
-            mUserIcon.setImageURI(Uri.parse(userPhotoUrl));
-        }
-        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
-            mRealName.setTextContent2(CacheUtil.getInstance().getUserName());
-           // mRealName.setTextContent2Color(R.color.light_black);
-        }else{
-            mRealName.setTextContent2("立即补全信息");
-            mRealName.setTextContent2Color(R.color.orange);
-        }
-        if(null != sex && sex == Sex.BOY){
-            mUserSex.setTextContent2("男");
-        }
-        else{
-            mUserSex.setTextContent2("女");
-        }
-        if(!TextUtils.isEmpty(emailStr)){
-            mEmail.setTextContent2(emailStr);
-        }
-        if(!TextUtils.isEmpty(mobilePhoneStr)){
-           // mUserPhone.setTextContent2(mobilePhoneStr);
-        }
-
-    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -216,105 +215,39 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     //提交头像
     public void submitAvatar(){
-        String url = ProtocolUtil.getUserUploadUrl();
-        NetRequest httpRequest = new NetRequest(url);
-
-        HashMap<String, String> stringMap = new HashMap<String, String>();
-        HashMap<String, File>   fileMap   = new HashMap<String, File>();
-
         final String picPath =  CacheUtil.getInstance().getPicPath();
-
-        if(!TextUtils.isEmpty(picPath)){
-            fileMap.put("UploadForm[file]", new File(picPath));
-        }
-        stringMap.put("userid",CacheUtil.getInstance().getUserId());
-        stringMap.put("token", CacheUtil.getInstance().getToken());
-        httpRequest.setBizParamMap(stringMap);
-
-        httpRequest.setFileMap(fileMap);
-        MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest,
-            new ExtNetRequestListener(SettingActivity.this) {
+        MineNetController.getInstance().submitInfo(this,"image", picPath, new MineNetController.CallBackListener() {
             @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-
-                if (null != result && null != result.rawResult) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
-                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
-                    if (null != baseResponse && baseResponse.isSet()) {
-                        String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
-                        ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
-                        ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
-                        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-                        Uri uri = Uri.parse(userPhotoUrl);
-                        imagePipeline.evictFromMemoryCache(uri);
-                        imagePipeline.evictFromDiskCache(uri);
-
-                    } else {
-                        DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
-                    }
-                } else {
-                    DialogUtil.getInstance().showCustomToast(SettingActivity.this, "上传头像失败!", Toast.LENGTH_LONG);
-                }
-
+            public void successCallback(BaseFornaxResponse updateSiResponse) {
+                String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
+                ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
+                ImagePipeline imagePipeline = Fresco.getImagePipeline();
+                Uri uri = Uri.parse(userPhotoUrl);
+                imagePipeline.evictFromMemoryCache(uri);
+                imagePipeline.evictFromDiskCache(uri);
             }
         });
+
     }
 
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
 
-        String url = ProtocolUtil.getUserUploadUrl();
-        NetRequest httpRequest = new NetRequest(url);
-        HashMap<String, String> stringMap = new HashMap<String, String>();
-        stringMap.put("userid",CacheUtil.getInstance().getUserId());
-        stringMap.put("token", CacheUtil.getInstance().getToken());
-        stringMap.put(fieldKey, fieldValue);
-        httpRequest.setBizParamMap(stringMap);
-        MineNetController.getInstance().init(this);
-        MineNetController.getInstance().requestSetInfoTask(httpRequest,
-            new ExtNetRequestListener(SettingActivity.this) {
+        MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorMessage:" + errorMessage);
-                LogUtil.getInstance().info(LogLevel.ERROR, "errorCode:" + errorCode);
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-
-                if (null != result && null != result.rawResult) {
-                    LogUtil.getInstance().info(LogLevel.INFO, "rawResult:" + result.rawResult);
-                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
-                    if (null != baseResponse && baseResponse.isSet()) {
-                        if(fieldKey.equals("sex")){
-                            CacheUtil.getInstance().setSex(fieldValue);
-                            if(fieldValue.equals("0")){
-                                mUserSex.setTextContent2("女");
-                            }else{
-                                mUserSex.setTextContent2("男");
-                            }
-                        }
+            public void successCallback(BaseFornaxResponse updateSiResponse) {
+                if(fieldKey.equals("sex")){
+                    CacheUtil.getInstance().setSex(fieldValue);
+                    if(fieldValue.equals("0")){
+                        mUserSex.setTextContent2("女");
+                    }else{
+                        mUserSex.setTextContent2("男");
                     }
                 }
             }
         });
+
     }
 
 

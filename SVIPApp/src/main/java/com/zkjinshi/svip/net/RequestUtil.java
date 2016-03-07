@@ -1,19 +1,8 @@
 package com.zkjinshi.svip.net;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 
-import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.view.CustomDialog;
-import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.LoginActivity;
+import android.text.TextUtils;
+
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 
@@ -22,17 +11,16 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
+
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
+
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.HTTP;
+
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -77,6 +65,10 @@ public class RequestUtil {
                 "android");
         httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
         httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
+        String token = CacheUtil.getInstance().getExtToken();
+        if(!TextUtils.isEmpty(token)){
+            httpclient.getParams().setParameter("Token",token);
+        }
         HttpResponse httpResponse = httpclient.execute(httpRequest);
         if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
         {
@@ -98,6 +90,10 @@ public class RequestUtil {
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        String token = CacheUtil.getInstance().getExtToken();
+        if(!TextUtils.isEmpty(token)){
+            connection.setRequestProperty("Token",token);
+        }
         connection.connect();
         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
         jsonObject = new JSONObject();
@@ -143,6 +139,10 @@ public class RequestUtil {
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        String token = CacheUtil.getInstance().getExtToken();
+        if(!TextUtils.isEmpty(token)){
+            connection.setRequestProperty("Token",token);
+        }
         connection.connect();
         // POST请求
         DataOutputStream out = new DataOutputStream(

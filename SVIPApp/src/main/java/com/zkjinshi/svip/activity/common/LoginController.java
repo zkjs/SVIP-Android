@@ -154,9 +154,10 @@ public class LoginController {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-               if(null != errorResponse){
-                   Log.d(TAG,errorResponse.toString());
-               }
+                if(null != errorResponse){
+                    Log.d(TAG,errorResponse.toString());
+                }
+
             }
 
         });

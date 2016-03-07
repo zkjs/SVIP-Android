@@ -706,11 +706,29 @@ public class ProtocolUtil {
     }
 
     /**
+     * 登陆后更新用户资料
+     * @return
+     */
+    public static String loginUpdateSi(){
+        return Constants.FORNAX_HOST+"res/v1/update/si";
+    }
+
+
+
+    /**
      * 获取用户资料
      * @return
      */
     public static String querySiAll(){
         return Constants.FORNAX_HOST+"res/v1/query/si/all";
+    }
+
+    /**
+     * 激活邀请码
+     * @return
+     */
+    public static String activeSalecode(){
+        return Constants.FORNAX_HOST+"res/v1/salecode/active/salecode";
     }
 
 }

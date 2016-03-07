@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.easemob.EMCallBack;
+import com.google.gson.Gson;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,6 +40,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -193,23 +195,12 @@ public class InviteCodeActivity extends BaseActivity {
      * 根据邀请码绑定客服
      */
     private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID, String salerPhone) {
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getUserBindInviteCodeUrl());
+        NetRequest netRequest = new NetRequest(ProtocolUtil.activeSalecode());
         HashMap<String, String> bizMap = new HashMap<>();
-        bizMap.put("userid", mUserID);
-        bizMap.put("token", mToken);
-        bizMap.put("username", mUserName);
-        bizMap.put("phone", mPhoneNum);
-        bizMap.put("code", inviteCode);
-        bizMap.put("user_salesid", salerID);
-        bizMap.put("sales_name", salerName);
-        bizMap.put("shopid", shopID);
-        if(TextUtils.isEmpty(salerPhone)){
-            bizMap.put("sales_phone", salerPhone);
-        }
-
+        bizMap.put("saleCode", inviteCode);
         netRequest.setBizParamMap(bizMap);
         NetRequestTask netRequestTask = new NetRequestTask(mContext, netRequest, NetResponse.class);
-        netRequestTask.methodType     = MethodType.PUSH;
+        netRequestTask.methodType     = MethodType.JSON;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(mContext) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -227,11 +218,10 @@ public class InviteCodeActivity extends BaseActivity {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
-                String jsonResult = result.rawResult;
+
                 try {
-                    JSONObject responseObj = new JSONObject(jsonResult);
-                    Boolean    isSuccess   = responseObj.getBoolean("set");
-                    if(isSuccess) {
+                    BaseFornaxResponse baseFornaxResponse = new Gson().fromJson(result.rawResult,BaseFornaxResponse.class);
+                    if(baseFornaxResponse.getRes() == 0) {
                         CacheUtil.getInstance().setActivate(true);
                         //本地缓存绑定邀请码
                         if(!TextUtils.isEmpty(mSalesID)) {
@@ -265,24 +255,10 @@ public class InviteCodeActivity extends BaseActivity {
                         InviteCodeActivity.this.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
 
                     } else {
-                        int errCode = responseObj.getInt("err");
-                        if(400 == errCode){
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "token不对，请勿重复使用。", Gravity.CENTER);
-                        }
-                        if(301 == errCode){
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "提交信息不足。", Gravity.CENTER);
-                        }
-                        if(300 == errCode){
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "邀请码已经使用，请勿重复使用。", Gravity.CENTER);
-                        } else {
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                    "绑定失败。", Gravity.CENTER);
-                        }
+                        DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
+                                baseFornaxResponse.getResDesc(), Gravity.CENTER);
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

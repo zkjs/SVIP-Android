@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -16,14 +17,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.city.citylist.Setting;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -31,17 +39,23 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
+import com.zkjinshi.svip.response.UpdateSiResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * 修改资料
@@ -164,59 +178,24 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
 
     //提交资料
     public void submitInfo(final String fieldKey,final String fieldValue){
-        String url = ProtocolUtil.getUserUploadUrl();
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("token", CacheUtil.getInstance().getToken());
-        bizMap.put(fieldKey,fieldValue);
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
+
+        MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-
-                    BaseResponse baseResponse = new Gson().fromJson(result.rawResult, BaseResponse.class);
-                    if (null != baseResponse && baseResponse.isSet()) {
-                        Intent data = new Intent();
-                        data.putExtra("new_value", fieldValue);
-                        setResult(RESULT_OK, data);
-                        if(fieldKey.equals("username")){
-                            CacheUtil.getInstance().setUserName(fieldValue);
-                        } else if(fieldKey.equals("real_name")){
-                            CacheUtil.getInstance().setUserRealName(fieldValue);
-                        }
-                        finish();
-                    }
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+            public void successCallback(BaseFornaxResponse updateSiResponse) {
+                Intent data = new Intent();
+                data.putExtra("new_value", fieldValue);
+                setResult(RESULT_OK, data);
+                if(fieldKey.equals("username")){
+                    CacheUtil.getInstance().setUserName(fieldValue);
+                } else if(fieldKey.equals("real_name")){
+                    CacheUtil.getInstance().setUserRealName(fieldValue);
                 }
-
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
+                finish();
             }
         });
-        netRequestTask.isShowLoadingDialog = true;
-        netRequestTask.execute();
+
     }
+
+
+
 }
