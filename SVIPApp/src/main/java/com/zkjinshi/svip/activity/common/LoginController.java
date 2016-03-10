@@ -42,6 +42,7 @@ import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.vo.UserDetailVo;
 import com.zkjinshi.svip.vo.UserInfoVo;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -90,60 +91,64 @@ public class LoginController {
                 try {
                     int res = response.getInt("res");
                     if(res == 0){
-                        JSONObject data = response.getJSONObject("data");
-                        CacheUtil.getInstance().setUserId(data.getString("userid"));
-                        CacheUtil.getInstance().setUserPhone(data.getString("phone"));
-                        CacheUtil.getInstance().setUserName(data.getString("username"));
-                        CacheUtil.getInstance().setUserRealName(data.getString("realname"));
-                        CacheUtil.getInstance().setUserApplevel(data.getString("viplevel"));
-                        CacheUtil.getInstance().setSex(data.getString("sex"));
-                        CacheUtil.getInstance().setActivate(data.getInt("userstatus")==0? false : true);
-                        YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
+                        JSONArray dataArr = response.getJSONArray("data");
+                        if(dataArr != null && dataArr.length()> 0){
+                            JSONObject data = dataArr.getJSONObject(0);
+                            CacheUtil.getInstance().setUserId(data.getString("userid"));
+                            CacheUtil.getInstance().setUserPhone(data.getString("phone"));
+                            CacheUtil.getInstance().setUserName(data.getString("username"));
+                            CacheUtil.getInstance().setUserRealName(data.getString("realname"));
+                            CacheUtil.getInstance().setUserApplevel(data.getString("viplevel"));
+                            CacheUtil.getInstance().setSex(data.getString("sex"));
+                            CacheUtil.getInstance().setActivate(data.getInt("userstatus")==0? false : true);
+                            YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
 
-                        loginHxUser();
-                        MobclickAgent.onProfileSignIn(data.getString("userid"));
+                            loginHxUser();
+                            MobclickAgent.onProfileSignIn(data.getString("userid"));
 
-                        //判读是否新注册用户
-                        if(isNewRegister){
-                            Intent intent = new Intent(activity, CompleteInfoActivity.class);
-                            if(thirdBundleData != null){
-                                intent.putExtra("from_third", true);
-                                intent.putExtras(thirdBundleData);
-                            }
-                            activity.startActivity(intent);
-                            activity.finish();
-                        } else {
-                            if(isHomeBack){
-                                Intent intent = activity.getIntent();
-                                String category = intent.getStringExtra("category");
-                                /**
-                                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
-                                 */
-                                if(!StringUtil.isEmpty(category)){
-                                    if("50".equals(category)){
-                                        intent.setClass(activity, HotelBookingActivity.class);
-                                    }else if("60".equals(category)){
-                                        intent.setClass(activity, KTVBookingActivity.class);
-                                    }else {
-                                        intent.setClass(activity, NormalBookingActivity.class);
-                                    }
-                                    activity.startActivity(intent);
+                            //判读是否新注册用户
+                            if(isNewRegister){
+                                Intent intent = new Intent(activity, CompleteInfoActivity.class);
+                                if(thirdBundleData != null){
+                                    intent.putExtra("from_third", true);
+                                    intent.putExtras(thirdBundleData);
                                 }
+                                activity.startActivity(intent);
                                 activity.finish();
-                            }else {
-                                goHome();
+                            } else {
+                                if(isHomeBack){
+                                    Intent intent = activity.getIntent();
+                                    String category = intent.getStringExtra("category");
+                                    /**
+                                     行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+                                     */
+                                    if(!StringUtil.isEmpty(category)){
+                                        if("50".equals(category)){
+                                            intent.setClass(activity, HotelBookingActivity.class);
+                                        }else if("60".equals(category)){
+                                            intent.setClass(activity, KTVBookingActivity.class);
+                                        }else {
+                                            intent.setClass(activity, NormalBookingActivity.class);
+                                        }
+                                        activity.startActivity(intent);
+                                    }
+                                    activity.finish();
+                                }else {
+                                    goHome();
+                                }
                             }
-                        }
-
-                    }else{
-                        Toast.makeText(context,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
-                        if(activity instanceof LoginActivity){
 
                         }else{
-                            Intent intent = new Intent(activity,LoginActivity.class);
-                            activity.startActivity(intent);
-                            activity.finish();
+                            Toast.makeText(context,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
+                            if(activity instanceof LoginActivity){
+
+                            }else{
+                                Intent intent = new Intent(activity,LoginActivity.class);
+                                activity.startActivity(intent);
+                                activity.finish();
+                            }
                         }
+
                     }
 
                 } catch (JSONException e) {

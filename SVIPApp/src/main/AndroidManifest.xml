@@ -548,7 +548,7 @@
             <intent-filter>
                 <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
                 <action android:name="io.yunba.android.PRESENCE_RECEIVED_ACTION" />
-                <category android:name="ccom.zkjinshi.svip" />
+                <category android:name="com.zkjinshi.svip" />
             </intent-filter>
         </receiver>
 
