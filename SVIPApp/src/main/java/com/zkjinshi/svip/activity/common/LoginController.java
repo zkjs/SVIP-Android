@@ -159,9 +159,7 @@ public class LoginController {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-                if(null != errorResponse){
-                    Log.d(TAG,errorResponse.toString());
-                }
+                Log.d(TAG,"API 错误："+statusCode);
 
             }
 

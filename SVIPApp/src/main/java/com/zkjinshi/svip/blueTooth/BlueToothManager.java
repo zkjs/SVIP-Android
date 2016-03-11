@@ -162,14 +162,17 @@ public class BlueToothManager {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-
                     Log.d(TAG,errorResponse.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
+                }
+
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable){
+                    Log.d(TAG,responseString);
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
                 }
 
                 @Override
                 public void onRetry(int retryNo) {
-                    // called when request is retried
                     Log.d(TAG,"retryNo:"+retryNo);
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
 
