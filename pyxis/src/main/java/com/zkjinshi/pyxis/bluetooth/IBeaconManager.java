@@ -146,9 +146,12 @@ public class IBeaconManager {
 
 	private void intoArea(IBeaconVo ibeacon){
 		if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
+			IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 			IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+		}else{
+			IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 		}
-		IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+
 	}
 
 	private void leaveArea(IBeaconVo ibeacon){
