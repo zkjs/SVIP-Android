@@ -731,4 +731,8 @@ public class ProtocolUtil {
         return Constants.FORNAX_HOST+"res/v1/salecode/active/salecode";
     }
 
+    public static String getUserLogUrl(){
+        return Constants.FORNAX_HOST+"res/v1/upload/userlog";
+    }
+
 }

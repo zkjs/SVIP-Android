@@ -42,6 +42,7 @@ import com.zkjinshi.svip.fragment.MessageFragment;
 import com.zkjinshi.svip.fragment.SetFragment;
 import com.zkjinshi.svip.fragment.ShopFragment;
 ;
+import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.response.OrderLastResponse;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
@@ -271,6 +272,7 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
         IntentFilter filter2 = new IntentFilter();
         filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
+        BleLogManager.getInstance().uploadBleStatLog(this);
     }
 
     private void initBadgeNum(){

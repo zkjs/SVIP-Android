@@ -25,6 +25,8 @@ public class ORMOpenHelper {
         db.execSQL(TableOpenHelper.PERSON_CHECK_IN_TBL_SQL);
         db.execSQL(TableOpenHelper.CITY_TBL_SQL);
         db.execSQL(TableOpenHelper.PRIVILEGE_TBL_SQL);
+        db.execSQL(TableOpenHelper.BLE_LOG_TBL_SQL);
+        db.execSQL(TableOpenHelper.BLE_STAT_TBL_SQL);
     }
 
     /**

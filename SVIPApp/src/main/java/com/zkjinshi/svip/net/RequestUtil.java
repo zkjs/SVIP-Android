@@ -156,14 +156,9 @@ public class RequestUtil {
                 obj.put(bizEntry.getKey(),bizEntry.getValue());
             }
         }
-//        obj.put("data", objectParamsMap.get("data"));
-//        obj.put("category", "0");
-
         out.write(obj.toString().getBytes("UTF-8"));// 这样可以处理中文乱码问题
         out.flush();
         out.close();
-
-        // 读取响应
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 connection.getInputStream()));
         String lines;
@@ -316,6 +311,10 @@ public class RequestUtil {
         httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
         httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
         httpPost.setEntity(multipartEntity);
+        String token = CacheUtil.getInstance().getExtToken();
+        if(!TextUtils.isEmpty(token)){
+            httpPost.getParams().setParameter("Token",token);
+        }
         HttpResponse response = httpClient.execute(httpPost);
         int respCode = 0;
         if (response != null && null != response.getStatusLine() && ((respCode = response.getStatusLine().getStatusCode()) == HttpStatus.SC_OK )) {

@@ -145,18 +145,45 @@ public class TableOpenHelper {
                     + " shopName text " //商家名
                     + " )";
 
+    //蓝牙定位统计表
+    public static String BLE_STAT_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.BLE_STAT_TBL
+                    + "("
+                    + " imei text primary key , "
+                    + " timestamp long , "//数据库更新时间戳
+                    + " retry_count long , "//网络请求错误次数
+                    + " total_count long "//网络请求总次数
+                    + " )";
+
+    //蓝牙定位日志表
+    public static String BLE_LOG_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.BLE_LOG_TBL
+                    + "("
+                    + " _id integer primary key autoincrement , "
+                    + " phone_num text , "//手机号码
+                    + " device_type text , "//android/ios
+                    + " brand text , "//手机品牌型号，出厂自带	华为/三星
+                    + " imei text , "//设备唯一码
+                    + " connected_type integer , "//网络连接类型	0：2G/3G网络
+                    + " error_message text "//网络请求错误信息
+                    + " )";
+
     /**
      * 获取数据库所有表名
      * @return
      */
     public static String[] getTableNames(){
         return new String[]{
-            DBOpenHelper.USER_INFO_TBL,   //详细用户信息表
-            DBOpenHelper.SHOP_INFO_TBL,    //商家详细信息表
-            DBOpenHelper.SERVER_PERSONAL_TBL,    //专属客服表
-            DBOpenHelper.PERSON_CHECK_IN_TBL,    //入住人表
-            DBOpenHelper.PRIVILEGE_TBL,          //特权
-            DBOpenHelper.CITY_TBL                //城市名列表
+            DBOpenHelper.USER_INFO_TBL,//详细用户信息表
+            DBOpenHelper.SHOP_INFO_TBL,//商家详细信息表
+            DBOpenHelper.SERVER_PERSONAL_TBL,//专属客服表
+            DBOpenHelper.PERSON_CHECK_IN_TBL,//入住人表
+            DBOpenHelper.PRIVILEGE_TBL,//特权
+            DBOpenHelper.CITY_TBL,//城市名列表
+            DBOpenHelper.BLE_LOG_TBL,//蓝牙定位日志表
+            DBOpenHelper.BLE_STAT_TBL//蓝牙定位统计表
         };
     }
 }
