@@ -10,8 +10,8 @@ android {
         applicationId "com.zkjinshi.svip"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 94
-        versionName "1.13.3"
+        versionCode 95
+        versionName "1.13.4"
         multiDexEnabled true
     }
 

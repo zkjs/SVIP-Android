@@ -1,8 +1,6 @@
 package com.zkjinshi.svip.utils;
 
 import com.zkjinshi.base.config.ConfigUtil;
-import com.zkjinshi.base.util.*;
-import com.zkjinshi.base.util.Constants;
 
 /**
  * 协议接口工具类
@@ -22,47 +20,11 @@ public class ProtocolUtil {
     }
 
     /**
-     * 获取订单详细信息
-     * @return
-     */
-    public static String getOrderDetailUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"order/v10show";
-    }
-
-    /**
-     * 获取订单评价 URL
-     * @return
-     */
-    public static String getGetEvaluateUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"comment/show";
-    }
-
-
-    /**
      * 新增订单评价 URL
      * @return
      */
     public static String getAddEvaluateUrl(){
         return ConfigUtil.getInst().getJavaDomain()+"order/evaluation";
-    }
-
-    /**
-     * 获取用户id请求URL
-     * @param token
-     * @param userId
-     * @return
-     */
-    public static String getUserInfoUrl(String token,String userId){
-        return ConfigUtil.getInst().getPhpDomain()+"user/select?userid="+userId+"&token="+token;
-    }
-
-    /**
-     * 获取商家logo URL
-     * @param logo
-     * @return
-     */
-    public static String getShopLogoUrl(String logo){
-        return ConfigUtil.getInst().getPhpDomain()+logo;
     }
 
     /**
@@ -74,14 +36,20 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"goods/get/"+shopId;
     }
 
-
-
     /**
-     * 获取Ibeancon列表
+     * 根据手机号查询服务员
      * @return
      */
-    public static String getIBeaconListUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"beacon/show";
+    public static String getServerByPhone(String phone){
+        return ConfigUtil.getInst().getJavaDomain()+"user/getuser/"+phone+"/";
+    }
+
+    /**
+     * 获取用户订单状态消息
+     * @return
+     */
+    public static String getMsgUrl(String userid,String city){
+        return ConfigUtil.getInst().getJavaDomain()+"messages/"+userid+"/"+city;
     }
 
     /**
@@ -127,23 +95,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * 获取用户订单
-     * @return
-     */
-    public static String getOrderUrl(){
-        return  ConfigUtil.getInst().getPhpDomain()+"user/order";
-    }
-
-    /**
-     * 获取商家信息
-     * @param shopid
-     * @return
-     */
-    public static String getShopInfoUrl(String shopid){
-        return ConfigUtil.getInst().getPhpDomain()+"user/selectshop?shopid="+shopid+"&web=0";
-    }
-
-    /**
      * 获取用户发票列表
      * @return
      */
@@ -165,15 +116,6 @@ public class ProtocolUtil {
      */
     public static String updateTicketUrl(){
         return ConfigUtil.getInst().getPhpDomain()+"user/fpupdate";
-    }
-
-    /**
-     * 获取单个订单
-     * @return
-     */
-    public static String getOneOrderUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"order/show";
-        // return "http://172.21.7.54/order/show";
     }
 
     /**
@@ -201,22 +143,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * 个人获取最新订单
-     * @return
-     */
-    public static String getLastOrder(){
-        return ConfigUtil.getInst().getPhpDomain()+"order/last";
-    }
-
-    /**
-     * 个人获取全部订单列表
-     * @return
-     */
-    public static String getOrderList(){
-        return ConfigUtil.getInst().getPhpDomain()+"order/showlist";
-    }
-
-    /**
      * 获取我的专属客服
      * @return
      */
@@ -225,73 +151,11 @@ public class ProtocolUtil {
     }
 
     /**
-     * POST 服务员随机获取一个邀请码
-     * @return
-     */
-    public static String getNewRandomInviteCodeUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"invitation/random";
-    }
-
-    /**
-     * POST 服务员查看我的邀请码
-     * @return
-     */
-    public static String getEmpInviteCodeUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"invitation/sempcode";
-    }
-
-    /**
      * POST 客户根据邀请码查询服务员
      * @return
      */
     public static String getEmpByInviteCodeUrl(){
         return ConfigUtil.getInst().getPhpDomain()+"invitation/getcode";
-    }
-
-    /**
-     * POST 超级身份输入邀请码动作
-     * @return
-     */
-    public static String getUserBindInviteCodeUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"invitation/bdcode";
-    }
-
-
-
-    /**
-     * V0.9.1 订单列表带评论状态
-     * @return
-     */
-    public static String getOrderV10list(){
-        return ConfigUtil.getInst().getPhpDomain()+"order/v10list";
-    }
-
-    /**
-     * 固定链接获取推送广告
-     * @return
-     */
-    public static String getAdPush(){
-        return ConfigUtil.getInst().getPhpDomain()+"ad/push";
-    }
-
-    /**
-     * 获取广告列表
-     * @return
-     */
-    public static String getAdList(){
-        return ConfigUtil.getInst().getPhpDomain()+"ad/list";
-    }
-
-    /**
-     * 获取商家列表 new 带行业分类和扩展属性的
-     *
-     *page  翻页 页数 默认每页10条
-     *type  类型 酒店1, 休闲2, 餐饮3  后期会有接口列表
-     *
-     * @return
-     */
-    public static String getShopList(int page,int type){
-        return ConfigUtil.getInst().getPhpDomain()+"shop/list?page="+page+"&type="+type;
     }
 
     /**
@@ -308,30 +172,6 @@ public class ProtocolUtil {
      */
     public static String getUserSearch(){
         return ConfigUtil.getInst().getPhpDomain()+"user/search";
-    }
-
-    /**
-     * 退出appHttp连接
-     * @return
-     */
-    public static String getLogoutUrl(String userID) {
-        return ConfigUtil.getInst().getPhpDomain()+"user/logout?userid=" + userID;
-    }
-
-    /**
-     * 获取用户信息
-     * @return
-     */
-    public static String getUserInfoUrl(){
-        return  ConfigUtil.getInst().getPhpDomain()+"v10/user";
-    }
-
-    /**
-     * 环信添加/删除/显示好友
-     * @return
-     */
-    public static String gethximFriendUrl(){
-        return  ConfigUtil.getInst().getPhpDomain()+"hxim/friend";
     }
 
     /**
@@ -399,22 +239,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * 根据城市名称获取我的专属客服商家列表
-     * @return
-     */
-    public static String getShopListUserByCityUrl(String userID, String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userID+"/"+city+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 根据城市名称获取推荐商家列表
-     * @return
-     */
-    public static String getRecommendedShopListUrl(String city) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/recommended/" + city;
-    }
-
-    /**
      * 获取环信群成员
      * @return
      */
@@ -446,45 +270,9 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"messages/default";
     }
 
-    /**
-     * 获取推荐商家列表
-     * @return
-     */
-    public static String getShopRecommendedUrl(String city){
-        return ConfigUtil.getInst().getJavaDomain()+"shop/recommended/"+city+"/";
-    }
-
-
     public static String getArriveNoticeUrl(){
         return ConfigUtil.getInst().getJavaDomain()+"arrive/notice";
     }
-
-
-
-    /**
-     * 获取用户订单状态消息
-     * @return
-     */
-    public static String getOrderMsgUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/orders";
-    }
-
-    /**
-     * 获取用户订单状态消息
-     * @return
-     */
-    public static String getMsgUrl(String userid,String city){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/"+userid+"/"+city;
-    }
-
-    /**
-     * 根据手机号查询服务员
-     * @return
-     */
-    public static String getServerByPhone(String phone){
-        return ConfigUtil.getInst().getJavaDomain()+"user/getuser/"+phone+"/";
-    }
-
 
     /**
      * 根据shopid 查询商家基本信息
@@ -593,13 +381,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * 用户查询用户绑定关系
-     */
-    public static String sempAubdts(){
-        return ConfigUtil.getInst().getPhpDomain()+"semp/aubdts";
-    }
-
-    /**
      * 客人发起绑定服务员
      */
     public static String addfuser(){
@@ -612,7 +393,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getHostImgUrl(String apiUrl){
-       return Constants.IMG_HOST+apiUrl;
+       return ConfigUtil.getInst().getImgDomain()+apiUrl;
     }
 
     /**
@@ -621,7 +402,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getAvatarUrl(String userid){
-        return Constants.IMG_HOST+"uploads/users/"+userid+".jpg";
+        return ConfigUtil.getInst().getImgDomain()+"uploads/users/"+userid+".jpg";
     }
 
     /**
@@ -638,7 +419,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocBeacon(){
-        return Constants.PYXIS_HOST+"lbs/v1/loc/beacon";
+        return ConfigUtil.getInst().getPyxDomain()+"lbs/v1/loc/beacon";
     }
 
     /**
@@ -646,7 +427,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String lbsLocGps(){
-        return Constants.PYXIS_HOST+"lbs/v1/loc/gps";
+        return ConfigUtil.getInst().getPyxDomain()+"lbs/v1/loc/gps";
     }
 
     /**
@@ -654,7 +435,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoVcodeLogin(){
-        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si?source=login";
+        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=login";
     }
 
     /**
@@ -662,7 +443,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoVcodeRegister(){
-        return Constants.PAVO_HOST+"sso/vcode/"+Constants.PAVO_VERSION+"/si?source=register";
+        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=register";
     }
 
     /**
@@ -670,7 +451,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoToken(){
-        return Constants.PAVO_HOST+"sso/token/"+Constants.PAVO_VERSION+"/phone/si";
+        return ConfigUtil.getInst().getPavDomain()+"sso/token/v1/phone/si";
     }
 
     /**
@@ -678,15 +459,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getTokenRefreshUrl(){
-        return ConfigUtil.getInst().getSsoDomain()+"/sso/token/v1";
-    }
-
-    /**
-     * 删除token Url
-     * @return
-     */
-    public static String getTokenDeleteUrl(){
-        return ConfigUtil.getInst().getSsoDomain()+"/sso/token/v1";
+        return ConfigUtil.getInst().getPavDomain()+"sso/token/v1";
     }
 
     /**
@@ -694,7 +467,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String registerSi(){
-        return Constants.PAVO_HOST+"res/v1/register/si";
+        return ConfigUtil.getInst().getPavDomain()+"res/v1/register/si";
     }
 
     /**
@@ -702,7 +475,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String registerUpdateSi(){
-        return Constants.FORNAX_HOST+"res/v1/register/update/si";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/register/update/si";
     }
 
     /**
@@ -710,17 +483,15 @@ public class ProtocolUtil {
      * @return
      */
     public static String loginUpdateSi(){
-        return Constants.FORNAX_HOST+"res/v1/update/si";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/update/si";
     }
-
-
 
     /**
      * 获取用户资料
      * @return
      */
     public static String querySiAll(){
-        return Constants.FORNAX_HOST+"res/v1/query/si/all";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/query/si/all";
     }
 
     /**
@@ -728,11 +499,11 @@ public class ProtocolUtil {
      * @return
      */
     public static String activeSalecode(){
-        return Constants.FORNAX_HOST+"res/v1/salecode/active/salecode";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/salecode/active/salecode";
     }
 
     public static String getUserLogUrl(){
-        return Constants.FORNAX_HOST+"res/v1/upload/userlog";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/upload/userlog";
     }
 
 }

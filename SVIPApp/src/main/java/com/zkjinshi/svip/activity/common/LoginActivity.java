@@ -435,7 +435,7 @@ public class LoginActivity extends BaseActivity {
             String url = ProtocolUtil.ssoVcodeLogin();
             NetRequest netRequest = new NetRequest(url);
             HashMap<String,Object> bizMap = new HashMap<String,Object>();
-            String phoneStr = AESUtil.encrypt(phoneNumber, com.zkjinshi.base.util.Constants.PAVO_KEY);
+            String phoneStr = AESUtil.encrypt(phoneNumber, AESUtil.PAVO_KEY);
             bizMap.put("phone",phoneStr);
             netRequest.setObjectParamMap(bizMap);
             NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);

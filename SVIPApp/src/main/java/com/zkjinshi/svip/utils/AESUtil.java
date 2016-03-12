@@ -21,6 +21,8 @@ public class AESUtil {
     //加解密算法/工作模式/填充方式,Java6.0支持PKCS5Padding填充方式,BouncyCastle支持PKCS7Padding填充方式
     public static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
 
+    public final static String PAVO_KEY = "X2VOV0+W7szslb+@kd7d44Im&JUAWO0y";
+
     /**
      * 转换密钥
      */

@@ -12,20 +12,9 @@ public class Constants {
     public static final String ZKJINSHI_BASE_TAG = "ZKJinShi_TAG";
     public static final String PHP_HOST = "php-host";
     public static final String JAVA_HOST = "java-host";
-    public static final String SSO_HOST = "sso-host";
-
-    //图片host
-    //public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";
-    public final static String IMG_HOST = "http://for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com/";
-    //PYXIS 位置服务API
-    public final static String PYXIS_HOST = "http://120.25.80.143:8082/";
-    //PAVO 认证服务API
-    public final static String PAVO_HOST = "http://120.25.80.143:8080/";
-    //PAVO 认证服务API 版本
-    public final static String PAVO_VERSION = "v1";
-    //PAVO 秘钥
-    public final static String PAVO_KEY = "X2VOV0+W7szslb+@kd7d44Im&JUAWO0y";
-    //天炉座API
-    public final static String FORNAX_HOST = "http://120.25.80.143:8083/";
+    public static final String PAV_HOST = "pav-host";//孔雀座(认证服务)
+    public static final String PYX_HOST = "pyx-host";//罗盘座(位置服务)
+    public static final String FOR_HOST = "for-host";//天炉座(资源服务)
+    public final static String IMG_HOST = "img-host";//图片
 
 }

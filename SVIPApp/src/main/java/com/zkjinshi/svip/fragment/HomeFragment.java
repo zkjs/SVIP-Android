@@ -35,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.Constants;
@@ -656,7 +657,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
                         homeMsgVo.setMajorText(message.getTitle());
                         homeMsgVo.setMinorText(message.getDesc());
-                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
+                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(ConfigUtil.getInst().getImgDomain(),message.getIconfilename()));
                         homeMsgList.add(homeMsgVo);
 
 
@@ -717,7 +718,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                                 homeMsgVo.setClickAble(true);
                                 homeMsgVo.setMajorText(message.getTitle());
                                 homeMsgVo.setMinorText(message.getDesc());
-                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
+                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(ConfigUtil.getInst().getImgDomain(),message.getIconfilename()));
                                 homeMsgVo.setOrderNo(message.getOrderNo());
                                 homeMsgList.add(homeMsgVo);
 

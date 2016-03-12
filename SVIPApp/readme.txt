@@ -27,3 +27,31 @@ Client Id:	YXA6xbDkULm9EeWiai1mje1Gcg
 Client Secret:	YXA6XwY8IJjCqRiBsc4gQtkgfRktO3c
 
 *****************************
+
+预生产环境
+
+PAVO 孔雀座: http://p.zkjinshi.com/pav , 示例:超级身份获取登录验证码
+
+http://p.zkjinshi.com/pav/sso/vcode/v1/ss?source=login
+PYXIS 罗盘座: http://p.zkjinshi.com/pyx , 示例:推送室内Beacon位置信息
+
+http://p.zkjinshi.com/pyx/lbs/v1/loc/beacon
+FORNAX 天炉座: http://p.zkjinshi.com/for , 示例:获取邀请码
+
+http://p.zkjinshi.com/for/res/v1/salecode/get/salecode
+
+
+测试环境 (test)
+
+PAVO 孔雀座: http://p.zkjinshi.com/test/pav , 示例:超级身份获取登录验证码
+
+http://p.zkjinshi.com/test/pav/sso/vcode/v1/ss?source=login
+PYXIS 罗盘座: http://p.zkjinshi.com/test/pyx , 示例:推送室内Beacon位置信息
+
+http://p.zkjinshi.com/test/test/pyx/lbs/v1/loc/beacon
+FORNAX 天炉座: http://p.zkjinshi.com/test/for , 示例:获取邀请码
+
+http://p.zkjinshi.com/test/for/res/v1/salecode/get/salecode
+
+public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";//图片测试环境
+public final static String IMG_HOST = "http://for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com/";//图片正式环境
