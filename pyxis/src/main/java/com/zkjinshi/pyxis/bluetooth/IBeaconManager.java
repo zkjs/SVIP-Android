@@ -126,7 +126,7 @@ public class IBeaconManager {
 							ibeacon.setTimestamp(currentTime);
 							ibeacon.setDistance(distance);
 							ibeacon.setDisappearTime(0);
-							//从API得到的Beacon属性
+							//从API得到的Beacon属性（注释原因：根据UUID做过滤，暂时不需要该实体）
 //							ibeacon.setLocid(netBeaconVo.getLocid());
 //							ibeacon.setShopid(netBeaconVo.getShopid());
 //							ibeacon.setSensorid(netBeaconVo.getSensorid());

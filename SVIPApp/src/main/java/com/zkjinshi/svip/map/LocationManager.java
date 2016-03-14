@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.map;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -12,6 +13,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
+import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -20,6 +22,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.PayloadVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,6 +83,16 @@ public class LocationManager{
 
     private void lbsLocGps(AMapLocation aMapLocation) {
         try {
+            if(!CacheUtil.getInstance().isLogin()){
+                return;
+            }
+            if(TextUtils.isEmpty(CacheUtil.getInstance().getExtToken())){
+                return;
+            }
+            PayloadVo payloadVo = SSOManager.getInstance().decodeToken(CacheUtil.getInstance().getExtToken());
+            if(TextUtils.isEmpty(payloadVo.getSub())){
+                return;
+            }
             String url = ProtocolUtil.lbsLocGps();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("latitude",aMapLocation.getLatitude());
