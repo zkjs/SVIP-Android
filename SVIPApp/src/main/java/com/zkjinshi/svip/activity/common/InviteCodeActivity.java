@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.nineoldandroids.view.animation.AnimatorProxy;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
@@ -65,12 +66,6 @@ public class InviteCodeActivity extends BaseActivity {
     private final static String TAG = InviteCodeActivity.class.getSimpleName();
 
     private Context       mContext;
-    private String        mUserID;
-    private String        mPhoneNum;
-    private String        mToken;
-    private String        mUserName;
-    private String        mSalerPhone;
-
     private EditText      mEtInviteCode;
     private CircleImageView mCivSalerAvatar;
     private TextView      mTvSalerName;
@@ -80,9 +75,6 @@ public class InviteCodeActivity extends BaseActivity {
     private ImageView clearInviteIv;
 
     private DisplayImageOptions mOptions;
-    private String              mSalesID;
-    private String              mSalesName;
-    private String              mShopID;
     private String              mInviteCode;
 
     @Override
@@ -105,10 +97,6 @@ public class InviteCodeActivity extends BaseActivity {
 
     private void initData() {
         mContext  = InviteCodeActivity.this;
-        mUserID   = CacheUtil.getInstance().getUserId();
-        mPhoneNum = CacheUtil.getInstance().getUserPhone();
-        mToken    = CacheUtil.getInstance().getToken();
-        mUserName = CacheUtil.getInstance().getUserName();
         mOptions = new DisplayImageOptions.Builder()
                 .showImageOnFail(R.mipmap.ic_main_user_default_photo_press)
                 .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_press)
@@ -177,7 +165,7 @@ public class InviteCodeActivity extends BaseActivity {
                         return ;
                     } else {
                         //邀请码验证成功 开始确认并绑定邀请码
-                        bindTheSalerWithCode(mInviteCode.toUpperCase(), mSalesID, mSalesName, mShopID, mSalerPhone);
+                        bindTheSalerWithCode(mInviteCode.toUpperCase());
                     }
                 } else {
                     Intent goHome = new Intent(InviteCodeActivity.this, MainActivity.class);
@@ -196,7 +184,7 @@ public class InviteCodeActivity extends BaseActivity {
     /**
      * 根据邀请码绑定客服
      */
-    private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID, String salerPhone) {
+    private void bindTheSalerWithCode(String inviteCode) {
         NetRequest netRequest = new NetRequest(ProtocolUtil.getActivateSaleCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("saleCode", inviteCode);
@@ -284,14 +272,11 @@ public class InviteCodeActivity extends BaseActivity {
                             if(0 == resultCode){
                                 SalesVo salesVo = saleByCodeResponse.getData();
                                 if(null != salesVo){
-                                    mSalesID = salesVo.getUserid();
-                                    if (!TextUtils.isEmpty(mSalesID)) {
-                                        String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
-                                        mSalesName = salesVo.getUsername();
-                                        mSalerPhone = salesVo.getPhone();
-                                        showSalerInfo(true, avatarUrl, mSalesName);
-                                        commitBtn.setText("确认");
-                                    }
+                                    String avatarUrl = salesVo.getUserimage();
+                                    String imageUrl = ConfigUtil.getInst().getImgDomain()+avatarUrl;
+                                    String mSalesName = salesVo.getUsername();
+                                    showSalerInfo(true, imageUrl, mSalesName);
+                                    commitBtn.setText("确认");
                                 }
                             }else {
                                 commitBtn.setText("跳过");
