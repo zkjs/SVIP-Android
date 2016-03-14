@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -20,6 +21,8 @@ import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ public class MineNetController {
     private Context context;
 
     public interface CallBackListener{
-        public void successCallback(BaseFornaxResponse updateSiResponse);
+        public void successCallback(JSONObject response);
     }
 
     private MineNetController(){}
@@ -77,7 +80,7 @@ public class MineNetController {
                 params.put(fieldKey,fieldValue);
             }
 
-            client.post(url, params, new AsyncHttpResponseHandler() {
+            client.post(url, params, new JsonHttpResponseHandler() {
 
                 public void onStart(){
                     super.onStart();
@@ -88,19 +91,16 @@ public class MineNetController {
                     DialogUtil.getInstance().cancelProgressDialog();
                 }
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response){
+                    super.onSuccess(statusCode,headers,response);
                     try{
-                        String response = new String(responseBody,"utf-8");
-                        BaseFornaxResponse updateSiResponse = new Gson().fromJson(response, BaseFornaxResponse.class);
-                        if(updateSiResponse == null){
-                            return;
-                        }
-                        if(updateSiResponse.getRes() == 0){//更新成功
+                        if(response.getInt("res") == 0){//更新成功
+                            JSONObject dataJson = response.getJSONObject("data");
                             if(callBackListener != null){
-                                callBackListener.successCallback(updateSiResponse);
+                                callBackListener.successCallback(dataJson);
                             }
                         }else{
-                            DialogUtil.getInstance().showCustomToast(context, updateSiResponse.getResDesc() , Toast.LENGTH_LONG);
+                            DialogUtil.getInstance().showCustomToast(context, response.getString("resDesc") , Toast.LENGTH_LONG);
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -109,7 +109,8 @@ public class MineNetController {
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                    super.onFailure(statusCode,headers,throwable,errorResponse);
                     DialogUtil.getInstance().showCustomToast(context, "修改用户资料失败!", Toast.LENGTH_LONG);
                 }
             });

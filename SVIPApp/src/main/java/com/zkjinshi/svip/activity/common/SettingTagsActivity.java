@@ -99,7 +99,7 @@ public class SettingTagsActivity extends BaseActivity {
         MineUiController.getInstance().init(this);
         MineNetController.getInstance().init(this);
         String userId = CacheUtil.getInstance().getUserId();
-        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+        String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         MainUiController.getInstance().setUserPhoto(userPhotoUrl, photoCtv);
         mNameTv.setText(CacheUtil.getInstance().getUserName());
 

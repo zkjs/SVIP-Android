@@ -708,4 +708,22 @@ public class CacheUtil {
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("shop_guide", true);
 	}
+
+	public void saveUserPhotoUrl( String userPhotoUrl) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putString("user_photo_url", userPhotoUrl).commit();
+	}
+
+	public String getUserPhotoUrl() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getString("user_photo_url", "");
+	}
 }

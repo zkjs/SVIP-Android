@@ -12,10 +12,12 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
 import com.google.gson.Gson;
 
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
@@ -34,6 +36,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.response.UserInfoResponse;
+import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -47,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * 开发者：dujiande
@@ -202,6 +206,74 @@ public class LoginController {
         activity.startActivity(mainIntent);
         activity.finish();
         activity.overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+    }
+
+    public interface CallBackListener{
+        public void successCallback(JSONObject response);
+    }
+
+    /**
+     * 获取用户资料-批量，所有用户
+     * @param mContext
+     * @param userids
+     * @param callBackListener
+     */
+    public void getUserInfo(final Context mContext,final String userids,final CallBackListener callBackListener){
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token",CacheUtil.getInstance().getExtToken());
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("userids",userids);
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.querySiAll();
+            client.get(mContext,url, stringEntity, "application/json", new JsonHttpResponseHandler(){
+                public void onStart(){
+                    super.onStart();
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                }
+
+                public void onFinish(){
+                    super.onFinish();
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
+
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response){
+                    super.onSuccess(statusCode,headers,response);
+                    try {
+                        if(response.getInt("res") == 0){
+                            JSONArray dataArr = response.getJSONArray("data");
+                            if(dataArr != null && dataArr.length() > 0){
+                                JSONObject dataJson = dataArr.getJSONObject(0);
+                                CacheUtil.getInstance().setUserPhone(dataJson.getString("phone"));
+                                CacheUtil.getInstance().setUserName(dataJson.getString("username"));
+                                String imgurl = dataJson.getString("userimage");
+                                imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                                CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
+                                CacheUtil.getInstance().setSex(dataJson.getString("sex"));
+                                CacheUtil.getInstance().setLogin(true);
+                                if(callBackListener != null){
+                                    callBackListener.successCallback(dataJson);
+                                }
+                            }
+
+                        }else{
+                            Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                    super.onFailure(statusCode,headers,throwable,errorResponse);
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

@@ -30,7 +30,8 @@
             android:id="@+id/footer_tab_rb_message"
             style="@style/main_tab_bottom"
             android:text="@string/footer_tab_txt_message"
-            android:drawableTop="@drawable/footer_rb_message" />
+            android:drawableTop="@drawable/footer_rb_message"
+            android:visibility="gone"/>
 
         <RadioButton
             android:id="@+id/footer_tab_rb_set"
@@ -59,7 +60,7 @@
             android:id="@+id/footer_tab_btn_message_num"
             style="@style/main_tab_bottom"
             android:background="@drawable/footer_rb_message"
-            android:visibility="invisible" />
+            android:visibility="gone" />
 
         <Button
             style="@style/main_tab_bottom"

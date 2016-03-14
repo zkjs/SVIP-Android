@@ -404,9 +404,8 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
     public void setBigPicZone(){
 
         //设置头像
-        if(CacheUtil.getInstance().isLogin() && !TextUtils.isEmpty(CacheUtil.getInstance().getUserId())){
-            String userId = CacheUtil.getInstance().getUserId();
-            String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
+        if(CacheUtil.getInstance().isLogin()){
+            String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
             avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
             logoIv.setVisibility(View.GONE);
 

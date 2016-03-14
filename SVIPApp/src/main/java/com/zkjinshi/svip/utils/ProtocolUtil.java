@@ -483,7 +483,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String loginUpdateSi(){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/update/si";
+        return ConfigUtil.getInst().getForDomain()+"res/v1/update/user";
     }
 
     /**

@@ -91,6 +91,22 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         initListener();
     }
 
+    public void onResume(){
+        super.onResume();
+        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+            mRealName.setTextContent2(CacheUtil.getInstance().getUserName());
+        }else{
+            mRealName.setTextContent2("立即补全信息");
+            mRealName.setTextContent2Color(R.color.orange);
+        }
+        if(CacheUtil.getInstance().getSex().equals("1")){
+            mUserSex.setTextContent2("男");
+        }
+        else{
+            mUserSex.setTextContent2("女");
+        }
+    }
+
     private void initView() {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         titleTv = (TextView)findViewById(R.id.header_bar_tv_title);
@@ -123,75 +139,38 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         MineNetController.getInstance().init(this);
         backIBtn.setVisibility(View.VISIBLE);
         titleTv.setText("账户信息");
-
-        getUserInfo();
-    }
-
-    public void getUserInfo(){
-        String url = ProtocolUtil.querySiAll();
-        JSONObject jsonObject = new JSONObject();
-        SvipHttpClient.get(this,url, jsonObject, new JsonHttpResponseHandler(){
-
-            public void onStart(){
-                super.onStart();
-                DialogUtil.getInstance().showAvatarProgressDialog(SettingActivity.this,"");
-            }
-            public void onFinish(){
-                super.onFinish();
-                DialogUtil.getInstance().cancelProgressDialog();
-            }
+        LoginController.getInstance().getUserInfo(this, CacheUtil.getInstance().getUserId(), new LoginController.CallBackListener() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    int res = response.getInt("res");
-                    if(res == 0){
-                        JSONObject data = response.getJSONObject("data");
-
-
-                        String emailStr = data.getString("email");
-                        String userId = CacheUtil.getInstance().getUserId();
-                        String userPhotoUrl = ProtocolUtil.getAvatarUrl(userId);
-                        if(!TextUtils.isEmpty(userPhotoUrl)){
-                            mUserIcon.setImageURI(Uri.parse(userPhotoUrl));
-                        }
-                        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
-                            mRealName.setTextContent2(data.getString("username"));
-                        }else{
-                            mRealName.setTextContent2("立即补全信息");
-                            mRealName.setTextContent2Color(R.color.orange);
-                        }
-                        if(data.getString("sex").equals("1")){
-                            mUserSex.setTextContent2("男");
-                        }
-                        else{
-                            mUserSex.setTextContent2("女");
-                        }
-                        if(!TextUtils.isEmpty(emailStr)){
-                            mEmail.setTextContent2(emailStr);
-                        }
-
-                    }else{
-                        Toast.makeText(SettingActivity.this,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
+            public void successCallback(JSONObject response) {
+                try{
+                    JSONObject data = response;
+                    String emailStr = data.getString("email");
+                    String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
+                    if(!TextUtils.isEmpty(userPhotoUrl)){
+                        mUserIcon.setImageURI(Uri.parse(userPhotoUrl));
                     }
-
-                } catch (JSONException e) {
+                    if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
+                        mRealName.setTextContent2(data.getString("username"));
+                    }else{
+                        mRealName.setTextContent2("立即补全信息");
+                        mRealName.setTextContent2Color(R.color.orange);
+                    }
+                    if(data.getString("sex").equals("1")){
+                        mUserSex.setTextContent2("男");
+                    }
+                    else{
+                        mUserSex.setTextContent2("女");
+                    }
+                    if(!TextUtils.isEmpty(emailStr)){
+                        mEmail.setTextContent2(emailStr);
+                    }
+                }catch (Exception e){
                     e.printStackTrace();
                 }
 
             }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-                if(null != errorResponse){
-                    Log.d(TAG,errorResponse.toString());
-                }
-                Toast.makeText(SettingActivity.this,"获取用户资料失败",Toast.LENGTH_SHORT).show();
-            }
-
         });
     }
-
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -218,14 +197,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         final String picPath =  CacheUtil.getInstance().getPicPath();
         MineNetController.getInstance().submitInfo(this,"image", picPath, new MineNetController.CallBackListener() {
             @Override
-            public void successCallback(BaseFornaxResponse updateSiResponse) {
-                String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
-                ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
-                ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
-                ImagePipeline imagePipeline = Fresco.getImagePipeline();
-                Uri uri = Uri.parse(userPhotoUrl);
-                imagePipeline.evictFromMemoryCache(uri);
-                imagePipeline.evictFromDiskCache(uri);
+            public void successCallback(JSONObject dataJson) {
+                try{
+                    String imgurl = dataJson.getString("userimage");
+                    imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                    CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -236,7 +216,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void successCallback(BaseFornaxResponse updateSiResponse) {
+            public void successCallback(JSONObject dataJson) {
                 if(fieldKey.equals("sex")){
                     CacheUtil.getInstance().setSex(fieldValue);
                     if(fieldValue.equals("0")){

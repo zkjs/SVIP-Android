@@ -41,6 +41,8 @@ import com.zkjinshi.svip.utils.SmsUtil;
 import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -415,7 +417,7 @@ public class SettingPhoneActivity extends BaseActivity {
     public void submitInfo(final String fieldKey,final String fieldValue){
         MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void successCallback(BaseFornaxResponse updateSiResponse) {
+            public void successCallback(JSONObject dataJson) {
                 String inputPhone = mInputPhone.getText().toString();
                 CacheUtil.getInstance().setUserPhone(inputPhone);
                 DialogUtil.getInstance().showToast(SettingPhoneActivity.this,"修改手机号码成功。");

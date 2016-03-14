@@ -602,7 +602,6 @@ public class LoginActivity extends BaseActivity {
                                 String userid = payloadVo.getSub();
                                 CacheUtil.getInstance().setExtToken(basePavoResponse.getToken());
                                 CacheUtil.getInstance().setUserId(userid);
-                                CacheUtil.getInstance().setLogin(true);
                                 DBOpenHelper.DB_NAME = userid +".db";
                                 Intent intent = new Intent(LoginActivity.this, CompleteInfoActivity.class);
                                 startActivity(intent);

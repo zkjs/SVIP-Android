@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_white"
     android:orientation="vertical">
 
@@ -23,15 +24,18 @@
                 android:background="@drawable/bg_layout_item_selector"
                 android:clickable="true">
 
-                <com.zkjinshi.svip.view.CircleImageView
+                <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/set_uv_user_photo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
-                    android:background="@mipmap/ic_main_user_default_photo_nor"
-                    android:scaleType="center" />
+                    fresco:roundAsCircle="true"
+                    fresco:roundedCornerRadius="0dp"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_main_user_default_photo_nor"
+                    fresco:placeholderImageScaleType="centerCrop"/>
 
                 <TextView
                     android:id="@+id/set_uv_user_name"
@@ -65,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_layout_item_selector"
-                android:clickable="true">
+                android:clickable="true"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -47,6 +47,8 @@ import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -271,7 +273,6 @@ public class CompleteInfoActivity extends BaseActivity {
             String token = CacheUtil.getInstance().getExtToken();
             client.addHeader("Token", token);
             RequestParams params = new RequestParams();
-            params.put("userid",CacheUtil.getInstance().getUserId());
             params.put("sex",sex);
             params.put("realname",username);
             params.put("image",new File(image));
@@ -294,23 +295,16 @@ public class CompleteInfoActivity extends BaseActivity {
                             return;
                         }
                         if(updateSiResponse.getRes() == 0){//更新成功
-                            String userPhotoUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
-                            ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
-                            ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
-
-                            ImagePipeline imagePipeline = Fresco.getImagePipeline();
-                            Uri uri = Uri.parse(userPhotoUrl);
-                            imagePipeline.evictFromMemoryCache(uri);
-                            imagePipeline.evictFromDiskCache(uri);
-
+//                            ImageLoader.getInstance().getDiskCache().remove(userPhotoUrl);
+//                            ImageLoader.getInstance().getMemoryCache().remove(userPhotoUrl);
+//                            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+//                            Uri uri = Uri.parse(userPhotoUrl);
+//                            imagePipeline.evictFromMemoryCache(uri);
+//                            imagePipeline.evictFromDiskCache(uri);
                             CacheUtil.getInstance().setExtToken(updateSiResponse.getToken());
-                            CacheUtil.getInstance().setUserName(mEtNickName.getText().toString().trim());
-                            CacheUtil.getInstance().setSex(sexValue+"");
                             CacheUtil.getInstance().savePicPath("");
-                            //进入邀请码页面，并输入邀请码
-                            Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
-                            CompleteInfoActivity.this.startActivity(goInviteCode);
-                            finish();
+                            getUserInfo();
+
                         }else if(updateSiResponse.getRes() == 30004){//更新失败-数据库更新出错
                             DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "数据库更新出错!", Toast.LENGTH_LONG);
                         }else if(updateSiResponse.getRes() == 30003){//更新失败-上传头像失败
@@ -330,6 +324,18 @@ public class CompleteInfoActivity extends BaseActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void getUserInfo(){
+        LoginController.getInstance().getUserInfo(this, CacheUtil.getInstance().getUserId(), new LoginController.CallBackListener() {
+            @Override
+            public void successCallback(JSONObject response) {
+                //进入邀请码页面，并输入邀请码
+                Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
+                CompleteInfoActivity.this.startActivity(goInviteCode);
+                finish();
+            }
+        });
     }
 
 }

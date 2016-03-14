@@ -49,6 +49,8 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.HomeMsgVo;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -181,7 +183,7 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
 
         MineNetController.getInstance().submitInfo(this,fieldKey, fieldValue, new MineNetController.CallBackListener() {
             @Override
-            public void successCallback(BaseFornaxResponse updateSiResponse) {
+            public void successCallback(JSONObject dataJson) {
                 Intent data = new Intent();
                 data.putExtra("new_value", fieldValue);
                 setResult(RESULT_OK, data);
