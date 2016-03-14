@@ -494,16 +494,25 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/query/si/all";
     }
 
+
+    public static String getUserLogUrl(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/upload/userlog";
+    }
+
+    /**
+     * 根据邀请码获取销售信息
+     * @return
+     */
+    public static String getSaleByCodeUrl(String salecode){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/salecode/saleuser?salecode="+salecode;
+    }
+
     /**
      * 激活邀请码
      * @return
      */
-    public static String activeSalecode(){
+    public static String getActivateSaleCodeUrl(){
         return ConfigUtil.getInst().getForDomain()+"res/v1/salecode/active/salecode";
-    }
-
-    public static String getUserLogUrl(){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/upload/userlog";
     }
 
 }

@@ -41,10 +41,12 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BaseFornaxResponse;
+import com.zkjinshi.svip.response.SaleByCodeResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemTitleView;
+import com.zkjinshi.svip.vo.SalesVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -195,7 +197,7 @@ public class InviteCodeActivity extends BaseActivity {
      * 根据邀请码绑定客服
      */
     private void bindTheSalerWithCode(String inviteCode, String salerID, String salerName, String shopID, String salerPhone) {
-        NetRequest netRequest = new NetRequest(ProtocolUtil.activeSalecode());
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getActivateSaleCodeUrl());
         HashMap<String, String> bizMap = new HashMap<>();
         bizMap.put("saleCode", inviteCode);
         netRequest.setBizParamMap(bizMap);
@@ -223,32 +225,6 @@ public class InviteCodeActivity extends BaseActivity {
                     BaseFornaxResponse baseFornaxResponse = new Gson().fromJson(result.rawResult,BaseFornaxResponse.class);
                     if(baseFornaxResponse.getRes() == 0) {
                         CacheUtil.getInstance().setActivate(true);
-                        //本地缓存绑定邀请码
-                        if(!TextUtils.isEmpty(mSalesID)) {
-                            EMConversationHelper.getInstance().sendInviteCmdMessage(
-                                    mUserID,
-                                    mUserName,
-                                    mPhoneNum,
-                                    System.currentTimeMillis(),
-                                    mSalesID,
-                                    new EMCallBack() {
-                                        @Override
-                                        public void onSuccess() {
-                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送成功");
-                                        }
-
-                                        @Override
-                                        public void onError(int i, String s) {
-                                            LogUtil.getInstance().info(LogLevel.INFO, TAG + "信息发送失败");
-                                        }
-
-                                        @Override
-                                        public void onProgress(int i, String s) {
-
-                                        }
-                                    }
-                            );
-                        }
                         Intent mainIntent = new Intent(InviteCodeActivity.this, MainActivity.class);
                         InviteCodeActivity.this.startActivity(mainIntent);
                         InviteCodeActivity.this.finish();
@@ -273,20 +249,14 @@ public class InviteCodeActivity extends BaseActivity {
     }
 
     /**
+     * 根据邀请码获取销售员信息
      * @param inviteCodeStr
      */
-    private void findSalerByInviteCode(final String inviteCodeStr) {
+    private void findSalerByInviteCode(final String inviteCodeStr) {//EPPK5T
 
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getEmpByInviteCodeUrl());
-        HashMap<String, String> bizMap = new HashMap<>();
-
-        bizMap.put("userid", mUserID);
-        bizMap.put("token", mToken);
-        bizMap.put("code", inviteCodeStr);
-
-        netRequest.setBizParamMap(bizMap);
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getSaleByCodeUrl(inviteCodeStr));
         NetRequestTask netRequestTask = new NetRequestTask(mContext, netRequest, NetResponse.class);
-        netRequestTask.methodType     = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.GET;
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(mContext) {
             @Override
             public void onNetworkRequestError(int errorCode, String errorMessage) {
@@ -305,44 +275,41 @@ public class InviteCodeActivity extends BaseActivity {
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                String jsonResult = result.rawResult;
                 try {
-                    JSONObject responseObj = new JSONObject(jsonResult);
-                    Boolean isSuccess = responseObj.getBoolean("set");
-                    if (isSuccess) {
-                        mSalesID = responseObj.getString("salesid");
-                        mShopID  = String.valueOf(responseObj.getInt("shopid"));
-                        if (!TextUtils.isEmpty(mSalesID)) {
-                            String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
-                            mSalesName = responseObj.getString("sales_name");
-                            mSalerPhone = responseObj.getString("sales_phone");
-
-                            showSalerInfo(true, avatarUrl, mSalesName);
-                            commitBtn.setText("确认");
-                        }
-                    } else {
-                        commitBtn.setText("跳过");
-                        if(responseObj.getInt("err") == 400) {
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                                  "token失效, 请重新登录！", Gravity.CENTER);
-                        }
-                        if(responseObj.getInt("err") == 404){
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                         "邀请码不存在, 请确认后重新输入！", Gravity.CENTER);
-                        } else {
-                            DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,
-                                                   "查询失败，请稍后再试！", Gravity.CENTER);
+                    Log.i(TAG, "result.rawResult:" + result.rawResult);
+                    if(null != result && !TextUtils.isEmpty(result.rawResult)){
+                        SaleByCodeResponse saleByCodeResponse = new Gson().fromJson(result.rawResult,SaleByCodeResponse.class);
+                        if(null != saleByCodeResponse){
+                            int resultCode = saleByCodeResponse.getRes();
+                            if(0 == resultCode){
+                                SalesVo salesVo = saleByCodeResponse.getData();
+                                if(null != salesVo){
+                                    mSalesID = salesVo.getUserid();
+                                    if (!TextUtils.isEmpty(mSalesID)) {
+                                        String avatarUrl = ProtocolUtil.getAvatarUrl(mSalesID);
+                                        mSalesName = salesVo.getUsername();
+                                        mSalerPhone = salesVo.getPhone();
+                                        showSalerInfo(true, avatarUrl, mSalesName);
+                                        commitBtn.setText("确认");
+                                    }
+                                }
+                            }else {
+                                commitBtn.setText("跳过");
+                                String resultMsg = saleByCodeResponse.getResDesc();
+                                if(!TextUtils.isEmpty(resultMsg)){
+                                    DialogUtil.getInstance().showCustomToast(InviteCodeActivity.this,resultMsg,Gravity.CENTER);
+                                }
+                            }
                         }
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void beforeNetworkRequestStart() {
-                //网络请求前
+
             }
         });
         netRequestTask.isShowLoadingDialog = true;

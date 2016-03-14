@@ -67,7 +67,7 @@ public class RequestUtil {
         httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
         String token = CacheUtil.getInstance().getExtToken();
         if(!TextUtils.isEmpty(token)){
-            httpclient.getParams().setParameter("Token",token);
+            httpRequest.addHeader("Token",token);
         }
         HttpResponse httpResponse = httpclient.execute(httpRequest);
         if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)

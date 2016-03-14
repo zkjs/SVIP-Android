@@ -37,7 +37,7 @@
                 android:textColor="@color/White"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="来自至尊宝的邀请"/>
+                android:text="@null"/>
 
             <TextView
                 android:layout_marginTop="10dp"
