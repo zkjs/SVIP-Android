@@ -297,20 +297,13 @@ public class LoginActivity extends BaseActivity {
                     DialogUtil.getInstance().showCustomToast(v.getContext(), "请输入正确格式的手机号码", Gravity.CENTER);
                     return;
                 }
-                //是否开启短信验证
-                if(Constants.SMS_CHECK_ENABLE){
-                    if (verifyCode.length() == 6) {
-                        mSmsVerifySuccess = true;//verify success
-                        mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
-                        getToken(inputPhone,verifyCode);
-                    }else{
-                        DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
-                    }
-                }else{
+                if (verifyCode.length() == 6) {
+                    mSmsVerifySuccess = true;//verify success
+                    mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
                     getToken(inputPhone,verifyCode);
+                }else{
+                    DialogUtil.getInstance().showCustomToast(v.getContext(),"验证码输入有误", Gravity.CENTER);
                 }
-
-
             }
         });
 
