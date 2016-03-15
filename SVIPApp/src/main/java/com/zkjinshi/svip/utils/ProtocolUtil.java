@@ -298,7 +298,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String getShopCommentListUrl(String shopID, int page, int pageSize){
-        return ConfigUtil.getInst().getJavaDomain()+"shop/evaluation/get/"+shopID+"/"+page+"/"+pageSize;
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/comments/"+shopID+"?page="+page+"&page_size"+pageSize;
     }
 
     /**
