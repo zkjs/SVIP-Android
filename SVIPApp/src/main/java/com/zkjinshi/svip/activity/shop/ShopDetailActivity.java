@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
@@ -31,6 +32,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
@@ -509,144 +511,69 @@ public class ShopDetailActivity extends BaseActivity {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
-                ShopDetailResponse shopDetailResponse = new Gson().fromJson(result.rawResult,ShopDetailResponse.class);
-                if(null != shopDetailResponse){
-                    ArrayList<ShopVo>  shopList = shopDetailResponse.getData();
-                    if(null != shopList && !shopList.isEmpty()){
-                        shopVo = shopList.get(0);
-                        if(null != shopVo){
-                            final String shopName = shopVo.getShopname();
-                            shopStatus = shopVo.getShopstatus();
-                            if(shopStatus == 0){
-                                commitBtn.setText("即将入驻");
-                                commitBtn.setEnabled(false);
-                            }else {
-                                commitBtn.setText("立即预定");
-                                commitBtn.setEnabled(true);
-                            }
-
-                            if(!TextUtils.isEmpty(shopName)){
-                                titleTv.setText(shopName);
-                            }
-
-                            String address = shopVo.getShopaddress();
-                            if(!TextUtils.isEmpty(address)){
-                                addressTv.setText(address);
-                            }
-
-                            int evaluate = shopVo.getEvaluation();
-                            evaluateTv.setText("客人评价("+evaluate+")");
-
-                            String telephone = shopVo.getTelephone();
-                            if(!TextUtils.isEmpty(telephone)){
-                                phoneTv.setText(telephone);
-                            }
-                            ratingNum = shopVo.getScore();
-                            evaluateRb.setRating(ratingNum);
-                            imageList = shopVo.getImages();
-
-                            final int industrycode = shopVo.getIndustrycode();
-
-                            //长点击发送语音订房
-//                    commitBtn.setOnLongClickListener(new View.OnLongClickListener() {
-//                        @Override
-//                        public boolean onLongClick(View v) {
-//                            //设置按钮长点击语音听写
-//                            //1.创建RecognizerDialog对象
-//                            RecognizerDialog mDialog = new RecognizerDialog(
-//                                    ShopDetailActivity.this,
-//                                    new InitListener() {
-//                                        @Override
-//                                        public void onInit(int i) {
-//                                            //接受语音成功
-//                                            LogUtil.getInstance().info(LogLevel.INFO, TAG+"开始语音听写");
-//                                        }
-//                                    });
-//
-//                            // 2.设置accent、language等参数
-//                            mDialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-//                            mDialog.setParameter(SpeechConstant.ACCENT, "mandarin");
-//
-//                            // 若要将UI控件用于语义理解，必须添加以下参数设置，设置之后onResult回调返回将是语义理解
-//                            mDialog.setParameter("asr_sch", "1");
-//                            mDialog.setParameter("nlp_version", "2.0");
-//
-//                            // 3.设置回调接口
-//                            mDialog.setListener(new RecognizerDialogListener() {
-//                                @Override
-//                                public void onResult(RecognizerResult recognizerResult, boolean b) {
-//                                    //接收语音成功
-//                                    String result = recognizerResult.getResultString();
-//                                    LogUtil.getInstance().info(LogLevel.INFO, TAG + "语音识别成功" + result);
-//                                    Gson gson = new Gson();
-//                                    MscBookBean mscBookBean = gson.fromJson(result, MscBookBean.class);
-//                                    if(null != mscBookBean){
-//                                        int rc = mscBookBean.getRc();
-//                                        SemanticBean semanticBean = mscBookBean.getSemantic();
-//                                        if(null != semanticBean){
-//                                            SlotsBean slotsBean = semanticBean.getSlots();
-//                                            if(null != slotsBean){
-//                                                if(rc != 0){
-//                                                    //返回失败
-//                                                    //开启语音合成提示
-//                                                    goBook(shopId, shopName, industrycode, null);
-//                                                } else {
-//                                                    if(null != slotsBean) {
-//                                                        //时间
-//                                                        String date     = slotsBean.date;
-//                                                        //房型
-//                                                        String roomType = slotsBean.roomType;
-//                                                        Bundle bundle = new Bundle();
-//                                                        bundle.putString("date", date);
-//                                                        bundle.putString("roomType", roomType);
-//                                                        goBook(shopId, shopName, industrycode, bundle);
-//                                                    }
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onError(SpeechError speechError) {
-//                                    //语音识别失败
-//                                    LogUtil.getInstance().info(LogLevel.INFO, TAG+"语音识别失败" +
-//                                                                speechError.getErrorDescription());
-//                                }
-//                            });
-//                            // 4.显示dialog，接收语音输入
-//                            mDialog.show();
-//                            return false;
-//                        }
-//                    });
-
-                            //立即预订
-                            commitBtn.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    goBook(shopId, shopName, industrycode, null);
+                try {
+                    ShopDetailResponse shopDetailResponse = new Gson().fromJson(result.rawResult,ShopDetailResponse.class);
+                    if(null != shopDetailResponse){
+                        ArrayList<ShopVo>  shopList = shopDetailResponse.getData();
+                        if(null != shopList && !shopList.isEmpty()){
+                            shopVo = shopList.get(0);
+                            if(null != shopVo){
+                                final String shopName = shopVo.getShopname();
+                                shopStatus = shopVo.getShopstatus();
+                                if(shopStatus == 0){
+                                    commitBtn.setText("即将入驻");
+                                    commitBtn.setEnabled(false);
+                                }else {
+                                    commitBtn.setText("立即预定");
+                                    commitBtn.setEnabled(true);
                                 }
-                            });
-
-                            if(null != imageList && !imageList.isEmpty()){
-                                slideShowViewController = new SlideShowViewController();
-                                slideShowViewController.init(ShopDetailActivity.this, imageList);
+                                if(!TextUtils.isEmpty(shopName)){
+                                    titleTv.setText(shopName);
+                                }
+                                String address = shopVo.getShopaddress();
+                                if(!TextUtils.isEmpty(address)){
+                                    addressTv.setText(address);
+                                }
+                                int evaluate = shopVo.getEvaluation();
+                                evaluateTv.setText("客人评价("+evaluate+")");
+                                String telephone = shopVo.getTelephone();
+                                if(!TextUtils.isEmpty(telephone)){
+                                    phoneTv.setText(telephone);
+                                }
+                                ratingNum = shopVo.getScore();
+                                evaluateRb.setRating(ratingNum);
+                                imageList = shopVo.getImages();
+                                final int industrycode = shopVo.getIndustrycode();
+                                //立即预订
+                                commitBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        goBook(shopId, shopName, industrycode, null);
+                                    }
+                                });
+                                if(null != imageList && !imageList.isEmpty()){
+                                    slideShowViewController = new SlideShowViewController();
+                                    slideShowViewController.init(ShopDetailActivity.this, imageList);
+                                }
+                                promptStr = getResources().getString(R.string.sweet_prompt);
+                                sureStr   = getResources().getString(R.string.sure_option);
+                                cancelStr = getResources().getString(R.string.cancel_option);
+                                String webUrl = shopVo.getShopdesc();
+                                if(!TextUtils.isEmpty(webUrl)){
+                                    webContent = webUrl;
+                                    webViewLayout.setVisibility(View.VISIBLE);
+                                }else {
+                                    webViewLayout.setVisibility(View.GONE);
+                                }
+                                initWebView();
+                                scrollView.fullScroll(ScrollView.FOCUS_UP);
                             }
-
-                            promptStr = getResources().getString(R.string.sweet_prompt);
-                            sureStr   = getResources().getString(R.string.sure_option);
-                            cancelStr = getResources().getString(R.string.cancel_option);
-                            String webUrl = shopVo.getShopdesc();
-                            if(!TextUtils.isEmpty(webUrl)){
-                                webContent = webUrl;
-                                webViewLayout.setVisibility(View.VISIBLE);
-                            }else {
-                                webViewLayout.setVisibility(View.GONE);
-                            }
-                            initWebView();
-                            scrollView.fullScroll(ScrollView.FOCUS_UP);
                         }
                     }
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                } catch (Resources.NotFoundException e) {
+                    e.printStackTrace();
                 }
             }
 
