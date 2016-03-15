@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.umeng.analytics.MobclickAgent;
 import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
+import com.zkjinshi.svip.emchat.EasemobIMManager;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 
@@ -37,6 +40,15 @@ public class BootCompleteReceiver extends BroadcastReceiver {
                     Log.i(Constants.ZKJINSHI_BASE_TAG, "开机自动启动定位服务.....");
                     LocationManager.getInstance().startLocation();
                 }
+                //订阅云巴别名
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "开机自动云巴订阅别名.....");
+                YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
+                //登陆环信
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "开机自动登陆环信.....");
+                EasemobIMManager.getInstance().loginHxUser();
+                //增加友盟统计
+                Log.i(Constants.ZKJINSHI_BASE_TAG, "开机自动注入友盟统计.....");
+                MobclickAgent.onProfileSignIn(CacheUtil.getInstance().getUserId());
             }
         }
     }

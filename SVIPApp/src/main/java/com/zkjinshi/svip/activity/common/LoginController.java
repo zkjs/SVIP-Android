@@ -25,6 +25,7 @@ import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.emchat.EMConversationHelper;
 import com.zkjinshi.svip.emchat.EasemobIMHelper;
+import com.zkjinshi.svip.emchat.EasemobIMManager;
 import com.zkjinshi.svip.emchat.observer.EMessageListener;
 import com.zkjinshi.svip.factory.UserInfoFactory;
 
@@ -105,9 +106,11 @@ public class LoginController {
                             CacheUtil.getInstance().setUserApplevel(data.getString("viplevel"));
                             CacheUtil.getInstance().setSex(data.getString("sex"));
                             CacheUtil.getInstance().setActivate(data.getInt("userstatus")==0? false : true);
+                            //订阅云巴区域
                             YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
-
-                            loginHxUser();
+                            //登陆环信
+                            EasemobIMManager.getInstance().loginHxUser();
+                            //增加友盟统计
                             MobclickAgent.onProfileSignIn(data.getString("userid"));
 
                             //判读是否新注册用户
@@ -167,36 +170,6 @@ public class LoginController {
 
             }
 
-        });
-    }
-
-    /**
-     * 登录环信IM
-     */
-    public void loginHxUser(){
-        EasemobIMHelper.getInstance().loginUser(CacheUtil.getInstance().getUserId(), "123456", new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                Log.i(TAG, "环信登录成功");
-                EMGroupManager.getInstance().loadAllGroups();
-                EMChatManager.getInstance().loadAllConversations();
-                EMessageListener.getInstance().registerEventListener();
-                EMConversationHelper.getInstance().requestGroupListTask();
-                EMChatManager.getInstance().updateCurrentUserNick(CacheUtil.getInstance().getUserName());
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                Log.i(TAG, "环信登录失败-errorCode:" + i);
-                Log.i(TAG, "环信登录失败-errorMessage:" + s);
-                LogUtil.getInstance().info(LogLevel.ERROR,"环信登录失败-errorCode:" + i);
-                LogUtil.getInstance().info(LogLevel.ERROR,"环信登录失败-errorMessage:" + s);
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-
-            }
         });
     }
 
