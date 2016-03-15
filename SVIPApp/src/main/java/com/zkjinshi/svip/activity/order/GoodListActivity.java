@@ -169,7 +169,7 @@ public class GoodListActivity extends BaseActivity {
         String   shopName = shopBean.getShopname();
         String   shopAdd  = shopBean.getShopaddress();
         final String   salesID  = shopBean.getSalesid();
-        String   imgUrl   = shopBean.getBgImgUrl();
+        String   imgUrl   = shopBean.getBgimgurl();
 
         if(!TextUtils.isEmpty(shopName)){
             viewHolder.tvShopName.setText(shopName);
@@ -179,8 +179,8 @@ public class GoodListActivity extends BaseActivity {
             viewHolder.tvShopBusiness.setText(shopBean.getShoptitle());
         }
 
-        if(!TextUtils.isEmpty(shopBean.getRecommtitle())){
-            viewHolder.tvShopDes.setText(shopBean.getRecommtitle());
+        if(!TextUtils.isEmpty(shopBean.getRecomm())){
+            viewHolder.tvShopDes.setText(shopBean.getRecomm());
         }
 
         if(!TextUtils.isEmpty(shopAdd)){

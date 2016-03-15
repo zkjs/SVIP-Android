@@ -494,6 +494,16 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/query/si/all";
     }
 
+    /**
+     * 获取所有商家列表
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public static String getShopList(int page,int pageSize){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop?page="+page+"&page_size="+pageSize;
+    }
+
 
     public static String getUserLogUrl(){
         return ConfigUtil.getInst().getForDomain()+"res/v1/upload/userlog";

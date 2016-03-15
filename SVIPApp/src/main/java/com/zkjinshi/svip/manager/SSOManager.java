@@ -1,6 +1,8 @@
 package com.zkjinshi.svip.manager;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -10,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -94,11 +97,22 @@ public class SSOManager {
                                     String token = basePavoResponse.getToken();
                                     if(!TextUtils.isEmpty(token)){
                                         CacheUtil.getInstance().setExtToken(token);
+                                        if(null != ssoCallBack){
+                                            ssoCallBack.onNetworkResponseSucceed();
+                                        }
                                     }
                                 }else{
                                     String errorMsg = basePavoResponse.getResDesc();
                                     if(!TextUtils.isEmpty(errorMsg)){
                                         DialogUtil.getInstance().showCustomToast(context,errorMsg, Gravity.CENTER);
+                                    }
+                                    if(6 == restult){//token失效
+                                        Intent intent = new Intent(context, LoginActivity.class);
+                                        context.startActivity(intent);
+                                        if(context instanceof Activity){
+                                            Activity activity = (Activity)context;
+                                            activity.finish();
+                                        }
                                     }
                                 }
                             }
@@ -106,9 +120,7 @@ public class SSOManager {
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                     }
-                    if(null != ssoCallBack){
-                        ssoCallBack.onNetworkResponseSucceed();
-                    }
+
                 }
 
                 @Override

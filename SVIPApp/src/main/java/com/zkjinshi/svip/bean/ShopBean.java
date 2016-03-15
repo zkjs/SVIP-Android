@@ -10,55 +10,15 @@ import java.io.Serializable;
  */
 public class ShopBean extends BaseShopBean implements Serializable {
 
-    private String salesid;
-    private String shopbusiness;
-    private String shoptitle;
-    private String recommtitle;
-    private String shopaddress;
     private String shoplogo;
     private String shopname;
-    private String bgImgUrl;
-
-    public String getShoptitle() {
-        return shoptitle;
-    }
-
-    public void setShoptitle(String shoptitle) {
-        this.shoptitle = shoptitle;
-    }
-
-    public String getRecommtitle() {
-        return recommtitle;
-    }
-
-    public void setRecommtitle(String recommtitle) {
-        this.recommtitle = recommtitle;
-    }
-
-    public String getSalesid() {
-        return salesid;
-    }
-
-    public void setSalesid(String salesid) {
-        this.salesid = salesid;
-    }
-
-    public String getShopbusiness() {
-        return shopbusiness;
-    }
-
-    public void setShopbusiness(String shopbusiness) {
-        this.shopbusiness = shopbusiness;
-    }
-
-
-    public String getShopaddress() {
-        return shopaddress;
-    }
-
-    public void setShopaddress(String shopaddress) {
-        this.shopaddress = shopaddress;
-    }
+    private String shoptitle;
+    private String shopindustry;
+    private String shopaddress;
+    private String bgimgurl;
+    private String recomm;
+    private String salesid;
+    private String link;
 
     public String getShoplogo() {
         return shoplogo;
@@ -76,11 +36,59 @@ public class ShopBean extends BaseShopBean implements Serializable {
         this.shopname = shopname;
     }
 
-    public String getBgImgUrl() {
-        return bgImgUrl;
+    public String getShoptitle() {
+        return shoptitle;
     }
 
-    public void setBgImgUrl(String bgImgUrl) {
-        this.bgImgUrl = bgImgUrl;
+    public void setShoptitle(String shoptitle) {
+        this.shoptitle = shoptitle;
+    }
+
+    public String getShopindustry() {
+        return shopindustry;
+    }
+
+    public void setShopindustry(String shopindustry) {
+        this.shopindustry = shopindustry;
+    }
+
+    public String getShopaddress() {
+        return shopaddress;
+    }
+
+    public void setShopaddress(String shopaddress) {
+        this.shopaddress = shopaddress;
+    }
+
+    public String getBgimgurl() {
+        return bgimgurl;
+    }
+
+    public void setBgimgurl(String bgimgurl) {
+        this.bgimgurl = bgimgurl;
+    }
+
+    public String getRecomm() {
+        return recomm;
+    }
+
+    public void setRecomm(String recomm) {
+        this.recomm = recomm;
+    }
+
+    public String getSalesid() {
+        return salesid;
+    }
+
+    public void setSalesid(String salesid) {
+        this.salesid = salesid;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

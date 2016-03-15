@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,10 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.WebViewActivity;
@@ -27,13 +33,22 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.GetShopListResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * 商店列表Fragment
@@ -68,12 +83,10 @@ public class ShopFragment extends BaseFragment {
     protected void initData() {
 
         super.initData();
-
         mShopList    = new ArrayList<>();
         mShopAdapter = new ShopAdapter(mShopList, mActivity);
         mLvShopList.setAdapter(mShopAdapter);
-        //mLvShopList.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
-        mPage = 1;
+        mPage = 0;
         getShopList( mPage, mPageSize);
     }
 
@@ -102,7 +115,7 @@ public class ShopFragment extends BaseFragment {
         mLvShopList.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefreshing() {
-                mPage = 1;
+                mPage = 0;
                 getShopList( mPage, mPageSize);
             }
 
@@ -174,74 +187,71 @@ public class ShopFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImageLoader.getInstance().clearMemoryCache();
     }
 
     public void getShopList(int page, int pageSize) {
-        String url = null;
-        if(CacheUtil.getInstance().isLogin()){
-            url = ProtocolUtil.getShopListUserUrl(CacheUtil.getInstance().getUserId(), page, pageSize);
-        }else {
-            url = ProtocolUtil.getShopListUnLoginUrl(page,pageSize);
-        }
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(mActivity, netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(mActivity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-
-                mLvShopList.refreshFinish();
+        final Context mContext = getActivity();
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            if(CacheUtil.getInstance().isLogin()){
+                client.addHeader("Token",CacheUtil.getInstance().getExtToken());
             }
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.getShopList(page,pageSize);
+            client.get(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+//                    if(mPage == 0){
+//                        DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+//                    }
 
-            @Override
-            public void onNetworkRequestCancelled() {
+                }
 
-            }
+                public void onFinish(){
+//                    if(mPage == 0){
+//                        DialogUtil.getInstance().cancelProgressDialog();
+//                    }
+                    mLvShopList.refreshFinish();
+                }
 
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                Gson gson = new Gson();
-                Type type = new TypeToken<List<ShopBean>>(){}.getType();
-
-
-                List<ShopBean> shopList = gson.fromJson(result.rawResult, type);
-
-                if(null != shopList){
-                    if(mPage == 1){
-                        mShopList.clear();
-                        mShopList.addAll(shopList);
-                        mShopAdapter.setShopList(mShopList);
-                    }else if(!shopList.isEmpty()){
-                        mShopList.addAll(shopList);
-                        mShopAdapter.setShopList(mShopList);
-                    }
-                    if(!shopList.isEmpty()){
-                        mPage++;
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetShopListResponse getShopListResponse = new Gson().fromJson(response,GetShopListResponse.class);
+                        if (getShopListResponse == null){
+                            return;
+                        }
+                        if(getShopListResponse.getRes() == 0){
+                            List<ShopBean> shopList = getShopListResponse.getData();
+                            if(mPage == 0){
+                                mShopList.clear();
+                                mShopList.addAll(shopList);
+                                mShopAdapter.setShopList(mShopList);
+                            }else if(!shopList.isEmpty()){
+                                mShopList.addAll(shopList);
+                                mShopAdapter.setShopList(mShopList);
+                            }
+                            if(!shopList.isEmpty()){
+                                mPage++;
+                            }
+                        }else{
+                            Toast.makeText(mContext,getShopListResponse.getResDesc(),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                mLvShopList.refreshFinish();
-            }
 
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        if (mPage == 1) {
-            netRequestTask.isShowLoadingDialog = true;
-        } else {
-            netRequestTask.isShowLoadingDialog = false;
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
-        netRequestTask.execute();
-    }
 
-    public void onStop(){
-        super.onStop();
     }
-
 }

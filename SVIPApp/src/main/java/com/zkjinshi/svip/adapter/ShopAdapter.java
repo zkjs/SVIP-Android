@@ -72,10 +72,8 @@ public class ShopAdapter extends BaseAdapter {
 
         ShopBean shopBean = shopList.get(position);
         String   shopName = shopBean.getShopname();
-        String   shopBusi = shopBean.getShopbusiness();
         String   shopAdd  = shopBean.getShopaddress();
-        final String   salesID  = shopBean.getSalesid();
-        String   imgUrl   = shopBean.getBgImgUrl();
+        String   imgUrl   = shopBean.getBgimgurl();
 
         if (ITEM_ADVERTISE == getItemViewType(position)) {
             viewHolder.vWhiteLine.setVisibility(View.VISIBLE);
@@ -104,8 +102,8 @@ public class ShopAdapter extends BaseAdapter {
                 viewHolder.tvShopBusiness.setText(shopBean.getShoptitle());
             }
 
-            if(!TextUtils.isEmpty(shopBean.getRecommtitle())){
-                viewHolder.tvShopDes.setText(shopBean.getRecommtitle());
+            if(!TextUtils.isEmpty(shopBean.getRecomm())){
+                viewHolder.tvShopDes.setText(shopBean.getRecomm());
             }
 
             if(!TextUtils.isEmpty(shopAdd)){
