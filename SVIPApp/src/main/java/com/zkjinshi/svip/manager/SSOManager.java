@@ -54,7 +54,6 @@ public class SSOManager {
         if(null != tokenArr && tokenArr.length > 0){
             String payloadEncode = tokenArr[1];
             String payloadDecode = Base64Decoder.decode(payloadEncode);
-            Log.i(Constants.ZKJINSHI_BASE_TAG,"payloadDecode:"+payloadDecode);
             payloadVo = new Gson().fromJson(payloadDecode,PayloadVo.class);
         }
         return payloadVo;
