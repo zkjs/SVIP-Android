@@ -103,14 +103,13 @@ public class LocationManager{
             SvipHttpClient.put(context,url, jsonObject, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    Log.d(TAG,response.toString());
+                   // Log.d(TAG,response.toString());
                     LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送成功");
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-
-                    Log.d(TAG,errorResponse.toString());
+                    //Log.d(TAG,errorResponse.toString());
                     LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送失败");
                 }
 

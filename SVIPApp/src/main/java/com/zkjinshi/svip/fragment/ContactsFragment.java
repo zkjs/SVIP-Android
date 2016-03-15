@@ -151,11 +151,10 @@ public class ContactsFragment extends BaseFragment{
             }
         });
 
-        //载入联系人
-        //loadContacts();
+
 
         //网络获取环信好友
-        loadHttpContacts();
+        //loadHttpContacts();
 
         discoverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +182,7 @@ public class ContactsFragment extends BaseFragment{
     @Override
     public void onResume() {
         super.onResume();
-        loadHttpContacts();
+        //loadHttpContacts();
     }
 
     /**

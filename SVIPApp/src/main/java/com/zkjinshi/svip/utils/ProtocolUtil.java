@@ -504,6 +504,10 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/shop?page="+page+"&page_size="+pageSize;
     }
 
+    public static String getShopListByCity(String city,int page,int pageSize){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/"+city+"?page="+page+"&page_size="+pageSize;
+    }
+
 
     public static String getUserLogUrl(){
         return ConfigUtil.getInst().getForDomain()+"res/v1/upload/userlog";

@@ -203,16 +203,9 @@ public class ShopFragment extends BaseFragment {
             String url = ProtocolUtil.getShopList(page,pageSize);
             client.get(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 public void onStart(){
-//                    if(mPage == 0){
-//                        DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
-//                    }
-
                 }
 
                 public void onFinish(){
-//                    if(mPage == 0){
-//                        DialogUtil.getInstance().cancelProgressDialog();
-//                    }
                     mLvShopList.refreshFinish();
                 }
 

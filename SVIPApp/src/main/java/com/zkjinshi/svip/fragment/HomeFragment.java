@@ -191,6 +191,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
         welcomeMsg.setClickAble(false);
         welcomeMsg.setMajorText("欢迎使用超级身份");
         welcomeMsg.setMinorText("超级身份精选了很多优质服务，您可以直接向商家等服务员沟通.");
+        homeMsgList.clear();
         homeMsgList.add(welcomeMsg);
         homeMsgAdapter.setDatalist(homeMsgList);
         homeMsgAdapter.notifyDataSetChanged();
