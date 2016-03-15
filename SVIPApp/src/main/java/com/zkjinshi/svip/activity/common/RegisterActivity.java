@@ -33,6 +33,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.emchat.EasemobIMManager;
 import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -505,7 +506,7 @@ public class RegisterActivity extends BaseActivity {
                         CacheUtil.getInstance().setUserPhone(phone);
                         CacheUtil.getInstance().setActivate(false);
                         YunBaSubscribeManager.getInstance().setAlias(RegisterActivity.this,CacheUtil.getInstance().getUserId());
-                        LoginController.getInstance().loginHxUser();
+                        EasemobIMManager.getInstance().loginHxUser();
                         MobclickAgent.onProfileSignIn(userid);
                         Intent intent = new Intent(RegisterActivity.this, CompleteInfoActivity.class);
                         startActivity(intent);

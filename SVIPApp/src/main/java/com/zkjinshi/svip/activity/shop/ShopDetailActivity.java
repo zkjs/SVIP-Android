@@ -59,6 +59,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.ShopDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ObservableScrollView;
@@ -524,43 +525,45 @@ public class ShopDetailActivity extends BaseActivity {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
-                shopVo = new Gson().fromJson(result.rawResult,ShopVo.class);
-                if(null != shopVo){
-                    final String shopName = shopVo.getShopName();
-                    shopStatus = shopVo.getShopStatus();
-                    if(shopStatus == 0){
-                        commitBtn.setText("即将入驻");
-                        commitBtn.setEnabled(false);
-                    }else {
-                        commitBtn.setText("立即预定");
-                        commitBtn.setEnabled(true);
-                    }
+                ShopDetailResponse shopDetailResponse = new Gson().fromJson(result.rawResult,ShopDetailResponse.class);
+                if(null != shopDetailResponse){
+                    ArrayList<ShopVo>  shopList = shopDetailResponse.getData();
+                    if(null != shopList && !shopList.isEmpty()){
+                        shopVo = shopList.get(0);
+                        if(null != shopVo){
+                            final String shopName = shopVo.getShopname();
+                            shopStatus = shopVo.getShopstatus();
+                            if(shopStatus == 0){
+                                commitBtn.setText("即将入驻");
+                                commitBtn.setEnabled(false);
+                            }else {
+                                commitBtn.setText("立即预定");
+                                commitBtn.setEnabled(true);
+                            }
 
-                    if(!TextUtils.isEmpty(shopName)){
-                        titleTv.setText(shopName);
-                    }
+                            if(!TextUtils.isEmpty(shopName)){
+                                titleTv.setText(shopName);
+                            }
 
-                    String address = shopVo.getAddress();
-                    if(!TextUtils.isEmpty(address)){
-                        addressTv.setText(address);
-                    }
+                            String address = shopVo.getShopaddress();
+                            if(!TextUtils.isEmpty(address)){
+                                addressTv.setText(address);
+                            }
 
-                    String evaluate = shopVo.getEvaluation();
-                    if(!TextUtils.isEmpty(evaluate)){
-                        evaluateTv.setText(evaluate);
-                    }
+                            int evaluate = shopVo.getEvaluation();
+                            evaluateTv.setText("客人评价("+evaluate+")");
 
-                    String telephone = shopVo.getTelephone();
-                    if(!TextUtils.isEmpty(telephone)){
-                        phoneTv.setText(telephone);
-                    }
-                    ratingNum = shopVo.getScore();
-                    evaluateRb.setRating(ratingNum);
-                    imageList = shopVo.getImages();
+                            String telephone = shopVo.getTelephone();
+                            if(!TextUtils.isEmpty(telephone)){
+                                phoneTv.setText(telephone);
+                            }
+                            ratingNum = shopVo.getScore();
+                            evaluateRb.setRating(ratingNum);
+                            imageList = shopVo.getImages();
 
-                    final String category = shopVo.getCategory();
+                            final int industrycode = shopVo.getIndustrycode();
 
-                    //长点击发送语音订房
+                            //长点击发送语音订房
 //                    commitBtn.setOnLongClickListener(new View.OnLongClickListener() {
 //                        @Override
 //                        public boolean onLongClick(View v) {
@@ -602,7 +605,7 @@ public class ShopDetailActivity extends BaseActivity {
 //                                                if(rc != 0){
 //                                                    //返回失败
 //                                                    //开启语音合成提示
-//                                                    goBook(shopId, shopName, category, null);
+//                                                    goBook(shopId, shopName, industrycode, null);
 //                                                } else {
 //                                                    if(null != slotsBean) {
 //                                                        //时间
@@ -612,7 +615,7 @@ public class ShopDetailActivity extends BaseActivity {
 //                                                        Bundle bundle = new Bundle();
 //                                                        bundle.putString("date", date);
 //                                                        bundle.putString("roomType", roomType);
-//                                                        goBook(shopId, shopName, category, bundle);
+//                                                        goBook(shopId, shopName, industrycode, bundle);
 //                                                    }
 //                                                }
 //                                            }
@@ -633,31 +636,33 @@ public class ShopDetailActivity extends BaseActivity {
 //                        }
 //                    });
 
-                    //立即预订
-                    commitBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            goBook(shopId, shopName, category, null);
+                            //立即预订
+                            commitBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    goBook(shopId, shopName, industrycode, null);
+                                }
+                            });
+
+                            if(null != imageList && !imageList.isEmpty()){
+                                slideShowViewController = new SlideShowViewController();
+                                slideShowViewController.init(ShopDetailActivity.this, imageList);
+                            }
+
+                            promptStr = getResources().getString(R.string.sweet_prompt);
+                            sureStr   = getResources().getString(R.string.sure_option);
+                            cancelStr = getResources().getString(R.string.cancel_option);
+                            String webUrl = shopVo.getShopdesc();
+                            if(!TextUtils.isEmpty(webUrl)){
+                                webContent = webUrl;
+                                webViewLayout.setVisibility(View.VISIBLE);
+                            }else {
+                                webViewLayout.setVisibility(View.GONE);
+                            }
+                            initWebView();
+                            scrollView.fullScroll(ScrollView.FOCUS_UP);
                         }
-                    });
-
-                    if(null != imageList && !imageList.isEmpty()){
-                        slideShowViewController = new SlideShowViewController();
-                        slideShowViewController.init(ShopDetailActivity.this, imageList);
                     }
-
-                    promptStr = getResources().getString(R.string.sweet_prompt);
-                    sureStr   = getResources().getString(R.string.sure_option);
-                    cancelStr = getResources().getString(R.string.cancel_option);
-                    String webUrl = shopVo.getShopdescUrl();
-                    if(!TextUtils.isEmpty(webUrl)){
-                        webContent = webUrl;
-                        webViewLayout.setVisibility(View.VISIBLE);
-                    }else {
-                        webViewLayout.setVisibility(View.GONE);
-                    }
-                    initWebView();
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
                 }
             }
 
@@ -673,7 +678,7 @@ public class ShopDetailActivity extends BaseActivity {
     /**
      * 发起预订服务
      */
-    private void goBook(String shopID, String shopName, String category, Bundle bundle) {
+    private void goBook(String shopID, String shopName, int industrycode, Bundle bundle) {
         if(!CacheUtil.getInstance().isLogin()){
             Intent intent = new Intent(ShopDetailActivity.this, LoginActivity.class);
             intent.putExtra("isHomeBack",true);
@@ -683,32 +688,30 @@ public class ShopDetailActivity extends BaseActivity {
             if(null != imageList && !imageList.isEmpty()){
                 intent.putExtra("shopImg",imageList.get(0));
             }
-            intent.putExtra("category", category);
+            intent.putExtra("category", industrycode);
             startActivity(intent);
             return;
         } else {
-            if(!TextUtils.isEmpty(category)){
-                /**
-                 行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
-                 */
-                Intent intent = new Intent();
-                if("50".equals(category)){
-                    intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
-                }else if("60".equals(category)){
-                    intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
-                }else {
-                    intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
-                }
-                intent.putExtra("shopid",shopId);
-                intent.putExtra("shopName",shopName);
-                if(null != imageList && !imageList.isEmpty()){
-                    intent.putExtra("shopImg",imageList.get(0));
-                }
-                if(null != bundle){
-                    intent.putExtra("bundle", bundle);
-                }
-                startActivity(intent);
+            /**
+             行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+             */
+            Intent intent = new Intent();
+            if(50 == industrycode){
+                intent.setClass(ShopDetailActivity.this, HotelBookingActivity.class);
+            }else if(60 == industrycode){
+                intent.setClass(ShopDetailActivity.this, KTVBookingActivity.class);
+            }else {
+                intent.setClass(ShopDetailActivity.this, NormalBookingActivity.class);
             }
+            intent.putExtra("shopid",shopId);
+            intent.putExtra("shopName",shopName);
+            if(null != imageList && !imageList.isEmpty()){
+                intent.putExtra("shopImg",imageList.get(0));
+            }
+            if(null != bundle){
+                intent.putExtra("bundle", bundle);
+            }
+            startActivity(intent);
         }
     }
 

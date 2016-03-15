@@ -12,47 +12,85 @@ import java.util.List;
  */
 public class ShopVo {
 
-    private String shopId;
-    private String shopName;
-    private String address;
+    /**
+     "shopid": "2009",   //商户编码
+     "shopname": "豪庭",   //商户名称
+     "shopaddress": "湘江中路二段138号",    //商户地址
+     "shopindustry": "酒店行业", //所属行业
+     "shopdesc": "<p class=\"nice\">酒店描述</p>",   //详情描述
+     "shopstatus": 0,    //商户状态
+     "telephone": "0731-85996399",   //商户电话
+     "evaluation": 232,  //评价累计次数
+     "score": 3.4,    //评价平均分
+     "images": ["uploads/1.jpg", "uploads/2.jpg"]    //商家图片
+     */
+
+    private String shopid;
+    private String shopname;
+    private String shopaddress;
+    private String shopindustry;
+    private int industrycode;
+    private String shopdesc;
+    private int shopstatus;//1代表上线，0代表不上线
     private String telephone;
-    private String evaluation;
+    private int evaluation;
     private int score;
-    private String shopdescUrl;
-    private String category;
     private ArrayList<String> images;
-    private int shopStatus;//1代表上线，0代表不上线
 
-    public int getShopStatus() {
-        return shopStatus;
+    public int getIndustrycode() {
+        return industrycode;
     }
 
-    public void setShopStatus(int shopStatus) {
-        this.shopStatus = shopStatus;
+    public void setIndustrycode(int industrycode) {
+        this.industrycode = industrycode;
     }
 
-    public String getShopId() {
-        return shopId;
+    public String getShopid() {
+        return shopid;
     }
 
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
     }
 
-    public String getShopName() {
-        return shopName;
+    public String getShopname() {
+        return shopname;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
     }
 
-    public String getAddress() {
-        return address;
+    public String getShopaddress() {
+        return shopaddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setShopaddress(String shopaddress) {
+        this.shopaddress = shopaddress;
+    }
+
+    public String getShopindustry() {
+        return shopindustry;
+    }
+
+    public void setShopindustry(String shopindustry) {
+        this.shopindustry = shopindustry;
+    }
+
+    public String getShopdesc() {
+        return shopdesc;
+    }
+
+    public void setShopdesc(String shopdesc) {
+        this.shopdesc = shopdesc;
+    }
+
+    public int getShopstatus() {
+        return shopstatus;
+    }
+
+    public void setShopstatus(int shopstatus) {
+        this.shopstatus = shopstatus;
     }
 
     public String getTelephone() {
@@ -63,11 +101,11 @@ public class ShopVo {
         this.telephone = telephone;
     }
 
-    public String getEvaluation() {
+    public int getEvaluation() {
         return evaluation;
     }
 
-    public void setEvaluation(String evaluation) {
+    public void setEvaluation(int evaluation) {
         this.evaluation = evaluation;
     }
 
@@ -79,27 +117,11 @@ public class ShopVo {
         this.score = score;
     }
 
-    public String getShopdescUrl() {
-        return shopdescUrl;
-    }
-
-    public void setShopdescUrl(String shopdescUrl) {
-        this.shopdescUrl = shopdescUrl;
-    }
-
     public ArrayList<String> getImages() {
         return images;
     }
 
     public void setImages(ArrayList<String> images) {
         this.images = images;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

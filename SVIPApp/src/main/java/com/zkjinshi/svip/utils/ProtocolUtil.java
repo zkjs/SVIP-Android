@@ -370,7 +370,7 @@ public class ProtocolUtil {
      * 商家详情
      */
     public static String getShopDetailUrl(String shopId){
-        return ConfigUtil.getInst().getJavaDomain()+"shop/get/"+shopId;
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/detail/"+shopId;
     }
 
     /**
