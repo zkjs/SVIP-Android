@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.common;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -10,30 +11,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.CommentAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.factory.GoodInfoFactory;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.GoodInfoResponse;
+import com.zkjinshi.svip.response.CommentsResponse;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.CommentVo;
 
-import org.w3c.dom.Comment;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 开发者：WinkyQin
+ * 修改着：JimmyZhang
  * 日期：2015/12/29
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
@@ -58,7 +55,6 @@ public class CommentListActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_list);
-
         initView();
         initData();
         initListener();
@@ -80,11 +76,11 @@ public class CommentListActivity extends BaseActivity {
 
         mCommentList    = new ArrayList<>();
         mCommentAdapter = new CommentAdapter(CommentListActivity.this,mCommentList);
-
+        mRlvCommentList.setAdapter(mCommentAdapter);
         //获取商家评论列表
         if (!TextUtils.isEmpty(mShopID)) {
-            mPage = 1;
-            getShopCommentList(mShopID, mPage, mPageSize);
+            mPage = 0;
+            getShopCommentList(mShopID, mPage, mPageSize,true);
         }
     }
 
@@ -101,12 +97,13 @@ public class CommentListActivity extends BaseActivity {
         mRlvCommentList.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefreshing() {
-                getShopCommentList(mShopID, mPage, mPageSize);
+                mPage = 0;
+                getShopCommentList(mShopID, mPage, mPageSize,true);
             }
 
             @Override
             public void onLoadingMore() {
-                getShopCommentList(mShopID, mPage, mPageSize);
+                getShopCommentList(mShopID, mPage, mPageSize,false);
             }
 
             @Override
@@ -123,10 +120,8 @@ public class CommentListActivity extends BaseActivity {
      * @param page
      * @param pageSize
      */
-    private void getShopCommentList(String shopID, int page, int pageSize) {
-
+    private void getShopCommentList(String shopID, int page, int pageSize,final boolean isRefresh) {
         String url = ProtocolUtil.getShopCommentListUrl(shopID, page, pageSize);
-        Log.i(TAG, url);
         NetRequest netRequest = new NetRequest(url);
         NetRequestTask netRequestTask = new NetRequestTask(this, netRequest, NetResponse.class);
         netRequestTask.methodType = MethodType.GET;
@@ -135,7 +130,6 @@ public class CommentListActivity extends BaseActivity {
             public void onNetworkRequestError(int errorCode, String errorMessage) {
                 Log.i(TAG, "errorCode:" + errorCode);
                 Log.i(TAG, "errorMessage:" + errorMessage);
-
                 mRlvCommentList.refreshFinish();
             }
 
@@ -148,29 +142,35 @@ public class CommentListActivity extends BaseActivity {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 Log.i(TAG, "result.rawResult:" + result.rawResult);
-
                 try {
-                    Type listType = new TypeToken<ArrayList<CommentVo>>() {}.getType();
-                    Gson gson     = new Gson();
-
-                    //TODO 评论列表显示
-                    ArrayList<CommentVo> commentList = gson.fromJson(result.rawResult, listType);
-                    if (null != commentList && !commentList.isEmpty()) {
-                        mCommentList.addAll(commentList);
-                        //设置数据显示
-                        if(mPage == 1){
-                            mRlvCommentList.setAdapter(mCommentAdapter);
-                        } else {
-                            mCommentAdapter.setCommentList(mCommentList);
+                    CommentsResponse commentsResponse = new Gson().fromJson(result.rawResult,CommentsResponse.class);
+                    if(null != commentsResponse){
+                        int resultCode = commentsResponse.getRes();
+                        if(0 == resultCode){
+                            ArrayList<CommentVo> commentList = commentsResponse.getData();
+                            if (null != commentList && !commentList.isEmpty()) {
+                                if(isRefresh){
+                                    mCommentList = commentList;
+                                }else {
+                                    mCommentList.addAll(commentList);
+                                }
+                                mCommentAdapter.setCommentList(mCommentList);
+                                mPage++;
+                            }
+                        }else {
+                            String resultMsg = commentsResponse.getResDesc();
+                            if(!TextUtils.isEmpty(resultMsg)){
+                                DialogUtil.getInstance().showCustomToast(CommentListActivity.this,resultMsg, Gravity.CENTER);
+                            }
                         }
-                        mPage++;
                     }
-
-                    mRlvCommentList.refreshFinish();
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
+                } finally {
+                    if(null != mRlvCommentList){
+                        mRlvCommentList.refreshFinish();
+                    }
                 }
-
             }
 
             @Override

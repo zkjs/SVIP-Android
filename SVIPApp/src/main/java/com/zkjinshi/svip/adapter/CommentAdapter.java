@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.CircleImageView;
@@ -71,8 +70,8 @@ public class CommentAdapter extends BaseAdapter{
 
         CommentVo commentVo = commentList.get(position);
         String userID   = commentVo.getUserid();
-        long   created  = commentVo.getCreateDate();
-        String userName = commentVo.getUserName();
+        String   created  = commentVo.getCreatetime();
+        String userName = commentVo.getUsername();
         String content  = commentVo.getContent();
 
         if(!TextUtils.isEmpty(userID)){
@@ -80,9 +79,8 @@ public class CommentAdapter extends BaseAdapter{
             ImageLoader.getInstance().displayImage(avatarUrl, holder.civUserAvatar, mOptions);
         }
 
-        String createdDate = TimeUtil.getChatTime(created);
-        if (!TextUtils.isEmpty(createdDate)) {
-            holder.tvCreateDate.setText(createdDate);
+        if (!TextUtils.isEmpty(created)) {
+            holder.tvCreateDate.setText(created);
         }
 
         if (!TextUtils.isEmpty(userName)) {

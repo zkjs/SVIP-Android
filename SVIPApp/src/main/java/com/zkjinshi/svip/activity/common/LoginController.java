@@ -7,44 +7,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.easemob.EMCallBack;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMGroupManager;
-import com.google.gson.Gson;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.umeng.analytics.MobclickAgent;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
 import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
-import com.zkjinshi.svip.emchat.EMConversationHelper;
-import com.zkjinshi.svip.emchat.EasemobIMHelper;
 import com.zkjinshi.svip.emchat.EasemobIMManager;
-import com.zkjinshi.svip.emchat.observer.EMessageListener;
-import com.zkjinshi.svip.factory.UserInfoFactory;
-
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.net.SvipHttpClient;
-import com.zkjinshi.svip.response.UserInfoResponse;
-import com.zkjinshi.svip.sqlite.DBOpenHelper;
-import com.zkjinshi.svip.sqlite.UserDetailDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
-import com.zkjinshi.svip.vo.UserDetailVo;
-import com.zkjinshi.svip.vo.UserInfoVo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,20 +102,18 @@ public class LoginController {
                             } else {
                                 if(isHomeBack){
                                     Intent intent = activity.getIntent();
-                                    String category = intent.getStringExtra("category");
+                                    int category = intent.getIntExtra("category",50);
                                     /**
                                      行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
                                      */
-                                    if(!StringUtil.isEmpty(category)){
-                                        if("50".equals(category)){
-                                            intent.setClass(activity, HotelBookingActivity.class);
-                                        }else if("60".equals(category)){
-                                            intent.setClass(activity, KTVBookingActivity.class);
-                                        }else {
-                                            intent.setClass(activity, NormalBookingActivity.class);
-                                        }
-                                        activity.startActivity(intent);
+                                    if(50 == category){
+                                        intent.setClass(activity, HotelBookingActivity.class);
+                                    }else if(60 == category){
+                                        intent.setClass(activity, KTVBookingActivity.class);
+                                    }else {
+                                        intent.setClass(activity, NormalBookingActivity.class);
                                     }
+                                    activity.startActivity(intent);
                                     activity.finish();
                                 }else {
                                     goHome();

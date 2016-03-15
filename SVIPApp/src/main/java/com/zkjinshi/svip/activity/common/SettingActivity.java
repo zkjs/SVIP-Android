@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,52 +17,18 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.core.ImagePipeline;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.umeng.analytics.MobclickAgent;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.mine.MineNetController;
 import com.zkjinshi.svip.activity.mine.MineUiController;
-import com.zkjinshi.svip.activity.order.HotelBookingActivity;
-import com.zkjinshi.svip.activity.order.KTVBookingActivity;
-import com.zkjinshi.svip.activity.order.NormalBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.factory.UserInfoFactory;
-import com.zkjinshi.svip.manager.YunBaSubscribeManager;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.net.SvipHttpClient;
-import com.zkjinshi.svip.response.BaseFornaxResponse;
-import com.zkjinshi.svip.response.BaseResponse;
-import com.zkjinshi.svip.response.UserInfoResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.StringUtil;
-import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.ItemUserSettingView;
-import com.zkjinshi.svip.vo.Sex;
-import com.zkjinshi.svip.vo.UserInfoVo;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.util.HashMap;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by djd on 2015/8/17.
