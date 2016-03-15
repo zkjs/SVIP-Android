@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JsPromptResult;
@@ -30,18 +29,8 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.zkjinshi.base.log.LogLevel;
-import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.CommentListActivity;
@@ -49,11 +38,7 @@ import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.activity.order.HotelBookingActivity;
 import com.zkjinshi.svip.activity.order.KTVBookingActivity;
 import com.zkjinshi.svip.activity.order.NormalBookingActivity;
-import com.zkjinshi.svip.activity.order.OrderBookingActivity;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.MscBookBean;
-import com.zkjinshi.svip.bean.SemanticBean;
-import com.zkjinshi.svip.bean.SlotsBean;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -67,7 +52,6 @@ import com.zkjinshi.svip.view.ScrollViewListener;
 import com.zkjinshi.svip.vo.ShopVo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 商家详情页面
