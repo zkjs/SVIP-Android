@@ -34,7 +34,7 @@ public class ShopVo {
     private int shopstatus;//1代表上线，0代表不上线
     private String telephone;
     private int evaluation;
-    private int score;
+    private float score;
     private ArrayList<String> images;
 
     public int getIndustrycode() {
@@ -109,11 +109,11 @@ public class ShopVo {
         this.evaluation = evaluation;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

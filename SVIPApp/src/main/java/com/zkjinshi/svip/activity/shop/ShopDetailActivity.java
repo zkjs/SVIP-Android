@@ -84,7 +84,7 @@ public class ShopDetailActivity extends BaseActivity {
     private RelativeLayout webViewLayout;
     private RatingBar evaluateRb;
     private RelativeLayout evaluateLayout;
-    private int ratingNum;
+    private float ratingNum;
     private String shopId;
     private ShopVo shopVo;
     private int shopStatus;
