@@ -83,6 +83,9 @@ public class LoginController {
                             CacheUtil.getInstance().setUserApplevel(data.getString("viplevel"));
                             CacheUtil.getInstance().setSex(data.getString("sex"));
                             CacheUtil.getInstance().setActivate(data.getInt("userstatus")==0? false : true);
+                            String imgurl = data.getString("userimage");
+                            imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                            CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
                             //订阅云巴区域
                             YunBaSubscribeManager.getInstance().setAlias(context,CacheUtil.getInstance().getUserId());
                             //登陆环信
