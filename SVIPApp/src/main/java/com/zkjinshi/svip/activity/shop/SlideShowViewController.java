@@ -12,17 +12,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
@@ -36,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SlideShowViewController {
 
-    private boolean isAutoPlay = true;
+    private boolean isAutoPlay = false;
     private ArrayList<String> imageUrls;
     private List<SimpleDraweeView> imageViewsList;
     private List<View> dotViewsList;
@@ -57,7 +52,6 @@ public class SlideShowViewController {
 
     public void init(Context context,ArrayList<String> imageUrls){
         this.context = context;
-        initImageLoader(context);
         initData(context,imageUrls);
         if(isAutoPlay){
             startPlay();
@@ -115,10 +109,17 @@ public class SlideShowViewController {
             params.rightMargin = DisplayUtil.dip2px(context,2);
             dotLayout.addView(dotView, params);
             dotViewsList.add(dotView);
+            for(int j=0;j < dotViewsList.size();j++){
+                if(i == 0){
+                    dotViewsList.get(0).setBackgroundResource(R.mipmap.ic_dian_yellow_pre);
+                }else {
+                    dotViewsList.get(i).setBackgroundResource(R.mipmap.ic_dian_white_nor);
+                }
+            }
         }
         viewPager = (ViewPager)((Activity)context).findViewById(R.id.viewPager);
-        viewPager.setFocusable(true);
         viewPager.setAdapter(new MyPagerAdapter());
+        viewPager.setFocusable(true);
         viewPager.addOnPageChangeListener(new MyPageChangeListener());
     }
 
@@ -208,9 +209,9 @@ public class SlideShowViewController {
             currentItem = pos;
             for(int i=0;i < dotViewsList.size();i++){
                 if(i == pos){
-                    ((View)dotViewsList.get(pos)).setBackgroundResource(R.mipmap.ic_dian_yellow_pre);
+                    dotViewsList.get(pos).setBackgroundResource(R.mipmap.ic_dian_yellow_pre);
                 }else {
-                    ((View)dotViewsList.get(i)).setBackgroundResource(R.mipmap.ic_dian_white_nor);
+                    dotViewsList.get(i).setBackgroundResource(R.mipmap.ic_dian_white_nor);
                 }
             }
         }
@@ -226,17 +227,6 @@ public class SlideShowViewController {
                 handler.obtainMessage().sendToTarget();
             }
         }
-    }
-
-    /**
-     * ImageLoader 图片组件初始化
-     *
-     * @param context
-     */
-    public static void initImageLoader(Context context) {
-//        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO).writeDebugLogs() // Remove
-//                .build();
-//        ImageLoader.getInstance().init(config);
     }
 
     /**

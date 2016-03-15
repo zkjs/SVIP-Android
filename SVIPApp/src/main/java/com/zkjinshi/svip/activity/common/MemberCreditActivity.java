@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -46,14 +47,14 @@ public class MemberCreditActivity extends BaseActivity {
     }
 
     private void initData() {
-        String userID = CacheUtil.getInstance().getUserId();
+        String photoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         imageOptions = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.mipmap.ic_round_launcher)
             .cacheInMemory(true)
             .cacheOnDisk(true)
             .build();
 
-        ImageLoader.getInstance().displayImage(ProtocolUtil.getAvatarUrl(userID), mCivAvatar, imageOptions);
+        ImageLoader.getInstance().displayImage(photoUrl, mCivAvatar, imageOptions);
 
     }
 
