@@ -105,18 +105,20 @@ public class LoginController {
                             } else {
                                 if(isHomeBack){
                                     Intent intent = activity.getIntent();
-                                    int category = intent.getIntExtra("category",50);
-                                    /**
-                                     行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
-                                     */
-                                    if(50 == category){
-                                        intent.setClass(activity, HotelBookingActivity.class);
-                                    }else if(60 == category){
-                                        intent.setClass(activity, KTVBookingActivity.class);
-                                    }else {
-                                        intent.setClass(activity, NormalBookingActivity.class);
+                                    int category = intent.getIntExtra("category",0);
+                                    if(category > 0){
+                                        /**
+                                         行业： 酒店行业  50   KTV休闲  60  其他行业  70，在商家列表及详情中，yo那个后面的数字判断行业
+                                         */
+                                        if(50 == category){
+                                            intent.setClass(activity, HotelBookingActivity.class);
+                                        }else if(60 == category){
+                                            intent.setClass(activity, KTVBookingActivity.class);
+                                        }else {
+                                            intent.setClass(activity, NormalBookingActivity.class);
+                                        }
+                                        activity.startActivity(intent);
                                     }
-                                    activity.startActivity(intent);
                                     activity.finish();
                                 }else {
                                     goHome();
