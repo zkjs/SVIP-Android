@@ -44,7 +44,7 @@ public class LocationManager{
 
     public static final String TAG = LocationManager.class.getSimpleName();
 
-    private static final long LOCATION_PERIOD_TIME = 1000 * 60 * 2;  //单位毫秒
+    private static final long LOCATION_PERIOD_TIME = 1000 * 30;  //单位毫秒
 
     private LocationManager (){}
     private static LocationManager instance;
