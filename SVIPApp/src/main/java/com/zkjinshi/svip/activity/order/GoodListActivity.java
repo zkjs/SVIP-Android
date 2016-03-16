@@ -97,6 +97,10 @@ public class GoodListActivity extends BaseActivity {
         goodInfoList = new ArrayList<GoodInfoVo>();
         goodAdapter = new GoodAdapter(GoodListActivity.this,goodInfoList);
         roomListView.setAdapter(goodAdapter);
+        if(goodInfoVo != null){
+            goodAdapter.setSelectId(goodInfoVo.getId());
+            goodAdapter.setSelectName(goodInfoVo.getName());
+        }
 
         DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
         getShopGoods();
