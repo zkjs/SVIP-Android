@@ -28,7 +28,6 @@ import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.SoftInputUtil;
-import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.single.actions.FaceViewPagerManager;
 import com.zkjinshi.svip.activity.im.single.actions.MessageListViewManager;
@@ -37,9 +36,6 @@ import com.zkjinshi.svip.activity.im.single.actions.NetCheckManager;
 import com.zkjinshi.svip.activity.im.single.actions.QuickMenuManager;
 import com.zkjinshi.svip.activity.im.single.actions.VoiceRecordManager;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.bean.BookOrder;
-import com.zkjinshi.svip.response.OrderDetailResponse;
-import com.zkjinshi.svip.response.OrderRoomResponse;
 import com.zkjinshi.svip.response.OrderUsersResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -49,13 +45,10 @@ import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
-import static android.view.View.*;
 
 /**
  * 单聊Activity
@@ -194,14 +187,14 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
     }
 
     private void initListener() {
-        titleIv.getmLeft().setOnClickListener(new OnClickListener() {
+        titleIv.getmLeft().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_OK);
                 ChatActivity.this.finish();
             }
         });
-        titleIv.getmRight().setOnClickListener(new OnClickListener() {
+        titleIv.getmRight().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_OK);
@@ -211,7 +204,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
         faceCb.setOnCheckedChangeListener(this);
         moreCb.setOnCheckedChangeListener(this);
         //输入文本控件touch监听
-        mMsgTextInput.setOnTouchListener(new OnTouchListener() {
+        mMsgTextInput.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 hideFaceLayout();
@@ -221,7 +214,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
             }
         });
         //语音键盘切换监听
-        toggleAudioBtn.setOnClickListener(new OnClickListener() {
+        toggleAudioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isVoiceShow) {
@@ -276,16 +269,16 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
                     mBtnMsgSend.setEnabled(true);
-                    mBtnMsgSend.setVisibility(VISIBLE);
-                    moreCb.setVisibility(GONE);
+                    mBtnMsgSend.setVisibility(View.VISIBLE);
+                    moreCb.setVisibility(View.GONE);
                 } else {
                     mBtnMsgSend.setEnabled(false);
-                    mBtnMsgSend.setVisibility(GONE);
-                    moreCb.setVisibility(VISIBLE);
+                    mBtnMsgSend.setVisibility(View.GONE);
+                    moreCb.setVisibility(View.VISIBLE);
                 }
             }
         });
-        mBtnMsgSend.setOnClickListener(new OnClickListener() {
+        mBtnMsgSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String msg = mMsgTextInput.getText().toString();
@@ -298,7 +291,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
             }
         });
         // 触摸ListView隐藏表情和输入法
-        messageListViewManager.getMessageListView().setOnTouchListener(new OnTouchListener() {
+        messageListViewManager.getMessageListView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -308,7 +301,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
             }
         });
         //录音事件交给父控件处理
-        startAudioBtn.setOnTouchListener(new OnTouchListener() {
+        startAudioBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return false;
@@ -347,7 +340,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
      * 隐藏表情区域
      */
     private void hideFaceLayout() {
-        faceLinearLayout.setVisibility(GONE);
+        faceLinearLayout.setVisibility(View.GONE);
         faceCb.setOnCheckedChangeListener(null);
         faceCb.setChecked(false);
         faceCb.setOnCheckedChangeListener(ChatActivity.this);
@@ -357,7 +350,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
      * 隐藏更多区域
      */
     private void hideMoreLayout() {
-        moreLinearLayout.setVisibility(GONE);
+        moreLinearLayout.setVisibility(View.GONE);
         moreCb.setOnCheckedChangeListener(null);
         moreCb.setChecked(false);
         moreCb.setOnCheckedChangeListener(ChatActivity.this);
@@ -437,8 +430,8 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(),
                         drawable.getMinimumHeight());
                 faceCb.setCompoundDrawables(drawable, null, null, null);
-                faceLinearLayout.setVisibility(GONE);
-                moreLinearLayout.setVisibility(GONE);
+                faceLinearLayout.setVisibility(View.GONE);
+                moreLinearLayout.setVisibility(View.GONE);
                 showSoftInput();
             } else {
                 Drawable drawable = getResources().getDrawable(
@@ -447,9 +440,9 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                         drawable.getMinimumHeight());
                 faceCb.setCompoundDrawables(drawable, null, null, null);
                 toggleAudioBtn.setImageResource(R.drawable.aio_voice);
-                mMsgTextInput.setVisibility(VISIBLE);
-                faceCb.setVisibility(VISIBLE);
-                startAudioBtn.setVisibility(GONE);
+                mMsgTextInput.setVisibility(View.VISIBLE);
+                faceCb.setVisibility(View.VISIBLE);
+                startAudioBtn.setVisibility(View.GONE);
                 isVoiceShow = false;
                 hideMoreLayout();
                 if (isShowSoftInput) {
@@ -457,11 +450,11 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            faceLinearLayout.setVisibility(VISIBLE);
+                            faceLinearLayout.setVisibility(View.VISIBLE);
                         }
                     }, 100);
                 } else {
-                    faceLinearLayout.setVisibility(VISIBLE);
+                    faceLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
         } else if (id == R.id.more_cb) {
@@ -473,8 +466,8 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                 faceCb.setCompoundDrawables(restdrawable, null, null, null);
             }
             if (!isChecked) {
-                faceLinearLayout.setVisibility(GONE);
-                moreLinearLayout.setVisibility(GONE);
+                faceLinearLayout.setVisibility(View.GONE);
+                moreLinearLayout.setVisibility(View.GONE);
                 Drawable drawable = getResources().getDrawable(
                         R.drawable.aio_fold);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(),
@@ -483,9 +476,9 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                 showSoftInput();
             } else {
                 toggleAudioBtn.setImageResource(R.drawable.aio_voice);
-                mMsgTextInput.setVisibility(VISIBLE);
-                faceCb.setVisibility(VISIBLE);
-                startAudioBtn.setVisibility(GONE);
+                mMsgTextInput.setVisibility(View.VISIBLE);
+                faceCb.setVisibility(View.VISIBLE);
+                startAudioBtn.setVisibility(View.GONE);
                 Drawable drawable = getResources().getDrawable(
                         R.drawable.aio_keyboard);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(),
@@ -497,7 +490,7 @@ public class ChatActivity extends BaseActivity implements CompoundButton.OnCheck
                     hideSoftInput();
                     moreViewPagerManager.showMoreViewPager();
                 } else {
-                    moreLinearLayout.setVisibility(VISIBLE);
+                    moreLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
         }

@@ -42,6 +42,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
@@ -60,6 +61,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ActionItem;
 import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
+import com.zkjinshi.svip.vo.MemberVo;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 import com.zkjinshi.svip.vo.TxtExtType;
 
@@ -95,9 +97,9 @@ public class GroupChatAdapter extends BaseAdapter {
     private boolean isDelEnabled; // ture：启用删除状态，false：不启用
     private String keyWord = "";
     private ResendListener mResendListener;
-    private ArrayList<MemberBean> memberList;
+    private ArrayList<MemberVo> memberList;
 
-    public void setMemberList(ArrayList<MemberBean> memberList) {
+    public void setMemberList(ArrayList<MemberVo> memberList) {
         this.memberList = memberList;
         notifyDataSetChanged();
     }
@@ -228,7 +230,7 @@ public class GroupChatAdapter extends BaseAdapter {
                 String userId = message.getFrom();
                 String userName = null;
                 if(null != memberList && !memberList.isEmpty()){
-                    for(MemberBean member : memberList){
+                    for(MemberVo member : memberList){
                         if(member.getUserid().equals(userId)){
                             userName = member.getUsername();
                         }
@@ -308,7 +310,8 @@ public class GroupChatAdapter extends BaseAdapter {
         boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
         String userId = message.getFrom();
-        vh.head.setImageURI(Uri.parse(ProtocolUtil.getAvatarUrl(userId)));
+        String userPhotoUrl = ConfigUtil.getInst().getImgDomain()+getUserPhoto(userId);
+        vh.head.setImageURI(Uri.parse(userPhotoUrl));
         EMMessage.Type mimeType = message.getType();
         if (mimeType.equals(EMMessage.Type.TXT)) {// 文本消息
             try {
@@ -894,5 +897,21 @@ public class GroupChatAdapter extends BaseAdapter {
             }
         }
         return picPostion;
+    }
+
+    /**
+     * 获取用户头像链接
+     * @param userId
+     * @return
+     */
+    private String getUserPhoto(String userId){
+        String memberId = null;
+        for(MemberVo memberVo : memberList) {
+            memberId = memberVo.getUserid();
+            if (!TextUtils.isEmpty(memberId) && memberId.equals(userId)) {
+                return memberVo.getUserimage();
+            }
+        }
+        return null;
     }
 }

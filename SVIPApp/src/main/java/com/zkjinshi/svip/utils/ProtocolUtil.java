@@ -242,8 +242,8 @@ public class ProtocolUtil {
      * 获取环信群成员
      * @return
      */
-    public static String getGroupMemberUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"hxim/member";
+    public static String getGroupMemberUrl(String groupId){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/im/members/"+groupId;
     }
 
     /**

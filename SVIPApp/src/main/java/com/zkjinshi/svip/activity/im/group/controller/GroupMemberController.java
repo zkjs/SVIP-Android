@@ -41,43 +41,13 @@ public class GroupMemberController {
         return instance;
     }
 
-    private EMGroup group;
-    private List<String> members;
-
     public void requestGroupMembersTask(final String groupId, final NetRequestListener netRequestListener, final Context context){
-
-        new AsyncTask<Void,Void,Void>(){
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    group = EMGroupManager.getInstance().getGroupFromServer(groupId);
-                    if(null != group){
-                        members = group.getMembers();
-                        if(null != members && !members.isEmpty()){
-                            requestGroupMembersTask(members,netRequestListener,context);
-                        }
-                    }
-                } catch (EaseMobException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        }.execute();
-    }
-
-    public void requestGroupMembersTask(List<String> members, NetRequestListener netRequestListener, Context context){
-
-        HashMap<String,String> bizMap = new HashMap<String, String>();
-        bizMap.put("salesid", CacheUtil.getInstance().getUserId());
-        bizMap.put("token",CacheUtil.getInstance().getToken());
-        bizMap.put("members",new Gson().toJson(members));
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getGroupMemberUrl());
-        netRequest.setBizParamMap(bizMap);
+        NetRequest netRequest = new NetRequest(ProtocolUtil.getGroupMemberUrl(groupId));
         NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
         if(null != netRequestListener){
             netRequestTask.setNetRequestListener(netRequestListener);
         }
-        netRequestTask.methodType = MethodType.PUSH;
+        netRequestTask.methodType = MethodType.GET;
         netRequestTask.isShowLoadingDialog = false;
         netRequestTask.execute();
     }

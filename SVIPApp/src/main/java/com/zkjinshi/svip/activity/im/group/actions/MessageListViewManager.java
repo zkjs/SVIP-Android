@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.zkjinshi.base.util.DeviceUtils;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.im.group.controller.GroupMemberController;
 import com.zkjinshi.svip.adapter.GroupChatAdapter;
@@ -30,9 +32,11 @@ import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.MembersResponse;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
+import com.zkjinshi.svip.vo.MemberVo;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.lang.reflect.Method;
@@ -62,7 +66,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private List<EMMessage> requestMessageList = new ArrayList<EMMessage>();
     private static final int PAGE_SIZE = 10;
     private String groupId;
-    private ArrayList<MemberBean> memberList;
+    private ArrayList<MemberVo> memberList;
 
     public MessageListViewManager(Context context, String groupId) {
         this.context = context;
@@ -124,10 +128,20 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
                     try {
 
                         Log.i(TAG, "result:" + result.rawResult);
-                        Type listType = new TypeToken<ArrayList<MemberBean>>(){}.getType();
-                        Gson gson = new Gson();
-                        memberList = gson.fromJson(result.rawResult, listType);
-                        chatAdapter.setMemberList(memberList);
+                        Log.i(TAG, "result:" + result.rawResult);
+                        MembersResponse membersResponse = new Gson().fromJson(result.rawResult,MembersResponse.class);
+                        if(null != membersResponse) {
+                            int resultCode = membersResponse.getRes();
+                            if (0 == resultCode) {
+                                memberList = membersResponse.getData();
+                                chatAdapter.setMemberList(memberList);
+                            }else {
+                                String resultMsg = membersResponse.getResDesc();
+                                if(!TextUtils.isEmpty(resultMsg)){
+                                    DialogUtil.getInstance().showCustomToast(context,resultMsg, Gravity.CENTER);
+                                }
+                            }
+                        }
 
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
