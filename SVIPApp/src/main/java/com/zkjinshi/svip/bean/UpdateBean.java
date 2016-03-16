@@ -7,52 +7,64 @@ import java.io.Serializable;
  */
 public class UpdateBean implements Serializable {
 
-    /**
-     * 版本号
-     */
-    private int versionNo;
+//    "created": "2016-03-16 11:42:22",
+//            "isforceupgrade": 0,
+//            "packageurl": "",
+//            "verno": "1.0.0.3",
+//            "versionname": "IOS 超级身份0.3"
+
+
+    private String created;
     /**
      * 是否强制升级
      */
-    private int isForceUpgrade;//“1”＝最新版（不做任何操作）；“2”＝“提醒更新”（弹框提示已有更新；）；“3”＝“强制更新”（弹框提示更新后才能使用，点击确定退出程序）
+    private int isforceupgrade;
     /**
      * 包地址(只针对andriod,IOS直接跳转到app store下载)
      */
-    private String packageUrl;
-    /**
-     * 版本名称（升级时提示信息中用到）
-     */
-    private String versionName;
+    private String packageurl;
 
-    public int getVersionNo() {
-        return versionNo;
+    private String verno;
+
+    private String versionname;
+
+    public String getCreated() {
+        return created;
     }
 
-    public void setVersionNo(int versionNo) {
-        this.versionNo = versionNo;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public int getIsForceUpgrade() {
-        return isForceUpgrade;
+    public int getIsforceupgrade() {
+        return isforceupgrade;
     }
 
-    public void setIsForceUpgrade(int isForceUpgrade) {
-        this.isForceUpgrade = isForceUpgrade;
+    public void setIsforceupgrade(int isforceupgrade) {
+        this.isforceupgrade = isforceupgrade;
     }
 
-    public String getPackageUrl() {
-        return packageUrl;
+    public String getPackageurl() {
+        return packageurl;
     }
 
-    public void setPackageUrl(String packageUrl) {
-        this.packageUrl = packageUrl;
+    public void setPackageurl(String packageurl) {
+        this.packageurl = packageurl;
     }
 
-    public String getVersionName() {
-        return versionName;
+    public String getVerno() {
+        return verno;
     }
 
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
+    public void setVerno(String verno) {
+        this.verno = verno;
+    }
+
+    public String getVersionname() {
+        return versionname;
+    }
+
+    public void setVersionname(String versionname) {
+        this.versionname = versionname;
     }
 }

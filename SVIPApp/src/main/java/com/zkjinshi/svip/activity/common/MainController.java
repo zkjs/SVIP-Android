@@ -17,14 +17,18 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
@@ -40,6 +44,8 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.BigPicResponse;
+import com.zkjinshi.svip.response.GetBigPicResponse;
+import com.zkjinshi.svip.response.GetUpgradeResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.update.NotificationUpdateActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -47,10 +53,15 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ShopDetailVo;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * 开发者：dujiande
@@ -61,8 +72,6 @@ import java.util.List;
 public class MainController {
 
     private final static String TAG =  MainController.class.getSimpleName();
-    private DisplayImageOptions options;
-    private DisplayImageOptions bigOptions;
     Animation bigAnimation;
     public int bigPicIndex = 0;
     ArrayList<BigPicResponse> bigPicResponseList = null;
@@ -86,24 +95,8 @@ public class MainController {
         this.context = context;
         this.activity = (Activity)context;
         app = (SVIPApplication)activity.getApplication();
-        this.options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.ic_main_user_default_photo_nor)// 设置图片下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.ic_main_user_default_photo_nor)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.ic_main_user_default_photo_nor)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                .build();
-        this.bigOptions = new DisplayImageOptions.Builder()
-//                .showImageOnLoading(R.mipmap.header_img_default)// 设置图片下载期间显示的图片
-//                .showImageForEmptyUri(R.mipmap.header_img_default)// 设置图片Uri为空或是错误的时候显示的图片
-//                .showImageOnFail(R.mipmap.header_img_default)// 设置图片加载或解码过程中发生错误显示的图片
-                .cacheInMemory(true) // 设置下载的图片是否缓存在内存中
-                .cacheOnDisk(true) // 设置下载的图片是否缓存在SD卡中
-                .imageScaleType(ImageScaleType.IN_SAMPLE_INT)//设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)//设置图片的解码类型
-                .build();
+
+
     }
 
     /**
@@ -130,7 +123,6 @@ public class MainController {
             }
             bigPicIndex = (bigPicIndex+1)%length;
             String bigPicUrl = ProtocolUtil.getHostImgUrl(bigPicResponseList.get(bigPicIndex).getUrl());
-            //ImageLoader.getInstance().displayImage(bigPicUrl, homePicIv,bigOptions);
             homePicIv.setImageURI(Uri.parse(bigPicUrl));
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
@@ -157,154 +149,58 @@ public class MainController {
      * 初始化首页大图
      */
     public void initBigPic(){
-        String url = ProtocolUtil.getBigPicUrl();
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.getHomeBigPic();
+            client.get(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<ArrayList<BigPicResponse>>(){}.getType();
-                    Gson gson = new Gson();
-                    ArrayList<BigPicResponse> bigPicResponseList = gson.fromJson(result.rawResult, listType);
-                    if(bigPicResponseList.size() > 0){
-                        CacheUtil.getInstance().saveListCache("bigPicResponseList",bigPicResponseList);
-                        if(activity instanceof MainActivity){
-                            MainActivity mainActivity = (MainActivity)activity;
-                            if(mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
-                                HomeFragment homeFragment = (HomeFragment)mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
-                                homeFragment.setBigPicAnimation();
-                            }
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetBigPicResponse getBigPicResponse = new Gson().fromJson(response,GetBigPicResponse.class);
+                        if (getBigPicResponse == null){
+                            return;
                         }
+                        if(getBigPicResponse.getRes() == 0){
+                            ArrayList<BigPicResponse> bigPicResponseList = getBigPicResponse.getData();
+                            if(bigPicResponseList.size() > 0){
+                                CacheUtil.getInstance().saveListCache("bigPicResponseList",bigPicResponseList);
+                                if(activity instanceof MainActivity){
+                                    MainActivity mainActivity = (MainActivity)activity;
+                                    if(mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home)) != null){
+                                        HomeFragment homeFragment = (HomeFragment)mainActivity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.id.footer_tab_rb_home));
+                                        homeFragment.setBigPicAnimation();
+                                    }
+                                }
+                            }
+                        }else{
+                            Toast.makeText(context,getBigPicResponse.getResDesc(), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
                 }
 
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-
-    }
-
-
-
-    /**
-     * 判读是否已经激活
-     */
-    public void checktActivate(){
-        if(CacheUtil.getInstance().isActivate()){
-            return;
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(context,"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
-        String url = ProtocolUtil.getUserMysemp();
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("token", CacheUtil.getInstance().getToken());
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.PUSH;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
 
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
-                    if (baseBean.isSet()) {
-                        CacheUtil.getInstance().setActivate(true);
-                    } else {
-                        CacheUtil.getInstance().setActivate(false);
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
     }
 
-    public void requestArriveNoticeTask(String shopId,String locId){{
-        NetRequest netRequest = new NetRequest(ProtocolUtil.getArriveNoticeUrl());
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("userid", CacheUtil.getInstance().getUserId());
-        bizMap.put("locid", locId);
-        bizMap.put("shopid", shopId);
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
 
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-            }
-
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
-    }}
 
     //检测版本
     public void checkAppVersion(){
         PackageManager manager = context.getPackageManager();
-
         try {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             appVersion = info.versionName; // 版本名
@@ -314,57 +210,54 @@ public class MainController {
             Log.e(TAG,e.getMessage());
         }
 
-        String url = ProtocolUtil.appUpgradeUrl();
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        HashMap<String,String> bizMap = new HashMap<String,String>();
-        bizMap.put("verno", currentVersionCode+"");
-        bizMap.put("devicetype", "andriod");
-        bizMap.put("appid", "1"); //(1:超级身份 2 超级服务)
-        netRequest.setBizParamMap(bizMap);
-        NetRequestTask netRequestTask = new NetRequestTask(activity,netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.JSON;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(activity) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-            }
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String apptype = "1";//(int required) - 应用类型： 1 超级身份 2 超级服务
+            String devicetype = "ANDROID";// (String required) - 设备类型：IOS ANDROID
+            String verno = currentVersionCode+"";//(String required) - 当前客户端版本号
+            String url = ProtocolUtil.newestversion(apptype,devicetype,verno);
+            client.get(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    UpdateBean updateBean = new Gson().fromJson(result.rawResult,UpdateBean.class);
-                    if(currentVersionCode < updateBean.getVersionNo()){
-                        if(updateBean.getIsForceUpgrade() == 0){
-                            showNormalUpdateDialog(updateBean);
-                        }else if(updateBean.getIsForceUpgrade() == 1){
-                            showForceUpdateDialog(updateBean);
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetUpgradeResponse getUpgradeResponse = new Gson().fromJson(response,GetUpgradeResponse.class);
+                        if (getUpgradeResponse == null){
+                            return;
                         }
+                        if(getUpgradeResponse.getRes() == 0){
+                            UpdateBean updateBean = getUpgradeResponse.getData();
+                            int versionNo = Integer.parseInt(updateBean.getVerno());
+                            if(currentVersionCode < versionNo){
+                                if(updateBean.getIsforceupgrade() == 0){
+                                    showNormalUpdateDialog(updateBean);
+                                }else if(updateBean.getIsforceupgrade() == 1){
+                                    showForceUpdateDialog(updateBean);
+                                }
+                            }
+                            //showNormalUpdateDialog(updateBean);
+                            //showForceUpdateDialog(updateBean);
+                        }else{
+                            Toast.makeText(context,getUpgradeResponse.getResDesc(),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    //showNormalUpdateDialog(updateBean);
-                    //showForceUpdateDialog(updateBean);
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
                 }
 
-            }
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(context,"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
     }
 
 

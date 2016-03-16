@@ -504,6 +504,19 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/shop?page="+page+"&page_size="+pageSize;
     }
 
+
+    /**
+     * 获取首页大图
+     * @return
+     */
+    public static String getHomeBigPic(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/systempub/homepicture";
+    }
+
+    public static String newestversion(String apptype,String devicetype,String verno){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/systempub/upgrade/newestversion/"+apptype+"/"+devicetype+"/"+verno;
+    }
+
     /**
      * 根据城市获取商家
      * @param city

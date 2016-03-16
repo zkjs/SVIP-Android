@@ -140,7 +140,7 @@ public class DownloadService extends Service {
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		//setForeground(true);// 这个不确定是否有作用
 		app = (SVIPApplication) getApplication();
-		apkUrl = app.updateBean.getPackageUrl();
+		apkUrl = app.updateBean.getPackageurl();
 
 	}
 
