@@ -8,27 +8,10 @@ import java.io.Serializable;
 public class MessageDefaultResponse implements Serializable {
 
     private String desc;
-    private String iconbaseurl;
     private String iconfilename;
-    private String title;
+    private String shopName;
     private String shopid="";
-    private String orderNo;
-
-    public String getShopid() {
-        return shopid;
-    }
-
-    public void setShopid(String shopid) {
-        this.shopid = shopid;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
+    private String title;
 
     public String getDesc() {
         return desc;
@@ -38,20 +21,28 @@ public class MessageDefaultResponse implements Serializable {
         this.desc = desc;
     }
 
-    public String getIconbaseurl() {
-        return iconbaseurl;
-    }
-
-    public void setIconbaseurl(String iconbaseurl) {
-        this.iconbaseurl = iconbaseurl;
-    }
-
     public String getIconfilename() {
         return iconfilename;
     }
 
     public void setIconfilename(String iconfilename) {
         this.iconfilename = iconfilename;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
     }
 
     public String getTitle() {

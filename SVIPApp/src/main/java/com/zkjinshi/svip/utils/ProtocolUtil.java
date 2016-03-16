@@ -513,8 +513,25 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/systempub/homepicture";
     }
 
+    /**
+     * 获取升级版本信息
+     * @param apptype
+     * @param devicetype
+     * @param verno
+     * @return
+     */
     public static String newestversion(String apptype,String devicetype,String verno){
         return ConfigUtil.getInst().getForDomain()+"res/v1/systempub/upgrade/newestversion/"+apptype+"/"+devicetype+"/"+verno;
+    }
+
+
+    /**
+     * 获取本地服务推荐商家
+     * @param city
+     * @return
+     */
+    public static String getDefaultMsg(String city){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/systempub/localservice/recommend/"+city;
     }
 
     /**

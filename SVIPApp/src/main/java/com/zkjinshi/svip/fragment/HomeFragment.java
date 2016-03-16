@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -32,6 +33,8 @@ import com.amap.api.location.AMapLocationListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -39,6 +42,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.Constants;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.R;
@@ -60,6 +64,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.GetMessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
@@ -74,12 +79,17 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PrivilegeMapVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * 首页Fragment
@@ -615,69 +625,71 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
     //获取用户推送消息(用户未登陆)
     private  void getMessageDefault(final boolean isClear){
-        String url = ProtocolUtil.getMessageDefaultUrl();
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-                addLlocalDefaultHomeMsg();
-            }
-
-            @Override
-            public void onNetworkRequestCancelled() {
-
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    Type listType = new TypeToken<ArrayList<MessageDefaultResponse>>() {}.getType();
-                    ArrayList<MessageDefaultResponse> messageList = new Gson().fromJson(result.rawResult, listType);
-                    if(isClear){
-                        homeMsgList.clear();
-                    }
-                    for(MessageDefaultResponse message : messageList){
-
-                        HomeMsgVo homeMsgVo= new HomeMsgVo();
-                        if(TextUtils.isEmpty(message.getShopid())){
-                            homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                            homeMsgVo.setClickAble(false);
-                        }else{
-                            homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
-                            homeMsgVo.setShopid(message.getShopid());
-                            homeMsgVo.setClickAble(true);
-                        }
-
-                        homeMsgVo.setMajorText(message.getTitle());
-                        homeMsgVo.setMinorText(message.getDesc());
-                        homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(ConfigUtil.getInst().getImgDomain(),message.getIconfilename()));
-                        homeMsgList.add(homeMsgVo);
-
-
-                    }
-                    homeMsgAdapter.setDatalist(homeMsgList);
-                    homeMsgAdapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(com.zkjinshi.svip.utils.Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.getDefaultMsg(mCity);
+            client.get(getActivity(),url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(getActivity(),"");
                 }
 
-            }
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
 
-            @Override
-            public void beforeNetworkRequestStart() {
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetMessageDefaultResponse getMessageDefaultResponse = new Gson().fromJson(response,GetMessageDefaultResponse.class);
+                        if (getMessageDefaultResponse == null){
+                            return;
+                        }
+                        if(getMessageDefaultResponse.getRes() == 0){
+                            ArrayList<MessageDefaultResponse> messageList = getMessageDefaultResponse.getData();
+                            if(isClear){
+                                homeMsgList.clear();
+                            }
+                            for(MessageDefaultResponse message : messageList){
 
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
+                                HomeMsgVo homeMsgVo= new HomeMsgVo();
+                                if(TextUtils.isEmpty(message.getShopid())){
+                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+                                    homeMsgVo.setClickAble(false);
+                                }else{
+                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+                                    homeMsgVo.setShopid(message.getShopid());
+                                    homeMsgVo.setClickAble(true);
+                                }
+
+                                homeMsgVo.setMajorText(message.getTitle());
+                                homeMsgVo.setMinorText(message.getDesc());
+                                homeMsgVo.setIcon(ProtocolUtil.getHostImgUrl(message.getIconfilename()));
+                                homeMsgList.add(homeMsgVo);
+
+
+                            }
+                            homeMsgAdapter.setDatalist(homeMsgList);
+                            homeMsgAdapter.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(getActivity(),getMessageDefaultResponse.getResDesc(),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(),"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
     }
 
@@ -719,7 +731,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                                 homeMsgVo.setMajorText(message.getTitle());
                                 homeMsgVo.setMinorText(message.getDesc());
                                 homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(ConfigUtil.getInst().getImgDomain(),message.getIconfilename()));
-                                homeMsgVo.setOrderNo(message.getOrderNo());
+                                //homeMsgVo.setOrderNo(message.getOrderNo());
                                 homeMsgList.add(homeMsgVo);
 
                             }
