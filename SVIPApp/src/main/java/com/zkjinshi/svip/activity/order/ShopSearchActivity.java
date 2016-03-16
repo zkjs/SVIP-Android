@@ -105,12 +105,7 @@ public class ShopSearchActivity extends BaseActivity {
         shopListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShopListResponse shopInfoVo = (ShopListResponse) shopAdapter.getItem(position);
-                Intent intent = new Intent(ShopSearchActivity.this, OrderBookingActivity.class);
-                intent.putExtra("shopid", shopInfoVo.getShopid());
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,
-                        R.anim.slide_out_left);
+
             }
         });
     }

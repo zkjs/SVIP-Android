@@ -474,8 +474,8 @@ public class HotelBookingActivity extends BaseActivity {
             orderDetailForDisplay.setImgurl(imageUrl);
         }
         orderDetailForDisplay.setProductid(goodInfoVo.getId());
-        orderDetailForDisplay.setRoomtype(goodInfoVo.getRoom());
-        roomTypeTsv.setValue(goodInfoVo.getRoom());
+        orderDetailForDisplay.setRoomtype(goodInfoVo.getName());
+        roomTypeTsv.setValue(goodInfoVo.getName());
     }
 
     //查询客服

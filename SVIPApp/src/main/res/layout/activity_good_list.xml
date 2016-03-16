@@ -5,26 +5,8 @@
     android:layout_height="match_parent"
     android:background="#EEEEEE">
 
-    <LinearLayout
-        android:id="@+id/headerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </LinearLayout>
-    <Button
-        android:layout_alignParentBottom="true"
-        android:id="@+id/btn_send_booking_order"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="立即预定"
-        android:textSize="16sp"
-        android:textColor="@color/White"
-        android:background="@drawable/btn_yellow_selector"/>
-
-    <ListView
+    <com.zkjinshi.svip.view.RefreshListView
         android:id="@+id/good_list_list_view"
-        android:layout_below="@id/headerLayout"
-        android:layout_above="@id/btn_send_booking_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -32,6 +14,13 @@
         android:divider="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
         android:background="#EEEEEE"/>
+
+    <LinearLayout
+        android:id="@+id/empty_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/empty_layout" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/head_layout"
@@ -47,14 +36,5 @@
             android:src="@mipmap/ic_fanhui_orange"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/empty_linearlayout"
-        android:layout_below="@id/head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/empty_layout" />
-    </LinearLayout>
-
 
 </RelativeLayout>

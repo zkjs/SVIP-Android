@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.GoodInfoVo;
+import com.zkjinshi.svip.vo.OrderForDisplay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +36,27 @@ import java.util.Map;
  */
 public class GoodAdapter extends BaseAdapter {
 
-    private Map<String,Boolean> selectMap;
-
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<GoodInfoVo> goodList;
+    private String selectId = "-1";
+    private String selectName = "-1";
+
+    public String getSelectId() {
+        return selectId;
+    }
+
+    public void setSelectId(String selectId) {
+        this.selectId = selectId;
+    }
+
+    public String getSelectName() {
+        return selectName;
+    }
+
+    public void setSelectName(String selectName) {
+        this.selectName = selectName;
+    }
 
     public void setGoodList(ArrayList<GoodInfoVo> goodList) {
         if(null == goodList){
@@ -50,12 +67,24 @@ public class GoodAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public GoodAdapter(Context context,ArrayList<GoodInfoVo> goodList) {
+    public ArrayList<GoodInfoVo> getGoodList() {
+        return goodList;
+    }
+
+    public void loadMore(ArrayList<GoodInfoVo> morelist){
+        goodList.addAll(morelist);
+        notifyDataSetChanged();
+    }
+
+    public void refresh(ArrayList<GoodInfoVo> refreshlist){
+        goodList = refreshlist;
+        notifyDataSetChanged();
+    }
+
+    public GoodAdapter(Context context, ArrayList<GoodInfoVo> goodList) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.setGoodList(goodList);
-
-        this.selectMap = new HashMap<String,Boolean>();
     }
 
     @Override
@@ -73,11 +102,8 @@ public class GoodAdapter extends BaseAdapter {
         }
 
         GoodInfoVo goodInfoVo = goodList.get(position);
-        String roomStr = goodInfoVo.getRoom();
-        String type = goodInfoVo.getType();
 
-        viewHolder.roomTypeTv.setText(roomStr);
-
+        viewHolder.roomTypeTv.setText(goodInfoVo.getName());
         String imageUrl = goodInfoVo.getImgurl();
         if(!TextUtils.isEmpty(imageUrl)){
             String logoUrl = ProtocolUtil.getHostImgUrl(imageUrl);
@@ -85,7 +111,8 @@ public class GoodAdapter extends BaseAdapter {
         }
 
         String id = goodInfoVo.getId();
-        if(null != selectMap && selectMap.containsKey(id)){
+        String name = goodInfoVo.getName();
+        if(id.equals(selectId) || name.equals(selectName)){
             //选中
             viewHolder.roomPicTv.setColorFilter(Color.parseColor("#77000000"));
             viewHolder.selectedPicTv.setVisibility(View.VISIBLE);
@@ -103,35 +130,6 @@ public class GoodAdapter extends BaseAdapter {
         ImageView selectedPicTv;
         SimpleDraweeView roomPicTv;
     }
-
-    public Map<String, Boolean> getSelectMap() {
-        return selectMap;
-    }
-
-    public void setSelectMap(Map<String, Boolean> selectMap) {
-        this.selectMap = selectMap;
-    }
-
-    /**
-     * 挑选商品
-     * @param goodId
-     */
-    public void selectGood(String goodId){
-        if(null != selectMap){
-            if(selectMap.containsKey(goodId)){
-                selectMap.clear();
-            }else{
-                selectMap.clear();
-                selectMap.put(goodId, true);
-            }
-            notifyDataSetChanged();
-        }
-    }
-
-    public boolean checkIsEmpty(){
-        return  selectMap.isEmpty();
-    }
-
     @Override
     public int getCount() {
         return goodList.size();

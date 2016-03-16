@@ -12,21 +12,22 @@ import java.io.Serializable;
 public class GoodInfoVo implements Serializable {
 
     /**
-     "id": "1",
-     "room": "房型",
-     "type": "床床",
-     "imgurl": "房型图片url",
-     "meat": "无早",  早餐
-     "price": "100.00" 房型价格
-
+     "id": "3212",   //商品编号
+     "shopid": "2009",   //商户编号
+     "name": "王府鸳鸯锅",    //商品名称
+     "brief": "王府鸳鸯锅",   //商品简介
+     "imgurl": "/uploads/goods/2123.jpg",    //商品图片
+     "price": 2381,  //商品价格
+     "keywords": "火锅"    //商品关键字
      */
 
     private String id;
-    private String room;
-    private String type;
+    private String shopid;
+    private String name;
+    private String brief;
     private String imgurl;
-    private String meat;
-    private String price;
+    private float price;
+    private String keywords;
 
     public String getId() {
         return id;
@@ -36,20 +37,28 @@ public class GoodInfoVo implements Serializable {
         this.id = id;
     }
 
-    public String getRoom() {
-        return room;
+    public String getShopid() {
+        return shopid;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 
     public String getImgurl() {
@@ -60,19 +69,19 @@ public class GoodInfoVo implements Serializable {
         this.imgurl = imgurl;
     }
 
-    public String getMeat() {
-        return meat;
-    }
-
-    public void setMeat(String meat) {
-        this.meat = meat;
-    }
-
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }

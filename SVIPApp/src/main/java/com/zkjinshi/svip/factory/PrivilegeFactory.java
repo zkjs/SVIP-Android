@@ -3,7 +3,7 @@ package com.zkjinshi.svip.factory;
 import android.content.ContentValues;
 
 import com.zkjinshi.svip.activity.city.citylist.CityModel;
-import com.zkjinshi.svip.response.GoodInfoResponse;
+
 import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.vo.GoodInfoVo;
 

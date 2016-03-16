@@ -504,8 +504,26 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/shop?page="+page+"&page_size="+pageSize;
     }
 
+    /**
+     * 根据城市获取商家
+     * @param city
+     * @param page
+     * @param pageSize
+     * @return
+     */
     public static String getShopListByCity(String city,int page,int pageSize){
         return ConfigUtil.getInst().getForDomain()+"res/v1/shop/"+city+"?page="+page+"&page_size="+pageSize;
+    }
+
+    /**
+     * 获取商家的商品
+     * @param shopid
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public static String getGoodListByCity(String shopid,int page,int pageSize){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/goods/"+shopid+"?page="+page+"&page_size="+pageSize;
     }
 
 

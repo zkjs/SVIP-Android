@@ -27,7 +27,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.InviteCodeActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.im.single.ChatActivity;
-import com.zkjinshi.svip.activity.order.OrderBookingActivity;
+
 import com.zkjinshi.svip.adapter.PrivilegeAdapter;
 import com.zkjinshi.svip.bean.CustomerServiceBean;
 import com.zkjinshi.svip.response.PrivilegeResponse;
