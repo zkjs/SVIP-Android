@@ -906,10 +906,12 @@ public class GroupChatAdapter extends BaseAdapter {
      */
     private String getUserPhoto(String userId){
         String memberId = null;
-        for(MemberVo memberVo : memberList) {
-            memberId = memberVo.getUserid();
-            if (!TextUtils.isEmpty(memberId) && memberId.equals(userId)) {
-                return memberVo.getUserimage();
+        if(null != memberList && !memberList.isEmpty()){
+            for(MemberVo memberVo : memberList) {
+                memberId = memberVo.getUserid();
+                if (!TextUtils.isEmpty(memberId) && memberId.equals(userId)) {
+                    return memberVo.getUserimage();
+                }
             }
         }
         return null;

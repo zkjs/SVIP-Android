@@ -40,6 +40,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.ImageUtil;
 import com.zkjinshi.base.util.TimeUtil;
@@ -62,6 +63,7 @@ import com.zkjinshi.svip.view.ActionItem;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.MessageSpanURL;
 import com.zkjinshi.svip.view.QuickAction;
+import com.zkjinshi.svip.vo.MemberVo;
 import com.zkjinshi.svip.vo.OrderDetailForDisplay;
 import com.zkjinshi.svip.vo.TxtExtType;
 
@@ -97,6 +99,7 @@ public class ChatAdapter extends BaseAdapter {
     private boolean isDelEnabled; // ture：启用删除状态，false：不启用
     private String keyWord = "";
     private ResendListener mResendListener;
+    private ArrayList<MemberVo> memberList;
 
     public void setResendListener(ResendListener listener) {
         mResendListener = listener;
@@ -131,6 +134,11 @@ public class ChatAdapter extends BaseAdapter {
         } else {
             this.messageList = messageList;
         }
+        notifyDataSetChanged();
+    }
+
+    public void setMemberList(ArrayList<MemberVo> memberList) {
+        this.memberList = memberList;
         notifyDataSetChanged();
     }
 
@@ -297,8 +305,11 @@ public class ChatAdapter extends BaseAdapter {
         boolean isShowDate = (message.getMsgTime() - lastSendDate) > 5 * 60 * 1000;
         vh.date.setVisibility(isShowDate ? View.VISIBLE : View.GONE);
         final String userId = message.getFrom();
-        vh.head.setImageURI(Uri.parse(ProtocolUtil.getAvatarUrl(userId)));
         if(isComMsg){
+            if(null != memberList && !memberList.isEmpty()){
+                MemberVo memberVo = memberList.get(0);
+                vh.head.setImageURI(Uri.parse(ConfigUtil.getInst().getImgDomain()+ memberVo.getUserimage()));
+            }
             vh.head.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -307,6 +318,8 @@ public class ChatAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
             });
+        }else {
+            vh.head.setImageURI(Uri.parse(CacheUtil.getInstance().getUserPhotoUrl()));
         }
 
         EMMessage.Type mimeType = message.getType();

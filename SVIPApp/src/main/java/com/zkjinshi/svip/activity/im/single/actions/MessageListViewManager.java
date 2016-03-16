@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
@@ -17,15 +19,24 @@ import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMGroup;
 import com.easemob.chat.EMGroupManager;
 import com.easemob.chat.EMMessage;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.base.util.DeviceUtils;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.im.group.controller.GroupMemberController;
+import com.zkjinshi.svip.activity.im.single.controller.ChatMemberController;
 import com.zkjinshi.svip.adapter.ChatAdapter;
 import com.zkjinshi.svip.emchat.observer.EMessageSubject;
 import com.zkjinshi.svip.emchat.observer.IEMessageObserver;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.MembersResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.ItemTitleView;
 import com.zkjinshi.svip.view.MsgListView;
+import com.zkjinshi.svip.vo.MemberVo;
 import com.zkjinshi.svip.vo.TxtExtType;
 
 import java.lang.reflect.Method;
@@ -42,6 +53,8 @@ import java.util.List;
 public class MessageListViewManager extends Handler implements MsgListView.IXListViewListener,
         ChatAdapter.ResendListener,IEMessageObserver {
 
+    public static final String TAG = MessageListViewManager.class.getSimpleName();
+
     private static final int MESSAGE_LIST_VIEW_UPDATE_UI = 0X00;
 
     private Context context;
@@ -56,6 +69,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private String toName;// 聊天对象
     private String shopId;// 商店id
     private String shopName;// 商店名称
+    private ArrayList<MemberVo> memberList;
 
     public MessageListViewManager(Context context, String userId,String fromName,String toName,String shopId,String shopName) {
         this.context    = context;
@@ -80,6 +94,7 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
     private void initData() {
         if(!TextUtils.isEmpty(userId)){
             conversation = EMChatManager.getInstance().getConversation(userId);
+            requestChatMembersTask();
         }
         clearChatRoomBadgeNum();
         setOverScrollMode(messageListView);
@@ -306,6 +321,50 @@ public class MessageListViewManager extends Handler implements MsgListView.IXLis
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventDeliveryAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventReadAck);
         EMessageSubject.getInstance().removeObserver(this, EMNotifierEvent.Event.EventOfflineMessage);
+    }
+
+    /**
+     * 请求私聊成员信息
+     */
+    private void requestChatMembersTask(){
+
+        ChatMemberController.getInstance().requestChatMembersTask(userId, new ExtNetRequestListener(context) {
+            @Override
+            public void onNetworkRequestError(int errorCode, String errorMessage) {
+                super.onNetworkRequestError(errorCode, errorMessage);
+                Log.i(TAG, "errorCode:" + errorCode);
+                Log.i(TAG, "errorMessage:" + errorMessage);
+            }
+
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                if(null != result && !TextUtils.isEmpty(result.rawResult)){
+
+                    try {
+
+                        Log.i(TAG, "result:" + result.rawResult);
+                        Log.i(TAG, "result:" + result.rawResult);
+                        MembersResponse membersResponse = new Gson().fromJson(result.rawResult,MembersResponse.class);
+                        if(null != membersResponse) {
+                            int resultCode = membersResponse.getRes();
+                            if (0 == resultCode) {
+                                memberList = membersResponse.getData();
+                                chatAdapter.setMemberList(memberList);
+                            }else {
+                                String resultMsg = membersResponse.getResDesc();
+                                if(!TextUtils.isEmpty(resultMsg)){
+                                    DialogUtil.getInstance().showCustomToast(context,resultMsg, Gravity.CENTER);
+                                }
+                            }
+                        }
+
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },context);
     }
 
     @Override
