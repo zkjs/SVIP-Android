@@ -37,6 +37,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.AddOrderResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
+import com.zkjinshi.svip.response.CustomerServiceResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -465,7 +466,7 @@ public class HotelConfirmActivity extends BaseActivity {
                 try {
                     AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
                     if(addOrderResponse.isResult()){
-                        CustomerServicesManager.getInstance().requestServiceListTask(
+                        CustomerServicesManager.getInstance().requestServiceTask(
                                 HotelConfirmActivity.this,
                                 orderDetailForDisplay.getShopid(),
                                 new ExtNetRequestListener(HotelConfirmActivity.this) {
@@ -483,30 +484,18 @@ public class HotelConfirmActivity extends BaseActivity {
                                     @Override
                                     public void onNetworkResponseSucceed(NetResponse result) {
                                         Log.i(TAG, "result:" + result.rawResult);
-                                        CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                                        CustomerServiceResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceResponse.class);
                                         if (null != customerServiceListResponse) {
-                                            HeadBean head = customerServiceListResponse.getHead();
-                                            if (null != head) {
-                                                boolean isSet = head.isSet();
-                                                if (isSet) {
-                                                    ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
-                                                    String salesId = head.getExclusive_salesid();
-                                                    CustomerServiceBean customerService = null;
-                                                    if (null != customerServiceList && !customerServiceList.isEmpty()) {
-                                                        if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
-                                                        } else {//商家客服
-                                                            customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != customerService){
-                                                                salesId = customerService.getSalesid();
-                                                            }
-                                                        }
-                                                    }
+                                            int resultCode = customerServiceListResponse.getRes();
+                                            if(0 == resultCode){
+                                                CustomerServiceBean customerService = customerServiceListResponse.getData();
+                                                if(null != customerService){
+                                                    String salesId = customerService.getUserid();
                                                     Intent intent = new Intent(HotelConfirmActivity.this, ChatActivity.class);
                                                     intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                                                     intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
                                                     if(null != customerService){
-                                                        String userName = customerService.getName();
+                                                        String userName = customerService.getUsername();
                                                         if (!TextUtils.isEmpty(userName)) {
                                                             intent.putExtra(Constants.EXTRA_TO_NAME,userName);
                                                         }
@@ -579,7 +568,7 @@ public class HotelConfirmActivity extends BaseActivity {
                 try {
                     AddOrderResponse addOrderResponse = new Gson().fromJson(result.rawResult,AddOrderResponse.class);
                     if(addOrderResponse.isResult()){
-                        CustomerServicesManager.getInstance().requestServiceListTask(
+                        CustomerServicesManager.getInstance().requestServiceTask(
                                 HotelConfirmActivity.this,
                                 orderDetailForDisplay.getShopid(),
                                 new ExtNetRequestListener(HotelConfirmActivity.this) {
@@ -597,30 +586,18 @@ public class HotelConfirmActivity extends BaseActivity {
                                     @Override
                                     public void onNetworkResponseSucceed(NetResponse result) {
                                         Log.i(TAG, "result:" + result.rawResult);
-                                        CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                                        CustomerServiceResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceResponse.class);
                                         if (null != customerServiceListResponse) {
-                                            HeadBean head = customerServiceListResponse.getHead();
-                                            if (null != head) {
-                                                boolean isSet = head.isSet();
-                                                if (isSet) {
-                                                    ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
-                                                    String salesId = head.getExclusive_salesid();
-                                                    CustomerServiceBean customerService = null;
-                                                    if (null != customerServiceList && !customerServiceList.isEmpty()) {
-                                                        if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                            customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
-                                                        } else {//商家客服
-                                                            customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                            if(null != customerService){
-                                                                salesId = customerService.getSalesid();
-                                                            }
-                                                        }
-                                                    }
+                                            int resultCode = customerServiceListResponse.getRes();
+                                            if(0 == resultCode){
+                                                CustomerServiceBean customerService = customerServiceListResponse.getData();
+                                                if(null != customerService){
+                                                    String salesId = customerService.getUserid();
                                                     Intent intent = new Intent(HotelConfirmActivity.this, ChatActivity.class);
                                                     intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                                                     intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
                                                     if(null != customerService){
-                                                        String userName = customerService.getName();
+                                                        String userName = customerService.getUsername();
                                                         if (!TextUtils.isEmpty(userName)) {
                                                             intent.putExtra(Constants.EXTRA_TO_NAME,userName);
                                                         }

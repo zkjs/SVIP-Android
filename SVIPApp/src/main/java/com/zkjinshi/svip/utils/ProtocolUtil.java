@@ -19,6 +19,10 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getPhpDomain()+"user/mysemplist";
     }
 
+    public static String getCustomerServiceUrl(String shopId){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/query/salebelongsi/"+shopId;
+    }
+
     /**
      * 新增订单评价 URL
      * @return

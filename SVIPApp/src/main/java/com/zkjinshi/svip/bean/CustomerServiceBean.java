@@ -10,17 +10,20 @@ import java.io.Serializable;
  */
 public class CustomerServiceBean implements Serializable {
 
-    private String name;
+    private String email;
     private String phone;
-    private String salesid;
-    private int roleid;// 1:管理员
+    private int sex;
+    private String shopid;
+    private String userid;
+    private String userimage;
+    private String username;
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhone() {
@@ -31,19 +34,43 @@ public class CustomerServiceBean implements Serializable {
         this.phone = phone;
     }
 
-    public String getSalesid() {
-        return salesid;
+    public int getSex() {
+        return sex;
     }
 
-    public void setSalesid(String salesid) {
-        this.salesid = salesid;
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 
-    public int getRoleid() {
-        return roleid;
+    public String getShopid() {
+        return shopid;
     }
 
-    public void setRoleid(int roleid) {
-        this.roleid = roleid;
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getUserimage() {
+        return userimage;
+    }
+
+    public void setUserimage(String userimage) {
+        this.userimage = userimage;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -37,6 +37,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.AddOrderResponse;
 import com.zkjinshi.svip.response.CustomerServiceListResponse;
+import com.zkjinshi.svip.response.CustomerServiceResponse;
 import com.zkjinshi.svip.response.OrderInvoiceResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.utils.Base64Encoder;
@@ -320,7 +321,7 @@ public class NormalBookingActivity extends BaseActivity {
 
     //查询客服
     public void findCustomerService(){
-        CustomerServicesManager.getInstance().requestServiceListTask(
+        CustomerServicesManager.getInstance().requestServiceTask(
                 NormalBookingActivity.this,
                 shopId,
                 new ExtNetRequestListener(NormalBookingActivity.this) {
@@ -340,28 +341,16 @@ public class NormalBookingActivity extends BaseActivity {
                         Log.i(TAG, "result:" + result.rawResult);
                         super.onNetworkResponseSucceed(result);
                         try{
-                            CustomerServiceListResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceListResponse.class);
+                            CustomerServiceResponse customerServiceListResponse = new Gson().fromJson(result.rawResult, CustomerServiceResponse.class);
                             if (null != customerServiceListResponse) {
-                                HeadBean head = customerServiceListResponse.getHead();
-                                if (null != head) {
-                                    boolean isSet = head.isSet();
-                                    if (isSet) {
-                                        ArrayList<CustomerServiceBean> customerServiceList = customerServiceListResponse.getData();
-                                        salesId = head.getExclusive_salesid();
-                                        if (null != customerServiceList && !customerServiceList.isEmpty()) {
-                                            if (!TextUtils.isEmpty(salesId)) {//有专属客服
-                                                customerService = CustomerServicesManager.getInstance().getExclusiveCustomerService(customerServiceList, salesId);
-                                            } else {//商家客服
-                                                customerService = CustomerServicesManager.getInstance().getRandomAdminService(customerServiceList);
-                                                if (null != customerService) {
-                                                    salesId = customerService.getSalesid();
-                                                }
-                                            }
-                                            if(!TextUtils.isEmpty(salesId)){
-                                                handler.sendEmptyMessage(SUBMIT_BOOKING);
-                                            }
+                                int resultCode = customerServiceListResponse.getRes();
+                                if(0 == resultCode){
+                                    customerService = customerServiceListResponse.getData();
+                                    if(null != customerService){
+                                    String salesId = customerService.getUserid();
+                                        if(!TextUtils.isEmpty(salesId)){
+                                            handler.sendEmptyMessage(SUBMIT_BOOKING);
                                         }
-
                                     }
                                 }
                             }
@@ -425,7 +414,7 @@ public class NormalBookingActivity extends BaseActivity {
                         intent.putExtra(Constants.EXTRA_USER_ID, salesId);
                         intent.putExtra(Constants.EXTRA_FROM_NAME, CacheUtil.getInstance().getUserName());
                         if(null != customerService){
-                            String userName = customerService.getName();
+                            String userName = customerService.getUsername();
                             if (!TextUtils.isEmpty(userName)) {
                                 intent.putExtra(Constants.EXTRA_TO_NAME,userName);
                             }
