@@ -61,11 +61,11 @@ public class ServerAdapter extends RecyclerView.Adapter<ServerAdapter.ViewHolder
         // Get the data model based on position
         CustomerServiceBean server = mDatas.get(position);
         // Set item views based on the data model
-        String avatarUrl = ProtocolUtil.getAvatarUrl(server.getSalesid());
+        String avatarUrl = ProtocolUtil.getAvatarUrl(server.getUserid());
         ImageLoader.getInstance().displayImage(avatarUrl, holder.ivServerAvatar, mOptions);
-        holder.tvServerName.setText(server.getName());
+        holder.tvServerName.setText(server.getUsername());
         holder.tvServerDesc.setText(server.getPhone());
-        holder.tvShopName.setText(server.getName());
+        holder.tvShopName.setText(server.getShopid());
     }
 
     @Override
