@@ -576,7 +576,7 @@
 
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Yingyongbao"></meta-data>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
     </application>
 
