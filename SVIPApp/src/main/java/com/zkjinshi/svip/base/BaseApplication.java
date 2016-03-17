@@ -65,10 +65,14 @@ public class BaseApplication extends Application {
     }
 
     public void clearLeaveTop() {
-        for(int i =activityStack.size()-1; i > -1; i -- ){
-            Activity act = activityStack.get(i);
-            if(!(act instanceof MainActivity))
-                act.finish();
+        try {
+            for(int i =activityStack.size()-1; i > -1; i -- ){
+                Activity act = activityStack.get(i);
+                if(!(act instanceof MainActivity))
+                    act.finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
