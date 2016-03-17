@@ -79,15 +79,15 @@ public class PrivilegeAdapter extends BaseAdapter {
         PrivilegeResponse privilegeResponse = datalist.get(position);
 
         if(position < datalist.size()){
-            if(!TextUtils.isEmpty(privilegeResponse.getPrivilegeName())){
-                vh.nameTv.setText(privilegeResponse.getPrivilegeName());
+            if(!TextUtils.isEmpty(privilegeResponse.getTitle())){
+                vh.nameTv.setText(privilegeResponse.getTitle());
             }
 
-            if(!TextUtils.isEmpty(privilegeResponse.getPrivilegeDesc())){
-                vh.descTv.setText(privilegeResponse.getPrivilegeDesc());
+            if(!TextUtils.isEmpty(privilegeResponse.getPrivilegedesc())){
+                vh.descTv.setText(privilegeResponse.getPrivilegedesc());
             }
-            if(!TextUtils.isEmpty(privilegeResponse.getPrivilegeIcon())){
-                ImageLoader.getInstance().displayImage(privilegeResponse.getPrivilegeIcon(),vh.iconIv,options);
+            if(!TextUtils.isEmpty(privilegeResponse.getIcon())){
+                ImageLoader.getInstance().displayImage(privilegeResponse.getIcon(),vh.iconIv,options);
             }
         }
        return  convertView;

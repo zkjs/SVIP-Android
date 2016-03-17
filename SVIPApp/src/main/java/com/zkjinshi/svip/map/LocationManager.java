@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.map;
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
+import com.zkjinshi.pyxis.wifi.PyxWifiManager;
 import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
@@ -100,6 +102,15 @@ public class LocationManager{
             jsonObject.put("altitude", aMapLocation.getAltitude());
             jsonObject.put("token", CacheUtil.getInstance().getExtToken());
             jsonObject.put("timestamp",System.currentTimeMillis());
+
+            WifiInfo wifiInfo = PyxWifiManager.getInstance().getWifiInfo(context);
+            if(wifiInfo != null){
+                jsonObject.put("mac",wifiInfo.getMacAddress());
+                jsonObject.put("ssid",wifiInfo.getSSID());
+                jsonObject.put("signal",wifiInfo.getRssi());
+                LogUtil.getInstance().info(LogLevel.DEBUG,"wifiInfo:"+wifiInfo.toString());
+            }
+
             SvipHttpClient.put(context,url, jsonObject, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

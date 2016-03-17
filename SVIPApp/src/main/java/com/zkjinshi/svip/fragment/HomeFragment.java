@@ -65,6 +65,8 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.GetMessageDefaultResponse;
+import com.zkjinshi.svip.response.GetMessageLoginResponse;
+import com.zkjinshi.svip.response.HomeOrderModel;
 import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
@@ -227,7 +229,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 if(cleverDialog != null && privilegeResponses != null && privilegeResponses.size() > 0){
                     cleverDialog.show();
                     cleverDialog.setPrivilegeResponse(privilegeResponses.get(0));
-                    cleverDialog.setContentText(null,privilegeResponses.get(0).getShopName(),
+                    cleverDialog.setContentText(null,privilegeResponses.get(0).getShopname(),
                             privilegeResponses
                     );
                     cleverDialog.setPrivilegeListener(new CleverDialog.PrivilegeListener() {
@@ -684,6 +686,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                 }
             });
         }catch (Exception e){
@@ -695,97 +698,101 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
 
     //获取登录后的所有信息
     private void getAllMessages(){
-        String url = ProtocolUtil.getMsgUrl(CacheUtil.getInstance().getUserId(),mCity);
-        Log.i(TAG, url);
-        NetRequest netRequest = new NetRequest(url);
-        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
-        netRequestTask.methodType = MethodType.GET;
-        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
-            @Override
-            public void onNetworkRequestError(int errorCode, String errorMessage) {
-                Log.i(TAG, "errorCode:" + errorCode);
-                Log.i(TAG, "errorMessage:" + errorMessage);
-                handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(com.zkjinshi.svip.utils.Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            if(CacheUtil.getInstance().isLogin()){
+                client.addHeader("Token",CacheUtil.getInstance().getExtToken());
             }
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.getLoginMsg(mCity);
+            client.get(getActivity(),url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(getActivity(),"");
+                }
 
-            @Override
-            public void onNetworkRequestCancelled() {
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
 
-            }
-
-            @Override
-            public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG, "result.rawResult:" + result.rawResult);
-                try {
-                    homeMsgList.clear();
-                    MessageResponse messageResponse = new Gson().fromJson(result.rawResult, MessageResponse.class);
-                    if(messageResponse!= null){
-                        //订单信息
-                        if(messageResponse.getNotificationForOrder() != null && messageResponse.getNotificationForOrder().size() > 0){
-                            for(MessageDefaultResponse message : messageResponse.getNotificationForOrder()){
-
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetMessageLoginResponse getMessageLoginResponse = new Gson().fromJson(response,GetMessageLoginResponse.class);
+                        if (getMessageLoginResponse == null){
+                            return;
+                        }
+                        if(getMessageLoginResponse.getRes() == 0){
+                            if(getMessageLoginResponse.getData() == null){
+                                return;
+                            }
+                            homeMsgList.clear();
+                            HomeOrderModel homeOrderModel = getMessageLoginResponse.getData().getHomeOrderModel();
+                            if(homeOrderModel != null){
                                 HomeMsgVo homeMsgVo= new HomeMsgVo();
                                 homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_ORDER);
                                 homeMsgVo.setClickAble(true);
-                                homeMsgVo.setMajorText(message.getTitle());
-                                homeMsgVo.setMinorText(message.getDesc());
-                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(ConfigUtil.getInst().getImgDomain(),message.getIconfilename()));
-                                //homeMsgVo.setOrderNo(message.getOrderNo());
+                                homeMsgVo.setMajorText(homeOrderModel.getTitle());
+                                homeMsgVo.setMinorText(homeOrderModel.getShopname());
+                                homeMsgVo.setIcon(ProtocolUtil.getHostImgUrl(homeMsgVo.getIcon()));
+                                homeMsgVo.setOrderNo(homeOrderModel.getOrderno());
                                 homeMsgList.add(homeMsgVo);
-
                             }
-                        }
-                        //订单特权信息
-                        if(messageResponse.getUserPrivilege() != null && messageResponse.getUserPrivilege().size() > 0){
-                            for(PrivilegeResponse privilegeResponse : messageResponse.getUserPrivilege()){
-                                HomeMsgVo homeMsg= new HomeMsgVo();
-                                homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
-                                homeMsg.setClickAble(false);
-                                homeMsg.setMajorText(privilegeResponse.getMessageCard().getTitle());
-                                homeMsg.setMinorText(privilegeResponse.getMessageCard().getContent());
-                                homeMsgList.add(homeMsg);
+                            //订单特权信息
+                            if(getMessageLoginResponse.getData().getHomePrivilegeModels() != null && getMessageLoginResponse.getData().getHomePrivilegeModels().size() > 0){
+                                for(PrivilegeResponse privilegeResponse : getMessageLoginResponse.getData().getHomePrivilegeModels()){
+                                    HomeMsgVo homeMsg= new HomeMsgVo();
+                                    homeMsg.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_PRIVILEDGE);
+                                    homeMsg.setClickAble(false);
+                                    homeMsg.setMajorText(privilegeResponse.getTitle());
+                                    homeMsg.setMinorText(privilegeResponse.getPrivilegedesc());
+                                    homeMsgList.add(homeMsg);
 
-                            }
-                        }
-                        //默认信息
-                        if(messageResponse.getDefaultNotitification() != null && messageResponse.getDefaultNotitification().size() > 0){
-                            for(MessageDefaultResponse message : messageResponse.getDefaultNotitification()){
-
-                                HomeMsgVo homeMsgVo= new HomeMsgVo();
-                                if(TextUtils.isEmpty(message.getShopid())){
-                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
-                                    homeMsgVo.setClickAble(false);
-                                }else{
-                                    homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
-                                    homeMsgVo.setShopid(message.getShopid());
-                                    homeMsgVo.setClickAble(true);
                                 }
-                                homeMsgVo.setMajorText(message.getTitle());
-                                homeMsgVo.setMinorText(message.getDesc());
-                                homeMsgVo.setIcon(ProtocolUtil.getFitPicUrl(Constants.IMG_HOST,message.getIconfilename()));
-                                homeMsgList.add(homeMsgVo);
-
                             }
+                            //默认信息
+                            if(getMessageLoginResponse.getData().getRecommendShops()!= null && getMessageLoginResponse.getData().getRecommendShops().size() > 0){
+                                for(MessageDefaultResponse message : getMessageLoginResponse.getData().getRecommendShops()){
+
+                                    HomeMsgVo homeMsgVo= new HomeMsgVo();
+                                    if(TextUtils.isEmpty(message.getShopid())){
+                                        homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_DEFAULT);
+                                        homeMsgVo.setClickAble(false);
+                                    }else{
+                                        homeMsgVo.setMsgType(HomeMsgVo.HomeMsgType.HOME_MSG_LOCATION);
+                                        homeMsgVo.setShopid(message.getShopid());
+                                        homeMsgVo.setClickAble(true);
+                                    }
+                                    homeMsgVo.setMajorText(message.getTitle());
+                                    homeMsgVo.setMinorText(message.getDesc());
+                                    homeMsgVo.setIcon(ProtocolUtil.getHostImgUrl(message.getIconfilename()));
+                                    homeMsgList.add(homeMsgVo);
+
+                                }
+                            }
+                            homeMsgAdapter.setDatalist(homeMsgList);
+                            homeMsgAdapter.notifyDataSetChanged();
+
+                        }else{
+                            Toast.makeText(getActivity(),getMessageLoginResponse.getResDesc(),Toast.LENGTH_SHORT).show();
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    homeMsgAdapter.setDatalist(homeMsgList);
-                    homeMsgAdapter.notifyDataSetChanged();
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
                 }
 
-            }
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(),"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
-            @Override
-            public void beforeNetworkRequestStart() {
-
-            }
-        });
-        netRequestTask.isShowLoadingDialog = false;
-        netRequestTask.execute();
     }
 
 

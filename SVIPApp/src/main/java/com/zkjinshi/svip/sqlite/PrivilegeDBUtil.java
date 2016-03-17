@@ -112,10 +112,10 @@ public class PrivilegeDBUtil {
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToPosition(i);
                 PrivilegeResponse PrivilegeModel = new PrivilegeResponse();
-                PrivilegeModel.setPrivilegeDesc(cursor.getString(cursor.getColumnIndex("privilegeDesc")));
-                PrivilegeModel.setPrivilegeIcon(cursor.getString(cursor.getColumnIndex("privilegeIcon")));
-                PrivilegeModel.setPrivilegeName(cursor.getString(cursor.getColumnIndex("privilegeName")));
-                PrivilegeModel.setShopName(cursor.getString(cursor.getColumnIndex("shopName")));
+                PrivilegeModel.setPrivilegedesc(cursor.getString(cursor.getColumnIndex("privilegeDesc")));
+                PrivilegeModel.setIcon(cursor.getString(cursor.getColumnIndex("privilegeIcon")));
+                PrivilegeModel.setTitle(cursor.getString(cursor.getColumnIndex("privilegeName")));
+                PrivilegeModel.setShopname(cursor.getString(cursor.getColumnIndex("shopName")));
                 privilegeResponses.add(PrivilegeModel);
             }
             cursor.close();

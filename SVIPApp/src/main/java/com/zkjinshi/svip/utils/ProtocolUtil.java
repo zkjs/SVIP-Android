@@ -535,6 +535,15 @@ public class ProtocolUtil {
     }
 
     /**
+     * 登录后获取首页详情-订单-特权
+     * @param city
+     * @return
+     */
+    public static String getLoginMsg(String city){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/system/sihomedetail/"+city;
+    }
+
+    /**
      * 根据城市获取商家
      * @param city
      * @param page

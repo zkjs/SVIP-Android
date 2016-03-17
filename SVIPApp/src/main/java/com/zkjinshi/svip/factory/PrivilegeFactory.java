@@ -27,10 +27,10 @@ public class PrivilegeFactory {
 
     public ContentValues buildUpdateContentValues(PrivilegeResponse privilegeResponse, String shopid) {
         ContentValues values = new ContentValues();
-        values.put("privilegeDesc", privilegeResponse.getPrivilegeDesc());
-        values.put("privilegeIcon", privilegeResponse.getPrivilegeIcon());
-        values.put("privilegeName",privilegeResponse.getPrivilegeName());
-        values.put("shopName",privilegeResponse.getShopName());
+        values.put("privilegeDesc", privilegeResponse.getPrivilegedesc());
+        values.put("privilegeIcon", privilegeResponse.getIcon());
+        values.put("privilegeName",privilegeResponse.getTitle());
+        values.put("shopName",privilegeResponse.getShopname());
         values.put("shopid", shopid);
         return values;
     }

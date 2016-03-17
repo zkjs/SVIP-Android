@@ -3,18 +3,18 @@ package com.zkjinshi.svip.response;
 import java.io.Serializable;
 
 /**
- * Created by dujiande on 2015/12/18.
+ * Created by dujiande on 2016/3/16.
  */
-public class PrivilegeResponse implements Serializable {
+public class HomeOrderModel implements Serializable {
 
-/*             "icon": "",
-            "privilegedesc": "您可以免费将已预订房型升级高一级别房型",
-            "shopname": "中科金石test",
-            "title": "房型免费升级"*/
+/*            "icon": "order-muti.png",
+            "orderno": "H2435074859832749791,H2435074859832749111",
+            "shopname": "中科金石test,中科金石test",
+            "title": "您 03 月 15 日有一个订单开始"*/
 
     private String icon;
-    private String privilegedesc;
-    private  String shopname;
+    private String orderno;
+    private String shopname;
     private String title;
 
     public String getIcon() {
@@ -25,12 +25,12 @@ public class PrivilegeResponse implements Serializable {
         this.icon = icon;
     }
 
-    public String getPrivilegedesc() {
-        return privilegedesc;
+    public String getOrderno() {
+        return orderno;
     }
 
-    public void setPrivilegedesc(String privilegedesc) {
-        this.privilegedesc = privilegedesc;
+    public void setOrderno(String orderno) {
+        this.orderno = orderno;
     }
 
     public String getShopname() {
