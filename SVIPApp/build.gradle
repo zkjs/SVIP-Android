@@ -36,11 +36,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile project(':multi-image-selector')
     compile project(':ZKJinShiBaseClass')
-    compile project(':SlidingMenu')
-    compile project(':CalendarListView')
-    compile project(':Cloud_TagView')
-    compile project(':MaterialSearchViewLibrary')
-    compile project(':pinyinSearch')
     compile project(':pyxis')
     testCompile 'junit:junit:4.12'
     compile 'com.loopj.android:android-async-http:1.4.9'

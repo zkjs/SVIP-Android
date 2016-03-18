@@ -22,11 +22,7 @@ import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.manager.BleStatManager;
 import com.zkjinshi.svip.manager.SSOManager;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
+
 import com.zkjinshi.svip.sqlite.BleStatDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -35,7 +31,7 @@ import com.zkjinshi.svip.vo.PayloadVo;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;

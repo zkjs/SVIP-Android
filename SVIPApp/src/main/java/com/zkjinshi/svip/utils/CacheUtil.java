@@ -8,7 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 
-import com.zkjinshi.svip.response.OrderRoomResponse;
+
 
 
 import java.util.ArrayList;
@@ -484,24 +484,7 @@ public class CacheUtil {
 	}
 
 
-	/**
-	 * 获取最近浏览商品信息
-	 *
-	 * @return
-	 */
-	public OrderRoomResponse getLastLookGood() {
-		OrderRoomResponse orderRoomResponse = new OrderRoomResponse();
-		return (OrderRoomResponse)getObjCache(orderRoomResponse);
-	}
 
-	/**
-	 * 设置最近浏览商品信息
-	 *
-	 * @param orderRoomResponse
-	 */
-	public void setLastLookGood(  OrderRoomResponse orderRoomResponse) {
-		saveObjCache(orderRoomResponse);
-	}
 
 	/**
 	 * 获取用户是否在这个区域内

@@ -1,7 +1,6 @@
 <resources>
 
     <style name="mediumCustomProgressBar" parent="@android:style/Widget.ProgressBar">
-        <item name="android:indeterminateDrawable">@drawable/progress_medium_holo</item>
     </style>
 
     <style name="DataSheetAnimation" parent="@android:style/Animation.Dialog">

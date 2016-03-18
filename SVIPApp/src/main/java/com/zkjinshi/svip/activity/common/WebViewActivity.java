@@ -1,7 +1,6 @@
 package com.zkjinshi.svip.activity.common;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -41,9 +40,6 @@ import com.zkjinshi.base.util.ClipboardUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * 轻应用html5载入界面
@@ -402,20 +398,20 @@ public class WebViewActivity extends BaseActivity {
                 builder.setTitle(promptStr)
                         .setMessage(message)
                         .setPositiveButton(sureStr,
-                                new android.app.AlertDialog.OnClickListener() {
+                                new AlertDialog.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
                                         newResult.confirm();
                                     }
                                 })
                         .setNeutralButton(cancelStr,
-                                new android.app.AlertDialog.OnClickListener() {
+                                new AlertDialog.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
                                         newResult.cancel();
                                     }
                                 });
-                builder.setOnCancelListener(new android.app.AlertDialog.OnCancelListener() {
+                builder.setOnCancelListener(new AlertDialog.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         newResult.cancel();
@@ -456,7 +452,7 @@ public class WebViewActivity extends BaseActivity {
                 et.setText(defaultValue);
                 builder.setView(et)
                         .setPositiveButton(sureStr,
-                                new android.app.AlertDialog.OnClickListener() {
+                                new AlertDialog.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
                                         newResult.confirm(et.getText()
@@ -465,7 +461,7 @@ public class WebViewActivity extends BaseActivity {
 
                                 })
                         .setNeutralButton(cancelStr,
-                                new android.app.AlertDialog.OnClickListener() {
+                                new AlertDialog.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
                                         newResult.cancel();

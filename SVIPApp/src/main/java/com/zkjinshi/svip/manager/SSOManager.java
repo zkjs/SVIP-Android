@@ -18,10 +18,11 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BasePavoResponse;
+
 import com.zkjinshi.svip.utils.Base64Decoder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.BaseResponseVo;
 import com.zkjinshi.svip.vo.PayloadVo;
 
 /**
@@ -90,7 +91,7 @@ public class SSOManager {
                     try {
                         if(null != result && !TextUtils.isEmpty(result.rawResult)){
                             Log.i(Constants.ZKJINSHI_BASE_TAG,"rawResult:"+result.rawResult);
-                            BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                            BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                             if(null != basePavoResponse){
                                 int restult = basePavoResponse.getRes();
                                 if(0 == restult){

@@ -1,35 +1,33 @@
 package com.zkjinshi.svip.manager;
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 
 import com.google.gson.Gson;
-import com.zkjinshi.base.log.LogLevel;
+
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
-import com.zkjinshi.svip.activity.common.CompleteInfoActivity;
-import com.zkjinshi.svip.activity.common.LoginController;
+
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BasePavoResponse;
+
 import com.zkjinshi.svip.sqlite.BleLogDBUtil;
-import com.zkjinshi.svip.sqlite.BleStatDBUtil;
-import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
-import com.zkjinshi.svip.utils.PavoUtil;
+
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.StringUtil;
+
+import com.zkjinshi.svip.vo.BaseResponseVo;
 import com.zkjinshi.svip.vo.BleLogVo;
 import com.zkjinshi.svip.vo.BleStatVo;
-import com.zkjinshi.svip.vo.PayloadVo;
+
 
 import java.io.File;
 import java.io.FileWriter;
@@ -172,7 +170,7 @@ public class BleLogManager {
             public void onNetworkResponseSucceed(NetResponse result) {
                 super.onNetworkResponseSucceed(result);
                 try{
-                    BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                    BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                     if(basePavoResponse != null){
                         if(basePavoResponse.getRes() == 0){
                             DialogUtil.getInstance().showCustomToast(context,"上传日志成功", Gravity.CENTER);

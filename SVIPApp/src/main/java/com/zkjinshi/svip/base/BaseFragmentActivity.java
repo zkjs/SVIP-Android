@@ -3,7 +3,7 @@ package com.zkjinshi.svip.base;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * FragmentActivity基类
@@ -29,19 +29,18 @@ public class BaseFragmentActivity extends FragmentActivity {
 
     protected void onResume(){
         super.onResume();
-        MobclickAgent.onResume(this);
+
     }
 
     protected void onPause(){
         super.onPause();
-        MobclickAgent.onPause(this);
+
     }
 
     /**
      * 退出程序方法
      */
     protected void onExit(){
-        MobclickAgent.onKillProcess(this);
         BaseApplication.getInst().exit();
     }
 

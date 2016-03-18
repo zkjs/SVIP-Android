@@ -92,12 +92,8 @@
 }
 
 #保留网络请求的实体不被混淆
--keep class com.zkjinshi.svip.bean.** { *; }
--keep class com.zkjinshi.svip.entity.** { *; }
 -keep class com.zkjinshi.svip.vo.** { *; }
--keep class com.zkjinshi.svip.response.**{ *; }
 -keep class com.zkjinshi.svip.net.** { *; }
--keep class com.zkjinshi.svip.fragment.**{ *; }
 -keep class com.zkjinshi.svip.activity.**{ *; }
 -keep class com.zkjinshi.svip.view.**{ *; }
 -keep class com.zkjinshi.base.util.**{ *;}
@@ -108,30 +104,13 @@
 
 #---根据 Android Dependencies 配置library工程包start---#
 
- #1 自定义日期选择器
--libraryjars ..\\CalendarListview
--dontwarn com.andexert.calendarlistview.calendarlistview.**
--keep class com.andexert.calendarlistview.calendarlistview.** { *; }
-
- #2 自定义标签控件
--libraryjars ..\\Cloud_TagView
--dontwarn me.kaede.tagviewr.**
--keep class me.kaede.tagview.** { *; }
-
- #3 自定义搜索
--libraryjars ..\\MaterialSearchViewLibrary
--dontwarn com.miguelcatalan.materialsearchview.**
--keep class com.miguelcatalan.materialsearchview.** { *; }
 
  #4 自定义图片选择器
 -libraryjars ..\\multi-image-selector
 -dontwarn me.nereo.multi_image_selector.**
 -keep class me.nereo.multi_image_selector.** { *; }
 
- #5 自定义侧滑
--libraryjars ..\\SlidingMenu
--dontwarn com.jeremyfeinstein.slidingmenu.lib.**
--keep class com.jeremyfeinstein.slidingmenu.lib.** { *; }
+
 
  #6 中科金石基类
 -libraryjars ..\\ZKJinShiBaseClass
@@ -144,42 +123,9 @@
 
 #----根据 Android Private Libraries 配置lib jar包start---#
 
-#支付宝
--dontwarn com.alipay.**
--keep class com.alipay.**{ *; }
-
--dontwarn com.ta.utdid2.**
--keep class  com.ta.utdid2.**{ *; }
-
--dontwarn com.ut.device.**
--keep class  com.ut.device.**{ *; }
-
--dontwarn org.json.alipay.**
--keep class org.json.alipay.**{ *; }
-
- # 短信验证包
--dontwarn com.cloopen.rest.sdk.**
--keep class com.cloopen.rest.sdk.** { *; }
--dontwarn de.mindpipe.android.logging.log4j.**
--keep class de.mindpipe.android.logging.log4j.** { *; }
--dontwarn org.apache.**
--keep class org.apache.** { *; }
--dontwarn org.dom4j.**
--keep class org.dom4j.** { *; }
--dontwarn ytx.org.apache.http.**
--keep class ytx.org.apache.http.** { *; }
-
  #mime网络框架包
 -dontwarn org.apache.http.entity.mime.**
 -keep class org.apache.http.entity.mime.**{ *; }
-
-#微信
--dontwarn com.tencent.**
--keep class com.tencent.**{ *; }
-
-#ping++
--dontwarn com.pingplusplus.android.**
--keep class com.pingplusplus.android.**{ *; }
 
 #高德地图
 -dontwarn com.amap.api.**
@@ -195,64 +141,10 @@
 -dontwarn org.eclipse.paho.client.mqttv3.**
 -keep class org.eclipse.paho.client.mqtv3.**{ *; }
 
- #云测包
--dontwarn com.testin.agent.**
--keep class com.testin.agent.** { *; }
-
-#fastjson-1.1.45
--keep class com.alibaba.fastjson.** { *;}
-
-#科大讯飞
--keep class com.a.** {*;}
--keep class com.b.** {*;}
--keep class com.chinaMobile.** {*;}
--keep class com.iflytek.** {*;}
-
  #Pyxis sdk
 -keep class com.zkjinshi.pyxis.bluetooth.** { *; }
 -keep class com.zkjinshi.pyxis.utils.** { *; }
 
- #友盟统计
--dontwarn com.umeng.analytics.**
--keep class com.umeng.analytics.** { *; }
--dontwarn u.aly.**
--keep class u.aly.** { *; }
-
-
--keepclassmembers class * {
-   public <init> (org.json.JSONObject);
-}
--keep public class com.zkjinshi.svip.R$*{
-    public static final int *;
-}
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
-#环信
--keep class com.easemob.** {*;}
--keep class org.jivesoftware.** {*;}
--keep class org.apache.** {*;}
--dontwarn  com.easemob.**
-#2.0.9后的不需要加下面这个keep
-#-keep class org.xbill.DNS.** {*;}
-#另外，demo中发送表情的时候使用到反射，需要keep SmileUtils
--keep class com.easemob.chatuidemo.utils.SmileUtils {*;}
-#注意前面的包名，如果把这个类复制到自己的项目底下，比如放在com.example.utils底下，应该这么写(实际要去掉#)
-#-keep class com.example.utils.SmileUtils {*;}
-#如果使用easeui库，需要这么写
--keep class com.easemob.easeui.utils.EaseSmileUtils {*;}
-
-#2.0.9后加入语音通话功能，如需使用此功能的api，加入以下keep
--dontwarn ch.imvs.**
--dontwarn org.slf4j.**
--keep class org.ice4j.** {*;}
--keep class net.java.sip.** {*;}
--keep class org.webrtc.voiceengine.** {*;}
--keep class org.bitlet.** {*;}
--keep class org.slf4j.** {*;}
--keep class ch.imvs.** {*;}
 
 -dontwarn org.apache.commons.**
 -keep class org.apache.http.impl.client.**

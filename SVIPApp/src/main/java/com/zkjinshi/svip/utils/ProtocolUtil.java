@@ -31,14 +31,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"order/evaluation";
     }
 
-    /**
-     * 获取商品列表 URL
-     * @param shopId
-     * @return
-     */
-    public static String getGoodListUrl(String shopId){
-        return ConfigUtil.getInst().getJavaDomain()+"goods/get/"+shopId;
-    }
+
 
     /**
      * 根据手机号查询服务员
@@ -48,13 +41,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"user/getuser/"+phone+"/";
     }
 
-    /**
-     * 获取用户订单状态消息
-     * @return
-     */
-    public static String getMsgUrl(String userid,String city){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/"+userid+"/"+city;
-    }
+
 
     /**
      * 获取区域信息列表
@@ -155,14 +142,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * POST 客户根据邀请码查询服务员
-     * @return
-     */
-    public static String getEmpByInviteCodeUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"invitation/getcode";
-    }
-
-    /**
      * 请求Charge 支付凭据 发起支付
      * @return
      */
@@ -202,45 +181,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getPhpDomain()+"arrive/citylist";
     }
 
-    /**
-     * 获取全部商家列表
-     * @return
-     */
-    public static String getShopListUrl(int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list"+"/"+page+"/"+pageSize+"/";
-    }
 
-    /**
-     * 根据城市获取商家(未登录用户)
-     * @return
-     */
-    public static String getShopListByCityUrl(String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 根据城市获取商家(登录用户)
-     * @return
-     */
-    public static String getShopListByCityUrl(String userid,String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userid+"/"+city+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 获取专属客服全部商家列表
-     * @return
-     */
-    public static String getShopListUserUrl(String userID, int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userID+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 获取专属客服全部商家列表
-     * @return
-     */
-    public static String getShopListUnLoginUrl(int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list/"+page+"/"+pageSize+"/";
-    }
 
     /**
      * 获取环信群成员
@@ -258,33 +199,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getPhpDomain()+"user/upload";
     }
 
-    /**
-     * 获取首页大图
-     * @return
-     */
-    public static String getBigPicUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"firstpage/icons";
-    }
 
-    /**
-     * 获取用户推送消息(用户未登陆)
-     * @return
-     */
-    public static String getMessageDefaultUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/default";
-    }
-
-    public static String getArriveNoticeUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"arrive/notice";
-    }
-
-    /**
-     * 根据shopid 查询商家基本信息
-     * @return
-     */
-    public static String getShopBaseInfoUrl(String shopid){
-        return ConfigUtil.getInst().getJavaDomain()+"shop/getshop/"+shopid;
-    }
 
     /**
      * 根据酒店区域获取用户特权
@@ -361,13 +276,7 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
     }
 
-    /**
-     * 获取未确认订单列表
-     * @return
-     */
-    public static String appUpgradeUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"app/upgrade";
-    }
+
 
 
     /**
@@ -597,6 +506,31 @@ public class ProtocolUtil {
      */
     public static String getUsersInfoUrl(String userIds){
         return ConfigUtil.getInst().getForDomain()+"res/v1/query/user/all?userids="+userIds;
+    }
+
+    /**
+     * 查询账户余额(仅限FACEPAY用户) [GET]
+     * @return
+     */
+    public static String getAccount(){
+        return  ConfigUtil.getInst().getForDomain()+"res/v1/payment/balance";
+    }
+
+    /**
+     * 获取收付款列表,含明细
+     * @return
+     */
+    public static String getPayList(String status,int page){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/payment/si?status="+status+"&page="+page+"&page_size=10";
+    }
+
+
+    /**
+     * 用户确认/拒绝付款
+     * @return
+     */
+    public static String payment(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/payment";
     }
 
 }

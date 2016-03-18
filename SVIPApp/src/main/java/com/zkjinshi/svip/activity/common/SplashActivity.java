@@ -2,7 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -10,19 +10,21 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.base.view.CustomDialog;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
+import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
+
+
+import org.json.JSONObject;
 
 /**
  * 开机启动页面
@@ -42,38 +44,15 @@ public class SplashActivity extends BaseActivity {
 
     private static final int GO_LOGIN = 1000;
     private static final int GO_HOME = 1001;
-    private static final int GO_HOME_NO_lOGIN = 1002;
-    private static final int GO_GUIDE = 1003;
     private Animation skyDropOutAnim,logoFadeInAnim,logoFadeOutAnim, textFadeInAnim, textFadeOutAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //如果不需要密码引导页
-        if(!Constants.NEED_PASSWORD_GUIDE){
-            //设置已经看过了密码引导页，这样密码页就不会出现。
-            CacheUtil.getInstance().setGuide(true);
-        }
-        initBestFitPixel();
+
         initView();
         initData();
-    }
-
-    //初始化最适合的图片分辨率
-    private void initBestFitPixel() {
-        int myPixel = DisplayUtil.getWidthPixel(this);
-        int apiSupportPixels[] = {480,720,1080,1920};
-        int bestFitPixel = 720;
-        int offset = Math.abs(bestFitPixel - myPixel);
-        for(int i=0;i<apiSupportPixels.length;i++){
-            int temp = Math.abs(apiSupportPixels[i] - myPixel);
-            if(temp < offset ){
-                offset = temp;
-                bestFitPixel = apiSupportPixels[i];
-            }
-        }
-        CacheUtil.getInstance().setBestFitPixel(bestFitPixel);
     }
 
     private void initView(){
@@ -129,7 +108,7 @@ public class SplashActivity extends BaseActivity {
 
 
         //logo淡入效果
-        textFadeInAnim = AnimationUtils.loadAnimation(this,R.anim.fade_in_text);
+        textFadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in_text);
         textTv.startAnimation(textFadeInAnim);
         textFadeInAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -171,11 +150,7 @@ public class SplashActivity extends BaseActivity {
                 // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
                 handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             } else {
-                if(CacheUtil.getInstance().isGuide()){
-                    handler.sendEmptyMessageDelayed(GO_HOME_NO_lOGIN, SPLASH_DELAY_MILLIS);
-                }else{
-                    handler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
-                }
+                handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
             }
         }else{
             showNetDialog();
@@ -193,8 +168,16 @@ public class SplashActivity extends BaseActivity {
         SSOManager.getInstance().requestRefreshToken(this, new SSOManager.SSOCallBack() {
             @Override
             public void onNetworkResponseSucceed() {
-                LoginController.getInstance().init(SplashActivity.this);
-                LoginController.getInstance().getUserDetailInfo(CacheUtil.getInstance().getUserId(),CacheUtil.getInstance().getToken(),false,false,null);
+
+                LoginController.getInstance().getUserInfo(SplashActivity.this, CacheUtil.getInstance().getUserId(), new LoginController.CallBackListener() {
+                    @Override
+                    public void successCallback(JSONObject response) {
+                        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                        SplashActivity.this.startActivity(mainIntent);
+                        SplashActivity.this.finish();
+                        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+                    }
+                });
             }
         });
     }
@@ -210,11 +193,6 @@ public class SplashActivity extends BaseActivity {
                 case GO_HOME:
                     goHome();
                     break;
-                case GO_HOME_NO_lOGIN:
-                    goHomeNoLogin();
-                    break;
-                case GO_GUIDE:
-                    goGuide();
                 default:
                     break;
             }
@@ -222,19 +200,7 @@ public class SplashActivity extends BaseActivity {
         }
     };
 
-    private void goGuide() {
-        Intent intent = new Intent(SplashActivity.this, GuideOneActivity.class);
-        SplashActivity.this.startActivity(intent);
-        SplashActivity.this.finish();
-        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-    }
 
-    private void goHomeNoLogin() {
-        Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-        SplashActivity.this.startActivity(mainIntent);
-        SplashActivity.this.finish();
-        overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
-    }
 
     private void showNetDialog(){
 

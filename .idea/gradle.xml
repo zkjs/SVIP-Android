@@ -3,46 +3,24 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="1.8" />
+        <option name="gradleHome" value="D:/myGradle/gradle-2.4" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CalendarListView" />
-            <option value="$PROJECT_DIR$/Cloud_TagView" />
-            <option value="$PROJECT_DIR$/MaterialSearchViewLibrary" />
             <option value="$PROJECT_DIR$/SVIPApp" />
-            <option value="$PROJECT_DIR$/SlidingMenu" />
             <option value="$PROJECT_DIR$/ZKJinShiBaseClass" />
-            <option value="$PROJECT_DIR$/drawee" />
-            <option value="$PROJECT_DIR$/drawee-backends" />
-            <option value="$PROJECT_DIR$/drawee-backends/drawee-pipeline" />
-            <option value="$PROJECT_DIR$/fbcore" />
-            <option value="$PROJECT_DIR$/imagepipeline" />
-            <option value="$PROJECT_DIR$/imagepipeline-base" />
             <option value="$PROJECT_DIR$/multi-image-selector" />
-            <option value="$PROJECT_DIR$/pinyinSearch" />
             <option value="$PROJECT_DIR$/pyxis" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CalendarListView" />
-            <option value="$PROJECT_DIR$/Cloud_TagView" />
-            <option value="$PROJECT_DIR$/MaterialSearchViewLibrary" />
             <option value="$PROJECT_DIR$/SVIPApp" />
-            <option value="$PROJECT_DIR$/SlidingMenu" />
             <option value="$PROJECT_DIR$/ZKJinShiBaseClass" />
-            <option value="$PROJECT_DIR$/drawee" />
-            <option value="$PROJECT_DIR$/drawee-backends" />
-            <option value="$PROJECT_DIR$/drawee-backends/drawee-pipeline" />
-            <option value="$PROJECT_DIR$/fbcore" />
-            <option value="$PROJECT_DIR$/imagepipeline" />
-            <option value="$PROJECT_DIR$/imagepipeline-base" />
             <option value="$PROJECT_DIR$/multi-image-selector" />
-            <option value="$PROJECT_DIR$/pinyinSearch" />
             <option value="$PROJECT_DIR$/pyxis" />
           </set>
         </option>

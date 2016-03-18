@@ -3,7 +3,7 @@ package com.zkjinshi.svip.base;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * Activity基类
@@ -29,12 +29,12 @@ public class BaseActivity extends Activity {
 
     protected void onResume(){
         super.onResume();
-        MobclickAgent.onResume(this);
+
     }
 
     protected void onPause(){
         super.onPause();
-        MobclickAgent.onPause(this);
+
     }
 
     /**

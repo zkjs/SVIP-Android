@@ -41,20 +41,20 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BasePavoResponse;
-import com.zkjinshi.svip.response.GetUserResponse;
-import com.zkjinshi.svip.response.RegisterResponse;
+
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.JsonUtil;
+;
 import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-import com.zkjinshi.svip.utils.SmsUtil;
+
 import com.zkjinshi.svip.utils.StringUtil;
+import com.zkjinshi.svip.vo.BaseResponseVo;
 import com.zkjinshi.svip.vo.PayloadVo;
-import com.zkjinshi.svip.wxapi.WXEntryActivity;
+
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -161,7 +161,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        WXEntryActivity.resp = null;
+
         initView();
         initData();
         initListener();
@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         LogUtil.getInstance().info(LogLevel.INFO,"protected void onResume()");
-        WXLoginController.getInstance().callback();
+
     }
 
     private void initView() {
@@ -200,8 +200,6 @@ public class LoginActivity extends BaseActivity {
 
     private void initData() {
         isHomeBack = getIntent().getBooleanExtra("isHomeBack",false);
-        WXLoginController.getInstance().init(this);
-        LoginController.getInstance().init(this);
         try {
             IntentFilter filter = new IntentFilter();
             filter.addAction("android.provider.Telephony.SMS_RECEIVED");
@@ -449,7 +447,7 @@ public class LoginActivity extends BaseActivity {
                 public void onNetworkResponseSucceed(NetResponse result) {
                     super.onNetworkResponseSucceed(result);
                     try{
-                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
@@ -578,7 +576,7 @@ public class LoginActivity extends BaseActivity {
                 public void onNetworkResponseSucceed(NetResponse result) {
                     super.onNetworkResponseSucceed(result);
                     try{
-                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 if(!StringUtil.isEmpty(basePavoResponse.getToken())){//成功
@@ -588,14 +586,22 @@ public class LoginActivity extends BaseActivity {
                                     CacheUtil.getInstance().setUserId(userid);
                                     CacheUtil.getInstance().setLogin(true);
                                     DBOpenHelper.DB_NAME = userid +".db";
-                                    LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), false,isHomeBack,null);
+
+                                    LoginController.getInstance().getUserInfo(LoginActivity.this, CacheUtil.getInstance().getUserId(), new LoginController.CallBackListener() {
+                                        @Override
+                                        public void successCallback(JSONObject response) {
+                                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                            LoginActivity.this.startActivity(mainIntent);
+                                            LoginActivity.this.finish();
+                                            overridePendingTransition(R.anim.activity_new, R.anim.activity_out);
+                                        }
+                                    });
                                 }
                             }else if(basePavoResponse.getRes() == 11){//资料不全
                                 PayloadVo payloadVo = SSOManager.getInstance().decodeToken(basePavoResponse.getToken());
                                 String userid = payloadVo.getSub();
                                 CacheUtil.getInstance().setExtToken(basePavoResponse.getToken());
                                 CacheUtil.getInstance().setUserId(userid);
-                                DBOpenHelper.DB_NAME = userid +".db";
                                 Intent intent = new Intent(LoginActivity.this, CompleteInfoActivity.class);
                                 startActivity(intent);
                                 finish();

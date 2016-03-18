@@ -26,14 +26,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.umeng.analytics.MobclickAgent;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.emchat.EasemobIMManager;
+
 import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -41,17 +41,17 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.response.BasePavoResponse;
-import com.zkjinshi.svip.response.RegisterResponse;
+
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
+
 import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.StringUtil;
+import com.zkjinshi.svip.vo.BaseResponseVo;
 import com.zkjinshi.svip.vo.PayloadVo;
-import com.zkjinshi.svip.wxapi.WXEntryActivity;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -158,7 +158,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        WXEntryActivity.resp = null;
         initView();
         initData();
         initListener();
@@ -179,8 +178,6 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.getInstance().info(LogLevel.INFO,"protected void onResume()");
-        WXLoginController.getInstance().callback();
     }
 
     private void initView() {
@@ -197,8 +194,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void initData() {
         isHomeBack = getIntent().getBooleanExtra("isHomeBack",false);
-        WXLoginController.getInstance().init(this);
-        LoginController.getInstance().init(this);
+
         try {
             IntentFilter filter = new IntentFilter();
             filter.addAction("android.provider.Telephony.SMS_RECEIVED");
@@ -436,7 +432,7 @@ public class RegisterActivity extends BaseActivity {
                 public void onNetworkResponseSucceed(NetResponse result) {
                     super.onNetworkResponseSucceed(result);
                     try{
-                        BasePavoResponse basePavoResponse = new Gson().fromJson(result.rawResult,BasePavoResponse.class);
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
@@ -493,21 +489,16 @@ public class RegisterActivity extends BaseActivity {
                 LogUtil.getInstance().info(LogLevel.INFO, "result.rawResult:" + result.rawResult);
                 try {
                     Gson gson = new Gson();
-                    RegisterResponse registerResponse = gson.fromJson(result.rawResult,RegisterResponse.class);
+                    BaseResponseVo registerResponse = gson.fromJson(result.rawResult,BaseResponseVo.class);
                     if(registerResponse.getRes() == 0){//注册成功
                         String token = registerResponse.getToken();
                         PayloadVo payloadVo = SSOManager.getInstance().decodeToken(token);
                         String userid = payloadVo.getSub();
                         CacheUtil.getInstance().setUserId(userid);
-                        CacheUtil.getInstance().setLogin(true);
-                        CacheUtil.getInstance().setExtToken(token);
                         DBOpenHelper.DB_NAME = userid +".db";
-                        //LoginController.getInstance().getUserDetailInfo(userid, CacheUtil.getInstance().getExtToken(), true,isHomeBack, null);
+                        CacheUtil.getInstance().setExtToken(token);
                         CacheUtil.getInstance().setUserPhone(phone);
                         CacheUtil.getInstance().setActivate(false);
-                        YunBaSubscribeManager.getInstance().setAlias(RegisterActivity.this,CacheUtil.getInstance().getUserId());
-                        EasemobIMManager.getInstance().loginHxUser();
-                        MobclickAgent.onProfileSignIn(userid);
                         Intent intent = new Intent(RegisterActivity.this, CompleteInfoActivity.class);
                         startActivity(intent);
                         finish();

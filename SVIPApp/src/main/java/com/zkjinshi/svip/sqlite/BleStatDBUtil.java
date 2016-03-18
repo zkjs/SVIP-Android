@@ -77,7 +77,7 @@ public class BleStatDBUtil {
         String sql = null;
         try {
             db= helper.getWritableDatabase();
-            sql = "update "+DBOpenHelper.BLE_STAT_TBL+" set total_count=total_count+1 where imei = "+DeviceUtils.getIMEI();
+            sql = "update "+DBOpenHelper.BLE_STAT_TBL+" set total_count=total_count+1 where imei = "+ DeviceUtils.getIMEI();
             db.execSQL(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class BleStatDBUtil {
         String sql = null;
         try {
             db= helper.getWritableDatabase();
-            sql = "update "+DBOpenHelper.BLE_STAT_TBL+" set retry_count=retry_count+1 where imei = "+DeviceUtils.getIMEI();
+            sql = "update "+DBOpenHelper.BLE_STAT_TBL+" set retry_count=retry_count+1 where imei = "+ DeviceUtils.getIMEI();
             db.execSQL(sql);
         } catch (Exception e) {
             e.printStackTrace();
