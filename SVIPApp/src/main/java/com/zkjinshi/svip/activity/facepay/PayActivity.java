@@ -14,6 +14,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -45,6 +46,7 @@ public class PayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
 
+        MainActivity.showMsgAnimation = false;
         mContext = this;
 
         amountStatusVo = (PayRecordDataVo)getIntent().getSerializableExtra("amountStatusVo");

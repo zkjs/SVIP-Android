@@ -47,6 +47,8 @@ public class MainActivity extends Activity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    public static boolean showMsgAnimation = false;
+
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
     private TextView accountTv,usernameTv;
     private RelativeLayout paopaoRlt;
@@ -76,7 +78,8 @@ public class MainActivity extends Activity {
         initView();
         initData();
         initListener();
-       // showPayMsgTips();
+
+
     }
 
     protected void onResume() {
@@ -95,6 +98,12 @@ public class MainActivity extends Activity {
         usernameTv.setText(CacheUtil.getInstance().getUserName());
 
         paopaoRlt.setVisibility(View.GONE);
+
+        if(showMsgAnimation){
+            showPayMsgTips();
+        }else{
+            hidePayMsgTips();
+        }
     }
 
     public void onDestroy(){
@@ -142,6 +151,7 @@ public class MainActivity extends Activity {
                 intent.putExtra("status","0");
                 startActivity(intent);
                 hidePayMsgTips();
+                MainActivity.showMsgAnimation = false;
             }
         });
 

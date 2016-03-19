@@ -65,7 +65,8 @@ public class NotificationHelper {
         String contactName = amountStatusVo.getShopname();
 
         String tipsMsg = null;
-        tipsMsg = "商家请求收款：¥ "+amountStatusVo.getAmount();
+        //tipsMsg = "商家请求收款：¥ "+amountStatusVo.getAmount();
+        tipsMsg = "您有一笔支付信息";
         if(!TextUtils.isEmpty(contactName)){
             notificationBuilder.setContentTitle(contactName);
         }
@@ -92,7 +93,7 @@ public class NotificationHelper {
 
         String tipsMsg = null;
 
-        tipsMsg = "你有一笔支付信息";
+        tipsMsg = "您有一笔支付信息";
         if(!TextUtils.isEmpty(contactName)){
             notificationBuilder.setContentTitle(contactName);
         }

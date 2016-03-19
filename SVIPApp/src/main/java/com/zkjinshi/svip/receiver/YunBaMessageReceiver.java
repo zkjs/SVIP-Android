@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zkjinshi.base.util.ActivityManagerHelper;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.Constants;
@@ -48,13 +49,13 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     if (null != amountStatusVo) {
                         if (ActivityManagerHelper.isRunningBackground(context)){
                             NotificationHelper.getInstance().showNotification(context, amountStatusVo);
+                            MainActivity.showMsgAnimation = true;
                         }else{
                             Intent payIntent = new Intent(context, PayActivity.class);
                             payIntent.putExtra("amountStatusVo",amountStatusVo);
                             payIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(payIntent);
                         }
-
                         Intent showContactIntent = new Intent(Constants.SHOW_CONTACT_RECEIVER_ACTION);
                         context.sendBroadcast(showContactIntent);
                     }
