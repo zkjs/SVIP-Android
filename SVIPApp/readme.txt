@@ -58,4 +58,6 @@ public final static String IMG_HOST = "http://for-testea01cc11-44f5-431f-a393-a6
 
 
 各版本APP对应的`dist`码
+RITZ - 0dcbe53ce80e0f41db57b90184ee31e9b3d2cea0ba799ec3cf829ce4b933297f
+JINJIANG - 014e3aa0f55103f9a2661034f7930bf85e0801bac92be2d39432597e94c21a52
 HAOTING - 568e8db288b8a95d7ecfeb9a5d6936b9c521253f3cad30cd9b83ed2d87db9605
