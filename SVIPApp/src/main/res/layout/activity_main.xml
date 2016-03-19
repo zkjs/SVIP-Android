@@ -18,33 +18,40 @@
 
 
 
-    <!--fresco:roundingBorderColor="@color/orange"-->
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/avatar_sdv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="56dp"
-        android:layout_marginLeft="15dp"
-        fresco:roundAsCircle="true"
-        fresco:roundingBorderWidth="2dp"
-        fresco:roundingBorderColor="@color/orange"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/avatar_y"
-        fresco:placeholderImageScaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/username_tv"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/avatar_sdv"
-        android:layout_marginBottom="75dp"
-        android:layout_marginLeft="15dp"
-        android:text="用户名"
-        android:textColor="@color/orange"
-        android:textSize="24sp"/>
+        android:layout_marginBottom="56dp">
+        <!--fresco:roundingBorderColor="@color/orange"-->
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/avatar_sdv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderWidth="1dp"
+            fresco:roundingBorderColor="@color/orange"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/avatar_y"
+            fresco:placeholderImageScaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/username_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/avatar_sdv"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:text="用户名"
+            android:textColor="@color/orange"
+            android:textSize="24sp"/>
+
+    </RelativeLayout>
 
     <View
         android:id="@+id/line"

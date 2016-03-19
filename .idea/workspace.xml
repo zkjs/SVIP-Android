@@ -46,15 +46,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayDetailActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/PayRecordAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/PayRecordAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_pay_confirm.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/item_pay_confirm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,13 +120,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PayUtil.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PayUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6440281">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5659051">
+              <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -4408,7 +4414,6 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/pyxis/src/main/java/com/zkjinshi/pyxis/bluetooth/IBeaconManager.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
@@ -4422,6 +4427,7 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/PayRecordAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayUtil.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
       </list>
     </option>
   </component>
@@ -4777,7 +4783,7 @@
     <property name="recentsLimit" value="5" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71UBBLH22C4C" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_10_API_21" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/PayRecordAdapter.java&#10;Pay&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java&#10;Main&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;Com&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;Spl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;B&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;PayA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;Logi&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Blue&#9;PSI&#9;JAVA://com.zkjinshi.svip.blueTooth.BlueToothManager&#10;Login&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java&#10;Proto&#9;PSI&#9;JAVA://com.zkjinshi.svip.utils.ProtocolUtil&#10;Re&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;ChatAdapter&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;data&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;data_&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;card&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;ChatA&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;da&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;send&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;colors.xml&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/values/colors.xml&#10;rec&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;Cir&#9;PSI&#9;JAVA://com.zkjinshi.svip.view.GooeyMenu.CirclePoint&#10;aio_friend_bg&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/drawable/aio_friend_bg.xml&#10;ShopF&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;C&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityChangeDialog.java&#10;SettingA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingActivity&#10;SettingActivi&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingItemActivity&#10;blueware&#9;FILE&#9;jar://E:/github_workspace/SVIP-Android-2.0/SVIPApp/libs/oneapm-android-agent.jar!/com/blueware/agent/android/BlueWare.class&#10;Noti&#9;PSI&#9;JAVA://com.zkjinshi.svip.notification.NotificationHelper&#10;No&#9;PSI&#9;JAVA://com.zkjinshi.svip.receiver.NotificationClickReceiver&#10;NOti&#9;PSI&#9;JAVA://com.zkjinshi.svip.notification.NotificationHelper&#10;MainA&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MainAc&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.MainActivity&#10;SetA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.mine.SetActivity&#10;Sp&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;Net&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java&#10;GuideF&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideFiveActivity&#10;Gu&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideOneActivity.java&#10;NetRe&#9;PSI&#9;JAVA://com.zkjinshi.svip.net.NetRequestTask&#10;Spla&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;S&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;GuideOn&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideOneActivity&#10;shake.&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/res/anim/shake.xml&#10;Refresh&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/view/RefreshListView.java&#10;rEFRES&#9;PSI&#9;JAVA://com.sun.org.apache.xml.internal.security.keys.keyresolver.implementations.KeyInfoReferenceResolver&#10;GuideThre&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideThreeActivity.java&#10;GuideT&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideTwoActivity.java&#10;Guideo&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideOneActivity.java&#10;GuideFive&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideFiveActivity&#10;GuideFour&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideFourActivity.java" />
+    <property name="SearchEverywhereHistoryKey" value="activity_m&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/res/layout/activity_main.xml&#10;Pay&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java&#10;Main&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;Com&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;Spl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;B&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;PayA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;Logi&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Blue&#9;PSI&#9;JAVA://com.zkjinshi.svip.blueTooth.BlueToothManager&#10;Login&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java&#10;Proto&#9;PSI&#9;JAVA://com.zkjinshi.svip.utils.ProtocolUtil&#10;Re&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;ChatAdapter&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;data&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;data_&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;card&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;ChatA&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;da&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;send&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;colors.xml&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/values/colors.xml&#10;rec&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;Cir&#9;PSI&#9;JAVA://com.zkjinshi.svip.view.GooeyMenu.CirclePoint&#10;aio_friend_bg&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/drawable/aio_friend_bg.xml&#10;ShopF&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;C&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityChangeDialog.java&#10;SettingA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingActivity&#10;SettingActivi&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingItemActivity&#10;blueware&#9;FILE&#9;jar://E:/github_workspace/SVIP-Android-2.0/SVIPApp/libs/oneapm-android-agent.jar!/com/blueware/agent/android/BlueWare.class&#10;Noti&#9;PSI&#9;JAVA://com.zkjinshi.svip.notification.NotificationHelper&#10;No&#9;PSI&#9;JAVA://com.zkjinshi.svip.receiver.NotificationClickReceiver&#10;NOti&#9;PSI&#9;JAVA://com.zkjinshi.svip.notification.NotificationHelper&#10;MainA&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;MainAc&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.MainActivity&#10;SetA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.mine.SetActivity&#10;Sp&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;Net&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java&#10;GuideF&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideFiveActivity&#10;Gu&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideOneActivity.java&#10;NetRe&#9;PSI&#9;JAVA://com.zkjinshi.svip.net.NetRequestTask&#10;Spla&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;S&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;GuideOn&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideOneActivity&#10;shake.&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/res/anim/shake.xml&#10;Refresh&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/view/RefreshListView.java&#10;rEFRES&#9;PSI&#9;JAVA://com.sun.org.apache.xml.internal.security.keys.keyresolver.implementations.KeyInfoReferenceResolver&#10;GuideThre&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideThreeActivity.java&#10;GuideT&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideTwoActivity.java&#10;Guideo&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideOneActivity.java&#10;GuideFive&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.GuideFiveActivity&#10;GuideFour&#9;FILE&#9;file://E:/zkjs_workspace/SVIP-Android-1.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideFourActivity.java" />
     <property name="android.project.structure.last.selected" value="SlidingMenu" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="204" />
@@ -5149,12 +5155,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00069" summary="1. 更新商家列表搜索，数据切换。">
-      <created>1450423103276</created>
-      <option name="number" value="00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1450423103276</updated>
-    </task>
     <task id="LOCAL-00070" summary="1. 更新商家列表搜索，数据切换。">
       <created>1450423131318</created>
       <option name="number" value="00070" />
@@ -5443,7 +5443,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458385527415</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="云吧接收修改">
+      <created>1458391727356</created>
+      <option name="number" value="00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1458391727356</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TodoView">
@@ -5464,9 +5470,9 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38791946" sideWeight="0.11311914" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38791946" sideWeight="0.8868809" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2416332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119463086" sideWeight="0.11311914" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.119463086" sideWeight="0.8868809" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2416332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61690885" sideWeight="0.4953146" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30543932" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32628798" sideWeight="0.4953146" order="8" side_tool="false" content_ui="tabs" />
@@ -5929,17 +5935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5263158">
-          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/im_styles.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1782364">
@@ -6166,10 +6161,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6440281">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="68" selection-start-line="14" selection-start-column="68" selection-end-line="14" selection-end-column="68" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5659051">
+          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
