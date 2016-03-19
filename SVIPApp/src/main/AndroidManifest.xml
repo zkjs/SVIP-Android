@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="99"
-    android:versionName="1.13.8">
+    android:versionCode="100"
+    android:versionName="1.13.9">
 
 
     <uses-permission android:name="android.permission.CAMERA" />

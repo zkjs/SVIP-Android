@@ -55,3 +55,7 @@ http://p.zkjinshi.com/test/for/res/v1/salecode/get/salecode
 
 public final static String IMG_HOST = "http://svip02.oss-cn-shenzhen.aliyuncs.com/";//图片测试环境
 public final static String IMG_HOST = "http://for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com/";//图片正式环境
+
+
+各版本APP对应的`dist`码
+HAOTING - 568e8db288b8a95d7ecfeb9a5d6936b9c521253f3cad30cd9b83ed2d87db9605
