@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -111,12 +112,14 @@ public class PayActivity extends Activity {
 
                 public void onStart(){
                     super.onStart();
-                    mProgressDialog = ProgressDialog.show( mContext, "" , "", true,true);
+                    //mProgressDialog = ProgressDialog.show( mContext, "" , "", true,true);
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
                 }
 
                 public void onFinish(){
                     super.onFinish();
-                    mProgressDialog.cancel();
+                   // mProgressDialog.cancel();
+                    DialogUtil.getInstance().cancelProgressDialog();
                 }
 
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response){
