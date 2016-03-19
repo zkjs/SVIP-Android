@@ -98,7 +98,7 @@ public class DialogUtil {
 		CircleImageView userAvatar = (CircleImageView) layoutView.findViewById(R.id.civ_loading_icon);
 		//ImageLoader.getInstance().displayImage(imageUrl,userAvatar);
 		cancelProgressDialog();
-		progressDialog = new ProgressDialog(context);
+		progressDialog = new ProgressDialog(context,ProgressDialog.THEME_HOLO_LIGHT);
 		progressDialog.setIndeterminate(true);
 		progressDialog.setCancelable(true);
 		progressDialog.setCanceledOnTouchOutside(false);
