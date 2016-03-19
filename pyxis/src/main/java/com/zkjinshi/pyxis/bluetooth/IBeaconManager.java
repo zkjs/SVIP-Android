@@ -146,25 +146,25 @@ public class IBeaconManager {
 
 
 	private void intoArea(IBeaconVo ibeacon){
-//		if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
-//			IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-//			IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-//		}else{
-//			IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-//		}
 
 		//第一次扫描到
 		if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
 			if(ibeacon.getDistance() <= CHECK_DISTANCE){
+				IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 				IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+			}else{
+				IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 			}
 		}else{//重复扫描到
 			IBeaconVo preBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(ibeacon.getBeaconKey());
 			if(preBeaconVo.getDistance() > CHECK_DISTANCE && ibeacon.getDistance() <= CHECK_DISTANCE){
+				IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 				IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+			}else{
+				IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
 			}
 		}
-		IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+
 
 	}
 

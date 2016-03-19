@@ -84,7 +84,7 @@ public class BlueToothManager {
         }
     };
 
-    public void lbsLocBeaconRequest(IBeaconVo iBeaconVo){
+    public void lbsLocBeaconRequest(final IBeaconVo iBeaconVo){
         try {
             if(!CacheUtil.getInstance().isLogin()){
                 return;
@@ -115,7 +115,7 @@ public class BlueToothManager {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.d(TAG,response.toString());
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功");
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+iBeaconVo.getDistance()+"蓝牙推送成功");
                     BleStatDBUtil.getInstance().updateTotalCount();
                 }
 
