@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.zkjinshi.base.util.ActivityManagerHelper;
+import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
@@ -44,7 +46,15 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                 if ("PAYMENT_CONFIRM".equals(type)) {
                     PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
                     if (null != amountStatusVo) {
-                        NotificationHelper.getInstance().showNotification(context, amountStatusVo);
+                        if (ActivityManagerHelper.isRunningBackground(context)){
+                            NotificationHelper.getInstance().showNotification(context, amountStatusVo);
+                        }else{
+                            Intent payIntent = new Intent(context, PayActivity.class);
+                            payIntent.putExtra("amountStatusVo",amountStatusVo);
+                            payIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(payIntent);
+                        }
+
                         Intent showContactIntent = new Intent(Constants.SHOW_CONTACT_RECEIVER_ACTION);
                         context.sendBroadcast(showContactIntent);
                     }
