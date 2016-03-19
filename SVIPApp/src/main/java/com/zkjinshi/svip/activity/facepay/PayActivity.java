@@ -17,6 +17,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 
@@ -69,7 +70,7 @@ public class PayActivity extends Activity {
     private void initData() {
         if(amountStatusVo != null){
             hotelNameTv.setText(amountStatusVo.getShopname());
-            priceTv.setText("¥ "+amountStatusVo.getAmount());
+            priceTv.setText("¥ "+ PayUtil.changeMoney(amountStatusVo.getAmount()));
             orderNoTv.setText("交易单号："+amountStatusVo.getOrderno());
         }
     }

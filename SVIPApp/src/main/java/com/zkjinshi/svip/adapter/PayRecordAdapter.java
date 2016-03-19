@@ -1,14 +1,19 @@
 package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.facepay.PayActivity;
+import com.zkjinshi.svip.activity.facepay.PayDetailActivity;
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 
 
@@ -25,6 +30,8 @@ public class PayRecordAdapter extends BaseAdapter {
 
     public ArrayList<PayRecordDataVo> datalist = new ArrayList<PayRecordDataVo>();
     private Activity activity;
+
+    public  String status = "0";
 
     public void loadMore(ArrayList<PayRecordDataVo> morelist){
         datalist.addAll(morelist);
@@ -58,7 +65,7 @@ public class PayRecordAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)  {
-        PayRecordDataVo itemOrder = datalist.get(position);
+        final PayRecordDataVo itemOrder = datalist.get(position);
         ViewHolder holder = null;
         if(convertView != null) {
             holder = (ViewHolder) convertView.getTag();
@@ -68,17 +75,33 @@ public class PayRecordAdapter extends BaseAdapter {
             holder.hotelNameTv = (TextView)convertView.findViewById(R.id.shopname_tv);
             holder.datetimeTv = (TextView)convertView.findViewById(R.id.datetime_tv);
             holder.priceTv = (TextView)convertView.findViewById(R.id.price_tv);
-
+            holder.clickRlt = (RelativeLayout)convertView.findViewById(R.id.click_rlt);
             convertView.setTag(holder);
         }
         holder.hotelNameTv.setText(itemOrder.getShopname());
         holder.datetimeTv.setText(itemOrder.getCreatetime());
-        holder.priceTv.setText("¥ "+itemOrder.getAmount());
+        holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
+
+        holder.clickRlt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(status.equals("0")){
+                    Intent intent = new Intent(activity, PayActivity.class);
+                    intent.putExtra("amountStatusVo",itemOrder);
+                    activity.startActivity(intent);
+                }else{
+                    Intent intent = new Intent(activity,PayDetailActivity.class);
+                    intent.putExtra("payRecordDataVo",itemOrder);
+                    activity.startActivity(intent);
+                }
+            }
+        });
 
         return convertView;
     }
 
     static class ViewHolder{
         TextView hotelNameTv,priceTv,datetimeTv;
+        RelativeLayout clickRlt;
     }
 }

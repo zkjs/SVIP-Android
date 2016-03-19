@@ -73,14 +73,15 @@ public class PayConfirmActivity extends Activity {
     }
 
     private void initData() {
+        ArrayList<PayRecordDataVo> payRecordDataList = new ArrayList<PayRecordDataVo>();
+        mPayRecordAdapter = new PayRecordAdapter(payRecordDataList, PayConfirmActivity.this);
+        mRefreshListView.setAdapter(mPayRecordAdapter);
         if(status.equals("0")){
             titleTv.setText("支付确认");
         }else{
             titleTv.setText("支付记录");
         }
-        ArrayList<PayRecordDataVo> payRecordDataList = new ArrayList<PayRecordDataVo>();
-        mPayRecordAdapter = new PayRecordAdapter(payRecordDataList, PayConfirmActivity.this);
-        mRefreshListView.setAdapter(mPayRecordAdapter);
+        mPayRecordAdapter.status = status;
     }
 
     public void onResume(){
@@ -119,17 +120,17 @@ public class PayConfirmActivity extends Activity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-                int realPostion = position - 1;
-                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
-                if(status.equals("0")){
-                    Intent intent = new Intent(mContext, PayActivity.class);
-                    intent.putExtra("amountStatusVo",payRecordDataVo);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(mContext,PayDetailActivity.class);
-                    intent.putExtra("payRecordDataVo",payRecordDataVo);
-                    startActivity(intent);
-                }
+//                int realPostion = position - 1;
+//                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
+//                if(status.equals("0")){
+//                    Intent intent = new Intent(mContext, PayActivity.class);
+//                    intent.putExtra("amountStatusVo",payRecordDataVo);
+//                    startActivity(intent);
+//                }else{
+//                    Intent intent = new Intent(mContext,PayDetailActivity.class);
+//                    intent.putExtra("payRecordDataVo",payRecordDataVo);
+//                    startActivity(intent);
+//                }
 
             }
         });

@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 
@@ -62,7 +63,7 @@ public class PayDetailActivity extends Activity {
         payRecordDataVo = (PayRecordDataVo)getIntent().getSerializableExtra("payRecordDataVo");
         if(payRecordDataVo != null){
             hotelNameTv.setText(payRecordDataVo.getShopname());
-            priceTv.setText("¥ "+payRecordDataVo.getAmount());
+            priceTv.setText("¥ "+ PayUtil.changeMoney(payRecordDataVo.getAmount()));
             datetimeTv.setText(payRecordDataVo.getConfirmtime());
             orderNoTv.setText(payRecordDataVo.getPaymentno());
         }

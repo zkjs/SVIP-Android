@@ -31,11 +31,13 @@ import com.zkjinshi.svip.blueTooth.BlueToothManager;
 import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -210,7 +212,7 @@ public class MainActivity extends Activity {
                     try {
                         if(response.getInt("res") == 0){
                             double balance = response.getDouble("balance");
-                            accountTv.setText(balance+"");
+                            accountTv.setText(PayUtil.changeMoney(balance));
                         }else{
                             Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
                         }
