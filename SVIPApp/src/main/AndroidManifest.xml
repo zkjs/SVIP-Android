@@ -111,7 +111,7 @@
         <activity android:name=".activity.common.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.App.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
 
         <activity

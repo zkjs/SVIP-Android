@@ -81,7 +81,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
             if (isShowLoadingDialog) {
                 String imageUrl = null;
                 if(CacheUtil.getInstance().isLogin()){
-                    imageUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
+                   // imageUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
                 }
                 DialogUtil.getInstance().showAvatarProgressDialog(context,imageUrl);
             }

@@ -5,7 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.PayRecordDataVo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.yunba.android.manager.YunBaManager;
 
@@ -22,17 +28,35 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
+
+
         //云巴推送处理
         if (YunBaManager.MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
 
-            String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
-            String msg = intent.getStringExtra(YunBaManager.MQTT_MSG);
-            Log.i(TAG, "YunBaMessageReceiver-msg:" + msg);
-            Log.i(TAG, "YunBaMessageReceiver-topic:" + topic);
-            Intent iBeaconIntent = new Intent();
-            iBeaconIntent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
-            iBeaconIntent.putExtra("msg",msg);
-            context.sendBroadcast(iBeaconIntent);
+            try {
+                String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
+                String msg = intent.getStringExtra(YunBaManager.MQTT_MSG);
+                Log.i(TAG, "YunBaMessageReceiver-msg:" + msg);
+                Log.i(TAG, "YunBaMessageReceiver-topic:" + topic);
+                JSONObject jsonObject = new JSONObject(msg);
+                String type = jsonObject.getString("type");
+                String data = jsonObject.getString("data");
+                if ("PAYMENT_CONFIRM".equals(type)) {
+                    PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
+                    if (null != amountStatusVo) {
+                        NotificationHelper.getInstance().showNotification(context, amountStatusVo);
+                        Intent showContactIntent = new Intent(Constants.SHOW_CONTACT_RECEIVER_ACTION);
+                        context.sendBroadcast(showContactIntent);
+                    }
+                }else if("PAYMENT_RESULT".equals(type)){
+                    PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
+                    if (null != amountStatusVo) {
+                        NotificationHelper.getInstance().showNotificationResult(context, amountStatusVo);
+                    }
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
 
         } else if (YunBaManager.PRESENCE_RECEIVED_ACTION.equals(intent.getAction())) {
             String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);

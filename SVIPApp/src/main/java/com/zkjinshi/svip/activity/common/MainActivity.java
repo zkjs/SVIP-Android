@@ -2,8 +2,10 @@ package com.zkjinshi.svip.activity.common;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 
@@ -11,12 +13,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
@@ -39,14 +45,26 @@ import com.blueware.agent.android.BlueWare;
 
 public class MainActivity extends Activity {
 
-    private SimpleDraweeView msgIv,avatarCiv;
+    public static final String TAG = MainActivity.class.getSimpleName();
+
+    private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
     private TextView accountTv,usernameTv;
+    private RelativeLayout paopaoRlt;
 
 
     private Context mContext;
     private ProgressDialog mProgressDialog;
 
     public Animation fadeAnimation = null;
+
+    private ShowMessageReceiver mShowMessageReceiver;
+    private class ShowMessageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            LogUtil.getInstance().info(LogLevel.DEBUG,TAG+"收到显示信息广播");
+            showPayMsgTips();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +76,7 @@ public class MainActivity extends Activity {
         initView();
         initData();
         initListener();
+       // showPayMsgTips();
     }
 
     protected void onResume() {
@@ -70,10 +89,19 @@ public class MainActivity extends Activity {
                 LocationManager.getInstance().startLocation();
             }
         }
-        getAccount();
+
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
+
+        paopaoRlt.setVisibility(View.GONE);
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        if(null != mShowMessageReceiver){
+            unregisterReceiver(mShowMessageReceiver);
+        }
     }
 
     private void initView() {
@@ -81,17 +109,24 @@ public class MainActivity extends Activity {
         avatarCiv =  (SimpleDraweeView)findViewById(R.id.avatar_sdv);
         accountTv = (TextView)findViewById(R.id.account_tv);
         usernameTv = (TextView)findViewById(R.id.username_tv);
-
+        shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
+        walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
+        paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
     }
 
     private void initData() {
-        accountTv.setText("¥ --");
+        accountTv.setText("");
         usernameTv.setText("");
+
+        mShowMessageReceiver = new ShowMessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.SHOW_CONTACT_RECEIVER_ACTION);
+        registerReceiver(mShowMessageReceiver, filter);
     }
 
 
     private void initListener() {
-        accountTv.setOnClickListener(new View.OnClickListener() {
+        paopaoRlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,PayConfirmActivity.class);
@@ -106,6 +141,19 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(mContext,PayConfirmActivity.class);
                 intent.putExtra("status","0");
                 startActivity(intent);
+                hidePayMsgTips();
+            }
+        });
+
+        walletSdv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(paopaoRlt.getVisibility() == View.GONE){
+                    getAccount();
+                    paopaoRlt.setVisibility(View.VISIBLE);
+                }else{
+                    paopaoRlt.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -118,7 +166,7 @@ public class MainActivity extends Activity {
     }
 
     //呼吸灯不闪
-    public void hidePrivilegeTips(){
+    public void hidePayMsgTips(){
         if(fadeAnimation != null){
             fadeAnimation.cancel();
             fadeAnimation = null;
@@ -139,12 +187,12 @@ public class MainActivity extends Activity {
 
                 public void onStart(){
                     super.onStart();
-                    mProgressDialog = ProgressDialog.show( mContext, "" , "", true,true);
+                    //DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
                 }
 
                 public void onFinish(){
                     super.onFinish();
-                    mProgressDialog.cancel();
+                   // DialogUtil.getInstance().cancelProgressDialog();
                 }
 
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response){
@@ -152,7 +200,7 @@ public class MainActivity extends Activity {
                     try {
                         if(response.getInt("res") == 0){
                             double balance = response.getDouble("balance");
-                            accountTv.setText("¥ "+balance);
+                            accountTv.setText(balance+"");
                         }else{
                             Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
                         }
