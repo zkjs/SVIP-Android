@@ -439,7 +439,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoVcodeLogin(){
-        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=login";
+        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=login&dist=568e8db288b8a95d7ecfeb9a5d6936b9c521253f3cad30cd9b83ed2d87db9605";
     }
 
     /**
