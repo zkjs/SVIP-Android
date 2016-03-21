@@ -67,13 +67,12 @@
         android:layout_above="@id/line">
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shop_logo"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
+            android:layout_width="202dp"
+            android:layout_height="96dp"
             android:layout_centerInParent="true"
-            fresco:viewAspectRatio="2.11"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/img_wyndham"
-            fresco:placeholderImageScaleType="fitCenter"/>
+            fresco:placeholderImageScaleType="centerCrop"/>
 
     </RelativeLayout>
 
