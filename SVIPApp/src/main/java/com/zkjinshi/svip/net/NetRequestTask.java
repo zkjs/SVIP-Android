@@ -34,6 +34,7 @@ import java.util.HashMap;
  * 版权所有
  */
 public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
+
     /** http返回成功 */
     private static final int REQ_RESP_SUCCESS = 200;
 
@@ -107,19 +108,19 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
             objectParamsMap = mediaRequest.getObjectParamMap();
             fileMap = mediaRequest.getFileMap();
             if(methodType ==  MethodType.POST){
-                resultStr = RequestUtil.sendPostRequest(requestUrl, bizParamsMap, fileParamsMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl, bizParamsMap, fileParamsMap,requestListener);
             }else if(methodType == MethodType.GET){
-                resultStr = RequestUtil.sendGetRequest(requestUrl);
+                resultStr = RequestUtil.sendGetRequest(requestUrl,requestListener);
             }else if(methodType == MethodType.PUSH){
-                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,fileMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,fileMap,requestListener);
             } else if(methodType == MethodType.JSON){
-                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,requestListener);
             }else if(methodType == MethodType.JSONPOST){
-                resultStr = RequestUtil.sendJsonPostRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendJsonPostRequest(requestUrl,objectParamsMap,requestListener);
             }else if(methodType == MethodType.PUT){
-                resultStr = RequestUtil.sendPutRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendPutRequest(requestUrl,objectParamsMap,requestListener);
             }else if(methodType == MethodType.DELETE){
-                resultStr = RequestUtil.sendDeleteRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendDeleteRequest(requestUrl,objectParamsMap,requestListener);
             }
             if(!TextUtils.isEmpty(resultStr)){
                 resultInfo = responseClazz.newInstance();

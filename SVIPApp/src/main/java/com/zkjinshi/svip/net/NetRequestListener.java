@@ -32,4 +32,9 @@ public interface NetRequestListener {
      */
     public void beforeNetworkRequestStart();
 
+    /**
+     * 网络请求,token失效的回调
+     */
+    public void onCookieExpired();
+
 }

@@ -32,7 +32,7 @@ import com.zkjinshi.svip.utils.CacheUtil;
  */
 public abstract class ExtNetRequestListener  implements NetRequestListener{
 
-    //public static final String TAG = ExtNetRequestListener.class.getSimpleName();
+    public static final String TAG = ExtNetRequestListener.class.getSimpleName();
 
     private Context context;
 
@@ -42,51 +42,34 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
 
     @Override
     public void onNetworkRequestError(int errorCode, String errorMessage) {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorCode:"+errorCode);
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorMessage:"+errorMessage);
+        Log.i(TAG,"errorCode:"+errorCode);
+        Log.i(TAG,"errorMessage:"+errorMessage);
     }
 
     @Override
     public void onNetworkRequestCancelled() {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"onNetworkRequestCancelled");
+        Log.i(TAG,"onNetworkRequestCancelled");
     }
 
     @Override
     public void onNetworkResponseSucceed(NetResponse result) {
-        try{
-            BaseBean baseBean = new Gson().fromJson(result.rawResult,BaseBean.class);
-            if(baseBean!= null && !baseBean.isSet() && baseBean.getErr().equals("400")){
-                /*if(context instanceof Activity){
-                    //环信接口退出
-                    EasemobIMHelper.getInstance().logout();
-                    //修改登录状态
-                    CacheUtil.getInstance().setLogin(false);
-                    CacheUtil.getInstance().setActivate(false);
-                    CacheUtil.getInstance().setUserId("");
-                    CacheUtil.getInstance().setUserName("");
-                    CacheUtil.getInstance().setUserPhone("");
-                    CacheUtil.getInstance().savePicPath("");
-                    //移除蓝牙服务
-                    BlueToothManager.getInstance().stopIBeaconService();
-                    //ImageLoader.getInstance().clearDiskCache();
-                    ImageLoader.getInstance().clearMemoryCache();
-                    //停止高德地图定位API
-                    LocationManager.getInstance().stopLocation();
-                    //友盟统计登出
-                    MobclickAgent.onProfileSignOff();
-                  NetDialogUtil.showLoginDialog((Activity) context);
-                }*/
-            }
-        }catch (Exception e){
-           // Log.e(ExtNetRequestListener.class.getSimpleName(),e.getMessage());
-        }
 
     }
 
     @Override
     public void beforeNetworkRequestStart() {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"beforeNetworkRequestStart");
+        Log.i(TAG,"beforeNetworkRequestStart");
     }
 
-
+    @Override
+    public void onCookieExpired() {
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseApplication.getInst().clearLeaveTop();
+                Intent intent = new Intent(context,LoginActivity.class);
+                ((Activity)context).startActivity(intent);
+            }
+        });
+    }
 }
