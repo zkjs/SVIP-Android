@@ -148,7 +148,7 @@ public class PayActivity extends Activity {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(mContext,statusCode);
+                    RequestUtil.onFailure((Activity) mContext,statusCode);
                 }
             });
         } catch (Exception e) {

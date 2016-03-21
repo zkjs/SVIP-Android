@@ -123,7 +123,7 @@ public class LocationManager{
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     //Log.d(TAG,errorResponse.toString());
                     LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送失败");
-                    RequestUtil.onFailure(context,statusCode);
+                    //RequestUtil.onFailure(context,statusCode);
                 }
 
                 @Override

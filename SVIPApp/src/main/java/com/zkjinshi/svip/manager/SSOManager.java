@@ -128,7 +128,7 @@ public class SSOManager {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(context,statusCode);
+                    RequestUtil.onFailure((Activity) context,statusCode);
                 }
             });
         }catch (Exception e){

@@ -411,15 +411,12 @@ public class RequestUtil {
     }
 
 
-    public static void onFailure(Context context, int statusCode){
+    public static void onFailure(Activity activity, int statusCode){
         if(statusCode == 401){
-            Intent intent = new Intent(context, LoginActivity.class);
-            context.startActivity(intent);
-            if(context instanceof Activity){
-                Activity activity = (Activity)context;
-                activity.finish();
-                CacheUtil.getInstance().setLogin(false);
-            }
+            Intent intent = new Intent(activity, LoginActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+            CacheUtil.getInstance().setLogin(false);
         }
     }
 

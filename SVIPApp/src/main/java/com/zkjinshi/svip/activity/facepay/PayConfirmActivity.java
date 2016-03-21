@@ -202,7 +202,7 @@ public class PayConfirmActivity extends Activity {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(mContext,statusCode);
+                    RequestUtil.onFailure(PayConfirmActivity.this,statusCode);
                 }
             });
         } catch (Exception e) {
