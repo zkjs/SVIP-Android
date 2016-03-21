@@ -37,7 +37,7 @@
             fresco:roundingBorderWidth="1dp"
             fresco:roundingBorderColor="@color/orange"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/avatar_y"
+            fresco:placeholderImage="@mipmap/ic_launcher"
             fresco:placeholderImageScaleType="centerCrop"/>
 
         <TextView
