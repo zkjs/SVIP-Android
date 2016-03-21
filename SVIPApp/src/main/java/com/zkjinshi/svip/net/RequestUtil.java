@@ -1,8 +1,12 @@
 package com.zkjinshi.svip.net;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
+import com.zkjinshi.svip.activity.common.LoginActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 
@@ -404,6 +408,18 @@ public class RequestUtil {
         outStream.close();
         conn.disconnect();
         return result.toString();
+    }
+
+
+    public static void onFailure(Context context, int statusCode){
+        if(statusCode == 401){
+            Intent intent = new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
+            if(context instanceof Activity){
+                Activity activity = (Activity)context;
+                activity.finish();
+            }
+        }
     }
 
 

@@ -21,6 +21,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -122,6 +123,7 @@ public class LocationManager{
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     //Log.d(TAG,errorResponse.toString());
                     LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送失败");
+                    RequestUtil.onFailure(context,statusCode);
                 }
 
                 @Override

@@ -29,6 +29,7 @@ import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.map.LocationManager;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.PayUtil;
@@ -224,6 +225,7 @@ public class MainActivity extends Activity {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
         } catch (Exception e) {

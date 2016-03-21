@@ -23,6 +23,7 @@ import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.manager.BleStatManager;
 import com.zkjinshi.svip.manager.SSOManager;
 
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.BleStatDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -123,6 +124,7 @@ public class BlueToothManager {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
                     BleLogManager.getInstance().collectBleLog(context,throwable.getMessage());
+                    RequestUtil.onFailure(context,statusCode);
                 }
 
 

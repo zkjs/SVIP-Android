@@ -19,6 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.PayRecordAdapter;
 import com.zkjinshi.svip.listener.OnRefreshListener;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -201,6 +202,7 @@ public class PayConfirmActivity extends Activity {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
         } catch (Exception e) {

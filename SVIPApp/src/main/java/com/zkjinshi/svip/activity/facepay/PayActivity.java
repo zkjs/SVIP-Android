@@ -15,6 +15,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.PayUtil;
@@ -147,6 +148,7 @@ public class PayActivity extends Activity {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
         } catch (Exception e) {
