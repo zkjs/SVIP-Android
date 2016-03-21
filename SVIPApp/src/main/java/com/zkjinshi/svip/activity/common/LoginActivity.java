@@ -27,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -42,10 +44,12 @@ import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 ;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
@@ -62,6 +66,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * 开发者：JimmyZhang
@@ -104,6 +111,8 @@ public class LoginActivity extends BaseActivity {
 
     private Map<String, Object>       mResultMap;
     private SmsReceiver smsReceiver;
+
+    private Context mContext;
 
 
     private boolean isHomeBack;
@@ -161,6 +170,8 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mContext = this;
 
         initView();
         initData();
@@ -423,31 +434,27 @@ public class LoginActivity extends BaseActivity {
      */
     private void sendVerifyCodeForPhone(final String phoneNumber) {
         try{
-            String url = ProtocolUtil.ssoVcodeLogin();
-            NetRequest netRequest = new NetRequest(url);
-            HashMap<String,Object> bizMap = new HashMap<String,Object>();
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
             String phoneStr = AESUtil.encrypt(phoneNumber, AESUtil.PAVO_KEY);
-            bizMap.put("phone",phoneStr);
-            netRequest.setObjectParamMap(bizMap);
-            NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-            netRequestTask.methodType = MethodType.JSONPOST;
-            netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-                @Override
-                public void onNetworkRequestError(int errorCode, String errorMessage) {
-                    Log.i(TAG, "errorCode:" + errorCode);
-                    Log.i(TAG, "errorMessage:" + errorMessage);
+            jsonObject.put("phone",phoneStr);
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.ssoVcodeLogin();
+            client.post(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
                 }
 
-                @Override
-                public void onNetworkRequestCancelled() {
-
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
                 }
 
-                @Override
-                public void onNetworkResponseSucceed(NetResponse result) {
-                    super.onNetworkResponseSucceed(result);
-                    try{
-                        BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 handler.sendEmptyMessage(SEND_SMS_VERIFY);
@@ -455,22 +462,21 @@ public class LoginActivity extends BaseActivity {
                                 PavoUtil.showErrorMsg(LoginActivity.this,basePavoResponse.getResDesc());
                             }
                         }
-
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
-                @Override
-                public void beforeNetworkRequestStart() {
-
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
-            netRequestTask.isShowLoadingDialog = true;
-            netRequestTask.execute();
         }catch (Exception e){
+            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
     }
 
 
@@ -551,32 +557,29 @@ public class LoginActivity extends BaseActivity {
      * @param code
      */
     private void getToken(final String phone,final String code){
+
         try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("phone",phone);
+            jsonObject.put("code",code);
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
             String url = ProtocolUtil.ssoToken();
-            NetRequest netRequest = new NetRequest(url);
-            HashMap<String,Object> bizMap = new HashMap<String,Object>();
-            bizMap.put("phone",phone);
-            bizMap.put("code",code);
-            netRequest.setObjectParamMap(bizMap);
-            NetRequestTask netRequestTask = new NetRequestTask(this,netRequest, NetResponse.class);
-            netRequestTask.methodType = MethodType.JSONPOST;
-            netRequestTask.setNetRequestListener(new ExtNetRequestListener(this) {
-                @Override
-                public void onNetworkRequestError(int errorCode, String errorMessage) {
-                    Log.i(TAG, "errorCode:" + errorCode);
-                    Log.i(TAG, "errorMessage:" + errorMessage);
+            client.post(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
                 }
 
-                @Override
-                public void onNetworkRequestCancelled() {
-
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
                 }
 
-                @Override
-                public void onNetworkResponseSucceed(NetResponse result) {
-                    super.onNetworkResponseSucceed(result);
-                    try{
-                        BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 if(!StringUtil.isEmpty(basePavoResponse.getToken())){//成功
@@ -610,19 +613,18 @@ public class LoginActivity extends BaseActivity {
                             }
                         }
 
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
-                @Override
-                public void beforeNetworkRequestStart() {
-
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
-            netRequestTask.isShowLoadingDialog = true;
-            netRequestTask.execute();
         }catch (Exception e){
+            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

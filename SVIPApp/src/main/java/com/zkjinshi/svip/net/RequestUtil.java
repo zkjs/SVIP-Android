@@ -418,6 +418,7 @@ public class RequestUtil {
             if(context instanceof Activity){
                 Activity activity = (Activity)context;
                 activity.finish();
+                CacheUtil.getInstance().setLogin(false);
             }
         }
     }

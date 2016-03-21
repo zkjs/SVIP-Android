@@ -222,61 +222,7 @@ public class LocationManager{
         return  city;
     }
 
-    public void pushGps(AMapLocation aMapLocation){
-        try {
-            String url = ProtocolUtil.lbsLocGps();
-            NetRequest netRequest = new NetRequest(url);
-            HashMap<String,Object> bizMap = new HashMap<String,Object>();
 
-            bizMap.put("latitude",aMapLocation.getLatitude());
-            bizMap.put("longitude",aMapLocation.getLongitude());
-            bizMap.put("altitude", aMapLocation.getAltitude());
-            bizMap.put("token", CacheUtil.getInstance().getExtToken());
-            bizMap.put("timestamp",System.currentTimeMillis());
-
-           /* bizMap.put("latitude","1");
-            bizMap.put("longitude","2");
-            bizMap.put("altitude", "3");
-            bizMap.put("token", "head.payload.sign");
-            bizMap.put("timestamp",1455870706863L);*/
-
-            netRequest.setObjectParamMap(bizMap);
-            NetRequestTask netRequestTask = new NetRequestTask(context,netRequest, NetResponse.class);
-            netRequestTask.methodType = MethodType.PUT;
-            LogUtil.getInstance().info(LogLevel.DEBUG,"调用API："+url);
-            LogUtil.getInstance().info(LogLevel.DEBUG,"API推送参数:"+bizMap.toString());
-            netRequestTask.setNetRequestListener(new ExtNetRequestListener(context) {
-                @Override
-                public void onNetworkRequestError(int errorCode, String errorMessage) {
-                    Log.i(TAG, "errorCode:" + errorCode);
-                    Log.i(TAG, "errorMessage:" + errorMessage);
-                }
-
-                @Override
-                public void onNetworkRequestCancelled() {
-
-                }
-
-                @Override
-                public void onNetworkResponseSucceed(NetResponse result) {
-                    super.onNetworkResponseSucceed(result);
-                    //Log.i(TAG, "result.rawResult:" + result.rawResult);
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"API推送成功");
-                }
-
-                @Override
-                public void beforeNetworkRequestStart() {
-
-                }
-            });
-            netRequestTask.isShowLoadingDialog = false;
-            netRequestTask.execute();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public boolean isRuning() {
         return isRuning;

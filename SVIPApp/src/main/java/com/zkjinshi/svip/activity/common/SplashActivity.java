@@ -165,7 +165,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void goHome() {
-        SSOManager.getInstance().requestRefreshToken(this, new SSOManager.SSOCallBack() {
+        SSOManager.getInstance().refreshToken(this, new SSOManager.SSOCallBack() {
             @Override
             public void onNetworkResponseSucceed() {
 
