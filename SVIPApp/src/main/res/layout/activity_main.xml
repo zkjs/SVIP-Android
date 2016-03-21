@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="56dp">
+        android:layout_marginBottom="50dp">
         <!--fresco:roundingBorderColor="@color/orange"-->
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -59,7 +59,7 @@
         android:layout_height="2dp"
         android:background="@mipmap/line"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="140dp"/>
+        android:layout_marginBottom="134dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -85,7 +85,7 @@
         android:layout_height="27dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="73dp"
+        android:layout_marginBottom="67dp"
         android:layout_marginRight="34dp"
         fresco:actualImageScaleType="centerCrop"
         fresco:placeholderImage="@drawable/btn_wallet_selector"
