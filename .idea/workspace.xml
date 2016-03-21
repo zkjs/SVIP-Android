@@ -46,10 +46,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/bg_splash.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxxhdpi/bg_splash.png" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,8 +83,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33650795">
-              <caret line="32" column="40" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+            <state vertical-scroll-proportion="-1.6455696">
+              <caret line="72" column="54" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -4594,7 +4592,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mipmap-xxxhdpi" />
+              <option name="myItemId" value="mipmap-xxhdpi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -5077,12 +5075,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00083" summary="1. 更新商家列表带专属客服显示。">
-      <created>1450845632431</created>
-      <option name="number" value="00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1450845632434</updated>
-    </task>
     <task id="LOCAL-00084" summary="1. 更新配置文件域名">
       <created>1450859075870</created>
       <option name="number" value="00084" />
@@ -5371,7 +5363,13 @@
       <option name="project" value="LOCAL" />
       <updated>1458546156683</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="捕获token失效">
+      <created>1458547875579</created>
+      <option name="number" value="00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1458547875579</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TodoView">
@@ -5392,8 +5390,8 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4604027" sideWeight="0.15394913" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4604027" sideWeight="0.84605086" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35302013" sideWeight="0.15394913" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35302013" sideWeight="0.84605086" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.093708165" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.61690885" sideWeight="0.4953146" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.304698" sideWeight="0.49464524" order="10" side_tool="false" content_ui="tabs" />
@@ -6073,8 +6071,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33650795">
-          <caret line="32" column="40" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+        <state vertical-scroll-proportion="-1.6455696">
+          <caret line="72" column="54" selection-start-line="72" selection-start-column="54" selection-end-line="72" selection-end-column="54" />
           <folding />
         </state>
       </provider>

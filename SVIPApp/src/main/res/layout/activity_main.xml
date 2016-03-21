@@ -70,9 +70,9 @@
             android:layout_width="202dp"
             android:layout_height="96dp"
             android:layout_centerInParent="true"
-            fresco:actualImageScaleType="centerCrop"
+            fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@mipmap/img_wyndham"
-            fresco:placeholderImageScaleType="centerCrop"/>
+            fresco:placeholderImageScaleType="centerInside"/>
 
     </RelativeLayout>
 
