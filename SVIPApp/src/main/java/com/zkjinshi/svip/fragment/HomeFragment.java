@@ -64,6 +64,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.response.GetMessageDefaultResponse;
 import com.zkjinshi.svip.response.GetMessageLoginResponse;
 import com.zkjinshi.svip.response.HomeOrderModel;
@@ -687,6 +688,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
+                    RequestUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){
@@ -786,6 +788,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
+                    RequestUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){

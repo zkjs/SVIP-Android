@@ -23,6 +23,7 @@ public class IBeaconManager {
 	public static String TAG = IBeaconManager.class.getSimpleName();
 
 	private static final long SCAN_DELAY_TIME = 1000L;
+	private static final float CHECK_DISTANCE = 2F;
 	private int scantime_dp = 0;
 	private Timer timer;
 

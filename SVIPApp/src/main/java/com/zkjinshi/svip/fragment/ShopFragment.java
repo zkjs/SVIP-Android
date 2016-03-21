@@ -33,6 +33,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.response.GetShopListResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -239,6 +240,7 @@ public class ShopFragment extends BaseFragment {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(mContext,statusCode);
                 }
             });
         }catch (Exception e){

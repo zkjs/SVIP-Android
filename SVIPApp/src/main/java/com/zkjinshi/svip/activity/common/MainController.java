@@ -43,6 +43,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.response.BigPicResponse;
 import com.zkjinshi.svip.response.GetBigPicResponse;
 import com.zkjinshi.svip.response.GetUpgradeResponse;
@@ -187,6 +188,7 @@ public class MainController {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(context,statusCode);
                 }
             });
         }catch (Exception e){
@@ -251,6 +253,7 @@ public class MainController {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    RequestUtil.onFailure(context,statusCode);
                 }
             });
         }catch (Exception e){

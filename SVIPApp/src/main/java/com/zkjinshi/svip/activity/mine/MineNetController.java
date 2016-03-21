@@ -17,6 +17,7 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -112,6 +113,7 @@ public class MineNetController {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     DialogUtil.getInstance().showCustomToast(context, "修改用户资料失败!", Toast.LENGTH_LONG);
+                    RequestUtil.onFailure(context,statusCode);
                 }
             });
         }catch (Exception e){
