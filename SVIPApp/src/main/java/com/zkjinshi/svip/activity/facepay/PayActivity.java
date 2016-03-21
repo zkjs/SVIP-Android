@@ -15,6 +15,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.MainActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -31,7 +32,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 /**
  * Created by dujiande on 2016/3/9.
  */
-public class PayActivity extends Activity {
+public class PayActivity extends BaseActivity {
 
 
     private Context mContext;

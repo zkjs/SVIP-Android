@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 
@@ -413,10 +414,10 @@ public class RequestUtil {
 
     public static void onFailure(Activity activity, int statusCode){
         if(statusCode == 401){
+            CacheUtil.getInstance().setLogin(false);
+            BaseApplication.getInst().clear();
             Intent intent = new Intent(activity, LoginActivity.class);
             activity.startActivity(intent);
-            activity.finish();
-            CacheUtil.getInstance().setLogin(false);
         }
     }
 

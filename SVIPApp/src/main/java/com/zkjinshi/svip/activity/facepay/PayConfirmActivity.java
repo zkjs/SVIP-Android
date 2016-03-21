@@ -18,6 +18,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.PayRecordAdapter;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.AESUtil;
@@ -40,7 +41,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 /**
  * Created by dujiande on 2016/3/8.
  */
-public class PayConfirmActivity extends Activity {
+public class PayConfirmActivity extends BaseActivity {
 
     private Context mContext;
     private ProgressDialog mProgressDialog;

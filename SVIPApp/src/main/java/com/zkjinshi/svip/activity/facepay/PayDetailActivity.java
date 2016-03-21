@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
@@ -16,7 +17,7 @@ import com.zkjinshi.svip.vo.PayRecordDataVo;
 /**
  * Created by dujiande on 2016/3/8.
  */
-public class PayDetailActivity extends Activity {
+public class PayDetailActivity extends BaseActivity {
 
     private Context mContext;
     private ProgressDialog mProgressDialog;

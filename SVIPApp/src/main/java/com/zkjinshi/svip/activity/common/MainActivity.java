@@ -26,6 +26,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.map.LocationManager;
@@ -46,7 +47,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 import com.blueware.agent.android.BlueWare;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
