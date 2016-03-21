@@ -23,6 +23,7 @@ import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
 
 import com.zkjinshi.svip.net.RequestUtil;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.Base64Decoder;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -128,7 +129,7 @@ public class SSOManager {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure((Activity) context,statusCode);
+                    AsyncHttpClientUtil.onFailure( context,statusCode);
                 }
             });
         }catch (Exception e){

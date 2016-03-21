@@ -47,6 +47,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.AESUtil;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 ;
 import com.zkjinshi.svip.utils.Constants;
@@ -469,7 +470,7 @@ public class LoginActivity extends BaseActivity {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(LoginActivity.this,statusCode);
+                    AsyncHttpClientUtil.onFailure(LoginActivity.this,statusCode);
                 }
             });
         }catch (Exception e){
@@ -620,7 +621,7 @@ public class LoginActivity extends BaseActivity {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(LoginActivity.this,statusCode);
+                    AsyncHttpClientUtil.onFailure(LoginActivity.this,statusCode);
                 }
             });
         }catch (Exception e){

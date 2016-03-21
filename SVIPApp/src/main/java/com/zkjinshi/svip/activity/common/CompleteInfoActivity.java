@@ -31,6 +31,7 @@ import com.zkjinshi.svip.base.BaseActivity;
 
 
 import com.zkjinshi.svip.net.RequestUtil;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -225,7 +226,7 @@ public class CompleteInfoActivity extends BaseActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                     DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
-                    RequestUtil.onFailure(CompleteInfoActivity.this,statusCode);
+                    AsyncHttpClientUtil.onFailure(CompleteInfoActivity.this,statusCode);
                 }
             });
         }catch (Exception e){

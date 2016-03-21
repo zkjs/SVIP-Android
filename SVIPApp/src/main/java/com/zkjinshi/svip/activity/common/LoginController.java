@@ -15,6 +15,7 @@ import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -114,7 +115,7 @@ public class LoginController {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure((Activity) mContext,statusCode);
+                    AsyncHttpClientUtil.onFailure((Activity) mContext,statusCode);
                 }
             });
         }catch (Exception e){

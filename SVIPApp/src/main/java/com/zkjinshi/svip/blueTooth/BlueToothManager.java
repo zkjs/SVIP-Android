@@ -124,7 +124,7 @@ public class BlueToothManager {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
                     BleLogManager.getInstance().collectBleLog(context,throwable.getMessage());
-                    //RequestUtil.onFailure(context,statusCode);
+                    //AsyncHttpClientUtil.onFailure(context,statusCode);
                 }
 
 
