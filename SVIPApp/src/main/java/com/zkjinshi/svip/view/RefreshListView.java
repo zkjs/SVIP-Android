@@ -80,7 +80,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
         super(context, attrs, defStyle);
         mContext = context;
 
-        //initBounceListView();//添加阻尼效果
+        initBounceListView();//添加阻尼效果
         initHeaderLayout();// 加载头布局
         initFooterLayout(); // 加载尾布局
         //设置条目点击监听
@@ -375,7 +375,10 @@ public class RefreshListView extends ListView implements OnScrollListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            if (isTouching || mCurrentPullDownState == STATE_REFRESHING || mCurrentDragUpState == STATE_DRAG_UP_REFRESHING) {
+//            if (isTouching || mCurrentPullDownState == STATE_REFRESHING || mCurrentDragUpState == STATE_DRAG_UP_REFRESHING) {
+//                return;
+//            }
+            if (mCurrentPullDownState == STATE_REFRESHING || mCurrentDragUpState == STATE_DRAG_UP_REFRESHING) {
                 return;
             }
             mOnRefershListener.implOnItemClickListener(parent, view, position, id);

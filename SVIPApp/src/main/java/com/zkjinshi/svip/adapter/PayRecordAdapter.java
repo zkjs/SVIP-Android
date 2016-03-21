@@ -82,20 +82,20 @@ public class PayRecordAdapter extends BaseAdapter {
         holder.datetimeTv.setText(itemOrder.getCreatetime());
         holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
 
-        holder.clickRlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(status.equals("0")){
-                    Intent intent = new Intent(activity, PayActivity.class);
-                    intent.putExtra("amountStatusVo",itemOrder);
-                    activity.startActivity(intent);
-                }else{
-                    Intent intent = new Intent(activity,PayDetailActivity.class);
-                    intent.putExtra("payRecordDataVo",itemOrder);
-                    activity.startActivity(intent);
-                }
-            }
-        });
+//        holder.clickRlt.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(status.equals("0")){
+//                    Intent intent = new Intent(activity, PayActivity.class);
+//                    intent.putExtra("amountStatusVo",itemOrder);
+//                    activity.startActivity(intent);
+//                }else{
+//                    Intent intent = new Intent(activity,PayDetailActivity.class);
+//                    intent.putExtra("payRecordDataVo",itemOrder);
+//                    activity.startActivity(intent);
+//                }
+//            }
+//        });
 
         return convertView;
     }

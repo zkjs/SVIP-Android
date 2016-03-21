@@ -90,21 +90,6 @@ public class PayConfirmActivity extends BaseActivity {
         super.onResume();
         mCurrentPage = 0;
         loadRecord(mCurrentPage);
-        //test();
-    }
-
-    public void test(){
-        ArrayList<PayRecordDataVo> payRecordDataList = new ArrayList<PayRecordDataVo>();
-        for(int i=0;i<10;i++){
-            PayRecordDataVo dataVo = new PayRecordDataVo();
-            dataVo.setAmount(i+1);
-            dataVo.setOrderno(i+1+"15456485485");
-            dataVo.setShopname("豪庭至尊大酒店");
-            dataVo.setCreatetime("2016-01-06 09:2"+i);
-            payRecordDataList.add(dataVo);
-        }
-        mPayRecordAdapter = new PayRecordAdapter(payRecordDataList, PayConfirmActivity.this);
-        mRefreshListView.setAdapter(mPayRecordAdapter);
     }
 
     private void initListener() {
@@ -122,17 +107,17 @@ public class PayConfirmActivity extends BaseActivity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-//                int realPostion = position - 1;
-//                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
-//                if(status.equals("0")){
-//                    Intent intent = new Intent(mContext, PayActivity.class);
-//                    intent.putExtra("amountStatusVo",payRecordDataVo);
-//                    startActivity(intent);
-//                }else{
-//                    Intent intent = new Intent(mContext,PayDetailActivity.class);
-//                    intent.putExtra("payRecordDataVo",payRecordDataVo);
-//                    startActivity(intent);
-//                }
+                int realPostion = position - 1;
+                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
+                if(status.equals("0")){
+                    Intent intent = new Intent(mContext, PayActivity.class);
+                    intent.putExtra("amountStatusVo",payRecordDataVo);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(mContext,PayDetailActivity.class);
+                    intent.putExtra("payRecordDataVo",payRecordDataVo);
+                    startActivity(intent);
+                }
 
             }
         });
