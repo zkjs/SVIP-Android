@@ -43,6 +43,7 @@ import com.zkjinshi.svip.response.BaseFornaxResponse;
 import com.zkjinshi.svip.response.BasePavoResponse;
 import com.zkjinshi.svip.response.BaseResponse;
 import com.zkjinshi.svip.response.UpdateSiResponse;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -303,7 +304,6 @@ public class CompleteInfoActivity extends BaseActivity {
 //                            imagePipeline.evictFromMemoryCache(uri);
 //                            imagePipeline.evictFromDiskCache(uri);
                             CacheUtil.getInstance().setExtToken(updateSiResponse.getToken());
-                            CacheUtil.getInstance().savePicPath("");
                             getUserInfo();
 
                         }else if(updateSiResponse.getRes() == 30004){//更新失败-数据库更新出错
@@ -320,7 +320,7 @@ public class CompleteInfoActivity extends BaseActivity {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                     DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
-                    RequestUtil.onFailure(CompleteInfoActivity.this,statusCode);
+                    AsyncHttpClientUtil.onFailure(CompleteInfoActivity.this,statusCode);
                 }
             });
         }catch (Exception e){
@@ -332,6 +332,7 @@ public class CompleteInfoActivity extends BaseActivity {
         LoginController.getInstance().getUserInfo(this, CacheUtil.getInstance().getUserId(), new LoginController.CallBackListener() {
             @Override
             public void successCallback(JSONObject response) {
+                CacheUtil.getInstance().savePicPath("");
                 //进入邀请码页面，并输入邀请码
                 Intent goInviteCode = new Intent(CompleteInfoActivity.this, InviteCodeActivity.class);
                 CompleteInfoActivity.this.startActivity(goInviteCode);

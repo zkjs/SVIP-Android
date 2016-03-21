@@ -447,13 +447,6 @@ public class RequestUtil {
         return result.toString();
     }
 
-    public static void onFailure(Context context, int statusCode){
-        if(statusCode == 401){
-            CacheUtil.getInstance().setLogin(false);
-            BaseApplication.getInst().clear();
-            Intent intent = new Intent(context, LoginActivity.class);
-            context.startActivity(intent);
-        }
-    }
+
 
 }

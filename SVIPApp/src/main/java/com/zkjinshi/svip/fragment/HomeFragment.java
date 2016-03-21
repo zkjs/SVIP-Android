@@ -72,6 +72,7 @@ import com.zkjinshi.svip.response.MessageDefaultResponse;
 import com.zkjinshi.svip.response.MessageResponse;
 import com.zkjinshi.svip.response.PrivilegeResponse;
 import com.zkjinshi.svip.sqlite.PrivilegeDBUtil;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.view.BeaconMsgDialog;
 import com.zkjinshi.svip.view.CircleImageView;
 import com.zkjinshi.svip.view.CleverDialog;
@@ -688,7 +689,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
-                    RequestUtil.onFailure(getActivity(),statusCode);
+                    AsyncHttpClientUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){
@@ -788,7 +789,7 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
-                    RequestUtil.onFailure(getActivity(),statusCode);
+                    AsyncHttpClientUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){

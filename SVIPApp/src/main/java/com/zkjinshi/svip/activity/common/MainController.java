@@ -49,6 +49,7 @@ import com.zkjinshi.svip.response.GetBigPicResponse;
 import com.zkjinshi.svip.response.GetUpgradeResponse;
 import com.zkjinshi.svip.sqlite.ShopDetailDBUtil;
 import com.zkjinshi.svip.update.NotificationUpdateActivity;
+import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
@@ -188,7 +189,7 @@ public class MainController {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(context,statusCode);
+                    AsyncHttpClientUtil.onFailure(context,statusCode);
                 }
             });
         }catch (Exception e){
@@ -253,7 +254,7 @@ public class MainController {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    RequestUtil.onFailure(context,statusCode);
+                    AsyncHttpClientUtil.onFailure(context,statusCode);
                 }
             });
         }catch (Exception e){
