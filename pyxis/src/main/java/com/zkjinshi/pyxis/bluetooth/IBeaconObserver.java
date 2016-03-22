@@ -21,4 +21,7 @@ public interface IBeaconObserver {
      */
     public void outRegin(IBeaconVo iBeaconVo);
 
+
+    public void sacnBeacon(IBeaconVo iBeaconVo);
+
 }

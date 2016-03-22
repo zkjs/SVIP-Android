@@ -73,4 +73,17 @@ public class IBeaconSubject {
             }
         }
     }
+
+    /**
+     * 离开区域通知所有观察着
+     */
+    public void notifyObserversScan(IBeaconVo iBeaconVo){
+        if(null != obsVector && !obsVector.isEmpty()){
+            for (IBeaconObserver observer : obsVector) {
+                if(null != iBeaconVo) {
+                    observer.sacnBeacon(iBeaconVo);
+                }
+            }
+        }
+    }
 }

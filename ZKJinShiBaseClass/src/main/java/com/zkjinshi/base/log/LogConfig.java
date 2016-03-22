@@ -70,6 +70,8 @@ public class LogConfig {
 			return getInfoLogPath();
 		}else if(LogLevel.WARN == logLevel){
 			return getWarnLogPath();
+		}else if(LogLevel.RECORD == logLevel){
+			return getRecordLogPath();
 		}else{
 			return getErrorLogPath();
 		}
@@ -97,6 +99,14 @@ public class LogConfig {
 	 */
 	public String getWarnLogPath(){
 		return getLogPath()+"warn/";
+	}
+
+	/**
+	 * 获取warm日志存储路径
+	 * @return
+	 */
+	public String getRecordLogPath(){
+		return getLogPath()+"record/";
 	}
 	
 	/**

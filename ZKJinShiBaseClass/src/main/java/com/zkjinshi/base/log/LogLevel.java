@@ -11,4 +11,5 @@ public enum LogLevel {
 	INFO,//消息提示日志
 	WARN,//警告日志
 	ERROR,//错误日志
+	RECORD,//记录日志
 }

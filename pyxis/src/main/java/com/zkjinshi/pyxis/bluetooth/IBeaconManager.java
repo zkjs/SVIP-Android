@@ -118,7 +118,7 @@ public class IBeaconManager {
 				public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
 					IBeaconVo ibeacon = IBeaconHelper.fromScanData(device, rssi, scanRecord);
 					if(null != ibeacon){
-						Log.d(TAG,ibeacon.toString());
+						//Log.d(TAG,ibeacon.toString());
 						if(filterMap.containsKey(ibeacon.getProximityUuid()) ){
 							//NetBeaconVo netBeaconVo =  IBeaconContext.getInstance().getNetBeaconMap().get(ibeacon.getBeaconKey());
 							long currentTime = System.currentTimeMillis();
@@ -146,7 +146,7 @@ public class IBeaconManager {
 
 
 	private void intoArea(IBeaconVo ibeacon){
-
+		IBeaconSubject.getInstance().notifyObserversScan(ibeacon);
 		//第一次扫描到
 		if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
 			if(ibeacon.getDistance() <= CHECK_DISTANCE){

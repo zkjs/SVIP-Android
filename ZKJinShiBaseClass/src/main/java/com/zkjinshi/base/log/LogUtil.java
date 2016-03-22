@@ -90,7 +90,12 @@ public class LogUtil {
 				String logFileName = level.name().toLowerCase()+"_"+dateStr + ".log";
 				File logFile = new File(logPath + logFileName);
 				FileWriter fw = new FileWriter(logFile, true);
-				fw.write("["+timeStr+"]"+logMessage + "\n");
+				if(level == LogLevel.RECORD){
+					fw.write(logMessage + "\n");
+				}else{
+					fw.write("["+timeStr+"]"+logMessage + "\n");
+				}
+
 				fw.close();
 			} catch (Exception e) {
 				printLog(LogLevel.ERROR, e.getMessage());

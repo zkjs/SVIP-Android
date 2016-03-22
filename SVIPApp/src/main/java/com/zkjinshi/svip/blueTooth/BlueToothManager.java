@@ -83,6 +83,10 @@ public class BlueToothManager {
         public void outRegin(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo);
         }
+
+        public void sacnBeacon(IBeaconVo iBeaconVo){
+            LogUtil.getInstance().info(LogLevel.RECORD,iBeaconVo.getDistance()+"");
+        }
     };
 
     public void lbsLocBeaconRequest(final IBeaconVo iBeaconVo){
