@@ -129,6 +129,7 @@
     <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
     <orderEntry type="module" module-name="pyxis" exported="" />
     <orderEntry type="module" module-name="ZKJinShiBaseClass" exported="" />
+    <orderEntry type="module" module-name="library.AESJni" exported="" />
     <orderEntry type="module" module-name="multi-image-selector" exported="" />
   </component>
 </module>

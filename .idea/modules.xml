@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/SVIPApp/SVIPApp.iml" filepath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" filepath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/jinjiang-Android.iml" filepath="$PROJECT_DIR$/jinjiang-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library.AESJni/library.AESJni.iml" filepath="$PROJECT_DIR$/library.AESJni/library.AESJni.iml" />
       <module fileurl="file://$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" filepath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
       <module fileurl="file://$PROJECT_DIR$/pyxis/pyxis.iml" filepath="$PROJECT_DIR$/pyxis/pyxis.iml" />
     </modules>
