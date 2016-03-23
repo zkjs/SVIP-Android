@@ -687,13 +687,11 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                     AsyncHttpClientUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){
-            Toast.makeText(getActivity(),"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -787,13 +785,11 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(getActivity(),"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     handler.sendEmptyMessage(LOAD_DEFAULT_MSG);
                     AsyncHttpClientUtil.onFailure(getActivity(),statusCode);
                 }
             });
         }catch (Exception e){
-            Toast.makeText(getActivity(),"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

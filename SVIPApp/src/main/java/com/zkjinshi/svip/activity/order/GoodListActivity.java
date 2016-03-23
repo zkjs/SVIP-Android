@@ -157,12 +157,10 @@ public class GoodListActivity extends BaseActivity {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode, Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
         }catch (Exception e){
-            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 

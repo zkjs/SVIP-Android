@@ -148,7 +148,6 @@ public class LoginController {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-                Log.d(TAG,"API 错误："+statusCode);
                 AsyncHttpClientUtil.onFailure(context,statusCode);
             }
 
@@ -223,7 +222,6 @@ public class LoginController {
 
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
