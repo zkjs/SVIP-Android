@@ -318,7 +318,7 @@ public class RequestUtil {
         httpPost.setEntity(multipartEntity);
         String token = CacheUtil.getInstance().getExtToken();
         if(!TextUtils.isEmpty(token)){
-            httpPost.getParams().setParameter("Token",token);
+            httpPost.addHeader("Token",token);
         }
         HttpResponse response = httpClient.execute(httpPost);
         int respCode = 0;
