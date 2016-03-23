@@ -32,44 +32,11 @@ public class ProtocolUtil {
     }
 
     /**
-     * 获取商品列表 URL
-     * @param shopId
-     * @return
-     */
-    public static String getGoodListUrl(String shopId){
-        return ConfigUtil.getInst().getJavaDomain()+"goods/get/"+shopId;
-    }
-
-    /**
      * 根据手机号查询服务员
      * @return
      */
     public static String getServerByPhone(String phone){
         return ConfigUtil.getInst().getJavaDomain()+"user/getuser/"+phone+"/";
-    }
-
-    /**
-     * 获取用户订单状态消息
-     * @return
-     */
-    public static String getMsgUrl(String userid,String city){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/"+userid+"/"+city;
-    }
-
-    /**
-     * 获取区域信息列表
-     * @return
-     */
-    public static String getLocationListUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"user/location";
-    }
-
-    /**
-     * 添加个人gps信息
-     * @return
-     */
-    public static String getAddGpdInfoUrl(){
-        return  ConfigUtil.getInst().getPhpDomain()+"user/gpsadd";
     }
 
     /**
@@ -155,14 +122,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * POST 客户根据邀请码查询服务员
-     * @return
-     */
-    public static String getEmpByInviteCodeUrl(){
-        return ConfigUtil.getInst().getPhpDomain()+"invitation/getcode";
-    }
-
-    /**
      * 请求Charge 支付凭据 发起支付
      * @return
      */
@@ -203,46 +162,6 @@ public class ProtocolUtil {
     }
 
     /**
-     * 获取全部商家列表
-     * @return
-     */
-    public static String getShopListUrl(int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list"+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 根据城市获取商家(未登录用户)
-     * @return
-     */
-    public static String getShopListByCityUrl(String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/"+city+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 根据城市获取商家(登录用户)
-     * @return
-     */
-    public static String getShopListByCityUrl(String userid,String city, int page, int pageSize) {
-        return  ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userid+"/"+city+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 获取专属客服全部商家列表
-     * @return
-     */
-    public static String getShopListUserUrl(String userID, int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list/user/"+userID+"/"+page+"/"+pageSize+"/";
-    }
-
-    /**
-     * 获取专属客服全部商家列表
-     * @return
-     */
-    public static String getShopListUnLoginUrl(int page, int pageSize) {
-        return ConfigUtil.getInst().getJavaDomain()+"shop/list/"+page+"/"+pageSize+"/";
-    }
-
-    /**
      * 获取环信群成员
      * @return
      */
@@ -256,34 +175,6 @@ public class ProtocolUtil {
      */
     public static String getUserUploadUrl(){
         return ConfigUtil.getInst().getPhpDomain()+"user/upload";
-    }
-
-    /**
-     * 获取首页大图
-     * @return
-     */
-    public static String getBigPicUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"firstpage/icons";
-    }
-
-    /**
-     * 获取用户推送消息(用户未登陆)
-     * @return
-     */
-    public static String getMessageDefaultUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"messages/default";
-    }
-
-    public static String getArriveNoticeUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"arrive/notice";
-    }
-
-    /**
-     * 根据shopid 查询商家基本信息
-     * @return
-     */
-    public static String getShopBaseInfoUrl(String shopid){
-        return ConfigUtil.getInst().getJavaDomain()+"shop/getshop/"+shopid;
     }
 
     /**
@@ -361,14 +252,6 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getJavaDomain()+"order/get/unconfirmed/"+userid+"/"+page+"/"+size;
     }
 
-    /**
-     * 获取未确认订单列表
-     * @return
-     */
-    public static String appUpgradeUrl(){
-        return ConfigUtil.getInst().getJavaDomain()+"app/upgrade";
-    }
-
 
     /**
      * 商家详情
@@ -407,15 +290,6 @@ public class ProtocolUtil {
      */
     public static String getAvatarUrl(String userid){
         return ConfigUtil.getInst().getImgDomain()+"uploads/users/"+userid+".jpg";
-    }
-
-    /**
-     * 获取合适分辨率的图片URL
-     * @return
-     */
-    public static String getFitPicUrl(String path,String file){
-        return path+"picture/andriod/"+CacheUtil.getInstance().getBestFitPixel()+file;
-
     }
 
     /**
