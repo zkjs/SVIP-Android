@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -30,25 +32,26 @@ import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.map.LocationManager;
-import com.zkjinshi.svip.net.RequestUtil;
+
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 import com.blueware.agent.android.BlueWare;
 
-public class MainActivity extends BaseActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends BaseActivity{
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -65,6 +68,9 @@ public class MainActivity extends BaseActivity {
     public Animation fadeAnimation = null;
 
     private ShowMessageReceiver mShowMessageReceiver;
+
+
+
     private class ShowMessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context ctx, Intent intent) {
@@ -83,15 +89,13 @@ public class MainActivity extends BaseActivity {
         initView();
         initData();
         initListener();
-
-
     }
 
     protected void onResume() {
         super.onResume();
         if(CacheUtil.getInstance().isLogin()){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !BlueToothManager.getInstance().isIBeaconServiceRunning()) {
-                BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+               BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
             }
             if(!LocationManager.getInstance().isRuning()){
                 LocationManager.getInstance().startLocation();

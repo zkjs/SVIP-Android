@@ -85,7 +85,9 @@ public class BlueToothManager {
         }
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
-            LogUtil.getInstance().info(LogLevel.RECORD,iBeaconVo.getDistance()+"");
+            //Log.d(TAG,"扫描到："+iBeaconVo.getName()+" 距离："+iBeaconVo.getDistance());
+            //LogUtil.getInstance().info(LogLevel.DEBUG,"扫描到："+iBeaconVo.getBeaconKey()+" 距离："+iBeaconVo.getDistance());
+            //LogUtil.getInstance().info(LogLevel.RECORD,iBeaconVo.getDistance()+"");
         }
     };
 
