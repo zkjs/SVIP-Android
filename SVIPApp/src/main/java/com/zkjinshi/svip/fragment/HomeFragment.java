@@ -327,7 +327,10 @@ public class HomeFragment extends Fragment implements IBeaconObserver {
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0) {
                         Log.i(TAG,aMapLocation.toString());
-                        mCity = aMapLocation.getCity().replace("市","");
+                        String cityStr = aMapLocation.getCity();
+                        if(!TextUtils.isEmpty(cityStr)){
+                            mCity = cityStr.replace("市","");
+                        }
                     }
                 }
             }
