@@ -140,6 +140,8 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
                 LocationManager.getInstance().startLocation();
             }
         }
+
+        BleLogManager.getInstance().uploadBleStatLog(this);
     }
 
     @Override
@@ -272,7 +274,6 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
         IntentFilter filter2 = new IntentFilter();
         filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
-        BleLogManager.getInstance().uploadBleStatLog(this);
     }
 
     private void initBadgeNum(){

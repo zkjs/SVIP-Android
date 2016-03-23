@@ -14,6 +14,8 @@ import com.zkjinshi.svip.vo.BleStatVo;
  */
 public class BleStatManager {
 
+    public static final String TAG = BleStatManager.class.getSimpleName();
+
     private BleStatManager(){}
 
     private static BleStatManager instance;
