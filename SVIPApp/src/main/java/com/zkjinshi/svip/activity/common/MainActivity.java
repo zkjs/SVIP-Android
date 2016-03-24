@@ -21,6 +21,7 @@ import com.easemob.EMCallBack;
 import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
@@ -91,11 +92,15 @@ public class MainActivity extends BaseFragmentActivity implements IEMessageObser
         @Override
         public void onReceive(Context ctx, Intent intent) {
             String msg = intent.getStringExtra("msg");
-            YunBaMsgVo yunBaMsgVo = new Gson().fromJson(msg,YunBaMsgVo.class);
-            if(yunBaMsgVo != null && yunBaMsgVo.getType() == 2){
-                BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
-                beaconMsgDialog.show();
-                beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
+            try {
+                YunBaMsgVo yunBaMsgVo = new Gson().fromJson(msg,YunBaMsgVo.class);
+                if(yunBaMsgVo != null && yunBaMsgVo.getType() == 2){
+                    BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
+                    beaconMsgDialog.show();
+                    beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
+                }
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -88,7 +88,7 @@ public class BlueToothManager {
         }
     };
 
-    public void lbsLocBeaconRequest(IBeaconVo iBeaconVo){
+    public void lbsLocBeaconRequest(final IBeaconVo iBeaconVo){
         try {
             if(!CacheUtil.getInstance().isLogin()){
                 return;
@@ -119,13 +119,13 @@ public class BlueToothManager {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     Log.d(TAG,response.toString());
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功");
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送成功"+iBeaconVo.getMajor());
                     BleStatDBUtil.getInstance().updateTotalCount();
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败");
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败"+iBeaconVo.getMajor());
                     BleLogManager.getInstance().collectBleLog(context,throwable.getMessage());
                 }
 
@@ -133,7 +133,7 @@ public class BlueToothManager {
                 @Override
                 public void onRetry(int retryNo) {
                     Log.d(TAG,"retryNo:"+retryNo);
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
+                    LogUtil.getInstance().info(LogLevel.DEBUG,iBeaconVo.getMajor()+"蓝牙推送重连"+ retryNo );
                     BleStatManager.getInstance().updateRetryCount();
                     BleStatDBUtil.getInstance().updateTotalCount();
 
