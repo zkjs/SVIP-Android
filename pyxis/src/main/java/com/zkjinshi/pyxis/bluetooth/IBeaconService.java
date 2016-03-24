@@ -149,25 +149,39 @@ public class IBeaconService extends Service implements BeaconConsumer {
             @Override
             public void didExitRegion(Region region) {
                 Log.i(TAG, "I no longer see an beacon");
+                boolean hasRemove = false;
                 IBeaconVo minBeaconVo = null;
                 if( !IBeaconContext.getInstance().getiBeaconMap().isEmpty()){
-                    Iterator<Map.Entry<String, IBeaconVo>> iterator = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
-                    while (iterator.hasNext()) {
-                        Map.Entry<String, IBeaconVo> entry = iterator.next();
+                    //把很久都没有扫描到的beancon移除
+                    Iterator<Map.Entry<String, IBeaconVo>> iterator2 = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
+                    while (iterator2.hasNext()) {
+                        Map.Entry<String, IBeaconVo> entry = iterator2.next();
                         IBeaconVo iBeaconVo = entry.getValue();
-//                        if(minBeaconVo == null){
-//                            minBeaconVo = iBeaconVo;
-//                        }else{
-//                            if(iBeaconVo.getTimestamp() < minBeaconVo.getTimestamp()){
-//                                minBeaconVo = iBeaconVo;
-//                            }
-//                        }
                         long currentTime = System.currentTimeMillis();
                         long offset = currentTime - iBeaconVo.getTimestamp();
                         if(offset > OVER_TIME){
+                            hasRemove = true;
                             leaveArea(iBeaconVo);
                         }
                     }
+//                    if(!hasRemove){
+//                        //把消失最长时间的beancon移除
+//                        Iterator<Map.Entry<String, IBeaconVo>> iterator = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
+//                        while (iterator.hasNext()) {
+//                            Map.Entry<String, IBeaconVo> entry = iterator.next();
+//                            IBeaconVo iBeaconVo = entry.getValue();
+//                            if(minBeaconVo == null){
+//                                minBeaconVo = iBeaconVo;
+//                            }else{
+//                                if(iBeaconVo.getTimestamp() < minBeaconVo.getTimestamp()){
+//                                    minBeaconVo = iBeaconVo;
+//                                }
+//                            }
+//                        }
+//                        if( System.currentTimeMillis() - minBeaconVo.getTimestamp() > 5000){
+//                            leaveArea(minBeaconVo);
+//                        }
+//                    }
 
                 }
 
