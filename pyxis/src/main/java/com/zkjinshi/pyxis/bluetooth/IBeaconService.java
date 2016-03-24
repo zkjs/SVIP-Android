@@ -18,6 +18,8 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,6 +40,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
     public static IBeaconObserver mIBeaconObserver = null;
 
     private static final float CHECK_DISTANCE = 5F;
+    private static final float OVER_TIME = 10 * 1000;
     private BeaconManager beaconManager;
     /**
      * 重新调整格式
@@ -112,6 +115,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
                 if (beacons.size() > 0) {
                     for(Beacon beacon : beacons){
                         IBeaconVo ibeaconVo = new IBeaconVo();
+                        ibeaconVo.setTimestamp(System.currentTimeMillis());
                         ibeaconVo.setDistance(beacon.getDistance());
                         ibeaconVo.setBluetoothAddress(beacon.getBluetoothAddress());
                         ibeaconVo.setName(beacon.getBluetoothName());
@@ -145,22 +149,28 @@ public class IBeaconService extends Service implements BeaconConsumer {
             @Override
             public void didExitRegion(Region region) {
                 Log.i(TAG, "I no longer see an beacon");
-                IBeaconVo ibeaconVo = new IBeaconVo();
-                ibeaconVo.setBluetoothAddress(region.getBluetoothAddress());
-                if(  region.getId1() != null){
-                    String uuid = region.getId1().toString();
-                    ibeaconVo.setUuid(uuid);
-                    ibeaconVo.setProximityUuid(uuid);
+                IBeaconVo minBeaconVo = null;
+                if( !IBeaconContext.getInstance().getiBeaconMap().isEmpty()){
+                    Iterator<Map.Entry<String, IBeaconVo>> iterator = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry<String, IBeaconVo> entry = iterator.next();
+                        IBeaconVo iBeaconVo = entry.getValue();
+//                        if(minBeaconVo == null){
+//                            minBeaconVo = iBeaconVo;
+//                        }else{
+//                            if(iBeaconVo.getTimestamp() < minBeaconVo.getTimestamp()){
+//                                minBeaconVo = iBeaconVo;
+//                            }
+//                        }
+                        long currentTime = System.currentTimeMillis();
+                        long offset = currentTime - iBeaconVo.getTimestamp();
+                        if(offset > OVER_TIME){
+                            leaveArea(iBeaconVo);
+                        }
+                    }
+
                 }
-                if(  region.getId2() != null){
-                    String major = region.getId2().toString();
-                    ibeaconVo.setMajor(Integer.parseInt(major));
-                }
-                if(  region.getId3() != null){
-                    String minor = region.getId3().toString();
-                    ibeaconVo.setMinor(Integer.parseInt(minor));
-                }
-                leaveArea(ibeaconVo);
+
             }
 
             @Override
