@@ -191,17 +191,8 @@ public class IBeaconVo implements Serializable{
                 ", bluetoothAddress='" + bluetoothAddress + '\'' +
                 ", txPower=" + txPower +
                 ", rssi=" + rssi +
-                ", locid='" + locid + '\'' +
-                ", shopid='" + shopid + '\'' +
-                ", sensorid='" + sensorid + '\'' +
-                ", uuid='" + uuid + '\'' +
-                ", minior='" + minior + '\'' +
-                ", locdesc='" + locdesc + '\'' +
-                ", status='" + status + '\'' +
-                ", remark='" + remark + '\'' +
-                ", disappearTime=" + disappearTime +
-                ", distance=" + distance +
                 ", timestamp=" + timestamp +
+                ", distance=" + distance +
                 '}';
     }
 }
