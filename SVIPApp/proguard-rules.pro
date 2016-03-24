@@ -211,6 +211,7 @@
  #Pyxis sdk
 -keep class com.zkjinshi.pyxis.bluetooth.** { *; }
 -keep class com.zkjinshi.pyxis.utils.** { *; }
+-keep class org.altbeacon.**{ *; }
 
  #友盟统计
 -dontwarn com.umeng.analytics.**
