@@ -77,7 +77,7 @@ public class BleLogManager {
      * @param context
      * @param errorLog
      */
-    public void collectBleLog(Context context,String errorLog){
+    public void collectBleLog(Context context,String errorLog,String locId){
         BleLogVo bleLogVo = new BleLogVo();
         bleLogVo.setErrorMessage(errorLog);
         bleLogVo.setBrand(DeviceUtils.getBrand());
@@ -85,6 +85,9 @@ public class BleLogManager {
         bleLogVo.setIMEI(DeviceUtils.getIMEI());
         bleLogVo.setPhoneNum(CacheUtil.getInstance().getUserPhone());
         bleLogVo.setDeviceType("android");
+        bleLogVo.setSdk(DeviceUtils.getSdk());
+        bleLogVo.setLocId(locId);
+        bleLogVo.setTimestamp(System.currentTimeMillis());
         BleLogDBUtil.getInstance().insertBleLog(bleLogVo);
     }
 
@@ -114,27 +117,30 @@ public class BleLogManager {
                 File logFile = new File(logPath + fileName);
                 FileWriter fw = new FileWriter(logFile, true);
                 BleStatVo bleStatVo = BleStatManager.getInstance().getStatLog();
-                String title = "网络请求总次数："+bleStatVo.getTotalCount()+"网络请求失败次数:"+bleStatVo.getRetryCount() + "\n";
+                String title = "总次数："+bleStatVo.getTotalCount()+"重试次数:"+bleStatVo.getRetryCount() + "\n";
                 fw.write(title);
                 ArrayList<BleLogVo> bleLogList = getBleLog();
                 if(null != bleLogList && !bleLogList.isEmpty()){
                     for(BleLogVo bleLogVo : bleLogList){
                         fw.write("*************************************************");
-                        fw.write("手机号码:"+bleLogVo.getPhoneNum()+"\n");
-                        fw.write("设备类型:android\n");
-                        fw.write("手机品牌:"+bleLogVo.getBrand()+"\n");
-                        fw.write("IMEI:"+bleLogVo.getIMEI()+"\n");
+                        fw.write("phoneNum:"+bleLogVo.getPhoneNum()+"\n");
+                        fw.write("os:android\n");
+                        fw.write("edition:"+bleLogVo.getBrand()+"\n");
+                        fw.write("imei:"+bleLogVo.getIMEI()+"\n");
+                        fw.write("sdk:"+bleLogVo.getSdk()+"\n");
+                        fw.write("beacon:"+bleLogVo.getLocId()+"\n");
+                        fw.write("timestamp:"+bleLogVo.getTimestamp()+"\n");
                         int connectType = bleLogVo.getConnectedType();
                         if(0 == connectType){
-                            fw.write("网络类型:2G/3G\n");
+                            fw.write("network:2G/3G\n");
                         }else if(1 == connectType){
-                            fw.write("网络类型:WIFI\n");
+                            fw.write("network:WIFI\n");
                         }else if(2 == connectType){
-                            fw.write("网络类型:wap\n");
+                            fw.write("network:wap\n");
                         }else if(3 == connectType){
-                            fw.write("网络类型:net\n");
+                            fw.write("network:net\n");
                         }
-                        fw.write("失败原因:"+bleLogVo.getErrorMessage()+"\n");
+                        fw.write("error:"+bleLogVo.getErrorMessage()+"\n");
                     }
                 }
                 fw.close();

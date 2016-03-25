@@ -167,7 +167,10 @@ public class TableOpenHelper {
                     + " brand text , "//手机品牌型号，出厂自带	华为/三星
                     + " imei text , "//设备唯一码
                     + " connected_type integer , "//网络连接类型	0：2G/3G网络
-                    + " error_message text "//网络请求错误信息
+                    + " error_message text , "//网络请求错误信息
+                    + " sdk integer , "//系统版本号
+                    + " major text , "//区域id
+                    + " timestamp long "//时间戳
                     + " )";
 
     /**

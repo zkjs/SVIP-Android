@@ -17,7 +17,7 @@ import com.zkjinshi.base.log.LogUtil;
 public class DBOpenHelper extends SQLiteOpenHelper{
 
     public static String DB_NAME = "svip_sqlite.db";//根据每个用户创建一份数据库
-    public static final int VERSION = 2;// 数据库版本
+    public static final int VERSION = 3;// 数据库版本
     public static final String USER_INFO_TBL   = "userinfotbl";//用户个人信息表
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
     public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
@@ -54,7 +54,7 @@ public class DBOpenHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         LogUtil.getInstance().info(LogLevel.DEBUG, "【oldVersion】" + oldVersion);
-        LogUtil.getInstance().info(LogLevel.DEBUG,"【newVersion】"+oldVersion);
+        LogUtil.getInstance().info(LogLevel.DEBUG,"【newVersion】"+newVersion);
         ORMOpenHelper.upgradeTables(db, TableOpenHelper.getTableNames());
     }
 

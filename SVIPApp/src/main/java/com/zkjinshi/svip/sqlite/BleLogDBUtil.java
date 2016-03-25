@@ -55,6 +55,9 @@ public class BleLogDBUtil {
             String imei = bleLogVo.getIMEI();
             int connectType = bleLogVo.getConnectedType();
             String errorMsg = bleLogVo.getErrorMessage();
+            int sdk = bleLogVo.getSdk();
+            String  major = bleLogVo.getLocId();
+            long timestamp = bleLogVo.getTimestamp();
             ContentValues values =  new ContentValues();
             values.put("phone_num",phoneNum);
             values.put("device_type",deviceType);
@@ -62,6 +65,9 @@ public class BleLogDBUtil {
             values.put("imei",imei);
             values.put("connected_type",connectType);
             values.put("error_message",errorMsg);
+            values.put("sdk",sdk);
+            values.put("major",major);
+            values.put("timestamp",timestamp);
             db = helper.getWritableDatabase();
             rowId = db.insert(DBOpenHelper.BLE_LOG_TBL, null, values);
         } catch (Exception e){
@@ -116,6 +122,9 @@ public class BleLogDBUtil {
                         bleLogVo.setIMEI(cursor.getString(4));
                         bleLogVo.setConnectedType(cursor.getInt(5));
                         bleLogVo.setErrorMessage(cursor.getString(6));
+                        bleLogVo.setSdk(cursor.getInt(7));
+                        bleLogVo.setLocId(cursor.getString(8));
+                        bleLogVo.setTimestamp(cursor.getLong(9));
                         bleLogList.add(bleLogVo);
                     }
                 }

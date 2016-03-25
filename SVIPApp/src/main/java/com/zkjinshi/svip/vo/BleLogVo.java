@@ -15,8 +15,11 @@ public class BleLogVo implements Serializable {
     private String deviceType;// android/ios
     private String brand;//手机品牌(华为)
     private String IMEI;//手机唯一码
+    private int sdk;
+    private String locId;
     private int connectedType;//-1没有网络 0：2G/3G网络 1：WIFI网络 2：wap网络 3：net网络
     private String errorMessage;//失败原因
+    private long timestamp;
 
     public String getPhoneNum() {
         return phoneNum;
@@ -66,4 +69,27 @@ public class BleLogVo implements Serializable {
         this.errorMessage = errorMessage;
     }
 
+    public int getSdk() {
+        return sdk;
+    }
+
+    public void setSdk(int sdk) {
+        this.sdk = sdk;
+    }
+
+    public String getLocId() {
+        return locId;
+    }
+
+    public void setLocId(String locId) {
+        this.locId = locId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

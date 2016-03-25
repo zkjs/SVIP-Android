@@ -102,7 +102,7 @@ public class BlueToothManager {
             }
             String url = ProtocolUtil.lbsLocBeacon();
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setMaxRetriesAndTimeout(3,500);
+            client.setMaxRetriesAndTimeout(8,3000);
             client.setTimeout(3000);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
@@ -126,7 +126,7 @@ public class BlueToothManager {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败"+iBeaconVo.getMajor());
-                    BleLogManager.getInstance().collectBleLog(context,throwable.getMessage());
+                    BleLogManager.getInstance().collectBleLog(context,throwable.getMessage(),""+iBeaconVo.getMajor());
                 }
 
 
