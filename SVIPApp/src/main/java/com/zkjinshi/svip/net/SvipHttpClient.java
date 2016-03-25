@@ -22,7 +22,7 @@ public class SvipHttpClient {
 
     public static void put(Context context, String url, JSONObject jsonObject, JsonHttpResponseHandler handler){
         try{
-            client.setMaxRetriesAndTimeout(3,500);
+            client.setMaxRetriesAndTimeout(3,3000);
             client.setTimeout(3000);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());

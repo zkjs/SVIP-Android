@@ -92,6 +92,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
 //            IBeaconManager.getInstance().cancelScheduleScan();
 //            IBeaconContext.getInstance().clearIBeaconMap();
             beaconManager.unbind(this);
+            IBeaconContext.getInstance().getiBeaconMap().clear();
 
         }else if(intent != null){
             getApplicationContext().startService(intent);
@@ -205,6 +206,9 @@ public class IBeaconService extends Service implements BeaconConsumer {
     }
 
     private void intoArea(IBeaconVo ibeacon){
+        if( IBeaconService.killMyself){
+            return;
+        }
         IBeaconSubject.getInstance().notifyObserversScan(ibeacon);
         //第一次扫描到
         if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
@@ -228,6 +232,9 @@ public class IBeaconService extends Service implements BeaconConsumer {
     }
 
     private void leaveArea(IBeaconVo ibeacon){
+        if( IBeaconService.killMyself){
+            return;
+        }
         IBeaconSubject.getInstance().notifyObserversOut(ibeacon);
         IBeaconContext.getInstance().getiBeaconMap().remove(ibeacon.getBeaconKey());
     }
