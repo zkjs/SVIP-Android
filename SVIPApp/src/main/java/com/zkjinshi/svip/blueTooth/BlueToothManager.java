@@ -102,7 +102,7 @@ public class BlueToothManager {
             }
             String url = ProtocolUtil.lbsLocBeacon();
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setMaxRetriesAndTimeout(3,500);
+            client.setMaxRetriesAndTimeout(3,3000);
             client.setTimeout(3000);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
