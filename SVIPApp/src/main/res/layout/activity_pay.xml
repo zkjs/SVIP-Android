@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="300dp"
+    android:layout_height="320dp"
     android:background="#ffffff">
 
     <ImageButton
         android:id="@+id/btn_cancel"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@null"
         android:clickable="true"
         android:scaleType="centerInside"
-        android:src="@mipmap/ic_quxiao_gary"
+        android:src="@drawable/btn_close_selector"
         android:layout_alignParentRight="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:textSize="14sp"
             android:textColor="#888888"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:text="支付提示"/>
 
         <TextView
@@ -34,43 +35,45 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:text="长沙芙蓉国温特姆至尊豪庭大酒店"
-            android:textColor="#000000"
-            android:textSize="16sp"/>
+            android:textColor="#101010"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/price_tv"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="¥ 199.00"
-            android:textColor="#000000"
-            android:textSize="24sp"/>
+            android:textColor="#101010"
+            android:textSize="30sp"/>
 
         <TextView
             android:id="@+id/problem_tv"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="有问题拒绝支付"
-            android:textColor="#4682B4"
-            android:textSize="14sp"/>
+            android:textColor="#03a9f4"
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/confirm_btn"
-            android:layout_marginTop="30dp"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="120dp"
+            android:layout_height="44dp"
             android:text="确定支付"
             android:textColor="#ffffff"
             android:textSize="14sp"
-            android:background="@drawable/btn_selector_shape"
+            android:background="@drawable/btn_orange_selector"
             android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/orderno_tv"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
