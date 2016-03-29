@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <RelativeLayout
+        android:id="@+id/tipRlt"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="176dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你的真实姓名"
+            android:textColor="@color/orange"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/refresh_iv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_xiangqing"
+            android:visibility="visible"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/inputRlt"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/tipRlt"
+        android:layout_marginTop="130dp"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/inputEt"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:gravity="left"
+            android:hint="仅用于支付识别与安全认证"
+            android:inputType="text"
+            android:maxLength="6"
+            android:background="@android:color/transparent"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#b8b8b8"
+            android:textSize="14sp"
+            android:imeOptions="actionGo"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/orange"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tips_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputRlt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="请输入你的真实姓名"
+        android:textColor="#ffffff"
+        android:textSize="12sp"/>
+
+    <Button
+        android:layout_below="@id/tips_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:id="@+id/btn_next"
+        android:layout_width="240dp"
+        android:layout_height="44dp"
+        android:text="确认"
+        android:textSize="16sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_orange_selector"/>
+</RelativeLayout>

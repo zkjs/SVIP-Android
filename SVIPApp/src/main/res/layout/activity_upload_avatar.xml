@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <RelativeLayout
+        android:id="@+id/tipRlt"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lock_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你的真实脸部照片"
+            android:textColor="@color/orange"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/refresh_iv"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_xiangqing"
+            android:visibility="visible"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="195dp"
+        android:id="@+id/inputRlt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/civ_user_icon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="0dp"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@color/orange"
+            fresco:placeholderImageScaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/upload_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="点击上传"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tips_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputRlt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:text="有脸部图片才能刷脸支付"
+        android:textColor="#ffffff"
+        android:textSize="12sp"/>
+
+
+    <Button
+        android:layout_below="@id/tips_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:id="@+id/btn_start"
+        android:layout_width="240dp"
+        android:layout_height="44dp"
+        android:text="开启刷脸"
+        android:textSize="14sp"
+        android:textColor="@color/White"
+        android:background="@drawable/btn_orange_selector"/>
+
+
+
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/btn_start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sample_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            fresco:roundAsCircle="true"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/img_fangli"
+            fresco:placeholderImageScaleType="centerCrop"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请参照样例拍摄您的脸部照片"
+                android:textColor="#ffffff"
+                android:textSize="12sp"/>
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="照片清晰度决定您的刷脸速度"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

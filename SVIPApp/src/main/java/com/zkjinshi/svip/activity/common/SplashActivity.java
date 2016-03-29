@@ -20,7 +20,6 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
-import com.zkjinshi.svip.sqlite.DBOpenHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 

@@ -4,34 +4,16 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
-import android.util.Log;
 
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.zkjinshi.base.util.ActivityManagerHelper;
-import com.zkjinshi.base.util.DisplayUtil;
-import com.zkjinshi.base.util.VibratorHelper;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.MainActivity;
 
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
-import com.zkjinshi.svip.receiver.NotificationClickReceiver;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.MediaPlayerUtil;
-import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
-import com.zkjinshi.svip.vo.TxtExtType;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 消息通知帮助类

@@ -1,28 +1,15 @@
 package com.zkjinshi.svip.manager;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.zkjinshi.base.util.Constants;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
 
-import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.Base64Decoder;
 import com.zkjinshi.svip.utils.CacheUtil;

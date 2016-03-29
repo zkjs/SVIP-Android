@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.LoginSiActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 
 /**

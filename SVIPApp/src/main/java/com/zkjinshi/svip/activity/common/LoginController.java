@@ -6,7 +6,9 @@ import android.content.Context;
 
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import com.zkjinshi.base.util.DialogUtil;
@@ -15,10 +17,13 @@ import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.DBOpenHelper;
+import com.zkjinshi.svip.utils.AESUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.BaseResponseVo;
 
 
 import org.json.JSONArray;
@@ -121,6 +126,110 @@ public class LoginController {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 向手机发送验证码(登录)
+     * @param phoneNumber
+     */
+    public void sendVerifyCodeForLogin(final Context mContext,final String phoneNumber,final CallBackListener callBackListener) {
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            String phoneStr = AESUtil.encrypt(phoneNumber, AESUtil.PAVO_KEY);
+            jsonObject.put("phone",phoneStr);
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.ssoVcodeLogin();
+            client.post(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                }
+
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
+
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
+                        if(basePavoResponse != null){
+                            if(basePavoResponse.getRes() == 0){
+                                callBackListener.successCallback(null);
+                            }else{
+                                PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * 向手机发送验证码(注册)
+     * @param phoneNumber
+     */
+    public void sendVerifyCodeForRegister(final Context mContext,final String phoneNumber,final CallBackListener callBackListener) {
+        try{
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            JSONObject jsonObject = new JSONObject();
+            String phoneStr = AESUtil.encrypt(phoneNumber, AESUtil.PAVO_KEY);
+            jsonObject.put("phone",phoneStr);
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.ssoVcodeRegister();
+            client.post(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                }
+
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
+
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
+                        if(basePavoResponse != null){
+                            if(basePavoResponse.getRes() == 0){
+                                callBackListener.successCallback(null);
+                            }else{
+                                PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -2,11 +2,10 @@ package com.zkjinshi.svip.net;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.activity.common.LoginSiActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
@@ -416,7 +415,7 @@ public class RequestUtil {
         if(statusCode == 401){
             CacheUtil.getInstance().setLogin(false);
             BaseApplication.getInst().clear();
-            Intent intent = new Intent(activity, LoginActivity.class);
+            Intent intent = new Intent(activity, LoginSiActivity.class);
             activity.startActivity(intent);
         }
     }
