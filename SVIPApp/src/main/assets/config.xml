@@ -1,27 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
-    <!--测试环境-->
-    <php-host>tst.zkjinshi.com</php-host>
-    <java-host>test.zkjinshi.com/japi</java-host>
     <!--孔雀座(认证服务)-->
-    <pav-host>p.zkjinshi.com/test/pav</pav-host>
+    <pav-host>p.zkjinshi.com/pav</pav-host>
     <!--罗盘座(位置服务)-->
-    <pyx-host>p.zkjinshi.com/test/pyx</pyx-host>
+    <pyx-host>p.zkjinshi.com/pyx</pyx-host>
     <!--天炉座(资源服务)-->
-    <for-host>p.zkjinshi.com/test/for</for-host>
+    <for-host>p.zkjinshi.com/for</for-host>
     <!--图片(资源服务)-->
-    <img-host>for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com</img-host>
-
-    <!--预生产环境-->
-    <!--<php-host>rap.zkjinshi.com</php-host>-->
-    <!--<java-host>p.zkjinshi.com/japi</java-host>-->
-    <!--孔雀座(认证服务)-->
-    <!--<pav-host>p.zkjinshi.com/pav</pav-host>-->
-    <!--罗盘座(位置服务)-->
-    <!--<pyx-host>p.zkjinshi.com/pyx</pyx-host>-->
-    <!--天炉座(资源服务)-->
-    <!--<for-host>p.zkjinshi.com/for</for-host>-->
-    <!--图片(资源服务)-->
-    <!--<img-host>for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com</img-host>-->
-
+    <img-host>cdn.zkjinshi.com</img-host>
 </config>

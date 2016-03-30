@@ -53,14 +53,10 @@ public class SVIPApplication extends BaseApplication {
         initLog();
         initCache();
         initDevice();
-
         LocationManager.getInstance().init(this);
         BlueToothManager.getInstance().init(this);
         Fresco.initialize(this);
-
     }
-
-
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -82,8 +78,6 @@ public class SVIPApplication extends BaseApplication {
     private void initYunBa(){
         YunBaManager.start(getApplicationContext());
     }
-
-
 
     /**
      * 初始化配置
