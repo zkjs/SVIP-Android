@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
@@ -48,6 +50,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 import com.blueware.agent.android.BlueWare;
+import com.zkjinshi.svip.view.BeaconMsgDialog;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
 
@@ -76,6 +80,23 @@ public class MainActivity extends BaseActivity{
         public void onReceive(Context ctx, Intent intent) {
             LogUtil.getInstance().info(LogLevel.DEBUG,TAG+"收到显示信息广播");
             showPayMsgTips();
+        }
+    }
+
+    private ShowIBeaconPushMsgReceiver mShowIBeaconPushMsgReceiver;
+    private class ShowIBeaconPushMsgReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context ctx, Intent intent) {
+            try {
+                YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
+                if(yunBaMsgVo != null && yunBaMsgVo.getType() == 2){
+                    BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
+                    beaconMsgDialog.show();
+                    beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
+                }
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -120,6 +141,9 @@ public class MainActivity extends BaseActivity{
         if(null != mShowMessageReceiver){
             unregisterReceiver(mShowMessageReceiver);
         }
+        if(null != mShowIBeaconPushMsgReceiver){
+            unregisterReceiver(mShowIBeaconPushMsgReceiver);
+        }
     }
 
     private void initView() {
@@ -135,11 +159,18 @@ public class MainActivity extends BaseActivity{
     private void initData() {
         accountTv.setText("");
         usernameTv.setText("");
+        walletSdv.setVisibility(View.GONE);
+        msgIv.setVisibility(View.GONE);
 
         mShowMessageReceiver = new ShowMessageReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.SHOW_CONTACT_RECEIVER_ACTION);
         registerReceiver(mShowMessageReceiver, filter);
+
+        mShowIBeaconPushMsgReceiver = new ShowIBeaconPushMsgReceiver();
+        IntentFilter filter2 = new IntentFilter();
+        filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
     }
 
 
