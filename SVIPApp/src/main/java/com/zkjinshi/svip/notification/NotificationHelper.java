@@ -100,7 +100,7 @@ public class NotificationHelper {
         NotificationCompat.Builder notificationBuilder = null;
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
-        String title = yunBaMsgVo.getTitle();
+        String title = yunBaMsgVo.getAlert();
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
         // 2.设置点击跳转事件

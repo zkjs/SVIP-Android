@@ -10,12 +10,19 @@ import java.io.Serializable;
  */
 public class YunBaMsgVo implements Serializable{
 
+    /**
+     "title": "欢迎光临(标题)",
+     "locid": "1000",
+     "alert": "欢迎光临1000区域(提示信息)",
+     "shopid": "9002",
+     "content": "1000区域是李二狗家不可分割的一部分(完整信息)"
+     */
+
     private String title;
+    private String locid;
+    private String alert;
+    private String shopid;
     private String content;
-    private String webUrl;
-    private String userId;
-    private String userName;
-    private int type;//消息类型 1、GPS 2、蓝牙
 
     public String getTitle() {
         return title;
@@ -25,43 +32,35 @@ public class YunBaMsgVo implements Serializable{
         this.title = title;
     }
 
+    public String getLocid() {
+        return locid;
+    }
+
+    public void setLocid(String locid) {
+        this.locid = locid;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public void setAlert(String alert) {
+        this.alert = alert;
+    }
+
+    public String getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getWebUrl() {
-        return webUrl;
-    }
-
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }

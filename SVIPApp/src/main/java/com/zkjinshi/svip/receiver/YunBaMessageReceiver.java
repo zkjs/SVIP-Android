@@ -65,7 +65,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     if (null != amountStatusVo) {
                         NotificationHelper.getInstance().showNotificationResult(context, amountStatusVo);
                     }
-                }else if("generalize".equals(type)){
+                }else if("BLE_ACTIVITY".equals(type)){
                     YunBaMsgVo yunBaMsgVo = new Gson().fromJson(data,YunBaMsgVo.class);
                     if(ActivityManagerHelper.isRunningBackground(context)){
                         if(null != yunBaMsgVo){
