@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity{
         public void onReceive(Context ctx, Intent intent) {
             try {
                 YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                if(yunBaMsgVo != null && yunBaMsgVo.getType() == 2){
+                if(yunBaMsgVo != null){
                     BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
                     beaconMsgDialog.show();
                     beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
