@@ -13,7 +13,9 @@ import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 /**
  * 消息通知帮助类
@@ -86,6 +88,26 @@ public class NotificationHelper {
         intent.putExtra("status","2");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntent);
+        // 3.设置通知栏其他属性
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(++NOTIFY_ID, notificationBuilder.build());
+    }
+
+    public void showNotification(final Context context, final YunBaMsgVo yunBaMsgVo){
+        NotificationCompat.Builder notificationBuilder = null;
+        // 1.设置显示信息
+        notificationBuilder = new NotificationCompat.Builder(context);
+        String title = yunBaMsgVo.getTitle();
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        // 2.设置点击跳转事件
+        Intent intent = new Intent();
+        intent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        intent.putExtra("data",yunBaMsgVo);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
         // 3.设置通知栏其他属性
         notificationBuilder.setAutoCancel(true);

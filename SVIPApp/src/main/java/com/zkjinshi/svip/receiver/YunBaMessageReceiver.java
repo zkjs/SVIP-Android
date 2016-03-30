@@ -12,6 +12,7 @@ import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +64,18 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
                     if (null != amountStatusVo) {
                         NotificationHelper.getInstance().showNotificationResult(context, amountStatusVo);
+                    }
+                }else if("generalize".equals(type)){
+                    YunBaMsgVo yunBaMsgVo = new Gson().fromJson(data,YunBaMsgVo.class);
+                    if(ActivityManagerHelper.isRunningBackground(context)){
+                        if(null != yunBaMsgVo){
+                            NotificationHelper.getInstance().showNotification(context,yunBaMsgVo);
+                        }
+                    }else {
+                        Intent iBeaconIntent = new Intent();
+                        iBeaconIntent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+                        iBeaconIntent.putExtra("data",yunBaMsgVo);
+                        context.sendBroadcast(iBeaconIntent);
                     }
                 }
             }catch (JSONException e){

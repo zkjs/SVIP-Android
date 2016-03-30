@@ -1,12 +1,14 @@
 package com.zkjinshi.svip.vo;
 
+import java.io.Serializable;
+
 /**
  * 开发者：JimmyZhang
  * 日期：2016/2/26
  * Copyright (C) 2016 深圳中科金石科技有限公司
  * 版权所有
  */
-public class YunBaMsgVo {
+public class YunBaMsgVo implements Serializable{
 
     private String title;
     private String content;
