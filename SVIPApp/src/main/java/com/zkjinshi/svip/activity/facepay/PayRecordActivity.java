@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nineoldandroids.view.ViewHelper;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ExpenseAdapter;
 import com.zkjinshi.svip.adapter.PayRecordAdapter;
@@ -104,6 +105,17 @@ public class PayRecordActivity extends BaseActivity {
                 mPayRecordAdapter.isClick = true;
                 mPayRecordAdapter.clickIndex = realPostion;
                 mPayRecordAdapter.notifyDataSetChanged();
+
+
+//                if(realPostion > mPayRecordAdapter.firstVisibleItem){
+//                    int showHeightDp = DisplayUtil.dip2px(mContext,264);
+//                    int hideHeightDp = DisplayUtil.dip2px(mContext,72);
+//                    int offsetIndex = realPostion -  mPayRecordAdapter.firstVisibleItem;
+//                    int offset = offsetIndex * hideHeightDp + showHeightDp;
+//                    mRefreshListView.smoothScrollBy(offset, 200);
+//                    mPayRecordAdapter.firstVisibleItem = realPostion;
+//                }
+
 
             }
         });

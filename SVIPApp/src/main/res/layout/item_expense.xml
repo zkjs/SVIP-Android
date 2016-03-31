@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/item_expense_layout_detail"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
