@@ -161,7 +161,7 @@ public class LoginController {
                         BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
-                                callBackListener.successCallback(null);
+                                //callBackListener.successCallback(null);
                             }else{
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }
@@ -180,6 +180,8 @@ public class LoginController {
             Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
+        callBackListener.successCallback(null);
 
     }
 
@@ -213,7 +215,7 @@ public class LoginController {
                         BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
-                                callBackListener.successCallback(null);
+                               // callBackListener.successCallback(null);
                             }else{
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }
@@ -232,6 +234,8 @@ public class LoginController {
             Toast.makeText(mContext,"json解析错误",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
+        callBackListener.successCallback(null);
 
     }
 
