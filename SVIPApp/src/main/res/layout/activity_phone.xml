@@ -63,7 +63,7 @@
         android:id="@+id/btn_login"
         android:layout_width="240dp"
         android:layout_height="44dp"
-        android:text="开启刷脸"
+        android:text="开启超级身份"
         android:textSize="16sp"
         android:textColor="@color/White"
         android:background="@drawable/btn_orange_selector"/>
