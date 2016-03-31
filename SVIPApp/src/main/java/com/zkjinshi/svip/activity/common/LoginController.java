@@ -24,6 +24,8 @@ import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.PavoUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.BaseResponseVo;
+import com.zkjinshi.svip.vo.GetUserInfoVo;
+import com.zkjinshi.svip.vo.UserInfoVo;
 
 
 import org.json.JSONArray;
@@ -72,6 +74,63 @@ public class LoginController {
             jsonObject.put("userids",userids);
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
             String url = ProtocolUtil.querySiAll();
+            client.get(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                public void onStart(){
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                }
+
+                public void onFinish(){
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
+
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
+                    try {
+                        String response = new String(responseBody,"utf-8");
+                        GetUserInfoVo getUserInfoVo = new Gson().fromJson(response,GetUserInfoVo.class);
+                        if (getUserInfoVo == null){
+                            return;
+                        }
+                        if(getUserInfoVo.getRes() == 0){
+                            if(getUserInfoVo.getData() != null && getUserInfoVo.getData().size() > 0){
+                                UserInfoVo userInfoVo = getUserInfoVo.getData().get(0);
+                                CacheUtil.getInstance().setUserPhone(userInfoVo.getPhone());
+                                CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
+                                String imgurl = userInfoVo.getUserimage();
+                                imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                                CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
+                                CacheUtil.getInstance().setSex(userInfoVo.getSex()+"");
+                                CacheUtil.getInstance().setUserRealName(userInfoVo.getRealname());
+                                CacheUtil.getInstance().setUserApplevel(userInfoVo.getViplevel());
+                                //订阅云巴区域
+                                YunBaSubscribeManager.getInstance().setAlias(mContext,CacheUtil.getInstance().getUserId());
+
+                                String userid = CacheUtil.getInstance().getUserId();
+                                DBOpenHelper.DB_NAME = userid +".db";
+                                CacheUtil.getInstance().setLogin(true);
+                                if(callBackListener != null){
+                                    callBackListener.successCallback(null);
+                                }
+                            }
+                        }else{
+                            Toast.makeText(mContext,getUserInfoVo.getResDesc(),Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
+                }
+            });
+
+
+
+
+
+
             client.get(mContext,url, stringEntity, "application/json", new JsonHttpResponseHandler(){
                 public void onStart(){
                     super.onStart();
@@ -96,7 +155,7 @@ public class LoginController {
                                 imgurl = ProtocolUtil.getHostImgUrl(imgurl);
                                 CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
                                 CacheUtil.getInstance().setSex(dataJson.getString("sex"));
-                                CacheUtil.getInstance().setUserRealName(dataJson.getString("realname"));
+                               // CacheUtil.getInstance().setUserRealName(dataJson.getString("realname"));
                                 CacheUtil.getInstance().setUserApplevel(dataJson.getString("viplevel"));
                                 //订阅云巴区域
                                 YunBaSubscribeManager.getInstance().setAlias(mContext,CacheUtil.getInstance().getUserId());
