@@ -16,6 +16,15 @@ public class PayRecordDataVo implements Serializable {
     private String status;
     private String statusdesc;
     private String confirmtime;
+    private boolean isShow = false;
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
+    }
 
     public String getShopid() {
         return shopid;

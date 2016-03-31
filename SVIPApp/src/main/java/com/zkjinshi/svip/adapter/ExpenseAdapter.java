@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nineoldandroids.view.ViewHelper;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
@@ -37,6 +39,10 @@ public class ExpenseAdapter extends BaseAdapter{
     private int firstVisibleItem = 0;
     private int visibleItemCount;
     private int scrollState;
+    public boolean isClick = false;
+    public int clickIndex = -1;
+
+    private String[] colors = {"#ffbe5c","#ffb74a","#ffaf38","#ffa826","#ffa114","#ff9900","#ff9100","#ff8800","#ff9800"};
 
     public ExpenseAdapter(Context context, ArrayList<PayRecordDataVo> expenseList){
         this.context = context;
@@ -51,6 +57,10 @@ public class ExpenseAdapter extends BaseAdapter{
             this.expenseList = expenseList;
         }
         notifyDataSetChanged();
+    }
+
+    public ArrayList<PayRecordDataVo> getExpenseList() {
+        return expenseList;
     }
 
     public void loadMore(ArrayList<PayRecordDataVo> morelist){
@@ -116,11 +126,43 @@ public class ExpenseAdapter extends BaseAdapter{
         if(!TextUtils.isEmpty(price)){
             viewHolder.priceTv.setText("¥ " +price);
         }
-        if(position == firstVisibleItem){
+        if(isClick){
+            if(clickIndex != firstVisibleItem &&  position == firstVisibleItem){
+                payRecordDataVo.setShow(false);
+            }
+            else if(clickIndex == position){
+                payRecordDataVo.setShow(true);
+            }else{
+                payRecordDataVo.setShow(false);
+            }
+        }else{
+            if(position == firstVisibleItem){
+                payRecordDataVo.setShow(true);
+            }else{
+                payRecordDataVo.setShow(false);
+            }
+        }
+
+
+        if(payRecordDataVo.isShow()){
             viewHolder.detailLayout.setVisibility(View.VISIBLE);
         }else{
             viewHolder.detailLayout.setVisibility(View.GONE);
         }
+        int offset = position - firstVisibleItem;
+        int colorSize = colors.length;
+        if(offset >= 0){
+            String colorStr = colors[colorSize -1];
+            offset = offset+1;
+            if(offset < colorSize){
+                colorStr = colors[offset];
+            }
+            viewHolder.introLayout.setBackgroundColor(Color.parseColor(colorStr));
+        }else{
+            String colorStr = colors[0];
+            viewHolder.introLayout.setBackgroundColor(Color.parseColor(colorStr));
+        }
+
         return  convertView;
     }
 
@@ -133,6 +175,7 @@ public class ExpenseAdapter extends BaseAdapter{
             this.firstVisibleItem = firstVisibleItem;
             notifyDataSetChanged();
         }
+        isClick = false;
 
 
     }

@@ -98,16 +98,12 @@ public class PayRecordActivity extends BaseActivity {
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 int realPostion = position - 1;
-                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
-                if(status.equals("0")){
-                    Intent intent = new Intent(mContext, PayActivity.class);
-                    intent.putExtra("amountStatusVo",payRecordDataVo);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(mContext,PayDetailActivity.class);
-                    intent.putExtra("payRecordDataVo",payRecordDataVo);
-                    startActivity(intent);
-                }
+                mRefreshListView.setSelection(realPostion);
+                ArrayList<PayRecordDataVo> expenseList = (ArrayList<PayRecordDataVo>)mPayRecordAdapter.getExpenseList();
+                expenseList.get(realPostion).setShow(!expenseList.get(realPostion).isShow());
+                mPayRecordAdapter.isClick = true;
+                mPayRecordAdapter.clickIndex = realPostion;
+                mPayRecordAdapter.notifyDataSetChanged();
 
             }
         });
