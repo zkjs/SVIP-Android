@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.R;
+
+import com.zkjinshi.svip.adapter.ExpenseAdapter;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 
 import java.util.Date;
@@ -29,9 +31,9 @@ import java.util.Date;
  * 实现添加自定义布局动画效果
  * 在listView的上方
  */
-public class RefreshListView extends ListView implements OnScrollListener {
+public class ExListView extends ListView implements OnScrollListener {
 
-    private static final String TAG = RefreshListView.class.getSimpleName();
+    private static final String TAG = ExListView.class.getSimpleName();
 
     public static final int STATE_PULL_DOWN_REFRESH = 0;// 下拉刷新
     public static final int STATE_RELEASE_REFRESH = 1;// 释放刷新
@@ -75,23 +77,24 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private static final float SCROLL_RATIO = 0.5f;// 阻尼系数
     private Context mContext;
     private int mMaxYOverscrollDistance;
+    public ExpenseAdapter contentAdapter = null;
 
-    public RefreshListView(Context context, AttributeSet attrs, int defStyle) {
+    public ExListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
 
-       // initBounceListView();//添加阻尼效果
+        //initBounceListView();//添加阻尼效果
         initHeaderLayout();// 加载头布局
         initFooterLayout(); // 加载尾布局
         //设置条目点击监听
         this.setOnItemClickListener(new InterceptOnItemClickListener());
     }
 
-    public RefreshListView(Context context, AttributeSet attrs) {
+    public ExListView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RefreshListView(Context context) {
+    public ExListView(Context context) {
         this(context, null);
     }
 
@@ -175,6 +178,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
                 int diffY = (int) (moveY - mDownY);    //获得touch移动距离
                 if (Math.abs(diffY) > 3) {
                     isTouching = true;    //touching状态
+                    //contentAdapter.notifyDataSetChanged();
                 }
 
                 // 如果当前的状态是正在刷新 父类不响应touch事件 (避免拉出侧滑菜单)
@@ -357,6 +361,9 @@ public class RefreshListView extends ListView implements OnScrollListener {
      */
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if(contentAdapter != null){
+            contentAdapter.onScroll(view,firstVisibleItem,visibleItemCount,totalItemCount,scrollState);
+        }
     }
 
     /**

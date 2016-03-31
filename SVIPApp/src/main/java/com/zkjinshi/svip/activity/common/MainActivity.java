@@ -30,6 +30,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
@@ -159,8 +160,8 @@ public class MainActivity extends BaseActivity{
     private void initData() {
         accountTv.setText("");
         usernameTv.setText("");
-        walletSdv.setVisibility(View.GONE);
-        msgIv.setVisibility(View.GONE);
+        //walletSdv.setVisibility(View.GONE);
+        //msgIv.setVisibility(View.GONE);
 
         mShowMessageReceiver = new ShowMessageReceiver();
         IntentFilter filter = new IntentFilter();
@@ -178,7 +179,7 @@ public class MainActivity extends BaseActivity{
         paopaoRlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+                Intent intent = new Intent(mContext,PayRecordActivity.class);
                 intent.putExtra("status","2");
                 startActivity(intent);
             }

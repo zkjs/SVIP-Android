@@ -159,6 +159,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Translucent.NoTitleBar"  >
         </activity>
+        <activity android:name=".activity.facepay.PayRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Translucent.NoTitleBar"  >
+        </activity>
         <activity android:name=".activity.facepay.PayActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" >
