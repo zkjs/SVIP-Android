@@ -36,9 +36,9 @@ public class ExpenseAdapter extends BaseAdapter{
     private Context context;
     private ArrayList<PayRecordDataVo> expenseList;
 
-    private int firstVisibleItem = 0;
-    private int visibleItemCount;
-    private int scrollState;
+    public int firstVisibleItem = 0;
+    public int visibleItemCount;
+    public int scrollState;
     public boolean isClick = false;
     public int clickIndex = -1;
 
@@ -131,7 +131,7 @@ public class ExpenseAdapter extends BaseAdapter{
                 payRecordDataVo.setShow(false);
             }
             else if(clickIndex == position){
-                payRecordDataVo.setShow(true);
+
             }else{
                 payRecordDataVo.setShow(false);
             }

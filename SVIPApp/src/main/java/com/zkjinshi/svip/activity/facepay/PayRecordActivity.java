@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nineoldandroids.view.ViewHelper;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ExpenseAdapter;
 import com.zkjinshi.svip.adapter.PayRecordAdapter;
@@ -98,7 +99,6 @@ public class PayRecordActivity extends BaseActivity {
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 int realPostion = position - 1;
-                mRefreshListView.setSelection(realPostion);
                 ArrayList<PayRecordDataVo> expenseList = (ArrayList<PayRecordDataVo>)mPayRecordAdapter.getExpenseList();
                 expenseList.get(realPostion).setShow(!expenseList.get(realPostion).isShow());
                 mPayRecordAdapter.isClick = true;
