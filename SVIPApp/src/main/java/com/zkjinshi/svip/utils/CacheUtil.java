@@ -45,6 +45,24 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 获取锁屏状态
+	 * @return
+     */
+	public boolean isScreenOff() {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("isScreenOff", false);
+	}
+
+	/**
+	 * 设置锁屏状态
+	 * @param isScreenOff
+     */
+	public void setScreenOff(boolean isScreenOff) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("isScreenOff",  isScreenOff).commit();
+	}
+
+	/**
 	 * 设置用户登录状态
 	 * @param isLogin
 	 */

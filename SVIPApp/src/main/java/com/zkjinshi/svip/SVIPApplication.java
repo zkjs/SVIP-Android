@@ -46,7 +46,6 @@ public class SVIPApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        CacheUtil.getInstance().init(this);
         initContext();
         initYunBa();
         saveConfig();
@@ -118,6 +117,7 @@ public class SVIPApplication extends BaseApplication {
      */
     private void initCache(){
         CacheUtil.getInstance().init(this);
+        CacheUtil.getInstance().setScreenOff(false);
     }
 
 

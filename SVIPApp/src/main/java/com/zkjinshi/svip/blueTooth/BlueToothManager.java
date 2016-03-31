@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.blueTooth;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +53,19 @@ public class BlueToothManager {
     private BlueToothManager(){}
     private static BlueToothManager instance;
     private Context context;
+
+    /**
+     * 打开蓝牙
+     */
+    public void openBluetooth(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter
+                    .getDefaultAdapter();
+            if(null != bluetoothAdapter && !bluetoothAdapter.isEnabled()){
+                bluetoothAdapter.enable();
+            }
+        }
+    }
 
     public  final Handler handler = new Handler(){
         public void handleMessage(Message msg) {
