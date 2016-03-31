@@ -13,6 +13,7 @@ import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -84,7 +85,7 @@ public class NotificationHelper {
         notificationBuilder.setContentText(tipsMsg);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
         // 2.设置点击跳转事件
-        Intent intent = new Intent(context, PayConfirmActivity.class);
+        Intent intent = new Intent(context, PayRecordActivity.class);
         intent.putExtra("status","2");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
