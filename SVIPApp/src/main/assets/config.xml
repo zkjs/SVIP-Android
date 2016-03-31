@@ -10,7 +10,7 @@
     <!--天炉座(资源服务)-->
     <for-host>p.zkjinshi.com/test/for</for-host>
     <!--图片(资源服务)-->
-    <img-host>for-testea01cc11-44f5-431f-a393-a6595c09410d.oss-cn-shenzhen.aliyuncs.com</img-host>
+    <img-host>d2.zkjinshi.com</img-host>
 
     <!--预生产环境-->
     <!--<php-host>rap.zkjinshi.com</php-host>-->
