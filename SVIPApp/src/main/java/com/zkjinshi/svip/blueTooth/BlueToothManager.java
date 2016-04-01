@@ -54,6 +54,8 @@ public class BlueToothManager {
     private static BlueToothManager instance;
     private Context context;
 
+    public static AsyncHttpClient client = new AsyncHttpClient();
+
     /**
      * 打开蓝牙
      */
@@ -84,7 +86,7 @@ public class BlueToothManager {
     private IBeaconObserver mIBeaconObserver = new IBeaconObserver() {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
-            LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo.getMajor());
             Bundle bundle = new Bundle();
             bundle.putSerializable("iBeaconVo",iBeaconVo);
             Message msg = new Message();
@@ -95,7 +97,7 @@ public class BlueToothManager {
 
         @Override
         public void outRegin(IBeaconVo iBeaconVo) {
-            LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo.getMajor());
         }
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
@@ -117,9 +119,9 @@ public class BlueToothManager {
                 return;
             }
             String url = ProtocolUtil.lbsLocBeacon();
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.setMaxRetriesAndTimeout(3,3000);
-            client.setTimeout(3000);
+            client.setMaxRetriesAndTimeout(3,1000*3);
+            client.setConnectTimeout(1000*10);
+            client.setResponseTimeout(1000*10);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
