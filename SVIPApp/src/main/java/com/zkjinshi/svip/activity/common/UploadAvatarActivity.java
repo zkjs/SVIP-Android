@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -45,6 +46,7 @@ public class UploadAvatarActivity extends BaseActivity {
     private Context mContext;
     private SimpleDraweeView avatarSdv;
     private String               picPath;
+    private TextView uploadTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +63,12 @@ public class UploadAvatarActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获得图片选择后的操作
-        MineUiController.getInstance().onActivityResult(requestCode, resultCode, data, avatarSdv);
+        MineUiController.getInstance().onActivityResult(requestCode, resultCode, data, avatarSdv,uploadTv);
     }
 
     private void initView() {
         avatarSdv = (SimpleDraweeView)findViewById(R.id.civ_user_icon);
+        uploadTv = (TextView)findViewById(R.id.upload_tv);
     }
 
     private void initData() {

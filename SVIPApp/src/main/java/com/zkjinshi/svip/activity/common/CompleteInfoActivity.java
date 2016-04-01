@@ -168,7 +168,7 @@ public class CompleteInfoActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //获得图片选择后的操作
-        MineUiController.getInstance().onActivityResult(requestCode, resultCode, data, mCivUserAvatar);
+        MineUiController.getInstance().onActivityResult(requestCode, resultCode, data, mCivUserAvatar,null);
     }
 
 
