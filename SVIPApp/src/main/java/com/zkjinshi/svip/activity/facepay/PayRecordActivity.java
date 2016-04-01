@@ -185,7 +185,7 @@ public class PayRecordActivity extends BaseActivity {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(PayRecordActivity.this,statusCode);
                 }
             });

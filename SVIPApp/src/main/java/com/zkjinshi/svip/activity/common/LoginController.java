@@ -121,7 +121,7 @@ public class LoginController {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
@@ -161,8 +161,11 @@ public class LoginController {
                         BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
-//                                callBackListener.successCallback(null);
+                                callBackListener.successCallback(null);
+                            }else if(basePavoResponse.getRes() == 5){
+                                PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }else{
+                                callBackListener.successCallback(null);
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }
                         }
@@ -172,7 +175,6 @@ public class LoginController {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
@@ -181,7 +183,6 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        callBackListener.successCallback(null);
 
     }
 
@@ -215,8 +216,11 @@ public class LoginController {
                         BaseResponseVo basePavoResponse = new Gson().fromJson(response,BaseResponseVo.class);
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
-                                //callBackListener.successCallback(null);
+                                callBackListener.successCallback(null);
+                            }else if(basePavoResponse.getRes() == 5){
+                                PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }else{
+                                callBackListener.successCallback(null);
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }
                         }
@@ -226,7 +230,7 @@ public class LoginController {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
@@ -235,7 +239,7 @@ public class LoginController {
             e.printStackTrace();
         }
 
-        callBackListener.successCallback(null);
+
 
     }
 

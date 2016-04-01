@@ -149,7 +149,7 @@ public class PayActivity extends BaseActivity {
 
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
                     super.onFailure(statusCode,headers,throwable,errorResponse);
-                    Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure((Activity) mContext,statusCode);
                 }
             });
