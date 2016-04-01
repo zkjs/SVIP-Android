@@ -35,6 +35,7 @@ import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.map.LocationManager;
 
+import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -64,6 +65,7 @@ public class MainActivity extends BaseActivity{
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
     private TextView accountTv,usernameTv;
     private RelativeLayout paopaoRlt;
+    private ScreenObserverReceiver screenObserverReceiver;
 
 
     private Context mContext;
@@ -138,6 +140,9 @@ public class MainActivity extends BaseActivity{
 
     public void onDestroy(){
         super.onDestroy();
+        if(null != screenObserverReceiver){
+            unregisterReceiver(screenObserverReceiver);
+        }
         if(null != mShowMessageReceiver){
             unregisterReceiver(mShowMessageReceiver);
         }
@@ -157,6 +162,16 @@ public class MainActivity extends BaseActivity{
     }
 
     private void initData() {
+
+        BlueToothManager.getInstance().openBluetooth();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Intent.ACTION_USER_PRESENT);
+        screenObserverReceiver = new ScreenObserverReceiver();
+        registerReceiver(screenObserverReceiver,intentFilter);
+
         accountTv.setText("");
         usernameTv.setText("");
         walletSdv.setVisibility(View.GONE);

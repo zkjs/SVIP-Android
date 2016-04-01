@@ -10,6 +10,7 @@ import com.zkjinshi.base.util.ActivityManagerHelper;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -29,10 +30,10 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
 
     public static final String TAG = YunBaMessageReceiver.class.getSimpleName();
 
+    private boolean isScreenOff;//是否锁屏
+
     @Override
     public void onReceive(final Context context, final Intent intent) {
-
-
 
         //云巴推送处理
         if (YunBaManager.MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
@@ -48,7 +49,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                 if ("PAYMENT_CONFIRM".equals(type)) {
                     PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
                     if (null != amountStatusVo) {
-                        if (ActivityManagerHelper.isRunningBackground(context)){
+                        if (ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
                             NotificationHelper.getInstance().showNotification(context, amountStatusVo);
                             MainActivity.showMsgAnimation = true;
                         }else{
@@ -67,7 +68,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     }
                 }else if("BLE_ACTIVITY".equals(type)){
                     YunBaMsgVo yunBaMsgVo = new Gson().fromJson(data,YunBaMsgVo.class);
-                    if(ActivityManagerHelper.isRunningBackground(context)){
+                    if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
                         if(null != yunBaMsgVo){
                             NotificationHelper.getInstance().showNotification(context,yunBaMsgVo);
                         }
@@ -81,16 +82,6 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
             }catch (JSONException e){
                 e.printStackTrace();
             }
-
-        } else if (YunBaManager.PRESENCE_RECEIVED_ACTION.equals(intent.getAction())) {
-            String topic = intent.getStringExtra(YunBaManager.MQTT_TOPIC);
-            String payload = intent.getStringExtra(YunBaManager.MQTT_MSG);
-            StringBuilder showMsg = new StringBuilder();
-            showMsg.append("Received message presence: ").append(YunBaManager.MQTT_TOPIC)
-                    .append(" = ").append(topic).append(" ")
-                    .append(YunBaManager.MQTT_MSG).append(" = ").append(payload);
-            Log.d(TAG, showMsg.toString());
-
         }
     }
 }
