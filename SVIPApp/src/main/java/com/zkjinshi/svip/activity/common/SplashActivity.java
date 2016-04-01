@@ -20,6 +20,7 @@ import com.zkjinshi.base.view.CustomDialog;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.utils.CacheUtil;
 
 
@@ -64,6 +65,12 @@ public class SplashActivity extends BaseActivity {
      * 初始化界面元素
      */
     private void initData() {
+
+        if(!CacheUtil.getInstance().isGuide()){
+            YunBaSubscribeManager.getInstance().setAlias(this,"");
+            CacheUtil.getInstance().setGuide(true);
+        }
+
         //背景星空下移动画
         skyDropOutAnim = AnimationUtils.loadAnimation(this, R.anim.translate_drop_out);
         bodyLayout.startAnimation(skyDropOutAnim);
