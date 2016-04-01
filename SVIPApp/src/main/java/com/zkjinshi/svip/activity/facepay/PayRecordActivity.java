@@ -105,7 +105,9 @@ public class PayRecordActivity extends BaseActivity {
                 mPayRecordAdapter.isClick = true;
                 mPayRecordAdapter.clickIndex = realPostion;
                 mPayRecordAdapter.notifyDataSetChanged();
-
+                if(realPostion == expenseList.size() - 1){
+                    mRefreshListView.setSelection(realPostion);
+                }
             }
         });
 
