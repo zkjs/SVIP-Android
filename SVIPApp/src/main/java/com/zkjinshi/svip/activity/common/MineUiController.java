@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -125,7 +126,7 @@ public class MineUiController{
      * @param data
      * @param simpleDraweeView
      */
-    public void onActivityResult(int requestCode, int resultCode, Intent data,SimpleDraweeView simpleDraweeView){
+    public void onActivityResult(int requestCode, int resultCode, Intent data, SimpleDraweeView simpleDraweeView, TextView uploadTv){
 
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
@@ -155,6 +156,9 @@ public class MineUiController{
                     }
                     simpleDraweeView.setImageURI(Uri.parse("file://"+photoFilePath));
                     CacheUtil.getInstance().savePicPath(photoFilePath);
+                    if(uploadTv != null){
+                        uploadTv.setVisibility(View.GONE);
+                    }
                     break;
 
                 default:

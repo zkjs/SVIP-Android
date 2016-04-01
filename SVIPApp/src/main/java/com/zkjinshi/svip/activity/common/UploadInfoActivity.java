@@ -46,9 +46,7 @@ public class UploadInfoActivity extends BaseActivity {
     }
 
     private void initData() {
-        if(!TextUtils.isEmpty(CacheUtil.getInstance().getUserName())){
-            inputEt.setText(CacheUtil.getInstance().getUserName());
-        }
+
     }
 
     private void initListener() {
