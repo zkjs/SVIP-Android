@@ -225,7 +225,7 @@ public class CompleteInfoActivity extends BaseActivity {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
+                    //DialogUtil.getInstance().showCustomToast(CompleteInfoActivity.this, "上传资料失败!", Toast.LENGTH_LONG);
                     AsyncHttpClientUtil.onFailure(CompleteInfoActivity.this,statusCode);
                 }
             });
