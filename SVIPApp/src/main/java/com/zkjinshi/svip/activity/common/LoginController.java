@@ -217,7 +217,7 @@ public class LoginController {
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 callBackListener.successCallback(null);
-                            }else if(basePavoResponse.getRes() == 5){
+                            }else if(basePavoResponse.getRes() == 12){
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }else{
                                 callBackListener.successCallback(null);
