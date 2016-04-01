@@ -57,8 +57,6 @@ import java.util.regex.Pattern;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
-;
-
 /**
  * 开发者：JimmyZhang
  * 日期：2015/7/20
