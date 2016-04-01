@@ -106,17 +106,6 @@ public class PayRecordActivity extends BaseActivity {
                 mPayRecordAdapter.clickIndex = realPostion;
                 mPayRecordAdapter.notifyDataSetChanged();
 
-
-//                if(realPostion > mPayRecordAdapter.firstVisibleItem){
-//                    int showHeightDp = DisplayUtil.dip2px(mContext,264);
-//                    int hideHeightDp = DisplayUtil.dip2px(mContext,72);
-//                    int offsetIndex = realPostion -  mPayRecordAdapter.firstVisibleItem;
-//                    int offset = offsetIndex * hideHeightDp + showHeightDp;
-//                    mRefreshListView.smoothScrollBy(offset, 200);
-//                    mPayRecordAdapter.firstVisibleItem = realPostion;
-//                }
-
-
             }
         });
 

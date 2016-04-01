@@ -136,11 +136,12 @@ public class ExpenseAdapter extends BaseAdapter{
                 payRecordDataVo.setShow(false);
             }
         }else{
-            if(position == firstVisibleItem){
-                payRecordDataVo.setShow(true);
-            }else{
-                payRecordDataVo.setShow(false);
-            }
+//            if(position == firstVisibleItem){
+//                payRecordDataVo.setShow(true);
+//            }else{
+//                payRecordDataVo.setShow(false);
+//            }
+            //payRecordDataVo.setShow(false);
         }
 
 
@@ -168,7 +169,6 @@ public class ExpenseAdapter extends BaseAdapter{
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount,int scrollState){
         Log.d("test", "firstVisibleItem="+firstVisibleItem+" visibleItemCount="+visibleItemCount+" totalItemCount="+totalItemCount);
-        //view.getChildAt(firstVisibleItem);
         this.visibleItemCount = visibleItemCount;
         this.scrollState = scrollState;
         if(firstVisibleItem != this.firstVisibleItem){
@@ -176,8 +176,6 @@ public class ExpenseAdapter extends BaseAdapter{
             notifyDataSetChanged();
         }
         isClick = false;
-
-
     }
 
     class ViewHolder{
