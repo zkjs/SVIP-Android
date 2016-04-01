@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity{
         screenObserverReceiver = new ScreenObserverReceiver();
         registerReceiver(screenObserverReceiver,intentFilter);
 
-        accountTv.setText("");
+        accountTv.setText("¥ 0.00");
         usernameTv.setText("");
         //walletSdv.setVisibility(View.GONE);
         //msgIv.setVisibility(View.GONE);
