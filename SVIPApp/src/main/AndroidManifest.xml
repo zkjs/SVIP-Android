@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zkjinshi.svip"
-    android:versionCode="1"
-    android:versionName="1.14">
+    android:versionCode="2"
+    android:versionName="1.14.1">
 
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -195,7 +195,7 @@
 
         <meta-data
             android:name="YUNBA_APPKEY"
-            android:value="566563014407a3cd028aa72f" />
+            android:value="56f0e58a4407a3cd028ad5de" />
 
         <!--高德定位-->
         <service android:name="com.amap.api.location.APSService"/>
