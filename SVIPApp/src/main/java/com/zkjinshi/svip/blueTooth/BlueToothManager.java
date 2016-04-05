@@ -84,7 +84,7 @@ public class BlueToothManager {
     private IBeaconObserver mIBeaconObserver = new IBeaconObserver() {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
-            LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo.getMajor());
             Bundle bundle = new Bundle();
             bundle.putSerializable("iBeaconVo",iBeaconVo);
             Message msg = new Message();
@@ -95,7 +95,7 @@ public class BlueToothManager {
 
         @Override
         public void outRegin(IBeaconVo iBeaconVo) {
-            LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo);
+            LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo.getMajor());
         }
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
@@ -151,7 +151,7 @@ public class BlueToothManager {
                 @Override
                 public void onRetry(int retryNo) {
                     Log.d(TAG,"retryNo:"+retryNo);
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙"+iBeaconVo.getMajor()+"推送重连"+ retryNo );
                     BleStatManager.getInstance().updateRetryCount();
                     BleStatDBUtil.getInstance().updateTotalCount();
 
