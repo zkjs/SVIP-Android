@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8f000000"
+    android:id="@+id/mohu_rlt">
+    <LinearLayout
+        android:id="@+id/content_llt"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@drawable/view_white_shape"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/ad_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:background="@drawable/title_orange_shape"
+            android:textSize="20sp"
+            android:text="标题"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"/>
+
+        <TextView
+            android:id="@+id/ad_des_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="您获得了特权，无早升单早、单早升双早"
+            android:textColor="#666666"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:lineSpacingMultiplier="1.5"/>
+
+    </LinearLayout>
+</RelativeLayout>

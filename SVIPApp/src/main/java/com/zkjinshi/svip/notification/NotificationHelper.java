@@ -11,9 +11,12 @@ import android.text.TextUtils;
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.common.BeaconMsgActivity;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
+import com.zkjinshi.svip.receiver.NotificationClickReceiver;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -104,12 +107,14 @@ public class NotificationHelper {
         String title = yunBaMsgVo.getAlert();
         notificationBuilder.setContentTitle(title);
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        // 2.设置点击跳转事件
-        Intent intent = new Intent();
-        intent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
-        intent.putExtra("data",yunBaMsgVo);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent realIntent = new Intent();
+        realIntent.setClass(context, BeaconMsgActivity.class);
+        realIntent.putExtra("data",yunBaMsgVo);
+        realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
+
         // 3.设置通知栏其他属性
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);

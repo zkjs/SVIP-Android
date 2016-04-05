@@ -10,11 +10,15 @@ import android.net.Uri;
 import android.os.Build;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +36,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.map.LocationManager;
@@ -66,15 +71,14 @@ public class MainActivity extends BaseActivity{
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
     private TextView accountTv,usernameTv;
     private RelativeLayout paopaoRlt;
+    private CheckBox switchCbx;
+
     private ScreenObserverReceiver screenObserverReceiver;
-
-
     private Context mContext;
-    private ProgressDialog mProgressDialog;
-
     public Animation fadeAnimation = null;
-
     private ShowMessageReceiver mShowMessageReceiver;
+
+    public int clickCount = 0; //单击计数
 
 
 
@@ -92,11 +96,15 @@ public class MainActivity extends BaseActivity{
         public void onReceive(Context ctx, Intent intent) {
             try {
                 YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                if(yunBaMsgVo != null){
-                    BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
-                    beaconMsgDialog.show();
-                    beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
-                }
+//                if(yunBaMsgVo != null){
+//                    BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
+//                    beaconMsgDialog.show();
+//                    beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
+//                }
+                Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                bIntent.putExtra("data",yunBaMsgVo);
+                startActivity(bIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
@@ -117,15 +125,7 @@ public class MainActivity extends BaseActivity{
 
     protected void onResume() {
         super.onResume();
-        if(CacheUtil.getInstance().isLogin()){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !BlueToothManager.getInstance().isIBeaconServiceRunning()) {
-               BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
-            }
-            if(!LocationManager.getInstance().isRuning()){
-                LocationManager.getInstance().startLocation();
-            }
-        }
-
+        clickCount = 0;
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
@@ -160,6 +160,7 @@ public class MainActivity extends BaseActivity{
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
         walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
         paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
+        switchCbx = (CheckBox)findViewById(R.id.switch_cbx);
     }
 
     private void initData() {
@@ -187,6 +188,10 @@ public class MainActivity extends BaseActivity{
         IntentFilter filter2 = new IntentFilter();
         filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
+
+        switchCbx.setChecked(true);
+        BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+        LocationManager.getInstance().startLocation();
     }
 
 
@@ -222,7 +227,48 @@ public class MainActivity extends BaseActivity{
                 }
             }
         });
+
+        switchCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
+                if(isOpen){
+                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+                }else{
+                    BlueToothManager.getInstance().stopIBeaconService();
+                }
+            }
+        });
+
+        findViewById(R.id.finish_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickCount++;
+                if(clickCount == 6){
+                    CacheUtil.getInstance().setLogin(false);
+                    BlueToothManager.getInstance().stopIBeaconService();
+                    LocationManager.getInstance().stopLocation();
+                    BaseApplication.getInst().clear();
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    startActivity(intent);
+                    clickCount = 0;
+                }else{
+                     handler.removeMessages(1);
+                     handler.sendEmptyMessageDelayed(1,1000);
+                }
+
+            }
+        });
+
+
     }
+
+    Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            if(msg.what == 1){
+                clickCount = 0;
+            }
+        }
+    };
 
     //呼吸灯闪
     public void showPayMsgTips(){
