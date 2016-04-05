@@ -210,25 +210,12 @@ public class IBeaconService extends Service implements BeaconConsumer {
             return;
         }
         IBeaconSubject.getInstance().notifyObserversScan(ibeacon);
-        //第一次扫描到
         if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
-            if(ibeacon.getDistance() <= CHECK_DISTANCE){
-                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-                IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-            }else{
-                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-            }
-        }else{//重复扫描到
-            IBeaconVo preBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(ibeacon.getBeaconKey());
-            if(preBeaconVo.getDistance() > CHECK_DISTANCE && ibeacon.getDistance() <= CHECK_DISTANCE){
-                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-                IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-            }else{
-                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-            }
+            IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+            IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+        }else{
+            IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
         }
-
-
     }
 
     private void leaveArea(IBeaconVo ibeacon){
