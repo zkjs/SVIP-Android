@@ -145,7 +145,7 @@ public class YunBaSubscribeManager {
                     @Override
                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                         if (exception instanceof MqttException) {
-                            MqttException ex = (MqttException)exception;
+                             MqttException ex = (MqttException)exception;
                             String msg =  "setAlias failed with error code : " + ex.getReasonCode();
                         }
                     }
