@@ -24,6 +24,8 @@ public class ShopFragment extends Fragment {
     private View root;
     private View view;
 
+    public boolean isVisiable = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class ShopFragment extends Fragment {
             public void onClick(View v) {
                 root.setClickable(false);
                 ViewPropertyAnimator.animate(root)
-                        .rotationY(-90).setDuration(200)
+                        .rotationY(90).setDuration(200)
                         .setListener(new AnimatorListenerAdapter(){
                             @Override
                             public void onAnimationEnd(Animator animation) {
@@ -58,15 +60,14 @@ public class ShopFragment extends Fragment {
     }
 
     public void show(final View view,Bundle bundle){
-        view.setEnabled(false);
         this.view = view;
         String text = bundle.getString("text");
         tv.setText(text);
         ViewHelper.setRotationY(view, 0);
-        ViewHelper.setRotationY(root, -90);
+        ViewHelper.setRotationY(root, 90);
         root.setVisibility(View.VISIBLE);
 
-        ViewPropertyAnimator.animate(view).rotationY(90)
+        ViewPropertyAnimator.animate(view).rotationY(-90)
                 .setDuration(300).setListener(null)
                 .setInterpolator(new AccelerateInterpolator());
 
@@ -77,11 +78,23 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         ViewHelper.setRotationY(view, 0);
+                        isVisiable = true;
                     }
                 });
     }
 
-    public void hide(){
-
+    public void hideAction(){
+        root.setClickable(false);
+        ViewPropertyAnimator.animate(root)
+                .rotationY(90).setDuration(200)
+                .setListener(new AnimatorListenerAdapter(){
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        root.clearAnimation();
+                        root.setVisibility(View.INVISIBLE);
+                        isVisiable = false;
+                    }
+                });
     }
+
 }
