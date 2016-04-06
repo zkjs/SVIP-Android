@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseFragmentActivity {
     public static boolean showMsgAnimation = false;
 
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
-    private TextView accountTv,usernameTv;
+    private TextView accountTv,usernameTv,activateTv;
     private RelativeLayout paopaoRlt;
     private CheckBox switchCbx;
     private RelativeLayout rootRlt;
@@ -212,6 +213,7 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initView() {
+        activateTv = (TextView)findViewById(R.id.activate_tips_tv);
         msgIv = (SimpleDraweeView)findViewById(R.id.msgIv);
         avatarCiv =  (SimpleDraweeView)findViewById(R.id.avatar_sdv);
         accountTv = (TextView)findViewById(R.id.account_tv);
@@ -271,6 +273,16 @@ public class MainActivity extends BaseFragmentActivity {
 
 
     private void initListener() {
+
+        //立即激活
+        activateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ToDo jimmyzhang
+                DialogUtil.getInstance().showCustomToast(v.getContext(),"开始激活", Gravity.CENTER);
+            }
+        });
+
         paopaoRlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
