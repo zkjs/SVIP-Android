@@ -14,9 +14,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
@@ -30,6 +34,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
@@ -41,8 +48,10 @@ import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
+import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.map.LocationManager;
 
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
@@ -66,7 +75,7 @@ import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseFragmentActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -76,6 +85,7 @@ public class MainActivity extends BaseActivity{
     private TextView accountTv,usernameTv;
     private RelativeLayout paopaoRlt;
     private CheckBox switchCbx;
+    private RelativeLayout rootRlt;
 
     private ScreenObserverReceiver screenObserverReceiver;
     private Context mContext;
@@ -84,6 +94,29 @@ public class MainActivity extends BaseActivity{
 
     public int clickCount = 0; //单击计数
     public static Bitmap mScreenBitmap = null;
+
+    private ShopFragment shopFragment;
+
+    private GestureDetector gestureDetector;
+    private GestureDetector.OnGestureListener onGestureListener =
+            new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,float velocityY) {
+                    float x = e2.getX() - e1.getX();
+
+                    if (x > 0) {
+                       Toast.makeText(mContext,"向右滑动",Toast.LENGTH_SHORT).show();
+                        //shopFragment.hide();
+                    } else if (x < 0) {
+                        Toast.makeText(mContext,"向左滑动",Toast.LENGTH_SHORT).show();
+                        View view = getWindow().getDecorView();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("text", "这是商家页面自己看着办");
+                        shopFragment.show(view,bundle);
+                    }
+                    return true;
+                }
+            };
 
 
 
@@ -151,7 +184,6 @@ public class MainActivity extends BaseActivity{
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
-
         paopaoRlt.setVisibility(View.GONE);
 
         if(showMsgAnimation){
@@ -183,6 +215,11 @@ public class MainActivity extends BaseActivity{
         walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
         paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
         switchCbx = (CheckBox)findViewById(R.id.switch_cbx);
+        rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
+
+        FragmentManager manager = getSupportFragmentManager();
+        shopFragment = new ShopFragment();
+        manager.beginTransaction().add(R.id.contentView, shopFragment).commit();
     }
 
     private void initData() {
@@ -222,6 +259,7 @@ public class MainActivity extends BaseActivity{
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
 
         switchCbx.setChecked(true);
+
         BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
         LocationManager.getInstance().startLocation();
     }
@@ -290,9 +328,15 @@ public class MainActivity extends BaseActivity{
 
             }
         });
-
+        gestureDetector = new GestureDetector(this,onGestureListener);
 
     }
+
+    public boolean onTouchEvent(MotionEvent event) {
+        return gestureDetector.onTouchEvent(event);
+    }
+
+
 
     Handler handler = new Handler(){
         public void handleMessage(Message msg){
