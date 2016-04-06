@@ -90,7 +90,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         }
                         String shopLogo = otherShopVo.getLogo();
                         if(!TextUtils.isEmpty(shopLogo)){
-                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo);
+                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"_"+CacheUtil.getInstance().getBestFitPixel()+"x.png");
                         }
                         CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
                     }

@@ -778,7 +778,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getString("shop_logo", "http://cdn.zkjinshi.com/svip_logo/svip_logo.png");
+		return sp.getString("shop_logo", "http://cdn.zkjinshi.com/svip_logo/svip_logo.png_"+getBestFitPixel()+"x.png");
 	}
 
 	/**
