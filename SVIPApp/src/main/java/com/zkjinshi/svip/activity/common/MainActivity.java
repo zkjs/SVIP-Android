@@ -104,6 +104,7 @@ public class MainActivity extends BaseActivity{
                 mScreenBitmap = view.getDrawingCache();
                 Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
                 bIntent.putExtra("data",yunBaMsgVo);
+                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(bIntent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             } catch (JsonSyntaxException e) {
