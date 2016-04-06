@@ -103,15 +103,21 @@ public class MainActivity extends BaseFragmentActivity {
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,float velocityY) {
                     float x = e2.getX() - e1.getX();
 
-                    if (x > 0 && shopFragment.isVisiable) {
-                       //Toast.makeText(mContext,"向右滑动",Toast.LENGTH_SHORT).show();
-                        shopFragment.hideAction();
-                    } else if (x < 0 && !shopFragment.isVisiable) {
+                    if (x > 0 ) {
+//                        if(shopFragment.isVisiable){
+//                            shopFragment.hideAction();
+//                        }
+//                       Toast.makeText(mContext,"向右滑动",Toast.LENGTH_SHORT).show();
+
+                    } else if (x < 0 ) {
+                        if(!shopFragment.isVisiable){
+                            View view = getWindow().getDecorView();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("text", "这是商家页面自己看着办");
+                            shopFragment.show(view,bundle);
+                        }
                         //Toast.makeText(mContext,"向左滑动",Toast.LENGTH_SHORT).show();
-                        View view = getWindow().getDecorView();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("text", "这是商家页面自己看着办");
-                        shopFragment.show(view,bundle);
+
                     }
                     return true;
                 }
