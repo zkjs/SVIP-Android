@@ -3,15 +3,18 @@ package com.zkjinshi.svip.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.util.ActivityManagerHelper;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.OtherShopVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
@@ -77,6 +80,19 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         iBeaconIntent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
                         iBeaconIntent.putExtra("data",yunBaMsgVo);
                         context.sendBroadcast(iBeaconIntent);
+                    }
+                }else if("ANOTHER_SHOP".equals(type)){//获取商店信息
+                    OtherShopVo otherShopVo = new Gson().fromJson(data,OtherShopVo.class);
+                    if(null != otherShopVo){
+                        String shopId = otherShopVo.getShopid();
+                        if(!TextUtils.isEmpty(shopId)){
+                            CacheUtil.getInstance().saveShopId(shopId);
+                        }
+                        String shopLogo = otherShopVo.getLogo();
+                        if(!TextUtils.isEmpty(shopLogo)){
+                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo);
+                        }
+                        CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
                     }
                 }
             }catch (JSONException e){

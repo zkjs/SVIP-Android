@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,9 +30,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
@@ -126,6 +129,22 @@ public class MainActivity extends BaseActivity{
         initListener();
     }
 
+    //初始化最适合的图片分辨率
+    private void initBestFitPixel() {
+        int myPixel = DisplayUtil.getWidthPixel(this);
+        int apiSupportPixels[] = {480,720,1080,1920};
+        int bestFitPixel = 720;
+        int offset = Math.abs(bestFitPixel - myPixel);
+        for(int i=0;i<apiSupportPixels.length;i++){
+            int temp = Math.abs(apiSupportPixels[i] - myPixel);
+            if(temp < offset ){
+                offset = temp;
+                bestFitPixel = apiSupportPixels[i];
+            }
+        }
+        CacheUtil.getInstance().setBestFitPixel(bestFitPixel);
+    }
+
     protected void onResume() {
         super.onResume();
         clickCount = 0;
@@ -167,7 +186,17 @@ public class MainActivity extends BaseActivity{
     }
 
     private void initData() {
-
+        //获取屏幕分辨率
+        initBestFitPixel();
+        //更新商家logo
+        if(CacheUtil.getInstance().isUpdateLogo()){
+            String shopLogoUrl = CacheUtil.getInstance().getShopLogo();
+            if(!TextUtils.isEmpty(shopLogoUrl)){
+                Uri uri =  Uri.parse(shopLogoUrl);
+                shopLogoSdv.setImageURI(uri);
+            }
+        }
+        //打开蓝牙请求
         BlueToothManager.getInstance().openBluetooth();
 
         IntentFilter intentFilter = new IntentFilter();

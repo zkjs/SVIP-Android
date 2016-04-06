@@ -27,6 +27,7 @@ public class CacheUtil {
 	private static final String SVIP_CACHE = "svip_cache";
 
 	private CacheUtil() {
+
 	}
 
 	private static CacheUtil instance;
@@ -727,4 +728,96 @@ public class CacheUtil {
 				Context.MODE_PRIVATE);
 		return sp.getString("user_photo_url", "");
 	}
+
+	/**
+	 * 保存商家id
+	 * @param shopId
+     */
+	public void saveShopId( String shopId) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putString("shop_id", shopId).commit();
+	}
+
+	/**
+	 * 获取商家id
+	 * @return
+     */
+	public String getShopId() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getString("shop_id", "");
+	}
+
+	/**
+	 * 保存商家logo
+	 * @param shopLogo
+	 */
+	public void saveShopLogo( String shopLogo) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putString("shop_logo", shopLogo).commit();
+	}
+
+	/**
+	 * 获取商家logo
+	 * @return
+	 */
+	public String getShopLogo() {
+		if (null == context) {
+			return null;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getString("shop_logo", "http://cdn.zkjinshi.com/svip_logo/svip_logo.png");
+	}
+
+	/**
+	 * 保存更新首页logo时间戳
+	 *
+	 */
+	public void saveUpdateLogoTime(long currentTimeMillis){
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		sp.edit().putLong("update_logo_time", currentTimeMillis).commit();
+	}
+
+	/**
+	 * 获取更新首页logo时间戳
+	 * @return
+     */
+	public long getUpdateLogoTime() {
+		if (null == context) {
+			return 0;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		return sp.getLong("update_logo_time",System.currentTimeMillis());
+	}
+
+	/**
+	 * 获取是否更新logo(超过一天则恢复默认)
+	 * @return
+     */
+	public boolean isUpdateLogo(){
+		long lastUpdateTime = getUpdateLogoTime();
+		long dayNum = (System.currentTimeMillis() - lastUpdateTime) / (1000 * 60 * 60 * 24);
+		if(dayNum >= 1){
+			return true;
+		}
+		return false;
+	}
+
 }

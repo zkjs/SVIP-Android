@@ -23,10 +23,6 @@
         fresco:placeholderImage="@mipmap/ic_huxideng"
         fresco:placeholderImageScaleType="fitCenter"/>
 
-
-
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,13 +68,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/line">
+
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/shop_logo"
             android:layout_width="202dp"
             android:layout_height="96dp"
             android:layout_centerInParent="true"
             fresco:actualImageScaleType="centerInside"
-            fresco:placeholderImage="@mipmap/img_wyndham"
+            fresco:placeholderImage="@mipmap/ic_shop_logo"
             fresco:placeholderImageScaleType="centerInside"/>
 
     </RelativeLayout>
