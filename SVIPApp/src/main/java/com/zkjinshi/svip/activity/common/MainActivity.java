@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 
@@ -79,6 +80,7 @@ public class MainActivity extends BaseActivity{
     private ShowMessageReceiver mShowMessageReceiver;
 
     public int clickCount = 0; //单击计数
+    public static Bitmap mScreenBitmap = null;
 
 
 
@@ -96,11 +98,10 @@ public class MainActivity extends BaseActivity{
         public void onReceive(Context ctx, Intent intent) {
             try {
                 YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-//                if(yunBaMsgVo != null){
-//                    BeaconMsgDialog beaconMsgDialog = new BeaconMsgDialog(MainActivity.this);
-//                    beaconMsgDialog.show();
-//                    beaconMsgDialog.setContentText(yunBaMsgVo.getTitle(),yunBaMsgVo.getContent());
-//                }
+                View view = getWindow().getDecorView();
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache(true);
+                mScreenBitmap = view.getDrawingCache();
                 Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
                 bIntent.putExtra("data",yunBaMsgVo);
                 startActivity(bIntent);

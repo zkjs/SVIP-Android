@@ -3,6 +3,7 @@ package com.zkjinshi.svip.activity.common;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -45,7 +46,6 @@ public class BeaconMsgActivity extends BaseActivity{
     private TextView titleTv,contentTv;
     private LinearLayout contentLlt;
     private RelativeLayout mohuRlt;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,27 +97,17 @@ public class BeaconMsgActivity extends BaseActivity{
 
 
     private void applyBlur() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                View view = getWindow().getDecorView();
-                view.setDrawingCacheEnabled(true);
-                view.buildDrawingCache(true);
-                Bitmap mScreenBitmap = view.getDrawingCache();
-
-                if(mScreenBitmap != null){
-                    blur(mScreenBitmap);
-                }
-            }
-        },2000);
-
-
+        if(MainActivity.mScreenBitmap != null){
+            blur(MainActivity.mScreenBitmap);
+        }
     }
+
+
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void blur(Bitmap bkg) {
         long startMs = System.currentTimeMillis();
-        float radius = 20;
+        float radius = 5;
 
         bkg = small(bkg);
         Bitmap bitmap = bkg.copy(bkg.getConfig(), true);
