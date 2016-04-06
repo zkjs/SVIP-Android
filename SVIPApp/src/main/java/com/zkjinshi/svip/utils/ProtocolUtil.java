@@ -1,5 +1,7 @@
 package com.zkjinshi.svip.utils;
 
+import android.text.TextUtils;
+
 import com.zkjinshi.base.config.ConfigUtil;
 
 /**
@@ -139,6 +141,19 @@ public class ProtocolUtil {
      */
     public static String payment(){
         return ConfigUtil.getInst().getForDomain()+"res/v1/payment";
+    }
+
+    /**
+     * 获取商家详情url
+     * @param shopId
+     * @return
+     */
+    public static String getShopDetailUrl(String shopId){
+        if(TextUtils.isEmpty(shopId)){
+            return ConfigUtil.getInst().getForDomain()+"res/v1/shop/detail";
+        }else {
+            return ConfigUtil.getInst().getForDomain()+"res/v1/shop/detail/"+shopId;
+        }
     }
 
 }

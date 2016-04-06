@@ -3,6 +3,8 @@ package com.zkjinshi.svip.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,11 +19,24 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.net.ExtNetRequestListener;
+import com.zkjinshi.svip.net.MethodType;
+import com.zkjinshi.svip.net.NetRequest;
+import com.zkjinshi.svip.net.NetRequestTask;
+import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 
 /**
- * Created by dujiande on 2016/4/6.
+ * 商家详情页
+ * 开发者：JimmyZhang
+ * 日期：2015/7/20
+ * Copyright (C) 2015 深圳中科金石科技有限公司
+ * 版权所有
  */
 public class ShopFragment extends Fragment {
+
+    public static final String TAG = ShopFragment.class.getSimpleName();
 
     private TextView tv;
     private View root;
@@ -53,6 +68,16 @@ public class ShopFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initData();
+    }
+
+    private void initData(){
+        requestShopDetailTask();
+    }
+
     private void initUI(final View root) {
         gestureDetector = new GestureDetector(getActivity(),onGestureListener);
         tv = (TextView) root.findViewById(R.id.textView);
@@ -74,8 +99,6 @@ public class ShopFragment extends Fragment {
             }
         });
     }
-
-
 
     public void show(final View view,Bundle bundle){
         this.view = view;
@@ -127,6 +150,27 @@ public class ShopFragment extends Fragment {
                         isVisiable = false;
                     }
                 });
+    }
+
+    /**
+     * 商家详情请求
+     *
+     */
+    private void requestShopDetailTask(){
+        String shopId = CacheUtil.getInstance().getShopId();
+        String requestUrl = ProtocolUtil.getShopDetailUrl(shopId);
+        NetRequest netRequest = new NetRequest(requestUrl);
+        NetRequestTask netRequestTask = new NetRequestTask(getActivity(),netRequest, NetResponse.class);
+        netRequestTask.methodType = MethodType.GET;
+        netRequestTask.isShowLoadingDialog = false;
+        netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
+            @Override
+            public void onNetworkResponseSucceed(NetResponse result) {
+                super.onNetworkResponseSucceed(result);
+                Log.i(TAG,"获取商家详情网络请求数据:"+result.rawResult);
+            }
+        });
+        netRequestTask.execute();
     }
 
 }

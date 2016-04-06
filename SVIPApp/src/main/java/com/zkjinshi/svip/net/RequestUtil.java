@@ -1,12 +1,8 @@
 package com.zkjinshi.svip.net;
 
 
-import android.app.Activity;
-import android.content.Intent;
 import android.text.TextUtils;
 
-import com.zkjinshi.svip.activity.common.LoginSiActivity;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FileUtil;
 
@@ -15,15 +11,12 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpProtocolParams;
-
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
@@ -51,8 +44,8 @@ import java.util.Map;
  */
 public class RequestUtil {
 
-
-    public static int TIMEOUT = 5*1000;  //超时时间
+    public static int CONNECT_TIMEOUT = 3*1000;//连接超时时间
+    public static int SO_TIMEOUT = 5*1000;//请求超时时间
 
     /**
      * 发送Get请求
@@ -60,34 +53,39 @@ public class RequestUtil {
      * @return
      * @throws Exception
      */
-    public static String sendGetRequest(String requestUrl) throws Exception{
+    public static String sendGetRequest(String requestUrl,NetRequestListener requestListener) throws Exception{
         String result = null;
         HttpGet httpRequest = new HttpGet(requestUrl);
         HttpClient httpclient = new DefaultHttpClient();
         httpclient.getParams().setParameter(
                 HttpProtocolParams.USER_AGENT,
                 "android");
-        httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
-        httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
+        httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, CONNECT_TIMEOUT);
+        httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, SO_TIMEOUT);
         String token = CacheUtil.getInstance().getExtToken();
         if(!TextUtils.isEmpty(token)){
             httpRequest.addHeader("Token",token);
         }
         HttpResponse httpResponse = httpclient.execute(httpRequest);
-        if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        if (statusCode == HttpStatus.SC_OK)
         {
             result = EntityUtils.toString(httpResponse.getEntity());
+        }else if(statusCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
         return result;
     }
 
-    public static String sendPostRequest(String requestUrl,HashMap<String,String> bizParamsMap) throws Exception{
+    public static String sendPostRequest(String requestUrl,HashMap<String,String> bizParamsMap,NetRequestListener requestListener) throws Exception{
         String resultInfo = null;
         JSONObject jsonObject = null;
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(TIMEOUT);
-        connection.setReadTimeout(TIMEOUT);
+        connection.setConnectTimeout(CONNECT_TIMEOUT);
+        connection.setReadTimeout(SO_TIMEOUT);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
@@ -113,10 +111,10 @@ public class RequestUtil {
         out.write(jsonObject.toString().getBytes("UTF-8"));
         out.flush();
         out.close();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                connection.getInputStream()));
         int responseCode =  connection.getResponseCode();
         if(responseCode == HttpStatus.SC_OK){
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
             String lines;
             StringBuffer sb = new StringBuffer("");
             while ((lines = reader.readLine()) != null) {
@@ -125,18 +123,21 @@ public class RequestUtil {
             }
             resultInfo = sb.toString();
             reader.close();
+        }else if(responseCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
         connection.disconnect();
         return  resultInfo;
     }
 
-    public static String sendJsonPostRequest(String requestUrl,HashMap<String,Object> objectParamsMap) throws Exception{
+    public static String sendJsonPostRequest(String requestUrl,HashMap<String,Object> objectParamsMap,NetRequestListener requestListener) throws Exception{
         String resultInfo = null;
-        JSONObject jsonObject = null;
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(TIMEOUT);
-        connection.setReadTimeout(TIMEOUT);
+        connection.setConnectTimeout(CONNECT_TIMEOUT);
+        connection.setReadTimeout(SO_TIMEOUT);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("POST");
@@ -163,27 +164,33 @@ public class RequestUtil {
         out.write(obj.toString().getBytes("UTF-8"));// 这样可以处理中文乱码问题
         out.flush();
         out.close();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                connection.getInputStream()));
-        String lines;
-        StringBuffer sb = new StringBuffer("");
-        while ((lines = reader.readLine()) != null) {
-            lines = new String(lines.getBytes(), "utf-8");
-            sb.append(lines);
+        int responseCode = connection.getResponseCode();
+        if(responseCode == HttpStatus.SC_OK){
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String lines;
+            StringBuffer sb = new StringBuffer("");
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            resultInfo = sb.toString();
+            reader.close();
+        }else if(responseCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
-        resultInfo = sb.toString();
-        reader.close();
-
         return  resultInfo;
     }
 
-    public static String sendPutRequest(String requestUrl,HashMap<String,Object> objectParamsMap) throws Exception{
+    public static String sendPutRequest(String requestUrl,HashMap<String,Object> objectParamsMap,NetRequestListener requestListener) throws Exception{
         String resultInfo = null;
         JSONObject jsonObject = null;
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(TIMEOUT);
-        connection.setReadTimeout(TIMEOUT);
+        connection.setConnectTimeout(CONNECT_TIMEOUT);
+        connection.setReadTimeout(SO_TIMEOUT);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("PUT");
@@ -210,29 +217,34 @@ public class RequestUtil {
         out.write(obj.toString().getBytes("UTF-8"));// 这样可以处理中文乱码问题
         out.flush();
         out.close();
-
-        // 读取响应
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                connection.getInputStream()));
-        String lines;
-        StringBuffer sb = new StringBuffer("");
-        while ((lines = reader.readLine()) != null) {
-            lines = new String(lines.getBytes(), "utf-8");
-            sb.append(lines);
+        int responseCode = connection.getResponseCode();
+        if(responseCode == HttpStatus.SC_OK){
+            // 读取响应
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String lines;
+            StringBuffer sb = new StringBuffer("");
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            resultInfo = sb.toString();
+            reader.close();
+        }else if(responseCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
-        resultInfo = sb.toString();
-        reader.close();
-
         return  resultInfo;
     }
 
-    public static String sendDeleteRequest(String requestUrl,HashMap<String,Object> objectParamsMap) throws Exception{
+    public static String sendDeleteRequest(String requestUrl,HashMap<String,Object> objectParamsMap,NetRequestListener requestListener) throws Exception{
         String resultInfo = null;
         JSONObject jsonObject = null;
         URL url = new URL(requestUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(TIMEOUT);
-        connection.setReadTimeout(TIMEOUT);
+        connection.setConnectTimeout(CONNECT_TIMEOUT);
+        connection.setReadTimeout(SO_TIMEOUT);
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestMethod("DELETE");
@@ -259,19 +271,24 @@ public class RequestUtil {
         out.write(obj.toString().getBytes("UTF-8"));// 这样可以处理中文乱码问题
         out.flush();
         out.close();
-
-        // 读取响应
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                connection.getInputStream()));
-        String lines;
-        StringBuffer sb = new StringBuffer("");
-        while ((lines = reader.readLine()) != null) {
-            lines = new String(lines.getBytes(), "utf-8");
-            sb.append(lines);
+        int responseCode = connection.getResponseCode();
+        if(responseCode == HttpStatus.SC_OK){
+            // 读取响应
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String lines;
+            StringBuffer sb = new StringBuffer("");
+            while ((lines = reader.readLine()) != null) {
+                lines = new String(lines.getBytes(), "utf-8");
+                sb.append(lines);
+            }
+            resultInfo = sb.toString();
+            reader.close();
+        }else if(responseCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
-        resultInfo = sb.toString();
-        reader.close();
-
         return  resultInfo;
     }
 
@@ -283,7 +300,7 @@ public class RequestUtil {
      * @return
      * @throws Exception
      */
-    public static String sendPostRequest(String requestUrl, HashMap<String, String> bizParamsMap, HashMap<String, String> fileParamsMap) throws Exception {
+    public static String sendPostRequest(String requestUrl, HashMap<String, String> bizParamsMap, HashMap<String, String> fileParamsMap,NetRequestListener requestListener) throws Exception {
         String resultInfo = null;
         MultipartEntity multipartEntity = new MultipartEntity();
         if (null != bizParamsMap) {
@@ -312,8 +329,8 @@ public class RequestUtil {
         }
         HttpPost httpPost = new HttpPost(requestUrl);
         HttpClient httpClient = new DefaultHttpClient();
-        httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, TIMEOUT);
-        httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, TIMEOUT);
+        httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, CONNECT_TIMEOUT);
+        httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, SO_TIMEOUT);
         httpPost.setEntity(multipartEntity);
         String token = CacheUtil.getInstance().getExtToken();
         if(!TextUtils.isEmpty(token)){
@@ -321,8 +338,15 @@ public class RequestUtil {
         }
         HttpResponse response = httpClient.execute(httpPost);
         int respCode = 0;
-        if (response != null && null != response.getStatusLine() && ((respCode = response.getStatusLine().getStatusCode()) == HttpStatus.SC_OK )) {
-            resultInfo = EntityUtils.toString(response.getEntity(),"UTF-8");
+        if (response != null && null != response.getStatusLine()) {
+            respCode = response.getStatusLine().getStatusCode();
+            if(respCode == HttpStatus.SC_OK ){
+                resultInfo = EntityUtils.toString(response.getEntity(),"UTF-8");
+            }else if(respCode == HttpStatus.SC_UNAUTHORIZED){
+                if(null != requestListener){
+                    requestListener.onCookieExpired();
+                }
+            }
         }
         return  resultInfo;
     }
@@ -336,15 +360,16 @@ public class RequestUtil {
      * @throws IOException
      */
     public static String sendPostRequest(String requestUrl, Map<String, String> bizParamsMap,
-                              Map<String, File> fileMap) throws IOException {
+                              Map<String, File> fileMap,NetRequestListener requestListener) throws IOException {
+        String result = null;
         String BOUNDARY = java.util.UUID.randomUUID().toString();
         String PREFIX = "--", LINEND = "\r\n";
         String MULTIPART_FROM_DATA = "multipart/form-data";
         String CHARSET = "UTF-8";
         URL uri = new URL(requestUrl);
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
-        conn.setReadTimeout(TIMEOUT);
-        conn.setConnectTimeout(TIMEOUT);
+        conn.setReadTimeout(CONNECT_TIMEOUT);
+        conn.setConnectTimeout(SO_TIMEOUT);
         conn.setDoInput(true);
         conn.setDoOutput(true);
         conn.setUseCaches(false);
@@ -394,32 +419,25 @@ public class RequestUtil {
         byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINEND).getBytes();
         outStream.write(end_data);
         outStream.flush();
-        int res = conn.getResponseCode();
-        InputStream in = conn.getInputStream();
-        InputStreamReader isReader = new InputStreamReader(in);
-        BufferedReader bufReader = new BufferedReader(isReader);
-        String line = null;
-        String result = new String();
-        if (res == 200) {
+        int responseCode = conn.getResponseCode();
+        if(responseCode == HttpStatus.SC_OK){
+            InputStream in = conn.getInputStream();
+            InputStreamReader isReader = new InputStreamReader(in);
+            BufferedReader bufReader = new BufferedReader(isReader);
+            String line = null;
+            result = new String();
             while ((line = bufReader.readLine()) != null){
                 result += line;
             }
+            outStream.close();
+        }else if(responseCode == HttpStatus.SC_UNAUTHORIZED){
+            if(null != requestListener){
+                requestListener.onCookieExpired();
+            }
         }
-        outStream.close();
         conn.disconnect();
         return result.toString();
     }
-
-
-    public static void onFailure(Activity activity, int statusCode){
-        if(statusCode == 401){
-            CacheUtil.getInstance().setLogin(false);
-            BaseApplication.getInst().clear();
-            Intent intent = new Intent(activity, LoginSiActivity.class);
-            activity.startActivity(intent);
-        }
-    }
-
 
 
 

@@ -1,17 +1,11 @@
 package com.zkjinshi.svip.net;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -34,6 +28,7 @@ import java.util.HashMap;
  * 版权所有
  */
 public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
+
     /** http返回成功 */
     private static final int REQ_RESP_SUCCESS = 200;
 
@@ -79,11 +74,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
 
         try {
             if (isShowLoadingDialog) {
-                String imageUrl = null;
-                if(CacheUtil.getInstance().isLogin()){
-                   // imageUrl = ProtocolUtil.getAvatarUrl(CacheUtil.getInstance().getUserId());
-                }
-                DialogUtil.getInstance().showAvatarProgressDialog(context,imageUrl);
+                DialogUtil.getInstance().showAvatarProgressDialog(context,null);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,19 +98,19 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
             objectParamsMap = mediaRequest.getObjectParamMap();
             fileMap = mediaRequest.getFileMap();
             if(methodType ==  MethodType.POST){
-                resultStr = RequestUtil.sendPostRequest(requestUrl, bizParamsMap, fileParamsMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl, bizParamsMap, fileParamsMap,requestListener);
             }else if(methodType == MethodType.GET){
-                resultStr = RequestUtil.sendGetRequest(requestUrl);
+                resultStr = RequestUtil.sendGetRequest(requestUrl,requestListener);
             }else if(methodType == MethodType.PUSH){
-                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,fileMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,fileMap,requestListener);
             } else if(methodType == MethodType.JSON){
-                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap);
+                resultStr = RequestUtil.sendPostRequest(requestUrl,bizParamsMap,requestListener);
             }else if(methodType == MethodType.JSONPOST){
-                resultStr = RequestUtil.sendJsonPostRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendJsonPostRequest(requestUrl,objectParamsMap,requestListener);
             }else if(methodType == MethodType.PUT){
-                resultStr = RequestUtil.sendPutRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendPutRequest(requestUrl,objectParamsMap,requestListener);
             }else if(methodType == MethodType.DELETE){
-                resultStr = RequestUtil.sendDeleteRequest(requestUrl,objectParamsMap);
+                resultStr = RequestUtil.sendDeleteRequest(requestUrl,objectParamsMap,requestListener);
             }
             if(!TextUtils.isEmpty(resultStr)){
                 resultInfo = responseClazz.newInstance();
@@ -180,7 +171,7 @@ public class NetRequestTask extends AsyncTask<NetRequest, Void, NetResponse> {
     }
 
     public void cancelTask(){
-        if(getStatus() != AsyncTask.Status.FINISHED){
+        if(getStatus() != Status.FINISHED){
             cancel(true);
         }
         onCancelled();

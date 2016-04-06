@@ -2,13 +2,12 @@ package com.zkjinshi.svip.net;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Gravity;
 
-import com.google.gson.Gson;
-
+import com.zkjinshi.svip.activity.common.LoginActivity;
+import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.utils.CacheUtil;
 
 /**
  * 增加token失效跳转回登录页面的网络请求监听器
@@ -17,9 +16,9 @@ import com.google.gson.Gson;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public abstract class ExtNetRequestListener  implements NetRequestListener{
+public abstract class ExtNetRequestListener  implements NetRequestListener {
 
-    //public static final String TAG = ExtNetRequestListener.class.getSimpleName();
+    public static final String TAG = ExtNetRequestListener.class.getSimpleName();
 
     private Context context;
 
@@ -29,25 +28,35 @@ public abstract class ExtNetRequestListener  implements NetRequestListener{
 
     @Override
     public void onNetworkRequestError(int errorCode, String errorMessage) {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorCode:"+errorCode);
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"errorMessage:"+errorMessage);
+        Log.i(TAG,"errorCode:"+errorCode);
+        Log.i(TAG,"errorMessage:"+errorMessage);
     }
 
     @Override
     public void onNetworkRequestCancelled() {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"onNetworkRequestCancelled");
+        Log.i(TAG,"onNetworkRequestCancelled");
     }
 
     @Override
     public void onNetworkResponseSucceed(NetResponse result) {
 
-
     }
 
     @Override
     public void beforeNetworkRequestStart() {
-        Log.i(ExtNetRequestListener.class.getSimpleName(),"beforeNetworkRequestStart");
+        Log.i(TAG,"beforeNetworkRequestStart");
     }
 
-
+    @Override
+    public void onCookieExpired() {
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CacheUtil.getInstance().setLogin(false);
+                BaseApplication.getInst().clearLeaveTop();
+                Intent intent = new Intent(context,LoginActivity.class);
+                ((Activity)context).startActivity(intent);
+            }
+        });
+    }
 }
