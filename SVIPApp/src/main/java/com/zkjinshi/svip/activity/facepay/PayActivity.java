@@ -74,7 +74,7 @@ public class PayActivity extends BaseActivity {
         if(amountStatusVo != null){
             hotelNameTv.setText(amountStatusVo.getShopname());
             priceTv.setText("¥ "+ PayUtil.changeMoney(amountStatusVo.getAmount()));
-            orderNoTv.setText("交易单号："+amountStatusVo.getOrderno());
+            orderNoTv.setText("交易单号："+amountStatusVo.getPaymentno());
         }
     }
 

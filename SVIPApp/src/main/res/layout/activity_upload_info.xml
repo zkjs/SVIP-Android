@@ -16,17 +16,17 @@
             android:layout_height="wrap_content"
             android:text="你的真实姓名"
             android:textColor="@color/orange"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_centerVertical="true"/>
 
         <ImageView
-            android:id="@+id/refresh_iv"
+            android:id="@+id/info_iv"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_xiangqing"
-            android:visibility="visible"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_xiangqing"/>
 
     </RelativeLayout>
 
