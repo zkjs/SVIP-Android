@@ -118,7 +118,7 @@ public class ShopFragment extends Fragment {
         root.setClickable(false);
         root.setEnabled(false);
         ViewPropertyAnimator.animate(root)
-                .rotationY(90).setDuration(200)
+                .rotationY(90).setDuration(300)
                 .setListener(new AnimatorListenerAdapter(){
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -127,6 +127,7 @@ public class ShopFragment extends Fragment {
                         isVisiable = false;
                     }
                 });
+
     }
 
 }

@@ -118,7 +118,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="照片清晰度决定您的刷脸速度"
+                android:text="照片清晰度决定您的支付速度"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
                 android:layout_marginTop="5dp"/>
