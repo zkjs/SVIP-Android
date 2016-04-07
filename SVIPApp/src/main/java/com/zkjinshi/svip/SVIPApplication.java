@@ -6,6 +6,12 @@ import android.content.Context;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogConfig;
 import com.zkjinshi.base.log.LogSwitch;
@@ -52,6 +58,7 @@ public class SVIPApplication extends BaseApplication {
         initLog();
         initCache();
         initDevice();
+        initImageLoader();
         LocationManager.getInstance().init(this);
         BlueToothManager.getInstance().init(this);
         Fresco.initialize(this);
@@ -76,6 +83,26 @@ public class SVIPApplication extends BaseApplication {
      */
     private void initYunBa(){
         YunBaManager.start(getApplicationContext());
+    }
+
+    /**
+     * 初始化ImageLoader
+     */
+    private void initImageLoader() {
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
+        config.memoryCacheExtraOptions(1080, 780); // maxwidth, max height，即保存的每个缓存文件的最大长宽
+        config.threadPoolSize(3);//线程池内加载的数量
+        config.defaultDisplayImageOptions(DisplayImageOptions.createSimple());
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.memoryCache(new LruMemoryCache(2 * 1024 * 1024));
+        config.memoryCacheSize(2 * 1024 * 1024);
+        config.memoryCacheSizePercentage(13);
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(500 * 1024 * 1024);
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs();
+        ImageLoader.getInstance().init(config.build());
     }
 
     /**

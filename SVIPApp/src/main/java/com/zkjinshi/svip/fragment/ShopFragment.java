@@ -23,6 +23,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
@@ -192,7 +193,7 @@ public class ShopFragment extends Fragment {
     private void setShopDescData(ShopVo shopVo){
         String shopBgUrl = shopVo.getShoplogo();
         if(!TextUtils.isEmpty(shopBgUrl)){
-            Uri shopUri = Uri.parse(shopBgUrl);
+            Uri shopUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+shopBgUrl);
             shopBgIv.setImageURI(shopUri);
         }
         String shopName = shopVo.getShopname();

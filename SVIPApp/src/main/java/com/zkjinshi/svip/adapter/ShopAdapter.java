@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
 import com.zkjinshi.svip.vo.ShopModeVo;
@@ -91,7 +92,7 @@ public class ShopAdapter extends BaseAdapter {
         }
         final ArrayList<String> photoList = shopModeVo.getPhotos();
         if(null != photoList && !photoList.isEmpty()){
-            Uri photoUri = Uri.parse(photoList.get(0));
+            Uri photoUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+photoList.get(0));
             viewHolder.logoIv.setImageURI(photoUri);
             viewHolder.logoIv.setVisibility(View.VISIBLE);
             viewHolder.logoIv.setOnClickListener(new View.OnClickListener() {
