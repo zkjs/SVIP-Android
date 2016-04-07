@@ -90,22 +90,6 @@ public class ConfigUtil {
     }
 
     /**
-     * 获取php请求链接
-     * @return
-     */
-    public String getPhpDomain() {
-        return "http://" + getConfigValue(Constants.PHP_HOST)+ "/";
-    }
-
-    /**
-     * 获取java请求链接
-     * @return
-     */
-    public String getJavaDomain() {
-        return "http://" + getConfigValue(Constants.JAVA_HOST)+ "/";
-    }
-
-    /**
      * 获得孔雀座(认证服务)链接
      * @return
      */

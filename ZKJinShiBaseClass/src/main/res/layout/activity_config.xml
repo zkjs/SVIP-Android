@@ -25,12 +25,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/base_config_setting_server"
+            android:text="孔雀座:"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/editText_server"
+            android:id="@+id/editText_pav"
+            style="@style/Config.CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/base_config_setting_server_hint"
+            android:textSize="15sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+       <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="罗盘座:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText_pyx"
             style="@style/Config.CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,17 +75,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/base_config_setting_port"
+            android:text="天炉座:"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/editText_port"
+            android:id="@+id/editText_for"
             style="@style/Config.CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/base_config_setting_port_hint"
-            android:inputType="number"
+            android:hint="@string/base_config_setting_server_hint"
+            android:textSize="15sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="流媒体:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText_img"
+            style="@style/Config.CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/base_config_setting_server_hint"
             android:textSize="15sp" >
 
             <requestFocus />
@@ -70,15 +120,17 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="45dp" >
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
             android:layout_centerHorizontal="true"
+            android:background="#99ffc56e"
             android:text="@string/base_config_confirm"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/white" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -26,14 +26,6 @@ public class Constants {
     //应用密钥AppSecret，在微信开放平台提交应用审核通过后获得
     public static final String WX_APP_SECRE = "8b6355edfcedb88defa7fae31056a3f0";
 
-    public final static String HTTP_URL = ConfigUtil.getInst().getPhpDomain();
-    //app客户注册登录
-    public final static String POST_LOGIN_URL     = HTTP_URL + "user/reg?";
-    //app客户获取用户
-    public final static String POST_GET_USER_URL  = HTTP_URL + "user/getuser?";
-    //app客户查询手机是否注册过
-    public final static String POST_GET_PHONE_URL  = HTTP_URL + "user/getphone?";
-
     //选择图片
     public static final int FLAG_CHOOSE_IMG = 5;
 

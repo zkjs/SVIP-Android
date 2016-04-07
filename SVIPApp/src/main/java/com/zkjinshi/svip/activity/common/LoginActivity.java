@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zkjinshi.base.config.ConfigActivity;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.SensorManagerHelper;
 import com.zkjinshi.svip.utils.StringUtil;
 
 
@@ -70,6 +72,18 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initListener() {
+
+        //打开配置项
+        SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
+        sensorHelper.setOnShakeListener(new SensorManagerHelper.OnShakeListener() {
+
+            @Override
+            public void onShake() {
+                Intent intent = new Intent(LoginActivity.this, ConfigActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        });
 
         //注册
         registerTv.setOnClickListener(new View.OnClickListener() {

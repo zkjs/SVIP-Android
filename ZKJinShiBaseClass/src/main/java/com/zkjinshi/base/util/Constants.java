@@ -10,8 +10,6 @@ package com.zkjinshi.base.util;
 public class Constants {
 
     public static final String ZKJINSHI_BASE_TAG = "ZKJinShi_TAG";
-    public static final String PHP_HOST = "php-host";
-    public static final String JAVA_HOST = "java-host";
     public static final String PAV_HOST = "pav-host";//孔雀座(认证服务)
     public static final String PYX_HOST = "pyx-host";//罗盘座(位置服务)
     public static final String FOR_HOST = "for-host";//天炉座(资源服务)

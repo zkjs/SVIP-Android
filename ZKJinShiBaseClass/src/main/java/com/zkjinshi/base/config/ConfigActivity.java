@@ -20,18 +20,23 @@ import java.io.IOException;
  */
 public class ConfigActivity extends Activity {
 
-    private EditText javaDomainEtv, phpDomainEtv;
+    private EditText pavDomainEtv, pyxDomainEtv;
+    private EditText forDomainEtv, imgDomainEtv;
     private Button saveBtn;
 
     private void initView(){
-        javaDomainEtv = (EditText)findViewById(R.id.editText_server);
-        phpDomainEtv = (EditText)findViewById(R.id.editText_port);
+        pavDomainEtv = (EditText)findViewById(R.id.editText_pav);
+        pyxDomainEtv = (EditText)findViewById(R.id.editText_pyx);
+        forDomainEtv = (EditText)findViewById(R.id.editText_for);
+        imgDomainEtv = (EditText)findViewById(R.id.editText_img);
         saveBtn = (Button)findViewById(R.id.button_save);
     }
 
     private void initData(){
-        javaDomainEtv.setText(""+ ConfigUtil.getInst().getJavaDomain());
-        phpDomainEtv.setText(""+ ConfigUtil.getInst().getPhpDomain());
+        pavDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.PAV_HOST));
+        pyxDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.PYX_HOST));
+        forDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.FOR_HOST));
+        imgDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.IMG_HOST));
     }
 
     private void initListeners(){
@@ -40,11 +45,15 @@ public class ConfigActivity extends Activity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String iHost = javaDomainEtv.getText().toString();
-                String iPort = phpDomainEtv.getText().toString();
+                String pavDomain = pavDomainEtv.getText().toString();
+                String pyxDomain = pyxDomainEtv.getText().toString();
+                String forDomain = forDomainEtv.getText().toString();
+                String imgDomain = imgDomainEtv.getText().toString();
                 try {
-                    ConfigUtil.getInst().put(Constants.JAVA_HOST, iHost);
-                    ConfigUtil.getInst().put(Constants.PHP_HOST, iPort);
+                    ConfigUtil.getInst().put(Constants.PAV_HOST, pavDomain);
+                    ConfigUtil.getInst().put(Constants.PYX_HOST, pyxDomain);
+                    ConfigUtil.getInst().put(Constants.FOR_HOST, forDomain);
+                    ConfigUtil.getInst().put(Constants.IMG_HOST, imgDomain);
                     ConfigUtil.getInst().save(view.getContext());
                 } catch (IllegalArgumentException e) {
                     // TODO Auto-generated catch block
