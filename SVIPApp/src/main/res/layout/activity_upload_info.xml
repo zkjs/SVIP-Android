@@ -83,4 +83,11 @@
         android:textSize="16sp"
         android:textColor="@color/White"
         android:background="@drawable/btn_orange_selector"/>
+
+    <View
+        android:id="@+id/mask_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8f101010"
+        android:visibility="gone"></View>
 </RelativeLayout>
