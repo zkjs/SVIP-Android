@@ -64,11 +64,13 @@ public class ShopFragment extends Fragment {
             new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                    float x = e2.getX() - e1.getX();
-                    float y = Math.abs(e2.getY() - e1.getY());
-                    if (x > 0 && y< 80) {
-                        if(isVisiable){
-                            hideAction();
+                    if(e1 != null && e2 != null){
+                        float x = e2.getX() - e1.getX();
+                        float y = Math.abs(e2.getY() - e1.getY());
+                        if (x > 0 && y< 80) {
+                            if(isVisiable){
+                                hideAction();
+                            }
                         }
                     }
                     return true;

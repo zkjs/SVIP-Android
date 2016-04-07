@@ -23,6 +23,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.FastBlur;
 import com.zkjinshi.svip.vo.BaseResponseVo;
 
 /**
