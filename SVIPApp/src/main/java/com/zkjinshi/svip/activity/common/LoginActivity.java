@@ -9,6 +9,7 @@ import android.view.View;
 
 import android.widget.EditText;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zkjinshi.svip.R;
@@ -35,6 +36,7 @@ public class LoginActivity extends BaseActivity {
     private Context mContext;
 
     private EditText mInputPhone;
+    private TextView registerTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,9 @@ public class LoginActivity extends BaseActivity {
 
     private void initView() {
         mInputPhone     = (EditText)    findViewById(R.id.inputEt);
+        registerTv      = (TextView)    findViewById(R.id.register_tv);
+        registerTv.setVisibility(View.GONE);
+        registerTv.setText("立即申请");
     }
 
     private void initData() {
@@ -67,26 +72,32 @@ public class LoginActivity extends BaseActivity {
     private void initListener() {
 
         //注册
-        findViewById(R.id.register_tv).setOnClickListener(new View.OnClickListener() {
+        registerTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String phonenum = mInputPhone.getText().toString();
 
-               if(StringUtil.isEmpty(phonenum)){
-                   Toast.makeText(mContext,"手机号码不能为空。",Toast.LENGTH_SHORT).show();
-                   return;
-               }
-                CacheUtil.getInstance().setUserPhone(phonenum);
-                LoginController.getInstance().sendVerifyCodeForRegister(mContext, phonenum, new LoginController.CallBackListener() {
-                    @Override
-                    public void successCallback(JSONObject response) {
-                        Intent intent = new Intent(mContext,CheckActivity.class);
-                        intent.putExtra("isLogin",false);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
-                    }
-                });
+//               if(StringUtil.isEmpty(phonenum)){
+//                   Toast.makeText(mContext,"手机号码不能为空。",Toast.LENGTH_SHORT).show();
+//                   return;
+//               }
+//                CacheUtil.getInstance().setUserPhone(phonenum);
+//                LoginController.getInstance().sendVerifyCodeForRegister(mContext, phonenum, new LoginController.CallBackListener() {
+//                    @Override
+//                    public void successCallback(JSONObject response) {
+//                        Intent intent = new Intent(mContext,CheckActivity.class);
+//                        intent.putExtra("isLogin",false);
+//                        startActivity(intent);
+//                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                        finish();
+//                    }
+//                });
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom,
+                        R.anim.slide_out_top);
+
             }
         });
 
@@ -100,7 +111,7 @@ public class LoginActivity extends BaseActivity {
                     return;
                 }
                 CacheUtil.getInstance().setUserPhone(phonenum);
-                LoginController.getInstance().sendVerifyCodeForLogin(mContext, phonenum, new LoginController.CallBackListener() {
+                LoginController.getInstance().sendVerifyCodeForLogin(mContext,registerTv, phonenum, new LoginController.CallBackListener() {
                     @Override
                     public void successCallback(JSONObject response) {
                         Intent intent = new Intent(mContext,CheckActivity.class);

@@ -4,6 +4,8 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Context;
 
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -136,7 +138,7 @@ public class LoginController {
      * 向手机发送验证码(登录)
      * @param phoneNumber
      */
-    public void sendVerifyCodeForLogin(final Context mContext,final String phoneNumber,final CallBackListener callBackListener) {
+    public void sendVerifyCodeForLogin(final Context mContext, final TextView registerTv,final String phoneNumber, final CallBackListener callBackListener) {
         try{
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
@@ -162,8 +164,9 @@ public class LoginController {
                         if(basePavoResponse != null){
                             if(basePavoResponse.getRes() == 0){
                                 callBackListener.successCallback(null);
-                            }else if(basePavoResponse.getRes() == 5){
+                            }else if(basePavoResponse.getRes() == 5){//不在白名单里面
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
+                                registerTv.setVisibility(View.VISIBLE);
                             }else{
                                 callBackListener.successCallback(null);
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
