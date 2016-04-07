@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
 import com.zkjinshi.svip.vo.ShopModeVo;
 import com.zkjinshi.svip.vo.ShopVo;
 
@@ -87,14 +89,27 @@ public class ShopAdapter extends BaseAdapter {
         }else {
             viewHolder.contentTv.setVisibility(View.GONE);
         }
-        ArrayList<String> photoList = shopModeVo.getPhotos();
+        final ArrayList<String> photoList = shopModeVo.getPhotos();
         if(null != photoList && !photoList.isEmpty()){
             Uri photoUri = Uri.parse(photoList.get(0));
             viewHolder.logoIv.setImageURI(photoUri);
             viewHolder.logoIv.setVisibility(View.VISIBLE);
+            viewHolder.logoIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent it = new Intent(context,
+                            ScanImagesActivity.class);
+                    it.putStringArrayListExtra(
+                            ScanImagesActivity.EXTRA_IMAGE_URLS, photoList);
+                    it.putExtra(ScanImagesActivity.EXTRA_IMAGE_INDEX,
+                            0);
+                    context.startActivity(it);
+                }
+            });
         }else {
             viewHolder.logoIv.setVisibility(View.GONE);
         }
+
         return convertView;
     }
 
