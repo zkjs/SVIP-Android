@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.zkjinshi.svip.response.ShopDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.ShopListView;
 import com.zkjinshi.svip.vo.ShopModeVo;
 import com.zkjinshi.svip.vo.ShopVo;
 
@@ -54,7 +56,7 @@ public class ShopFragment extends Fragment {
     public boolean isVisiable = false;
     private SimpleDraweeView shopBgIv;
     private TextView shopNameTv,addressTv,telephoneTv;
-    private ListView descListView;
+    private ShopListView descListView;
     private ScrollView scrollView;
     private ArrayList<ShopModeVo> shopModeList;
     private ShopAdapter shopAdapter;
@@ -102,9 +104,10 @@ public class ShopFragment extends Fragment {
         shopNameTv = (TextView)root.findViewById(R.id.shop_detail_tv_shop_name);
         addressTv = (TextView)root.findViewById(R.id.shop_detail_tv_address);
         telephoneTv = (TextView)root.findViewById(R.id.shop_detail_tv_telephone);
-        descListView = (ListView)root.findViewById(R.id.shop_desc_list_view);
+        descListView = (ShopListView)root.findViewById(R.id.shop_desc_list_view);
         shopAdapter = new ShopAdapter(getActivity(),shopModeList);
         descListView.setAdapter(shopAdapter);
+        descListView.setFocusable(false);
     }
 
     public void show(final View view,Bundle bundle){
@@ -136,6 +139,13 @@ public class ShopFragment extends Fragment {
                 return gestureDetector.onTouchEvent(motionEvent);
             }
         });
+        descListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+        });
+
     }
 
     public void hideAction(){
@@ -213,7 +223,29 @@ public class ShopFragment extends Fragment {
         shopModeList = shopVo.getShopmods();
         if(null != shopModeList && !shopModeList.isEmpty()){
             shopAdapter.setShopModeList(shopModeList);
+            setListViewHeight(descListView);
         }
+    }
+
+    /**
+     * 重新计算ListView的高度，解决ScrollView和ListView两个View都有滚动的效果，在嵌套使用时起冲突的问题
+     * @param listView
+     */
+    private void setListViewHeight(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0); // 计算子项View 的宽高
+            totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
 }

@@ -45,6 +45,7 @@
                 android:textColor="#B8B8B8"
                 android:drawableLeft="@mipmap/ic_dizhi_gray"
                 android:drawablePadding="15dp"
+                android:layout_marginRight="15dp"
                 android:text="长沙市芙蓉区芙蓉中路二段 106 号"
                 android:layout_marginTop="25dp"
                 android:layout_marginLeft="15dp"
@@ -62,6 +63,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 />
 
             <TextView
@@ -74,7 +76,7 @@
                 android:layout_height="1px"
                 android:background="#44101010"/>
 
-            <ListView
+            <com.zkjinshi.svip.view.ShopListView
                 android:id="@+id/shop_desc_list_view"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +85,6 @@
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp"
                 android:scrollingCache="false"
-                android:layout_marginTop="25dp"
                 android:listSelector="@android:color/transparent"
                 android:scrollbars="none" />
 
