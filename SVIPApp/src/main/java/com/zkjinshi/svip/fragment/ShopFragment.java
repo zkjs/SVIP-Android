@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.adapter.ShopAdapter;
 import com.zkjinshi.svip.net.ExtNetRequestListener;
 import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
@@ -31,6 +33,7 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.ShopDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.ShopModeVo;
 import com.zkjinshi.svip.vo.ShopVo;
 
 import java.util.ArrayList;
@@ -51,6 +54,8 @@ public class ShopFragment extends Fragment {
     private TextView shopNameTv,addressTv,telephoneTv;
     private ListView descListView;
     private ScrollView scrollView;
+    private ArrayList<ShopModeVo> shopModeList;
+    private ShopAdapter shopAdapter;
 
     private GestureDetector gestureDetector;
     private GestureDetector.OnGestureListener onGestureListener =
@@ -89,6 +94,13 @@ public class ShopFragment extends Fragment {
     private void initUI(final View root) {
         gestureDetector = new GestureDetector(getActivity(),onGestureListener);
         scrollView = (ScrollView)root.findViewById(R.id.shop_scrollview);
+        shopBgIv = (SimpleDraweeView)root.findViewById(R.id.shop_detail_tv_bg);
+        shopNameTv = (TextView)root.findViewById(R.id.shop_detail_tv_shop_name);
+        addressTv = (TextView)root.findViewById(R.id.shop_detail_tv_address);
+        telephoneTv = (TextView)root.findViewById(R.id.shop_detail_tv_telephone);
+        descListView = (ListView)root.findViewById(R.id.shop_desc_list_view);
+        shopAdapter = new ShopAdapter(getActivity(),shopModeList);
+        descListView.setAdapter(shopAdapter);
     }
 
     public void show(final View view,Bundle bundle){
@@ -97,12 +109,9 @@ public class ShopFragment extends Fragment {
         ViewHelper.setRotationY(root, 90);
         root.setVisibility(View.VISIBLE);
         root.setEnabled(true);
-
         ViewPropertyAnimator.animate(view).rotationY(-90)
                 .setDuration(300).setListener(null)
                 .setInterpolator(new AccelerateInterpolator());
-
-
         ViewPropertyAnimator.animate(root)
                 .rotationY(0).setDuration(200).setStartDelay(300)
                 .setListener(new AnimatorListenerAdapter() {
@@ -112,25 +121,17 @@ public class ShopFragment extends Fragment {
                         isVisiable = true;
                     }
                 });
-
         root.setClickable(true);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {}
         });
-//        root.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                return gestureDetector.onTouchEvent(motionEvent);
-//            }
-//        });
         scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return gestureDetector.onTouchEvent(motionEvent);
             }
         });
-
     }
 
     public void hideAction(){
@@ -146,7 +147,6 @@ public class ShopFragment extends Fragment {
                         isVisiable = false;
                     }
                 });
-
     }
 
     /**
@@ -189,7 +189,27 @@ public class ShopFragment extends Fragment {
      * @param shopVo
      */
     private void setShopDescData(ShopVo shopVo){
-
+        String shopBgUrl = shopVo.getShoplogo();
+        if(!TextUtils.isEmpty(shopBgUrl)){
+            Uri shopUri = Uri.parse(shopBgUrl);
+            shopBgIv.setImageURI(shopUri);
+        }
+        String shopName = shopVo.getShopname();
+        if(!TextUtils.isEmpty(shopName)){
+            shopNameTv.setText(shopName);
+        }
+        String address = shopVo.getShopaddress();
+        if(!TextUtils.isEmpty(address)){
+            addressTv.setText(address);
+        }
+        String telephone = shopVo.getTelephone();
+        if(!TextUtils.isEmpty(telephone)){
+            telephoneTv.setText(telephone);
+        }
+        shopModeList = shopVo.getShopmods();
+        if(null != shopModeList && !shopModeList.isEmpty()){
+            shopAdapter.setShopModeList(shopModeList);
+        }
     }
 
 }

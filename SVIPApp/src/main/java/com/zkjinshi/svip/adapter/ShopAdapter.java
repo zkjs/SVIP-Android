@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,14 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder.contentTv.setVisibility(View.VISIBLE);
         }else {
             viewHolder.contentTv.setVisibility(View.GONE);
+        }
+        ArrayList<String> photoList = shopModeVo.getPhotos();
+        if(null != photoList && !photoList.isEmpty()){
+            Uri photoUri = Uri.parse(photoList.get(0));
+            viewHolder.logoIv.setImageURI(photoUri);
+            viewHolder.logoIv.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.logoIv.setVisibility(View.GONE);
         }
         return convertView;
     }
