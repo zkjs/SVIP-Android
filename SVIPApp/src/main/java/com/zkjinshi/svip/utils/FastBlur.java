@@ -273,7 +273,7 @@ public class FastBlur {
 	 * 获取系统状态栏和软件标题栏，部分软件没有标题栏，看自己软件的配置；
 	 * @return
 	 */
-	private static int getOtherHeight(Activity activity) {
+	public static int getOtherHeight(Activity activity) {
 		Rect frame = new Rect();
 		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
 		int statusBarHeight = frame.top;

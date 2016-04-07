@@ -24,6 +24,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FastBlur;
+import com.zkjinshi.svip.utils.GaoshiBlur;
 import com.zkjinshi.svip.vo.BaseResponseVo;
 
 /**
@@ -91,7 +92,7 @@ public class UploadInfoActivity extends BaseActivity {
 
     private void showPopupWindow(View view) {
         maskView.setVisibility(View.VISIBLE);
-
+        //GaoshiBlur.applyBlur(maskView,this);
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate( R.layout.pop_window, null);
         final PopupWindow popupWindow = new PopupWindow(contentView,
