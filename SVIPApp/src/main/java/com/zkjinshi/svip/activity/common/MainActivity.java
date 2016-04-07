@@ -53,6 +53,7 @@ import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.fragment.ShopFragment;
+import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.map.LocationManager;
 
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
@@ -197,6 +198,7 @@ public class MainActivity extends BaseFragmentActivity {
         }else{
             hidePayMsgTips();
         }
+        BleLogManager.getInstance().uploadBleStatLog(this);
     }
 
     public void onDestroy(){
