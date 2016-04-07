@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class ShopFragment extends Fragment {
     private SimpleDraweeView shopBgIv;
     private TextView shopNameTv,addressTv,telephoneTv;
     private ListView descListView;
+    private ScrollView scrollView;
 
     private GestureDetector gestureDetector;
     private GestureDetector.OnGestureListener onGestureListener =
@@ -86,6 +88,7 @@ public class ShopFragment extends Fragment {
 
     private void initUI(final View root) {
         gestureDetector = new GestureDetector(getActivity(),onGestureListener);
+        scrollView = (ScrollView)root.findViewById(R.id.shop_scrollview);
     }
 
     public void show(final View view,Bundle bundle){
@@ -115,12 +118,19 @@ public class ShopFragment extends Fragment {
             @Override
             public void onClick(View v) {}
         });
-        root.setOnTouchListener(new View.OnTouchListener() {
+//        root.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return gestureDetector.onTouchEvent(motionEvent);
+//            }
+//        });
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return gestureDetector.onTouchEvent(motionEvent);
             }
         });
+
     }
 
     public void hideAction(){
