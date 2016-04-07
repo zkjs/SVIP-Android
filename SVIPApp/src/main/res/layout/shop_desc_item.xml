@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/shop_desc_item_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:text="酒店介绍"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/shop_desc_item_iv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:clickable="true"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImageScaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/shop_desc_item_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#B8B8B8"
+        android:textSize="14sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="长沙芙蓉国温德姆至尊豪廷大酒店是湖南芙蓉国企业集团投资兴建，委托世界最大的酒店管理公司美国温德姆国际酒店集团管理，是湖南首家白金五星级酒店。温德姆集团至今已有80余年历史。在全世界拥有7000家酒店，超过59.5万间客房，是世界500强上市公司之一，也是全美50强企业，网络延伸至全球22个国家及地区。并连续六年在“Hotel＆Motel Management “世界酒店管理公司美国权威杂志排名中居于榜首！
+酒店位于湖南省长沙市CBD中心区，毗邻黄兴路商业步行街，交通极为便利.，距离黄花机场只需30分钟、火车站仅8分钟车程。 拥有316间客房,集餐饮、娱乐、休闲为一体。时尚精美的布局，豪华典雅的装修，顶尖科技的各项配套设施，缜密熨帖的心思，为您带来精致优雅称心愉悦的住宿体验，我们真诚地期望通过细致入微的贴心服务，取得您的信任与支持！ "/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#151515"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#44101010"/>
+
+</LinearLayout>

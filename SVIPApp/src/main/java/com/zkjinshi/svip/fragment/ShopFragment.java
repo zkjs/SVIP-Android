@@ -11,9 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.view.ViewHelper;
@@ -24,8 +27,12 @@ import com.zkjinshi.svip.net.MethodType;
 import com.zkjinshi.svip.net.NetRequest;
 import com.zkjinshi.svip.net.NetRequestTask;
 import com.zkjinshi.svip.net.NetResponse;
+import com.zkjinshi.svip.response.ShopDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.ShopVo;
+
+import java.util.ArrayList;
 
 /**
  * 商家详情页
@@ -37,12 +44,11 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 public class ShopFragment extends Fragment {
 
     public static final String TAG = ShopFragment.class.getSimpleName();
-
-    private TextView tv;
     private View root;
-    private View view;
-
     public boolean isVisiable = false;
+    private SimpleDraweeView shopBgIv;
+    private TextView shopNameTv,addressTv,telephoneTv;
+    private ListView descListView;
 
     private GestureDetector gestureDetector;
     private GestureDetector.OnGestureListener onGestureListener =
@@ -80,30 +86,10 @@ public class ShopFragment extends Fragment {
 
     private void initUI(final View root) {
         gestureDetector = new GestureDetector(getActivity(),onGestureListener);
-        tv = (TextView) root.findViewById(R.id.textView);
-        root.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                root.setClickable(false);
-                ViewPropertyAnimator.animate(root)
-                        .rotationY(90).setDuration(200)
-                        .setListener(new AnimatorListenerAdapter(){
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                root.clearAnimation();
-                                root.setVisibility(View.INVISIBLE);
-                                view.setEnabled(true);
-                                isVisiable = false;
-                            }
-                        });
-            }
-        });
     }
 
     public void show(final View view,Bundle bundle){
-        this.view = view;
         String text = bundle.getString("text");
-        tv.setText(text);
         ViewHelper.setRotationY(view, 0);
         ViewHelper.setRotationY(root, 90);
         root.setVisibility(View.VISIBLE);
@@ -167,11 +153,33 @@ public class ShopFragment extends Fragment {
         netRequestTask.setNetRequestListener(new ExtNetRequestListener(getActivity()) {
             @Override
             public void onNetworkResponseSucceed(NetResponse result) {
-                super.onNetworkResponseSucceed(result);
-                Log.i(TAG,"获取商家详情网络请求数据:"+result.rawResult);
+                try {
+                    super.onNetworkResponseSucceed(result);
+                    Log.i(TAG,"result.rawResult:"+result.rawResult);
+                    ShopDetailResponse shopDetailResponse = new Gson().fromJson(result.rawResult,ShopDetailResponse.class);
+                    if(null != shopDetailResponse){
+                        ArrayList<ShopVo> shopList =  shopDetailResponse.getData();
+                        if(null != shopList && !shopList.isEmpty()){
+                            ShopVo shopVo = shopList.get(0);
+                            if(null != shopVo){
+                                setShopDescData(shopVo);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         netRequestTask.execute();
+    }
+
+    /**
+     * 设置商家详情页面相关数据
+     * @param shopVo
+     */
+    private void setShopDescData(ShopVo shopVo){
+
     }
 
 }
