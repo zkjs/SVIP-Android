@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         mInputPhone     = (EditText)    findViewById(R.id.inputEt);
         registerTv      = (TextView)    findViewById(R.id.register_tv);
-        registerTv.setVisibility(View.GONE);
+        registerTv.setVisibility(View.INVISIBLE);
         registerTv.setText("立即申请");
     }
 
@@ -92,11 +92,7 @@ public class LoginActivity extends BaseActivity {
 //                        finish();
 //                    }
 //                });
-                Intent intent = new Intent(mContext, WebViewActivity.class);
-                intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom,
-                        R.anim.slide_out_top);
+
 
             }
         });

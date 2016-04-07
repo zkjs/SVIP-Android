@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="201dp"
+        android:layout_height="120dp"
+        android:background="@mipmap/bg_tishikuang"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/ad_des_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="您提供的真实姓名／头像个人信息，我们将对其严格保密，保证不对外公开或向第三方提供您的个人信息。"
+            android:textColor="#666666"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingLeft="15dp"
+            android:paddingRight="24dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"/>
+
+    </LinearLayout>
+</LinearLayout>
+

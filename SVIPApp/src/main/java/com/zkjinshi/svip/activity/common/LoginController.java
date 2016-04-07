@@ -4,6 +4,7 @@ package com.zkjinshi.svip.activity.common;
 import android.app.Activity;
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import com.zkjinshi.base.util.DialogUtil;
 
+import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 
 import com.zkjinshi.svip.net.RequestUtil;
@@ -166,7 +168,11 @@ public class LoginController {
                                 callBackListener.successCallback(null);
                             }else if(basePavoResponse.getRes() == 5){//不在白名单里面
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
-                                registerTv.setVisibility(View.VISIBLE);
+                                //registerTv.setVisibility(View.VISIBLE);
+                                if(mContext instanceof Activity){
+                                    mContext.startActivity(new Intent(mContext,RequestActivity.class));
+                                    ((Activity)mContext). overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                                }
                             }else{
                                 callBackListener.successCallback(null);
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());

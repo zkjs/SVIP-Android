@@ -8,7 +8,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsoluteLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
@@ -97,13 +101,29 @@ public class UploadAvatarActivity extends BaseActivity {
         findViewById(R.id.info_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,AlertActivity.class);
-                intent.putExtra("title","温馨提示");
-                intent.putExtra("content","在用户注册及使用本服务时，超级身份开发中心需要搜集能识别用户身份的个人信息以便为用户提供更好的使用体验。超级身份开发中心搜集的信息包括但不限于用户的姓名、头像；超级身份开发中心同意对这些信息的使用将受限于第三条用户个人隐私信息保护的约束。");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+//                Intent intent = new Intent(mContext,AlertActivity.class);
+//                intent.putExtra("title","温馨提示");
+//                intent.putExtra("content","在用户注册及使用本服务时，超级身份开发中心需要搜集能识别用户身份的个人信息以便为用户提供更好的使用体验。超级身份开发中心搜集的信息包括但不限于用户的姓名、头像；超级身份开发中心同意对这些信息的使用将受限于第三条用户个人隐私信息保护的约束。");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                showPopupWindow(view);
             }
         });
+    }
+
+    private void showPopupWindow(View view) {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(mContext).inflate( R.layout.pop_window, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_tishikuang));
+        // 设置好参数之后再show
+        int offsetX = DisplayUtil.dip2px(this,200);
+        int offsetY = DisplayUtil.dip2px(this,40);
+        popupWindow.showAsDropDown(view,-offsetX,-offsetY);
     }
 
 
