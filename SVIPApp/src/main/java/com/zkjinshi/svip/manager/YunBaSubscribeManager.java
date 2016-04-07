@@ -29,8 +29,6 @@ public class YunBaSubscribeManager {
 
     private static YunBaSubscribeManager instance;
 
-    private boolean isSubscribed = false;
-
     public synchronized static YunBaSubscribeManager getInstance(){
         if(null == instance){
             instance = new YunBaSubscribeManager();
@@ -50,7 +48,6 @@ public class YunBaSubscribeManager {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.i(TAG,"订阅云巴成功");
-                    isSubscribed = true;
                 }
 
                 @Override
@@ -63,14 +60,6 @@ public class YunBaSubscribeManager {
                 }
             }
         );
-    }
-
-    /**
-     * 当前是否注册订阅频道
-     * @return
-     */
-    public boolean isSubscribed() {
-        return isSubscribed;
     }
 
         /**
@@ -96,13 +85,11 @@ public class YunBaSubscribeManager {
                                 new IMqttActionListener() {
                                     @Override
                                     public void onSuccess(IMqttToken asyncActionToken) {
-                                        isSubscribed = false;
                                         Log.i(TAG,"取消订阅云巴成功");
                                     }
 
                                     @Override
                                     public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                                        isSubscribed = false;
                                         if (exception instanceof MqttException) {
                                             MqttException ex = (MqttException)exception;
                                             String msg =  "Subscribe failed with error code : " + ex.getReasonCode();
