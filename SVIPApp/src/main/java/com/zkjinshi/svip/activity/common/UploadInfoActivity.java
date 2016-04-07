@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ public class UploadInfoActivity extends BaseActivity {
     private Button nextBtn;
 
     private Context mContext;
+    private View maskView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class UploadInfoActivity extends BaseActivity {
     private void initView() {
         inputEt = (EditText)findViewById(R.id.inputEt);
         nextBtn = (Button) findViewById(R.id.btn_next);
+        maskView = findViewById(R.id.mask_view);
     }
 
     private void initData() {
@@ -85,6 +89,7 @@ public class UploadInfoActivity extends BaseActivity {
     }
 
     private void showPopupWindow(View view) {
+        maskView.setVisibility(View.VISIBLE);
 
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate( R.layout.pop_window, null);
@@ -92,11 +97,19 @@ public class UploadInfoActivity extends BaseActivity {
                 AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-       popupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_tishikuang));
+       //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_tishikuang));
+        ColorDrawable color = new ColorDrawable(Color.parseColor("#8f101010"));
+        popupWindow.setBackgroundDrawable(color);
         // 设置好参数之后再show
         int offsetX = DisplayUtil.dip2px(this,200);
         int offsetY = DisplayUtil.dip2px(this,40);
         popupWindow.showAsDropDown(view,-offsetX,-offsetY);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                maskView.setVisibility(View.GONE);
+            }
+        });
     }
 
 }
