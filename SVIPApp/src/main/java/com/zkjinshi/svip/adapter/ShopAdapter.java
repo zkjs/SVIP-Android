@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -76,7 +77,7 @@ public class ShopAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         ShopModeVo shopModeVo = shopModeList.get(position);
-        String title = shopModeVo.getTitle();
+        final String title = shopModeVo.getTitle();
         if(!TextUtils.isEmpty(title)){
             viewHolder.titleTv.setText(title);
             viewHolder.titleTv.setVisibility(View.VISIBLE);
