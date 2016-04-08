@@ -167,7 +167,7 @@ public class LoginController {
                             if(basePavoResponse.getRes() == 0){
                                 callBackListener.successCallback(null);
                             }else if(basePavoResponse.getRes() == 5){//不在白名单里面
-                                PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
+                                //PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                                 //registerTv.setVisibility(View.VISIBLE);
                                 if(mContext instanceof Activity){
                                     mContext.startActivity(new Intent(mContext,RequestActivity.class));

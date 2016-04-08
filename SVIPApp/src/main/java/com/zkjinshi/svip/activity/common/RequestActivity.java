@@ -48,6 +48,10 @@ public class RequestActivity extends BaseActivity{
 //        String contentStr = getIntent().getStringExtra("content");
 //        titleTv.setText(titleStr);
 //        contentTv.setText(contentStr);
+        titleTv.setText("您注册的手机号码无激活权限！\n" +
+                "若需激活，需得到本平台内合作商家的认证推荐！\n" +
+                "如果您是平台内任一合作商家的协议客户或者VIP会员，请您联系您在该商家的专属经理并提出激活申请。");
+        contentTv.setVisibility(View.GONE);
 
     }
 
