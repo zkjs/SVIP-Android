@@ -1,8 +1,11 @@
 package com.zkjinshi.svip.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import com.zkjinshi.base.log.LogUtil;
 
 /**
  * Created by dujiande on 2016/4/8.
@@ -50,9 +53,10 @@ public class Gesture implements GestureDetector.OnGestureListener {
                            float velocityY) {
 
         if(e1 != null && e2 != null){
+            Log.d("Gesture","velocityX="+velocityX+" velocityY="+velocityY);
             float y = Math.abs(e2.getY() - e1.getY());
             //左滑动
-            if (e1.getX() - e2.getX() > 50 && y < 80) {
+            if (e1.getX() - e2.getX() > 20 ) {
                 if(flingCallback != null){
                     flingCallback.flingLeft();
                 }

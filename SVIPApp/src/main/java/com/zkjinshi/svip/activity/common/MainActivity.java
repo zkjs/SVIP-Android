@@ -334,10 +334,10 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void flingLeft() {
                 if(!shopFragment.isVisiable){
-                    View view = getWindow().getDecorView();
+                   // View view = getWindow().getDecorView();
                     Bundle bundle = new Bundle();
                     bundle.putString("text", "这是商家页面自己看着办");
-                    shopFragment.show(view,bundle);
+                    shopFragment.show(rootRlt,bundle);
                 }
             }
 

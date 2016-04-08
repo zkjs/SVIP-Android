@@ -2,150 +2,142 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     android:background="@mipmap/img_bg"
-    android:id="@+id/root_rlt">
-
-    <View android:id="@+id/finish_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        />
-
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/msgIv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="15dp"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/ic_huxideng"
-        fresco:placeholderImageScaleType="fitCenter"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp">
-        <!--fresco:roundingBorderColor="@color/orange"-->
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/avatar_sdv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            fresco:roundAsCircle="true"
-            fresco:roundingBorderWidth="1dp"
-            fresco:roundingBorderColor="@color/orange"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/ic_launcher"
-            fresco:placeholderImageScaleType="centerCrop"/>
-
-        <TextView
-            android:id="@+id/username_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/avatar_sdv"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:text="用户名"
-            android:textColor="@color/orange"
-            android:textSize="24sp"/>
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@mipmap/line"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="134dp"/>
-
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/line">
+        android:background="@mipmap/img_bg"
+        android:id="@+id/root_rlt">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/shop_logo"
-            android:layout_width="202dp"
-            android:layout_height="96dp"
-            android:layout_centerInParent="true"
-            fresco:actualImageScaleType="centerInside"
-            fresco:placeholderImage="@mipmap/ic_shop_logo"
-            fresco:placeholderImageScaleType="centerInside"/>
-
-        <TextView
-            android:id="@+id/activate_tips_tv"
-            android:layout_below="@id/shop_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="立即激活"
-            android:visibility="gone"
-            android:clickable="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="#ffc56e"
-            android:textSize="14sp"/>
-
-    </RelativeLayout>
-
-
-
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/wallet_sdv"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="67dp"
-        android:layout_marginRight="34dp"
-        fresco:actualImageScaleType="centerCrop"
-        fresco:placeholderImage="@drawable/btn_wallet_selector"
-        fresco:placeholderImageScaleType="centerCrop"/>
-
-
-    <RelativeLayout
-        android:id="@+id/paopao_rlt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/wallet_sdv"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="8dp">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/paopao_sdv"
+        <View android:id="@+id/finish_view"
             android:layout_width="80dp"
-            android:layout_height="87dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/msgIv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/img_qian"
-            fresco:placeholderImageScaleType="centerCrop"/>
+            fresco:placeholderImage="@mipmap/ic_huxideng"
+            fresco:placeholderImageScaleType="fitCenter"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp">
+            <!--fresco:roundingBorderColor="@color/orange"-->
 
-        <TextView
-            android:id="@+id/account_tv"
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatar_sdv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                fresco:roundAsCircle="true"
+                fresco:roundingBorderWidth="1dp"
+                fresco:roundingBorderColor="@color/orange"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_launcher"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/username_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/avatar_sdv"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:text="用户名"
+                android:textColor="@color/orange"
+                android:textSize="24sp"/>
+
+        </RelativeLayout>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@mipmap/line"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="134dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/line">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/shop_logo"
+                android:layout_width="202dp"
+                android:layout_height="96dp"
+                android:layout_centerInParent="true"
+                fresco:actualImageScaleType="centerInside"
+                fresco:placeholderImage="@mipmap/ic_shop_logo"
+                fresco:placeholderImageScaleType="centerInside"/>
+
+            <TextView
+                android:id="@+id/activate_tips_tv"
+                android:layout_below="@id/shop_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="立即激活"
+                android:visibility="gone"
+                android:clickable="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffc56e"
+                android:textSize="14sp"/>
+
+        </RelativeLayout>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/wallet_sdv"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="67dp"
+            android:layout_marginRight="34dp"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@drawable/btn_wallet_selector"
+            fresco:placeholderImageScaleType="centerCrop"/>
+        <RelativeLayout
+            android:id="@+id/paopao_rlt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="300"
-            android:textColor="@color/orange"
-            android:textSize="16sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"/>
-    </RelativeLayout>
+            android:layout_above="@id/wallet_sdv"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="8dp">
 
-    <CheckBox
-        android:id="@+id/switch_cbx"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/switch_toggle"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/line"
-        android:layout_marginBottom="20dp"/>
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/paopao_sdv"
+                android:layout_width="80dp"
+                android:layout_height="87dp"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/img_qian"
+                fresco:placeholderImageScaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/account_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="300"
+                android:textColor="@color/orange"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"/>
+        </RelativeLayout>
+        <CheckBox
+            android:id="@+id/switch_cbx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/switch_toggle"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/line"
+            android:layout_marginBottom="20dp"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/contentView"
@@ -153,6 +145,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
     </LinearLayout>
-
-
 </RelativeLayout>
+

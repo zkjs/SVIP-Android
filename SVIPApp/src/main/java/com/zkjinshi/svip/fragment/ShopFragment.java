@@ -57,6 +57,7 @@ public class ShopFragment extends Fragment {
     private ArrayList<ShopModeVo> shopModeList;
     private ShopAdapter shopAdapter;
     private View shopHeadLayout;
+    private View homeView;
 
 
 
@@ -105,23 +106,33 @@ public class ShopFragment extends Fragment {
     }
 
     public void show(final View view,Bundle bundle){
+        this.homeView = view;
         String text = bundle.getString("text");
+        final float rotation = 90;
+        final long duration = 400;
         ViewHelper.setRotationY(view, 0);
-        ViewHelper.setRotationY(root, 90);
-        root.setVisibility(View.VISIBLE);
-        root.setEnabled(true);
-        ViewPropertyAnimator.animate(view).rotationY(-90)
-                .setDuration(300).setListener(null)
-                .setInterpolator(new AccelerateInterpolator());
-        ViewPropertyAnimator.animate(root)
-                .rotationY(0).setDuration(200).setStartDelay(300)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        ViewHelper.setRotationY(view, 0);
-                        isVisiable = true;
-                    }
-                });
+        ViewPropertyAnimator.animate(view).rotationY(-rotation)
+                .setDuration(duration).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                ViewHelper.setRotationY(root, rotation);
+                root.setVisibility(View.VISIBLE);
+                root.setEnabled(true);
+                homeView.setVisibility(View.GONE);
+                ViewPropertyAnimator.animate(root)
+                        .rotationY(0).setDuration(duration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                ViewHelper.setRotationY(view, 0);
+                                isVisiable = true;
+                            }
+                        }).setInterpolator(new AccelerateInterpolator());
+            }
+        })
+        .setInterpolator(new AccelerateInterpolator());
+
         root.setClickable(true);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,16 +146,34 @@ public class ShopFragment extends Fragment {
     public void hideAction(){
         root.setClickable(false);
         root.setEnabled(false);
-        ViewPropertyAnimator.animate(root)
-                .rotationY(90).setDuration(300)
-                .setListener(new AnimatorListenerAdapter(){
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        root.clearAnimation();
-                        root.setVisibility(View.INVISIBLE);
-                        isVisiable = false;
-                    }
-                });
+//        ViewPropertyAnimator.animate(root)
+//                .rotationY(90).setDuration(300)
+//                .setListener(new AnimatorListenerAdapter(){
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        root.clearAnimation();
+//                        root.setVisibility(View.INVISIBLE);
+//                        isVisiable = false;
+//                    }
+//                });
+        final float rotation = -90;
+        final long duration = 400;
+        ViewHelper.setRotationY(root, 0);
+        ViewPropertyAnimator.animate(root).rotationY(-rotation).setInterpolator(new AccelerateInterpolator())
+                .setDuration(duration).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                root.clearAnimation();
+                root.setVisibility(View.INVISIBLE);
+                homeView.setVisibility(View.VISIBLE);
+                isVisiable = false;
+                ViewHelper.setRotationY(homeView, rotation);
+                ViewPropertyAnimator.animate(homeView)
+                        .rotationY(0).setDuration(duration)
+                        .setListener(null).setInterpolator(new AccelerateInterpolator());
+            }
+        });
     }
 
     /**
