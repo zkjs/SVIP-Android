@@ -804,7 +804,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getLong("update_logo_time",System.currentTimeMillis());
+		return sp.getLong("update_logo_time",0);
 	}
 
 	/**

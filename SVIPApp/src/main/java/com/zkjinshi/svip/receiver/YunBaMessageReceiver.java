@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zkjinshi.base.config.ConfigUtil;
+import com.zkjinshi.base.log.LogLevel;
+import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.ActivityManagerHelper;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
@@ -82,6 +84,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         context.sendBroadcast(iBeaconIntent);
                     }
                 }else if("ANOTHER_SHOP".equals(type)){//获取商店信息
+                    LogUtil.getInstance().info(LogLevel.WARN,"获取商家logo:"+data);
                     OtherShopVo otherShopVo = new Gson().fromJson(data,OtherShopVo.class);
                     if(null != otherShopVo){
                         String shopId = otherShopVo.getShopid();
@@ -92,7 +95,6 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         if(!TextUtils.isEmpty(shopLogo)){
                             CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"_"+CacheUtil.getInstance().getBestFitPixel()+"x.png");
                         }
-                        CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
                     }
                 }
             }catch (JSONException e){
