@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
     <!--孔雀座(认证服务)-->
-    <pav-host>p.zkjinshi.com/demo/pav</pav-host>
+    <pav-host>p.zkjinshi.com/test/pav</pav-host>
     <!--罗盘座(位置服务)-->
-    <pyx-host>p.zkjinshi.com/demo/pyx</pyx-host>
+    <pyx-host>p.zkjinshi.com/test/pyx</pyx-host>
     <!--天炉座(资源服务)-->
-    <for-host>p.zkjinshi.com/demo/for</for-host>
+    <for-host>p.zkjinshi.com/test/for</for-host>
     <!--图片(资源服务)-->
     <img-host>cdn.zkjinshi.com</img-host>
 </config>
