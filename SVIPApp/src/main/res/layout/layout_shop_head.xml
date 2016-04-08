@@ -21,7 +21,7 @@
             android:textSize="20sp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:text="长沙芙蓉国温德姆至尊豪廷大酒"/>
+            android:text="@null"/>
 
         <TextView
             android:id="@+id/shop_detail_tv_address"
@@ -32,7 +32,7 @@
             android:drawableLeft="@mipmap/ic_dizhi_gray"
             android:drawablePadding="15dp"
             android:layout_marginRight="15dp"
-            android:text="长沙市芙蓉区芙蓉中路二段 106 号"
+            android:text="@null"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="15dp"
             />
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#B8B8B8"
-            android:text="010-85117777"
+            android:text="@null"
             android:drawableLeft="@mipmap/ic_phone_gray"
             android:drawablePadding="15dp"
             android:layout_marginTop="25dp"
