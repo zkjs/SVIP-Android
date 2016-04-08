@@ -95,6 +95,9 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         if(!TextUtils.isEmpty(shopLogo)){
                             CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"_"+CacheUtil.getInstance().getBestFitPixel()+"x.png");
                         }
+                        Intent updateIntent = new Intent();
+                        updateIntent.setAction(Constants.UPDATE_LOGO_RECEIVER_ACTION);
+                        context.sendBroadcast(updateIntent);
                     }
                 }
             }catch (JSONException e){

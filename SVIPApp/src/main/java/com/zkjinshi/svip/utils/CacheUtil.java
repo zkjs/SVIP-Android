@@ -817,7 +817,7 @@ public class CacheUtil {
 		if(dayNum >= 1){
 			return true;
 		}
-		return true;
+		return false;
 	}
 
 }
