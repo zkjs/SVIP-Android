@@ -58,23 +58,7 @@ public class ShopFragment extends Fragment {
     private ShopAdapter shopAdapter;
     private View shopHeadLayout;
 
-    private GestureDetector gestureDetector;
-    private GestureDetector.OnGestureListener onGestureListener =
-            new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                    if(e1 != null && e2 != null){
-                        float x = e2.getX() - e1.getX();
-                        float y = Math.abs(e2.getY() - e1.getY());
-                        if (x > 50 && y< 80) {
-                            if(isVisiable){
-                                hideAction();
-                            }
-                        }
-                    }
-                    return true;
-                }
-            };
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -95,7 +79,6 @@ public class ShopFragment extends Fragment {
     }
 
     private void initUI(final View root) {
-        gestureDetector = new GestureDetector(getActivity(),onGestureListener);
         shopHeadLayout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_shop_head,null);
         shopBgIv = (SimpleDraweeView)shopHeadLayout.findViewById(R.id.shop_detail_tv_bg);
         shopNameTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_shop_name);
@@ -144,14 +127,6 @@ public class ShopFragment extends Fragment {
             @Override
             public void onClick(View v) {}
         });
-//        descListView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                return gestureDetector.onTouchEvent(motionEvent);
-//            }
-//        });
-
-
 
     }
 
