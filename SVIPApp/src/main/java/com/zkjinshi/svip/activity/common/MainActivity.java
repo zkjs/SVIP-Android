@@ -88,6 +88,7 @@ public class MainActivity extends BaseFragmentActivity {
     private RelativeLayout paopaoRlt;
     private CheckBox switchCbx;
     private RelativeLayout rootRlt;
+    private UpdateLogoReceiver updateLogoReceiver;
 
     private ScreenObserverReceiver screenObserverReceiver;
     private Context mContext;
@@ -203,6 +204,9 @@ public class MainActivity extends BaseFragmentActivity {
 
     public void onDestroy(){
         super.onDestroy();
+        if(null != updateLogoReceiver){
+            unregisterReceiver(updateLogoReceiver);
+        }
         if(null != screenObserverReceiver){
             unregisterReceiver(screenObserverReceiver);
         }
@@ -232,16 +236,17 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initData() {
+        //注册更新logo广播
+        updateLogoReceiver = new UpdateLogoReceiver();
+        IntentFilter updateIntentFilter = new IntentFilter();
+        updateIntentFilter.addAction(Constants.UPDATE_LOGO_RECEIVER_ACTION);
+        registerReceiver(updateLogoReceiver,updateIntentFilter);
         //获取屏幕分辨率
         initBestFitPixel();
-        //更新商家logo
+        //设置默认商家logo
         if(CacheUtil.getInstance().isUpdateLogo()){
-            String shopLogoUrl = CacheUtil.getInstance().getShopLogo();
-            if(!TextUtils.isEmpty(shopLogoUrl)){
-                Uri uri =  Uri.parse(shopLogoUrl);
-                shopLogoSdv.setImageURI(uri);
-                CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
-            }
+            Uri uri =  Uri.parse("res://com.zkjinshi.svip/"+R.mipmap.ic_shop_logo);
+            shopLogoSdv.setImageURI(uri);
         }
         //打开蓝牙请求
         BlueToothManager.getInstance().openBluetooth();
@@ -425,6 +430,32 @@ public class MainActivity extends BaseFragmentActivity {
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 动态更新商家logo
+     */
+    private void updateShopLogo(){
+        String shopLogoUrl = CacheUtil.getInstance().getShopLogo();
+        if(!TextUtils.isEmpty(shopLogoUrl)){
+            Uri uri =  Uri.parse(shopLogoUrl);
+            shopLogoSdv.setImageURI(uri);
+            CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
+        }
+    }
+
+    class UpdateLogoReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(null != intent){
+                String action =  intent.getAction();
+                if(!TextUtils.isEmpty(action) && action.equals(Constants.UPDATE_LOGO_RECEIVER_ACTION)){
+                    //更新商家logo
+                    updateShopLogo();
+                }
+            }
         }
     }
 

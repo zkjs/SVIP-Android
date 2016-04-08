@@ -778,7 +778,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getString("shop_logo", "http://cdn.zkjinshi.com/svip_logo/svip_logo.png_"+getBestFitPixel()+"x.png");
+		return sp.getString("shop_logo", "");
 	}
 
 	/**
@@ -804,7 +804,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getLong("update_logo_time",0);
+		return sp.getLong("update_logo_time",System.currentTimeMillis());
 	}
 
 	/**
@@ -817,7 +817,7 @@ public class CacheUtil {
 		if(dayNum >= 1){
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 }
