@@ -73,6 +73,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 import com.blueware.agent.android.BlueWare;
 import com.zkjinshi.svip.view.BeaconMsgDialog;
+import com.zkjinshi.svip.view.FlingCallback;
+import com.zkjinshi.svip.view.Gesture;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
@@ -100,33 +102,6 @@ public class MainActivity extends BaseFragmentActivity {
 
     private ShopFragment shopFragment;
     private GestureDetector gestureDetector;
-    private GestureDetector.OnGestureListener onGestureListener =
-            new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,float velocityY) {
-                    float x = e2.getX() - e1.getX();
-
-                    if (x > 0 ) {
-//                        if(shopFragment.isVisiable){
-//                            shopFragment.hideAction();
-//                        }
-//                       Toast.makeText(mContext,"向右滑动",Toast.LENGTH_SHORT).show();
-
-                    } else if (x < 0 ) {
-                        if(!shopFragment.isVisiable){
-                            View view = getWindow().getDecorView();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("text", "这是商家页面自己看着办");
-                            shopFragment.show(view,bundle);
-                        }
-                        //Toast.makeText(mContext,"向左滑动",Toast.LENGTH_SHORT).show();
-
-                    }
-                    return true;
-                }
-            };
-
-
 
     private class ShowMessageReceiver extends BroadcastReceiver {
         @Override
@@ -353,12 +328,33 @@ public class MainActivity extends BaseFragmentActivity {
 
             }
         });
-        gestureDetector = new GestureDetector(this,onGestureListener);
+
+        Gesture gesture = new Gesture(this);
+        gesture.flingCallback = new FlingCallback() {
+            @Override
+            public void flingLeft() {
+                if(!shopFragment.isVisiable){
+                    View view = getWindow().getDecorView();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("text", "这是商家页面自己看着办");
+                    shopFragment.show(view,bundle);
+                }
+            }
+
+            @Override
+            public void flingRight() {
+
+            }
+        };
+        gestureDetector = new GestureDetector(this,gesture);
 
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
+        if(!shopFragment.isVisiable){
+            return gestureDetector.onTouchEvent(event);
+        }
+       return false;
     }
 
 

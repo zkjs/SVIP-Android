@@ -32,6 +32,8 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.response.ShopDetailResponse;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.view.FlingCallback;
+import com.zkjinshi.svip.view.GestureListView;
 import com.zkjinshi.svip.vo.ShopModeVo;
 import com.zkjinshi.svip.vo.ShopVo;
 
@@ -51,7 +53,7 @@ public class ShopFragment extends Fragment {
     public boolean isVisiable = false;
     private SimpleDraweeView shopBgIv;
     private TextView shopNameTv,addressTv,telephoneTv;
-    private ListView descListView;
+    private GestureListView descListView;
     private ArrayList<ShopModeVo> shopModeList;
     private ShopAdapter shopAdapter;
     private View shopHeadLayout;
@@ -99,10 +101,24 @@ public class ShopFragment extends Fragment {
         shopNameTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_shop_name);
         addressTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_address);
         telephoneTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_telephone);
-        descListView = (ListView)root.findViewById(R.id.shop_desc_list_view);
+        descListView = (GestureListView)root.findViewById(R.id.shop_desc_list_view);
         shopAdapter = new ShopAdapter(getActivity(),shopModeList);
         descListView.setAdapter(shopAdapter);
         descListView.addHeaderView(shopHeadLayout);
+
+        descListView.setFlingCallback(new FlingCallback() {
+            @Override
+            public void flingLeft() {
+
+            }
+
+            @Override
+            public void flingRight() {
+                if(isVisiable){
+                    hideAction();
+                }
+            }
+        });
     }
 
     public void show(final View view,Bundle bundle){
@@ -128,14 +144,18 @@ public class ShopFragment extends Fragment {
             @Override
             public void onClick(View v) {}
         });
-        descListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return gestureDetector.onTouchEvent(motionEvent);
-            }
-        });
+//        descListView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return gestureDetector.onTouchEvent(motionEvent);
+//            }
+//        });
+
+
 
     }
+
+
 
     public void hideAction(){
         root.setClickable(false);
