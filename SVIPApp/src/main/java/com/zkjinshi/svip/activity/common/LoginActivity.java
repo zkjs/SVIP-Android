@@ -106,18 +106,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        //打开配置项
-        SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
-        sensorHelper.setOnShakeListener(new SensorManagerHelper.OnShakeListener() {
-
-            @Override
-            public void onShake() {
-                Intent intent = new Intent(LoginActivity.this, ConfigActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-            }
-        });
-
         //注册
         registerTv.setOnClickListener(new View.OnClickListener() {
             @Override
