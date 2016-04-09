@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"
                 fresco:roundAsCircle="true"
                 fresco:roundingBorderWidth="1dp"
-                fresco:roundingBorderColor="@color/orange"
+
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 fresco:placeholderImageScaleType="centerCrop"/>
@@ -131,8 +131,8 @@
         </RelativeLayout>
         <CheckBox
             android:id="@+id/switch_cbx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="95dp"
+            android:layout_height="113dp"
             android:button="@drawable/switch_toggle"
             android:layout_centerHorizontal="true"
             android:layout_above="@id/line"
