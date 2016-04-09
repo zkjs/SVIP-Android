@@ -193,6 +193,14 @@ public class MainActivity extends BaseFragmentActivity {
         }
     }
 
+    public void onBackPressed(){
+        if(shopFragment.isVisiable){
+            shopFragment.hideAction();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
     private void initView() {
         activateTv = (TextView)findViewById(R.id.activate_tips_tv);
         msgIv = (SimpleDraweeView)findViewById(R.id.msgIv);

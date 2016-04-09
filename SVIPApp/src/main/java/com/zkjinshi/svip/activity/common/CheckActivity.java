@@ -18,15 +18,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.IntentUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -94,6 +98,7 @@ public class CheckActivity extends BaseActivity {
 
     private Context mContext;
     private boolean isLogin;
+    private RelativeLayout contentRlt;
 
      public Handler handler = new Handler(){
         @Override
@@ -164,6 +169,7 @@ public class CheckActivity extends BaseActivity {
         backIBtn = (ImageButton)findViewById(R.id.header_bar_btn_back);
         phoneTv = (TextView)findViewById(R.id.phone_tv);
         countdownTv = (TextView)findViewById(R.id.countdown_tv);
+        contentRlt = (RelativeLayout)findViewById(R.id.content_rlt);
     }
 
     private void initData() {
@@ -172,7 +178,36 @@ public class CheckActivity extends BaseActivity {
 
     }
 
+    private void moveUp(){
+        ViewHelper.setTranslationY(contentRlt,0);
+        int offsetY = DisplayUtil.dip2px(this,100);
+        long time = 300;
+        ViewPropertyAnimator.animate(contentRlt).translationYBy(-offsetY).setDuration(time);
+    }
+
+    private void moveDown(){
+        int offsetY = DisplayUtil.dip2px(this,100);
+        long time = 300;
+        ViewHelper.setTranslationY(contentRlt,-offsetY);
+        ViewPropertyAnimator.animate(contentRlt).translationYBy(offsetY).setDuration(time);
+    }
+
     private void initListener() {
+
+        //添加layout大小发生改变监听器
+        findViewById(R.id.scrollView).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right,
+                                       int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > 0)){
+                    //Toast.makeText(mContext, "监听到软键盘弹起...", Toast.LENGTH_SHORT).show();
+                    moveUp();
+                }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > 0)){
+                    //Toast.makeText(mContext, "监听到软件盘关闭...", Toast.LENGTH_SHORT).show();
+                    moveDown();
+                }
+            }
+        });
 
         //返回
         backIBtn.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,5 @@
 package com.zkjinshi.svip.activity.common;
-;
+
 import android.content.Context;
 
 import android.content.Intent;
@@ -9,10 +9,14 @@ import android.view.View;
 
 import android.widget.EditText;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.base.config.ConfigActivity;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 
@@ -24,7 +28,6 @@ import com.zkjinshi.svip.utils.StringUtil;
 import org.json.JSONObject;
 
 
-;
 
 /**
  * 开发者：dujiande
@@ -39,6 +42,7 @@ public class LoginActivity extends BaseActivity {
 
     private EditText mInputPhone;
     private TextView registerTv;
+    private RelativeLayout contentRlt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,15 +67,44 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         mInputPhone     = (EditText)    findViewById(R.id.inputEt);
         registerTv      = (TextView)    findViewById(R.id.register_tv);
-        registerTv.setVisibility(View.INVISIBLE);
+        registerTv.setVisibility(View.GONE);
         registerTv.setText("立即申请");
+        contentRlt = (RelativeLayout)findViewById(R.id.content_rlt);
     }
 
     private void initData() {
 
     }
 
+    private void moveUp(){
+        ViewHelper.setTranslationY(contentRlt,0);
+        int offsetY = DisplayUtil.dip2px(this,100);
+        long time = 300;
+        ViewPropertyAnimator.animate(contentRlt).translationYBy(-offsetY).setDuration(time);
+    }
+
+    private void moveDown(){
+        int offsetY = DisplayUtil.dip2px(this,100);
+        long time = 300;
+        ViewHelper.setTranslationY(contentRlt,-offsetY);
+        ViewPropertyAnimator.animate(contentRlt).translationYBy(offsetY).setDuration(time);
+    }
+
     private void initListener() {
+        //添加layout大小发生改变监听器
+        findViewById(R.id.scrollView).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right,
+                                       int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > 0)){
+                    //Toast.makeText(mContext, "监听到软键盘弹起...", Toast.LENGTH_SHORT).show();
+                    moveUp();
+                }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > 0)){
+                    //Toast.makeText(mContext, "监听到软件盘关闭...", Toast.LENGTH_SHORT).show();
+                    moveDown();
+                }
+            }
+        });
 
         //打开配置项
         SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
