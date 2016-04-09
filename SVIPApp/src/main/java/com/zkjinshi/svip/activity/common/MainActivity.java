@@ -359,7 +359,6 @@ public class MainActivity extends BaseFragmentActivity {
         };
         gestureDetector = new GestureDetector(this,gesture);
 
-
     }
 
     public boolean onTouchEvent(MotionEvent event) {
