@@ -92,7 +92,6 @@ public class CheckActivity extends BaseActivity {
     private Button commitBtn;
     private ImageButton backIBtn;
 
-    private SmsReceiver smsReceiver;
     private Context mContext;
     private boolean isLogin;
 
@@ -151,13 +150,6 @@ public class CheckActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-            if(null != smsReceiver){
-                unregisterReceiver(smsReceiver);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -175,15 +167,6 @@ public class CheckActivity extends BaseActivity {
     }
 
     private void initData() {
-        try {
-            IntentFilter filter = new IntentFilter();
-            filter.addAction("android.provider.Telephony.SMS_RECEIVED");
-            filter.setPriority(Integer.MAX_VALUE);
-            smsReceiver = new SmsReceiver();
-            registerReceiver(smsReceiver, filter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         phoneTv.setText(CacheUtil.getInstance().getUserPhone());
         handler.sendEmptyMessage(SEND_SMS_VERIFY);
 
@@ -285,33 +268,6 @@ public class CheckActivity extends BaseActivity {
         }
         return null;
     }
-
-    class  SmsReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Object[] objs = (Object[]) intent.getExtras().get("pdus");
-            for (Object obj : objs) {
-                byte[] pdu = (byte[]) obj;
-                SmsMessage sms = SmsMessage.createFromPdu(pdu);
-                String message = sms.getMessageBody();
-                String from = sms.getOriginatingAddress();
-                if (!TextUtils.isEmpty(from)) {
-                    strContent = from + "   " + message;
-                    if (!TextUtils.isEmpty(from)) {
-                        String code = patternCode(message);
-                        if (!TextUtils.isEmpty(code)) {
-                            strContent = code;
-                            Message receiveMessage = new Message();
-                            receiveMessage.obj = strContent;
-                            receiveMessage.what = SEND_SMS_RECEIVE;
-                            handler.sendMessage(receiveMessage);
-                        }
-                    }
-                }
-            }
-        }
-    };
 
     /**
      * 短信倒数计时器

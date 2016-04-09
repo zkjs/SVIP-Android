@@ -75,7 +75,7 @@ public class ShopFragment extends Fragment {
         initData();
     }
 
-    private void initData(){
+    public void initData(){
         requestShopDetailTask();
     }
 

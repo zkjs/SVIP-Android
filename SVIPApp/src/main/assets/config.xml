@@ -7,5 +7,5 @@
     <!--天炉座(资源服务)-->
     <for-host>p.zkjinshi.com/test/for</for-host>
     <!--图片(资源服务)-->
-    <img-host>cdn.zkjinshi.com</img-host>
+    <img-host>d2.zkjinshi.com</img-host>
 </config>

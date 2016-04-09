@@ -450,6 +450,10 @@ public class MainActivity extends BaseFragmentActivity {
                 if(!TextUtils.isEmpty(action) && action.equals(Constants.UPDATE_LOGO_RECEIVER_ACTION)){
                     //更新商家logo
                     updateShopLogo();
+                    //更新商家详情页面
+                    if(null != shopFragment){
+                        shopFragment.initData();
+                    }
                 }
             }
         }

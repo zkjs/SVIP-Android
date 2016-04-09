@@ -97,6 +97,7 @@
 -keep class com.zkjinshi.svip.activity.**{ *; }
 -keep class com.zkjinshi.svip.view.**{ *; }
 -keep class com.zkjinshi.base.util.**{ *;}
+-keep class com.zkjinshi.svip.response.**{ *; }
 
 #保留扩展控件不被混淆
 -keep class android.support.**{ *; }
