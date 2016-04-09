@@ -85,7 +85,7 @@ public class CheckActivity extends BaseActivity {
 
 
     private int       mSmsVerifyStatus = SMS_UNSEND;//初始状态
-    private int       mSmsCountSeconds = 60*5;//短信倒计时
+    private int       mSmsCountSeconds = 60;//短信倒计时
     private Timer     mTimer;//计数器
     private TimerTask mSmsCountTask;//执行倒计时
 
@@ -128,7 +128,7 @@ public class CheckActivity extends BaseActivity {
                     if(mTimer != null){
                         mTimer.cancel();//停止
                     }
-                    mSmsCountSeconds = 60*5;
+                    mSmsCountSeconds = 60;
                     break;
                 case SEND_SMS_RECEIVE:
                     if(null != mVerifyCodeEt){
