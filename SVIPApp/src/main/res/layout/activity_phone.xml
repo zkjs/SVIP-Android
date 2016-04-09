@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
-
-    <ImageView
-        android:id="@+id/lock_iv"
-        android:layout_width="70dp"
-        android:layout_height="89dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:background="@mipmap/ic_suo"/>
-
-    <RelativeLayout
-        android:id="@+id/inputRlt"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/lock_iv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp">
-
-        <EditText
-            android:id="@+id/inputEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:hint="请输入手机号码"
-            android:inputType="number"
-            android:maxLength="11"
-            android:background="@android:color/transparent"
-            android:paddingBottom="15dp"
-            android:singleLine="true"
-            android:textColor="#ffffff"
-            android:textColorHint="#888888"
-            android:textSize="14sp"
-            android:imeOptions="actionGo"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/orange"
-            android:layout_alignParentBottom="true"/>
-
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/register_tv"
-        android:layout_width="wrap_content"
+    android:background="#000000"
+    android:id="@+id/scrollView">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputRlt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="立即注册"
-        android:textColor="@color/orange"
-        android:textSize="16sp"/>
+        android:orientation="vertical">
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content_rlt"
+            android:background="#000000">
 
-    <Button
-        android:layout_below="@id/register_tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:id="@+id/btn_login"
-        android:layout_width="240dp"
-        android:layout_height="44dp"
-        android:text="开启超级身份"
-        android:textSize="16sp"
-        android:textColor="@color/White"
-        android:background="@drawable/btn_orange_selector"/>
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/lock_iv"
+                android:layout_width="70dp"
+                android:layout_height="89dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="140dp"
+                android:background="@mipmap/ic_suo"/>
+
+            <RelativeLayout
+                android:id="@+id/inputRlt"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/lock_iv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="92dp">
+
+                <EditText
+                    android:id="@+id/inputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:hint="请输入手机号码"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#888888"
+                    android:textSize="14sp"
+                    android:imeOptions="actionGo"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/orange"
+                    android:layout_alignParentBottom="true"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/register_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputRlt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="34dp"
+                android:text="立即注册"
+                android:textColor="@color/orange"
+                android:textSize="16sp"/>
+
+            <Button
+                android:layout_below="@id/register_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:id="@+id/btn_login"
+                android:layout_width="240dp"
+                android:layout_height="44dp"
+                android:text="开启超级身份"
+                android:textSize="16sp"
+                android:textColor="@color/White"
+                android:background="@drawable/btn_orange_selector"/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+
+

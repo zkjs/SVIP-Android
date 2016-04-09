@@ -147,6 +147,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <!--刷脸支付-->
         <activity android:name=".activity.facepay.PayConfirmActivity"
             android:screenOrientation="portrait"

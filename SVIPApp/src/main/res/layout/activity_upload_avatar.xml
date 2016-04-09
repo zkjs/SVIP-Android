@@ -66,7 +66,7 @@
         android:layout_below="@id/inputRlt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:text="有脸部图片才能刷脸支付"
+        android:text="有脸部图片才能免操作支付"
         android:textColor="#ffffff"
         android:textSize="12sp"/>
 
