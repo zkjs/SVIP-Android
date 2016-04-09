@@ -9,7 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="320dp"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/img_shanjia"
+            fresco:placeholderImage="@mipmap/img_shangjia"
             fresco:placeholderImageScaleType="fitXY"
             />
 

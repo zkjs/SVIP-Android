@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.zkjinshi.svip.activity.common.LoginActivity;
-import com.zkjinshi.svip.activity.common.LoginSiActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 
 /**
