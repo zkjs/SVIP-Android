@@ -24,6 +24,7 @@ public class RequestActivity extends BaseActivity{
     private TextView titleTv,contentTv;
     private LinearLayout contentLlt;
     private RelativeLayout mohuRlt;
+    private TextView checkShopListTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class RequestActivity extends BaseActivity{
         contentTv = (TextView)findViewById(R.id.ad_des_tv);
         contentLlt = (LinearLayout)findViewById(R.id.content_llt);
         mohuRlt = (RelativeLayout)findViewById(R.id.mohu_rlt);
+        checkShopListTv = (TextView)findViewById(R.id.request_tv_check_shop_list);
     }
 
     private void initData() {
@@ -52,6 +54,17 @@ public class RequestActivity extends BaseActivity{
     }
 
     private void initListener() {
+
+        checkShopListTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RequestActivity.this,WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/shop/");
+                startActivity(intent);
+                finish();
+            }
+        });
+
         contentLlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
