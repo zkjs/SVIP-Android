@@ -104,7 +104,7 @@ public class UploadInfoActivity extends BaseActivity {
         popupWindow.setBackgroundDrawable(color);
         // 设置好参数之后再show
         int offsetX = DisplayUtil.dip2px(this,200);
-        int offsetY = DisplayUtil.dip2px(this,40);
+        int offsetY = DisplayUtil.dip2px(this,45);
         popupWindow.showAsDropDown(view,-offsetX,-offsetY);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override

@@ -2,28 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="#8f000000"
     android:id="@+id/mohu_rlt">
     <LinearLayout
         android:id="@+id/content_llt"
-        android:layout_width="270dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:background="@drawable/view_white_shape"
-        android:padding="5dp">
+        android:background="@drawable/view_white_shape">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/imageSdv"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="239dp"
+            android:layout_height="140dp"
+            android:layout_alignParentRight="true"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/img_yaoqingyonghu"
+            fresco:placeholderImageScaleType="fitCenter"/>
         <TextView
             android:id="@+id/ad_title_tv"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_width="match_parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="28dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:text="您不是邀请用户"
-            android:gravity="left"
-            android:textColor="#666666"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#101010"
             android:lineSpacingMultiplier="1.5"
             />
 
@@ -31,14 +41,13 @@
             android:id="@+id/ad_des_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_white"
             android:gravity="center"
-            android:textSize="20sp"
-            android:text="立即申请"
-            android:textColor="#ffc56e"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginBottom="20dp"
+            android:textSize="14sp"
+            android:text="如果您是超级身份合作商家的协议客户或VIP会员,请您联系该商家的专属经理提出加入申请。"
+            android:textColor="#666666"
+            android:paddingLeft="38dp"
+            android:paddingRight="38dp"
+            android:layout_marginBottom="40dp"
             android:lineSpacingMultiplier="1.5"/>
 
     </LinearLayout>

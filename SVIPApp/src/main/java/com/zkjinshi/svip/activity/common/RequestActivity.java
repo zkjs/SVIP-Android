@@ -44,14 +44,10 @@ public class RequestActivity extends BaseActivity{
     }
 
     private void initData() {
-//        String titleStr = getIntent().getStringExtra("title");
-//        String contentStr = getIntent().getStringExtra("content");
-//        titleTv.setText(titleStr);
-//        contentTv.setText(contentStr);
-        titleTv.setText("您注册的手机号码无激活权限！\n" +
-                "若需激活，需得到本平台内合作商家的认证推荐！\n" +
-                "如果您是平台内任一合作商家的协议客户或者VIP会员，请您联系您在该商家的专属经理并提出激活申请。");
-        contentTv.setVisibility(View.GONE);
+//        titleTv.setText("您注册的手机号码无激活权限！\n" +
+//                "若需激活，需得到本平台内合作商家的认证推荐！\n" +
+//                "如果您是平台内任一合作商家的协议客户或者VIP会员，请您联系您在该商家的专属经理并提出激活申请。");
+//        contentTv.setVisibility(View.GONE);
 
     }
 
@@ -66,11 +62,11 @@ public class RequestActivity extends BaseActivity{
         contentTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, WebViewActivity.class);
-                intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom,
-                        R.anim.slide_out_top);
+//                Intent intent = new Intent(mContext, WebViewActivity.class);
+//                intent.putExtra("webview_url","http://zkjinshi.com/about_us/use_agree.html");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_bottom,
+//                        R.anim.slide_out_top);
             }
         });
 
