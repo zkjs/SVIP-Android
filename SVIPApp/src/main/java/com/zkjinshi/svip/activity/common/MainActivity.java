@@ -208,6 +208,7 @@ public class MainActivity extends BaseFragmentActivity {
         FragmentManager manager = getSupportFragmentManager();
         shopFragment = new ShopFragment();
         manager.beginTransaction().add(R.id.contentView, shopFragment).commit();
+
     }
 
     private void initData() {
@@ -334,19 +335,21 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void flingLeft() {
                 if(!shopFragment.isVisiable){
-                   // View view = getWindow().getDecorView();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("text", "这是商家页面自己看着办");
-                    shopFragment.show(rootRlt,bundle);
+                    shopFragment.show(rootRlt);
                 }
+                //Toast.makeText(MainActivity.this,"main flingLeft",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void flingRight() {
-
+//                if(shopFragment.isVisiable){
+//                    shopFragment.hideAction();
+//                }
+//                Toast.makeText(MainActivity.this,"main flingRight",Toast.LENGTH_SHORT).show();
             }
         };
         gestureDetector = new GestureDetector(this,gesture);
+
 
     }
 

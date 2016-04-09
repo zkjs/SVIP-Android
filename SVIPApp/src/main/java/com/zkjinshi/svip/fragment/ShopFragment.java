@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -94,7 +95,7 @@ public class ShopFragment extends Fragment {
         descListView.setFlingCallback(new FlingCallback() {
             @Override
             public void flingLeft() {
-
+                //Toast.makeText(getActivity(),"fragment flingLeft",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -102,13 +103,13 @@ public class ShopFragment extends Fragment {
                 if(isVisiable){
                     hideAction();
                 }
+               // Toast.makeText(getActivity(),"fragment flingLeft",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void show(final View view,Bundle bundle){
+    public void show(final View view){
         this.homeView = view;
-        String text = bundle.getString("text");
         final float rotation = 90;
         final long duration = 400;
         ViewHelper.setRotationY(view, 0);
@@ -134,29 +135,11 @@ public class ShopFragment extends Fragment {
         })
         .setInterpolator(new AccelerateInterpolator());
 
-        root.setClickable(true);
-        root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {}
-        });
-
     }
 
 
 
     public void hideAction(){
-        root.setClickable(false);
-        root.setEnabled(false);
-//        ViewPropertyAnimator.animate(root)
-//                .rotationY(90).setDuration(300)
-//                .setListener(new AnimatorListenerAdapter(){
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        root.clearAnimation();
-//                        root.setVisibility(View.INVISIBLE);
-//                        isVisiable = false;
-//                    }
-//                });
         final float rotation = -90;
         final long duration = 400;
         ViewHelper.setRotationY(root, 0);
@@ -166,7 +149,7 @@ public class ShopFragment extends Fragment {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 root.clearAnimation();
-                root.setVisibility(View.INVISIBLE);
+                root.setVisibility(View.GONE);
                 homeView.setVisibility(View.VISIBLE);
                 isVisiable = false;
                 ViewHelper.setRotationY(homeView, rotation);

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@mipmap/img_bg"
-    android:visibility="invisible">
+    android:visibility="gone">
 
     <com.zkjinshi.svip.view.GestureListView
         android:id="@+id/shop_desc_list_view"

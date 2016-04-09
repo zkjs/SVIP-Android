@@ -60,15 +60,17 @@ public class Gesture implements GestureDetector.OnGestureListener {
                 if(flingCallback != null){
                     flingCallback.flingLeft();
                 }
+                return false;
             }
             //右滑动
             else if (e2.getX() - e1.getX()>50 && y < 80) {
                 if(flingCallback != null){
                     flingCallback.flingRight();
                 }
+                return false;
             }
         }
 
-        return true;
+        return false;
     }
 }
