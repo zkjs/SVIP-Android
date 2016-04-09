@@ -88,6 +88,7 @@ public class ShopFragment extends Fragment {
         telephoneTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_telephone);
         descListView = (GestureListView)root.findViewById(R.id.shop_desc_list_view);
         shopAdapter = new ShopAdapter(getActivity(),shopModeList);
+        shopAdapter.shopFragment = this;
         descListView.addHeaderView(shopHeadLayout);
         descListView.setAdapter(shopAdapter);
 

@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.preview.ScanImagesActivity;
+import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.vo.ShopModeVo;
 import com.zkjinshi.svip.vo.ShopVo;
 
@@ -32,11 +35,18 @@ public class ShopAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<ShopModeVo> shopModeList;
+    private GestureDetector detector;
+    FlingListeber listener;
+    private ShopModeVo clickItem = null;
+
+   public ShopFragment shopFragment = null;
 
     public ShopAdapter(Context context,ArrayList<ShopModeVo> shopModeList){
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.setShopModeList(shopModeList);
+        listener = new FlingListeber();
+        detector = new GestureDetector(listener);
     }
 
     public void setShopModeList(ArrayList<ShopModeVo> shopModeList) {
@@ -76,7 +86,7 @@ public class ShopAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ShopModeVo shopModeVo = shopModeList.get(position);
+        final ShopModeVo shopModeVo = shopModeList.get(position);
         final String title = shopModeVo.getTitle();
         if(!TextUtils.isEmpty(title)){
             viewHolder.titleTv.setText(title);
@@ -96,16 +106,11 @@ public class ShopAdapter extends BaseAdapter {
             Uri photoUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+photoList.get(0));
             viewHolder.logoIv.setImageURI(photoUri);
             viewHolder.logoIv.setVisibility(View.VISIBLE);
-            viewHolder.logoIv.setOnClickListener(new View.OnClickListener() {
+            viewHolder.logoIv.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent it = new Intent(context,
-                            ScanImagesActivity.class);
-                    it.putStringArrayListExtra(
-                            ScanImagesActivity.EXTRA_IMAGE_URLS, photoList);
-                    it.putExtra(ScanImagesActivity.EXTRA_IMAGE_INDEX,
-                            0);
-                    context.startActivity(it);
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    clickItem = shopModeVo;
+                    return detector.onTouchEvent(motionEvent);
                 }
             });
         }else {
@@ -118,5 +123,66 @@ public class ShopAdapter extends BaseAdapter {
     class ViewHolder{
         TextView titleTv,contentTv;
         SimpleDraweeView logoIv;
+    }
+
+    class FlingListeber implements GestureDetector.OnGestureListener{
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+
+            return false;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+            if(e2.getX()-e1.getX()>20){
+               // Toast.makeText(context, "左滑", Toast.LENGTH_SHORT).show();
+                if(shopFragment != null){
+                    shopFragment.hideAction();
+                }
+
+            }else if(e1.getX()-e2.getX()>20){
+                //Toast.makeText(context, "右滑", Toast.LENGTH_SHORT).show();
+
+            }
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+
+
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                                float distanceX, float distanceY) {
+
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            if(clickItem == null){
+                return false;
+            }
+            ArrayList<String> photoList = clickItem.getPhotos();
+            Intent it = new Intent(context,
+                    ScanImagesActivity.class);
+            it.putStringArrayListExtra(
+                    ScanImagesActivity.EXTRA_IMAGE_URLS, photoList);
+            it.putExtra(ScanImagesActivity.EXTRA_IMAGE_INDEX,
+                    0);
+            context.startActivity(it);
+            return false;
+        }
+
     }
 }
