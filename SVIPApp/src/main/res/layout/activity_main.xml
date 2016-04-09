@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"
                 fresco:roundAsCircle="true"
                 fresco:roundingBorderWidth="1dp"
-
+                fresco:roundingBorderColor="@color/orange"
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 fresco:placeholderImageScaleType="centerCrop"/>
@@ -93,22 +93,22 @@
         </RelativeLayout>
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/wallet_sdv"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="67dp"
-            android:layout_marginRight="34dp"
-            fresco:actualImageScaleType="centerCrop"
+            android:layout_marginRight="25dp"
+            fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@drawable/btn_wallet_selector"
-            fresco:placeholderImageScaleType="centerCrop"/>
+            fresco:placeholderImageScaleType="centerInside"/>
         <RelativeLayout
             android:id="@+id/paopao_rlt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/wallet_sdv"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginRight="8dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
