@@ -191,6 +191,7 @@ public class MainActivity extends BaseFragmentActivity {
         if(null != mShowIBeaconPushMsgReceiver){
             unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
+
     }
 
     public void onBackPressed(){
