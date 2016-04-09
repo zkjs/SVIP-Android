@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_layout_shop_detail"
     android:visibility="gone">
 
     <com.zkjinshi.svip.view.GestureListView
-        android:background="@mipmap/img_bg"
         android:id="@+id/shop_desc_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
