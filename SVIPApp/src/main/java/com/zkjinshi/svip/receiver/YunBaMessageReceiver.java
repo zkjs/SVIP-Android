@@ -11,6 +11,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.ActivityManagerHelper;
+import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
@@ -34,8 +35,6 @@ import io.yunba.android.manager.YunBaManager;
 public class YunBaMessageReceiver extends BroadcastReceiver {
 
     public static final String TAG = YunBaMessageReceiver.class.getSimpleName();
-
-    private boolean isScreenOff;//是否锁屏
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
@@ -94,6 +93,11 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         String shopLogo = otherShopVo.getLogo();
                         if(!TextUtils.isEmpty(shopLogo)){
                             CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"_"+CacheUtil.getInstance().getBestFitPixel()+"x.png");
+                        }
+                        String expiryTimeStr = otherShopVo.getValidthru();
+                        if(!TextUtils.isEmpty(expiryTimeStr)){
+                            long expiryTime = TimeUtil.timeStrToTimeStamp(expiryTimeStr);
+                            CacheUtil.getInstance().saveExpiryLogoTime(expiryTime);
                         }
                         Intent updateIntent = new Intent();
                         updateIntent.setAction(Constants.UPDATE_LOGO_RECEIVER_ACTION);

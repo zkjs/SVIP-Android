@@ -785,36 +785,37 @@ public class CacheUtil {
 	 * 保存更新首页logo时间戳
 	 *
 	 */
-	public void saveUpdateLogoTime(long currentTimeMillis){
+	public void saveExpiryLogoTime(long currentTimeMillis){
 		if (null == context) {
 			return;
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		sp.edit().putLong("update_logo_time", currentTimeMillis).commit();
+		sp.edit().putLong("expiry_logo_time", currentTimeMillis).commit();
 	}
 
 	/**
 	 * 获取更新首页logo时间戳
 	 * @return
-     */
-	public long getUpdateLogoTime() {
+	 */
+	public long getExpiryLogoTime() {
 		if (null == context) {
 			return 0;
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getLong("update_logo_time",System.currentTimeMillis());
+		return sp.getLong("expiry_logo_time",System.currentTimeMillis());
 	}
+
 
 	/**
 	 * 获取是否更新logo(超过一天则恢复默认)
 	 * @return
      */
 	public boolean isUpdateLogo(){
-		long lastUpdateTime = getUpdateLogoTime();
-		long dayNum = (System.currentTimeMillis() - lastUpdateTime) / (1000 * 60 * 60 * 24);
-		if(dayNum >= 1){
+		long expiryTime = getExpiryLogoTime();
+		long dayNum = System.currentTimeMillis() - expiryTime;
+		if(dayNum >= 0){
 			return true;
 		}
 		return false;

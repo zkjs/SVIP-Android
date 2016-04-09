@@ -24,6 +24,7 @@ public class OtherShopVo implements Serializable {
     private String shopname;
     private String logo;
     private String changetime;
+    private String validthru;
 
     public String getLocid() {
         return locid;
@@ -63,5 +64,13 @@ public class OtherShopVo implements Serializable {
 
     public void setChangetime(String changetime) {
         this.changetime = changetime;
+    }
+
+    public String getValidthru() {
+        return validthru;
+    }
+
+    public void setValidthru(String validthru) {
+        this.validthru = validthru;
     }
 }
