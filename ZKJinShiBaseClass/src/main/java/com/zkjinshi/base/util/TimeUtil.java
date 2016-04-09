@@ -1,6 +1,7 @@
 package com.zkjinshi.base.util;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,6 +124,21 @@ public class TimeUtil {
 		long between_days=(time2-time1)/(1000*3600*24);
 
 		return Integer.parseInt(String.valueOf(between_days));
+	}
+
+	/**
+	 * 标准时间字符串转换为时间戳
+	 */
+	public static long timeStrToTimeStamp(String timeStr){
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date d = sdf.parse(timeStr);
+			long timeStamp = d.getTime();
+			return timeStamp;
+		}catch (Exception e){
+			Log.e("TimeUtil", e.getMessage());
+		}
+		return 0;
 	}
 
 }

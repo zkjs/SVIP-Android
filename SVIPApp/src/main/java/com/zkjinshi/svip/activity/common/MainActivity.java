@@ -437,7 +437,6 @@ public class MainActivity extends BaseFragmentActivity {
         if(!TextUtils.isEmpty(shopLogoUrl)){
             Uri uri =  Uri.parse(shopLogoUrl);
             shopLogoSdv.setImageURI(uri);
-            CacheUtil.getInstance().saveUpdateLogoTime(System.currentTimeMillis());
         }
     }
 
