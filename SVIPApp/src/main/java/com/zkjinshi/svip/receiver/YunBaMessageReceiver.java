@@ -83,7 +83,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         context.sendBroadcast(iBeaconIntent);
                     }
                 }else if("ANOTHER_SHOP".equals(type)){//获取商店信息
-                    LogUtil.getInstance().info(LogLevel.WARN,"获取商家logo:"+data);
+                    LogUtil.getInstance().info(LogLevel.WARN,"获取商家logo:"+msg);
                     OtherShopVo otherShopVo = new Gson().fromJson(data,OtherShopVo.class);
                     if(null != otherShopVo){
                         String shopId = otherShopVo.getShopid();
