@@ -1,95 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
-
-    <ImageButton
-        android:id="@+id/header_bar_btn_back"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:gravity="center_horizontal"
-        android:background="@null"
-        android:clickable="true"
-        android:scaleType="centerInside"
-        android:src="@mipmap/ic_fanhui_orange"
-        android:visibility="visible"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"/>
-
-    <ImageView
-        android:id="@+id/lock_iv"
-        android:layout_width="70dp"
-        android:layout_height="89dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:background="@mipmap/ic_suo"/>
-
-    <TextView
-        android:id="@+id/phone_tv"
-        android:layout_width="wrap_content"
+    android:background="#000000"
+    android:id="@+id/scrollView">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lock_iv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="1511111111"
-        android:textColor="@color/orange"
-        android:textSize="16sp"/>
-
-
-
-    <RelativeLayout
-        android:id="@+id/inputRlt"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/lock_iv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="92dp">
-
-        <EditText
-            android:id="@+id/inputEt"
+        android:orientation="vertical">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="left"
-            android:hint="短信验证码"
-            android:inputType="number"
-            android:maxLength="6"
-            android:background="@android:color/transparent"
-            android:paddingBottom="15dp"
-            android:singleLine="true"
-            android:textColor="#ffffff"
-            android:textColorHint="#888888"
-            android:textSize="14sp"
-            android:imeOptions="actionGo"/>
+            android:layout_height="match_parent"
+            android:id="@+id/content_rlt"
+            android:background="#000000">
 
-        <TextView
-            android:id="@+id/countdown_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:text="60s"
-            android:textColor="@color/orange"
-            android:textSize="14sp"/>
+            <ImageButton
+                android:id="@+id/header_bar_btn_back"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:gravity="center_horizontal"
+                android:background="@null"
+                android:clickable="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_fanhui_orange"
+                android:visibility="visible"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/orange"
-            android:layout_alignParentBottom="true"/>
+            <ImageView
+                android:id="@+id/lock_iv"
+                android:layout_width="70dp"
+                android:layout_height="89dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="140dp"
+                android:background="@mipmap/ic_suo"/>
+
+            <TextView
+                android:id="@+id/phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lock_iv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:text="1511111111"
+                android:textColor="@color/orange"
+                android:textSize="16sp"/>
 
 
-    </RelativeLayout>
 
-    <Button
-        android:layout_below="@id/inputRlt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:id="@+id/btn_login"
-        android:layout_width="240dp"
-        android:layout_height="44dp"
-        android:text="确认"
-        android:textSize="16sp"
-        android:textColor="@color/White"
-        android:background="@drawable/btn_orange_selector"/>
-</RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/inputRlt"
+                android:layout_width="240dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/lock_iv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="92dp">
+
+                <EditText
+                    android:id="@+id/inputEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="left"
+                    android:hint="短信验证码"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#888888"
+                    android:textSize="14sp"
+                    android:imeOptions="actionGo"/>
+
+                <TextView
+                    android:id="@+id/countdown_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:text="60s"
+                    android:textColor="@color/orange"
+                    android:textSize="14sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/orange"
+                    android:layout_alignParentBottom="true"/>
+
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_below="@id/inputRlt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:id="@+id/btn_login"
+                android:layout_width="240dp"
+                android:layout_height="44dp"
+                android:text="确认"
+                android:textSize="16sp"
+                android:textColor="@color/White"
+                android:background="@drawable/btn_orange_selector"/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+
