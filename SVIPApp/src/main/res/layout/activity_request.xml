@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="您不是邀请用户"
+            android:text="对不起，您还不是被邀请用户"
             android:layout_gravity="center_horizontal"
             android:textColor="#101010"
             android:lineSpacingMultiplier="1.5"
@@ -43,12 +43,24 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="14sp"
-            android:text="如果您是超级身份合作商家的协议客户或VIP会员,请您联系该商家的专属经理提出加入申请。"
+            android:text="如果您是超级身份合作商家的协议客户或VIP会员,请您联系该商家的专属经理提出申请。"
             android:textColor="#666666"
             android:paddingLeft="38dp"
             android:paddingRight="38dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:lineSpacingMultiplier="1.5"/>
+
+        <TextView
+            android:id="@+id/request_tv_check_shop_list"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:textSize="16sp"
+            android:clickable="true"
+            android:textColor="@color/orange"
+            android:layout_height="wrap_content"
+            android:text="查看商家列表"/>
 
     </LinearLayout>
 </RelativeLayout>
