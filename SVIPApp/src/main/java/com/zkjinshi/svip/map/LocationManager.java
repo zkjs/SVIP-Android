@@ -13,6 +13,8 @@ import com.amap.api.location.AMapLocationListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
+import com.zkjinshi.base.util.NetWorkUtil;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.wifi.PyxWifiManager;
 import com.zkjinshi.svip.manager.SSOManager;
@@ -24,6 +26,8 @@ import com.zkjinshi.svip.net.NetResponse;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.DistanceUtil;
+import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
@@ -48,6 +52,7 @@ public class LocationManager{
     public static final String TAG = LocationManager.class.getSimpleName();
 
     private static final long LOCATION_PERIOD_TIME = 1000 * 30;  //单位毫秒
+    private static final long DISTANCE_FILTER = 200;   //单位米
 
     private LocationManager (){}
     private static LocationManager instance;
@@ -66,12 +71,21 @@ public class LocationManager{
         public void onLocationChanged(AMapLocation aMapLocation) {
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
-                    mAMapLocation = aMapLocation;
-                    //aMapLocation.getLatitude();//获取纬度
-                    //aMapLocation.getLongitude();//获取经度
                     Log.i("LocationManager",aMapLocation.toString());
-                    //pushGps(aMapLocation);
-                    lbsLocGps(aMapLocation);
+                    if(mAMapLocation == null){
+                        lbsLocGps(aMapLocation);
+                    }else{
+                        double lat1 = mAMapLocation.getLatitude();
+                        double lon1 = mAMapLocation.getLongitude();
+                        double lat2 = aMapLocation.getLatitude();
+                        double lon2 = aMapLocation.getLongitude();
+                        double distance = DistanceUtil.getDistance(lat1,lon1,lat2,lon2);
+                        if(distance >= DISTANCE_FILTER){
+                            lbsLocGps(aMapLocation);
+                        }
+                    }
+                    mAMapLocation = aMapLocation;
+
 
                 } else {
                     //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -86,6 +100,9 @@ public class LocationManager{
 
     private void lbsLocGps(AMapLocation aMapLocation) {
         try {
+            if(!NetWorkUtil.isNetworkConnected(context)){
+                return;
+            }
             if(!CacheUtil.getInstance().isLogin()){
                 return;
             }

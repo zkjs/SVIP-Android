@@ -36,6 +36,8 @@ import java.io.InputStream;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
+
 import io.yunba.android.manager.YunBaManager;
 
 /**
@@ -48,6 +50,7 @@ import io.yunba.android.manager.YunBaManager;
 public class SVIPApplication extends BaseApplication {
 
     public static final String TAG = SVIPApplication.class.getSimpleName();
+    private BackgroundPowerSaver backgroundPowerSaver;
 
     @Override
     public void onCreate() {
@@ -61,6 +64,7 @@ public class SVIPApplication extends BaseApplication {
         initImageLoader();
         LocationManager.getInstance().init(this);
         BlueToothManager.getInstance().init(this);
+        //backgroundPowerSaver = new BackgroundPowerSaver(this);
         Fresco.initialize(this);
     }
 

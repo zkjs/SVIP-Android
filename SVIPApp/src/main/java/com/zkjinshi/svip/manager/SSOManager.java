@@ -78,7 +78,7 @@ public class SSOManager {
             }
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.getTokenRefreshUrl();
+            final String url = ProtocolUtil.getTokenRefreshUrl();
             client.put(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 public void onStart(){
                     //DialogUtil.getInstance().showAvatarProgressDialog(context,"");
@@ -116,7 +116,7 @@ public class SSOManager {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     //Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    AsyncHttpClientUtil.onFailure( context,statusCode);
+                    AsyncHttpClientUtil.onFailure( context,statusCode,url);
                 }
             });
         }catch (Exception e){

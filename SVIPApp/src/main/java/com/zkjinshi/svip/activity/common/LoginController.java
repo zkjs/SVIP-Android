@@ -77,7 +77,7 @@ public class LoginController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("userids",userids);
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.querySiAll();
+            final String url = ProtocolUtil.querySiAll();
             client.get(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 public void onStart(){
                     DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
@@ -126,7 +126,7 @@ public class LoginController {
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
                     //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
+                    AsyncHttpClientUtil.onFailure(mContext,statusCode,url);
                 }
             });
 

@@ -30,6 +30,7 @@ public class IBeaconContext {
     }
     private ConcurrentHashMap<String,NetBeaconVo> netBeanconMap = new ConcurrentHashMap<String,NetBeaconVo>();
     private ConcurrentHashMap<String,IBeaconVo> iBeanconMap = new ConcurrentHashMap<String,IBeaconVo>();
+    private ConcurrentHashMap<String,BeaconExtInfo> extInfoMap = new ConcurrentHashMap<String,BeaconExtInfo>();
 
     public ConcurrentHashMap<String, NetBeaconVo> getNetBeaconMap() {
         if(netBeanconMap == null){
@@ -43,6 +44,13 @@ public class IBeaconContext {
             iBeanconMap = new ConcurrentHashMap<String,IBeaconVo>();
         }
         return iBeanconMap;
+    }
+
+    public ConcurrentHashMap<String, BeaconExtInfo> getExtInfoMap() {
+        if(extInfoMap == null){
+            extInfoMap = new ConcurrentHashMap<String,BeaconExtInfo>();
+        }
+        return extInfoMap;
     }
 
     public void clearIBeaconMap(){

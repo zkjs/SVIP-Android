@@ -1,6 +1,8 @@
 package com.zkjinshi.pyxis.bluetooth;
 
 
+import org.altbeacon.beacon.Region;
+
 /**
  * 开发者：杜健德
  * 日期：2016/01/21
@@ -23,5 +25,7 @@ public interface IBeaconObserver {
 
 
     public void sacnBeacon(IBeaconVo iBeaconVo);
+
+    public void exitRegion(Region region);
 
 }

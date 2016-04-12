@@ -1,5 +1,7 @@
 package com.zkjinshi.pyxis.bluetooth;
 
+import org.altbeacon.beacon.Region;
+
 import java.util.Vector;
 
 /**
@@ -70,6 +72,17 @@ public class IBeaconSubject {
                 if(null != iBeaconVo) {
                     observer.outRegin(iBeaconVo);
                 }
+            }
+        }
+    }
+
+    /**
+     * 离开区域通知所有观察着
+     */
+    public void notifyObserversExitRegion(Region region){
+        if(null != obsVector && !obsVector.isEmpty()){
+            for (IBeaconObserver observer : obsVector) {
+                observer.exitRegion(region);
             }
         }
     }

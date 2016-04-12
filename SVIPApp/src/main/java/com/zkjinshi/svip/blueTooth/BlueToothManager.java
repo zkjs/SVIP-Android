@@ -10,9 +10,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
+import com.zkjinshi.base.util.NetWorkUtil;
+import com.zkjinshi.pyxis.bluetooth.BeaconExtInfo;
 import com.zkjinshi.pyxis.bluetooth.IBeaconContext;
 import com.zkjinshi.pyxis.bluetooth.IBeaconController;
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
@@ -30,13 +33,16 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
+import org.altbeacon.beacon.Region;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.util.NetUtils;
 
 /**
  * 蓝牙管理器
@@ -103,11 +109,31 @@ public class BlueToothManager {
         public void sacnBeacon(IBeaconVo iBeaconVo){
             //Log.d(TAG,"扫描到："+iBeaconVo.getName()+" 距离："+iBeaconVo.getDistance());
             //LogUtil.getInstance().info(LogLevel.RECORD,"扫描到："+iBeaconVo.getName()+" 距离："+iBeaconVo.getDistance());
+//            if(iBeaconVo.getMajor() == 1000){
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+iBeaconVo.getDistance());
+//            }
+        }
+
+        public void exitRegion(Region region){
+//            if(region == null){
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region == null");
+//            }else{
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getBluetoothAddress="+region.getBluetoothAddress());
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getId1="+region.getId1());
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getId2="+region.getId2());
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getId3="+region.getId3());
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getUniqueId="+region.getUniqueId());
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region.getIdentifier(0)="+region.getIdentifier(0));
+//                LogUtil.getInstance().info(LogLevel.DEBUG,"region="+region.toString());
+//            }
         }
     };
 
     public void lbsLocBeaconRequest(final IBeaconVo iBeaconVo){
         try {
+            if(!NetWorkUtil.isNetworkConnected(context)){
+                return;
+            }
             if(!CacheUtil.getInstance().isLogin()){
                 return;
             }
@@ -133,28 +159,37 @@ public class BlueToothManager {
             jsonObject.put("token", CacheUtil.getInstance().getExtToken());
             jsonObject.put("timestamp", iBeaconVo.getTimestamp());
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            client.put(context,url, stringEntity, "application/json", new JsonHttpResponseHandler(){
+            client.put(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    Log.d(TAG,response.toString());
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    //Log.d(TAG,response.toString());
                     LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+iBeaconVo.getDistance()+"蓝牙推送成功"+iBeaconVo.getMajor());
                     BleStatDBUtil.getInstance().updateTotalCount();
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e){
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败"+iBeaconVo.getMajor());
-                    BleLogManager.getInstance().collectBleLog(context,throwable.getMessage());
-                    //AsyncHttpClientUtil.onFailure(context,statusCode);
-                }
+                    BleLogManager.getInstance().collectBleLog(context,e.getMessage());
+                    BeaconExtInfo beaconExtInfo = IBeaconContext.getInstance().getExtInfoMap().get(iBeaconVo.getBeaconKey());
+                    if(beaconExtInfo != null){
+                        int failCount = beaconExtInfo.getFailCount();
+                        beaconExtInfo.setSendTimestamp(-1);
+                        beaconExtInfo.setFailCount(failCount+1);
+                        IBeaconContext.getInstance().getExtInfoMap().put(iBeaconVo.getBeaconKey(),beaconExtInfo);
+                        IBeaconContext.getInstance().getiBeaconMap().remove(iBeaconVo.getBeaconKey());
 
+                        LogUtil.getInstance().info(LogLevel.DEBUG,iBeaconVo.getMajor()+"蓝牙推送重连"+ beaconExtInfo.getFailCount()+"次" );
+                        BleStatManager.getInstance().updateRetryCount();
+                        BleStatDBUtil.getInstance().updateTotalCount();
+
+                    }
+
+                }
 
                 @Override
                 public void onRetry(int retryNo) {
                     Log.d(TAG,"retryNo:"+retryNo);
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送重连"+ retryNo );
-                    BleStatManager.getInstance().updateRetryCount();
-                    BleStatDBUtil.getInstance().updateTotalCount();
 
                 }
             });
