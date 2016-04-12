@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.zkjinshi.base.config.ConfigActivity;
+import com.zkjinshi.base.util.ActivityManagerHelper;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -112,9 +113,11 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onShake() {
-                Intent intent = new Intent(LoginActivity.this, ConfigActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                if(!ActivityManagerHelper.isRunningBackground(LoginActivity.this)) {
+                    Intent intent = new Intent(LoginActivity.this, ConfigActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                }
             }
         });
 
