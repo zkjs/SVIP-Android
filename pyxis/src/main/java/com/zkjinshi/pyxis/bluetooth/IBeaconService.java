@@ -201,8 +201,8 @@ public class IBeaconService extends Service implements BeaconConsumer {
                 BeaconExtInfo beaconExtInfo =  IBeaconContext.getInstance().getExtInfoMap().get(ibeacon.getBeaconKey());
                 long curentTime = System.currentTimeMillis();
                 long timeOffset = curentTime - beaconExtInfo.getSendTimestamp();
-                //重发
-                if(beaconExtInfo.getSendTimestamp() == -1){
+
+                if(beaconExtInfo.getSendTimestamp() == -1){//上次发送失败，重发
                     beaconExtInfo.setSendTimestamp(curentTime);
                     // 更新beacon信息
                     IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
@@ -212,9 +212,10 @@ public class IBeaconService extends Service implements BeaconConsumer {
                     IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
                 }else if(timeOffset >= 1000* 5){ //至少要间隔的发送时间
                     beaconExtInfo.setSendTimestamp(curentTime);
+                    // 更新beacon信息
                     IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-
-                    IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+                    // 更新beacon 额外信息
+                    IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
                     IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
                     monitoringBeacon(ibeacon);
                 }
@@ -224,15 +225,17 @@ public class IBeaconService extends Service implements BeaconConsumer {
                 BeaconExtInfo beaconExtInfo = new BeaconExtInfo();
                 beaconExtInfo.setKey(ibeacon.getBeaconKey());
                 beaconExtInfo.setSendTimestamp(System.currentTimeMillis());
-                IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
-
+                // 更新beacon信息
                 IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+                // 更新beacon 额外信息
+                IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
                 IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
                 monitoringBeacon(ibeacon);
             }
 
 
         }else{
+            // 更新beacon信息
             IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
         }
 
