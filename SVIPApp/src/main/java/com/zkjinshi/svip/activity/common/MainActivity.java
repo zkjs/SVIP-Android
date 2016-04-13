@@ -72,6 +72,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 import com.blueware.agent.android.BlueWare;
+import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
+import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.view.BeaconMsgDialog;
 import com.zkjinshi.svip.view.FlingCallback;
 import com.zkjinshi.svip.view.Gesture;
@@ -98,7 +100,6 @@ public class MainActivity extends BaseFragmentActivity {
     private ShowMessageReceiver mShowMessageReceiver;
 
     public int clickCount = 0; //单击计数
-    public static Bitmap mScreenBitmap = null;
 
     private ShopFragment shopFragment;
     private GestureDetector gestureDetector;
@@ -116,16 +117,17 @@ public class MainActivity extends BaseFragmentActivity {
         @Override
         public void onReceive(Context ctx, Intent intent) {
             try {
-                YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                View view = getWindow().getDecorView();
-                view.setDrawingCacheEnabled(true);
-                view.buildDrawingCache(true);
-                mScreenBitmap = view.getDrawingCache();
-                Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
-                bIntent.putExtra("data",yunBaMsgVo);
-                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(bIntent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                final YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
+                BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                    @Override
+                    public void onBlurComplete() {
+                        Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                        bIntent.putExtra("data",yunBaMsgVo);
+                        bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(bIntent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                    }
+                });
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
@@ -292,7 +294,8 @@ public class MainActivity extends BaseFragmentActivity {
                 intent.putExtra("status","0");
                 startActivity(intent);
                 hidePayMsgTips();
-                MainActivity.showMsgAnimation = false;
+                MainActivity.showMsgAnimation = false;               
+
             }
         });
 
