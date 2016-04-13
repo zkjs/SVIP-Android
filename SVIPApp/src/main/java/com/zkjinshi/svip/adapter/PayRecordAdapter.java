@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
 
-import com.zkjinshi.svip.activity.facepay.PayActivity;
-import com.zkjinshi.svip.activity.facepay.PayDetailActivity;
 import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 

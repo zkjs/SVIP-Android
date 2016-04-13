@@ -114,10 +114,6 @@ public class PayConfirmActivity extends BaseActivity {
                     Intent intent = new Intent(mContext, PayActivity.class);
                     intent.putExtra("amountStatusVo",payRecordDataVo);
                     startActivity(intent);
-                }else{
-                    Intent intent = new Intent(mContext,PayDetailActivity.class);
-                    intent.putExtra("payRecordDataVo",payRecordDataVo);
-                    startActivity(intent);
                 }
 
             }

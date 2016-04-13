@@ -79,11 +79,6 @@ public class UploadInfoActivity extends BaseActivity {
         findViewById(R.id.info_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext,AlertActivity.class);
-//                intent.putExtra("title","温馨提示");
-//                intent.putExtra("content","在用户注册及使用本服务时，超级身份开发中心需要搜集能识别用户身份的个人信息以便为用户提供更好的使用体验。超级身份开发中心搜集的信息包括但不限于用户的姓名、头像；超级身份开发中心同意对这些信息的使用将受限于第三条用户个人隐私信息保护的约束。");
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                 showPopupWindow(view);
 
             }
