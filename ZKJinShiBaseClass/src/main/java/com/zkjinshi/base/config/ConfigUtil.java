@@ -68,9 +68,6 @@ public class ConfigUtil {
      * @return FrameworkConfig
      */
     public static ConfigUtil getInst() {
-        if (configUtil == null) {
-            configUtil = new ConfigUtil(null, -1);
-        }
         return configUtil;
     }
 
