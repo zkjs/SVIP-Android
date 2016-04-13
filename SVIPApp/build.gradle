@@ -8,8 +8,8 @@ android {
         applicationId "com.zkjinshi.svip"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 8
-        versionName "1.14.7"
+        versionCode 9
+        versionName "1.14.8"
         multiDexEnabled true
     }
 
@@ -18,6 +18,19 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    productFlavors {
+
+        QQ {}
+        huawei {}
+        xiaomi {}
+        wandoujia {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
     }
 
     testOptions {
