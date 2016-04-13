@@ -60,7 +60,7 @@ public class BlueToothManager {
     private static BlueToothManager instance;
     private Context context;
 
-    public static AsyncHttpClient client = new AsyncHttpClient();
+    public final static AsyncHttpClient client = new AsyncHttpClient();
 
     /**
      * 打开蓝牙
