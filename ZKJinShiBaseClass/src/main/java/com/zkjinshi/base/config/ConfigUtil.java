@@ -30,6 +30,8 @@ public class ConfigUtil {
     private static ConfigUtil configUtil;
     private Map<String, String> configValue = new HashMap<String, String>();
 
+    private ConfigUtil(){}
+
     /**
      * 根据context和xml配置文件构造FrameworkConfig对象
      *
@@ -68,6 +70,9 @@ public class ConfigUtil {
      * @return FrameworkConfig
      */
     public static ConfigUtil getInst() {
+        if (configUtil == null) {
+            configUtil = new ConfigUtil();
+        }
         return configUtil;
     }
 
