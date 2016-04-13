@@ -185,6 +185,14 @@
             android:name="YUNBA_APPKEY"
             android:value="56f0e58a4407a3cd028ad5de" />
 
+        <!--友盟统计-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55c314f567e58e0ef5004d19"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
         <!--高德定位-->
         <service android:name="com.amap.api.location.APSService"/>
         <!--pyxis sdk-->

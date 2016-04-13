@@ -29,6 +29,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.google.code.gson:gson:2.3.1'
@@ -39,4 +40,10 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.facebook.fresco:fresco:0.9.0'
     compile project(':library.AESJni')
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
