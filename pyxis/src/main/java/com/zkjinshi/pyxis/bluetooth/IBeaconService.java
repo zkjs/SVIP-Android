@@ -202,7 +202,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
                 long curentTime = System.currentTimeMillis();
                 long timeOffset = curentTime - beaconExtInfo.getSendTimestamp();
                 //重发
-                if(beaconExtInfo.getSendTimestamp() == -1 && beaconExtInfo.getFailCount() <= 3){
+                if(beaconExtInfo.getSendTimestamp() == -1){
                     beaconExtInfo.setSendTimestamp(curentTime);
                     // 更新beacon信息
                     IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);

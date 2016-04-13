@@ -172,7 +172,7 @@ public class BlueToothManager {
                     LogUtil.getInstance().info(LogLevel.DEBUG,"蓝牙推送失败"+iBeaconVo.getMajor());
                     BleLogManager.getInstance().collectBleLog(context,e.getMessage());
                     BeaconExtInfo beaconExtInfo = IBeaconContext.getInstance().getExtInfoMap().get(iBeaconVo.getBeaconKey());
-                    if(beaconExtInfo != null){
+                    if(beaconExtInfo != null && beaconExtInfo.getFailCount() < 3){
                         int failCount = beaconExtInfo.getFailCount();
                         beaconExtInfo.setSendTimestamp(-1);
                         beaconExtInfo.setFailCount(failCount+1);
