@@ -177,6 +177,13 @@
             </intent-filter>
         </receiver>
 
+        <!-- 开机广播 -->
+        <receiver android:name=".receiver.BootCompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="YUNBA_APPKEY"
             android:value="56f0e58a4407a3cd028ad5de" />
