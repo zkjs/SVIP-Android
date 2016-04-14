@@ -103,7 +103,7 @@ public class CacheUtil {
 	}
 
 	/**
-	 * 获取用户登录状态
+	 * 获取用户是否Guide
 	 * @return
 	 */
 	public boolean isGuide() {
@@ -112,7 +112,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
-		return sp.getBoolean("is_guide", false);
+		return sp.getBoolean("is_guide", true);
 	}
 
 	/**
@@ -126,6 +126,24 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("is_login", false);
+	}
+
+	public void setFirstTime(boolean isFirstTime) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("is_first_time", isFirstTime).commit();
+	}
+
+	public boolean isFirstTime() {
+		if (null == context) {
+			return false;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("is_first_time", true);
 	}
 
 	/**
