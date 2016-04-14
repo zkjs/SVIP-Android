@@ -69,8 +69,7 @@
                     android:singleLine="true"
                     android:textColor="#ffffff"
                     android:textColorHint="#888888"
-                    android:textSize="14sp"
-                    android:imeOptions="actionGo"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/countdown_tv"
