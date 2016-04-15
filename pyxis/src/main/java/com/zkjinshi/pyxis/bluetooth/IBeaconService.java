@@ -218,10 +218,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
 
         }else{
             // 更新beacon信息
-            IBeaconVo olderBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(ibeacon.getBeaconKey());
-            myHandler.removeMessages(DELETE_BEACON_ACTION,olderBeaconVo);
             IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-
         }
 
     }
@@ -244,13 +241,20 @@ public class IBeaconService extends Service implements BeaconConsumer {
             @Override
             public void didEnterRegion(Region region) {
                 Log.i(TAG, "I just saw an beacon for the first time!");
+                if(region != null && region.getId1() != null && region.getId2() != null) {
+                    String uuid = region.getId1().toString();
+                    String major = region.getId2().toString();
+                    String key = uuid + major;
+                    IBeaconVo iBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(key);
+                    myHandler.removeMessages(DELETE_BEACON_ACTION, iBeaconVo);
+                }
             }
 
             @Override
             public void didExitRegion(Region region) {
                 Log.i(TAG, "I no longer see an beacon");
 
-                IBeaconSubject.getInstance().notifyObserversExitRegion(region);
+                //IBeaconSubject.getInstance().notifyObserversExitRegion(region);
 
                 if(region != null && region.getId1() != null && region.getId2() != null){
                     String uuid = region.getId1().toString();
@@ -261,7 +265,6 @@ public class IBeaconService extends Service implements BeaconConsumer {
                     myHandler.removeMessages(DELETE_BEACON_ACTION,iBeaconVo);
                     Message msg = myHandler.obtainMessage(DELETE_BEACON_ACTION,iBeaconVo);
                     myHandler.sendMessageDelayed(msg,DELAY_DELETE_TIEM);
-
 
                 }
             }
