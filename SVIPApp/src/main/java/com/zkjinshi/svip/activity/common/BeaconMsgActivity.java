@@ -67,6 +67,7 @@ public class BeaconMsgActivity extends BaseActivity{
                 .setBackground(this);
     }
 
+
     private void initListener() {
         contentLlt.setOnClickListener(new View.OnClickListener() {
             @Override
