@@ -14,7 +14,7 @@ public class BeaconExtInfo implements Serializable {
     private String key;
 
     private int failCount = 0;
-    private long sendTimestamp = -1;   //发送的时间戳
+    private long sendTimestamp;   //发送的时间戳
 
     public String getKey() {
         return key;
