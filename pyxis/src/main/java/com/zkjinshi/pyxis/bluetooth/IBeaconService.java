@@ -22,10 +22,7 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 import java.util.HashMap;
-
-
-
-
+import java.util.UUID;
 
 
 /**
@@ -44,13 +41,15 @@ public class IBeaconService extends Service implements BeaconConsumer {
     public static IBeaconObserver mIBeaconObserver = null;
     public static int SEND_MIN_PEROID_TIEM = 5*1000;//两次发送至少的间隔时间
     private BeaconManager beaconManager;
+    private long id = 0;
+    public final static String PRE_STRING = "com.zkjinshi.pyxis";
 
     /**
      * 重新调整格式
      */
     public static final String IBEACON_FORMAT = "m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25";
 
-    public static final String[] filterUUID= {"fda50693-a4e2-4fb1-afcf-c6eb0764783","931ddf8e-10e4-11e5-9493-1697f925ec7b"};
+    public static final String[] filterUUID= {"931ddf8e-10e4-11e5-9493-1697f925ec7b","fda50693-a4e2-4fb1-afcf-c6eb07647835"};
 
 
 
@@ -146,7 +145,10 @@ public class IBeaconService extends Service implements BeaconConsumer {
         });
         try {
             for(String uuid : filterUUID){
-                beaconManager.startRangingBeaconsInRegion(new Region(uuid, null, null, null));
+                id++;
+                String uniqueId = PRE_STRING+id;
+                Identifier id1 = Identifier.fromUuid(UUID.fromString(uuid));
+                beaconManager.startRangingBeaconsInRegion(new Region(uniqueId, id1, null, null));
             }
 
         } catch (RemoteException e) {
@@ -159,7 +161,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
             return;
         }
         IBeaconSubject.getInstance().notifyObserversScan(ibeacon);
-        //Log.i(TAG, "I scan "+ibeacon.getMajor());
+        //Log.i(TAG, "I scan "+ibeacon.toString());
         if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
 
             if(IBeaconContext.getInstance().getExtInfoMap().containsKey(ibeacon.getBeaconKey())){
