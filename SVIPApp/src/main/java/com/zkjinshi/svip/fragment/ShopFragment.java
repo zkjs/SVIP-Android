@@ -201,7 +201,7 @@ public class ShopFragment extends Fragment {
      * @param shopVo
      */
     private void setShopDescData(ShopVo shopVo){
-        String shopBgUrl = shopVo.getShoplogo();
+        String shopBgUrl = shopVo.getShopbg();
         if(!TextUtils.isEmpty(shopBgUrl)){
             Uri shopUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+shopBgUrl);
             shopBgIv.setImageURI(shopUri);

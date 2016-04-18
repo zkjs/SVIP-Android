@@ -50,6 +50,7 @@ public class ShopVo implements Serializable{
     private String shopid;
     private String shopname;
     private String shoplogo;
+    private String shopbg;
     private String shopaddress;
     private String shopindustry;
     private int industrycode;
@@ -59,6 +60,14 @@ public class ShopVo implements Serializable{
     private int evaluation;
     private double score;
     private ArrayList<ShopModeVo> shopmods;
+
+    public String getShopbg() {
+        return shopbg;
+    }
+
+    public void setShopbg(String shopbg) {
+        this.shopbg = shopbg;
+    }
 
     public String getShopid() {
         return shopid;
