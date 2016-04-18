@@ -42,7 +42,6 @@ public class IBeaconService extends Service implements BeaconConsumer {
     public Intent intent;
     public HashMap<String, NetBeaconVo> netBeaconMap = null;
     public static IBeaconObserver mIBeaconObserver = null;
-    public static int DELAY_DELETE_TIEM = 5*1000;//延时离开时间
     public static int SEND_MIN_PEROID_TIEM = 5*1000;//两次发送至少的间隔时间
     private BeaconManager beaconManager;
 
@@ -53,26 +52,6 @@ public class IBeaconService extends Service implements BeaconConsumer {
 
     public static final String[] filterUUID= {"fda50693-a4e2-4fb1-afcf-c6eb0764783","931ddf8e-10e4-11e5-9493-1697f925ec7b"};
 
-    public static int DELETE_BEACON_ACTION = 1;
-    private Handler myHandler = new Handler(){
-        public void handleMessage(Message msg){
-            if(msg.what == DELETE_BEACON_ACTION){
-                IBeaconVo ibeaconVo = (IBeaconVo) msg.obj;
-                if(ibeaconVo != null){
-                  try {
-                      String uuid = ibeaconVo.getUuid();
-                      int major = ibeaconVo.getMajor();
-                      Identifier id1 = Identifier.parse(uuid);
-                      Identifier id2 = Identifier.fromInt(major);
-                      beaconManager.stopMonitoringBeaconsInRegion(new Region(ibeaconVo.getBluetoothAddress(), id1, id2, null));
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                    leaveArea(ibeaconVo);
-                }
-            }
-        }
-    };
 
 
 
@@ -82,6 +61,9 @@ public class IBeaconService extends Service implements BeaconConsumer {
         Log.d(TAG,"IBeaconService.onCreate()");
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(IBEACON_FORMAT));
+        beaconManager.setRegionExitPeriod(20*1000);
+        beaconManager.setBackgroundBetweenScanPeriod(10*1000);
+        beaconManager.setBackgroundScanPeriod(3*1000);
         beaconManager.bind(this);
 
     }
@@ -177,6 +159,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
             return;
         }
         IBeaconSubject.getInstance().notifyObserversScan(ibeacon);
+        //Log.i(TAG, "I scan "+ibeacon.getMajor());
         if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
 
             if(IBeaconContext.getInstance().getExtInfoMap().containsKey(ibeacon.getBeaconKey())){
@@ -240,19 +223,13 @@ public class IBeaconService extends Service implements BeaconConsumer {
         beaconManager.setMonitorNotifier(new MonitorNotifier() {
             @Override
             public void didEnterRegion(Region region) {
-                Log.i(TAG, "I just saw an beacon for the first time!");
-                if(region != null && region.getId1() != null && region.getId2() != null) {
-                    String uuid = region.getId1().toString();
-                    String major = region.getId2().toString();
-                    String key = uuid + major;
-                    IBeaconVo iBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(key);
-                    myHandler.removeMessages(DELETE_BEACON_ACTION, iBeaconVo);
-                }
+                Log.i(TAG, "I just saw "+region.getId2());
+
             }
 
             @Override
             public void didExitRegion(Region region) {
-                Log.i(TAG, "I no longer see an beacon");
+                Log.i(TAG, "I no longer see "+region.getId2());
 
                 //IBeaconSubject.getInstance().notifyObserversExitRegion(region);
 
@@ -261,17 +238,13 @@ public class IBeaconService extends Service implements BeaconConsumer {
                     String major = region.getId2().toString();
                     String key = uuid+major;
                     IBeaconVo iBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(key);
-
-                    myHandler.removeMessages(DELETE_BEACON_ACTION,iBeaconVo);
-                    Message msg = myHandler.obtainMessage(DELETE_BEACON_ACTION,iBeaconVo);
-                    myHandler.sendMessageDelayed(msg,DELAY_DELETE_TIEM);
-
+                    leaveArea(iBeaconVo);
                 }
             }
 
             @Override
             public void didDetermineStateForRegion(int state, Region region) {
-                Log.i(TAG, "I have just switched from seeing/not seeing beacons: "+state);
+                //Log.i(TAG, "I have just switched from seeing/not seeing beacons: "+state);
             }
         });
         try {

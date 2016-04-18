@@ -64,7 +64,7 @@ public class SVIPApplication extends BaseApplication {
         initImageLoader();
         LocationManager.getInstance().init(this);
         BlueToothManager.getInstance().init(this);
-        //backgroundPowerSaver = new BackgroundPowerSaver(this);
+        backgroundPowerSaver = new BackgroundPowerSaver(this);
         Fresco.initialize(this);
     }
 
