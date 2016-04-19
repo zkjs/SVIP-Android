@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
@@ -22,19 +23,16 @@ import com.zkjinshi.svip.vo.YunBaMsgVo;
  */
 public class BeaconMsgActivity extends BaseActivity{
 
-    private final static String TAG = BeaconMsgActivity.class.getSimpleName();
-
-    private Context mContext;
     private TextView titleTv,contentTv;
-    private LinearLayout contentLlt;
     private RelativeLayout mohuRlt;
+    private TextView openTv;
+    private LinearLayout openLayout;
+    private SimpleDraweeView logoDv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_msg);
-
-        mContext = this;
         initView();
         initData();
         initListener();
@@ -48,8 +46,10 @@ public class BeaconMsgActivity extends BaseActivity{
     private void initView() {
         titleTv = (TextView)findViewById(R.id.ad_title_tv);
         contentTv = (TextView)findViewById(R.id.ad_des_tv);
-        contentLlt = (LinearLayout)findViewById(R.id.content_llt);
         mohuRlt = (RelativeLayout)findViewById(R.id.mohu_rlt);
+        openTv = (TextView)findViewById(R.id.ad_open_tv);
+        openLayout = (LinearLayout)findViewById(R.id.ad_open_layout);
+        logoDv = (SimpleDraweeView)findViewById(R.id.imageSdv);
     }
 
     private void initData() {
@@ -69,13 +69,6 @@ public class BeaconMsgActivity extends BaseActivity{
 
 
     private void initListener() {
-        contentLlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         mohuRlt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
