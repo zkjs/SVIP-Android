@@ -58,7 +58,7 @@
             android:layout_marginBottom="30dp"
             android:textSize="16sp"
             android:clickable="true"
-            android:textColor="@color/orange"
+            android:textColor="@color/beacon_btn_textcolor"
             android:layout_height="wrap_content"
             android:text="查看商家列表"/>
 
