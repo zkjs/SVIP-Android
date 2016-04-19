@@ -98,7 +98,7 @@ public class UploadAvatarActivity extends BaseActivity {
                 if(TextUtils.isEmpty(picPath)){
                     Toast.makeText(mContext,"请上传身份识别头像",Toast.LENGTH_SHORT).show();
                 }
-                updateUserInfo(CacheUtil.getInstance().getUserName(),"1",picPath);
+                updateUserInfo(CacheUtil.getInstance().getUserName(),"-1",picPath);
             }
         });
 
