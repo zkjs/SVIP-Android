@@ -11,6 +11,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.ActivityManagerHelper;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
@@ -35,6 +36,8 @@ import io.yunba.android.manager.YunBaManager;
 public class YunBaMessageReceiver extends BroadcastReceiver {
 
     public static final String TAG = YunBaMessageReceiver.class.getSimpleName();
+
+    private int width;
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
@@ -83,7 +86,6 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         context.sendBroadcast(iBeaconIntent);
                     }
                 }else if("ANOTHER_SHOP".equals(type)){//获取商店信息
-                    LogUtil.getInstance().info(LogLevel.WARN,"获取商家logo:"+msg);
                     OtherShopVo otherShopVo = new Gson().fromJson(data,OtherShopVo.class);
                     if(null != otherShopVo){
                         String shopId = otherShopVo.getShopid();
@@ -92,7 +94,8 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         }
                         String shopLogo = otherShopVo.getLogo();
                         if(!TextUtils.isEmpty(shopLogo)){
-                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"_"+CacheUtil.getInstance().getBestFitPixel()+"x.png");
+                            width = DisplayUtil.dip2px(context,96);
+                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getImgDomain()+shopLogo+"@"+width+"h.png");
                         }
                         String expiryTimeStr = otherShopVo.getValidthru();
                         if(!TextUtils.isEmpty(expiryTimeStr)){

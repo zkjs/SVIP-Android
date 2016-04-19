@@ -147,22 +147,6 @@ public class MainActivity extends BaseFragmentActivity {
         initListener();
     }
 
-    //初始化最适合的图片分辨率
-    private void initBestFitPixel() {
-        int myPixel = DisplayUtil.getWidthPixel(this);
-        int apiSupportPixels[] = {480,720,1080,1920};
-        int bestFitPixel = 720;
-        int offset = Math.abs(bestFitPixel - myPixel);
-        for(int i=0;i<apiSupportPixels.length;i++){
-            int temp = Math.abs(apiSupportPixels[i] - myPixel);
-            if(temp < offset ){
-                offset = temp;
-                bestFitPixel = apiSupportPixels[i];
-            }
-        }
-        CacheUtil.getInstance().setBestFitPixel(bestFitPixel);
-    }
-
     protected void onResume() {
         super.onResume();
         clickCount = 0;
@@ -228,8 +212,6 @@ public class MainActivity extends BaseFragmentActivity {
         IntentFilter updateIntentFilter = new IntentFilter();
         updateIntentFilter.addAction(Constants.UPDATE_LOGO_RECEIVER_ACTION);
         registerReceiver(updateLogoReceiver,updateIntentFilter);
-        //获取屏幕分辨率
-        initBestFitPixel();
         //设置默认商家logo
         if(CacheUtil.getInstance().isUpdateLogo()){
             Uri uri =  Uri.parse("res://com.zkjinshi.svip/"+R.mipmap.ic_shop_logo);
