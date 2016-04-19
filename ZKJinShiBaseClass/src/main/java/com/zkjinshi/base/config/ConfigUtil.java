@@ -96,7 +96,7 @@ public class ConfigUtil {
      * @return
      */
     public String getPavDomain(){
-        return "http://" + getConfigValue(Constants.PAV_HOST)+ "/";
+        return "https://" + getConfigValue(Constants.PAV_HOST)+ "/";
     }
 
     /**
@@ -104,7 +104,7 @@ public class ConfigUtil {
      * @return
      */
     public String getPyxDomain(){
-        return "http://" + getConfigValue(Constants.PYX_HOST)+ "/";
+        return "https://" + getConfigValue(Constants.PYX_HOST)+ "/";
     }
 
     /**
@@ -112,7 +112,7 @@ public class ConfigUtil {
      * @return
      */
     public String getForDomain(){
-        return "http://" + getConfigValue(Constants.FOR_HOST)+ "/";
+        return "https://" + getConfigValue(Constants.FOR_HOST)+ "/";
     }
 
     /**
@@ -120,7 +120,7 @@ public class ConfigUtil {
      * @return
      */
     public String getImgDomain(){
-        return "http://" + getConfigValue(Constants.IMG_HOST)+ "/";
+        return "https://" + getConfigValue(Constants.IMG_HOST)+ "/";
     }
 
     /**
