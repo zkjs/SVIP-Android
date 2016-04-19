@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zkjinshi="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e3e3e3"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/layout_header"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head_bar_layout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/rl_user_icon_img"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/bg_white"
+                android:clickable="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/icon_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:text="身份识别图"
+                    android:textColor="#101010"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/icon_tv2"
+                    android:layout_toRightOf="@id/icon_tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:text="(每月可修改一次)"
+                    android:textColor="#888888"
+                    android:textSize="12sp" />
+                <!--xmlns:fresco="http://schemas.android.com/apk/res-auto"-->
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/civ_user_icon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderWidth="1dp"
+
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_launcher"
+                    fresco:placeholderImageScaleType="centerCrop"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_user_icon_img"
+                android:orientation="vertical">
+
+
+                <com.zkjinshi.svip.view.ItemShowView
+                    android:id="@+id/ius_real_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:isvTitle="姓名"
+                    zkjinshi:isvValue=""
+                    zkjinshi:isvHint=""
+                    zkjinshi:haveUpLine="true"/>
+
+                <com.zkjinshi.svip.view.ItemShowView
+                    android:id="@+id/ius_user_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:isvTitle="性别"
+                    zkjinshi:isvValue=""
+                    zkjinshi:isvHint="设置"
+                    zkjinshi:haveUpLine="true"/>
+
+                <com.zkjinshi.svip.view.ItemShowView
+                    android:id="@+id/ius_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:isvTitle="邮箱"
+                    zkjinshi:isvValue=""
+                    zkjinshi:isvHint="填写你的邮箱地址"
+                    zkjinshi:haveUpLine="true"/>
+
+                <com.zkjinshi.svip.view.ItemCbxView
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/icv_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:icvTitle="消息推送"
+                    zkjinshi:haveDownLine="true"
+                    zkjinshi:icvValue="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

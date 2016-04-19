@@ -20,6 +20,11 @@ public class Constants {
     //修改完成
     public static final int FLAG_MODIFY_FINISH = 7;
 
+    //修改姓名
+    public static final int FLAG_MODIFY_REAL_NAME = 8;
+    //修改邮箱
+    public static final int FLAG_MODIFY_EMAIL = 11;
+
 
     public static final String SHOW_CONTACT_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_CONTACT_RECEIVER_ACTION";
     public static final String SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_IBEACON_PUSH_MSG_ACTION";

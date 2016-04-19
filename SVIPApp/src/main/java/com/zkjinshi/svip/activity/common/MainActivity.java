@@ -90,7 +90,7 @@ public class MainActivity extends BaseFragmentActivity {
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
     private TextView accountTv,usernameTv,activateTv;
     private RelativeLayout paopaoRlt;
-    private CheckBox switchCbx;
+
     private RelativeLayout rootRlt;
     private UpdateLogoReceiver updateLogoReceiver;
 
@@ -213,7 +213,7 @@ public class MainActivity extends BaseFragmentActivity {
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
         walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
         paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
-        switchCbx = (CheckBox)findViewById(R.id.switch_cbx);
+
         rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
 
         FragmentManager manager = getSupportFragmentManager();
@@ -260,14 +260,25 @@ public class MainActivity extends BaseFragmentActivity {
         filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
 
-        switchCbx.setChecked(true);
+        if(CacheUtil.getInstance().isBLESwitch()){
+            BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+            LocationManager.getInstance().startLocation();
+        }
 
-        BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
-        LocationManager.getInstance().startLocation();
     }
 
 
     private void initListener() {
+
+        //头像
+        avatarCiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,SettingActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         //立即激活
         activateTv.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +295,7 @@ public class MainActivity extends BaseFragmentActivity {
                 Intent intent = new Intent(mContext,PayRecordActivity.class);
                 intent.putExtra("status","2");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -293,6 +305,7 @@ public class MainActivity extends BaseFragmentActivity {
                 Intent intent = new Intent(mContext,PayConfirmActivity.class);
                 intent.putExtra("status","0");
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 hidePayMsgTips();
                 MainActivity.showMsgAnimation = false;               
 
@@ -311,16 +324,7 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
-        switchCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
-                if(isOpen){
-                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
-                }else{
-                    BlueToothManager.getInstance().stopIBeaconService();
-                }
-            }
-        });
+
 
         findViewById(R.id.finish_view).setOnClickListener(new View.OnClickListener() {
             @Override

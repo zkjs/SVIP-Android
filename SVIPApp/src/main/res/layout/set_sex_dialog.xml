@@ -8,22 +8,22 @@
     android:layout_gravity="bottom"
     android:background="@null">
     <Button 
-        android:id="@+id/dialog_btn_take"
+        android:id="@+id/dialog_btn_boy"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/actionsheet_top"
         android:textColor="@drawable/bg_color_take_photo"
         android:textSize="18sp"
-        android:text="拍照" 
+        android:text="男"
 		/>
     <Button 
-        android:id="@+id/dialog_btn_pick"
+        android:id="@+id/dialog_btn_girl"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/actionsheet_bottom"
         android:textColor="@drawable/bg_color_take_photo"
         android:textSize="18sp"
-        android:text="从相册选择" 
+        android:text="女"
 		/>
     <Button 
         android:id="@+id/dialog_btn_cancel"

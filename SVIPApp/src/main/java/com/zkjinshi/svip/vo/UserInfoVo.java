@@ -13,6 +13,24 @@ public class UserInfoVo implements Serializable {
     private int sex;
     private String realname;
     private String viplevel;
+    private String email;
+    private int userstatus;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getUserstatus() {
+        return userstatus;
+    }
+
+    public void setUserstatus(int userstatus) {
+        this.userstatus = userstatus;
+    }
 
     public String getPhone() {
         return phone;
