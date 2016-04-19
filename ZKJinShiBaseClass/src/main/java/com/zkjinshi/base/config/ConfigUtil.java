@@ -120,7 +120,7 @@ public class ConfigUtil {
      * @return
      */
     public String getImgDomain(){
-        return "https://" + getConfigValue(Constants.IMG_HOST)+ "/";
+        return "http://" + getConfigValue(Constants.IMG_HOST)+ "/";
     }
 
     /**
