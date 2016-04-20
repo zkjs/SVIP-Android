@@ -13,30 +13,17 @@ import com.amap.api.location.AMapLocationListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
-import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.base.util.NetWorkUtil;
-import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.wifi.PyxWifiManager;
 import com.zkjinshi.svip.manager.SSOManager;
-import com.zkjinshi.svip.net.ExtNetRequestListener;
-import com.zkjinshi.svip.net.MethodType;
-import com.zkjinshi.svip.net.NetRequest;
-import com.zkjinshi.svip.net.NetRequestTask;
-import com.zkjinshi.svip.net.NetResponse;
-import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.DistanceUtil;
-import com.zkjinshi.svip.utils.MapUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -61,7 +48,8 @@ public class LocationManager{
     private AMapLocationClient mLocationClient = null;
 
     private AMapLocationClientOption mLocationOption = null;
-    private AMapLocation mAMapLocation = null;
+    private AMapLocation lastAMapLocation = null;//最近一次的gps信息
+    private AMapLocation preAMapLocation = null;//上一次发送的位置信息
     private Context context;
     private boolean isRuning = false;
 
@@ -72,19 +60,21 @@ public class LocationManager{
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
                     Log.i("LocationManager",aMapLocation.toString());
-                    if(mAMapLocation == null){
+                    if(preAMapLocation == null){
+                        preAMapLocation = aMapLocation;
                         lbsLocGps(aMapLocation);
                     }else{
-                        double lat1 = mAMapLocation.getLatitude();
-                        double lon1 = mAMapLocation.getLongitude();
+                        double lat1 = preAMapLocation.getLatitude();
+                        double lon1 = preAMapLocation.getLongitude();
                         double lat2 = aMapLocation.getLatitude();
                         double lon2 = aMapLocation.getLongitude();
                         double distance = DistanceUtil.getDistance(lat1,lon1,lat2,lon2);
                         if(distance >= DISTANCE_FILTER){
+                            preAMapLocation = aMapLocation;
                             lbsLocGps(aMapLocation);
                         }
                     }
-                    mAMapLocation = aMapLocation;
+                    lastAMapLocation = aMapLocation;
 
 
                 } else {
@@ -222,14 +212,14 @@ public class LocationManager{
     }
 
     //获取最近的位置信息
-    public AMapLocation getmAMapLocation() {
-        return mAMapLocation;
+    public AMapLocation getLastAMapLocation() {
+        return lastAMapLocation;
     }
 
     //获取当前城市
     public String getCurrentCity(){
         String city = "";
-        AMapLocation aMapLocation = getmAMapLocation();
+        AMapLocation aMapLocation = getLastAMapLocation();
         if(aMapLocation == null){
             city = "长沙";
         }else{

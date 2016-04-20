@@ -9,6 +9,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.amap.api.location.AMapLocation;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,6 +28,7 @@ import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.manager.BleStatManager;
 import com.zkjinshi.svip.manager.SSOManager;
 
+import com.zkjinshi.svip.map.LocationManager;
 import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.BleStatDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -34,10 +36,13 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayloadVo;
 
 import org.altbeacon.beacon.Region;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 
 import cz.msebera.android.httpclient.Header;
@@ -55,7 +60,7 @@ public class BlueToothManager {
 
     public static final String TAG = BlueToothManager.class.getSimpleName();
     public static final int BEACON_NOTICE = 1;
-
+    public static final int COLLECT_NOTICE = 2;
     private BlueToothManager(){}
     private static BlueToothManager instance;
     private Context context;
@@ -85,9 +90,16 @@ public class BlueToothManager {
                     lbsLocBeaconRequest(iBeaconVo);
                 }
                 break;
+                case COLLECT_NOTICE:
+                {
+                    locBeaconsCollect();
+                }
+                break;
             }
         }
     };
+
+
 
     private IBeaconObserver mIBeaconObserver = new IBeaconObserver() {
         @Override
@@ -104,6 +116,10 @@ public class BlueToothManager {
         @Override
         public void outRegin(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"离开："+iBeaconVo.getMajor());
+        }
+
+        public void postCollectBeacons(){
+            handler.sendEmptyMessage(COLLECT_NOTICE);
         }
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
@@ -144,6 +160,18 @@ public class BlueToothManager {
             if(TextUtils.isEmpty(payloadVo.getSub())){
                 return;
             }
+            //记录Gps位置信息
+            BeaconExtInfo beaconExtInfo = IBeaconContext.getInstance().getExtInfoMap().get(iBeaconVo.getBeaconKey());
+            if(beaconExtInfo != null){
+               AMapLocation aMapLocation = LocationManager.getInstance().getLastAMapLocation();
+                if(aMapLocation != null){
+                    beaconExtInfo.setLatitude(aMapLocation.getLatitude());
+                    beaconExtInfo.setLongitude(aMapLocation.getLongitude());
+                    beaconExtInfo.setAltitude(aMapLocation.getAltitude());
+                    IBeaconContext.getInstance().getExtInfoMap().put(iBeaconVo.getBeaconKey(),beaconExtInfo);
+                }
+            }
+
             String url = ProtocolUtil.lbsLocBeacon();
             client.setMaxRetriesAndTimeout(3,1000*3);
             client.setConnectTimeout(1000*10);
@@ -197,6 +225,72 @@ public class BlueToothManager {
             e.printStackTrace();
         }
 
+    }
+
+    private void locBeaconsCollect() {
+        try {
+            if(!NetWorkUtil.isNetworkConnected(context)){
+                return;
+            }
+            if(!CacheUtil.getInstance().isLogin()){
+                return;
+            }
+            if(TextUtils.isEmpty(CacheUtil.getInstance().getExtToken())){
+                return;
+            }
+            PayloadVo payloadVo = SSOManager.getInstance().decodeToken(CacheUtil.getInstance().getExtToken());
+            if(TextUtils.isEmpty(payloadVo.getSub())){
+                return;
+            }
+
+            String url = ProtocolUtil.lbsLocBeacons();
+            client.setMaxRetriesAndTimeout(3,1000*3);
+            client.setConnectTimeout(1000*10);
+            client.setResponseTimeout(1000*10);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            final JSONArray jsonArray = new JSONArray();
+            if( !IBeaconContext.getInstance().getiBeaconMap().isEmpty()){
+                Iterator<Map.Entry<String, IBeaconVo>> iterator = IBeaconContext.getInstance().getiBeaconMap().entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry<String, IBeaconVo> entry = iterator.next();
+                    IBeaconVo iBeaconVo = entry.getValue();
+                    long currentTime = System.currentTimeMillis();
+                    BeaconExtInfo beaconExtInfo = IBeaconContext.getInstance().getExtInfoMap().get(iBeaconVo.getBeaconKey());
+                    JSONObject jsonBeacon = new JSONObject();
+                    jsonBeacon.put("major",iBeaconVo.getMajor());
+                    jsonBeacon.put("minor",iBeaconVo.getMinor());
+                    jsonBeacon.put("uuid",iBeaconVo.getProximityUuid());
+                    jsonBeacon.put("signal",iBeaconVo.getRssi());
+                    jsonBeacon.put("accuracy",iBeaconVo.getDistance());
+                    jsonBeacon.put("latitude",beaconExtInfo.getLatitude());
+                    jsonBeacon.put("longitude",beaconExtInfo.getLongitude());
+                    jsonBeacon.put("altitude",beaconExtInfo.getAltitude());
+                    jsonBeacon.put("timestamp",currentTime);
+
+                    jsonArray.put(jsonBeacon);
+                }
+            }else{
+                return;
+            }
+
+            StringEntity stringEntity = new StringEntity(jsonArray.toString());
+            client.post(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"beacons收集成功"+jsonArray.toString());
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e){
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"beacons收集失败");
+
+                }
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static synchronized BlueToothManager getInstance(){

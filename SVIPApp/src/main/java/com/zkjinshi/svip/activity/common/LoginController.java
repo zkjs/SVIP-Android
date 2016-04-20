@@ -17,6 +17,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 
 import com.zkjinshi.svip.net.RequestUtil;
@@ -117,6 +118,10 @@ public class LoginController {
                             }
                         }else{
                             Toast.makeText(mContext,getUserInfoVo.getResDesc(),Toast.LENGTH_SHORT).show();
+                            CacheUtil.getInstance().setLogin(false);
+                            BaseApplication.getInst().clear();
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            mContext.startActivity(intent);
                         }
 
                     } catch (Exception e) {

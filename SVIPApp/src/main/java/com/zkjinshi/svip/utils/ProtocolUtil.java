@@ -32,6 +32,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * Beacon信息收集
+     * @return
+     */
+    public static String lbsLocBeacons(){//beacon的经纬度和高度信息只在能获取到GPS位置信息时上传, 否则留空(即传0值)
+        return ConfigUtil.getInst().getPyxDomain()+"lbs/v1/loc/beacons";
+    }
+
+    /**
      * 推送/更新室外位置
      * @return
      */

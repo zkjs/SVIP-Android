@@ -28,4 +28,6 @@ public interface IBeaconObserver {
 
     public void exitRegion(Region region);
 
+    public void postCollectBeacons();
+
 }
