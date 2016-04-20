@@ -75,6 +75,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     }
                 }else if("BLE_ACTIVITY".equals(type)){
                     YunBaMsgVo yunBaMsgVo = new Gson().fromJson(data,YunBaMsgVo.class);
+                    LogUtil.getInstance().info(LogLevel.WARN,"营销信息推送内容:"+msg);
                     if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
                         if(null != yunBaMsgVo){
                             NotificationHelper.getInstance().showNotification(context,yunBaMsgVo);

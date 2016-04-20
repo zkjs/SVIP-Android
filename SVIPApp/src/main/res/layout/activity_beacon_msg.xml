@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="促销活动"
+            android:text="@null"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
             android:gravity="center"
@@ -43,7 +43,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_height="wrap_content"
-            android:text="由全国最大酒店集团--温德姆酒店集团授权经营"
+            android:text="@null"
             android:textSize="14sp"
             android:textColor="#666666"
             android:layout_marginBottom="30dp"
@@ -69,7 +69,7 @@
                 android:clickable="true"
                 android:textColor="@color/beacon_btn_textcolor"
                 android:layout_height="50dp"
-                android:text="参加活动"/>
+                android:text="@null"/>
             
         </LinearLayout>
 

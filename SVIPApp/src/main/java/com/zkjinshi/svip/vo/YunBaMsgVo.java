@@ -10,19 +10,14 @@ import java.io.Serializable;
  */
 public class YunBaMsgVo implements Serializable{
 
-    /**
-     "title": "欢迎光临(标题)",
-     "locid": "1000",
-     "alert": "欢迎光临1000区域(提示信息)",
-     "shopid": "9002",
-     "content": "1000区域是李二狗家不可分割的一部分(完整信息)"
-     */
-
     private String title;
     private String locid;
     private String alert;
     private String shopid;
     private String content;
+    private String button;
+    private String img_url;
+    private String button_url;
 
     public String getTitle() {
         return title;
@@ -62,5 +57,29 @@ public class YunBaMsgVo implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getButton() {
+        return button;
+    }
+
+    public void setButton(String button) {
+        this.button = button;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
+    }
+
+    public String getButton_url() {
+        return button_url;
+    }
+
+    public void setButton_url(String button_url) {
+        this.button_url = button_url;
     }
 }
