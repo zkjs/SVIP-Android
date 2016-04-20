@@ -22,6 +22,10 @@ import org.altbeacon.beacon.Region;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 
@@ -40,6 +44,9 @@ public class IBeaconService extends Service implements BeaconConsumer {
     public HashMap<String, NetBeaconVo> netBeaconMap = null;
     public static IBeaconObserver mIBeaconObserver = null;
     public static int SEND_MIN_PEROID_TIEM = 5*1000;//两次发送至少的间隔时间
+    public static int COLLET_BEACON_INF_PEROID_TIME = 10*60*1000;//收集beacon信息的间隔时间
+    public static int COLLET_BEACON_INF_DELAY_TIME = 10*1000;//收集beacon信息的延时时间
+    private Timer timer;
     private BeaconManager beaconManager;
     private long id = 0;
     public final static String PRE_STRING = "com.zkjinshi.pyxis";
@@ -64,7 +71,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
         beaconManager.setBackgroundBetweenScanPeriod(10*1000);
         beaconManager.setBackgroundScanPeriod(3*1000);
         beaconManager.bind(this);
-
+        timerCollectBeaconInfo();
     }
 
 
@@ -96,6 +103,10 @@ public class IBeaconService extends Service implements BeaconConsumer {
             beaconManager.unbind(this);
             IBeaconContext.getInstance().getiBeaconMap().clear();
             IBeaconContext.getInstance().getExtInfoMap().clear();
+            if(this.timer != null){
+                this.timer.cancel();
+                this.timer = null;
+            }
 
         }else if(intent != null){
             getApplicationContext().startService(intent);
@@ -103,6 +114,23 @@ public class IBeaconService extends Service implements BeaconConsumer {
 
         Log.d(TAG,"IBeaconService.onDestroy()");
         super.onDestroy();
+    }
+
+    //定时器收集Beacon信息
+    private void timerCollectBeaconInfo() {
+        if(this.timer != null){
+            this.timer.cancel();
+            this.timer = null;
+        }
+        TimerTask task = new TimerTask(){
+            public void run() {
+                if( !IBeaconContext.getInstance().getiBeaconMap().isEmpty()){
+                    IBeaconSubject.getInstance().notifyObserversPostCollectBeacons();
+                }
+            }
+        };
+        this.timer = new Timer(true);
+        this.timer.schedule(task, COLLET_BEACON_INF_DELAY_TIME, COLLET_BEACON_INF_PEROID_TIME);
     }
 
 

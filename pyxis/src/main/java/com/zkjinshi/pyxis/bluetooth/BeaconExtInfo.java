@@ -15,6 +15,9 @@ public class BeaconExtInfo implements Serializable {
 
     private int failCount = 0;
     private long sendTimestamp;   //发送的时间戳
+    private double latitude;
+    private double longitude;
+    private double altitude;
 
     public String getKey() {
         return key;
@@ -38,5 +41,29 @@ public class BeaconExtInfo implements Serializable {
 
     public void setSendTimestamp(long sendTimestamp) {
         this.sendTimestamp = sendTimestamp;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 }

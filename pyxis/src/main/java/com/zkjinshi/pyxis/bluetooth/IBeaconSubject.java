@@ -99,4 +99,15 @@ public class IBeaconSubject {
             }
         }
     }
+
+    /**
+     * 通知观察者上传收集到的beacon信息
+     */
+    public void notifyObserversPostCollectBeacons(){
+        if(null != obsVector && !obsVector.isEmpty()){
+            for (IBeaconObserver observer : obsVector) {
+                observer.postCollectBeacons();
+            }
+        }
+    }
 }
