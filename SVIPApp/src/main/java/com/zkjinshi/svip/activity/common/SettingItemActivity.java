@@ -155,6 +155,7 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
                 setResult(RESULT_OK, data);
                 if(fieldKey.equals("username")){
                     CacheUtil.getInstance().setUserName(fieldValue);
+                    SettingActivity.ismodifyusername = 1;
                 } else if(fieldKey.equals("real_name")){
                     CacheUtil.getInstance().setUserRealName(fieldValue);
                 }

@@ -106,6 +106,9 @@ public class LoginController {
                                 CacheUtil.getInstance().setSex(userInfoVo.getSex()+"");
                                 CacheUtil.getInstance().setUserRealName(userInfoVo.getRealname());
                                 CacheUtil.getInstance().setUserApplevel(userInfoVo.getViplevel());
+                                SettingActivity.email = userInfoVo.getEmail();
+                                SettingActivity.ismodifyimage = userInfoVo.getIsmodifyimage();
+                                SettingActivity.ismodifyusername = userInfoVo.getIsmodifyusername();
                                 //订阅云巴区域
                                 YunBaSubscribeManager.getInstance().setAlias(mContext,CacheUtil.getInstance().getUserId());
 

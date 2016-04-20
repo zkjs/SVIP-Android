@@ -59,6 +59,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     public static final String TAG = SettingActivity.class.getSimpleName();
 
+    public static int ismodifyimage = 1;//是否可以修改头像-- 0 可以修改  1 不能修改
+    public static int ismodifyusername = 1;//是否可以修改姓名-- 0 可以修改  1 不能修改
+    public static String email = "";
+
 
     private ImageButton backIBtn;
     private TextView titleTv;
@@ -105,12 +109,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
                 if(isOpen){
-                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+                    //BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+                    submitInfo("silentmode","0");
                     CacheUtil.getInstance().setBleSwitch(true);
                 }else{
-                    BlueToothManager.getInstance().stopIBeaconService();
+                    //BlueToothManager.getInstance().stopIBeaconService();
+                    submitInfo("silentmode","1");
                     CacheUtil.getInstance().setBleSwitch(false);
                 }
+
             }
         });
 
@@ -128,7 +135,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             mUserSex.setValue("男");
         }
         mRealName.setValue(CacheUtil.getInstance().getUserName());
+        mEmail.setValue(email);
 
+        refreshUserInfo();
+    }
+
+
+    private void refreshUserInfo(){
         try{
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
@@ -165,7 +178,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 CacheUtil.getInstance().setSex(userInfoVo.getSex()+"");
                                 CacheUtil.getInstance().setUserRealName(userInfoVo.getRealname());
                                 CacheUtil.getInstance().setUserApplevel(userInfoVo.getViplevel());
-
+                                SettingActivity.email = userInfoVo.getEmail();
+                                SettingActivity.ismodifyimage = userInfoVo.getIsmodifyimage();
+                                SettingActivity.ismodifyusername = userInfoVo.getIsmodifyusername();
 
                                 mUserIcon.setImageURI(Uri.parse(imgurl));
                                 if(userInfoVo.getSex() == -1){
@@ -196,7 +211,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
 
@@ -212,9 +226,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     break;
                 case Constants.FLAG_MODIFY_REAL_NAME:
                     mRealName.setValue(data.getStringExtra("new_value"));
+                    refreshUserInfo();
                     break;
                 case Constants.FLAG_MODIFY_EMAIL:
                     mEmail.setValue(data.getStringExtra("new_value"));
+                    refreshUserInfo();
                     break;
             }
 
@@ -232,6 +248,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     imgurl = response.getString("userimage");
                     imgurl = ProtocolUtil.getHostImgUrl(imgurl);
                     CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
+                    ismodifyimage = 1;
+                    refreshUserInfo();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -338,10 +356,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             //选择头像
             case R.id.rl_user_icon_img:
+                if(ismodifyimage == 1){
+                    Toast.makeText(mContext,"每月只能修改一次头像",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 MineUiController.getInstance().init(this);
                 MineUiController.getInstance().showChoosePhotoDialog();
                 break;
             case R.id.ius_real_name:
+                if(ismodifyusername == 1){
+                    Toast.makeText(mContext,"姓名只能改一次",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
                 intent.putExtra("title","修改姓名");
                 intent.putExtra("hint","输入你的真实姓名");

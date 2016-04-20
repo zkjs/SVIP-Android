@@ -16,6 +16,25 @@ public class UserInfoVo implements Serializable {
     private String email;
     private int userstatus;
 
+    private int ismodifyimage;
+    private int ismodifyusername;
+
+    public int getIsmodifyimage() {
+        return ismodifyimage;
+    }
+
+    public void setIsmodifyimage(int ismodifyimage) {
+        this.ismodifyimage = ismodifyimage;
+    }
+
+    public int getIsmodifyusername() {
+        return ismodifyusername;
+    }
+
+    public void setIsmodifyusername(int ismodifyusername) {
+        this.ismodifyusername = ismodifyusername;
+    }
+
     public String getEmail() {
         return email;
     }
