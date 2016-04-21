@@ -105,19 +105,16 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mEmail.setOnClickListener(this);
         mRealName.setOnClickListener(this);
 
-        sendCbx.valueCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
-                if(isOpen){
-                    //BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
-                    submitInfo("silentmode","0");
-                    CacheUtil.getInstance().setBleSwitch(true);
-                }else{
-                    //BlueToothManager.getInstance().stopIBeaconService();
-                    submitInfo("silentmode","1");
-                    CacheUtil.getInstance().setBleSwitch(false);
-                }
 
+        sendCbx.valueCbx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isOpen = sendCbx.valueCbx.isChecked();
+                if(isOpen){
+                    submitInfo("silentmode","0");
+                }else{
+                    submitInfo("silentmode","1");
+                }
             }
         });
 
@@ -136,6 +133,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
         mRealName.setValue(CacheUtil.getInstance().getUserName());
         mEmail.setValue(email);
+
+        if(CacheUtil.getInstance().isBLESwitch()){
+            sendCbx.valueCbx.setChecked(true);
+        }else{
+            sendCbx.valueCbx.setChecked(false);
+        }
 
         refreshUserInfo();
     }
@@ -253,8 +256,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
+             public void failCallBack(){
+
+             }
         });
 
     }
@@ -271,6 +276,25 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         mUserSex.setValue("女");
                     }else{
                         mUserSex.setValue("男");
+                    }
+                }else if(fieldKey.equals("silentmode")){
+                    if(fieldValue.equals("0")){
+                        sendCbx.valueCbx.setChecked(true);
+                        CacheUtil.getInstance().setBleSwitch(true);
+                    }else{
+                        sendCbx.valueCbx.setChecked(false);
+                        CacheUtil.getInstance().setBleSwitch(false);
+                    }
+                }
+            }
+            public void failCallBack(){
+                if(fieldKey.equals("silentmode")){
+                    if(fieldValue.equals("0")){
+                        sendCbx.valueCbx.setChecked(false);
+                        CacheUtil.getInstance().setBleSwitch(false);
+                    }else{
+                        sendCbx.valueCbx.setChecked(true);
+                        CacheUtil.getInstance().setBleSwitch(true);
                     }
                 }
             }

@@ -156,6 +156,10 @@ public class LoginActivity extends BaseActivity {
                     Toast.makeText(mContext,"手机号码不能为空。",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(phonenum.length() != 11){
+                    Toast.makeText(mContext,"手机号码格式不对。",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 CacheUtil.getInstance().setUserPhone(phonenum);
                 LoginController.getInstance().sendVerifyCodeForLogin(mContext,registerTv, phonenum, new LoginController.CallBackListener() {
                     @Override

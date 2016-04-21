@@ -45,7 +45,7 @@
             android:gravity="left"
             android:hint="仅用于支付识别与安全认证"
             android:inputType="text"
-            android:maxLength="6"
+            android:maxLength="12"
             android:background="@android:color/transparent"
             android:paddingBottom="15dp"
             android:singleLine="true"

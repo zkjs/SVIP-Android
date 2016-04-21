@@ -30,6 +30,7 @@ public class MineNetController {
 
     public interface CallBackListener{
         public void successCallback(JSONObject response);
+        public void failCallBack();
     }
 
     private MineNetController(){}
@@ -76,6 +77,9 @@ public class MineNetController {
                             }
                         }else{
                             DialogUtil.getInstance().showCustomToast(context, response.getString("resDesc") , Toast.LENGTH_LONG);
+                            if(callBackListener != null){
+                                callBackListener.failCallBack();
+                            }
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -88,6 +92,9 @@ public class MineNetController {
                     super.onFailure(statusCode,headers,throwable,errorResponse);
                     DialogUtil.getInstance().showCustomToast(context, "修改用户资料失败!", Toast.LENGTH_LONG);
                     AsyncHttpClientUtil.onFailure(context,statusCode);
+                    if(callBackListener != null){
+                        callBackListener.failCallBack();
+                    }
                 }
             });
         }catch (Exception e){

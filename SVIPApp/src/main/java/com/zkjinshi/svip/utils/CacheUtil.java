@@ -69,7 +69,7 @@ public class CacheUtil {
      */
 	public boolean isBLESwitch() {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
-		return sp.getBoolean("isBLESwitch", true);
+		return sp.getBoolean("isBLESwitch"+CacheUtil.getInstance().getUserId(), true);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class CacheUtil {
      */
 	public void setBleSwitch(boolean isOpen) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
-		sp.edit().putBoolean("isBLESwitch",  isOpen).commit();
+		sp.edit().putBoolean("isBLESwitch"+CacheUtil.getInstance().getUserId(),  isOpen).commit();
 	}
 
 	/**
