@@ -44,6 +44,8 @@ public class LoginActivity extends BaseActivity {
     private EditText mInputPhone;
     private TextView registerTv;
     private RelativeLayout contentRlt;
+    private SensorManagerHelper sensorHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,9 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(null != sensorHelper){
+            sensorHelper.stop();
+        }
     }
 
     @Override
@@ -108,7 +113,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         //打开配置项
-        SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
+        sensorHelper = new SensorManagerHelper(this);
         sensorHelper.setOnShakeListener(new SensorManagerHelper.OnShakeListener() {
 
             @Override
