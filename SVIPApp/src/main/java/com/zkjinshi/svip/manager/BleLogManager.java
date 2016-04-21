@@ -173,11 +173,11 @@ public class BleLogManager {
                     BaseResponseVo basePavoResponse = new Gson().fromJson(result.rawResult,BaseResponseVo.class);
                     if(basePavoResponse != null){
                         if(basePavoResponse.getRes() == 0){
-                            DialogUtil.getInstance().showCustomToast(context,"上传日志成功", Gravity.CENTER);
+                            //DialogUtil.getInstance().showCustomToast(context,"上传日志成功", Gravity.CENTER);
                             BleStatManager.getInstance().updateStatTime();
                             clearBleLog();
                         }else{
-                            DialogUtil.getInstance().showCustomToast(context,basePavoResponse.getResDesc(), Gravity.CENTER);
+                            //DialogUtil.getInstance().showCustomToast(context,basePavoResponse.getResDesc(), Gravity.CENTER);
                         }
                     }
 

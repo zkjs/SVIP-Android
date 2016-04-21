@@ -7,23 +7,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/item_layout">
-        <LinearLayout
+        android:id="@+id/item_layout"
+        android:background="@drawable/bg_white">
+        <View
+            android:id="@+id/upline_v"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-            <View
-                android:id="@+id/upline_v"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#e3e3e3"/>
-        </LinearLayout>
+            android:layout_height="0.5dp"
+            android:background="#e3e3e3"
+            android:layout_marginLeft="10dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="54dp"
-            android:background="@drawable/bg_white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
             <TextView
@@ -32,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textColor="#101010"
-                android:text="到店/离店日期"
+                android:text="标题"
                 android:layout_centerVertical="true"/>
             <TextView
                 android:id="@+id/must_tv"
@@ -72,17 +67,12 @@
                     android:visibility="visible"/>
             </LinearLayout>
         </RelativeLayout>
-        <LinearLayout
+        <View
+            android:id="@+id/downline_v"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-            <View
-                android:id="@+id/downline_v"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#e3e3e3"/>
-        </LinearLayout>
+            android:layout_height="0.5dp"
+            android:background="#e3e3e3"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 
