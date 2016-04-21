@@ -17,4 +17,14 @@
         android:scrollingCache="false"
         android:listSelector="@android:color/transparent"
         android:scrollbars="vertical" />
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_marginTop="50dp"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:text="超级支付功能暂时只对平台内商家的储值卡用户开放，如需同步您的储值卡账户至超级身份，请向您的商家提出申请。"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:lineSpacingMultiplier="1.5"/>
 </LinearLayout>

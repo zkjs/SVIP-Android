@@ -25,6 +25,7 @@ import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.FastBlur;
 import com.zkjinshi.svip.utils.GaoshiBlur;
+import com.zkjinshi.svip.utils.StringUtil;
 import com.zkjinshi.svip.vo.BaseResponseVo;
 
 /**
@@ -67,6 +68,10 @@ public class UploadInfoActivity extends BaseActivity {
                 String nameStr = inputEt.getText().toString();
                 if(TextUtils.isEmpty(nameStr)){
                     Toast.makeText(mContext,"用户名不能为空。",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(!StringUtil.isNormalName(nameStr)){
+                    Toast.makeText(mContext,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 CacheUtil.getInstance().setUserName(nameStr);

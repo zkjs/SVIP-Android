@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.zkjinshi.base.util.DialogUtil;
@@ -20,6 +21,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.utils.StringUtil;
 
 
 import org.json.JSONObject;
@@ -136,7 +138,12 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
             if( IntentUtil.isEmailAddress(fieldValue)){
                 mTipsTv.setText("");
             }else{
-                mTipsTv.setText("格式错误！");
+                mTipsTv.setText("邮件格式错误！");
+                return;
+            }
+        }else if(fieldKey.equals("username")){
+            if(!StringUtil.isNormalName(fieldValue)){
+                Toast.makeText(this,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                 return;
             }
         }

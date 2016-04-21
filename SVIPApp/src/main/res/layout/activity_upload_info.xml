@@ -68,7 +68,7 @@
         android:layout_below="@id/inputRlt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="一旦填写较难修改"
+        android:text="建议使用真实姓名，一旦填写较难修改。"
         android:textColor="#ffffff"
         android:textSize="12sp"/>
 

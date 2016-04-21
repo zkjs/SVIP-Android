@@ -47,6 +47,7 @@ public class PayRecordActivity extends BaseActivity {
     private ExpenseAdapter mPayRecordAdapter = null;
     private int    mCurrentPage;//记录当前查询页
     private String status = "2";
+    private TextView emptyTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class PayRecordActivity extends BaseActivity {
         backBtn = (ImageButton)findViewById(R.id.btn_back);
         titleTv = (TextView)findViewById(R.id.title_tv);
         mRefreshListView = (ExListView)findViewById(R.id.expense_list_view);
+        emptyTv = (TextView)findViewById(R.id.empty_tv);
     }
 
     private void initData() {
@@ -75,6 +77,9 @@ public class PayRecordActivity extends BaseActivity {
         mRefreshListView.setAdapter(mPayRecordAdapter);
         mRefreshListView.contentAdapter = mPayRecordAdapter;
         titleTv.setText("支付记录");
+        mRefreshListView.setEmptyView(emptyTv);
+        emptyTv.setVisibility(View.GONE);
+
 
     }
 
@@ -157,6 +162,8 @@ public class PayRecordActivity extends BaseActivity {
                                 mPayRecordAdapter.refresh(payRecordDataList);
                                 if(!payRecordDataList.isEmpty()){
                                     mCurrentPage++;
+                                }else{
+                                    emptyTv.setVisibility(View.VISIBLE);
                                 }
                             } else {
                                 mPayRecordAdapter.loadMore(payRecordDataList);
