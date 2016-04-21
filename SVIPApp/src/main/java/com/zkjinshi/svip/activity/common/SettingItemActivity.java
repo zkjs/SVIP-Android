@@ -143,7 +143,7 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
             }
         }else if(fieldKey.equals("username")){
             if(!StringUtil.isNormalName(fieldValue)){
-                Toast.makeText(this,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"填写不符合规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                 return;
             }
         }

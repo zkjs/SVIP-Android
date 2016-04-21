@@ -71,7 +71,7 @@ public class UploadInfoActivity extends BaseActivity {
                     return;
                 }
                 else if(!StringUtil.isNormalName(nameStr)){
-                    Toast.makeText(mContext,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"填写不符合规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 CacheUtil.getInstance().setUserName(nameStr);
