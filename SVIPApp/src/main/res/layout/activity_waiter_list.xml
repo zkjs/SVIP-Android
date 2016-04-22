@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
         android:gravity="center"
+        android:scrollbars="none"
         android:numColumns="2"
         android:horizontalSpacing="20dp"
         android:verticalSpacing="20dp"

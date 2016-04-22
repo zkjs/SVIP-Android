@@ -24,7 +24,7 @@ public class ProtocolUtil {
     }
 
     public static String getWaiterListUrl(){
-        return  ConfigUtil.getInst().getPyxDomain()+"lbs/v1/loc/beacon";
+        return  ConfigUtil.getInst().getForDomain()+"res/v1/payment/payable";
     }
 
     /**

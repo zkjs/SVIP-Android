@@ -11,17 +11,27 @@ import java.io.Serializable;
  */
 public class WaiterVo implements Serializable {
 
+    /**
+     "locid": "821",     //区域编号
+     "locdesc" "",       //区域描述
+     "userid": "b_32891281212",       //用户编号
+     "username": "超级服务员",     //用户名称
+     "userimage": "/uploads/test.jpg",       //用户头像
+     "sex": "1",     //性别
+     "shopid": "2009",       //商家编号
+     "arrivetime": "2016-04-20 12:00:00",       //最近在其区域的时间
+     "validthru": "2016-04-20 12:05:00"    //服务过期时间
+     */
+
     private String locid;
+    private String locdesc;
     private String userid;
     private String username;
-    private String userlevel;
     private String userimage;
     private String sex;
-    private String phone;
-    private String city;
     private String shopid;
-    private String shopname;
     private String arrivetime;
+    private String validthru;
 
     public String getLocid() {
         return locid;
@@ -29,6 +39,14 @@ public class WaiterVo implements Serializable {
 
     public void setLocid(String locid) {
         this.locid = locid;
+    }
+
+    public String getLocdesc() {
+        return locdesc;
+    }
+
+    public void setLocdesc(String locdesc) {
+        this.locdesc = locdesc;
     }
 
     public String getUserid() {
@@ -47,14 +65,6 @@ public class WaiterVo implements Serializable {
         this.username = username;
     }
 
-    public String getUserlevel() {
-        return userlevel;
-    }
-
-    public void setUserlevel(String userlevel) {
-        this.userlevel = userlevel;
-    }
-
     public String getUserimage() {
         return userimage;
     }
@@ -71,22 +81,6 @@ public class WaiterVo implements Serializable {
         this.sex = sex;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getShopid() {
         return shopid;
     }
@@ -95,19 +89,19 @@ public class WaiterVo implements Serializable {
         this.shopid = shopid;
     }
 
-    public String getShopname() {
-        return shopname;
-    }
-
-    public void setShopname(String shopname) {
-        this.shopname = shopname;
-    }
-
     public String getArrivetime() {
         return arrivetime;
     }
 
     public void setArrivetime(String arrivetime) {
         this.arrivetime = arrivetime;
+    }
+
+    public String getValidthru() {
+        return validthru;
+    }
+
+    public void setValidthru(String validthru) {
+        this.validthru = validthru;
     }
 }
