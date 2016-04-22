@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:paddingTop="100.0dip"
-        android:text="未找到用户"
+        android:text="没有发现身边服务员"
         android:textColor="#ffa6a6a6"
         android:textSize="15.0sp"
         android:visibility="gone"/>
