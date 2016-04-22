@@ -71,6 +71,22 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="ui_tips_block">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">110dp</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="ui_tips_radio">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="city_hot_header" parent="@style/ui_parent_Wrap">
         <item name="android:textSize">@dimen/city_list_text_size</item>
         <item name="android:textColor">@color/city_item_letter_color</item>

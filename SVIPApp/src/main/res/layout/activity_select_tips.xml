@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#666666">
+    <include layout="@layout/layout_header"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/m50_tv"
+            style="@style/ui_tips_block"
+            android:text="¥ 50"
+            android:textColor="#ffffff"
+            android:background="#C78118"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/m100_tv"
+            style="@style/ui_tips_block"
+            android:text="¥ 100"
+            android:textColor="#ffffff"
+            android:background="#C78118"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <RelativeLayout
+            style="@style/ui_tips_block">
+
+            <TextView
+                android:id="@+id/rand_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="¥ ?"
+                android:textColor="#ffffff"
+                android:background="#C78118"
+                android:textSize="24sp"
+                android:gravity="center"/>
+
+            <ImageView
+                android:id="@+id/info_iv"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_xiangqing"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/m10_tv"
+            style="@style/ui_tips_block"
+            android:text="¥ 10"
+            android:textColor="#ffffff"
+            android:background="#C78118"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/m5_tv"
+            style="@style/ui_tips_block"
+            android:text="¥ 5"
+            android:textColor="#ffffff"
+            android:background="#C78118"
+            android:textSize="24sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/m20_tv"
+            style="@style/ui_tips_block"
+            android:text="¥ 20"
+            android:textColor="#ffffff"
+            android:background="#FF9900"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/radio_tv0"
+            style="@style/ui_tips_radio"
+            android:text="超预期"
+            android:background="@drawable/radio_unselect_shape"/>
+        <TextView
+            android:id="@+id/radio_tv1"
+            style="@style/ui_tips_radio"
+            android:text="态度好"
+            android:background="@drawable/radio_unselect_shape"/>
+
+        <TextView
+            android:id="@+id/radio_tv2"
+            style="@style/ui_tips_radio"
+            android:text="质量好"
+            android:background="@drawable/radio_unselect_shape"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/radio_tv3"
+            style="@style/ui_tips_radio"
+            android:text="说不清"
+            android:background="@drawable/radio_unselect_shape"/>
+        <TextView
+            android:id="@+id/radio_tv4"
+            style="@style/ui_tips_radio"
+            android:text="一种感觉"
+            android:background="@drawable/radio_unselect_shape"/>
+
+        <TextView
+            android:id="@+id/radio_tv5"
+            style="@style/ui_tips_radio"
+            android:text="喜欢给"
+            android:background="@drawable/radio_unselect_shape"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_orange_selector"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+</LinearLayout>
