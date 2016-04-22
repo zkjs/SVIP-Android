@@ -23,6 +23,10 @@ public class ProtocolUtil {
        return ConfigUtil.getInst().getImgDomain()+apiUrl;
     }
 
+    public static String getWaiterListUrl(){
+        return  ConfigUtil.getInst().getPyxDomain()+"lbs/v1/loc/beacon";
+    }
+
     /**
      * 推送/更新室内位置
      * @return

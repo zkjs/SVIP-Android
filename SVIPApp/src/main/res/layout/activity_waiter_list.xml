@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/layout_tips_header"/>
+
+    <GridView
+        android:id="@+id/waiter_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:gravity="center"
+        android:numColumns="2"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+        android:columnWidth="150dp"
+        android:layout_margin="20dp"
+        android:listSelector="@android:color/transparent"
+        />
+
+    <TextView
+        android:id="@+id/no_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingTop="100.0dip"
+        android:text="未找到用户"
+        android:textColor="#ffa6a6a6"
+        android:textSize="15.0sp"
+        android:visibility="gone"/>
+
+</LinearLayout>
