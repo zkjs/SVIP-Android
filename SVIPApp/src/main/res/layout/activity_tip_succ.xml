@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#666666"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/layout_tips_header"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_waiter_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@mipmap/ic_launcher"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="false"
+        fresco:roundedCornerRadius="2dp"/>
+
+    <TextView
+        android:id="@+id/tv_waiter_name"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#101010"
+        android:text="@null"
+        android:background="@drawable/bg_item_tips_waiter"/>
+
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#FF9900"
+        android:text="¥20"/>
+
+
+</LinearLayout>

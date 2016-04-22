@@ -18,6 +18,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.WaiterListAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.response.WaitListResponse;
+import com.zkjinshi.svip.test.WaiterListBiz;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -43,7 +44,7 @@ public class WaiterListActivity extends BaseActivity {
     private GridView waiterGridView;
     private ImageButton backIBtn;
     private TextView titleTv;
-    private ArrayList<WaiterVo> waiterList;
+    private ArrayList<WaiterVo> waiterList = WaiterListBiz.getWaiterList();
     private WaiterListAdapter waiterListAdapter;
     private TextView noResultTv;
 
