@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.zkjinshi.base.log.LogUtil;
 
@@ -13,6 +14,8 @@ import com.zkjinshi.base.log.LogUtil;
 public class Gesture implements GestureDetector.OnGestureListener {
     public Context context;
     public FlingCallback flingCallback = null;
+    public UpFilingViewCallBack upFilingViewCallBack = null;
+    public View selfView = null;
     public Gesture(Context context) {
         // TODO Auto-generated constructor stub
         this.context=context;
@@ -55,8 +58,9 @@ public class Gesture implements GestureDetector.OnGestureListener {
         if(e1 != null && e2 != null){
             Log.d("Gesture","velocityX="+velocityX+" velocityY="+velocityY);
             float y = Math.abs(e2.getY() - e1.getY());
+            float x = Math.abs(e2.getX() - e1.getX());
             //左滑动
-            if (e1.getX() - e2.getX() > 20 ) {
+            if (e1.getX() - e2.getX() > 50 && y < 80) {
                 if(flingCallback != null){
                     flingCallback.flingLeft();
                 }
@@ -68,6 +72,24 @@ public class Gesture implements GestureDetector.OnGestureListener {
                     flingCallback.flingRight();
                 }
                 return false;
+            }
+
+            //上滑
+            else if(e1.getY() - e2.getY() > 80 && x < 80 ){
+                if(selfView != null){
+                    int left = selfView.getLeft() - 30;
+                    int right = selfView.getRight() + 30;
+                    int bottom = selfView.getBottom();
+                    int top = selfView.getTop();
+                    if(e1.getX() > left && e1.getX() < right &&
+                            e2.getX() > left && e2.getX() < right &&
+                            e1.getY() > bottom && e2.getY() < top ){
+                        if(upFilingViewCallBack != null){
+                            upFilingViewCallBack.flingUp();
+                        }
+
+                    }
+                }
             }
         }
 

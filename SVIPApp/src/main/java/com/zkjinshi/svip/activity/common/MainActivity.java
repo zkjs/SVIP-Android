@@ -47,6 +47,8 @@ import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
+import com.zkjinshi.svip.activity.tips.GiveTipsActivity;
+import com.zkjinshi.svip.activity.tips.WaiterListActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
@@ -77,6 +79,7 @@ import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.view.BeaconMsgDialog;
 import com.zkjinshi.svip.view.FlingCallback;
 import com.zkjinshi.svip.view.Gesture;
+import com.zkjinshi.svip.view.UpFilingViewCallBack;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
@@ -88,8 +91,8 @@ public class MainActivity extends BaseFragmentActivity {
     public static boolean showMsgAnimation = false;
 
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
-    private TextView accountTv,usernameTv,activateTv;
-    private RelativeLayout paopaoRlt;
+    private TextView accountTv,usernameTv,activateTv,tipsEnterTv;
+
 
     private RelativeLayout rootRlt;
     private UpdateLogoReceiver updateLogoReceiver;
@@ -153,7 +156,8 @@ public class MainActivity extends BaseFragmentActivity {
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
-        paopaoRlt.setVisibility(View.GONE);
+        tipsEnterTv.setVisibility(View.GONE);
+        getAccount();
 
         if(showMsgAnimation){
             showPayMsgTips();
@@ -196,7 +200,7 @@ public class MainActivity extends BaseFragmentActivity {
         usernameTv = (TextView)findViewById(R.id.username_tv);
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
         walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
-        paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
+        tipsEnterTv = (TextView) findViewById(R.id.tips_enter_tv);
 
         rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
 
@@ -269,11 +273,10 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
-        paopaoRlt.setOnClickListener(new View.OnClickListener() {
+        tipsEnterTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayRecordActivity.class);
-                intent.putExtra("status","2");
+                Intent intent = new Intent(mContext,WaiterListActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -295,11 +298,10 @@ public class MainActivity extends BaseFragmentActivity {
         walletSdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(paopaoRlt.getVisibility() == View.GONE){
-                    getAccount();
-                    paopaoRlt.setVisibility(View.VISIBLE);
+                if(tipsEnterTv.getVisibility() == View.GONE){
+                    tipsEnterTv.setVisibility(View.VISIBLE);
                 }else{
-                    paopaoRlt.setVisibility(View.GONE);
+                    tipsEnterTv.setVisibility(View.GONE);
                 }
             }
         });
@@ -338,12 +340,20 @@ public class MainActivity extends BaseFragmentActivity {
 
             @Override
             public void flingRight() {
-//                if(shopFragment.isVisiable){
-//                    shopFragment.hideAction();
-//                }
-//                Toast.makeText(MainActivity.this,"main flingRight",Toast.LENGTH_SHORT).show();
+
             }
         };
+        gesture.upFilingViewCallBack = new UpFilingViewCallBack() {
+            @Override
+            public void flingUp() {
+                //Toast.makeText(MainActivity.this,"main flingUp",Toast.LENGTH_SHORT).show();
+                Intent bIntent = new Intent(mContext,GiveTipsActivity.class);
+                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(bIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        };
+        gesture.selfView = walletSdv;
         gestureDetector = new GestureDetector(this,gesture);
 
 
@@ -408,7 +418,7 @@ public class MainActivity extends BaseFragmentActivity {
                     try {
                         if(response.getInt("res") == 0){
                             double balance = response.getDouble("balance");
-                            accountTv.setText(PayUtil.changeMoney(balance));
+                            accountTv.setText("¥ "+PayUtil.changeMoney(balance));
                         }else{
                             Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
                         }

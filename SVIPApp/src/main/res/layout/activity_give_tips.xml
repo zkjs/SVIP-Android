@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mohu_rlt">
+
+    <LinearLayout
+        android:id="@+id/content_llt"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="@drawable/view_white_shape">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/avatarSdv"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="260dp"
+            android:layout_height="194dp"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@mipmap/ic_launcher"
+            fresco:placeholderImageScaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="WANG YU"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
+            android:textColor="#101010"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/ad_open_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/small_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_orange_selector"
+                android:layout_weight="1"
+                android:text="¥ 10"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#ffffff" />
+
+            <Button
+                android:id="@+id/big_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/btn_orange_selector"
+                android:layout_weight="1"
+                android:text="¥ 20"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
