@@ -61,12 +61,12 @@
 
     <TextView
         android:id="@+id/tips_tv"
-        android:layout_width="238dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/inputRlt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:text="您必须上传一张您清晰的脸部照片，才能享受免操作支付"
+        android:text="有脸部照片才能免操作支付。"
         android:textColor="#ffffff"
         android:textSize="12sp"/>
 
