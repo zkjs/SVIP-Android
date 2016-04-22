@@ -44,7 +44,7 @@ public class WaiterListActivity extends BaseActivity {
     private GridView waiterGridView;
     private ImageButton backIBtn;
     private TextView titleTv;
-    private ArrayList<WaiterVo> waiterList = WaiterListBiz.getWaiterList();
+    private ArrayList<WaiterVo> waiterList;
     private WaiterListAdapter waiterListAdapter;
     private TextView noResultTv;
 
@@ -126,13 +126,12 @@ public class WaiterListActivity extends BaseActivity {
                         WaitListResponse waitListResponse = new Gson().fromJson(response,WaitListResponse.class);
                         if(null != waitListResponse){
                             int resultCode = waitListResponse.getRes();
-                            if(0 == resultCode || 30001 == resultCode){
+                            if(0 == resultCode){
                                 waiterGridView.setNumColumns(2);
                                 waiterList = waitListResponse.getData();
                                 if(null != waiterList && !waiterList.isEmpty()){
                                     waiterListAdapter.setWaiterList(waiterList);
-                                }
-                                if( 30001 == resultCode){
+                                }else {
                                     waiterGridView.setEmptyView(noResultTv);
                                 }
                             }else {
