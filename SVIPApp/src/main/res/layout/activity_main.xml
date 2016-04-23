@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"
                 fresco:roundAsCircle="true"
                 fresco:roundingBorderWidth="1dp"
-
+                fresco:roundingBorderColor="@color/orange"
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 fresco:placeholderImageScaleType="centerCrop"/>
