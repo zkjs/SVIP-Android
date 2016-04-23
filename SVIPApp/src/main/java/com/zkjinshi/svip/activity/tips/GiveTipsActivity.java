@@ -23,6 +23,7 @@ import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.response.WaitListResponse;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.TipsResultVo;
 import com.zkjinshi.svip.vo.WaiterVo;
@@ -78,6 +79,9 @@ public class GiveTipsActivity extends BaseActivity {
     }
 
     private void jumpToSuccessPay(int money){
+        float currentMoney = CacheUtil.getInstance().getAccount();
+        currentMoney = currentMoney - money;
+        CacheUtil.getInstance().setAccount(currentMoney);
         Intent intent = new Intent(mContext,TipSuccesActivity.class);
         TipsResultVo tipsResultVo = new TipsResultVo();
         WaiterVo waiterVo = waitListResponse.getData().get(currentIndex);
@@ -147,7 +151,7 @@ public class GiveTipsActivity extends BaseActivity {
                 if(e1 != null && e2 != null){
                     //float y = Math.abs(e2.getY() - e1.getY());
                     float x = Math.abs(e2.getX() - e1.getX());
-                    if(e1.getY() - e2.getY() > 80 && x < 80 ){
+                    if(e1.getY() - e2.getY() > 50 && x < 80 ){
                         //Toast.makeText(mContext,"up fling", Toast.LENGTH_SHORT).show();
                         if(flingAble){
                             flingAble = false;

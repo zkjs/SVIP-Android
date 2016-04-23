@@ -84,6 +84,7 @@ import com.zkjinshi.svip.view.Gesture;
 import com.zkjinshi.svip.view.UpFilingViewCallBack;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseFragmentActivity {
@@ -159,7 +160,10 @@ public class MainActivity extends BaseFragmentActivity {
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
         tipsEnterTv.setVisibility(View.GONE);
-        getAccount();
+        //getAccount();
+        float account = CacheUtil.getInstance().getAccount();
+        String formatString = new DecimalFormat("0.00").format(account);
+        accountTv.setText("¥ "+formatString);
 
         if(showMsgAnimation){
             showPayMsgTips();

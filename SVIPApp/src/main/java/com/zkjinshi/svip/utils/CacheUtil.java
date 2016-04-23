@@ -155,6 +155,7 @@ public class CacheUtil {
 		sp.edit().putBoolean("is_first_time", isFirstTime).commit();
 	}
 
+
 	public boolean isFirstTime() {
 		if (null == context) {
 			return false;
@@ -162,6 +163,24 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("is_first_time", true);
+	}
+
+	public void setAccount(float account) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putFloat("account"+CacheUtil.getInstance().getUserId(), account).commit();
+	}
+
+	public float getAccount() {
+		if (null == context) {
+			return 0.0f;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getFloat("account"+CacheUtil.getInstance().getUserId(), 900.00f);
 	}
 
 	/**
