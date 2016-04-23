@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.tips;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.GestureDetector;
@@ -14,8 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.view.ViewHelper;
+import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.response.WaitListResponse;
+import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.TipsResultVo;
+import com.zkjinshi.svip.vo.WaiterVo;
 
 
 /**
@@ -24,12 +34,15 @@ import com.zkjinshi.svip.base.BaseActivity;
 public class GiveTipsActivity extends BaseActivity {
 
     private Context mContext;
+    public WaitListResponse waitListResponse = null;
+    public int currentIndex = 0;
 
     private SimpleDraweeView avatarSdv;
     private Button smallBtn,bigBtn;
     private TextView nameTv;
     private RelativeLayout mohuRlt;
     private LinearLayout contentLlt;
+    private boolean flingAble = true;
 
     private GestureDetector gestureDetector;
 
@@ -54,31 +67,40 @@ public class GiveTipsActivity extends BaseActivity {
 
     private void initData() {
 
+        if(getIntent().getSerializableExtra("waitListResponse") != null){
+            waitListResponse = (WaitListResponse)getIntent().getSerializableExtra("waitListResponse");
+            WaiterVo waiterVo = waitListResponse.getData().get(currentIndex);
+            if(waiterVo != null){
+               resetWait(waiterVo);
+            }
+        }
+
+    }
+
+    private void jumpToSuccessPay(int money){
+        Intent intent = new Intent(mContext,TipSuccesActivity.class);
+        TipsResultVo tipsResultVo = new TipsResultVo();
+        WaiterVo waiterVo = waitListResponse.getData().get(currentIndex);
+        tipsResultVo.setWaiterVo(waiterVo);
+        tipsResultVo.setPrice(money);
+        intent.putExtra("tipsResultVo",tipsResultVo);
+        startActivity(intent);
     }
 
     private void initListener() {
         smallBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                jumpToSuccessPay(10);
             }
         });
 
         bigBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                jumpToSuccessPay(20);
             }
         });
-
-//        mohuRlt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
-//            }
-//        });
-
 
 
         gestureDetector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
@@ -126,27 +148,18 @@ public class GiveTipsActivity extends BaseActivity {
                     //float y = Math.abs(e2.getY() - e1.getY());
                     float x = Math.abs(e2.getX() - e1.getX());
                     if(e1.getY() - e2.getY() > 80 && x < 80 ){
-                        //Toast.makeText(mContext,"up fling", Toast.LENGTH_SHORT).show();
-                        finish();
-                        overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
-                        Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent bIntent = new Intent(mContext,GiveTipsActivity.class);
-                                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(bIntent);
-                                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                            }
-                        },500);
+                        Toast.makeText(mContext,"up fling", Toast.LENGTH_SHORT).show();
+                        if(flingAble){
+                            flingAble = false;
+                            nextWaiter();
+                        }
+
                     }
                 }
 
                 return false;
             }
         });
-
-
 
     }
 
@@ -157,6 +170,35 @@ public class GiveTipsActivity extends BaseActivity {
 
     public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
+    }
+
+
+    private void nextWaiter(){
+        final int orgY = contentLlt.getTop();
+        final long time = 300;
+        ViewHelper.setTranslationY(contentLlt,orgY);
+        int offsetY = contentLlt.getBottom();
+        ViewPropertyAnimator.animate(contentLlt).translationYBy(-offsetY).setDuration(time).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                int length = waitListResponse.getData().size();
+                currentIndex = (length+1)%length;
+                resetWait(waitListResponse.getData().get(currentIndex));
+                int screenHeight = DisplayUtil.getHeightPixel(GiveTipsActivity.this);
+                ViewHelper.setTranslationY(contentLlt,screenHeight);
+                ViewPropertyAnimator.animate(contentLlt).translationYBy(orgY - screenHeight).setDuration(time).setListener(new AnimatorListenerAdapter() {
+                    public void onAnimationEnd(Animator animation) {
+                        flingAble = true;
+                    }
+                });
+            }
+        });
+    }
+
+    private void resetWait(WaiterVo waiterVo) {
+        nameTv.setText(waiterVo.getUsername());
+        String avatarUrl = ProtocolUtil.getHostImgUrl(waiterVo.getUserimage());
+        avatarSdv.setImageURI(Uri.parse(avatarUrl));
     }
 
 

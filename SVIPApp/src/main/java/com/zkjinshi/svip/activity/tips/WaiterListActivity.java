@@ -2,35 +2,26 @@ package com.zkjinshi.svip.activity.tips;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Gravity;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.zkjinshi.base.util.DialogUtil;
+
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.WaiterListAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.response.WaitListResponse;
-import com.zkjinshi.svip.test.WaiterListBiz;
-import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
-import com.zkjinshi.svip.utils.CacheUtil;
-import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.ProtocolUtil;
+
 import com.zkjinshi.svip.vo.WaiterVo;
 
-import org.json.JSONObject;
+
 
 import java.util.ArrayList;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
+
 
 /**
  * 服务员列表页面
@@ -77,7 +68,7 @@ public class WaiterListActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 WaiterVo waiterVo = waiterList.get(position);
-                Intent intent = new Intent();
+                Intent intent = new Intent(WaiterListActivity.this,SelectTipsActivity.class);
                 intent.putExtra("waiterVo",waiterVo);
                 startActivity(intent);
             }
@@ -103,56 +94,17 @@ public class WaiterListActivity extends BaseActivity {
      * 获取服务员列表
      */
     private void requestWaitListTask(){
-        try{
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.setTimeout(Constants.OVERTIMEOUT);
-            client.addHeader("Content-Type","application/json; charset=UTF-8");
-            client.addHeader("Token",CacheUtil.getInstance().getExtToken());
-            JSONObject jsonObject = new JSONObject();
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            final String url = ProtocolUtil.getWaiterListUrl();
-            client.get(WaiterListActivity.this,url,stringEntity, "application/json", new AsyncHttpResponseHandler(){
-                public void onStart(){
-                    DialogUtil.getInstance().showAvatarProgressDialog(WaiterListActivity.this,"");
+        TipsController.getInstance().requestWaitListTask(this, new TipsController.CallBackListener() {
+            @Override
+            public void successCallback(WaitListResponse waitListResponse) {
+                waiterGridView.setNumColumns(2);
+                waiterList = waitListResponse.getData();
+                if(null != waiterList && !waiterList.isEmpty()){
+                    waiterListAdapter.setWaiterList(waiterList);
+                }else {
+                    waiterGridView.setEmptyView(noResultTv);
                 }
-
-                public void onFinish(){
-                    DialogUtil.getInstance().cancelProgressDialog();
-                }
-
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
-                    try {
-                        String response = new String(responseBody,"utf-8");
-                        WaitListResponse waitListResponse = new Gson().fromJson(response,WaitListResponse.class);
-                        if(null != waitListResponse){
-                            int resultCode = waitListResponse.getRes();
-                            if(0 == resultCode){
-                                waiterGridView.setNumColumns(2);
-                                waiterList = waitListResponse.getData();
-                                if(null != waiterList && !waiterList.isEmpty()){
-                                    waiterListAdapter.setWaiterList(waiterList);
-                                }else {
-                                    waiterGridView.setEmptyView(noResultTv);
-                                }
-                            }else {
-                                String errorMsg = waitListResponse.getResDesc();
-                                if(!TextUtils.isEmpty(errorMsg)){
-                                    DialogUtil.getInstance().showCustomToast(WaiterListActivity.this,errorMsg, Gravity.CENTER);
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    AsyncHttpClientUtil.onFailure(WaiterListActivity.this,statusCode,url);
-                }
-            });
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+            }
+        });
     }
 }

@@ -48,6 +48,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.activity.tips.GiveTipsActivity;
+import com.zkjinshi.svip.activity.tips.TipsController;
 import com.zkjinshi.svip.activity.tips.WaiterListActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
@@ -59,6 +60,7 @@ import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.map.LocationManager;
 
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
+import com.zkjinshi.svip.response.WaitListResponse;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -347,16 +349,33 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void flingUp() {
                 //Toast.makeText(MainActivity.this,"main flingUp",Toast.LENGTH_SHORT).show();
-                Intent bIntent = new Intent(mContext,GiveTipsActivity.class);
-                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(bIntent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+               requestWaitListTask();
             }
         };
         gesture.selfView = walletSdv;
         gestureDetector = new GestureDetector(this,gesture);
 
 
+    }
+
+    /**
+     * 获取服务员列表
+     */
+    private void requestWaitListTask(){
+        TipsController.getInstance().requestWaitListTask(this, new TipsController.CallBackListener() {
+            @Override
+            public void successCallback(WaitListResponse waitListResponse) {
+                if(waitListResponse.getData().size() == 0){
+                    Toast.makeText(mContext,"没有发现身边的服务员。",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent bIntent = new Intent(mContext,GiveTipsActivity.class);
+                bIntent.putExtra("waitListResponse",waitListResponse);
+                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(bIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        });
     }
 
     public boolean onTouchEvent(MotionEvent event) {

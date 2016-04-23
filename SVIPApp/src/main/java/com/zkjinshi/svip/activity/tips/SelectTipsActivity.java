@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.vo.TipsResultVo;
+import com.zkjinshi.svip.vo.WaiterVo;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -163,7 +165,14 @@ public class SelectTipsActivity extends BaseActivity {
             comment = radioTv.getText().toString();
         }
 
-        Toast.makeText(this,"你选择小费。"+money+comment,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"你选择小费。"+money+comment,Toast.LENGTH_SHORT).show();
+        WaiterVo waiterVo = (WaiterVo)getIntent().getSerializableExtra("waiterVo");
+        Intent intent = new Intent(mContext,TipSuccesActivity.class);
+        TipsResultVo tipsResultVo = new TipsResultVo();
+        tipsResultVo.setWaiterVo(waiterVo);
+        tipsResultVo.setPrice(money);
+        intent.putExtra("tipsResultVo",tipsResultVo);
+        startActivity(intent);
 
     }
 
