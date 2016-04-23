@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.tips;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.vo.TipsResultVo;
 import com.zkjinshi.svip.vo.WaiterVo;
 
@@ -69,7 +72,7 @@ public class TipSuccesActivity extends BaseActivity {
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                BaseApplication.getInst().clearLeaveTop();
             }
         });
 
@@ -77,7 +80,7 @@ public class TipSuccesActivity extends BaseActivity {
         finishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                BaseApplication.getInst().clearLeaveTop();
             }
         });
     }
