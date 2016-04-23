@@ -38,8 +38,8 @@ public class SelectTipsActivity extends BaseActivity {
     private int clickRadioId = -1;
 
     private int[] tipsIds = {R.id.m50_tv,R.id.m100_tv,R.id.m10_tv,R.id.m5_tv,R.id.m20_tv,R.id.rand_tv};
-    private int[] moneys = {50,100,10,5,20,-1};
-    private int clickTipsId = R.id.m20_tv;
+    private int[] moneys = {50,100,10,5,20,5};
+    private int clickTipsId = -1;
 
     private int[] rate = {15,5,30,30,20,0};
     private ArrayList<Integer> selectMoneyList = new ArrayList<Integer>();
@@ -75,6 +75,7 @@ public class SelectTipsActivity extends BaseActivity {
         setContentView(R.layout.activity_select_tips);
         mContext = this;
 
+        //currentMoney = 11;
         currentMoney = CacheUtil.getInstance().getAccount();
 
         initView();
@@ -84,6 +85,17 @@ public class SelectTipsActivity extends BaseActivity {
     }
 
     private void initView() {
+        //设置默认金额
+        if(currentMoney >= 20 ){
+            clickTipsId = R.id.m20_tv;
+        }else if(currentMoney >= 10){
+            clickTipsId = R.id.m10_tv;
+        }else if(currentMoney >= 5){
+            clickTipsId = R.id.m5_tv;
+        }else{
+            clickTipsId = -1;
+        }
+
         for(int i=0;i<tipsIds.length;i++){
             int id = tipsIds[i];
             int money = moneys[i];
@@ -92,9 +104,6 @@ public class SelectTipsActivity extends BaseActivity {
             if(currentMoney < money){
                 tipsTv.setBackgroundColor(Color.parseColor("#A5A5A5"));
                 tipsTv.setOnClickListener(null);
-                if(clickTipsId == id){
-                    clickTipsId = -1;
-                }
             }else if(id != clickTipsId){
                 tipsTv.setBackgroundColor(Color.parseColor("#C78118"));
                 tipsTv.setOnClickListener(tipsOnClickListener);
@@ -111,6 +120,8 @@ public class SelectTipsActivity extends BaseActivity {
 
         TextView titleTv = (TextView)findViewById(R.id.title_tv);
         titleTv.setText("金额选择");
+
+
     }
 
     private void initData() {
@@ -122,12 +133,18 @@ public class SelectTipsActivity extends BaseActivity {
             findViewById(radioIds[i]).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickRadioId = view.getId();
                     for(int i= 0;i<radioIds.length;i++){
                         int id = radioIds[i];
                         TextView radioTv = (TextView)findViewById(id);
-                        if(id == clickRadioId){
-                            radioTv.setBackgroundResource(R.drawable.radio_select_shape);
+                        if(id == view.getId()){
+                            if(clickRadioId == view.getId()){
+                                radioTv.setBackgroundResource(R.drawable.radio_unselect_shape);
+                                clickRadioId = -1;
+                            }else{
+                                radioTv.setBackgroundResource(R.drawable.radio_select_shape);
+                                clickRadioId = view.getId();
+                            }
+
                         }else{
                             radioTv.setBackgroundResource(R.drawable.radio_unselect_shape);
                         }
@@ -160,7 +177,7 @@ public class SelectTipsActivity extends BaseActivity {
 
     private void submitTips() {
         if(clickTipsId == -1){
-            Toast.makeText(this,"请指示选择一种小费。",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"余额不足。",Toast.LENGTH_SHORT).show();
             return;
         }
         TextView tipsTv = (TextView)findViewById(clickTipsId);
