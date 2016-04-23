@@ -108,6 +108,9 @@ public class SelectTipsActivity extends BaseActivity {
                 selectMoneyRate.add(rate[i]);
             }
         }
+
+        TextView titleTv = (TextView)findViewById(R.id.title_tv);
+        titleTv.setText("金额选择");
     }
 
     private void initData() {
