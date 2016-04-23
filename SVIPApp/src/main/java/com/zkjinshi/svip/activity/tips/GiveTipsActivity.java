@@ -81,6 +81,10 @@ public class GiveTipsActivity extends BaseActivity {
     private void jumpToSuccessPay(int money){
         float currentMoney = CacheUtil.getInstance().getAccount();
         currentMoney = currentMoney - money;
+        if(currentMoney < 0){
+            Toast.makeText(mContext,"余额不足。",Toast.LENGTH_SHORT).show();
+            return;
+        }
         CacheUtil.getInstance().setAccount(currentMoney);
         Intent intent = new Intent(mContext,TipSuccesActivity.class);
         TipsResultVo tipsResultVo = new TipsResultVo();
