@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -142,6 +144,13 @@ public class SelectTipsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 submitTips();
+            }
+        });
+
+        findViewById(R.id.info_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtil.getInstance().showCustomToast(mContext,"随机从 5元,10元,20元,50元,100元中选择。", Gravity.CENTER);
             }
         });
     }
