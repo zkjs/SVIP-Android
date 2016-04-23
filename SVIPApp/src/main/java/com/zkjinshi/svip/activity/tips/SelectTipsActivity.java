@@ -173,7 +173,7 @@ public class SelectTipsActivity extends BaseActivity {
         tipsResultVo.setPrice(money);
         intent.putExtra("tipsResultVo",tipsResultVo);
         startActivity(intent);
-
+        finish();
     }
 
     public void onBackPressed(){

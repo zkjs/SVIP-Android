@@ -177,7 +177,7 @@ public class GiveTipsActivity extends BaseActivity {
         final int orgY = contentLlt.getTop();
         final long time = 300;
         ViewHelper.setTranslationY(contentLlt,orgY);
-        int offsetY = contentLlt.getBottom();
+        final int offsetY = contentLlt.getBottom();
         ViewPropertyAnimator.animate(contentLlt).translationYBy(-offsetY).setDuration(time).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -185,8 +185,8 @@ public class GiveTipsActivity extends BaseActivity {
                 currentIndex = (length+1)%length;
                 resetWait(waitListResponse.getData().get(currentIndex));
                 int screenHeight = DisplayUtil.getHeightPixel(GiveTipsActivity.this);
-                ViewHelper.setTranslationY(contentLlt,screenHeight);
-                ViewPropertyAnimator.animate(contentLlt).translationYBy(orgY - screenHeight).setDuration(time).setListener(new AnimatorListenerAdapter() {
+                //ViewHelper.setTranslationY(contentLlt,screenHeight);
+                ViewPropertyAnimator.animate(contentLlt).translationYBy(offsetY).setDuration(time).setListener(new AnimatorListenerAdapter() {
                     public void onAnimationEnd(Animator animation) {
                         flingAble = true;
                     }
