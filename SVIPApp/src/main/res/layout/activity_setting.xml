@@ -106,7 +106,15 @@
                     android:id="@+id/icv_send"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    zkjinshi:icvTitle="消息推送"
+                    zkjinshi:icvTitle="信息推送"
+                    zkjinshi:haveDownLine="true"
+                    zkjinshi:icvValue="true"/>
+
+                <com.zkjinshi.svip.view.ItemCbxView
+                    android:id="@+id/icv_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:icvTitle="开启身份"
                     zkjinshi:haveDownLine="true"
                     zkjinshi:icvValue="true"/>
 

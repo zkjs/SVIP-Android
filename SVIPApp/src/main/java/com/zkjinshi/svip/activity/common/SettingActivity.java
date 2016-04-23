@@ -72,6 +72,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private ItemShowView mRealName;//真实姓名
     private ItemShowView mEmail;//邮箱
     private ItemCbxView sendCbx; //推送开关
+    private ItemCbxView serviceCbx; //服务开关
 
     private Context mContext;
 
@@ -94,6 +95,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mEmail            = (ItemShowView) findViewById(R.id.ius_email);
         sendCbx        = (ItemCbxView) findViewById(R.id.icv_send);
         mRealName          = (ItemShowView)findViewById(R.id.ius_real_name);
+        serviceCbx = (ItemCbxView) findViewById(R.id.icv_service);
 
     }
 
@@ -118,6 +120,19 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
+        serviceCbx.valueCbx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
+                if(isOpen){
+                    CacheUtil.getInstance().setServiceSwitch(true);
+                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+                }else{
+                    CacheUtil.getInstance().setServiceSwitch(false);
+                    BlueToothManager.getInstance().stopIBeaconService();
+                }
+            }
+        });
+
     }
 
     private void initData(){
@@ -138,6 +153,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             sendCbx.valueCbx.setChecked(true);
         }else{
             sendCbx.valueCbx.setChecked(false);
+        }
+
+        if(CacheUtil.getInstance().isServiceSwitch()){
+            serviceCbx.valueCbx.setChecked(true);
+        }else{
+            serviceCbx.valueCbx.setChecked(false);
         }
 
         refreshUserInfo();

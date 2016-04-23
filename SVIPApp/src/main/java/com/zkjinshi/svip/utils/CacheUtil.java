@@ -82,6 +82,24 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 获取蓝牙推送是否打开
+	 * @return
+	 */
+	public boolean isServiceSwitch() {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("isServiceSwitch"+CacheUtil.getInstance().getUserId(), true);
+	}
+
+	/**
+	 * 设置蓝牙推送是否打开
+	 * @param isOpen
+	 */
+	public void setServiceSwitch(boolean isOpen) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("isServiceSwitch"+CacheUtil.getInstance().getUserId(),  isOpen).commit();
+	}
+
+	/**
 	 * 设置用户登录状态
 	 * @param isLogin
 	 */
