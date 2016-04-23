@@ -148,7 +148,7 @@ public class GiveTipsActivity extends BaseActivity {
                     //float y = Math.abs(e2.getY() - e1.getY());
                     float x = Math.abs(e2.getX() - e1.getX());
                     if(e1.getY() - e2.getY() > 80 && x < 80 ){
-                        Toast.makeText(mContext,"up fling", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(mContext,"up fling", Toast.LENGTH_SHORT).show();
                         if(flingAble){
                             flingAble = false;
                             nextWaiter();
@@ -174,15 +174,14 @@ public class GiveTipsActivity extends BaseActivity {
 
 
     private void nextWaiter(){
-        final int orgY = contentLlt.getTop();
         final long time = 300;
-        ViewHelper.setTranslationY(contentLlt,orgY);
+        ViewHelper.setTranslationY(contentLlt,0);
         final int offsetY = contentLlt.getBottom();
         ViewPropertyAnimator.animate(contentLlt).translationYBy(-offsetY).setDuration(time).setListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 int length = waitListResponse.getData().size();
-                currentIndex = (length+1)%length;
+                currentIndex = (currentIndex+1)%length;
                 resetWait(waitListResponse.getData().get(currentIndex));
                 int screenHeight = DisplayUtil.getHeightPixel(GiveTipsActivity.this);
                 //ViewHelper.setTranslationY(contentLlt,screenHeight);
