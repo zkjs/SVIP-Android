@@ -242,7 +242,9 @@ public class MainActivity extends BaseFragmentActivity {
         filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
 
-        BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+        if(CacheUtil.getInstance().isServiceSwitch()){
+            BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+        }
         LocationManager.getInstance().startLocation();
 
     }

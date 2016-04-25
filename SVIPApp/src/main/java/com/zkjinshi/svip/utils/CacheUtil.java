@@ -48,7 +48,7 @@ public class CacheUtil {
 	/**
 	 * 获取锁屏状态
 	 * @return
-     */
+	 */
 	public boolean isScreenOff() {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("isScreenOff", false);
@@ -57,7 +57,7 @@ public class CacheUtil {
 	/**
 	 * 设置锁屏状态
 	 * @param isScreenOff
-     */
+	 */
 	public void setScreenOff(boolean isScreenOff) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putBoolean("isScreenOff",  isScreenOff).commit();
@@ -66,7 +66,7 @@ public class CacheUtil {
 	/**
 	 * 获取蓝牙推送是否打开
 	 * @return
-     */
+	 */
 	public boolean isBLESwitch() {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("isBLESwitch"+CacheUtil.getInstance().getUserId(), true);
@@ -75,10 +75,28 @@ public class CacheUtil {
 	/**
 	 * 设置蓝牙推送是否打开
 	 * @param isOpen
-     */
+	 */
 	public void setBleSwitch(boolean isOpen) {
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
 		sp.edit().putBoolean("isBLESwitch"+CacheUtil.getInstance().getUserId(),  isOpen).commit();
+	}
+
+	/**
+	 * 获取蓝牙推送是否打开
+	 * @return
+	 */
+	public boolean isServiceSwitch() {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getBoolean("isServiceSwitch"+CacheUtil.getInstance().getUserId(), true);
+	}
+
+	/**
+	 * 设置蓝牙推送是否打开
+	 * @param isOpen
+	 */
+	public void setServiceSwitch(boolean isOpen) {
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putBoolean("isServiceSwitch"+CacheUtil.getInstance().getUserId(),  isOpen).commit();
 	}
 
 	/**
@@ -155,6 +173,7 @@ public class CacheUtil {
 		sp.edit().putBoolean("is_first_time", isFirstTime).commit();
 	}
 
+
 	public boolean isFirstTime() {
 		if (null == context) {
 			return false;
@@ -162,6 +181,24 @@ public class CacheUtil {
 		SharedPreferences sp = context.getSharedPreferences(
 				SVIP_CACHE, Context.MODE_PRIVATE);
 		return sp.getBoolean("is_first_time", true);
+	}
+
+	public void setAccount(float account) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putFloat("account"+CacheUtil.getInstance().getUserId(), account).commit();
+	}
+
+	public float getAccount() {
+		if (null == context) {
+			return 0.0f;
+		}
+		SharedPreferences sp = context.getSharedPreferences(
+				SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getFloat("account"+CacheUtil.getInstance().getUserId(), 900.00f);
 	}
 
 	/**
@@ -619,7 +656,7 @@ public class CacheUtil {
 	 * @param <T>
 	 */
 	public <T> void saveListCache(String key,
-										 ArrayList<T> cacheList) {
+								  ArrayList<T> cacheList) {
 		if (null != cacheList && cacheList.size() > 0) {
 			Gson gson = new Gson();
 			String json = gson.toJson(cacheList);
@@ -642,19 +679,19 @@ public class CacheUtil {
 	 * @return
 	 */
 	public String getListStrCache(String key) {
-			SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
-					Context.MODE_PRIVATE);
-			String value = "";
-			String encryptedData = sp.getString(key, "");
-			if (!TextUtils.isEmpty(encryptedData)) {
-				try {
-					value = Base64Decoder.decode(encryptedData);// base 64解密
-				} catch (Exception e) {
-					e.printStackTrace();
-					Log.e("info", "getListCache Exception:" + e);
-				}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
+				Context.MODE_PRIVATE);
+		String value = "";
+		String encryptedData = sp.getString(key, "");
+		if (!TextUtils.isEmpty(encryptedData)) {
+			try {
+				value = Base64Decoder.decode(encryptedData);// base 64解密
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.e("info", "getListCache Exception:" + e);
 			}
-			return value;
+		}
+		return value;
 	}
 
 	/**
@@ -768,7 +805,7 @@ public class CacheUtil {
 	/**
 	 * 保存商家id
 	 * @param shopId
-     */
+	 */
 	public void saveShopId( String shopId) {
 		if (null == context) {
 			return;
@@ -781,7 +818,7 @@ public class CacheUtil {
 	/**
 	 * 获取商家id
 	 * @return
-     */
+	 */
 	public String getShopId() {
 		if (null == context) {
 			return null;
@@ -847,7 +884,7 @@ public class CacheUtil {
 	/**
 	 * 获取是否更新logo(超过一天则恢复默认)
 	 * @return
-     */
+	 */
 	public boolean isUpdateLogo(){
 		long expiryTime = getExpiryLogoTime();
 		long dayNum = System.currentTimeMillis() - expiryTime;
