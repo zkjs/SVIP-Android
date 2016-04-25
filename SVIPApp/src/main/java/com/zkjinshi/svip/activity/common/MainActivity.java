@@ -294,6 +294,7 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
+
         walletSdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
