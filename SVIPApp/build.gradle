@@ -8,13 +8,23 @@ android {
         applicationId "com.zkjinshi.svip"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 11
-        versionName "1.14.10"
+        versionCode 12
+        versionName "1.14.11"
         multiDexEnabled true
+    }
+
+    signingConfigs {
+        myConfig {
+            storeFile file("android_key.jks")
+            storePassword "12345678zkjs"
+            keyAlias "key_store"
+            keyPassword "12345678zkjs"
+        }
     }
 
     buildTypes {
         release {
+            signingConfig  signingConfigs.myConfig
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
