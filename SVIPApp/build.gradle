@@ -13,18 +13,8 @@ android {
         multiDexEnabled true
     }
 
-    signingConfigs {
-        myConfig {
-            storeFile file("android_key.jks")
-            storePassword "12345678zkjs"
-            keyAlias "key_store"
-            keyPassword "12345678zkjs"
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig  signingConfigs.myConfig
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
