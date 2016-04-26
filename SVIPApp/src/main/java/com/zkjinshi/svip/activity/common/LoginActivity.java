@@ -67,6 +67,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     private void initView() {
