@@ -106,15 +106,13 @@
 #---根据 Android Dependencies 配置library工程包start---#
 
 
- #4 自定义图片选择器
--libraryjars ..\\multi-image-selector
+ #1 自定义图片选择器
 -dontwarn me.nereo.multi_image_selector.**
 -keep class me.nereo.multi_image_selector.** { *; }
 
 
 
- #6 中科金石基类
--libraryjars ..\\ZKJinShiBaseClass
+ #2 中科金石基类
 -dontwarn com.zkjinshi.base.**
 -keep class com.zkjinshi.base.** { *; }
 
