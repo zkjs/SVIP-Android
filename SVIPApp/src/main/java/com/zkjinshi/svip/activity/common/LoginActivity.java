@@ -54,6 +54,7 @@ public class LoginActivity extends BaseActivity {
         initView();
         initData();
         initListener();
+
     }
 
     @Override
