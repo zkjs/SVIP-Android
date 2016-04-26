@@ -30,19 +30,6 @@ android {
         }
     }
 
-    productFlavors {
-
-        QQ {}
-        huawei {}
-        xiaomi {}
-        wandoujia {}
-
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        }
-
-    }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
