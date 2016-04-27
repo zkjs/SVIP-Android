@@ -32,6 +32,7 @@ public class BeaconMsgActivity extends BaseActivity{
     private TextView openTv;
     private LinearLayout openLayout;
     private SimpleDraweeView logoDv;
+    private YunBaMsgVo yunBaMsgVo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class BeaconMsgActivity extends BaseActivity{
     }
 
     private void initData() {
-        YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) getIntent().getSerializableExtra("data");
+        yunBaMsgVo = (YunBaMsgVo) getIntent().getSerializableExtra("data");
         if(yunBaMsgVo != null){
             String title = yunBaMsgVo.getTitle();
             if(!TextUtils.isEmpty(title)){
@@ -106,7 +107,12 @@ public class BeaconMsgActivity extends BaseActivity{
             @Override
             public void onClick(View view) {
                 finish();
-                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+                if(yunBaMsgVo.getInsert_time() > 0){
+                    //overridePendingTransition(R.anim.anim_small_big, R.anim.anim_big_small);
+                }else{
+                    overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+                }
+
             }
         });
     }

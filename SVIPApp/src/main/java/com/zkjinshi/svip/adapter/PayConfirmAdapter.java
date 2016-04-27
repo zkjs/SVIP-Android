@@ -92,6 +92,7 @@ public class PayConfirmAdapter extends BaseAdapter {
             holder.datetimeTv = (TextView)convertView.findViewById(R.id.datetime_tv);
             holder.priceTv = (TextView)convertView.findViewById(R.id.price_tv);
             holder.clickRlt = (RelativeLayout)convertView.findViewById(R.id.click_rlt);
+            holder.sdvImg = (SimpleDraweeView)convertView.findViewById(R.id.beaacon_msg_img);
             convertView.setTag(holder);
         }
 

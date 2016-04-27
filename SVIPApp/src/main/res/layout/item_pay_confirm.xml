@@ -57,7 +57,7 @@
                 android:textSize="20sp"/>
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/shop_logo"
+                android:id="@+id/beaacon_msg_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"

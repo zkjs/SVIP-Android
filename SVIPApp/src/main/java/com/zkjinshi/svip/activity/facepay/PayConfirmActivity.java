@@ -25,6 +25,8 @@ import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
+import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.PayRecordVo;
@@ -103,16 +105,23 @@ public class PayConfirmActivity extends BaseActivity {
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 int realPostion = position - 1;
-                PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
+                final PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
                 if(payRecordDataVo.getYunBaMsgVo() == null){
                     Intent intent = new Intent(mContext, PayActivity.class);
                     intent.putExtra("amountStatusVo",payRecordDataVo);
                     startActivity(intent);
                 }else{
-                    Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
-                    bIntent.putExtra("data",payRecordDataVo.getYunBaMsgVo());
-                    startActivity(bIntent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+
+                    BlurBehind.getInstance().execute(PayConfirmActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                            bIntent.putExtra("data",payRecordDataVo.getYunBaMsgVo());
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                            //overridePendingTransition(R.anim.anim_small_big, R.anim.anim_big_small);
+                        }
+                    });
                 }
 
             }
@@ -195,7 +204,10 @@ public class PayConfirmActivity extends BaseActivity {
     }
 
     private ArrayList<PayRecordDataVo> checkAppendBeaconMsg(ArrayList<PayRecordDataVo> payRecordDataList){
-        if(payRecordDataList.size() < 10 && !mPayRecordAdapter.isAppendBeaconMsg()){
+        if(payRecordDataList.size() < 10 ){
+            if(mCurrentPage != 0 && mPayRecordAdapter.isAppendBeaconMsg()){
+                return payRecordDataList;
+            }
             ArrayList<YunBaMsgVo> msgs = BeaconMsgDBUtil.getInstance().queryBeaconMsg();
            if(msgs != null && msgs.size() > 0){
                for (YunBaMsgVo msg : msgs){
