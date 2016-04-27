@@ -16,6 +16,7 @@ import com.zkjinshi.base.util.TimeUtil;
 import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
+import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.OtherShopVo;
@@ -76,6 +77,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                 }else if("BLE_ACTIVITY".equals(type)){
                     YunBaMsgVo yunBaMsgVo = new Gson().fromJson(data,YunBaMsgVo.class);
                     LogUtil.getInstance().info(LogLevel.WARN,"营销信息推送内容:"+msg);
+                    BeaconMsgDBUtil.getInstance().insertBeaconMsg(yunBaMsgVo);
                     if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
                         if(null != yunBaMsgVo){
                             NotificationHelper.getInstance().showNotification(context,yunBaMsgVo);

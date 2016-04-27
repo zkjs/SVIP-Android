@@ -139,7 +139,7 @@ public class ShopAdapter extends BaseAdapter {
             if(e2.getX()-e1.getX()>20){
                // Toast.makeText(context, "左滑", Toast.LENGTH_SHORT).show();
                 if(shopFragment != null){
-                    shopFragment.hideAction();
+                    //shopFragment.hideAction();
                 }
 
             }else if(e1.getX()-e2.getX()>20){

@@ -66,6 +66,18 @@ public class StringUtil {
         return m.matches();
     }
 
+    public static boolean isEnglishName(String name){
+        Pattern p = Pattern.compile("^([A-Za-z]+\\s?)*[A-Za-z]$");
+        Matcher m = p.matcher(name);
+        return m.matches();
+    }
+
+    public static boolean isChineseName(String name){
+        Pattern p = Pattern.compile("[\\u4E00-\\u9FA5]+");
+        Matcher m = p.matcher(name);
+        return m.matches();
+    }
+
     /**
      * @param str
      * @return

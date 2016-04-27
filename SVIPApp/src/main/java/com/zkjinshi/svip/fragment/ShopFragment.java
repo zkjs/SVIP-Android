@@ -93,20 +93,7 @@ public class ShopFragment extends Fragment {
         descListView.setAdapter(shopAdapter);
 
 
-        descListView.setFlingCallback(new FlingCallback() {
-            @Override
-            public void flingLeft() {
-                //Toast.makeText(getActivity(),"fragment flingLeft",Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void flingRight() {
-                if(isVisiable){
-                    hideAction();
-                }
-               // Toast.makeText(getActivity(),"fragment flingLeft",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void show(final View view){

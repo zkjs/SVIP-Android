@@ -170,6 +170,23 @@ public class TableOpenHelper {
                     + " error_message text "//网络请求错误信息
                     + " )";
 
+    //营销消息历史表
+    public static String BEACON_MSG_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.BEACON_MSG_TBL
+                    + "("
+                    + " _id integer primary key autoincrement , "
+                    + " title text , "
+                    + " locid text , "
+                    + " alert text , "
+                    + " shopid text , "
+                    + " content text , "
+                    + " button text , "
+                    + " img_url text , "
+                    + " insert_time long , "//时间戳
+                    + " button_url text "
+                    + " )";
+
     /**
      * 获取数据库所有表名
      * @return
@@ -183,7 +200,8 @@ public class TableOpenHelper {
             DBOpenHelper.PRIVILEGE_TBL,//特权
             DBOpenHelper.CITY_TBL,//城市名列表
             DBOpenHelper.BLE_LOG_TBL,//蓝牙定位日志表
-            DBOpenHelper.BLE_STAT_TBL//蓝牙定位统计表
+            DBOpenHelper.BLE_STAT_TBL,//蓝牙定位统计表
+            DBOpenHelper.BEACON_MSG_TBL//营销推送表
         };
     }
 }

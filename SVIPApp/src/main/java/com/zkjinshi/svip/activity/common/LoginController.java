@@ -118,6 +118,12 @@ public class LoginController {
                                 if(callBackListener != null){
                                     callBackListener.successCallback(null);
                                 }
+
+                                if(userInfoVo.getSilentmode() == 0){
+                                    CacheUtil.getInstance().setBleSwitch(true);
+                                }else{
+                                    CacheUtil.getInstance().setBleSwitch(false);
+                                }
                             }
                         }else{
                             Toast.makeText(mContext,getUserInfoVo.getResDesc(),Toast.LENGTH_SHORT).show();

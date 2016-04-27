@@ -17,6 +17,15 @@ public class PayRecordDataVo implements Serializable {
     private String statusdesc;
     private String confirmtime;
     private boolean isShow = false;
+    private YunBaMsgVo yunBaMsgVo = null;
+
+    public YunBaMsgVo getYunBaMsgVo() {
+        return yunBaMsgVo;
+    }
+
+    public void setYunBaMsgVo(YunBaMsgVo yunBaMsgVo) {
+        this.yunBaMsgVo = yunBaMsgVo;
+    }
 
     public boolean isShow() {
         return isShow;

@@ -70,8 +70,18 @@ public class UploadInfoActivity extends BaseActivity {
                     Toast.makeText(mContext,"用户名不能为空。",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if(!StringUtil.isNormalName(nameStr)){
-                    Toast.makeText(mContext,"填写不符合规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
+                else if(StringUtil.isChineseName(nameStr)){
+                    if(nameStr.length() > 10){
+                        Toast.makeText(mContext,"填写的姓名超过限制长度。",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else if(StringUtil.isEnglishName(nameStr)){
+                    if(nameStr.length() > 20){
+                        Toast.makeText(mContext,"填写的姓名超过限制长度。",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else{
+                    Toast.makeText(mContext,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 CacheUtil.getInstance().setUserName(nameStr);

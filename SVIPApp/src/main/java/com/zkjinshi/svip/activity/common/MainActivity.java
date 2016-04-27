@@ -57,6 +57,7 @@ import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.map.LocationManager;
 
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
+import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -102,7 +103,7 @@ public class MainActivity extends BaseFragmentActivity {
     public int clickCount = 0; //单击计数
 
     private ShopFragment shopFragment;
-    private GestureDetector gestureDetector;
+
 
     private class ShowMessageReceiver extends BroadcastReceiver {
         @Override
@@ -328,34 +329,19 @@ public class MainActivity extends BaseFragmentActivity {
 
             }
         });
-
-        Gesture gesture = new Gesture(this);
-        gesture.flingCallback = new FlingCallback() {
+        shopLogoSdv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void flingLeft() {
+            public void onClick(View view) {
                 if(!shopFragment.isVisiable){
                     shopFragment.show(rootRlt);
                 }
-                //Toast.makeText(MainActivity.this,"main flingLeft",Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void flingRight() {
-//                if(shopFragment.isVisiable){
-//                    shopFragment.hideAction();
-//                }
-//                Toast.makeText(MainActivity.this,"main flingRight",Toast.LENGTH_SHORT).show();
-            }
-        };
-        gestureDetector = new GestureDetector(this,gesture);
+        });
 
 
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-        if(!shopFragment.isVisiable){
-            return gestureDetector.onTouchEvent(event);
-        }
        return false;
     }
 

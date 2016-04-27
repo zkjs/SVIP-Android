@@ -217,6 +217,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 mEmail.setValue(userInfoVo.getEmail());
                                 mRealName.setValue(userInfoVo.getUsername());
 
+                                if(userInfoVo.getSilentmode() == 0){
+                                    CacheUtil.getInstance().setBleSwitch(true);
+                                    sendCbx.valueCbx.setChecked(true);
+
+                                }else{
+                                    CacheUtil.getInstance().setBleSwitch(false);
+                                    sendCbx.valueCbx.setChecked(false);
+                                }
+
                             }
                         }else{
                             Toast.makeText(mContext,getUserInfoVo.getResDesc(),Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.zkjinshi.svip.activity.facepay;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,11 +13,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.nineoldandroids.view.ViewHelper;
-import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ExpenseAdapter;
-import com.zkjinshi.svip.adapter.PayRecordAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;

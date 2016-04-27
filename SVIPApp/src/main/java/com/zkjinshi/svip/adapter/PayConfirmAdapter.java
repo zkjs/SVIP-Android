@@ -2,6 +2,7 @@ package com.zkjinshi.svip.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,13 +10,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.utils.PayUtil;
+import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -24,7 +30,7 @@ import java.util.ArrayList;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class PayRecordAdapter extends BaseAdapter {
+public class PayConfirmAdapter extends BaseAdapter {
 
     public ArrayList<PayRecordDataVo> datalist = new ArrayList<PayRecordDataVo>();
     private Activity activity;
@@ -41,9 +47,21 @@ public class PayRecordAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public PayRecordAdapter(ArrayList<PayRecordDataVo> datalist, Activity activity) {
+    public PayConfirmAdapter(ArrayList<PayRecordDataVo> datalist, Activity activity) {
         this.datalist = datalist;
         this.activity = activity;
+    }
+
+    //是否已经追加营销消息历史。
+    public boolean isAppendBeaconMsg(){
+        int size = datalist.size();
+        if(size > 0){
+            PayRecordDataVo lastVo = datalist.get(size -1);
+            if(lastVo.getYunBaMsgVo() != null){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -76,30 +94,31 @@ public class PayRecordAdapter extends BaseAdapter {
             holder.clickRlt = (RelativeLayout)convertView.findViewById(R.id.click_rlt);
             convertView.setTag(holder);
         }
-        holder.hotelNameTv.setText(itemOrder.getShopname());
-        holder.datetimeTv.setText(itemOrder.getCreatetime());
-        holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
 
-//        holder.clickRlt.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(status.equals("0")){
-//                    Intent intent = new Intent(activity, PayActivity.class);
-//                    intent.putExtra("amountStatusVo",itemOrder);
-//                    activity.startActivity(intent);
-//                }else{
-//                    Intent intent = new Intent(activity,PayDetailActivity.class);
-//                    intent.putExtra("payRecordDataVo",itemOrder);
-//                    activity.startActivity(intent);
-//                }
-//            }
-//        });
-
+        if(itemOrder.getYunBaMsgVo() == null){
+            holder.hotelNameTv.setText(itemOrder.getShopname());
+            holder.datetimeTv.setText(itemOrder.getCreatetime());
+            holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
+            holder.sdvImg.setVisibility(View.GONE);
+            holder.priceTv.setVisibility(View.VISIBLE);
+        }else{
+            YunBaMsgVo yunBaMsgVo = itemOrder.getYunBaMsgVo();
+            holder.hotelNameTv.setText(yunBaMsgVo.getTitle());
+            Date date = new Date(yunBaMsgVo.getInsert_time());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String dateStr = sdf.format(date);
+            holder.datetimeTv.setText(dateStr);
+            String imgUrl = ProtocolUtil.getHostImgUrl(yunBaMsgVo.getImg_url());
+            holder.sdvImg.setImageURI(Uri.parse(imgUrl));
+            holder.sdvImg.setVisibility(View.VISIBLE);
+            holder.priceTv.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
     static class ViewHolder{
         TextView hotelNameTv,priceTv,datetimeTv;
         RelativeLayout clickRlt;
+        SimpleDraweeView sdvImg;
     }
 }

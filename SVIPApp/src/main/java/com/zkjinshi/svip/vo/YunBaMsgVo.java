@@ -18,6 +18,15 @@ public class YunBaMsgVo implements Serializable{
     private String button;
     private String img_url;
     private String button_url;
+    private long insert_time;
+
+    public long getInsert_time() {
+        return insert_time;
+    }
+
+    public void setInsert_time(long insert_time) {
+        this.insert_time = insert_time;
+    }
 
     public String getTitle() {
         return title;

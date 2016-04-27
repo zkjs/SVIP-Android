@@ -27,6 +27,7 @@ public class ORMOpenHelper {
         db.execSQL(TableOpenHelper.PRIVILEGE_TBL_SQL);
         db.execSQL(TableOpenHelper.BLE_LOG_TBL_SQL);
         db.execSQL(TableOpenHelper.BLE_STAT_TBL_SQL);
+        db.execSQL(TableOpenHelper.BEACON_MSG_TBL_SQL);
     }
 
     /**

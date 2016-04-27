@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.facepay;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +14,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.adapter.PayRecordAdapter;
+import com.zkjinshi.svip.activity.common.BeaconMsgActivity;
+import com.zkjinshi.svip.adapter.PayConfirmAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
-import com.zkjinshi.svip.net.RequestUtil;
-import com.zkjinshi.svip.utils.AESUtil;
+import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -30,8 +28,8 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.PayRecordVo;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -50,7 +48,7 @@ public class PayConfirmActivity extends BaseActivity {
     private ImageButton backBtn;
     private TextView titleTv;
     private RefreshListView mRefreshListView;
-    private PayRecordAdapter mPayRecordAdapter = null;
+    private PayConfirmAdapter mPayRecordAdapter = null;
     private int    mCurrentPage;//记录当前查询页
     private String status = "0";
 
@@ -77,13 +75,9 @@ public class PayConfirmActivity extends BaseActivity {
 
     private void initData() {
         ArrayList<PayRecordDataVo> payRecordDataList = new ArrayList<PayRecordDataVo>();
-        mPayRecordAdapter = new PayRecordAdapter(payRecordDataList, PayConfirmActivity.this);
+        mPayRecordAdapter = new PayConfirmAdapter(payRecordDataList, PayConfirmActivity.this);
         mRefreshListView.setAdapter(mPayRecordAdapter);
-        if(status.equals("0")){
-            titleTv.setText("支付确认");
-        }else{
-            titleTv.setText("支付记录");
-        }
+        titleTv.setText("消息");
         mPayRecordAdapter.status = status;
     }
 
@@ -110,10 +104,15 @@ public class PayConfirmActivity extends BaseActivity {
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 int realPostion = position - 1;
                 PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
-                if(status.equals("0")){
+                if(payRecordDataVo.getYunBaMsgVo() == null){
                     Intent intent = new Intent(mContext, PayActivity.class);
                     intent.putExtra("amountStatusVo",payRecordDataVo);
                     startActivity(intent);
+                }else{
+                    Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                    bIntent.putExtra("data",payRecordDataVo.getYunBaMsgVo());
+                    startActivity(bIntent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                 }
 
             }
@@ -162,11 +161,13 @@ public class PayConfirmActivity extends BaseActivity {
                         if(payRecordVo.getRes() == 0){
                             ArrayList<PayRecordDataVo> payRecordDataList = payRecordVo.getData();
                             if (mCurrentPage == 0) {
+                                payRecordDataList = checkAppendBeaconMsg(payRecordDataList);
                                 mPayRecordAdapter.refresh(payRecordDataList);
                                 if(!payRecordDataList.isEmpty()){
                                     mCurrentPage++;
                                 }
                             } else {
+                                payRecordDataList = checkAppendBeaconMsg(payRecordDataList);
                                 mPayRecordAdapter.loadMore(payRecordDataList);
                                 if(!payRecordDataList.isEmpty()){
                                     mCurrentPage++;
@@ -191,5 +192,19 @@ public class PayConfirmActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private ArrayList<PayRecordDataVo> checkAppendBeaconMsg(ArrayList<PayRecordDataVo> payRecordDataList){
+        if(payRecordDataList.size() < 10 && !mPayRecordAdapter.isAppendBeaconMsg()){
+            ArrayList<YunBaMsgVo> msgs = BeaconMsgDBUtil.getInstance().queryBeaconMsg();
+           if(msgs != null && msgs.size() > 0){
+               for (YunBaMsgVo msg : msgs){
+                   PayRecordDataVo itemVo = new PayRecordDataVo();
+                   itemVo.setYunBaMsgVo(msg);
+                   payRecordDataList.add(itemVo);
+               }
+           }
+        }
+        return payRecordDataList;
     }
 }

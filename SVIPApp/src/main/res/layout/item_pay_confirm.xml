@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -34,22 +35,40 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/price_tv"
-            android:layout_width="120dp"
+
+
+
+        <RelativeLayout
+            android:layout_width="125dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="¥199.00"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:background="@drawable/item_orange_shape"/>
-        <View
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:background="@mipmap/img_quxian"
-            android:layout_toLeftOf="@id/price_tv"/>
+            android:background="@drawable/item_orange_shape">
+
+            <TextView
+                android:id="@+id/price_tv"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="¥199.00"
+                android:textColor="#ffffff"
+                android:textSize="20sp"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/shop_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                fresco:actualImageScaleType="centerCrop"/>
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@mipmap/img_quxian_white"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </LinearLayout>

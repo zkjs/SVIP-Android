@@ -18,6 +18,15 @@ public class UserInfoVo implements Serializable {
 
     private int ismodifyimage;
     private int ismodifyusername;
+    private int silentmode;
+
+    public int getSilentmode() {
+        return silentmode;
+    }
+
+    public void setSilentmode(int silentmode) {
+        this.silentmode = silentmode;
+    }
 
     public int getIsmodifyimage() {
         return ismodifyimage;
