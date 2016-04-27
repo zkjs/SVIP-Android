@@ -71,8 +71,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        mInputPhone     = (EditText)    findViewById(R.id.inputEt);
-        registerTv      = (TextView)    findViewById(R.id.register_tv);
+        mInputPhone  = (EditText)findViewById(R.id.inputEt);
+        registerTv = (TextView)findViewById(R.id.register_tv);
         registerTv.setVisibility(View.GONE);
         registerTv.setText("立即申请");
         contentRlt = (RelativeLayout)findViewById(R.id.content_rlt);
