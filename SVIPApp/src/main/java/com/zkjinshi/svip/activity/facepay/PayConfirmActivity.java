@@ -194,7 +194,11 @@ public class PayConfirmActivity extends BaseActivity {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    if (mCurrentPage == 0) {
+                        ArrayList<PayRecordDataVo> payRecordDataList = new ArrayList<PayRecordDataVo>();
+                        payRecordDataList = checkAppendBeaconMsg(payRecordDataList);
+                        mPayRecordAdapter.refresh(payRecordDataList);
+                    }
                     AsyncHttpClientUtil.onFailure(PayConfirmActivity.this,statusCode);
                 }
             });
