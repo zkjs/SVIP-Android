@@ -71,6 +71,7 @@ public class LocationManager{
                         double distance = DistanceUtil.getDistance(lat1,lon1,lat2,lon2);
                         if(distance >= DISTANCE_FILTER){
                             preAMapLocation = aMapLocation;
+                            LogUtil.getInstance().info(LogLevel.DEBUG,"距离变化："+distance);
                             lbsLocGps(aMapLocation);
                         }
                     }
@@ -88,7 +89,7 @@ public class LocationManager{
         }
     };
 
-    private void lbsLocGps(AMapLocation aMapLocation) {
+    private void lbsLocGps(final AMapLocation aMapLocation) {
         try {
             if(!NetWorkUtil.isNetworkConnected(context)){
                 return;
@@ -116,14 +117,14 @@ public class LocationManager{
                 jsonObject.put("mac",wifiInfo.getMacAddress());
                 jsonObject.put("ssid",wifiInfo.getSSID());
                 jsonObject.put("signal",wifiInfo.getRssi());
-                LogUtil.getInstance().info(LogLevel.DEBUG,"wifiInfo:"+wifiInfo.toString());
+                //LogUtil.getInstance().info(LogLevel.DEBUG,"wifiInfo:"+wifiInfo.toString());
             }
 
             SvipHttpClient.put(context,url, jsonObject, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                    // Log.d(TAG,response.toString());
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送成功");
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"Gps推送成功"+"("+aMapLocation.getLatitude()+","+aMapLocation.getLongitude()+")");
                 }
 
                 @Override

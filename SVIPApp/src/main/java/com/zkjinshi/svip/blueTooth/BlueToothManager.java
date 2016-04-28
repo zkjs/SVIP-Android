@@ -278,7 +278,7 @@ public class BlueToothManager {
             client.post(context,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                    LogUtil.getInstance().info(LogLevel.DEBUG,"beacons收集成功"+jsonArray.toString());
+                    LogUtil.getInstance().info(LogLevel.DEBUG,"beacons收集成功"+jsonArray.length());
                 }
 
                 @Override
