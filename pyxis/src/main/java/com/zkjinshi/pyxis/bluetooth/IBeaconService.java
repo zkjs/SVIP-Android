@@ -67,7 +67,7 @@ public class IBeaconService extends Service implements BeaconConsumer {
         Log.d(TAG,"IBeaconService.onCreate()");
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(IBEACON_FORMAT));
-        beaconManager.setRegionExitPeriod(20*1000);
+        beaconManager.setRegionExitPeriod(60*1000);
         beaconManager.setBackgroundBetweenScanPeriod(10*1000);
         beaconManager.setBackgroundScanPeriod(3*1000);
         beaconManager.bind(this);
