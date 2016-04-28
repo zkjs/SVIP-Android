@@ -168,6 +168,9 @@ public class ShopFragment extends Fragment {
         })
         .setInterpolator(new AccelerateInterpolator());
 
+        if(descListView != null){
+            descListView.setSelection(0);
+        }
     }
 
 
