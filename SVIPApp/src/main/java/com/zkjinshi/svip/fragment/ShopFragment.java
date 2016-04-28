@@ -244,7 +244,6 @@ public class ShopFragment extends Fragment {
         String shopName = shopVo.getShopname();
         if(!TextUtils.isEmpty(shopName)){
             shopNameTv.setText(shopName);
-            shopNameTv.setVisibility(View.GONE);
             titleTv.setText(shopName);
         }
         String address = shopVo.getShopaddress();
