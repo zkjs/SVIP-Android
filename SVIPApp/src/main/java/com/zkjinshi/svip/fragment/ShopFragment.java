@@ -12,6 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.webkit.WebView;
+import android.widget.AbsListView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +64,10 @@ public class ShopFragment extends Fragment {
     private View shopHeadLayout;
     private View homeView;
 
+    private ImageButton backIBtn;
+    private TextView titleTv;
+    private View headLayout;
+
 
 
     @Override
@@ -81,6 +89,10 @@ public class ShopFragment extends Fragment {
     }
 
     private void initUI(final View root) {
+        backIBtn = (ImageButton) root.findViewById(R.id.btn_back);
+        titleTv = (TextView)root.findViewById(R.id.title_tv);
+        headLayout = root.findViewById(R.id.my_header);
+
         shopHeadLayout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_shop_head,null);
         shopBgIv = (SimpleDraweeView)shopHeadLayout.findViewById(R.id.shop_detail_tv_bg);
         shopNameTv = (TextView)shopHeadLayout.findViewById(R.id.shop_detail_tv_shop_name);
@@ -92,7 +104,40 @@ public class ShopFragment extends Fragment {
         descListView.addHeaderView(shopHeadLayout);
         descListView.setAdapter(shopAdapter);
 
+        descListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem,int visibleItemCount, int totalItemCount) {
+                if(firstVisibleItem == 0){
+                    View firstView = descListView.getChildAt(0);
+                    if(firstView != null){
+                        int headerHeight = shopBgIv.getHeight();
+                        int y = -firstView.getTop();
+                        if (y <= headerHeight && y > 0) {
+                            float f = (float) y / (float) headerHeight;
+                            headLayout.getBackground().setAlpha((int) (f * 255));
+                            titleTv.setTextColor(getResources().getColor(R.color.white));
+                        } else if (y > headerHeight) {
+                            headLayout.getBackground().setAlpha(255);
+                        } else {
+                            headLayout.getBackground().setAlpha(0);
+                        }
+
+                    }
+                }
+            }
+        });
+
+        backIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideAction();
+            }
+        });
 
     }
 
@@ -196,6 +241,8 @@ public class ShopFragment extends Fragment {
         String shopName = shopVo.getShopname();
         if(!TextUtils.isEmpty(shopName)){
             shopNameTv.setText(shopName);
+            shopNameTv.setVisibility(View.GONE);
+            titleTv.setText(shopName);
         }
         String address = shopVo.getShopaddress();
         if(!TextUtils.isEmpty(address)){
