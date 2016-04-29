@@ -4,7 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f0f0f0">
-    <include layout="@layout/layout_header"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange">
+        <include layout="@layout/layout_header"/>
+    </RelativeLayout>
+
 
     <com.zkjinshi.svip.view.RefreshListView
         android:id="@+id/slv_history_order"

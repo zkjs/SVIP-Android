@@ -25,4 +25,6 @@ public class StringUtilTest {
         assertEquals(false,StringUtil.isChineseName("白 月初 e"));
         assertEquals(false,StringUtil.isChineseName("白 月初 ?"));
     }
+
+
 }

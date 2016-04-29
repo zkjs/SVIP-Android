@@ -171,6 +171,7 @@ public class ShopFragment extends Fragment {
         if(descListView != null){
             descListView.setSelection(0);
         }
+        headLayout.getBackground().setAlpha(0);
     }
 
 
@@ -188,12 +189,14 @@ public class ShopFragment extends Fragment {
                 root.setVisibility(View.GONE);
                 homeView.setVisibility(View.VISIBLE);
                 isVisiable = false;
+                headLayout.getBackground().setAlpha(255);
                 ViewHelper.setRotationY(homeView, rotation);
                 ViewPropertyAnimator.animate(homeView)
                         .rotationY(0).setDuration(duration)
                         .setListener(null).setInterpolator(new AccelerateInterpolator());
             }
         });
+
     }
 
     /**
