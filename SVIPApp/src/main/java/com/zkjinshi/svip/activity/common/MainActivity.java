@@ -45,6 +45,7 @@ import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -104,6 +105,29 @@ public class MainActivity extends BaseFragmentActivity {
 
     private ShopFragment shopFragment;
 
+    public static final int SHOW_BEACON_MSG_ORDER = 1;
+    public  Handler myHandler = new Handler(){
+        public void handleMessage(Message msg) {
+            if(msg.what == SHOW_BEACON_MSG_ORDER){
+                SVIPApplication svipApp = (SVIPApplication)getApplication();
+                final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
+                if(yunBaMsgVo != null){
+                    BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                            bIntent.putExtra("data",yunBaMsgVo);
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                        }
+                    });
+                }
+            }
+        }
+    };
+
+
 
     private class ShowMessageReceiver extends BroadcastReceiver {
         @Override
@@ -119,16 +143,11 @@ public class MainActivity extends BaseFragmentActivity {
         public void onReceive(Context ctx, Intent intent) {
             try {
                 final YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
-                    @Override
-                    public void onBlurComplete() {
-                        Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
-                        bIntent.putExtra("data",yunBaMsgVo);
-                        bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(bIntent);
-                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                    }
-                });
+                SVIPApplication svipApp = (SVIPApplication)getApplication();
+                svipApp.pushBeaconMsg(yunBaMsgVo);
+                myHandler.removeMessages(SHOW_BEACON_MSG_ORDER);
+                myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,500);
+
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
             }
@@ -178,6 +197,8 @@ public class MainActivity extends BaseFragmentActivity {
         if(null != mShowIBeaconPushMsgReceiver){
             unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
+        SVIPApplication svipApplication = (SVIPApplication)getApplication();
+        svipApplication.clearBeaconMsg();
 
     }
 

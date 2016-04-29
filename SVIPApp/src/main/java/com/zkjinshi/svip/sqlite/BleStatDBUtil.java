@@ -30,8 +30,8 @@ public class BleStatDBUtil {
     public synchronized static BleStatDBUtil getInstance(){
         if(instance == null){
             instance = new BleStatDBUtil();
-            instance.init();
         }
+        instance.init();
         return instance;
     }
 

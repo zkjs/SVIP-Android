@@ -33,8 +33,8 @@ public class BeaconMsgDBUtil {
     public synchronized static BeaconMsgDBUtil getInstance(){
         if(instance == null){
             instance = new BeaconMsgDBUtil();
-            instance.init();
         }
+        instance.init();
         return instance;
     }
 

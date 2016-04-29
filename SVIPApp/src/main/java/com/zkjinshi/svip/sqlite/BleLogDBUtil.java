@@ -31,8 +31,8 @@ public class BleLogDBUtil {
     public synchronized static BleLogDBUtil getInstance(){
         if(instance == null){
             instance = new BleLogDBUtil();
-            instance.init();
         }
+        instance.init();
         return instance;
     }
 

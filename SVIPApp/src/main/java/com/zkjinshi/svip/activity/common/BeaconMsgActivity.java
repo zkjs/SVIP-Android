@@ -18,8 +18,10 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
+import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 /**
@@ -41,6 +43,24 @@ public class BeaconMsgActivity extends BaseActivity{
         initView();
         initData();
         initListener();
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        SVIPApplication svipApp = (SVIPApplication)getApplication();
+        final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
+        if(yunBaMsgVo != null){
+            BlurBehind.getInstance().execute(BeaconMsgActivity.this, new OnBlurCompleteListener() {
+                @Override
+                public void onBlurComplete() {
+                    Intent bIntent = new Intent(BeaconMsgActivity.this,BeaconMsgActivity.class);
+                    bIntent.putExtra("data",yunBaMsgVo);
+                    bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(bIntent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                }
+            });
+        }
     }
 
     public void onBackPressed(){
