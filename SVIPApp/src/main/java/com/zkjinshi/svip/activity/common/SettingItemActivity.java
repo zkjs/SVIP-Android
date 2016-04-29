@@ -142,18 +142,15 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
         }else if(fieldKey.equals("username")){
-            if(StringUtil.isChineseName(fieldValue)){
-                if(fieldValue.length() > 10){
-                    Toast.makeText(this,"填写的姓名超过限制长度。",Toast.LENGTH_SHORT).show();
-                     return;
-                }
-            }else if(StringUtil.isEnglishName(fieldValue)){
+            if(!StringUtil.isNormalName(fieldValue)){
                 if(fieldValue.length() > 20){
                     Toast.makeText(this,"填写的姓名超过限制长度。",Toast.LENGTH_SHORT).show();
-                    return;
+                }else{
+                    Toast.makeText(this,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                Toast.makeText(this,"填写不合符规范，请填写真实姓名。",Toast.LENGTH_SHORT).show();
+                return;
+            }else if(fieldValue.length() > 20){
+                Toast.makeText(this,"填写的姓名超过限制长度。",Toast.LENGTH_SHORT).show();
                 return;
             }
         }

@@ -420,12 +420,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.ius_real_name:
                 if(ismodifyusername == 1){
                     Toast.makeText(mContext,"姓名只能改一次",Toast.LENGTH_SHORT).show();
-                    return;
+                    //return;
                 }
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
                 intent.putExtra("title","修改姓名");
                 intent.putExtra("hint","输入你的真实姓名");
-                intent.putExtra("tips","隐私信息未经本人许可严格保密");
+                intent.putExtra("tips","姓名只能改一次,请谨慎修改。");
                 intent.putExtra("field_key","username");
                 intent.putExtra("field_value",mRealName.getValue());
                 startActivityForResult(intent, Constants.FLAG_MODIFY_REAL_NAME);

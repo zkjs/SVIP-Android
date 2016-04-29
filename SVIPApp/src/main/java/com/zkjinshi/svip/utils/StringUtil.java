@@ -61,7 +61,7 @@ public class StringUtil {
     }
 
     public static boolean isNormalName(String name){
-        Pattern p = Pattern.compile("(([\\u4E00-\\u9FA5]{1,12})|([a-zA-Z]{1,12}))");
+        Pattern p = Pattern.compile("^([\\u4E00-\\u9FA5A-Za-z]+\\s?)*[\\u4E00-\\u9FA5A-Za-z]$");
         Matcher m = p.matcher(name);
         return m.matches();
     }

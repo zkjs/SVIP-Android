@@ -39,21 +39,23 @@
                 android:layout_centerVertical="true"
                 fresco:roundAsCircle="true"
                 fresco:roundingBorderWidth="1dp"
-                fresco:roundingBorderColor="@color/orange"
+
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 fresco:placeholderImageScaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/username_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/avatar_sdv"
                 android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
                 android:text="用户名"
                 android:textColor="@color/orange"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:ellipsize="end"
+                android:singleLine="true"/>
 
         </RelativeLayout>
         <View
