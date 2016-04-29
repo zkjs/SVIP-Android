@@ -420,7 +420,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.ius_real_name:
                 if(ismodifyusername == 1){
                     Toast.makeText(mContext,"姓名只能改一次",Toast.LENGTH_SHORT).show();
-                    //return;
+                    return;
                 }
                 intent = new Intent(SettingActivity.this,SettingItemActivity.class);
                 intent.putExtra("title","修改姓名");
