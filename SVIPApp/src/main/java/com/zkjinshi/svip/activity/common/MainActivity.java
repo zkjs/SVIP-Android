@@ -55,8 +55,10 @@ import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.manager.BleLogManager;
+import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.map.LocationManager;
 
+import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
@@ -104,8 +106,8 @@ public class MainActivity extends BaseFragmentActivity {
     public int clickCount = 0; //单击计数
 
     private ShopFragment shopFragment;
-
-    public static final int SHOW_BEACON_MSG_ORDER = 1;
+    public static final int CLEAR_CLICK_COUNT_ORDER = 1;
+    public static final int SHOW_BEACON_MSG_ORDER = 2;
     public  Handler myHandler = new Handler(){
         public void handleMessage(Message msg) {
             if(msg.what == SHOW_BEACON_MSG_ORDER){
@@ -123,6 +125,8 @@ public class MainActivity extends BaseFragmentActivity {
                         }
                     });
                 }
+            }else  if(msg.what == CLEAR_CLICK_COUNT_ORDER){
+                clickCount = 0;
             }
         }
     };
@@ -336,16 +340,11 @@ public class MainActivity extends BaseFragmentActivity {
             public void onClick(View view) {
                 clickCount++;
                 if(clickCount == 6){
-                    CacheUtil.getInstance().setLogin(false);
-                    BlueToothManager.getInstance().stopIBeaconService();
-                    LocationManager.getInstance().stopLocation();
-                    BaseApplication.getInst().clear();
-                    Intent intent = new Intent(mContext, LoginActivity.class);
-                    startActivity(intent);
+                    AsyncHttpClientUtil.forceExit(mContext);
                     clickCount = 0;
                 }else{
-                     handler.removeMessages(1);
-                     handler.sendEmptyMessageDelayed(1,1000);
+                     myHandler.removeMessages(CLEAR_CLICK_COUNT_ORDER);
+                    myHandler.sendEmptyMessageDelayed(1,1000);
                 }
 
             }
@@ -368,13 +367,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 
 
-    Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-            if(msg.what == 1){
-                clickCount = 0;
-            }
-        }
-    };
+
 
     //呼吸灯闪
     public void showPayMsgTips(){
