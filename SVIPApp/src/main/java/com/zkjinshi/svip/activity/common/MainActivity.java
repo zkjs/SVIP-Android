@@ -185,6 +185,21 @@ public class MainActivity extends BaseFragmentActivity {
             hidePayMsgTips();
         }
         BleLogManager.getInstance().uploadBleStatLog(this);
+
+        SVIPApplication svipApp = (SVIPApplication)getApplication();
+        final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
+        if(yunBaMsgVo != null){
+            BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                @Override
+                public void onBlurComplete() {
+                    Intent bIntent = new Intent(MainActivity.this,BeaconMsgActivity.class);
+                    bIntent.putExtra("data",yunBaMsgVo);
+                    bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(bIntent);
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                }
+            });
+        }
     }
 
     public void onDestroy(){

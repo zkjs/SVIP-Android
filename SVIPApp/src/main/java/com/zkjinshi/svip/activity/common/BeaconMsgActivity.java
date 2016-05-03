@@ -47,20 +47,6 @@ public class BeaconMsgActivity extends BaseActivity{
 
     public void onDestroy(){
         super.onDestroy();
-        SVIPApplication svipApp = (SVIPApplication)getApplication();
-        final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
-        if(yunBaMsgVo != null){
-            BlurBehind.getInstance().execute(BeaconMsgActivity.this, new OnBlurCompleteListener() {
-                @Override
-                public void onBlurComplete() {
-                    Intent bIntent = new Intent(BeaconMsgActivity.this,BeaconMsgActivity.class);
-                    bIntent.putExtra("data",yunBaMsgVo);
-                    bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(bIntent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                }
-            });
-        }
     }
 
     public void onBackPressed(){
@@ -112,7 +98,19 @@ public class BeaconMsgActivity extends BaseActivity{
                     }
                 });
             }else {
-                openLayout.setVisibility(View.GONE);
+                openLayout.setVisibility(View.VISIBLE);
+                openTv.setText("我知道了");
+                openTv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                        if(yunBaMsgVo.getInsert_time() > 0){
+                            //overridePendingTransition(R.anim.anim_small_big, R.anim.anim_big_small);
+                        }else{
+                            overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+                        }
+                    }
+                });
             }
         }
         BlurBehind.getInstance()
