@@ -124,5 +124,6 @@
     <drawable name="btn_yellow_normal_color">#ffffc56e</drawable>
 
     <color name="light_transparent">#cc000000</color>
+    <color name="simple_black">#202222</color>
 
 </resources>

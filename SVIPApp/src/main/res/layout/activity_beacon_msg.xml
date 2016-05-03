@@ -22,8 +22,9 @@
             android:layout_width="250dp"
             android:layout_height="194dp"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@mipmap/img_yaoqingyonghu"
-            fresco:placeholderImageScaleType="fitXY"/>
+            fresco:placeholderImage="@mipmap/ic_logo1"
+            fresco:backgroundImage="@color/simple_black"
+            fresco:placeholderImageScaleType="centerInside"/>
 
         <TextView
             android:id="@+id/ad_title_tv"

@@ -98,19 +98,7 @@ public class BeaconMsgActivity extends BaseActivity{
                     }
                 });
             }else {
-                openLayout.setVisibility(View.VISIBLE);
-                openTv.setText("我知道了");
-                openTv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                        if(yunBaMsgVo.getInsert_time() > 0){
-                            //overridePendingTransition(R.anim.anim_small_big, R.anim.anim_big_small);
-                        }else{
-                            overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
-                        }
-                    }
-                });
+                openLayout.setVisibility(View.GONE);
             }
         }
         BlurBehind.getInstance()
