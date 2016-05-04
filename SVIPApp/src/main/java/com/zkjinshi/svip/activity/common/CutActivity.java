@@ -120,7 +120,7 @@ public class CutActivity extends BaseActivity {
         try {
             int degree = ImageUtil.readPictureDegree(mPath);
             File file = new File(mPath);
-            bitmap =  ImageUtil.getBitmapFromFile(file,400,400);
+            bitmap =  ImageUtil.getBitmapFromFile(file,640,640);
             bitmap = ImageUtil.rotaingImageView(bitmap,degree);
             mBitmap = ImageUtil.cropBitmap(bitmap, screenWidth, screenHeight);
             if (mBitmap == null) {

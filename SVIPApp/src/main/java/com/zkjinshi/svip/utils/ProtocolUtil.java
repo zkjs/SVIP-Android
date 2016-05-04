@@ -1,8 +1,10 @@
 package com.zkjinshi.svip.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.zkjinshi.base.config.ConfigUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 
 /**
  * 协议接口工具类
@@ -20,7 +22,27 @@ public class ProtocolUtil {
      * @return
      */
     public static String getHostImgUrl(String apiUrl){
-       return ConfigUtil.getInst().getImgDomain()+apiUrl;
+       return ConfigUtil.getInst().getCdnDomain()+apiUrl;
+    }
+
+
+    /**
+     * 根据尺寸获取图片路径
+     * @param context
+     * @param apiUrl
+     * @param w
+     * @param h
+     * @return
+     */
+    public static String getImageUrlByScale(Context context, String apiUrl, int w, int h){
+        w = DisplayUtil.dip2px(context,w);
+        h = DisplayUtil.dip2px(context,h);
+        String domain =  ConfigUtil.getInst().getPcdDomain();
+        return domain+apiUrl+"@"+w+"w_"+h+"h";
+    }
+
+    public static String getAvatarUrl(Context context, String apiUrl){
+        return getImageUrlByScale(context,apiUrl,60,60);
     }
 
     /**

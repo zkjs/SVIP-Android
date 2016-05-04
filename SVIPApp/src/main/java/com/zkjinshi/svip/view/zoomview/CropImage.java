@@ -195,7 +195,7 @@ public class CropImage
 
     private void compressBmpToFile(Bitmap bmp,String filePath){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int options = 80;//个人喜欢从80开始,
+        int options = 100;
         bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
         while (baos.toByteArray().length / 1024 > 100) {
             baos.reset();

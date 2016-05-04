@@ -103,7 +103,7 @@ public class ShopAdapter extends BaseAdapter {
         }
         final ArrayList<String> photoList = shopModeVo.getPhotos();
         if(null != photoList && !photoList.isEmpty()){
-            Uri photoUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+photoList.get(0));
+            Uri photoUri = Uri.parse(ConfigUtil.getInst().getCdnDomain()+photoList.get(0));
             viewHolder.logoIv.setImageURI(photoUri);
             viewHolder.logoIv.setVisibility(View.VISIBLE);
             viewHolder.logoIv.setOnTouchListener(new View.OnTouchListener() {

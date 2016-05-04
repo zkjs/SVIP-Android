@@ -241,7 +241,7 @@ public class ShopFragment extends Fragment {
     private void setShopDescData(ShopVo shopVo){
         String shopBgUrl = shopVo.getShopbg();
         if(!TextUtils.isEmpty(shopBgUrl)){
-            Uri shopUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+shopBgUrl);
+            Uri shopUri = Uri.parse(ConfigUtil.getInst().getCdnDomain()+shopBgUrl);
             shopBgIv.setImageURI(shopUri);
         }
         String shopName = shopVo.getShopname();

@@ -101,7 +101,7 @@ public class LoginController {
                                 CacheUtil.getInstance().setUserPhone(userInfoVo.getPhone());
                                 CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                                 String imgurl = userInfoVo.getUserimage();
-                                imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                                imgurl = ProtocolUtil.getAvatarUrl(mContext,imgurl);
                                 CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
                                 CacheUtil.getInstance().setSex(userInfoVo.getSex()+"");
                                 CacheUtil.getInstance().setUserRealName(userInfoVo.getRealname());

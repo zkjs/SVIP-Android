@@ -76,7 +76,7 @@ public class BeaconMsgActivity extends BaseActivity{
             }
             String marketingLogoUrl = yunBaMsgVo.getImg_url();
             if(!TextUtils.isEmpty(marketingLogoUrl)){
-                Uri marketingLogoUri = Uri.parse(ConfigUtil.getInst().getImgDomain()+marketingLogoUrl);
+                Uri marketingLogoUri = Uri.parse(ConfigUtil.getInst().getCdnDomain()+marketingLogoUrl);
                 if(null != marketingLogoUri){
                     logoDv.setImageURI(marketingLogoUri);
                 }

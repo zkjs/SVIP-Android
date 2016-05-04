@@ -197,7 +197,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                 CacheUtil.getInstance().setUserPhone(userInfoVo.getPhone());
                                 CacheUtil.getInstance().setUserName(userInfoVo.getUsername());
                                 String imgurl = userInfoVo.getUserimage();
-                                imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                                //imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                                imgurl = ProtocolUtil.getAvatarUrl(mContext,imgurl);
                                 CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
                                 CacheUtil.getInstance().setSex(userInfoVo.getSex()+"");
                                 CacheUtil.getInstance().setUserRealName(userInfoVo.getRealname());
@@ -279,7 +280,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 String imgurl = null;
                 try {
                     imgurl = response.getString("userimage");
-                    imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                    //imgurl = ProtocolUtil.getHostImgUrl(imgurl);
+                    imgurl = ProtocolUtil.getAvatarUrl(mContext,imgurl);
                     CacheUtil.getInstance().saveUserPhotoUrl(imgurl);
                     ismodifyimage = 1;
                     refreshUserInfo();
