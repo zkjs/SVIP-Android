@@ -116,11 +116,19 @@ public class ConfigUtil {
     }
 
     /**
-     * 获得图片链接
+     * 获得cdn图片链接
      * @return
      */
-    public String getImgDomain(){
-        return "http://" + getConfigValue(Constants.IMG_HOST)+ "/";
+    public String getCdnDomain(){
+        return "http://" + getConfigValue(Constants.CDN_HOST)+ "/";
+    }
+
+    /**
+     * 获得pcm图片链接
+     * @return
+     */
+    public String getPcmDomain(){
+        return "http://" + getConfigValue(Constants.PCM_HOST)+ "/";
     }
 
     /**
