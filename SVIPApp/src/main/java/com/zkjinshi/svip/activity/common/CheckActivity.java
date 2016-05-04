@@ -236,7 +236,6 @@ public class CheckActivity extends BaseActivity {
                     return;
                 }
                 if (verifyCode.length() == 6) {
-                    mSmsVerifyStatus = SMS_VERIFY_SUCCESS;
                     if(isLogin){
                         getToken(inputPhone,verifyCode);
                     }else{
