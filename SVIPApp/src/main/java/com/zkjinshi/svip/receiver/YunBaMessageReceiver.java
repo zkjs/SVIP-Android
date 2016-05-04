@@ -98,8 +98,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         String shopLogo = otherShopVo.getLogo();
                         if(!TextUtils.isEmpty(shopLogo)){
                             width = DisplayUtil.dip2px(context,96);
-                            String imgHost = "http://pcd.zkjinshi.com/";
-                            CacheUtil.getInstance().saveShopLogo(imgHost+shopLogo+"@"+width+"h.png");
+                            CacheUtil.getInstance().saveShopLogo(ConfigUtil.getInst().getPcdDomain()+shopLogo+"@"+width+"h.png");
                         }
                         String expiryTimeStr = otherShopVo.getValidthru();
                         if(!TextUtils.isEmpty(expiryTimeStr)){

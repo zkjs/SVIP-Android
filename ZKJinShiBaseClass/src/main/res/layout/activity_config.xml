@@ -91,6 +91,30 @@
         </EditText>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cdn域名:"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editText_cdn"
+            style="@style/Config.CustomEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/base_config_setting_server_hint"
+            android:textSize="15sp" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -101,12 +125,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="流媒体:"
+            android:text="pcm域名:"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/editText_img"
+            android:id="@+id/editText_pcm"
             style="@style/Config.CustomEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

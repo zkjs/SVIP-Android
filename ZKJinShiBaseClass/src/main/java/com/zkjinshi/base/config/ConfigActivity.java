@@ -21,14 +21,15 @@ import java.io.IOException;
 public class ConfigActivity extends Activity {
 
     private EditText pavDomainEtv, pyxDomainEtv;
-    private EditText forDomainEtv, imgDomainEtv;
+    private EditText forDomainEtv, cdnDomainEtv, pcdDomaionEtv;
     private Button saveBtn;
 
     private void initView(){
         pavDomainEtv = (EditText)findViewById(R.id.editText_pav);
         pyxDomainEtv = (EditText)findViewById(R.id.editText_pyx);
         forDomainEtv = (EditText)findViewById(R.id.editText_for);
-        imgDomainEtv = (EditText)findViewById(R.id.editText_img);
+        cdnDomainEtv = (EditText)findViewById(R.id.editText_cdn);
+        pcdDomaionEtv = (EditText)findViewById(R.id.editText_pcm);
         saveBtn = (Button)findViewById(R.id.button_save);
     }
 
@@ -36,7 +37,8 @@ public class ConfigActivity extends Activity {
         pavDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.PAV_HOST));
         pyxDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.PYX_HOST));
         forDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.FOR_HOST));
-        imgDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.IMG_HOST));
+        cdnDomainEtv.setText(""+ ConfigUtil.getInst().getConfigValue(Constants.CDN_HOST));
+        pcdDomaionEtv.setText(""+ConfigUtil.getInst().getConfigValue(Constants.PCD_HOST));
     }
 
     private void initListeners(){
@@ -48,12 +50,14 @@ public class ConfigActivity extends Activity {
                 String pavDomain = pavDomainEtv.getText().toString();
                 String pyxDomain = pyxDomainEtv.getText().toString();
                 String forDomain = forDomainEtv.getText().toString();
-                String imgDomain = imgDomainEtv.getText().toString();
+                String cdnDomain = cdnDomainEtv.getText().toString();
+                String pcmDomain = pcdDomaionEtv.getText().toString();
                 try {
                     ConfigUtil.getInst().put(Constants.PAV_HOST, pavDomain);
                     ConfigUtil.getInst().put(Constants.PYX_HOST, pyxDomain);
                     ConfigUtil.getInst().put(Constants.FOR_HOST, forDomain);
-                    ConfigUtil.getInst().put(Constants.IMG_HOST, imgDomain);
+                    ConfigUtil.getInst().put(Constants.CDN_HOST, cdnDomain);
+                    ConfigUtil.getInst().put(Constants.PCD_HOST, pcmDomain);
                     ConfigUtil.getInst().save(view.getContext());
                 } catch (IllegalArgumentException e) {
                     // TODO Auto-generated catch block

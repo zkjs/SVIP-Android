@@ -127,8 +127,8 @@ public class ConfigUtil {
      * 获得pcm图片链接
      * @return
      */
-    public String getPcmDomain(){
-        return "http://" + getConfigValue(Constants.PCM_HOST)+ "/";
+    public String getPcdDomain(){
+        return "http://" + getConfigValue(Constants.PCD_HOST)+ "/";
     }
 
     /**

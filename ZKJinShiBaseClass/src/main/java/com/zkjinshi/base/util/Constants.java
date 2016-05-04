@@ -13,7 +13,7 @@ public class Constants {
     public static final String PAV_HOST = "pav-host";//孔雀座(认证服务)
     public static final String PYX_HOST = "pyx-host";//罗盘座(位置服务)
     public static final String FOR_HOST = "for-host";//天炉座(资源服务)
-    public final static String CDN_HOST = "cdn-host";//图片
-    public final static String PCM_HOST = "pcd-host";//图片
+    public final static String CDN_HOST = "cdn-host";//cdn图片
+    public final static String PCD_HOST = "pcd-host";//pcm图片
 
 }
