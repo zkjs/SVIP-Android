@@ -41,6 +41,18 @@ public class ProtocolUtil {
         return domain+apiUrl+"@"+w+"w_"+h+"h";
     }
 
+    public static String getImageUrlByWidth(Context context, String apiUrl, int w){
+        w = DisplayUtil.dip2px(context,w);
+        String domain =  ConfigUtil.getInst().getPcdDomain();
+        return domain+apiUrl+"@"+w+"w";
+    }
+
+    public static String getImageUrlByHeight(Context context, String apiUrl, int h){
+        h = DisplayUtil.dip2px(context,h);
+        String domain =  ConfigUtil.getInst().getPcdDomain();
+        return domain+apiUrl+"@"+h+"h";
+    }
+
     public static String getAvatarUrl(Context context, String apiUrl){
         return getImageUrlByScale(context,apiUrl,60,60);
     }
