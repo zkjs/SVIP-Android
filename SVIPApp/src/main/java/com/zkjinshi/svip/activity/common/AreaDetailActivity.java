@@ -103,6 +103,7 @@ public class AreaDetailActivity extends BaseActivity {
                     commentAdapter.refresh(datalist);
                     listView.setSelection(datalist.size() -1);
                 }
+                commentInputEt.setText("");
 
             }
         });
