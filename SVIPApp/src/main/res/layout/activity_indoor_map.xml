@@ -11,4 +11,15 @@
         android:scaleType="matrix"
         android:src="@mipmap/ic_first_floor"/>
 
+    <ImageView
+        android:id="@+id/indoor_location_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_dingwei_yellow"/>
+
+    <include
+        layout="@layout/layout_header"/>
+
 </FrameLayout>

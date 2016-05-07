@@ -1,6 +1,5 @@
 package com.zkjinshi.svip.activity.indoor;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -8,16 +7,23 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsoluteLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.blueTooth.BlueToothManager;
+import com.zkjinshi.svip.vo.AreaVo;
+
+import org.altbeacon.beacon.Region;
 
 /**
  *
@@ -27,7 +33,7 @@ import com.zkjinshi.svip.base.BaseActivity;
  * Copyright (C) 2016 深圳中科金石科技有限公司
  * 版权所有
  */
-public class IndoorMapActivity extends BaseActivity implements View.OnTouchListener{
+public class IndoorMapActivity extends BaseActivity implements View.OnTouchListener,IBeaconObserver {
 
     static final float MIN_ZOOM_SCALE = 0.1f;
     static final float MAX_ZOOM_SCALE = 4.0f;
@@ -35,6 +41,7 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
     static final int DRAG = 1;
     static final int ZOOM = 2;
     static final float MIN_FINGER_DISTANCE = 10.0f;
+    public static final int UPDATE_MAP = 3;
 
     int gestureMode;
     PointF prevPoint;
@@ -43,12 +50,19 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
     float prevFingerDistance;
     Matrix matrix;
     ImageView mImageView;
+    private ImageButton backIBtn;
+    private TextView titleTv;
+    private ImageView locationIv;
     Bitmap mBitmap;
     DisplayMetrics mDisplayMetrics;
     private float imageScale = 1.0f;
+    private AreaVo areaVo;
 
     private void initView(){
         mImageView = (ImageView) findViewById(R.id.floors_indoor_map_iv);
+        backIBtn = (ImageButton)findViewById(R.id.btn_back);
+        titleTv = (TextView)findViewById(R.id.title_tv);
+        locationIv = (ImageView)findViewById(R.id.indoor_location_iv);
     }
 
     private void initData(){
@@ -65,19 +79,33 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         mDisplayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics); // 获取屏幕信息（分辨率等）
 
+        locationIv.setVisibility(View.GONE);
+
         initImageMatrix();
         mImageView.setImageMatrix(matrix);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setPostTranslate(777,3537);
-            }
-        },3000);
 
+        areaVo = BlueToothManager.getInstance().getNearestArea(IndoorMapActivity.this);
+        if(null != areaVo){
+            updateMap(areaVo);
+        }
     }
 
     private void initListeners(){
 
+        //返回
+        backIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        backIBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -103,6 +131,7 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+                locationIv.setVisibility(View.GONE);
                 if (gestureMode == DRAG) {
                     nowPoint.set(event.getX(), event.getY());
                     matrix.postTranslate(nowPoint.x - prevPoint.x, nowPoint.y
@@ -147,11 +176,11 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
     }
 
     private void initImageMatrix() {
-        imageScale = Math.min(1.0f, Math.min(
+        imageScale =(Math.min(1.0f, Math.min(
                 (float) mDisplayMetrics.widthPixels
                         / (float) mBitmap.getWidth(),
                 (float) mDisplayMetrics.heightPixels
-                        / (float) mBitmap.getHeight()));
+                        / (float) mBitmap.getHeight())))*2;
         if (imageScale < 1.0f) { // 图片比屏幕大，需要缩小
             matrix.postScale(imageScale, imageScale);
         }
@@ -169,11 +198,11 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
      */
     private void setPostTranslate(float x,float y){
         matrix.reset();
-        imageScale = Math.min(1.0f, Math.min(
+        imageScale = (Math.min(1.0f, Math.min(
                 (float) mDisplayMetrics.widthPixels
                         / (float) mBitmap.getWidth(),
                 (float) mDisplayMetrics.heightPixels
-                        / (float) mBitmap.getHeight()));
+                        / (float) mBitmap.getHeight())))*2;
         if (imageScale < 1.0f) { // 图片比屏幕大，需要缩小
             matrix.postScale(imageScale, imageScale);
         }
@@ -185,8 +214,6 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         mImageView.setImageMatrix(matrix);
         mImageView.invalidate();
     }
-
-    Handler handler = new Handler();
 
     private float getFingerDistance(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
@@ -200,4 +227,57 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         point.set(x / 2.0f, y / 2.0f);
     }
 
+    @Override
+    public void intoRegion(IBeaconVo iBeaconVo) {
+        handler.sendEmptyMessage(UPDATE_MAP);
+    }
+
+    @Override
+    public void outRegin(IBeaconVo iBeaconVo) {
+
+    }
+
+    @Override
+    public void sacnBeacon(IBeaconVo iBeaconVo) {
+
+    }
+
+    @Override
+    public void exitRegion(Region region) {
+
+    }
+
+    @Override
+    public void postCollectBeacons() {
+
+    }
+
+    public  Handler handler = new Handler(){
+        public void handleMessage(Message msg) {
+            if(msg.what == UPDATE_MAP){
+                areaVo = BlueToothManager.getInstance().getNearestArea(IndoorMapActivity.this);
+                if(null != areaVo){
+                    updateMap(areaVo);
+                }
+            }
+        }
+    };
+
+    private void updateMap(AreaVo areaVo){
+        locationIv.setVisibility(View.VISIBLE);
+        int floor = areaVo.getFloor();
+        String title  = areaVo.getLocdesc();
+        if(!TextUtils.isEmpty(title)){
+            titleTv.setText(title);
+        }
+        if(floor == 1){
+            mImageView.setImageResource(R.mipmap.ic_first_floor);
+        }else {
+            mImageView.setImageResource(R.mipmap.ic_second_floor);
+        }
+        int coordX = areaVo.getCoord_x();
+        int coordY = areaVo.getCoord_y();
+        setPostTranslate(coordX,coordY);
+
+    }
 }
