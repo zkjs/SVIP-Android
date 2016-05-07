@@ -113,6 +113,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     private ShowMessageReceiver mShowMessageReceiver;
 
     public int clickCount = 0; //单击计数
+    private AreaVo currentAreaVo = null;
 
     private ShopFragment shopFragment;
     public static final int CLEAR_CLICK_COUNT_ORDER = 1;
@@ -138,9 +139,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             }else  if(msg.what == CLEAR_CLICK_COUNT_ORDER){
                 clickCount = 0;
             }else  if(msg.what == SHOW_AREA_DESC){
-                AreaVo areaVo = BlueToothManager.getInstance().getNearestArea(MainActivity.this);
-                if(areaVo != null){
-                    areaTv.setText(areaVo.getLocdesc());
+                currentAreaVo = BlueToothManager.getInstance().getNearestArea(MainActivity.this);
+                if(currentAreaVo != null){
+                    areaTv.setText(currentAreaVo.getLocdesc());
                 }else{
                     areaTv.setText("");
                 }
@@ -420,9 +421,13 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         areaTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,AreaDetailActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if(currentAreaVo != null){
+                    Intent intent = new Intent(mContext,AreaDetailActivity.class);
+                    intent.putExtra("currentAreaVo",currentAreaVo);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+
             }
         });
 

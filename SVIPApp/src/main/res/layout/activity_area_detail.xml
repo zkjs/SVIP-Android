@@ -8,7 +8,7 @@
     <include layout="@layout/layout_header"/>
 
     <ListView
-        android:id="@+id/video_list_view"
+        android:id="@+id/comment_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:cacheColorHint="#00000000"

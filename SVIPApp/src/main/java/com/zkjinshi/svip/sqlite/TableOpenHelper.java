@@ -187,6 +187,18 @@ public class TableOpenHelper {
                     + " button_url text "
                     + " )";
 
+    public static String AREA_COMMENT_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.AERE_COMMENT_TBL
+                    + "("
+                    + " _id integer primary key autoincrement , "
+                    + " avatarUrl text , "
+                    + " name text , "
+                    + " timestamp long , "
+                    + " area_key text , "
+                    + " comment text  "
+                    + " )";
+
     /**
      * 获取数据库所有表名
      * @return
@@ -201,7 +213,8 @@ public class TableOpenHelper {
             DBOpenHelper.CITY_TBL,//城市名列表
             DBOpenHelper.BLE_LOG_TBL,//蓝牙定位日志表
             DBOpenHelper.BLE_STAT_TBL,//蓝牙定位统计表
-            DBOpenHelper.BEACON_MSG_TBL//营销推送表
+            DBOpenHelper.BEACON_MSG_TBL,//营销推送表
+            DBOpenHelper.AERE_COMMENT_TBL//区域评论表
         };
     }
 }

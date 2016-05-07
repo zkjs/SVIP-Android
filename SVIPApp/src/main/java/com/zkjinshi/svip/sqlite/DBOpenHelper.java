@@ -17,7 +17,7 @@ import com.zkjinshi.base.log.LogUtil;
 public class DBOpenHelper extends SQLiteOpenHelper{
 
     public static String DB_NAME = "svip_sqlite.db";//根据每个用户创建一份数据库
-    public static final int VERSION = 4;// 数据库版本
+    public static final int VERSION = 5;// 数据库版本
     public static final String USER_INFO_TBL   = "userinfotbl";//用户个人信息表
     public static final String SHOP_INFO_TBL   = "shopinfotbl";
     public static final String SERVER_PERSONAL_TBL   = "serverpersonaltbl"; //专属客服列表
@@ -27,6 +27,7 @@ public class DBOpenHelper extends SQLiteOpenHelper{
     public static final String BLE_LOG_TBL = "ble_log_tbl";//蓝牙定位日志表
     public static final String BLE_STAT_TBL = "ble_stat_tbl";//蓝牙定位统计表
     public static final String BEACON_MSG_TBL = "beacon_msg_tbl";//营销推送表
+    public static final String AERE_COMMENT_TBL = "area_comment_tbl";//区域评论表
 
     public DBOpenHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
