@@ -55,6 +55,7 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
+import com.zkjinshi.svip.activity.indoor.IndoorMapActivity;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
@@ -484,10 +485,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         contentView.findViewById(R.id.map_direct_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
-//                intent.putExtra("status","0");
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                Intent intent = new Intent(mContext,IndoorMapActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 popupWindow.dismiss();
             }
         });

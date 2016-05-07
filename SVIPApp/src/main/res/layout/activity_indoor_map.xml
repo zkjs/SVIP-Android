@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/floors_indoor_map_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@mipmap/ic_first_floor"/>
+
+    <ImageView
+        android:id="@+id/indoor_location_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_dingwei_yellow"/>
+
+    <include
+        layout="@layout/layout_header"/>
+
+</FrameLayout>
