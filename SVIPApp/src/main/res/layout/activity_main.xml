@@ -39,7 +39,7 @@
                 android:layout_centerVertical="true"
                 fresco:roundAsCircle="true"
                 fresco:roundingBorderWidth="1dp"
-                fresco:roundingBorderColor="@color/orange"
+
                 fresco:actualImageScaleType="centerCrop"
                 fresco:placeholderImage="@mipmap/ic_launcher"
                 fresco:placeholderImageScaleType="centerCrop"/>
@@ -91,6 +91,17 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="#ffc56e"
                 android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/area_tv"
+                android:layout_below="@id/shop_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="所在的区域"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffc56e"
+                android:textSize="16sp"/>
 
         </RelativeLayout>
         <com.facebook.drawee.view.SimpleDraweeView
