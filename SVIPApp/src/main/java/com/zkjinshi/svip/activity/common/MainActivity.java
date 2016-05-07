@@ -373,12 +373,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         msgIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
-//                intent.putExtra("status","0");
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                hidePayMsgTips();
-//                MainActivity.showMsgAnimation = false;
+
                 showPopupWindow(view);
 
             }
@@ -419,6 +414,15 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                 if(!shopFragment.isVisiable){
                     shopFragment.show(rootRlt);
                 }
+            }
+        });
+
+        areaTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,AreaDetailActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -464,10 +468,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         contentView.findViewById(R.id.video_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
-//                intent.putExtra("status","0");
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                Intent intent = new Intent(mContext,VideoListActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 popupWindow.dismiss();
             }
         });

@@ -133,6 +133,15 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
+        <activity android:name=".activity.common.AreaDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Translucent.NoTitleBar"  >
+        </activity>
+        <activity android:name=".activity.common.VideoListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.Translucent.NoTitleBar"  >
+        </activity>
+
         <!--刷脸支付-->
         <activity android:name=".activity.facepay.PayConfirmActivity"
             android:screenOrientation="portrait"
