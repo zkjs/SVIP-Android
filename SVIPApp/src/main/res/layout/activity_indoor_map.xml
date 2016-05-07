@@ -8,8 +8,7 @@
         android:id="@+id/floors_indoor_map_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="matrix"
-        android:src="@mipmap/ic_first_floor"/>
+        android:scaleType="matrix"/>
 
     <ImageView
         android:id="@+id/indoor_location_iv"

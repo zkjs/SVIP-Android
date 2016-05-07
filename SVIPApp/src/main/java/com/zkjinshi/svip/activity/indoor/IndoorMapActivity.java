@@ -71,9 +71,13 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         nowPoint = new PointF();
         midPoint = new PointF();
         matrix = new Matrix();
-        mBitmap = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.ic_first_floor);
-        mImageView.setImageBitmap(mBitmap);
+        try {
+            mBitmap = BitmapFactory.decodeResource(getResources(),
+                    R.mipmap.ic_first_floor);
+            mImageView.setImageBitmap(mBitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mImageView.setOnTouchListener(this);
 
         mDisplayMetrics = new DisplayMetrics();
@@ -208,8 +212,8 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         }
         RectF rect = new RectF(0, 0, mBitmap.getWidth(), mBitmap.getHeight());
         matrix.mapRect(rect); // 按 initImageScale 缩小矩形，或者不变
-        float dx = (mDisplayMetrics.widthPixels  / 2.0f) -  x*imageScale;
-        float dy = (mDisplayMetrics.heightPixels / 2.0f) - y*imageScale;
+        float dx = (mDisplayMetrics.widthPixels  / 2.0f) -  x * (imageScale >= 1 ? 1: imageScale);
+        float dy = (mDisplayMetrics.heightPixels / 2.0f) - y * (imageScale >= 1 ? 1: imageScale);
         matrix.postTranslate(dx, dy);
         mImageView.setImageMatrix(matrix);
         mImageView.invalidate();
