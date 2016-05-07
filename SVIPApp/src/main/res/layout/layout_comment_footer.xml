@@ -14,7 +14,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="left"
-            android:hint="请输入"
+            android:hint="请输入评论内容"
             android:inputType="text"
             android:maxLength="12"
             android:singleLine="true"
