@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 
@@ -19,13 +21,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsoluteLayout;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +48,8 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.base.util.DisplayUtil;
+import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
@@ -68,6 +75,7 @@ import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 
+import org.altbeacon.beacon.Region;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,18 +89,19 @@ import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.view.BeaconMsgDialog;
 import com.zkjinshi.svip.view.FlingCallback;
 import com.zkjinshi.svip.view.Gesture;
+import com.zkjinshi.svip.vo.AreaVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements IBeaconObserver {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
     public static boolean showMsgAnimation = false;
 
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
-    private TextView accountTv,usernameTv,activateTv;
+    private TextView accountTv,usernameTv,activateTv,areaTv;
     private RelativeLayout paopaoRlt;
 
     private RelativeLayout rootRlt;
@@ -108,6 +117,7 @@ public class MainActivity extends BaseFragmentActivity {
     private ShopFragment shopFragment;
     public static final int CLEAR_CLICK_COUNT_ORDER = 1;
     public static final int SHOW_BEACON_MSG_ORDER = 2;
+    public static final int SHOW_AREA_DESC = 3;
     public  Handler myHandler = new Handler(){
         public void handleMessage(Message msg) {
             if(msg.what == SHOW_BEACON_MSG_ORDER){
@@ -127,10 +137,42 @@ public class MainActivity extends BaseFragmentActivity {
                 }
             }else  if(msg.what == CLEAR_CLICK_COUNT_ORDER){
                 clickCount = 0;
+            }else  if(msg.what == SHOW_AREA_DESC){
+                AreaVo areaVo = BlueToothManager.getInstance().getNearestArea(MainActivity.this);
+                if(areaVo != null){
+                    areaTv.setText(areaVo.getLocdesc());
+                }else{
+                    areaTv.setText("");
+                }
+
             }
         }
     };
 
+    @Override
+    public void intoRegion(IBeaconVo iBeaconVo) {
+        myHandler.sendEmptyMessage(SHOW_AREA_DESC);
+    }
+
+    @Override
+    public void outRegin(IBeaconVo iBeaconVo) {
+        myHandler.sendEmptyMessage(SHOW_AREA_DESC);
+    }
+
+    @Override
+    public void sacnBeacon(IBeaconVo iBeaconVo) {
+
+    }
+
+    @Override
+    public void exitRegion(Region region) {
+
+    }
+
+    @Override
+    public void postCollectBeacons() {
+
+    }
 
 
     private class ShowMessageReceiver extends BroadcastReceiver {
@@ -169,6 +211,7 @@ public class MainActivity extends BaseFragmentActivity {
         initView();
         initData();
         initListener();
+
     }
 
     protected void onResume() {
@@ -218,7 +261,7 @@ public class MainActivity extends BaseFragmentActivity {
         }
         SVIPApplication svipApplication = (SVIPApplication)getApplication();
         svipApplication.clearBeaconMsg();
-
+        BlueToothManager.getInstance().removeObserver(this);
     }
 
     public void onBackPressed(){
@@ -230,6 +273,7 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initView() {
+        areaTv  = (TextView)findViewById(R.id.area_tv);
         activateTv = (TextView)findViewById(R.id.activate_tips_tv);
         msgIv = (SimpleDraweeView)findViewById(R.id.msgIv);
         avatarCiv =  (SimpleDraweeView)findViewById(R.id.avatar_sdv);
@@ -248,6 +292,7 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initData() {
+        areaTv.setText("");
         //注册更新logo广播
         updateLogoReceiver = new UpdateLogoReceiver();
         IntentFilter updateIntentFilter = new IntentFilter();
@@ -285,8 +330,11 @@ public class MainActivity extends BaseFragmentActivity {
 
         if(CacheUtil.getInstance().isServiceSwitch()){
             BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
+            BlueToothManager.getInstance().addObserver(this);
         }
         LocationManager.getInstance().startLocation();
+
+        //AreaVo areaVo = ((SVIPApplication)getApplication()).getAreaVo("931ddf8e-10e4-11e5-9493-1697f925ec7b851");
 
     }
 
@@ -325,12 +373,13 @@ public class MainActivity extends BaseFragmentActivity {
         msgIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayConfirmActivity.class);
-                intent.putExtra("status","0");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                hidePayMsgTips();
-                MainActivity.showMsgAnimation = false;               
+//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+//                intent.putExtra("status","0");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                hidePayMsgTips();
+//                MainActivity.showMsgAnimation = false;
+                showPopupWindow(view);
 
             }
         });
@@ -374,6 +423,78 @@ public class MainActivity extends BaseFragmentActivity {
         });
 
 
+    }
+
+    private void showPopupWindow(View view) {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(mContext).inflate( R.layout.menu_pop_window, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        //popupWindow.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_tishikuang));
+
+        ColorDrawable color = new ColorDrawable(Color.parseColor("#8f101010"));
+        popupWindow.setBackgroundDrawable(color);
+        // 设置好参数之后再show
+        int offsetX = DisplayUtil.dip2px(this,104);
+        popupWindow.showAsDropDown(view,-offsetX,5);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+            }
+        });
+
+        //消息
+        contentView.findViewById(R.id.pay_confirm_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+                intent.putExtra("status","0");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                hidePayMsgTips();
+                MainActivity.showMsgAnimation = false;
+                popupWindow.dismiss();
+            }
+        });
+        //视频直播
+        contentView.findViewById(R.id.video_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+//                intent.putExtra("status","0");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                popupWindow.dismiss();
+            }
+        });
+
+        //室内导航
+        contentView.findViewById(R.id.map_direct_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+//                intent.putExtra("status","0");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                popupWindow.dismiss();
+            }
+        });
+
+        //门锁开关
+        contentView.findViewById(R.id.lock_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
+//                intent.putExtra("status","0");
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                popupWindow.dismiss();
+            }
+        });
     }
 
     public boolean onTouchEvent(MotionEvent event) {

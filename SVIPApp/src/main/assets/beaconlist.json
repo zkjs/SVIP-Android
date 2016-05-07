@@ -1,0 +1,72 @@
+[
+	{
+		"major" : 800,
+		"minior" : 1,
+		"uuid" : "931ddf8e-10e4-11e5-9493-1697f925ec7b",
+		"locdesc" : "大门",
+		"locid" : 800,
+		"floor" : 1,
+		"map" : "floor_1.png",
+		"logo" : "",
+		"brief" : "酒店大门",
+		"coord_x" : 777,
+		"coord_y" : 3537,
+		"video_url": "http://web.zkjinshi.com/zhuanti/video/800"
+	},
+	{
+		"major" : 804,
+		"minior" : 1,
+		"uuid" : "931ddf8e-10e4-11e5-9493-1697f925ec7b",
+		"locdesc" : "行政酒廊",
+		"locid" : 804,
+		"floor" : 21,
+		"map" : "floor_1.png",
+		"logo" : "",
+		"brief" : "行政酒廊",
+		"coord_x" : 0,
+		"coord_y" : 0,
+		"video_url": ""
+	},
+	{
+		"major" : 851,
+		"minior" : 1,
+		"uuid" : "931ddf8e-10e4-11e5-9493-1697f925ec7b",
+		"locdesc" : "收款-大堂吧",
+		"locid" : 851,
+		"floor" : 1,
+		"map" : "floor_1.png",
+		"logo" : "",
+		"brief" : "大堂吧",
+		"coord_x" : 1700,
+		"coord_y" : 600,
+		"video_url": "http://web.zkjinshi.com/zhuanti/video/851"
+	},
+	{
+		"major" : 814,
+		"minior" : 1,
+		"uuid" : "fda50693-a4e2-4fb1-afcf-c6eb07647835",
+		"locdesc" : "西餐厅A区",
+		"locid" : 814,
+		"floor" : 2,
+		"map" : "floor_1.png",
+		"logo" : "",
+		"brief" : "西餐厅A区",
+		"coord_x" : 0,
+		"coord_y" : 0,
+		"video_url": "http://web.zkjinshi.com/zhuanti/video/814"
+	},
+	{
+		"major" : 815,
+		"minior" : 1,
+		"uuid" : "fda50693-a4e2-4fb1-afcf-c6eb07647835",
+		"locdesc" : "西餐厅B区",
+		"locid" : 815,
+		"floor" : 2,
+		"map" : "floor_1.png",
+		"logo" : "",
+		"brief" : "西餐厅B区",
+		"coord_x" : 0,
+		"coord_y" : 1,
+		"video_url": "http://web.zkjinshi.com/zhuanti/video/815"
+	}
+]

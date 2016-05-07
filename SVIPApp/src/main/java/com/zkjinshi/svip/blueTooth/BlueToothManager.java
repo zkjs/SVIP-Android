@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.blueTooth;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.Build;
@@ -24,6 +25,7 @@ import com.zkjinshi.pyxis.bluetooth.IBeaconService;
 import com.zkjinshi.pyxis.bluetooth.IBeaconSubject;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
+import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.manager.BleLogManager;
 import com.zkjinshi.svip.manager.BleStatManager;
 import com.zkjinshi.svip.manager.SSOManager;
@@ -33,6 +35,7 @@ import com.zkjinshi.svip.net.RequestUtil;
 import com.zkjinshi.svip.sqlite.BleStatDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.AreaVo;
 import com.zkjinshi.svip.vo.PayloadVo;
 
 import org.altbeacon.beacon.Region;
@@ -360,5 +363,26 @@ public class BlueToothManager {
     public IBeaconVo getLastIBeaconVo(){
         return IBeaconContext.getInstance().getLastIBeaconVo();
     }
+
+
+    public AreaVo getNearestArea(Activity activity){
+
+        AreaVo nearestArea = null;
+        double minDistance = 10000;
+        ArrayList<AreaVo> areaVos = ((SVIPApplication)activity.getApplication()).getAreaVolist();
+        for(int i=0;i<areaVos.size();i++){
+            AreaVo areaVo = areaVos.get(i);
+            if(IBeaconContext.getInstance().getiBeaconMap().containsKey(areaVo.getKey())){
+                IBeaconVo iBeaconVo = IBeaconContext.getInstance().getiBeaconMap().get(areaVo.getKey());
+                if(iBeaconVo.getDistance()< minDistance){
+                    nearestArea = areaVo;
+                    minDistance = iBeaconVo.getDistance();
+                }
+            }
+        }
+        return nearestArea;
+    }
+
+
 
 }

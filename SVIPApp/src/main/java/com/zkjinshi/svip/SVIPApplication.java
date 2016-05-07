@@ -5,7 +5,10 @@ import android.content.Context;
 
 import android.os.Environment;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,6 +39,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.zkjinshi.svip.vo.AreaVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
@@ -55,6 +59,7 @@ public class SVIPApplication extends BaseApplication {
     private BackgroundPowerSaver backgroundPowerSaver;
 
     private ArrayList<YunBaMsgVo> beaconMsgCache = new ArrayList<YunBaMsgVo>();
+    private ArrayList<AreaVo> areaVos = new ArrayList<AreaVo>();
 
     public void pushBeaconMsg(YunBaMsgVo yunBaMsgVo){
         beaconMsgCache.add(yunBaMsgVo);
@@ -89,6 +94,49 @@ public class SVIPApplication extends BaseApplication {
         BlueToothManager.getInstance().init(this);
         backgroundPowerSaver = new BackgroundPowerSaver(this);
         Fresco.initialize(this);
+        initAreaVos();
+    }
+
+    /**
+     * 初始化区域信息
+     */
+    private void initAreaVos() {
+        try {
+            InputStream is = getAssets().open("beaconlist.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String text = new String(buffer, "utf-8");
+            areaVos = new Gson().fromJson(text,new TypeToken<ArrayList<AreaVo>>() {}.getType());
+            Log.d(TAG,areaVos.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 根据key获取区域信息
+     * @param key
+     * @return
+     */
+    public AreaVo getAreaVo(String key){
+        for(int i=0;i<areaVos.size();i++){
+            AreaVo areaVo = areaVos.get(i);
+            if(key.equals(areaVo.getKey())){
+                return areaVo;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取本地区域信息列表
+     * @return
+     */
+    public ArrayList<AreaVo> getAreaVolist(){
+        return areaVos;
     }
 
     @Override
