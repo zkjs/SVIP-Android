@@ -284,14 +284,18 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         locationIv.setVisibility(View.VISIBLE);
         int floor = areaVo.getFloor();
         String title  = areaVo.getLocdesc();
-        if(!TextUtils.isEmpty(title)){
-            titleTv.setText(title);
-        }
+        StringBuffer mapTitle = new StringBuffer();
         if(floor == 1){
             mImageView.setImageResource(R.mipmap.ic_first_floor);
+            mapTitle.append("F1-");
         }else {
             mImageView.setImageResource(R.mipmap.ic_second_floor);
+            mapTitle.append("F2-");
         }
+        if(!TextUtils.isEmpty(title)){
+            mapTitle.append(title);
+        }
+        titleTv.setText(mapTitle.toString());
         int coordX = areaVo.getCoord_x();
         int coordY = areaVo.getCoord_y();
         setPostTranslate(coordX,coordY);
