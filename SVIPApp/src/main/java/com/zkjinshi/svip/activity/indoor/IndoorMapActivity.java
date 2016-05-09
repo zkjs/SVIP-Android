@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,21 +56,28 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
     Matrix matrix;
     ImageView mImageView;
     private ImageButton backIBtn;
+    private ImageButton startLocationIBtn;
     private TextView titleTv;
     private ImageView locationIv;
     Bitmap mBitmap;
     DisplayMetrics mDisplayMetrics;
     private float imageScale = 1.0f;
     private AreaVo areaVo;
+    private CheckBox firstFloorCb,secondFloorCb;
+    private boolean isLocationAble;
 
     private void initView(){
         mImageView = (ImageView) findViewById(R.id.floors_indoor_map_iv);
         backIBtn = (ImageButton)findViewById(R.id.btn_back);
         titleTv = (TextView)findViewById(R.id.title_tv);
         locationIv = (ImageView)findViewById(R.id.indoor_location_iv);
+        startLocationIBtn = (ImageButton)findViewById(R.id.start_map_location);
+        firstFloorCb = (CheckBox)findViewById(R.id.first_floor_btn);
+        secondFloorCb = (CheckBox)findViewById(R.id.second_floor_btn);
     }
 
     private void initData(){
+
         gestureMode = NONE;
         prevPoint = new PointF();
         nowPoint = new PointF();
@@ -82,12 +90,15 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         } catch (Exception e) {
             e.printStackTrace();
         }
+        secondFloorCb.setChecked(false);
+        firstFloorCb.setChecked(true);
         mImageView.setOnTouchListener(this);
 
         mDisplayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics); // 获取屏幕信息（分辨率等）
 
         locationIv.setVisibility(View.GONE);
+        startLocationIBtn.setVisibility(View.GONE);
 
         initImageMatrix();
         mImageView.setImageMatrix(matrix);
@@ -115,6 +126,38 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return false;
+            }
+        });
+
+        //开始定位
+        startLocationIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(null != areaVo){
+                    updateMap(areaVo);
+                }
+            }
+        });
+
+        //一层地图切换
+        firstFloorCb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                secondFloorCb.setChecked(false);
+                firstFloorCb.setChecked(true);
+                mImageView.setImageResource(R.mipmap.ic_first_floor);
+                locationIv.setVisibility(View.GONE);
+            }
+        });
+
+        //二层地图切换
+        secondFloorCb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstFloorCb.setChecked(false);
+                secondFloorCb.setChecked(true);
+                mImageView.setImageResource(R.mipmap.ic_second_floor);
+                locationIv.setVisibility(View.GONE);
             }
         });
     }
@@ -149,6 +192,9 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
                 break;
             case MotionEvent.ACTION_MOVE:
                 locationIv.setVisibility(View.GONE);
+                if(isLocationAble){
+                    startLocationIBtn.setVisibility(View.VISIBLE);
+                }
                 if (gestureMode == DRAG) {
                     nowPoint.set(event.getX(), event.getY());
                     matrix.postTranslate(nowPoint.x - prevPoint.x, nowPoint.y
@@ -281,16 +327,22 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
     };
 
     private void updateMap(AreaVo areaVo){
+        isLocationAble = true;
         locationIv.setVisibility(View.VISIBLE);
+        startLocationIBtn.setVisibility(View.GONE);
         int floor = areaVo.getFloor();
         String title  = areaVo.getLocdesc();
         StringBuffer mapTitle = new StringBuffer();
         if(floor == 1){
             mImageView.setImageResource(R.mipmap.ic_first_floor);
             mapTitle.append("F1-");
+            secondFloorCb.setChecked(false);
+            firstFloorCb.setChecked(true);
         }else {
             mImageView.setImageResource(R.mipmap.ic_second_floor);
             mapTitle.append("F2-");
+            secondFloorCb.setChecked(true);
+            firstFloorCb.setChecked(false);
         }
         if(!TextUtils.isEmpty(title)){
             mapTitle.append(title);
