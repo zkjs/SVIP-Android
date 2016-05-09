@@ -18,12 +18,16 @@ import android.widget.TextView;
 
 import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
+import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.vo.AreaVo;
 
 import org.altbeacon.beacon.Region;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -92,6 +96,9 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         if(null != areaVo){
             updateMap(areaVo);
         }
+        if(CacheUtil.getInstance().isServiceSwitch()){
+            BlueToothManager.getInstance().addObserver(this);
+        }
     }
 
     private void initListeners(){
@@ -119,6 +126,12 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
         initView();
         initData();
         initListeners();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BlueToothManager.getInstance().removeObserver(this);
     }
 
     public boolean onTouch(View v, MotionEvent event) {
