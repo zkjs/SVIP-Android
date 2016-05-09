@@ -47,7 +47,12 @@ public class VideoListActivity extends BaseActivity {
      }
 
     private void initData() {
-        ArrayList<AreaVo> dataList =  ((SVIPApplication)getApplication()).getAreaVolist();
+        //ArrayList<AreaVo> dataList =  ((SVIPApplication)getApplication()).getAreaVolist();
+        ArrayList<AreaVo> dataList = new ArrayList<AreaVo>();
+        AreaVo areaVo = new AreaVo();
+        areaVo.setLocdesc("四季秀");
+        areaVo.setVideo_url("http://www.tudou.com/programs/view/EkI_Khntk8o");
+        dataList.add(areaVo);
         videoAdapter = new VideoAdapter(dataList,this);
         listView.setAdapter(videoAdapter);
         titleTv.setText("视频直播");

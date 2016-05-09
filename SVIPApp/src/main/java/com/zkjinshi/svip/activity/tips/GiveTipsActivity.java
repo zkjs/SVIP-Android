@@ -204,7 +204,7 @@ public class GiveTipsActivity extends BaseActivity {
 
     private void resetWait(WaiterVo waiterVo) {
         nameTv.setText(waiterVo.getUsername());
-        String avatarUrl = ProtocolUtil.getHostImgUrl(waiterVo.getUserimage());
+        String avatarUrl = ProtocolUtil.getImageUrlByWidth(mContext,waiterVo.getUserimage(),150);
         avatarSdv.setImageURI(Uri.parse(avatarUrl));
     }
 
