@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.Settings;
 
+import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.vo.BleLogVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -65,6 +66,7 @@ public class BeaconMsgDBUtil {
             values.put("img_url",yunBaMsgVo.getImg_url());
             values.put("insert_time", System.currentTimeMillis());
             values.put("button_url",yunBaMsgVo.getButton_url());
+            values.put("has_look",yunBaMsgVo.isHasLook() ? 1 : 0);
             db = helper.getWritableDatabase();
             rowId = db.insert(DBOpenHelper.BEACON_MSG_TBL, null, values);
         } catch (Exception e){
@@ -96,6 +98,7 @@ public class BeaconMsgDBUtil {
                     beaconMsgList = new ArrayList<YunBaMsgVo>();
                     while (cursor.moveToNext()) {
                         yunBaMsgVo = new YunBaMsgVo();
+                        yunBaMsgVo.setId(cursor.getInt(cursor.getColumnIndex("_id")));
                         yunBaMsgVo.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                         yunBaMsgVo.setLocid(cursor.getString(cursor.getColumnIndex("locid")));
                         yunBaMsgVo.setAlert(cursor.getString(cursor.getColumnIndex("alert")));
@@ -105,6 +108,7 @@ public class BeaconMsgDBUtil {
                         yunBaMsgVo.setImg_url(cursor.getString(cursor.getColumnIndex("img_url")));
                         yunBaMsgVo.setButton_url(cursor.getString(cursor.getColumnIndex("button_url")));
                         yunBaMsgVo.setInsert_time(cursor.getLong(cursor.getColumnIndex("insert_time")));
+                        yunBaMsgVo.setHasLook(cursor.getInt(cursor.getColumnIndex("has_look")) == 1 ? true : false);
                         beaconMsgList.add(yunBaMsgVo);
                     }
                 }
@@ -123,6 +127,73 @@ public class BeaconMsgDBUtil {
 
         }
         return beaconMsgList;
+    }
+
+    /**
+     * 更新已读状态
+     */
+    public void updateBeaconMsgRead(int id){
+        SQLiteDatabase db = null;
+        String sql = null;
+        try {
+            db= helper.getWritableDatabase();
+            sql = "update "+DBOpenHelper.BEACON_MSG_TBL+" set has_look=1 where _id = "+ id;
+            db.execSQL(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            if(null != db)
+                db.close();
+        }
+    }
+
+    /**
+     * 从数据库获取一条未读信息，并更新已读状态
+     * @return
+     */
+    public YunBaMsgVo popUnReadBeaconMsg(){
+        YunBaMsgVo yunBaMsgVo = null;
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        if (null != helper) {
+            try {
+                db = helper.getReadableDatabase();
+                String sql = "select * from "+DBOpenHelper.BEACON_MSG_TBL+" where has_look=? limit 1";
+                cursor = db.rawQuery(sql,new String[]{"0"});
+                if (cursor != null && cursor.getCount() > 0) {
+                    if (cursor.moveToFirst()) {
+                        yunBaMsgVo = new YunBaMsgVo();
+                        yunBaMsgVo.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+                        yunBaMsgVo.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+                        yunBaMsgVo.setLocid(cursor.getString(cursor.getColumnIndex("locid")));
+                        yunBaMsgVo.setAlert(cursor.getString(cursor.getColumnIndex("alert")));
+                        yunBaMsgVo.setShopid(cursor.getString(cursor.getColumnIndex("shopid")));
+                        yunBaMsgVo.setContent(cursor.getString(cursor.getColumnIndex("content")));
+                        yunBaMsgVo.setButton(cursor.getString(cursor.getColumnIndex("button")));
+                        yunBaMsgVo.setImg_url(cursor.getString(cursor.getColumnIndex("img_url")));
+                        yunBaMsgVo.setButton_url(cursor.getString(cursor.getColumnIndex("button_url")));
+                        yunBaMsgVo.setInsert_time(cursor.getLong(cursor.getColumnIndex("insert_time")));
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+
+                if (null != cursor) {
+                    cursor.close();
+                }
+
+                if (null != db) {
+                    db.close();
+                }
+            }
+
+        }
+        if(yunBaMsgVo != null){
+            updateBeaconMsgRead(yunBaMsgVo.getId());
+        }
+        return yunBaMsgVo;
     }
 
 }

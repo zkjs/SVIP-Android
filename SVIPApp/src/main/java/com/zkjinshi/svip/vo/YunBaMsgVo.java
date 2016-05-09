@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class YunBaMsgVo implements Serializable{
 
+    private int id;
     private String title;
     private String locid;
     private String alert;
@@ -19,6 +20,23 @@ public class YunBaMsgVo implements Serializable{
     private String img_url;
     private String button_url;
     private long insert_time;
+    private boolean hasLook = false; //是否已经被看过
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isHasLook() {
+        return hasLook;
+    }
+
+    public void setHasLook(boolean hasLook) {
+        this.hasLook = hasLook;
+    }
 
     public long getInsert_time() {
         return insert_time;

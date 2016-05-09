@@ -58,27 +58,8 @@ public class SVIPApplication extends BaseApplication {
     public static final String TAG = SVIPApplication.class.getSimpleName();
     private BackgroundPowerSaver backgroundPowerSaver;
 
-    private ArrayList<YunBaMsgVo> beaconMsgCache = new ArrayList<YunBaMsgVo>();
+
     private ArrayList<AreaVo> areaVos = new ArrayList<AreaVo>();
-
-    public void pushBeaconMsg(YunBaMsgVo yunBaMsgVo){
-        beaconMsgCache.add(yunBaMsgVo);
-    }
-
-    public YunBaMsgVo popBeaconMsg(){
-        if(beaconMsgCache.size() > 0){
-            int lastIndex = beaconMsgCache.size() -1;
-            YunBaMsgVo lastYunbaMsgVo = beaconMsgCache.get(lastIndex);
-            beaconMsgCache.remove(lastIndex);
-            return lastYunbaMsgVo;
-        }
-
-        return null;
-    }
-
-    public void clearBeaconMsg(){
-        beaconMsgCache.clear();
-    }
 
     @Override
     public void onCreate() {

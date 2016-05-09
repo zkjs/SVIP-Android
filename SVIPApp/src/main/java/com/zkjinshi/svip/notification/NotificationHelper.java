@@ -13,6 +13,7 @@ import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.common.BeaconMsgActivity;
 import com.zkjinshi.svip.activity.common.MainActivity;
+import com.zkjinshi.svip.activity.common.SplashActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
@@ -109,8 +110,7 @@ public class NotificationHelper {
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
 
         Intent realIntent = new Intent();
-        realIntent.setClass(context, BeaconMsgActivity.class);
-        realIntent.putExtra("data",yunBaMsgVo);
+        realIntent.setClass(context, SplashActivity.class);
         realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);

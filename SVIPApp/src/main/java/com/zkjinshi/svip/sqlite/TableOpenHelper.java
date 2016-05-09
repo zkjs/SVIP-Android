@@ -184,7 +184,8 @@ public class TableOpenHelper {
                     + " button text , "
                     + " img_url text , "
                     + " insert_time long , "//时间戳
-                    + " button_url text "
+                    + " button_url text, "
+                    + " has_look integer "
                     + " )";
 
     public static String AREA_COMMENT_TBL_SQL =

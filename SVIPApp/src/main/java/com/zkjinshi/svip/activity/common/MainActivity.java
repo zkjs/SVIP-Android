@@ -123,8 +123,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     public  Handler myHandler = new Handler(){
         public void handleMessage(Message msg) {
             if(msg.what == SHOW_BEACON_MSG_ORDER){
-                SVIPApplication svipApp = (SVIPApplication)getApplication();
-                final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
+                final YunBaMsgVo yunBaMsgVo = BeaconMsgDBUtil.getInstance().popUnReadBeaconMsg();
                 if(yunBaMsgVo != null){
                     BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
                         @Override
@@ -190,9 +189,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         @Override
         public void onReceive(Context ctx, Intent intent) {
             try {
-                final YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                SVIPApplication svipApp = (SVIPApplication)getApplication();
-                svipApp.pushBeaconMsg(yunBaMsgVo);
                 myHandler.removeMessages(SHOW_BEACON_MSG_ORDER);
                 myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,500);
 
@@ -231,21 +227,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         }
         BleLogManager.getInstance().uploadBleStatLog(this);
 
-        SVIPApplication svipApp = (SVIPApplication)getApplication();
-        final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
-        if(yunBaMsgVo != null){
-            BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
-                @Override
-                public void onBlurComplete() {
-                    Intent bIntent = new Intent(MainActivity.this,BeaconMsgActivity.class);
-                    bIntent.putExtra("data",yunBaMsgVo);
-                    bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(bIntent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                }
-            });
-        }
 
+        myHandler.sendEmptyMessage(SHOW_BEACON_MSG_ORDER);
         myHandler.sendEmptyMessage(SHOW_AREA_DESC);
     }
 
@@ -263,8 +246,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         if(null != mShowIBeaconPushMsgReceiver){
             unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
-        SVIPApplication svipApplication = (SVIPApplication)getApplication();
-        svipApplication.clearBeaconMsg();
         BlueToothManager.getInstance().removeObserver(this);
     }
 
