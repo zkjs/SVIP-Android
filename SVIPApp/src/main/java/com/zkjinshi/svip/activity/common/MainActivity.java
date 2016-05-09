@@ -474,18 +474,6 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                 popupWindow.dismiss();
             }
         });
-
-        //门锁开关
-        contentView.findViewById(R.id.lock_tv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(mContext,PayConfirmActivity.class);
-//                intent.putExtra("status","0");
-//                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                popupWindow.dismiss();
-            }
-        });
     }
 
     public boolean onTouchEvent(MotionEvent event) {

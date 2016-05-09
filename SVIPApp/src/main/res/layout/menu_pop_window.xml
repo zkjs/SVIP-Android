@@ -40,18 +40,6 @@
             android:text="室内导航"
             android:textColor="#666666"
             android:gravity="center"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e3e3e3"/>
-        <TextView
-            android:id="@+id/lock_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="12sp"
-            android:text="门锁开关"
-            android:textColor="#666666"
-            android:gravity="center"/>
     </LinearLayout>
 </LinearLayout>
 
