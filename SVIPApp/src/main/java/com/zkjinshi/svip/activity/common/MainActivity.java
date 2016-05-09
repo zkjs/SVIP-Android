@@ -115,6 +115,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     public int clickCount = 0; //单击计数
     private AreaVo currentAreaVo = null;
 
+    public static int BEACON_MSG_DELAY_TIME = 500;
+
     private ShopFragment shopFragment;
     public static final int CLEAR_CLICK_COUNT_ORDER = 1;
     public static final int SHOW_BEACON_MSG_ORDER = 2;
@@ -230,7 +232,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         BleLogManager.getInstance().uploadBleStatLog(this);
 
 
-        myHandler.sendEmptyMessage(SHOW_BEACON_MSG_ORDER);
+        myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,BEACON_MSG_DELAY_TIME);
         myHandler.sendEmptyMessage(SHOW_AREA_DESC);
     }
 
