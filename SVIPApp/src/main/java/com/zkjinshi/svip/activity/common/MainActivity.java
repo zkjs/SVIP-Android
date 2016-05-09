@@ -106,13 +106,13 @@ public class MainActivity extends BaseFragmentActivity {
     public int clickCount = 0; //单击计数
 
     private ShopFragment shopFragment;
+    public static int BEACON_MSG_DELAY_TIME = 500;
     public static final int CLEAR_CLICK_COUNT_ORDER = 1;
     public static final int SHOW_BEACON_MSG_ORDER = 2;
     public  Handler myHandler = new Handler(){
         public void handleMessage(Message msg) {
             if(msg.what == SHOW_BEACON_MSG_ORDER){
-                SVIPApplication svipApp = (SVIPApplication)getApplication();
-                final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
+                final YunBaMsgVo yunBaMsgVo = BeaconMsgDBUtil.getInstance().popUnReadBeaconMsg();
                 if(yunBaMsgVo != null){
                     BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
                         @Override
@@ -146,9 +146,6 @@ public class MainActivity extends BaseFragmentActivity {
         @Override
         public void onReceive(Context ctx, Intent intent) {
             try {
-                final YunBaMsgVo yunBaMsgVo = (YunBaMsgVo) intent.getSerializableExtra("data");
-                SVIPApplication svipApp = (SVIPApplication)getApplication();
-                svipApp.pushBeaconMsg(yunBaMsgVo);
                 myHandler.removeMessages(SHOW_BEACON_MSG_ORDER);
                 myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,500);
 
@@ -186,20 +183,9 @@ public class MainActivity extends BaseFragmentActivity {
         }
         BleLogManager.getInstance().uploadBleStatLog(this);
 
-        SVIPApplication svipApp = (SVIPApplication)getApplication();
-        final YunBaMsgVo yunBaMsgVo = svipApp.popBeaconMsg();
-        if(yunBaMsgVo != null){
-            BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
-                @Override
-                public void onBlurComplete() {
-                    Intent bIntent = new Intent(MainActivity.this,BeaconMsgActivity.class);
-                    bIntent.putExtra("data",yunBaMsgVo);
-                    bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(bIntent);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                }
-            });
-        }
+
+        myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,BEACON_MSG_DELAY_TIME);
+
     }
 
     public void onDestroy(){
@@ -216,8 +202,7 @@ public class MainActivity extends BaseFragmentActivity {
         if(null != mShowIBeaconPushMsgReceiver){
             unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
-        SVIPApplication svipApplication = (SVIPApplication)getApplication();
-        svipApplication.clearBeaconMsg();
+        BEACON_MSG_DELAY_TIME = 500;
 
     }
 

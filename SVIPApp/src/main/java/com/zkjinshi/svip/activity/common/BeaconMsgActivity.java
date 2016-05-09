@@ -20,6 +20,7 @@ import com.zkjinshi.base.config.ConfigUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.SVIPApplication;
 import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
 import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -40,6 +41,7 @@ public class BeaconMsgActivity extends BaseActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_msg);
+        MainActivity.BEACON_MSG_DELAY_TIME = 0;
         initView();
         initData();
         initListener();
@@ -66,6 +68,9 @@ public class BeaconMsgActivity extends BaseActivity{
     private void initData() {
         yunBaMsgVo = (YunBaMsgVo) getIntent().getSerializableExtra("data");
         if(yunBaMsgVo != null){
+            if(!yunBaMsgVo.isHasLook()){
+                BeaconMsgDBUtil.getInstance().updateBeaconMsgRead(1);
+            }
             String title = yunBaMsgVo.getTitle();
             if(!TextUtils.isEmpty(title)){
                 titleTv.setText(title);

@@ -128,6 +128,7 @@ public class CheckActivity extends BaseActivity {
                     if(mTimer != null){
                         mTimer.cancel();//停止
                     }
+                    countdownTv.setText("重新发送");
                     mSmsCountSeconds = 60;
                     break;
                 case SEND_SMS_RECEIVE:
@@ -193,6 +194,21 @@ public class CheckActivity extends BaseActivity {
     }
 
     private void initListener() {
+        countdownTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = countdownTv.getText().toString();
+                if("重新发送".equals(text)){
+                    String phonenum = CacheUtil.getInstance().getUserPhone();
+                    LoginController.getInstance().sendVerifyCodeForLogin(mContext,null, phonenum, new LoginController.CallBackListener() {
+                        @Override
+                        public void successCallback(JSONObject response) {
+                            handler.sendEmptyMessage(SEND_SMS_VERIFY);
+                        }
+                    });
+                }
+            }
+        });
 
         //添加layout大小发生改变监听器
         findViewById(R.id.scrollView).addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
