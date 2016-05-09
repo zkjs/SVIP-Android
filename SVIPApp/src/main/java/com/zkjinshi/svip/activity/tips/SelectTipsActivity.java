@@ -1,0 +1,238 @@
+package com.zkjinshi.svip.activity.tips;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.base.BaseActivity;
+import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.vo.TipsResultVo;
+import com.zkjinshi.svip.vo.WaiterVo;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+
+/**
+ * Created by dujiande on 2016/4/22.
+ */
+public class SelectTipsActivity extends BaseActivity {
+
+    private Context mContext;
+    private float currentMoney = 0;
+    private int[] radioIds = {R.id.radio_tv0,R.id.radio_tv1,R.id.radio_tv2,R.id.radio_tv3,R.id.radio_tv4,R.id.radio_tv5};
+    private int clickRadioId = -1;
+
+    private int[] tipsIds = {R.id.m50_tv,R.id.m100_tv,R.id.m10_tv,R.id.m5_tv,R.id.m20_tv,R.id.rand_tv};
+    private int[] moneys = {50,100,10,5,20,5};
+    private int clickTipsId = -1;
+
+    private int[] rate = {15,5,30,30,20,0};
+    private ArrayList<Integer> selectMoneyList = new ArrayList<Integer>();
+    private ArrayList<Integer> selectMoneyRate = new ArrayList<Integer>();
+
+    private View.OnClickListener tipsOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            clickTipsId = view.getId();
+            for(int i=0;i<tipsIds.length;i++){
+                int id = tipsIds[i];
+                int money = moneys[i];
+                TextView tipsTv = (TextView)findViewById(id);
+                tipsTv.setTag(money);
+                if(currentMoney < money){
+                    tipsTv.setBackgroundColor(Color.parseColor("#A5A5A5"));
+                    tipsTv.setOnClickListener(null);
+                }else if(id != clickTipsId){
+                    tipsTv.setBackgroundColor(Color.parseColor("#C78118"));
+                    tipsTv.setOnClickListener(tipsOnClickListener);
+                }else{
+                    tipsTv.setBackgroundColor(Color.parseColor("#FF9900"));
+                    tipsTv.setOnClickListener(tipsOnClickListener);
+                }
+
+            }
+        }
+    };
+
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_select_tips);
+        mContext = this;
+
+        //currentMoney = 11;
+        currentMoney = CacheUtil.getInstance().getAccount();
+
+        initView();
+        initData();
+        initListener();
+
+    }
+
+    private void initView() {
+        //设置默认金额
+        if(currentMoney >= 20 ){
+            clickTipsId = R.id.m20_tv;
+        }else if(currentMoney >= 10){
+            clickTipsId = R.id.m10_tv;
+        }else if(currentMoney >= 5){
+            clickTipsId = R.id.m5_tv;
+        }else{
+            clickTipsId = -1;
+        }
+
+        for(int i=0;i<tipsIds.length;i++){
+            int id = tipsIds[i];
+            int money = moneys[i];
+            TextView tipsTv = (TextView)findViewById(id);
+            tipsTv.setTag(money);
+            if(currentMoney < money){
+                tipsTv.setBackgroundColor(Color.parseColor("#A5A5A5"));
+                tipsTv.setOnClickListener(null);
+            }else if(id != clickTipsId){
+                tipsTv.setBackgroundColor(Color.parseColor("#C78118"));
+                tipsTv.setOnClickListener(tipsOnClickListener);
+            }else{
+                tipsTv.setBackgroundColor(Color.parseColor("#FF9900"));
+                tipsTv.setOnClickListener(tipsOnClickListener);
+            }
+
+            if(currentMoney >= money && id != R.id.rand_tv){
+                selectMoneyList.add(money);
+                selectMoneyRate.add(rate[i]);
+            }
+        }
+
+        TextView titleTv = (TextView)findViewById(R.id.title_tv);
+        titleTv.setText("金额选择");
+
+
+    }
+
+    private void initData() {
+
+    }
+
+    private void initListener() {
+        for(int i=0;i<radioIds.length;i++){
+            findViewById(radioIds[i]).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for(int i= 0;i<radioIds.length;i++){
+                        int id = radioIds[i];
+                        TextView radioTv = (TextView)findViewById(id);
+                        if(id == view.getId()){
+                            if(clickRadioId == view.getId()){
+                                radioTv.setBackgroundResource(R.drawable.radio_unselect_shape);
+                                clickRadioId = -1;
+                            }else{
+                                radioTv.setBackgroundResource(R.drawable.radio_select_shape);
+                                clickRadioId = view.getId();
+                            }
+
+                        }else{
+                            radioTv.setBackgroundResource(R.drawable.radio_unselect_shape);
+                        }
+                    }
+                }
+            });
+        }
+
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitTips();
+            }
+        });
+
+        findViewById(R.id.info_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtil.getInstance().showCustomToast(mContext,"随机从 5元,10元,20元,50元,100元中选择。", Gravity.CENTER);
+            }
+        });
+    }
+
+    private void submitTips() {
+        if(clickTipsId == -1){
+            Toast.makeText(this,"余额不足。",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        TextView tipsTv = (TextView)findViewById(clickTipsId);
+        int money = -1;
+        if(clickTipsId == R.id.rand_tv){
+            money = randTips();
+        }else{
+            money = (int)tipsTv.getTag();
+        }
+        if(money == -1){
+            Toast.makeText(this,"没有可用选择的小费",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String comment = "";
+        if(clickRadioId != -1){
+            TextView radioTv = (TextView)findViewById(clickRadioId);
+            comment = radioTv.getText().toString();
+        }
+
+        //Toast.makeText(this,"你选择小费。"+money+comment,Toast.LENGTH_SHORT).show();
+        currentMoney = currentMoney - money;
+        CacheUtil.getInstance().setAccount(currentMoney);
+        WaiterVo waiterVo = (WaiterVo)getIntent().getSerializableExtra("waiterVo");
+        Intent intent = new Intent(mContext,TipSuccesActivity.class);
+        TipsResultVo tipsResultVo = new TipsResultVo();
+        tipsResultVo.setWaiterVo(waiterVo);
+        tipsResultVo.setPrice(money);
+        intent.putExtra("tipsResultVo",tipsResultVo);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onBackPressed(){
+        finish();
+        overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+    }
+
+
+    public int randTips(){
+        int num = 0;
+        for(int i=0;i<selectMoneyRate.size();i++){
+            num +=selectMoneyRate.get(i);
+        }
+        Random rand = new Random();
+        int randNum = rand.nextInt(num);
+        int total = 0;
+        for(int i=0;i<selectMoneyRate.size();i++){
+            int left = total;
+            int right = total + selectMoneyRate.get(i);
+            total = right;
+            if(randNum >= left && randNum <= right){
+                return selectMoneyList.get(i);
+            }
+        }
+        return -1;
+    }
+
+}

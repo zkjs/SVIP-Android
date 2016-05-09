@@ -56,6 +56,10 @@ public class ProtocolUtil {
     public static String getAvatarUrl(Context context, String apiUrl){
         return getImageUrlByScale(context,apiUrl,60,60);
     }
+	
+	public static String getWaiterListUrl(){
+        return  ConfigUtil.getInst().getForDomain()+"res/v1/payment/payable";
+    }
 
     /**
      * 推送/更新室内位置

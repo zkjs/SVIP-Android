@@ -133,6 +133,9 @@ public class PayActivity extends BaseActivity {
                     try {
                         if(response.getInt("res") == 0){
                             if(action == 1){
+                                float currentMoney = CacheUtil.getInstance().getAccount();
+                                currentMoney = currentMoney - (float)(amountStatusVo.getAmount()/100);
+                                CacheUtil.getInstance().setAccount(currentMoney);
                                 Toast.makeText(mContext,"确认支付成功",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(mContext,"拒绝付款成功",Toast.LENGTH_SHORT).show();

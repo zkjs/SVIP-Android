@@ -73,6 +73,10 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                 }else if("PAYMENT_RESULT".equals(type)){
                     PayRecordDataVo amountStatusVo = new Gson().fromJson(data, PayRecordDataVo.class);
                     if (null != amountStatusVo) {
+                        float currentMoney = CacheUtil.getInstance().getAccount();
+                        currentMoney = currentMoney - (float)(amountStatusVo.getAmount()/100);
+                        CacheUtil.getInstance().setAccount(currentMoney);
+
                         NotificationHelper.getInstance().showNotificationResult(context, amountStatusVo);
                     }
                 }else if("BLE_ACTIVITY".equals(type)){

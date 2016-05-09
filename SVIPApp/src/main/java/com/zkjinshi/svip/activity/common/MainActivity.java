@@ -1,49 +1,44 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
+
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.RemoteException;
+
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
+
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
+
 import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.zkjinshi.base.config.ConfigUtil;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
@@ -52,22 +47,25 @@ import com.zkjinshi.pyxis.bluetooth.IBeaconObserver;
 import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.SVIPApplication;
+
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.activity.indoor.IndoorMapActivity;
-import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.base.BaseApplication;
+import com.zkjinshi.svip.activity.tips.GiveTipsActivity;
+import com.zkjinshi.svip.activity.tips.TipsController;
+import com.zkjinshi.svip.activity.tips.WaiterListActivity;
+
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.manager.BleLogManager;
-import com.zkjinshi.svip.manager.YunBaSubscribeManager;
+
 import com.zkjinshi.svip.map.LocationManager;
 
-import com.zkjinshi.svip.net.SvipHttpClient;
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
+import com.zkjinshi.svip.response.WaitListResponse;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
@@ -87,12 +85,13 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import com.blueware.agent.android.BlueWare;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
 import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
-import com.zkjinshi.svip.view.BeaconMsgDialog;
-import com.zkjinshi.svip.view.FlingCallback;
+
 import com.zkjinshi.svip.view.Gesture;
+import com.zkjinshi.svip.view.UpFilingViewCallBack;
 import com.zkjinshi.svip.vo.AreaVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseFragmentActivity implements IBeaconObserver {
@@ -102,8 +101,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     public static boolean showMsgAnimation = false;
 
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
-    private TextView accountTv,usernameTv,activateTv,areaTv;
-    private RelativeLayout paopaoRlt;
+    private TextView accountTv,usernameTv,activateTv,areaTv,tipsEnterTv;  
+	private GestureDetector gestureDetector;
 
     private RelativeLayout rootRlt;
     private UpdateLogoReceiver updateLogoReceiver;
@@ -218,7 +217,10 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
         usernameTv.setText(CacheUtil.getInstance().getUserName());
-        paopaoRlt.setVisibility(View.GONE);
+        tipsEnterTv.setVisibility(View.GONE);   
+        float account = CacheUtil.getInstance().getAccount();
+        String formatString = new DecimalFormat("0.00").format(account);
+        accountTv.setText("¥ "+formatString);
 
         if(showMsgAnimation){
             showPayMsgTips();
@@ -266,7 +268,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         usernameTv = (TextView)findViewById(R.id.username_tv);
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
         walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
-        paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
+        tipsEnterTv = (TextView) findViewById(R.id.tips_enter_tv);
 
         rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
 
@@ -326,6 +328,15 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
     private void initListener() {
 
+        accountTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(mContext, PayRecordActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
         //头像
         avatarCiv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,11 +356,10 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
             }
         });
 
-        paopaoRlt.setOnClickListener(new View.OnClickListener() {
+        tipsEnterTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayRecordActivity.class);
-                intent.putExtra("status","2");
+                Intent intent = new Intent(mContext,WaiterListActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -368,11 +378,10 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         walletSdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(paopaoRlt.getVisibility() == View.GONE){
-                    getAccount();
-                    paopaoRlt.setVisibility(View.VISIBLE);
+                if(tipsEnterTv.getVisibility() == View.GONE){
+                    tipsEnterTv.setVisibility(View.VISIBLE);
                 }else{
-                    paopaoRlt.setVisibility(View.GONE);
+                    tipsEnterTv.setVisibility(View.GONE);
                 }
             }
         });
@@ -414,9 +423,41 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
 
             }
         });
+		
+		Gesture gesture = new Gesture(this);
+		 gesture.upFilingViewCallBack = new UpFilingViewCallBack() {
+            @Override
+            public void flingUp() {
+                //Toast.makeText(MainActivity.this,"main flingUp",Toast.LENGTH_SHORT).show();
+               requestWaitListTask();
+            }
+        };
+        gesture.selfView = walletSdv;
+        gestureDetector = new GestureDetector(this,gesture);
 
 
     }
+	
+	/**
+     * 获取服务员列表
+     */
+    private void requestWaitListTask(){
+        TipsController.getInstance().requestWaitListTask(this, new TipsController.CallBackListener() {
+            @Override
+            public void successCallback(WaitListResponse waitListResponse) {
+                if(waitListResponse.getData().size() == 0){
+                    Toast.makeText(mContext,"没有发现身边的服务员。",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent bIntent = new Intent(mContext,GiveTipsActivity.class);
+                bIntent.putExtra("waitListResponse",waitListResponse);
+                bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(bIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        });
+    }
+
 
     private void showPopupWindow(View view) {
 
@@ -431,7 +472,7 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
         ColorDrawable color = new ColorDrawable(Color.parseColor("#8f101010"));
         popupWindow.setBackgroundDrawable(color);
         // 设置好参数之后再show
-        int offsetX = DisplayUtil.dip2px(this,104);
+        int offsetX = DisplayUtil.dip2px(this,60);
         popupWindow.showAsDropDown(view,-offsetX,5);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -477,6 +518,9 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
     }
 
     public boolean onTouchEvent(MotionEvent event) {
+        if(!shopFragment.isVisiable){
+            return gestureDetector.onTouchEvent(event);
+        }
        return false;
     }
 
