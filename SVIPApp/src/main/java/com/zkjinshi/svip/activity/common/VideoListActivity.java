@@ -51,7 +51,7 @@ public class VideoListActivity extends BaseActivity {
         ArrayList<AreaVo> dataList = new ArrayList<AreaVo>();
         AreaVo areaVo = new AreaVo();
         areaVo.setLocdesc("四季秀");
-        areaVo.setVideo_url("http://www.tudou.com/programs/view/EkI_Khntk8o");
+        areaVo.setVideo_url("http://web.zkjinshi.com/zhuanti/video/250");
         dataList.add(areaVo);
         videoAdapter = new VideoAdapter(dataList,this);
         listView.setAdapter(videoAdapter);
