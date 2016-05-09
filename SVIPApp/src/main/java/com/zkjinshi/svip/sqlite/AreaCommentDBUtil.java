@@ -72,7 +72,7 @@ public class AreaCommentDBUtil {
 
 
    
-    public ArrayList<CommentVo> queryComments(){
+    public ArrayList<CommentVo> queryComments(String key){
 
         ArrayList<CommentVo> beaconMsgList = null;
         CommentVo commentVo = null;
@@ -82,7 +82,7 @@ public class AreaCommentDBUtil {
             try {
                 db = helper.getReadableDatabase();
                 cursor = db.query(DBOpenHelper.AERE_COMMENT_TBL, null,
-                        null, null, null, null,"timestamp asc");
+                        "area_key = ?", new String[]{key}, null, null,"timestamp asc");
                 if (cursor != null && cursor.getCount() > 0) {
                     beaconMsgList = new ArrayList<CommentVo>();
                     while (cursor.moveToNext()) {

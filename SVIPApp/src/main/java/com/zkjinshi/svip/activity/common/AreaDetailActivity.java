@@ -68,7 +68,7 @@ public class AreaDetailActivity extends BaseActivity {
     private void initData() {
         currentArea = (AreaVo) getIntent().getSerializableExtra("currentAreaVo");
         ArrayList<CommentVo> dataList =  new ArrayList<CommentVo>();
-        ArrayList<CommentVo> dblist = AreaCommentDBUtil.getInstance().queryComments();
+        ArrayList<CommentVo> dblist = AreaCommentDBUtil.getInstance().queryComments(currentArea.getKey());
         if(dblist != null){
             dataList = dblist;
         }
@@ -98,7 +98,7 @@ public class AreaDetailActivity extends BaseActivity {
                 commentVo.setTimestamp(System.currentTimeMillis());
                 commentVo.setName(CacheUtil.getInstance().getUserName());
                 AreaCommentDBUtil.getInstance().insertComment(commentVo);
-                ArrayList<CommentVo> datalist = AreaCommentDBUtil.getInstance().queryComments();
+                ArrayList<CommentVo> datalist = AreaCommentDBUtil.getInstance().queryComments(currentArea.getKey());
                 if(datalist != null ){
                     commentAdapter.refresh(datalist);
                     listView.setSelection(datalist.size() -1);

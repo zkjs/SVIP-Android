@@ -245,6 +245,8 @@ public class MainActivity extends BaseFragmentActivity implements IBeaconObserve
                 }
             });
         }
+
+        myHandler.sendEmptyMessage(SHOW_AREA_DESC);
     }
 
     public void onDestroy(){
