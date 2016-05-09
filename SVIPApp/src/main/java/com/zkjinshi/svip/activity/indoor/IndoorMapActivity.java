@@ -78,6 +78,7 @@ public class IndoorMapActivity extends BaseActivity implements View.OnTouchListe
 
     private void initData(){
 
+        titleTv.setText("室内导航");
         gestureMode = NONE;
         prevPoint = new PointF();
         nowPoint = new PointF();
