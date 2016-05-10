@@ -5,6 +5,7 @@ import android.content.Context;
 
 import android.os.Environment;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -53,18 +54,16 @@ public class SVIPApplication extends BaseApplication {
 
     public static final String TAG = SVIPApplication.class.getSimpleName();
     private BackgroundPowerSaver backgroundPowerSaver;
-
-
-    
+    public int currentNetConfigVersion = 1;//网络配置项版本号
 
     @Override
     public void onCreate() {
         super.onCreate();
         initContext();
         initYunBa();
-        saveConfig();
         initLog();
         initCache();
+        saveConfig();
         initDevice();
         initImageLoader();
         LocationManager.getInstance().init(this);
@@ -121,9 +120,19 @@ public class SVIPApplication extends BaseApplication {
         try {
             File f = new File(this.getFilesDir(), "config.xml");
             InputStream is;
+            int netConfigVersion = CacheUtil.getInstance().getNetConfigVersion();
             if (f.exists()) {
-                is = new FileInputStream(f);
-                ConfigUtil.getInst(is);
+                if(netConfigVersion != currentNetConfigVersion){
+                    f.delete();
+                    is = this.getResources().getAssets()
+                            .open("config.xml");
+                    ConfigUtil.getInst(is);
+                    ConfigUtil.getInst().save(this);
+                    CacheUtil.getInstance().setNetConfigVersion(currentNetConfigVersion);
+                }else {
+                    is = new FileInputStream(f);
+                    ConfigUtil.getInst(is);
+                }
             } else {
                 is = this.getResources().getAssets()
                         .open("config.xml");
@@ -131,6 +140,7 @@ public class SVIPApplication extends BaseApplication {
                 ConfigUtil.getInst().save(this);
             }
         } catch (IOException e) {
+            Log.e(TAG, "找不到assets/目录下的config.xml配置文件", e);
             e.printStackTrace();
         }
     }

@@ -803,6 +803,30 @@ public class CacheUtil {
 	}
 
 	/**
+	 * 设置网络配置版本号
+	 * @param netConfigVersion
+	 */
+	public void setNetConfigVersion(int netConfigVersion) {
+		if (null == context) {
+			return;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		sp.edit().putInt("net_config_version", netConfigVersion).commit();
+	}
+
+	/**
+	 * 获取网络配置版本号
+	 * @return
+	 */
+	public int getNetConfigVersion() {
+		if (null == context) {
+			return 0;
+		}
+		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE, Context.MODE_PRIVATE);
+		return sp.getInt("net_config_version", 0);
+	}
+
+	/**
 	 * 保存商家id
 	 * @param shopId
 	 */
