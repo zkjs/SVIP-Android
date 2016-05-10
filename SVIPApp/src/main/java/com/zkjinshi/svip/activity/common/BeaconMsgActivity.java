@@ -42,6 +42,7 @@ public class BeaconMsgActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon_msg);
         MainActivity.BEACON_MSG_DELAY_TIME = 0;
+        SplashActivity.beaconMsg = null;
         initView();
         initData();
         initListener();

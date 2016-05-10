@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.zkjinshi.base.util.DeviceUtils;
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.vo.BleStatVo;
 
 /**
@@ -37,6 +38,9 @@ public class BleStatDBUtil {
 
     private void init() {
         context = SVIPApplication.getInst().getApplicationContext();
+        if(CacheUtil.getInstance().isLogin()){
+            DBOpenHelper.DB_NAME = CacheUtil.getInstance().getUserId()+".db";
+        }
         helper   = new DBOpenHelper(context);
     }
 

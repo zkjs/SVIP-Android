@@ -124,6 +124,17 @@ public class MainActivity extends BaseFragmentActivity {
                             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                         }
                     });
+                }else if(SplashActivity.beaconMsg != null){
+                    BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,BeaconMsgActivity.class);
+                            bIntent.putExtra("data",SplashActivity.beaconMsg);
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                        }
+                    });
                 }
             }else  if(msg.what == CLEAR_CLICK_COUNT_ORDER){
                 clickCount = 0;
