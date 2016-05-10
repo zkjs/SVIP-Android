@@ -111,6 +111,7 @@ public class NotificationHelper {
 
         Intent realIntent = new Intent();
         realIntent.setClass(context, SplashActivity.class);
+        realIntent.putExtra("data",yunBaMsgVo);
         realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);

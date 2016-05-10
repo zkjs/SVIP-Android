@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.zkjinshi.svip.SVIPApplication;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.vo.CommentVo;
 
 
@@ -39,6 +40,9 @@ public class AreaCommentDBUtil {
 
     private void init() {
         context = SVIPApplication.getInst().getApplicationContext();
+        if(CacheUtil.getInstance().isLogin()){
+            DBOpenHelper.DB_NAME = CacheUtil.getInstance().getUserId()+".db";
+        }
         helper   = new DBOpenHelper(context);
     }
 

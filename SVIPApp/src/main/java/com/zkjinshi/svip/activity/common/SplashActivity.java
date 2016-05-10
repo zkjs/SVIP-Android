@@ -22,6 +22,7 @@ import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.manager.SSOManager;
 import com.zkjinshi.svip.manager.YunBaSubscribeManager;
 import com.zkjinshi.svip.utils.CacheUtil;
+import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 
 import org.json.JSONObject;
@@ -37,6 +38,8 @@ public class SplashActivity extends BaseActivity {
 
     private static final int SPLASH_DELAY_MILLIS = 4000;
 
+    public static YunBaMsgVo beaconMsg = null;
+
     private RelativeLayout bodyLayout;
 
     private ImageView logoIv;
@@ -51,6 +54,10 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        if(getIntent().getSerializableExtra("data") != null){
+            beaconMsg = (YunBaMsgVo)getIntent().getSerializableExtra("data");
+        }
 
         initView();
         initData();
