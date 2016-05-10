@@ -1,24 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@android:color/white"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <ImageView
-        android:id="@+id/floors_indoor_map_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="matrix"/>
+    <FrameLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/indoor_location_iv"
+        <ImageView
+            android:id="@+id/floors_indoor_map_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"/>
+
+        <ImageView
+            android:id="@+id/indoor_location_iv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="centerInside"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_dingwei_yellow"/>
+
+        <include
+            layout="@layout/layout_header"/>
+
+    </FrameLayout>
+
+    <CheckBox
+        android:id="@+id/first_floor_btn"
+        android:layout_width="75dp"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentRight="true"
+        android:text="F1"
+        android:checked="true"
+        android:button="@null"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_map_selector"
+        android:layout_height="45dp" />
+
+    <View
+        android:id="@+id/floor_cut_line"
+        android:layout_width="75dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/first_floor_btn"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:background="#e3e3e3"/>
+
+    <CheckBox
+        android:id="@+id/second_floor_btn"
+        android:layout_below="@id/floor_cut_line"
+        android:layout_width="75dp"
+        android:layout_marginRight="15dp"
+        android:text="F2"
+        android:gravity="center"
+        android:button="@null"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_map_selector"
+        android:layout_alignParentRight="true"
+        android:layout_height="45dp" />
+
+    <ImageButton
+        android:id="@+id/start_map_location"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:scaleType="centerInside"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_dingwei_yellow"/>
+        android:src="@mipmap/ic_start_location"
+        android:background="@null"/>
 
-    <include
-        layout="@layout/layout_header"/>
-
-</FrameLayout>
+</RelativeLayout>
