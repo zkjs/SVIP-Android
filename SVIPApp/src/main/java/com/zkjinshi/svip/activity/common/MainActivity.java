@@ -186,6 +186,7 @@ public class MainActivity extends BaseFragmentActivity {
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
 
+
         if(showMsgAnimation){
             showPayMsgTips();
         }else{
@@ -286,6 +287,7 @@ public class MainActivity extends BaseFragmentActivity {
                 Intent intent = new Intent(mContext,SettingActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                mDrawer.animateClose();
             }
         });
 
@@ -343,6 +345,7 @@ public class MainActivity extends BaseFragmentActivity {
                 intent.putExtra("status","2");
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                mDrawer.animateClose();
             }
         });
 
