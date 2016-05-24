@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.BeaconMsgActivity;
 import com.zkjinshi.svip.adapter.PayConfirmAdapter;
@@ -151,12 +152,16 @@ public class PayConfirmActivity extends BaseActivity {
 
                 public void onStart(){
                     super.onStart();
-                    //mProgressDialog = ProgressDialog.show( mContext, "" , "", true,true);
+                    if(mCurrentPage == 0){
+                        DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                    }
                 }
 
                 public void onFinish(){
                     super.onFinish();
-                   // mProgressDialog.cancel();
+                    if(mCurrentPage == 0 || mCurrentPage == 1){
+                        DialogUtil.getInstance().cancelProgressDialog();
+                    }
                     mRefreshListView.refreshFinish();//结束刷新状态
                 }
 

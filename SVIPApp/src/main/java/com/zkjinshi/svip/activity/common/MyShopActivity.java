@@ -4,6 +4,7 @@ package com.zkjinshi.svip.activity.common;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,11 +19,13 @@ import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.MyShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 
+import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
+import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.GetMyShopVo;
 import com.zkjinshi.svip.vo.MyShopVo;
 
@@ -42,8 +45,10 @@ public class MyShopActivity extends BaseActivity {
     private Context mContext;
     private ImageButton backBtn;
     private TextView titleTv,emptyTv;
-    private ListView mRefreshListView;
+    private RefreshListView mRefreshListView;
     private MyShopAdapter mMyShopAdapter = null;
+    private int    mCurrentPage = 0;//记录当前查询页
+    private int mPageSize = 20;
 
 
 
@@ -61,7 +66,7 @@ public class MyShopActivity extends BaseActivity {
     private void initView() {
         backBtn = (ImageButton)findViewById(R.id.btn_back);
         titleTv = (TextView)findViewById(R.id.title_tv);
-        mRefreshListView = (ListView)findViewById(R.id.refresh_list_view);
+        mRefreshListView = (RefreshListView)findViewById(R.id.refresh_list_view);
         emptyTv = (TextView)findViewById(R.id.empty_tv);
     }
 
@@ -94,6 +99,24 @@ public class MyShopActivity extends BaseActivity {
                 finish();
             }
         });
+
+        mRefreshListView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefreshing() {
+                mCurrentPage = 0;
+                loadRecord();
+            }
+
+            @Override
+            public void onLoadingMore() {
+                loadRecord();
+            }
+
+            @Override
+            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
 
@@ -107,17 +130,23 @@ public class MyShopActivity extends BaseActivity {
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.shopBelong();
+            String url = ProtocolUtil.shopBelong(mCurrentPage,mPageSize);
             client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
                 public void onStart(){
                     super.onStart();
-                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                    if(mCurrentPage == 0){
+                        DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                    }
+
                 }
 
                 public void onFinish(){
                     super.onFinish();
-                    DialogUtil.getInstance().cancelProgressDialog();
+                    if(mCurrentPage == 0 || mCurrentPage == 1){
+                        DialogUtil.getInstance().cancelProgressDialog();
+                    }
+                    mRefreshListView.refreshFinish();//结束刷新状态
                 }
 
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
@@ -125,20 +154,29 @@ public class MyShopActivity extends BaseActivity {
                         String response = new String(responseBody,"utf-8");
                         GetMyShopVo getMyShopVo = new Gson().fromJson(response,GetMyShopVo.class);
                         if(getMyShopVo == null){
+                            emptyTv.setVisibility(View.VISIBLE);
                             return;
                         }
                         if(getMyShopVo.getRes() == 0){
                             ArrayList<MyShopVo> dataList = getMyShopVo.getData();
-                            if(dataList.isEmpty()){
-                                emptyTv.setVisibility(View.VISIBLE);
-                            }else{
-                                emptyTv.setVisibility(View.GONE);
+                            if (mCurrentPage == 0) {
                                 mMyShopAdapter.refresh(dataList);
+                                if(!dataList.isEmpty()){
+                                    mCurrentPage++;
+                                }else{
+                                    emptyTv.setVisibility(View.VISIBLE);
+                                }
+                            } else {
+                                mMyShopAdapter.loadMore(dataList);
+                                if(!dataList.isEmpty()){
+                                    mCurrentPage++;
+                                }
                             }
                         }else{
                             Toast.makeText(mContext, getMyShopVo.getResDesc(),Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
+                        emptyTv.setVisibility(View.VISIBLE);
                         e.printStackTrace();
                     }
                 }

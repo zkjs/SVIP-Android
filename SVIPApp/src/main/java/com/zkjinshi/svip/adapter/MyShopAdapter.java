@@ -35,7 +35,10 @@ public class MyShopAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-
+    public void loadMore(ArrayList<MyShopVo> morelist){
+        datalist.addAll(morelist);
+        notifyDataSetChanged();
+    }
 
     public MyShopAdapter(ArrayList<MyShopVo> datalist, Activity activity) {
         this.datalist = datalist;

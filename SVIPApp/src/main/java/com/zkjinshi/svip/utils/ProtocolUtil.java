@@ -202,8 +202,8 @@ public class ProtocolUtil {
      * 我的商家
      * @return
      */
-    public static String shopBelong(){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/belong/si";
+    public static String shopBelong(int page,int pageSize){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/belong/si?page="+page+"&page_size="+pageSize;
     }
 
 }
