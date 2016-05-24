@@ -18,8 +18,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            fresco:roundAsCircle="true"
-            fresco:actualImageScaleType="centerCrop"
+            fresco:roundAsCircle="false"
+            fresco:actualImageScaleType="centerInside"
             fresco:placeholderImage="@mipmap/ic_launcher"
             fresco:placeholderImageScaleType="centerCrop"/>
 
