@@ -1,70 +1,64 @@
 package com.zkjinshi.svip.activity.common;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
+
 import android.net.Uri;
-import android.os.Build;
+
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.RemoteException;
+
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.GestureDetector;
+
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
+
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
+
 import com.google.gson.JsonSyntaxException;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.zkjinshi.base.config.ConfigUtil;
+
 import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
-import com.zkjinshi.base.util.DisplayUtil;
+
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.SVIPApplication;
+
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
+
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
-import com.zkjinshi.svip.base.BaseActivity;
-import com.zkjinshi.svip.base.BaseApplication;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
 import com.zkjinshi.svip.fragment.ShopFragment;
 import com.zkjinshi.svip.manager.BleLogManager;
-import com.zkjinshi.svip.manager.YunBaSubscribeManager;
+
 import com.zkjinshi.svip.map.LocationManager;
 
-import com.zkjinshi.svip.net.SvipHttpClient;
+
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
-import com.zkjinshi.svip.utils.PayUtil;
+
 import com.zkjinshi.svip.utils.ProtocolUtil;
 
 
@@ -78,9 +72,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import com.blueware.agent.android.BlueWare;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
 import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
-import com.zkjinshi.svip.view.BeaconMsgDialog;
-import com.zkjinshi.svip.view.FlingCallback;
-import com.zkjinshi.svip.view.Gesture;
+
+import com.zkjinshi.svip.view.MultiDirectionSlidingDrawer;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
@@ -91,9 +84,10 @@ public class MainActivity extends BaseFragmentActivity {
 
     public static boolean showMsgAnimation = false;
 
-    private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv,walletSdv;
-    private TextView accountTv,usernameTv,activateTv;
-    private RelativeLayout paopaoRlt;
+    private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv;
+    private TextView activateTv;
+    private MultiDirectionSlidingDrawer mDrawer;
+
 
     private RelativeLayout rootRlt;
     private UpdateLogoReceiver updateLogoReceiver;
@@ -179,13 +173,18 @@ public class MainActivity extends BaseFragmentActivity {
         initListener();
     }
 
+    @Override
+    public void onContentChanged()
+    {
+        super.onContentChanged();
+        mDrawer = (MultiDirectionSlidingDrawer) findViewById( R.id.drawer );
+    }
+
     protected void onResume() {
         super.onResume();
         clickCount = 0;
         String userPhotoUrl = CacheUtil.getInstance().getUserPhotoUrl();
         avatarCiv.setImageURI(Uri.parse(userPhotoUrl));
-        usernameTv.setText(CacheUtil.getInstance().getUserName());
-        paopaoRlt.setVisibility(View.GONE);
 
         if(showMsgAnimation){
             showPayMsgTips();
@@ -229,14 +228,9 @@ public class MainActivity extends BaseFragmentActivity {
         activateTv = (TextView)findViewById(R.id.activate_tips_tv);
         msgIv = (SimpleDraweeView)findViewById(R.id.msgIv);
         avatarCiv =  (SimpleDraweeView)findViewById(R.id.avatar_sdv);
-        accountTv = (TextView)findViewById(R.id.account_tv);
-        usernameTv = (TextView)findViewById(R.id.username_tv);
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
-        walletSdv = (SimpleDraweeView)findViewById(R.id.wallet_sdv);
-        paopaoRlt = (RelativeLayout)findViewById(R.id.paopao_rlt);
 
         rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
-
         FragmentManager manager = getSupportFragmentManager();
         shopFragment = new ShopFragment();
         manager.beginTransaction().add(R.id.contentView, shopFragment).commit();
@@ -264,10 +258,6 @@ public class MainActivity extends BaseFragmentActivity {
         screenObserverReceiver = new ScreenObserverReceiver();
         registerReceiver(screenObserverReceiver,intentFilter);
 
-        accountTv.setText("0.00");
-        usernameTv.setText("");
-        //walletSdv.setVisibility(View.GONE);
-        //msgIv.setVisibility(View.GONE);
 
         mShowMessageReceiver = new ShowMessageReceiver();
         IntentFilter filter = new IntentFilter();
@@ -308,15 +298,7 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
-        paopaoRlt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayRecordActivity.class);
-                intent.putExtra("status","2");
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
+
 
         msgIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,21 +312,6 @@ public class MainActivity extends BaseFragmentActivity {
 
             }
         });
-
-
-        walletSdv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(paopaoRlt.getVisibility() == View.GONE){
-                    getAccount();
-                    paopaoRlt.setVisibility(View.VISIBLE);
-                }else{
-                    paopaoRlt.setVisibility(View.GONE);
-                }
-            }
-        });
-
-
 
         findViewById(R.id.finish_view).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,9 +330,19 @@ public class MainActivity extends BaseFragmentActivity {
         shopLogoSdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!shopFragment.isVisiable){
+                if(!shopFragment.isVisiable && !mDrawer.isOpened()){
                     shopFragment.show(rootRlt);
                 }
+            }
+        });
+
+        findViewById(R.id.wallet_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,PayRecordActivity.class);
+                intent.putExtra("status","2");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -396,51 +373,7 @@ public class MainActivity extends BaseFragmentActivity {
         msgIv.clearAnimation();
     }
 
-    private void getAccount(){
-        try {
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.setTimeout(Constants.OVERTIMEOUT);
-            client.addHeader("Content-Type","application/json; charset=UTF-8");
-            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
-            JSONObject jsonObject = new JSONObject();
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.getAccount();
-            client.get(mContext, url, stringEntity, "application/json", new JsonHttpResponseHandler(){
 
-                public void onStart(){
-                    super.onStart();
-                    //DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
-                }
-
-                public void onFinish(){
-                    super.onFinish();
-                   // DialogUtil.getInstance().cancelProgressDialog();
-                }
-
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response){
-                    super.onSuccess(statusCode,headers,response);
-                    try {
-                        if(response.getInt("res") == 0){
-                            double balance = response.getDouble("balance");
-                            accountTv.setText(PayUtil.changeMoney(balance));
-                        }else{
-                            Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
-                    super.onFailure(statusCode,headers,throwable,errorResponse);
-                    //Toast.makeText(mContext,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
-                    AsyncHttpClientUtil.onFailure(MainActivity.this,statusCode);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 动态更新商家logo

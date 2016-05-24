@@ -2,17 +2,27 @@ package com.zkjinshi.svip.activity.facepay;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.zkjinshi.base.util.DialogUtil;
+import com.zkjinshi.base.util.DisplayUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.adapter.ExpenseAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
@@ -20,11 +30,13 @@ import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.ExListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.PayRecordVo;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
@@ -37,13 +49,15 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class PayRecordActivity extends BaseActivity {
 
     private Context mContext;
-    private ImageButton backBtn;
+    private ImageButton backBtn,accoutBtn;
     private TextView titleTv;
     private ExListView mRefreshListView;
     private ExpenseAdapter mPayRecordAdapter = null;
     private int    mCurrentPage;//记录当前查询页
     private String status = "2";
     private TextView emptyTv;
+    private View maskView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +76,11 @@ public class PayRecordActivity extends BaseActivity {
 
     private void initView() {
         backBtn = (ImageButton)findViewById(R.id.btn_back);
+        accoutBtn = (ImageButton)findViewById(R.id.btn_menu);
         titleTv = (TextView)findViewById(R.id.title_tv);
         mRefreshListView = (ExListView)findViewById(R.id.expense_list_view);
         emptyTv = (TextView)findViewById(R.id.empty_tv);
+        maskView = findViewById(R.id.mask_view);
     }
 
     private void initData() {
@@ -75,7 +91,7 @@ public class PayRecordActivity extends BaseActivity {
         titleTv.setText("支付记录");
         mRefreshListView.setEmptyView(emptyTv);
         emptyTv.setVisibility(View.GONE);
-
+        accoutBtn.setVisibility(View.VISIBLE);
 
     }
 
@@ -116,6 +132,83 @@ public class PayRecordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        accoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getAccount();
+            }
+        });
+    }
+
+    private void getAccount(){
+        try {
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(Constants.OVERTIMEOUT);
+            client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            JSONObject jsonObject = new JSONObject();
+            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            String url = ProtocolUtil.getAccount();
+            client.get(mContext, url, stringEntity, "application/json", new JsonHttpResponseHandler(){
+
+                public void onStart(){
+                    super.onStart();
+                    DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
+                }
+
+                public void onFinish(){
+                    super.onFinish();
+                    DialogUtil.getInstance().cancelProgressDialog();
+                }
+
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response){
+                    super.onSuccess(statusCode,headers,response);
+                    try {
+                        if(response.getInt("res") == 0){
+                            double balance = response.getDouble("balance");
+                            String myAccount = "¥ " + PayUtil.changeMoney(balance);
+                            showPopupWindow(accoutBtn,myAccount);
+                        }else{
+                            Toast.makeText(mContext,response.getString("resDesc"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse){
+                    super.onFailure(statusCode,headers,throwable,errorResponse);
+                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void showPopupWindow(View view,final String myAccount) {
+        maskView.setVisibility(View.VISIBLE);
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(mContext).inflate( R.layout.pop_account_window, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView,
+                AbsoluteLayout.LayoutParams.WRAP_CONTENT, AbsoluteLayout.LayoutParams.WRAP_CONTENT, true);
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+        ColorDrawable color = new ColorDrawable(Color.parseColor("#00000000"));
+        popupWindow.setBackgroundDrawable(color);
+        TextView accountTv = (TextView)contentView.findViewById(R.id.account_tv);
+        accountTv.setText(myAccount);
+        // 设置好参数之后再show
+        int offsetX =  DisplayUtil.dip2px(mContext,140);
+        int offsetY = DisplayUtil.dip2px(mContext,5);
+        popupWindow.showAsDropDown(view,-offsetX,-offsetY, Gravity.RIGHT);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                maskView.setVisibility(View.GONE);
             }
         });
     }

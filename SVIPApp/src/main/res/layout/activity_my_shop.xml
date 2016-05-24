@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0">
+    <include layout="@layout/layout_header"/>
+    <ListView
+        android:id="@+id/refresh_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"
+        android:divider="#F0F0F0"
+        android:dividerHeight="0dp"
+        android:scrollingCache="false"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="vertical" />
+    <TextView
+        android:id="@+id/empty_tv"
+        android:layout_marginTop="50dp"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:text="暂无商家"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:layout_gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.5"/>
+
+
+</LinearLayout>

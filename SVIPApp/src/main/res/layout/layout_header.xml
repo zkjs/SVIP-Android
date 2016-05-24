@@ -25,4 +25,19 @@
         android:textColor="#ffffff"
         android:text="@string/app_name"
         android:layout_centerInParent="true"/>
+
+    <ImageButton
+        android:id="@+id/btn_menu"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_yue"
+        android:visibility="gone"/>
+
 </RelativeLayout>

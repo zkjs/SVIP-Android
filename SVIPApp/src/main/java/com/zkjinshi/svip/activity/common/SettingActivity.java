@@ -106,6 +106,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mUserSex.setOnClickListener(this);
         mEmail.setOnClickListener(this);
         mRealName.setOnClickListener(this);
+        findViewById(R.id.ius_my_shop).setOnClickListener(this);
 
 
         sendCbx.valueCbx.setOnClickListener(new View.OnClickListener() {
@@ -447,6 +448,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivityForResult(intent, Constants.FLAG_MODIFY_EMAIL);
                 overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
+                break;
+            case R.id.ius_my_shop:
+                intent = new Intent(SettingActivity.this,MyShopActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
 
         }

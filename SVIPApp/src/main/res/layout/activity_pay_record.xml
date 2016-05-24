@@ -5,26 +5,39 @@
     android:orientation="vertical"
     android:background="#f0f0f0">
     <include layout="@layout/layout_header"/>
-
-    <com.zkjinshi.svip.view.ExListView
-        android:id="@+id/expense_list_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cacheColorHint="#00000000"
-        android:fadingEdge="none"
-        android:divider="#F0F0F0"
-        android:dividerHeight="0dp"
-        android:scrollingCache="false"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="vertical" />
-    <TextView
-        android:id="@+id/empty_tv"
-        android:layout_marginTop="50dp"
-        android:layout_width="290dp"
-        android:layout_height="wrap_content"
-        android:text="超级支付功能暂时只对平台内商家的储值卡用户开放，如需同步您的储值卡账户至超级身份，请向您的商家提出申请。"
-        android:textColor="#666666"
-        android:textSize="14sp"
-        android:layout_gravity="center"
-        android:lineSpacingMultiplier="1.5"/>
+        android:layout_height="match_parent">
+        <com.zkjinshi.svip.view.ExListView
+            android:id="@+id/expense_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#00000000"
+            android:fadingEdge="none"
+            android:divider="#F0F0F0"
+            android:dividerHeight="0dp"
+            android:scrollingCache="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="vertical" />
+        <TextView
+            android:id="@+id/empty_tv"
+            android:layout_marginTop="50dp"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:text="超级支付功能暂时只对平台内商家的储值卡用户开放，如需同步您的储值卡账户至超级身份，请向您的商家提出申请。"
+            android:textColor="#666666"
+            android:textSize="14sp"
+            android:layout_centerHorizontal="true"
+            android:lineSpacingMultiplier="1.5"/>
+
+        <View
+            android:id="@+id/mask_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8f101010"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
 </LinearLayout>

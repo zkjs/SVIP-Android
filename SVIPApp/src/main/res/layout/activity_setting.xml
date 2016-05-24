@@ -102,8 +102,18 @@
                     zkjinshi:isvHint="填写你的邮箱地址"
                     zkjinshi:haveUpLine="true"/>
 
+                <com.zkjinshi.svip.view.ItemShowView
+                    android:id="@+id/ius_my_shop"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    zkjinshi:isvTitle="我的商家"
+                    zkjinshi:isvValue=""
+                    zkjinshi:isvHint=""
+                    zkjinshi:haveUpLine="false"/>
+
                 <com.zkjinshi.svip.view.ItemCbxView
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/icv_send"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
