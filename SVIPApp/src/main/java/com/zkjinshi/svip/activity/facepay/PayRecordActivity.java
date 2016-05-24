@@ -202,15 +202,27 @@ public class PayRecordActivity extends BaseActivity {
         TextView accountTv = (TextView)contentView.findViewById(R.id.account_tv);
         accountTv.setText(myAccount);
         // 设置好参数之后再show
-        int offsetX =  DisplayUtil.dip2px(mContext,140);
-        int offsetY = DisplayUtil.dip2px(mContext,5);
-        popupWindow.showAsDropDown(view,-offsetX,-offsetY, Gravity.RIGHT);
+        int stausHeight = getStatusBarHeight();
+        int offsetX =  DisplayUtil.dip2px(mContext,7);
+        int offsetY = DisplayUtil.dip2px(mContext,40) + stausHeight;
+       // popupWindow.showAsDropDown(view,-offsetX,-offsetY);
+        popupWindow.showAtLocation(view,Gravity.TOP|Gravity.RIGHT,offsetX,offsetY);
+
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 maskView.setVisibility(View.GONE);
             }
         });
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
 
