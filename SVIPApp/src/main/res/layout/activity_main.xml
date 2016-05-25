@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/img_bg"
+        android:background="@drawable/pattern_home_bg"
         android:id="@+id/root_rlt">
 
         <View android:id="@+id/finish_view"
