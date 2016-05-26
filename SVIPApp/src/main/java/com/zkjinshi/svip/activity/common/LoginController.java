@@ -188,7 +188,7 @@ public class LoginController {
                                     ((Activity)mContext). overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                                 }
                             }else{
-                                callBackListener.successCallback(null);
+                                //callBackListener.successCallback(null);
                                 PavoUtil.showErrorMsg(mContext,basePavoResponse.getResDesc());
                             }
                         }
