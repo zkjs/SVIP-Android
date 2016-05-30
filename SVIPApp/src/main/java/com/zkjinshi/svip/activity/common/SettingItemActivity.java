@@ -92,29 +92,29 @@ public class SettingItemActivity extends BaseActivity implements View.OnClickLis
             mInputEt.setText(fieldValue);
         }
         if(fieldKey.equals("email") ){
-            mInputEt.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    String inputStr = editable.toString();
-                    if (inputStr.length() > 0) {
-                        if( IntentUtil.isEmailAddress(inputStr)){
-                            mTipsTv.setText("");
-                        }else{
-                            mTipsTv.setText("格式错误");
-                        }
-                    }
-                }
-            });
+//            mInputEt.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//                    String inputStr = editable.toString();
+//                    if (inputStr.length() > 0) {
+//                        if( IntentUtil.isEmailAddress(inputStr)){
+//                            mTipsTv.setText("");
+//                        }else{
+//                            mTipsTv.setText("格式错误");
+//                        }
+//                    }
+//                }
+//            });
         }
 
         if(fieldKey.equals("username")){
