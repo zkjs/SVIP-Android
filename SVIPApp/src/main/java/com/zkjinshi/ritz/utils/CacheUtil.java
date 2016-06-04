@@ -849,7 +849,7 @@ public class CacheUtil {
 		}
 		SharedPreferences sp = context.getSharedPreferences(SVIP_CACHE,
 				Context.MODE_PRIVATE);
-		return sp.getString("shop_id", "");
+		return sp.getString("shop_id", "9001");
 	}
 
 	/**

@@ -86,7 +86,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoVcodeLogin(){
-        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=login";
+        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=login&dist=0dcbe53ce80e0f41db57b90184ee31e9b3d2cea0ba799ec3cf829ce4b933297f";
     }
 
     /**
@@ -94,7 +94,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoVcodeRegister(){
-        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=register";
+        return ConfigUtil.getInst().getPavDomain()+"sso/vcode/v1/si?source=register&dist=0dcbe53ce80e0f41db57b90184ee31e9b3d2cea0ba799ec3cf829ce4b933297f";
     }
 
     /**
@@ -102,7 +102,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String ssoToken(){
-        return ConfigUtil.getInst().getPavDomain()+"sso/token/v1/phone/si";
+        return ConfigUtil.getInst().getPavDomain()+"sso/token/v1/phone/si?dist=0dcbe53ce80e0f41db57b90184ee31e9b3d2cea0ba799ec3cf829ce4b933297f";
     }
 
     /**
@@ -118,7 +118,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String registerSi(){
-        return ConfigUtil.getInst().getPavDomain()+"res/v1/register/si";
+        return ConfigUtil.getInst().getPavDomain()+"res/v1/register/si?dist=0dcbe53ce80e0f41db57b90184ee31e9b3d2cea0ba799ec3cf829ce4b933297f";
     }
 
     /**

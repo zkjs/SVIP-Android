@@ -245,10 +245,10 @@ public class MainActivity extends BaseFragmentActivity {
         updateIntentFilter.addAction(Constants.UPDATE_LOGO_RECEIVER_ACTION);
         registerReceiver(updateLogoReceiver,updateIntentFilter);
         //设置默认商家logo
-        if(CacheUtil.getInstance().isUpdateLogo()){
+        /*if(CacheUtil.getInstance().isUpdateLogo()){
             Uri uri =  Uri.parse("res://com.zkjinshi.ritz/"+R.mipmap.ic_shop_logo);
             shopLogoSdv.setImageURI(uri);
-        }
+        }*/
         //打开蓝牙请求
         BlueToothManager.getInstance().openBluetooth();
 
@@ -397,7 +397,7 @@ public class MainActivity extends BaseFragmentActivity {
                 String action =  intent.getAction();
                 if(!TextUtils.isEmpty(action) && action.equals(Constants.UPDATE_LOGO_RECEIVER_ACTION)){
                     //更新商家logo
-                    updateShopLogo();
+                    //updateShopLogo();
                     //更新商家详情页面
                     if(null != shopFragment){
                         shopFragment.initData();

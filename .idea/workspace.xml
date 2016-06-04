@@ -57,184 +57,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5adadf60-77d2-4b9b-a8be-8bcbac63372d" name="Default" comment="修改配置项为https">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/androidTest/java/com/zkjinshi/svip/ApplicationTest.java" afterPath="$PROJECT_DIR$/SVIPApp/src/androidTest/java/com/zkjinshi/ritz/ApplicationTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/androidTest/java/com/zkjinshi/svip/TestClass.java" afterPath="$PROJECT_DIR$/SVIPApp/src/androidTest/java/com/zkjinshi/ritz/TestClass.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/SVIPApplication.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/SVIPApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/BeaconMsgActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/BeaconMsgActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CheckActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/CheckActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CutActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/CutActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/GuideActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/GuideActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MineNetController.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MineNetController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MineUiController.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MineUiController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MyShopActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MyShopActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/PingPayActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/PingPayActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RequestActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/RequestActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/SettingActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SettingItemActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/SettingItemActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/SplashActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/UploadAvatarActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/UploadAvatarActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/UploadInfoActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/UploadInfoActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/WebViewActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/WebViewActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/facepay/PayActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/facepay/PayConfirmActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayRecordActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/facepay/PayRecordActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/preview/ScanImagesActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/preview/ScanImagesActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ExpenseAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/adapter/ExpenseAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/MyShopAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/adapter/MyShopAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/PayConfirmAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/adapter/PayConfirmAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/adapter/ShopAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseAppCompatActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseAppCompatActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseApplication.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseFragmentActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseFragmentActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/blueTooth/BlueToothManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ImageDetailFragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ImageDetailFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/listener/OnRefreshListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/listener/OnRefreshListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/BleLogManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/manager/BleLogManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/BleStatManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/manager/BleStatManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/SSOManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/manager/SSOManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/YunBaSubscribeManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/manager/YunBaSubscribeManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/map/LocationManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/map/LocationManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/ExtNetRequestListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/ExtNetRequestListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/MethodType.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/MethodType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetDialogUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/NetDialogUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequest.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/NetRequest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/NetRequestListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetRequestTask.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/NetRequestTask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/NetResponse.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/NetResponse.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/RequestUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/SchemeType.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/SchemeType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/SvipHttpClient.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/SvipHttpClient.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/ext/DownloadRequestListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/ext/DownloadRequestListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/ext/DownloadTask.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/ext/DownloadTask.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/net/ext/HttpGetUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/net/ext/HttpGetUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/notification/NotificationHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/notification/NotificationHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/BootCompleteReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/BootCompleteReceiver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/NotificationClickReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/NotificationClickReceiver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/ScreenObserverReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/ScreenObserverReceiver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/YunBaMessageReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/response/BaseResponse.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/response/BaseResponse.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/response/ShopDetailResponse.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/response/ShopDetailResponse.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/BeaconMsgDBUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/BeaconMsgDBUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/BleLogDBUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/BleLogDBUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/BleStatDBUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/BleStatDBUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/DBOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/DBOpenHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/ORMOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/ORMOpenHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/sqlite/TableOpenHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/sqlite/TableOpenHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/AESUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/AESUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/AsyncHttpClientUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/AsyncHttpClientUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/Base64Decoder.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/Base64Decoder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/Base64Encoder.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/Base64Encoder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/CacheUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/CacheUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/Constants.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/Constants.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/DistanceUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/DistanceUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/EmotionType.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/EmotionType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/FastBlur.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/FastBlur.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/FileUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/FileUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/GaoshiBlur.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/GaoshiBlur.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/JsonUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/JsonUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/MapUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/MapUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/MediaPlayerUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/MediaPlayerUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PavoUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/PavoUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayResult.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/PayResult.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/PayUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/PayUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/ProtocolUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/SensorManagerHelper.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/SensorManagerHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/SignUtils.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/SignUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/StringUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/StringUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/UUIDBuilder.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/UUIDBuilder.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/VIPContext.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/VIPContext.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/VibratorUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/VibratorUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/qclCopy/Blur.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/qclCopy/Blur.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/qclCopy/BlurBehind.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/qclCopy/BlurBehind.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/qclCopy/OnBlurCompleteListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/qclCopy/OnBlurCompleteListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/BeaconMsgDialog.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/BeaconMsgDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/ExListView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/ExListView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/FlingCallback.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/FlingCallback.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/Gesture.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/Gesture.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/GestureListView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/GestureListView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/ItemCbxView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/ItemCbxView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/ItemShowView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/ItemShowView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/MultiDirectionSlidingDrawer.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/MultiDirectionSlidingDrawer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/PayDialog.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/PayDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/RefreshListView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/RefreshListView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/Compat.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/Compat.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/DefaultOnDoubleTapListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/DefaultOnDoubleTapListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/HackyViewPager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/HackyViewPager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/IPhotoView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/IPhotoView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/PhotoView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/PhotoView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/PhotoViewAttacher.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/PhotoViewAttacher.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/CupcakeGestureDetector.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/CupcakeGestureDetector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/EclairGestureDetector.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/EclairGestureDetector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/FroyoGestureDetector.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/FroyoGestureDetector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/GestureDetector.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/GestureDetector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/OnGestureListener.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/OnGestureListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/gestures/VersionedGestureDetector.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/gestures/VersionedGestureDetector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/log/LogManager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/log/LogManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/log/Logger.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/log/Logger.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/log/LoggerDefault.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/log/LoggerDefault.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/scrollerproxy/GingerScroller.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/scrollerproxy/GingerScroller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/scrollerproxy/IcsScroller.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/scrollerproxy/IcsScroller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/scrollerproxy/PreGingerScroller.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/scrollerproxy/PreGingerScroller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/photoview/scrollerproxy/ScrollerProxy.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/photoview/scrollerproxy/ScrollerProxy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/DotsView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/DotsView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/MyPageAnimation.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/MyPageAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCPageAnimation.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCPageAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCPositionAnimation.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCPositionAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCSizeAnimation.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCSizeAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewAnimation.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewAnimation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewAnimationUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewAnimationUtil.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewPager.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewPager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewPager1Fragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewPager1Fragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewPager2Fragment.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewPager2Fragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/scviewpager/SCViewPagerAdapter.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/scviewpager/SCViewPagerAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/CropImage.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/CropImage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/CropImageView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/CropImageView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/GLRequestExecutor.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/GLRequestExecutor.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/HighlightView.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/HighlightView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/ImageViewTouchBase.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/ImageViewTouchBase.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/zoomview/RotateBitmap.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/view/zoomview/RotateBitmap.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/BaseResponseVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/BaseResponseVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/BleLogVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/BleLogVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/BleStatVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/BleStatVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/ExpenseVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/ExpenseVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/GetMyShopVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/GetMyShopVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/GetUserInfoVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/GetUserInfoVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/MyShopVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/MyShopVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/OtherShopVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/OtherShopVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/PayRecordDataVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/PayRecordDataVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/PayRecordVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/PayRecordVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/PayloadVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/PayloadVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/ShopModeVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/ShopModeVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/ShopVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/ShopVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/TxtExtType.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/TxtExtType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/UserInfoVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/UserInfoVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/YunBaMsgVo.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/vo/YunBaMsgVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/test/java/com/zkjinshi/svip/utils/PayUtilTest.java" afterPath="$PROJECT_DIR$/SVIPApp/src/test/java/com/zkjinshi/ritz/utils/PayUtilTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/SVIPApp/src/test/java/com/zkjinshi/svip/utils/StringUtilTest.java" afterPath="$PROJECT_DIR$/SVIPApp/src/test/java/com/zkjinshi/ritz/utils/StringUtilTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_shop_logo.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi/ic_shop_logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_shop_logo.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi/ic_shop_logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_shop_logo.png" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi/ic_shop_logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" afterPath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/build.gradle" afterPath="$PROJECT_DIR$/SVIPApp/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/proguard-rules.pro" afterPath="$PROJECT_DIR$/SVIPApp/proguard-rules.pro" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_cut.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_cut.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_guide.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_guide.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_image_scan.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_image_scan.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_my_shop.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_my_shop.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_pay_confirm.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_pay_confirm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_pay_record.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_pay_record.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/draw_content.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/draw_content.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/fragment_shop.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/fragment_shop.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/CacheUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/CacheUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/ProtocolUtil.java" afterPath="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/ProtocolUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" afterPath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" afterPath="$PROJECT_DIR$/multi-image-selector/multi-image-selector.iml" />
     </list>
     <ignored path="SVIP-1.0-Android.iws" />
@@ -265,50 +106,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider editor-type-id="MarkdownFxPreviewEditor">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-            <state split_layout="FIRST">
-              <first_editor vertical-scroll-proportion="0.2136076">
-                <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YunBaMessageReceiver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java">
+      <file leaf-file-name="config.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="59" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2081448">
-              <caret line="232" column="41" selection-start-line="232" selection-start-column="41" selection-end-line="232" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_setting.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5094337">
-              <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.11363637">
+              <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -318,41 +120,87 @@
         <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+              <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CheckActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/CheckActivity.java">
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
+              <caret line="168" column="60" selection-start-line="168" selection-start-column="46" selection-end-line="168" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_shop.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/fragment_shop.xml">
-          <provider editor-type-id="android-designer">
+      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="186" column="83" selection-start-line="186" selection-start-column="83" selection-end-line="186" selection-end-column="83" />
+              <folding>
+                <element signature="e#7489#7490#0" expanded="true" />
+                <element signature="e#7576#7577#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RequestActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/RequestActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_request.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml">
+          <provider selected="true" editor-type-id="android-designer">
             <state />
           </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java">
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="165" column="36" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
+              <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShopFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="193" column="54" selection-start-line="193" selection-start-column="54" selection-end-line="193" selection-end-column="54" />
+              <folding>
+                <element signature="e#2703#2704#0" expanded="true" />
+                <element signature="e#2742#2743#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -363,21 +211,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.3962264">
-              <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="draw_content.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/draw_content.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.924528">
-              <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -396,7 +231,7 @@
     </option>
   </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="E:\工作资料\项目打包\android_key.jks" />
+    <option name="KEY_STORE_PATH" value="$PROJECT_DIR$/../../../../工作/项目打包/android_key.jks" />
     <option name="KEY_ALIAS" value="key_store" />
     <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
@@ -4305,7 +4140,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="10255155319000" />
+        <entry key="$PROJECT_DIR$" value="10255161248000" />
         <entry key="$PROJECT_DIR$/../SuperService-1.0-Android" value="13018032463652" />
         <entry key="$PROJECT_DIR$/../material-sheet-fab" value="8658379405683" />
         <entry key="D:\StudioProjects\SVIP-1.12-Android" value="15997425971463" />
@@ -5185,11 +5020,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/SensorManagerHelper.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/BleStatManager.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/manager/YunBaSubscribeManager.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/SVIPApplication.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/view/ShopListView.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ShopAdapter.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/utils/Constants.java" />
@@ -5218,7 +5048,6 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/receiver/YunBaMessageReceiver.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CheckActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RequestActivity.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseActivity.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/base/BaseAppCompatActivity.java" />
@@ -5229,13 +5058,19 @@
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/vo/ShopVo.java" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java" />
         <option value="$PROJECT_DIR$/SVIPApp/readme.txt" />
-        <option value="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" />
         <option value="$PROJECT_DIR$/ZKJinShiBaseClass/src/main/java/com/zkjinshi/base/config/ConfigUtil.java" />
-        <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/draw_content.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting.xml" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/ProtocolUtil.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/CacheUtil.java" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml" />
         <option value="$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/SVIPApp/build.gradle" />
+        <option value="$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml" />
       </list>
     </option>
   </component>
@@ -5252,7 +5087,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="831" />
+    <option name="height" value="828" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -5279,9 +5114,30 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-RITZ-Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-RITZ-Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SVIP-RITZ-Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scratches">
         <subPane />
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Problems" />
         <subPane subId="Project Files">
@@ -5405,215 +5261,16 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ritz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ritz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIP-RITZ-Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVIPApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ritz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SensorDemo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../工作/项目打包/静享/2.0" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="71UBBLH22C4C" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_10_API_21" />
-    <property name="SearchEverywhereHistoryKey" value="Sho&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;ShopFr&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;BlueTo&#9;PSI&#9;JAVA://com.zkjinshi.svip.blueTooth.BlueToothManager&#10;SSO&#9;PSI&#9;JAVA://com.zkjinshi.svip.manager.SSOManager&#10;Shop&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Login&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.LoginActivity&#10;Web&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/WebViewActivity.java&#10;Ch&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CheckActivity.java&#10;Time&#9;PSI&#9;JAVA://com.zkjinshi.base.util.TimeUtil&#10;Main&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/MainActivity.java&#10;DB&#9;PSI&#9;JAVA://com.zkjinshi.svip.sqlite.DBOpenHelper&#10;Pro&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Dis&#9;PSI&#9;JAVA://com.zkjinshi.base.util.DisplayUtil&#10;Image&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ImageDetailFragment.java&#10;PayAc&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;An&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/AndroidManifest.xml&#10;android&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/AndroidManifest.xml&#10;Register&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;Svip&#9;PSI&#9;JAVA://com.zkjinshi.svip.net.SvipHttpClient&#10;Blue&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;Bl&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;Requ&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;Pay&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java&#10;Req&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;sp&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;SS&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/SSOManager.java&#10;Request&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;SSo&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/SSOManager.java&#10;activity_m&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/res/layout/activity_main.xml&#10;Com&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;Spl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;B&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;PayA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;Logi&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Proto&#9;PSI&#9;JAVA://com.zkjinshi.svip.utils.ProtocolUtil&#10;Re&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;ChatAdapter&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;data&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;data_&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;card&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;ChatA&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;da&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;send&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;colors.xml&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/values/colors.xml&#10;rec&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;Cir&#9;PSI&#9;JAVA://com.zkjinshi.svip.view.GooeyMenu.CirclePoint&#10;aio_friend_bg&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/drawable/aio_friend_bg.xml&#10;ShopF&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;C&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityChangeDialog.java&#10;SettingA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SettingActivity" />
+    <property name="SearchEverywhereHistoryKey" value="Login&#9;PSI&#9;JAVA://com.zkjinshi.ritz.activity.common.LoginActivity&#10;ShopFr&#9;PSI&#9;JAVA://com.zkjinshi.ritz.fragment.ShopFragment&#10;Main&#9;FILE&#9;file:///Users/jimmyzhang/Documents/dev_code/android/studio/SVIP-RITZ-Android/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java&#10;Sho&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;BlueTo&#9;PSI&#9;JAVA://com.zkjinshi.svip.blueTooth.BlueToothManager&#10;SSO&#9;PSI&#9;JAVA://com.zkjinshi.svip.manager.SSOManager&#10;Shop&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;Web&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/WebViewActivity.java&#10;Ch&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CheckActivity.java&#10;Time&#9;PSI&#9;JAVA://com.zkjinshi.base.util.TimeUtil&#10;DB&#9;PSI&#9;JAVA://com.zkjinshi.svip.sqlite.DBOpenHelper&#10;Pro&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/utils/ProtocolUtil.java&#10;Dis&#9;PSI&#9;JAVA://com.zkjinshi.base.util.DisplayUtil&#10;Image&#9;FILE&#9;file://E:/develop_code/android/studio/github/SVIP-1.14-Android/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ImageDetailFragment.java&#10;PayAc&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;An&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/AndroidManifest.xml&#10;android&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/AndroidManifest.xml&#10;Register&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;Svip&#9;PSI&#9;JAVA://com.zkjinshi.svip.net.SvipHttpClient&#10;Blue&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;Bl&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;Requ&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;Pay&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/facepay/PayConfirmActivity.java&#10;Req&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;sp&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/SplashActivity.java&#10;SS&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/SSOManager.java&#10;Request&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/net/RequestUtil.java&#10;SSo&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/manager/SSOManager.java&#10;activity_m&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/res/layout/activity_main.xml&#10;Com&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/CompleteInfoActivity.java&#10;Spl&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.common.SplashActivity&#10;B&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/blueTooth/BlueToothManager.java&#10;PayA&#9;PSI&#9;JAVA://com.zkjinshi.svip.activity.facepay.PayActivity&#10;Logi&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/LoginController.java&#10;Proto&#9;PSI&#9;JAVA://com.zkjinshi.svip.utils.ProtocolUtil&#10;Re&#9;FILE&#9;file://D:/StudioProjects/jinjiang-Android/SVIPApp/src/main/java/com/zkjinshi/svip/activity/common/RegisterActivity.java&#10;ChatAdapter&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/java/com/zkjinshi/svip/adapter/ChatAdapter.java&#10;data&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;data_&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;card&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-1.13/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;ChatA&#9;PSI&#9;JAVA://com.zkjinshi.svip.adapter.ChatAdapter&#10;da&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_card_item.xml&#10;send&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_send_item.xml&#10;colors.xml&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/values/colors.xml&#10;rec&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/layout/dataline_recv_item.xml&#10;Cir&#9;PSI&#9;JAVA://com.zkjinshi.svip.view.GooeyMenu.CirclePoint&#10;aio_friend_bg&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/res/drawable/aio_friend_bg.xml&#10;ShopF&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/fragment/ShopFragment.java&#10;C&#9;FILE&#9;file://E:/github_workspace/SVIP-Android-2.0/SVIPApp/src/main/java/com/zkjinshi/svip/activity/city/citylist/CityChangeDialog.java" />
     <property name="android.project.structure.last.selected" value="pyxis" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="204" />
@@ -5632,8 +5289,8 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="819" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="ExportApk.ApkPath" value="E:\工作资料\项目打包\超级身份\1.14.8" />
-    <property name="ExportApk.Flavors" value="QQ&#10;huawei&#10;wandoujia&#10;xiaomi" />
+    <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/../../../../工作/项目打包/静享/2.0" />
+    <property name="ExportApk.Flavors" value="" />
     <property name="ExportApk.BuildType" value="release" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/SVIPApp/src/main/res/drawable-xxhdpi" />
     <property name="device.picker.selection" value="P4M7N15215002261" />
@@ -5641,19 +5298,17 @@
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable" />
-      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\anim" />
-      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable-hdpi" />
-      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable-xhdpi" />
-      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\layout" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.zkjinshi.svip.adapter" />
+      <recent name="com.zkjinshi.svip.activity.common" />
+      <recent name="com.zkjinshi.svip.sqlite" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xxhdpi" />
+      <recent name="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-xhdpi" />
+      <recent name="$PROJECT_DIR$/SVIPApp/src/main/res/mipmap-hdpi" />
       <recent name="E:\develop_code\android\studio\github\SVIP-1.14-Android\SVIPApp\src\main\java\com\zkjinshi\svip\view" />
       <recent name="E:\develop_code\android\studio\github\SVIP-1.14-Android\SVIPApp\src\main\res\mipmap-xxhdpi" />
-      <recent name="E:\develop_code\android\studio\github\SVIP-1.14-Android\SVIPApp\src\main\res\mipmap-xhdpi" />
-      <recent name="E:\develop_code\android\studio\github\SVIP-1.14-Android\SVIPApp\src\main\res\mipmap-hdpi" />
-      <recent name="E:\develop_code\android\studio\github\SVIP-1.14-Android\SVIPApp\src\main\res\drawable" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.zkjinshi.svip.receiver" />
@@ -5662,10 +5317,12 @@
       <recent name="com.zkjinshi.svip.activity.common" />
       <recent name="com.zkjinshi.svip.utils" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.zkjinshi.svip.adapter" />
-      <recent name="com.zkjinshi.svip.activity.common" />
-      <recent name="com.zkjinshi.svip.sqlite" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable" />
+      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\anim" />
+      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable-hdpi" />
+      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\drawable-xhdpi" />
+      <recent name="E:\zkjs_workspace\SVIP-Android-1.0\SVIPApp\src\main\res\layout" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.SVIPApp">
@@ -5986,12 +5643,6 @@
       <option name="number" value="Default" />
       <updated>1447653438914</updated>
     </task>
-    <task id="LOCAL-00130" summary="捕获token失效">
-      <created>1458542341157</created>
-      <option name="number" value="00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1458542341157</updated>
-    </task>
     <task id="LOCAL-00131" summary="捕获token失效">
       <created>1458546156683</created>
       <option name="number" value="00131" />
@@ -6280,7 +5931,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460948264771</updated>
     </task>
-    <option name="localTasksCounter" value="179" />
+    <task id="LOCAL-00179" summary="1.修改包名,更换高德地图的key">
+      <created>1465026508360</created>
+      <option name="number" value="00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1465026508363</updated>
+    </task>
+    <option name="localTasksCounter" value="180" />
     <servers />
   </component>
   <component name="TodoView">
@@ -6293,17 +5950,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="831" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="828" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27651006" sideWeight="0.4892905" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34265736" sideWeight="0.5115681" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34265736" sideWeight="0.50858366" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34125873" sideWeight="0.45636624" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34129214" sideWeight="0.4914163" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34125873" sideWeight="0.54363376" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27570695" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43216783" sideWeight="0.7249357" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30404463" sideWeight="0.49464524" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261745" sideWeight="0.48995984" order="8" side_tool="false" content_ui="tabs" />
@@ -6312,12 +5968,11 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30404463" sideWeight="0.45103094" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25894135" sideWeight="0.77684796" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32027972" sideWeight="0.627892" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1746988" sideWeight="0.49298245" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27956298" sideWeight="0.22315203" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36122733" sideWeight="0.72429305" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36083916" sideWeight="0.72429305" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42956764" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -6328,6 +5983,8 @@
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959402" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27570695" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32027972" sideWeight="0.627892" order="12" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -6390,7 +6047,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="去掉是否订阅蓝牙区域状态判断" />
     <MESSAGE value="完成商家详情页面效果" />
     <MESSAGE value="实现商家详情页面切换效果" />
     <MESSAGE value="采用ListView实现商家详情页，去掉ScrollView" />
@@ -6415,7 +6071,8 @@
     <MESSAGE value="新增开启启动服务广播，确保应用一直处于激活状态" />
     <MESSAGE value="将bg替代logo，实现商家背景图片展示" />
     <MESSAGE value="修改配置项为https" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改配置项为https" />
+    <MESSAGE value="1.修改包名,更换高德地图的key" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.修改包名,更换高德地图的key" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -6439,18 +6096,6 @@
           <option name="timeStamp" value="424" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java</url>
-          <line>46</line>
-          <properties />
-          <option name="timeStamp" value="430" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java</url>
-          <line>85</line>
-          <properties />
-          <option name="timeStamp" value="440" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/pyxis/src/main/java/com/zkjinshi/pyxis/bluetooth/IBeaconService.java</url>
           <line>185</line>
           <properties />
@@ -6470,77 +6115,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java</url>
-          <line>179</line>
+          <line>206</line>
           <properties />
-          <option name="timeStamp" value="457" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java</url>
-          <line>170</line>
-          <properties />
-          <option name="timeStamp" value="458" />
+          <option name="timeStamp" value="459" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="459" />
+      <option name="time" value="460" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_phone.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/SVIPApp/build/intermediates/exploded-aar/org.altbeacon/android-beacon-library/2.7.1/jars/classes.jar!/org/altbeacon/beacon/Region.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24836601">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="24" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ImageDetailFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="143" column="35" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/notification/NotificationHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="19" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseAppCompatActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="29" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/base/BaseFragmentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -6712,12 +6299,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="53" column="31" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
-          <folding>
-            <element signature="e#1411#1412#0" expanded="false" />
-            <element signature="e#1440#1441#0" expanded="false" />
-            <element signature="e#1484#1485#0" expanded="false" />
-            <element signature="e#1520#1521#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -6732,7 +6313,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="181" column="55" selection-start-line="181" selection-start-column="55" selection-end-line="181" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6740,7 +6320,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6748,7 +6327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30377907">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6756,7 +6334,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2761628">
           <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6764,15 +6341,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="127" column="6" selection-start-line="127" selection-start-column="6" selection-end-line="127" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5">
-          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6780,15 +6348,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="182" column="51" selection-start-line="182" selection-start-column="51" selection-end-line="182" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6796,15 +6355,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="27" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/CheckActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6815,25 +6365,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="36" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3962264">
-          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -6849,14 +6380,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_setting.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -6868,32 +6391,142 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownFxPreviewEditor">
-        <state />
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/CheckActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+        </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor vertical-scroll-proportion="0.2136076">
-            <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-            <folding />
+          <first_editor vertical-scroll-proportion="0.27061856">
+            <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="9" selection-end-column="13" />
           </first_editor>
           <second_editor />
         </state>
+      </provider>
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/receiver/YunBaMessageReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="59" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="59" />
+          <caret line="95" column="73" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/ProtocolUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="196" column="83" selection-start-line="196" selection-start-column="77" selection-end-line="196" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/utils/CacheUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="851" column="44" selection-start-line="851" selection-start-column="40" selection-end-line="851" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.111111">
+          <caret line="231" column="67" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/fragment/ShopFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="193" column="54" selection-start-line="193" selection-start-column="54" selection-end-line="193" selection-end-column="54" />
+          <folding>
+            <element signature="e#2703#2704#0" expanded="true" />
+            <element signature="e#2742#2743#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="30" selection-start-line="1" selection-start-column="30" selection-end-line="1" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2081448">
-          <caret line="232" column="41" selection-start-line="232" selection-start-column="41" selection-end-line="232" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="168" column="60" selection-start-line="168" selection-start-column="46" selection-end-line="168" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="186" column="83" selection-start-line="186" selection-start-column="83" selection-end-line="186" selection-end-column="83" />
+          <folding>
+            <element signature="e#7489#7490#0" expanded="true" />
+            <element signature="e#7576#7577#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/java/com/zkjinshi/ritz/activity/common/RequestActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/res/layout/activity_request.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SVIPApp/src/main/assets/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11363637">
+          <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
           <folding />
         </state>
       </provider>

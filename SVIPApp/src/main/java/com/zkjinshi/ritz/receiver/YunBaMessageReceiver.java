@@ -93,7 +93,7 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                     if(null != otherShopVo){
                         String shopId = otherShopVo.getShopid();
                         if(!TextUtils.isEmpty(shopId)){
-                            CacheUtil.getInstance().saveShopId(shopId);
+                            //CacheUtil.getInstance().saveShopId(shopId);
                         }
                         String shopLogo = otherShopVo.getLogo();
                         if(!TextUtils.isEmpty(shopLogo)){
