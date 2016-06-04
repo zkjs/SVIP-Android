@@ -6,7 +6,7 @@
     android:background="@drawable/bg_layout_shop_detail"
     android:visibility="gone">
 
-    <com.zkjinshi.svip.view.GestureListView
+    <com.zkjinshi.ritz.view.GestureListView
         android:id="@+id/shop_desc_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

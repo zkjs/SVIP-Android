@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SVIP-1.14-Android.iml" filepath="$PROJECT_DIR$/SVIP-1.14-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SVIP-RITZ-Android.iml" filepath="$PROJECT_DIR$/SVIP-RITZ-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/SVIPApp/SVIPApp.iml" filepath="$PROJECT_DIR$/SVIPApp/SVIPApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" filepath="$PROJECT_DIR$/ZKJinShiBaseClass/ZKJinShiBaseClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/jinjiang-Android.iml" filepath="$PROJECT_DIR$/jinjiang-Android.iml" />

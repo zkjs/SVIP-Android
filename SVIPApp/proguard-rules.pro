@@ -92,12 +92,12 @@
 }
 
 #保留网络请求的实体不被混淆
--keep class com.zkjinshi.svip.vo.** { *; }
--keep class com.zkjinshi.svip.net.** { *; }
--keep class com.zkjinshi.svip.activity.**{ *; }
--keep class com.zkjinshi.svip.view.**{ *; }
+-keep class com.zkjinshi.ritz.vo.** { *; }
+-keep class com.zkjinshi.ritz.net.** { *; }
+-keep class com.zkjinshi.ritz.activity.**{ *; }
+-keep class com.zkjinshi.ritz.view.**{ *; }
 -keep class com.zkjinshi.base.util.**{ *;}
--keep class com.zkjinshi.svip.response.**{ *; }
+-keep class com.zkjinshi.ritz.response.**{ *; }
 
 #保留扩展控件不被混淆
 -keep class android.support.**{ *; }

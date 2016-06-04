@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.zkjinshi.svip.view.ExListView
+        <com.zkjinshi.ritz.view.ExListView
             android:id="@+id/expense_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

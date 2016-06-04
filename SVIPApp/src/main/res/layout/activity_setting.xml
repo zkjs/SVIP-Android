@@ -75,7 +75,7 @@
                 android:orientation="vertical">
 
 
-                <com.zkjinshi.svip.view.ItemShowView
+                <com.zkjinshi.ritz.view.ItemShowView
                     android:id="@+id/ius_real_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     zkjinshi:isvHint=""
                     zkjinshi:haveUpLine="true"/>
 
-                <com.zkjinshi.svip.view.ItemShowView
+                <com.zkjinshi.ritz.view.ItemShowView
                     android:id="@+id/ius_user_sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     zkjinshi:isvHint="设置"
                     zkjinshi:haveUpLine="true"/>
 
-                <com.zkjinshi.svip.view.ItemShowView
+                <com.zkjinshi.ritz.view.ItemShowView
                     android:id="@+id/ius_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,17 +102,18 @@
                     zkjinshi:isvHint="填写你的邮箱地址"
                     zkjinshi:haveUpLine="true"/>
 
-                <com.zkjinshi.svip.view.ItemShowView
+                <com.zkjinshi.ritz.view.ItemShowView
                     android:id="@+id/ius_my_shop"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     zkjinshi:isvTitle="我的商家"
+                    android:visibility="gone"
                     zkjinshi:isvValue=""
                     zkjinshi:isvHint=""
                     zkjinshi:haveUpLine="false"/>
 
-                <com.zkjinshi.svip.view.ItemCbxView
+                <com.zkjinshi.ritz.view.ItemCbxView
                     android:layout_marginTop="10dp"
                     android:id="@+id/icv_send"
                     android:layout_width="match_parent"
@@ -121,7 +122,7 @@
                     zkjinshi:haveDownLine="true"
                     zkjinshi:icvValue="true"/>
 
-                <com.zkjinshi.svip.view.ItemCbxView
+                <com.zkjinshi.ritz.view.ItemCbxView
                     android:id="@+id/icv_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

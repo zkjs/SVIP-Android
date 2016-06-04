@@ -61,7 +61,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            class="com.zkjinshi.svip.view.zoomview.CropImageView" />
+            class="com.zkjinshi.ritz.view.zoomview.CropImageView" />
     </RelativeLayout>
 
 </LinearLayout>

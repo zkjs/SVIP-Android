@@ -57,7 +57,7 @@
 
 
 
-        <com.zkjinshi.svip.view.MultiDirectionSlidingDrawer
+        <com.zkjinshi.ritz.view.MultiDirectionSlidingDrawer
             android:id="@+id/drawer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_centerInParent="true"/>
             </RelativeLayout>
 
-        </com.zkjinshi.svip.view.MultiDirectionSlidingDrawer>
+        </com.zkjinshi.ritz.view.MultiDirectionSlidingDrawer>
 
 
 

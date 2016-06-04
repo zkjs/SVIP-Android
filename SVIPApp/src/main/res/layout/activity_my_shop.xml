@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="#f0f0f0">
     <include layout="@layout/layout_header"/>
-    <com.zkjinshi.svip.view.RefreshListView
+    <com.zkjinshi.ritz.view.RefreshListView
         android:id="@+id/refresh_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

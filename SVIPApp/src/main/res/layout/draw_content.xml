@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:visibility="invisible"
             android:id="@+id/wallet_llt">
             <ImageButton
                 android:id="@+id/wallet_btn"

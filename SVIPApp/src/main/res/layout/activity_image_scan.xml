@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.zkjinshi.svip.view.photoview.HackyViewPager
+    <com.zkjinshi.ritz.view.photoview.HackyViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

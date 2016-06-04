@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zkjinshi.svip"
+    package="com.zkjinshi.ritz"
     android:versionCode="15"
     android:versionName="1.14.14">
 
@@ -37,7 +37,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.zkjinshi.svip" />
+        android:targetPackage="com.zkjinshi.ritz" />
 
     <application
         android:name=".SVIPApplication"
@@ -50,7 +50,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d06f35454ae1e8fe52ccefa4155167ed" />
+            android:value="319540a7485125973d0352d387d1ce0e" />
 
         <uses-library android:name="android.test.runner" />
 
@@ -219,11 +219,11 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.zkjinshi.svip.receiver.YunBaMessageReceiver">
+        <receiver android:name="com.zkjinshi.ritz.receiver.YunBaMessageReceiver">
             <intent-filter>
                 <action android:name="io.yunba.android.MESSAGE_RECEIVED_ACTION" />
                 <action android:name="io.yunba.android.PRESENCE_RECEIVED_ACTION" />
-                <category android:name="com.zkjinshi.svip" />
+                <category android:name="com.zkjinshi.ritz" />
             </intent-filter>
         </receiver>
 

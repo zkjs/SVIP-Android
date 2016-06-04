@@ -12,7 +12,7 @@
     </RelativeLayout>
 
 
-    <com.zkjinshi.svip.view.RefreshListView
+    <com.zkjinshi.ritz.view.RefreshListView
         android:id="@+id/slv_history_order"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

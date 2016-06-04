@@ -5,7 +5,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.0"
     defaultConfig {
-        applicationId "com.zkjinshi.svip"
+        applicationId "com.zkjinshi.ritz"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 15

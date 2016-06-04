@@ -5,14 +5,14 @@
     android:clipChildren="true"
     android:clipToPadding="true">
 
-    <com.zkjinshi.svip.view.scviewpager.SCViewPager
+    <com.zkjinshi.ritz.view.scviewpager.SCViewPager
         android:id="@+id/viewpager_main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.zkjinshi.svip.view.scviewpager.SCViewPager>
+    </com.zkjinshi.ritz.view.scviewpager.SCViewPager>
 
 
-    <com.zkjinshi.svip.view.scviewpager.DotsView
+    <com.zkjinshi.ritz.view.scviewpager.DotsView
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
