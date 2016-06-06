@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.zkjinshi.svip.vo.UpdateVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
@@ -56,6 +57,9 @@ public class SVIPApplication extends BaseApplication {
     private BackgroundPowerSaver backgroundPowerSaver;
     public int currentNetConfigVersion = 1;//网络配置项版本号
 
+    private boolean isDownload;
+    public UpdateVo updateVo = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -70,6 +74,14 @@ public class SVIPApplication extends BaseApplication {
         BlueToothManager.getInstance().init(this);
         backgroundPowerSaver = new BackgroundPowerSaver(this);
         Fresco.initialize(this);
+    }
+
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean isDownload) {
+        this.isDownload = isDownload;
     }
 
     @Override

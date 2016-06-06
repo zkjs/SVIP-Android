@@ -239,6 +239,9 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initData() {
+        MainController.getInstance().init(this);
+        MainController.getInstance().checkAppVersion();
+
         //注册更新logo广播
         updateLogoReceiver = new UpdateLogoReceiver();
         IntentFilter updateIntentFilter = new IntentFilter();
@@ -274,6 +277,8 @@ public class MainActivity extends BaseFragmentActivity {
             BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
         }
         LocationManager.getInstance().startLocation();
+
+
 
     }
 
