@@ -152,8 +152,8 @@ public class MainController {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                activity.finish();
                 downloadApp(updateVo);
+                activity.finish();
             }
         });
         customerBuilder.create().show();
@@ -170,8 +170,8 @@ public class MainController {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                activity.finish();
                 downloadApp(updateVo);
+                activity.finish();
             }
         });
         dialog = customBuilder.create();
@@ -181,10 +181,14 @@ public class MainController {
     }
 
     public void downloadApp( UpdateVo updateVo){
-        Intent intent = new Intent(context, NotificationUpdateActivity.class);
+//        Intent intent = new Intent(context, NotificationUpdateActivity.class);
+//        activity.startActivity(intent);
+//        app.setDownload(true);
+//        app.updateVo = updateVo;
+        //直接跳转到应用宝下载页面
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra("webview_url",updateVo.getPackageurl());
         activity.startActivity(intent);
-        app.setDownload(true);
-        app.updateVo = updateVo;
     }
     
 }
