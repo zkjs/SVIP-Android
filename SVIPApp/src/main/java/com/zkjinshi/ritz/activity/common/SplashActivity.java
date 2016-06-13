@@ -163,7 +163,7 @@ public class SplashActivity extends BaseActivity {
                 // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
                 handler.sendEmptyMessageDelayed(GO_HOME, SPLASH_DELAY_MILLIS);
             } else if(CacheUtil.getInstance().isGuide()) {
-                handler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
+                handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
             }else{
                 handler.sendEmptyMessageDelayed(GO_LOGIN, SPLASH_DELAY_MILLIS);
             }

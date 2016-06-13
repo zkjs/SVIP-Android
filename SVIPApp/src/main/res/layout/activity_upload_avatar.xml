@@ -86,7 +86,7 @@
 
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
@@ -97,6 +97,7 @@
             android:id="@+id/sample_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:visibility="gone"
             fresco:roundAsCircle="true"
             fresco:actualImageScaleType="centerCrop"
             fresco:placeholderImage="@mipmap/img_fangli"
@@ -105,23 +106,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_vertical"
             android:layout_weight="1">
             <TextView
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="请参照样例拍摄您的脸部照片，照"
+                android:text="请参照样例拍摄您的脸部照片"
                 android:textColor="#ffffff"
                 android:textSize="12sp"/>
-            <TextView
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="片清晰度决定您的免支付操作速度"
-                android:textColor="#ffffff"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
 
         </LinearLayout>
     </LinearLayout>
