@@ -122,13 +122,13 @@
                     zkjinshi:haveDownLine="true"
                     zkjinshi:icvValue="true"/>
 
-                <com.zkjinshi.ritz.view.ItemCbxView
+                <com.zkjinshi.svip.view.ItemCbxView
                     android:id="@+id/icv_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    zkjinshi:icvTitle="开启身份"
+                    zkjinshi:icvTitle="隐藏身份"
                     zkjinshi:haveDownLine="true"
-                    zkjinshi:icvValue="true"/>
+                    zkjinshi:icvValue="false"/>
 
             </LinearLayout>
 

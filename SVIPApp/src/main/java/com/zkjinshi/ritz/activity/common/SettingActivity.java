@@ -125,11 +125,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isOpen) {
                 if(isOpen){
-                    CacheUtil.getInstance().setServiceSwitch(true);
-                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
-                }else{
                     CacheUtil.getInstance().setServiceSwitch(false);
                     BlueToothManager.getInstance().stopIBeaconService();
+                }else{
+                    CacheUtil.getInstance().setServiceSwitch(true);
+                    BlueToothManager.getInstance().startIBeaconService(new ArrayList<NetBeaconVo>());
                 }
             }
         });
@@ -157,9 +157,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }
 
         if(CacheUtil.getInstance().isServiceSwitch()){
-            serviceCbx.valueCbx.setChecked(true);
-        }else{
             serviceCbx.valueCbx.setChecked(false);
+        }else{
+            serviceCbx.valueCbx.setChecked(true);
         }
 
         refreshUserInfo();
