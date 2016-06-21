@@ -76,7 +76,7 @@ public class MainController {
         }
         try{
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setTimeout(Constants.OVERTIMEOUT);
+            client.setTimeout(10*1000);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
@@ -111,7 +111,7 @@ public class MainController {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"API 错误："+statusCode,Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(context,statusCode);
                 }
             });
