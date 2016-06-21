@@ -361,7 +361,7 @@ public class MainActivity extends BaseFragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
-                intent.putExtra("webview_url","http://116.205.5.231:8087/");
+                intent.putExtra("webview_url","http://zkjinshi.com/web/about.html");
                 startActivity(intent);
                 mDrawer.animateClose();
             }
