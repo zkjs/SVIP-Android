@@ -64,7 +64,7 @@
             zkjs:content="@+id/content"
             zkjs:direction="bottomToTop"
             zkjs:handle="@+id/handle"
-            zkjs:topOffset="200dp">
+            zkjs:topOffset="120dp">
 
             <include
                 android:id="@id/content"

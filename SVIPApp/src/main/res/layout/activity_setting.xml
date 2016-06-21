@@ -37,7 +37,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:paddingLeft="10dp"
-                    android:text="身份识别图"
+                    android:text="头像"
                     android:textColor="#101010"
                     android:textSize="16sp" />
                 <TextView
@@ -122,7 +122,7 @@
                     zkjinshi:haveDownLine="true"
                     zkjinshi:icvValue="true"/>
 
-                <com.zkjinshi.svip.view.ItemCbxView
+                <com.zkjinshi.ritz.view.ItemCbxView
                     android:id="@+id/icv_service"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

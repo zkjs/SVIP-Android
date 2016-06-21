@@ -91,6 +91,7 @@ public class ShopFragment extends Fragment {
     private void initUI(final View root) {
         backIBtn = (ImageButton) root.findViewById(R.id.btn_back);
         titleTv = (TextView)root.findViewById(R.id.title_tv);
+        titleTv.setTextSize(14);
         headLayout = root.findViewById(R.id.my_header);
 
         shopHeadLayout = LayoutInflater.from(getActivity()).inflate(R.layout.layout_shop_head,null);

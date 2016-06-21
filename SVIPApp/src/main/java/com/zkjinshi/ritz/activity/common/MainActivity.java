@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseFragmentActivity {
     private SimpleDraweeView msgIv,avatarCiv,shopLogoSdv;
     private TextView activateTv;
     private MultiDirectionSlidingDrawer mDrawer;
-
+    private ImageButton membershipIBtn,callServiceIBtn,newsIBtn,ideaIBtn;
 
     private RelativeLayout rootRlt;
     private UpdateLogoReceiver updateLogoReceiver;
@@ -230,7 +231,10 @@ public class MainActivity extends BaseFragmentActivity {
         msgIv = (SimpleDraweeView)findViewById(R.id.msgIv);
         avatarCiv =  (SimpleDraweeView)findViewById(R.id.avatar_sdv);
         shopLogoSdv = (SimpleDraweeView)findViewById(R.id.shop_logo);
-
+        membershipIBtn = (ImageButton)findViewById(R.id.membership_btn);
+        callServiceIBtn = (ImageButton)findViewById(R.id.call_service_btn);
+        newsIBtn = (ImageButton)findViewById(R.id.news_btn);
+        ideaIBtn = (ImageButton)findViewById(R.id.idea_btn);
         rootRlt = (RelativeLayout)findViewById(R.id.root_rlt);
         FragmentManager manager = getSupportFragmentManager();
         shopFragment = new ShopFragment();
@@ -352,6 +356,47 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
+        //关于会籍
+        membershipIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
+                intent.putExtra("webview_url","http://116.205.5.231:8087/");
+                startActivity(intent);
+                mDrawer.animateClose();
+            }
+        });
+
+        //呼叫服务
+        callServiceIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUtil.getInstance().showCustomToast(mContext,"正在开发中",Gravity.CENTER);
+                mDrawer.animateClose();
+            }
+        });
+
+        //最新资讯
+        newsIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/web/news.html");
+                startActivity(intent);
+                mDrawer.animateClose();
+            }
+        });
+
+        //会员意见
+        ideaIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
+                intent.putExtra("webview_url","https://mp.weixin.qq.com/s?__biz=MzA5Njg1MDg3OA==&mid=207204460&idx=1&sn=17110e552f4c5f575ede3b44cce1dbdd");
+                startActivity(intent);
+                mDrawer.animateClose();
+            }
+        });
 
     }
 
