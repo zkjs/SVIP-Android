@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="呼叫服务"
+                    android:text="联系我们"
                     android:textColor="@color/orange"
                     android:textSize="12sp"
                     android:layout_marginTop="12dp"/>

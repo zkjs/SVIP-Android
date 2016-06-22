@@ -367,11 +367,13 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
-        //呼叫服务
+        //联系我们
         callServiceIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogUtil.getInstance().showCustomToast(mContext,"正在开发中",Gravity.CENTER);
+                Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
+                intent.putExtra("webview_url","http://zkjinshi.com/web/contact.html");
+                startActivity(intent);
                 mDrawer.animateClose();
             }
         });
