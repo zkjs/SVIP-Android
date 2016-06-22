@@ -106,6 +106,7 @@ public class WebViewActivity extends BaseActivity {
         listIBtn.setVisibility(View.VISIBLE);
         centerTitleBarTv = (TextView) findViewById(R.id.header_bar_tv_title);
         centerTitleBarTv.setVisibility(View.VISIBLE);
+        centerTitleBarTv.setTextSize(12);
         centerTitleBarTv.setText(R.string.app_name);
         promptStr = getResources().getString(R.string.sweet_prompt);// 温馨提示
         sureStr = getResources().getString(R.string.sure_option);// 确认
