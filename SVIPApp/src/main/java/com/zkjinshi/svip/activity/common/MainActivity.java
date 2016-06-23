@@ -1,18 +1,22 @@
 package com.zkjinshi.svip.activity.common;
 
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 
 import android.net.Uri;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import android.provider.Settings;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 
@@ -38,9 +42,14 @@ import com.zkjinshi.base.log.LogLevel;
 import com.zkjinshi.base.log.LogUtil;
 import com.zkjinshi.base.util.DialogUtil;
 
+import com.zkjinshi.base.view.CustomDialog;
+import com.zkjinshi.pyxis.bluetooth.IBeaconContext;
+import com.zkjinshi.pyxis.bluetooth.IBeaconVo;
 import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.call.CallCenterActivity;
+import com.zkjinshi.svip.activity.call.CallSelectShopActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
@@ -354,7 +363,37 @@ public class MainActivity extends BaseFragmentActivity {
             }
         });
 
+        findViewById(R.id.hujiao_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    if(null != bluetoothAdapter && bluetoothAdapter.isEnabled()){
+                        //IBeaconVo iBeaconVo = IBeaconContext.getInstance().getLastIBeaconVo();
+                        Intent intent = new Intent(mContext,CallCenterActivity.class);
+                        intent.putExtra("locid","");
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }else{
+                        showBlueToothMsg();
+                    }
+                }else{
+                    gotoSelectShop();
+                }
+
+
+                mDrawer.animateClose();
+            }
+        });
+
+
+    }
+
+    private void gotoSelectShop(){
+        Intent intent = new Intent(mContext,CallSelectShopActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -362,7 +401,29 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-
+    private void showBlueToothMsg(){
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(mContext);
+        customBuilder.setTitle("无法获取您所在的区域");
+        customBuilder.setMessage("请点击设置，打开蓝牙以便我们更好的为您提供服务");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("设置", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent =  new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+        customBuilder.setPositiveButton("好", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                gotoSelectShop();
+            }
+        });
+        customBuilder.create().show();
+    }
 
 
     //呼吸灯闪

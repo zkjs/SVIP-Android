@@ -217,4 +217,28 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"/res/v1/systempub/upgrade/newestversion/"+apptype+"/"+devicetype+"/"+verno;
     }
 
+    /**
+     * 获取呼叫服务列表
+     * @return
+     */
+    public static String servicetag(String locid){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/servicetag/"+locid;
+    }
+
+    /**
+     * 超级身份创建呼叫服务
+     * @return
+     */
+    public static String serviceTaskCreate(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task";
+    }
+
+    /**
+     * 获取呼叫服务任务列表
+     * @return
+     */
+    public static String serviceTaskList(int page){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task?page="+page+"&page_size=10";
+    }
+
 }

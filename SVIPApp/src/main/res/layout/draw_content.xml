@@ -3,7 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     android:background="#343434">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -17,34 +17,68 @@
         fresco:placeholderImage="@mipmap/ic_launcher"
         fresco:placeholderImageScaleType="centerCrop"/>
     <LinearLayout
+        android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/avatar_sdv">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            style="@style/draw_content_llt"
             android:id="@+id/wallet_llt">
             <ImageButton
                 android:id="@+id/wallet_btn"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/btn_home_selector"
-                android:src="@drawable/btn_wallet_selector"/>
+                android:src="@drawable/btn_wallet_selector"
+                style="@style/draw_content_ibtn"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="支付记录"
-                android:textColor="@color/orange"
-                android:textSize="12sp"
-                android:layout_marginTop="12dp"/>
+                style="@style/draw_content_font"
+                android:text="支付记录"/>
         </LinearLayout>
+        <LinearLayout
+            style="@style/draw_content_llt"
+            android:id="@+id/hujiao_llt">
+            <ImageButton
+                android:id="@+id/hujiao_btn"
+                android:src="@drawable/btn_call_selector"
+                style="@style/draw_content_ibtn"/>
+            <TextView
+                style="@style/draw_content_font"
+                android:text="呼叫中心"/>
+        </LinearLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/line1"
+        android:visibility="visible">
 
+        <LinearLayout
+            style="@style/draw_content_llt"
+            android:id="@+id/xincheng_llt">
+            <ImageButton
+                android:id="@+id/xincheng_btn"
+                android:src="@drawable/btn_history_selector"
+                style="@style/draw_content_ibtn"/>
+            <TextView
+                style="@style/draw_content_font"
+                android:text="我的行程"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/draw_content_llt"
+            android:id="@+id/yuyue_llt">
+            <ImageButton
+                android:id="@+id/yuyue_btn"
+                android:src="@drawable/btn_book_selector"
+                style="@style/draw_content_ibtn"/>
+            <TextView
+                style="@style/draw_content_font"
+                android:text="预约"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
