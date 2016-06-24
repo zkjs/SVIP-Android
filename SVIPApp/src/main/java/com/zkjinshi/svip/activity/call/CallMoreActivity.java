@@ -1,10 +1,12 @@
 package com.zkjinshi.svip.activity.call;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.PayRecordVo;
+import com.zkjinshi.svip.vo.ServiceTagTopVo;
 
 import org.json.JSONObject;
 
@@ -42,9 +45,9 @@ public class CallMoreActivity extends BaseActivity {
     private ImageButton backIBtn;
     private TextView titleTv;
 
-    private RefreshListView mRefreshListView;
+    private ListView listView;
     private CallMoreAdapter callMoreAdapter = null;
-    private int    mCurrentPage;//记录当前查询页
+    private ArrayList<ServiceTagTopVo> datelist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,36 +63,19 @@ public class CallMoreActivity extends BaseActivity {
     private void initView() {
         backIBtn = (ImageButton)findViewById(R.id.btn_back);
         titleTv = (TextView)findViewById(R.id.title_tv);
-        mRefreshListView = (RefreshListView)findViewById(R.id.slv_call_more);
+        listView = (ListView)findViewById(R.id.slv_call_more);
     }
 
     private void initData() {
         backIBtn.setVisibility(View.VISIBLE);
-        titleTv.setText("呼叫中心");
+        titleTv.setText("选择区域");
 
-        ArrayList<PayRecordDataVo> dataList = new ArrayList<PayRecordDataVo>();
-        callMoreAdapter = new CallMoreAdapter(dataList, CallMoreActivity.this);
-        mRefreshListView.setAdapter(callMoreAdapter);
+        datelist = (ArrayList<ServiceTagTopVo>)getIntent().getSerializableExtra("datelist");
+        callMoreAdapter = new CallMoreAdapter(datelist, CallMoreActivity.this);
+        listView.setAdapter(callMoreAdapter);
     }
 
     private void initListener() {
-        mRefreshListView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefreshing() {
-                mCurrentPage = 0;
-                loadRecord(mCurrentPage);
-            }
-
-            @Override
-            public void onLoadingMore() {
-                loadRecord(mCurrentPage);
-            }
-
-            @Override
-            public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-                //int realPostion = position - 1;
-            }
-        });
 
         backIBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,78 +84,16 @@ public class CallMoreActivity extends BaseActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-    }
 
-    public void onResume(){
-        super.onResume();
-        mCurrentPage = 0;
-        loadRecord(mCurrentPage);
-    }
-
-    private void loadRecord(int page){
-        try {
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.setTimeout(Constants.OVERTIMEOUT);
-            client.addHeader("Content-Type","application/json; charset=UTF-8");
-            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
-            JSONObject jsonObject = new JSONObject();
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.getPayList("0",page);
-            client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
-
-                public void onStart(){
-                    super.onStart();
-                    if(mCurrentPage == 0){
-                        DialogUtil.getInstance().showAvatarProgressDialog(mContext,"");
-                    }
-                }
-
-                public void onFinish(){
-                    super.onFinish();
-                    if(mCurrentPage == 0 || mCurrentPage == 1){
-                        DialogUtil.getInstance().cancelProgressDialog();
-                    }
-                    mRefreshListView.refreshFinish();//结束刷新状态
-                }
-
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
-                    try {
-                        String response = new String(responseBody,"utf-8");
-                        PayRecordVo payRecordVo = new Gson().fromJson(response,PayRecordVo.class);
-                        if(payRecordVo == null){
-                            return;
-                        }
-                        if(payRecordVo.getRes() == 0){
-                            ArrayList<PayRecordDataVo> payRecordDataList = payRecordVo.getData();
-                            if (mCurrentPage == 0) {
-                                callMoreAdapter.refresh(payRecordDataList);
-                                if(!payRecordDataList.isEmpty()){
-                                    mCurrentPage++;
-                                }
-                            } else {
-                                callMoreAdapter.loadMore(payRecordDataList);
-                                if(!payRecordDataList.isEmpty()){
-                                    mCurrentPage++;
-                                    //mRefreshListView.setSelection(mPayRecordAdapter.datalist.size() - 1);
-                                }
-
-                            }
-
-                        }else{
-                            Toast.makeText(mContext, payRecordVo.getResDesc(),Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    AsyncHttpClientUtil.onFailure(mContext,statusCode);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent data = new Intent();
+                data.putExtra("index", position);
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
     }
 
 }

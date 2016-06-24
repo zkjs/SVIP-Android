@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zkjinshi.svip.R;
-import com.zkjinshi.svip.vo.ServiceTagTopVo;
+import com.zkjinshi.svip.vo.ZoneVo;
 
 import java.util.ArrayList;
 
@@ -18,22 +18,24 @@ import java.util.ArrayList;
  * Copyright (C) 2015 深圳中科金石科技有限公司
  * 版权所有
  */
-public class CallMoreAdapter extends BaseAdapter {
+public class CallSelectAreaAdapter extends BaseAdapter {
 
-    public ArrayList<ServiceTagTopVo> datalist = new ArrayList<ServiceTagTopVo>();
+    public ArrayList<ZoneVo> datalist = new ArrayList<ZoneVo>();
     private Activity activity;
 
-    public void loadMore(ArrayList<ServiceTagTopVo> morelist){
+
+
+    public void loadMore(ArrayList<ZoneVo> morelist){
         datalist.addAll(morelist);
         notifyDataSetChanged();
     }
 
-    public void refresh(ArrayList<ServiceTagTopVo> refreshlist){
+    public void refresh(ArrayList<ZoneVo> refreshlist){
         datalist = refreshlist;
         notifyDataSetChanged();
     }
 
-    public CallMoreAdapter(ArrayList<ServiceTagTopVo> datalist, Activity activity) {
+    public CallSelectAreaAdapter(ArrayList<ZoneVo> datalist, Activity activity) {
         this.datalist = datalist;
         this.activity = activity;
     }
@@ -57,7 +59,7 @@ public class CallMoreAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)  {
-        final ServiceTagTopVo itemOrder = datalist.get(position);
+        final ZoneVo itemOrder = datalist.get(position);
         ViewHolder holder = null;
         if(convertView != null) {
             holder = (ViewHolder) convertView.getTag();
@@ -69,7 +71,7 @@ public class CallMoreAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
 
-        holder.areaTv.setText(itemOrder.getLocdesc());
+        holder.areaTv.setText(itemOrder.getArea());
         return convertView;
     }
 

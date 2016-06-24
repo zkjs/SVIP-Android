@@ -1,5 +1,6 @@
 package com.zkjinshi.svip.activity.call;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import com.zkjinshi.svip.vo.ServiceTagVo;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -46,7 +49,7 @@ public class CallCenterActivity extends BaseActivity {
 
     private ListView listview;
     private ServiceTagAdapter serviceTagAdapter;
-    private ArrayList<ServiceTagVo> mList;
+    private ArrayList<ServiceTagTopVo> mList;
 
     private String locid = "";
 
@@ -61,10 +64,18 @@ public class CallCenterActivity extends BaseActivity {
         initListener();
     }
 
-    public void onResume(){
-        super.onResume();
-        //getServiceTag();
-        test();
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case Constants.FLAG_SELECT_AREA:
+                    int index = data.getIntExtra("index",0);
+                    Collections.swap(mList,0,index);
+                    serviceTagAdapter.refresh(mList);
+                    break;
+            }
+        }
     }
 
     private void initView() {
@@ -87,6 +98,7 @@ public class CallCenterActivity extends BaseActivity {
         serviceTagAdapter = new ServiceTagAdapter(mContext,new ArrayList<ServiceTagTopVo>());
         listview.setAdapter(serviceTagAdapter);
 
+        getServiceTag();
     }
 
 
@@ -121,7 +133,8 @@ public class CallCenterActivity extends BaseActivity {
             }
             if(serviceTagVo.getRes() == 0){
                 if(!serviceTagVo.getData().isEmpty()){
-                    serviceTagAdapter.refresh(serviceTagVo.getData());
+                    mList = serviceTagVo.getData();
+                    serviceTagAdapter.refresh(mList);
                 }else{
                     Toast.makeText(mContext,"暂无数据",Toast.LENGTH_SHORT).show();
                 }
@@ -134,6 +147,10 @@ public class CallCenterActivity extends BaseActivity {
     }
 
     public void getServiceTag(){
+        if(true){
+            test();
+            return;
+        }
         try{
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
@@ -159,7 +176,8 @@ public class CallCenterActivity extends BaseActivity {
                         }
                         if(serviceTagVo.getRes() == 0){
                             if(!serviceTagVo.getData().isEmpty()){
-                               serviceTagAdapter.refresh(serviceTagVo.getData());
+                                mList = serviceTagVo.getData();
+                                serviceTagAdapter.refresh(mList);
                             }else{
                                 Toast.makeText(mContext,"暂无数据",Toast.LENGTH_SHORT).show();
                             }

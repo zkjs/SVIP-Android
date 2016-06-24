@@ -25,6 +25,8 @@ public class Constants {
     //修改邮箱
     public static final int FLAG_MODIFY_EMAIL = 11;
 
+    //选择区域
+    public static final int FLAG_SELECT_AREA = 12;
 
     public static final String SHOW_CONTACT_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_CONTACT_RECEIVER_ACTION";
     public static final String SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_IBEACON_PUSH_MSG_ACTION";

@@ -1,7 +1,9 @@
 package com.zkjinshi.svip.activity.call;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -9,27 +11,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
-
-import com.zkjinshi.svip.adapter.CallOrderAdapter;
-
+import com.zkjinshi.svip.adapter.CallSelectAreaAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
+import com.zkjinshi.svip.response.GetZoneListResponse;
 import com.zkjinshi.svip.utils.AssetUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
-
 import com.zkjinshi.svip.view.RefreshListView;
-import com.zkjinshi.svip.vo.ServiceTaskDataVo;
-import com.zkjinshi.svip.vo.ServiceTaskVo;
+import com.zkjinshi.svip.vo.PayRecordDataVo;
+import com.zkjinshi.svip.vo.PayRecordVo;
+import com.zkjinshi.svip.vo.ServiceTagVo;
+import com.zkjinshi.svip.vo.ZoneVo;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -38,22 +42,23 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 /**
  * Created by dujiande on 2016/6/21.
  */
-public class CallOrderActivity extends BaseActivity {
+public class CallSelectAreaActivity extends BaseActivity {
 
-    private final static String TAG = CallOrderActivity.class.getSimpleName();
+    private final static String TAG = CallSelectAreaActivity.class.getSimpleName();
 
     private Context mContext;
     private ImageButton backIBtn;
     private TextView titleTv;
 
     private RefreshListView mRefreshListView;
-    private CallOrderAdapter callOrderAdapter = null;
+    private CallSelectAreaAdapter callSelectAreaAdapter = null;
     private int    mCurrentPage;//记录当前查询页
+    private String shopid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call_order);
+        setContentView(R.layout.activity_call_select_area);
         mContext = this;
 
         initView();
@@ -64,16 +69,18 @@ public class CallOrderActivity extends BaseActivity {
     private void initView() {
         backIBtn = (ImageButton)findViewById(R.id.btn_back);
         titleTv = (TextView)findViewById(R.id.title_tv);
-        mRefreshListView = (RefreshListView)findViewById(R.id.slv_call_order);
+        mRefreshListView = (RefreshListView)findViewById(R.id.slv_call_more);
     }
 
     private void initData() {
         backIBtn.setVisibility(View.VISIBLE);
-        titleTv.setText("呼叫列表");
+        titleTv.setText("选择区域");
 
-        ArrayList<ServiceTaskDataVo> dataList = new ArrayList<ServiceTaskDataVo>();
-        callOrderAdapter = new CallOrderAdapter(dataList, CallOrderActivity.this);
-        mRefreshListView.setAdapter(callOrderAdapter);
+        shopid = getIntent().getStringExtra("shopid");
+
+        ArrayList<ZoneVo> dataList = new ArrayList<ZoneVo>();
+        callSelectAreaAdapter = new CallSelectAreaAdapter(dataList,this);
+        mRefreshListView.setAdapter(callSelectAreaAdapter);
     }
 
     private void initListener() {
@@ -81,17 +88,22 @@ public class CallOrderActivity extends BaseActivity {
             @Override
             public void onRefreshing() {
                 mCurrentPage = 0;
-                loadRecord(mCurrentPage);
+                getZoneList();
             }
 
             @Override
             public void onLoadingMore() {
-                loadRecord(mCurrentPage);
+                getZoneList();
             }
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-                //int realPostion = position - 1;
+                int realPostion = position - 1;
+                ZoneVo zoneVo = (ZoneVo) callSelectAreaAdapter.getItem(realPostion);
+                Intent intent = new Intent(mContext,CallCenterActivity.class);
+                intent.putExtra("locid",zoneVo.getLocid());
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -107,54 +119,55 @@ public class CallOrderActivity extends BaseActivity {
     public void onResume(){
         super.onResume();
         mCurrentPage = 0;
-        loadRecord(mCurrentPage);
+        getZoneList();
     }
 
     public void test(){
         try {
-            String response = AssetUtil.getContent(this,"calltask.txt");
-            ServiceTaskVo serviceTaskVo = new Gson().fromJson(response,ServiceTaskVo.class);
-            if(serviceTaskVo == null){
+            String response = AssetUtil.getContent(this,"getzonelist.txt");
+            GetZoneListResponse getZoneListResponse = new Gson().fromJson(response,GetZoneListResponse.class);
+            if (getZoneListResponse == null){
                 return;
             }
-            if(serviceTaskVo.getRes() == 0){
-                ArrayList<ServiceTaskDataVo> dataList = serviceTaskVo.getData();
+            if(getZoneListResponse.getRes() == 0){
+
+                ArrayList<ZoneVo> zoneVoArrayList = getZoneListResponse.getData();
                 if (mCurrentPage == 0) {
-                    callOrderAdapter.refresh(dataList);
-                    if(!dataList.isEmpty()){
+                    callSelectAreaAdapter.refresh(zoneVoArrayList);
+                    if(!zoneVoArrayList.isEmpty()){
                         mCurrentPage++;
                     }
                 } else {
-                    callOrderAdapter.loadMore(dataList);
-                    if(!dataList.isEmpty()){
+                    callSelectAreaAdapter.loadMore(zoneVoArrayList);
+                    if(!zoneVoArrayList.isEmpty()){
                         mCurrentPage++;
                     }
 
                 }
 
             }else{
-                Toast.makeText(mContext, serviceTaskVo.getResDesc(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,getZoneListResponse.getResDesc(),Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void loadRecord(int page){
+    private void getZoneList(){
         if(true){
             test();
             return;
         }
-        try {
+
+        try{
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
-            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
+            client.addHeader("Token",CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.serviceTaskList(page);
-            client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
-
+            String url = ProtocolUtil.getZoneList(shopid,mCurrentPage);
+            client.get(mContext,url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
                 public void onStart(){
                     super.onStart();
                     if(mCurrentPage == 0){
@@ -173,27 +186,28 @@ public class CallOrderActivity extends BaseActivity {
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody){
                     try {
                         String response = new String(responseBody,"utf-8");
-                        ServiceTaskVo serviceTaskVo = new Gson().fromJson(response,ServiceTaskVo.class);
-                        if(serviceTaskVo == null){
+                        GetZoneListResponse getZoneListResponse = new Gson().fromJson(response,GetZoneListResponse.class);
+                        if (getZoneListResponse == null){
                             return;
                         }
-                        if(serviceTaskVo.getRes() == 0){
-                            ArrayList<ServiceTaskDataVo> dataList = serviceTaskVo.getData();
+                        if(getZoneListResponse.getRes() == 0){
+
+                            ArrayList<ZoneVo> zoneVoArrayList = getZoneListResponse.getData();
                             if (mCurrentPage == 0) {
-                                callOrderAdapter.refresh(dataList);
-                                if(!dataList.isEmpty()){
+                                callSelectAreaAdapter.refresh(zoneVoArrayList);
+                                if(!zoneVoArrayList.isEmpty()){
                                     mCurrentPage++;
                                 }
                             } else {
-                                callOrderAdapter.loadMore(dataList);
-                                if(!dataList.isEmpty()){
+                                callSelectAreaAdapter.loadMore(zoneVoArrayList);
+                                if(!zoneVoArrayList.isEmpty()){
                                     mCurrentPage++;
                                 }
 
                             }
 
                         }else{
-                            Toast.makeText(mContext, serviceTaskVo.getResDesc(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext,getZoneListResponse.getResDesc(),Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -204,7 +218,7 @@ public class CallOrderActivity extends BaseActivity {
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

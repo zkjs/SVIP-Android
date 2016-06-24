@@ -49,6 +49,7 @@ import com.zkjinshi.pyxis.bluetooth.NetBeaconVo;
 import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.activity.call.CallCenterActivity;
+import com.zkjinshi.svip.activity.call.CallEvaluateActivity;
 import com.zkjinshi.svip.activity.call.CallSelectShopActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 
@@ -384,6 +385,15 @@ public class MainActivity extends BaseFragmentActivity {
 
 
                 mDrawer.animateClose();
+            }
+        });
+
+        findViewById(R.id.xincheng_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext,CallEvaluateActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
+import com.zkjinshi.svip.adapter.CallSelectAreaAdapter;
 import com.zkjinshi.svip.adapter.SelectShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
@@ -105,6 +107,17 @@ public class CallSelectShopActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,CallOrderActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+               MyShopVo myShopVo = datas.get(position);
+                Intent intent = new Intent(mContext, CallSelectAreaActivity.class);
+                intent.putExtra("shopid",myShopVo.getShopid());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

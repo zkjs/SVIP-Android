@@ -1,0 +1,28 @@
+{
+        "res": 0,
+        "resDesc": "success",
+        "data": [{
+            "locid":"36",
+            "area":"大门",
+            "payment_support":0,
+            "beacons": []
+        },{
+            "locid":"1000",
+            "area":"收银台1",
+            "payment_support":1,
+            "beacons": [{
+                "major": "801",
+                "minor": "2",
+                "uuid": "uuid-uuid-uuid"
+            }]
+         },{
+            "locid":"1000",
+            "area":"收银台2",
+            "payment_support":1,
+            "beacons": [{
+                "major": "801",
+                "minor": "",
+                "uuid": "uuid-uuid-uuid"
+            }]
+        }]
+}

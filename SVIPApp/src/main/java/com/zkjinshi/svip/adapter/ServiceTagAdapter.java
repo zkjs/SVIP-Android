@@ -1,7 +1,9 @@
 package com.zkjinshi.svip.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -10,12 +12,16 @@ import android.widget.BaseAdapter;
 
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.call.CallMoreActivity;
+import com.zkjinshi.svip.activity.call.CallTaskActivity;
+import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.view.MyExpandableListView;
 import com.zkjinshi.svip.vo.ServiceTagDataSecondVo;
 import com.zkjinshi.svip.vo.ServiceTagTopVo;
@@ -66,30 +72,47 @@ public class ServiceTagAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.titleTv = (TextView)convertView.findViewById(R.id.area_tv);
             viewHolder.logoIv = (ImageView) convertView.findViewById(R.id.logo_iv);
+            viewHolder.areaLlt = (LinearLayout)convertView.findViewById(R.id.area_llt);
             viewHolder.expandableListView = (MyExpandableListView)convertView.findViewById(R.id.expandableListView1);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if(position == 0){
-            viewHolder.logoIv.setVisibility(View.VISIBLE);
-        }else{
-            viewHolder.logoIv.setVisibility(View.GONE);
-        }
-
         ServiceTagTopVo serviceTagTopVo = datelist.get(position);
-        viewHolder.titleTv.setText(serviceTagTopVo.getLocdesc());
 
+
+
+
+        viewHolder.titleTv.setText(serviceTagTopVo.getLocdesc());
         viewHolder.expandableListView.setDivider(null);
         viewHolder.expandableListView.setGroupIndicator(null);
         final ServicesAdapter servicesAdapter = new ServicesAdapter(context,serviceTagTopVo.getServices());
         viewHolder.expandableListView.setAdapter(servicesAdapter);
-        for(int i=0;i<serviceTagTopVo.getServices().size();i++){
-            viewHolder.expandableListView.expandGroup(i);
+        if(position == 0){
+            for(int i=0;i<serviceTagTopVo.getServices().size();i++){
+                viewHolder.expandableListView.expandGroup(i);
+            }
+            viewHolder.logoIv.setVisibility(View.VISIBLE);
+            viewHolder.areaLlt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CallMoreActivity.class);
+                    intent.putExtra("datelist",datelist);
+                    Activity activity = (Activity)context;
+                    activity.startActivityForResult(intent, Constants.FLAG_SELECT_AREA);
+                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            });
+        }else{
+            for(int i=0;i<serviceTagTopVo.getServices().size();i++){
+                viewHolder.expandableListView.collapseGroup(i);
+            }
+            viewHolder.logoIv.setVisibility(View.GONE);
+            viewHolder.areaLlt.setOnClickListener(null);
         }
-        servicesAdapter.notifyDataSetChanged();
-        viewHolder.expandableListView.invalidateViews();
+        //servicesAdapter.notifyDataSetChanged();
+        //viewHolder.expandableListView.invalidateViews();
 
         viewHolder.expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
@@ -97,7 +120,11 @@ public class ServiceTagAdapter extends BaseAdapter {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 ServiceTagDataSecondVo serviceTagDataSecondVo = (ServiceTagDataSecondVo)servicesAdapter.getChild(groupPosition,childPosition);
-                Toast.makeText(context,"你点击了"+serviceTagDataSecondVo.getSecondSrvTagName(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"你点击了"+serviceTagDataSecondVo.getSecondSrvTagName(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, CallTaskActivity.class);
+                intent.putExtra("serviceTagDataSecondVo",serviceTagDataSecondVo);
+                context.startActivity(intent);
+                ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 return false;
             }
         });
@@ -108,6 +135,7 @@ public class ServiceTagAdapter extends BaseAdapter {
     static class ViewHolder{
         TextView titleTv;
         ImageView logoIv;
+        LinearLayout areaLlt;
         private MyExpandableListView expandableListView;
     }
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class ServiceTaskDataVo implements Serializable{
 
     private String taskid;
-    private String svrname;
-    private String create;
+    private String srvname;
+    private String createtime;
     private String status;
 
     public String getTaskid() {
@@ -21,20 +21,13 @@ public class ServiceTaskDataVo implements Serializable{
         this.taskid = taskid;
     }
 
-    public String getSvrname() {
-        return svrname;
+
+    public String getCreatetime() {
+        return createtime;
     }
 
-    public void setSvrname(String svrname) {
-        this.svrname = svrname;
-    }
-
-    public String getCreate() {
-        return create;
-    }
-
-    public void setCreate(String create) {
-        this.create = create;
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
     }
 
     public String getStatus() {
@@ -43,5 +36,13 @@ public class ServiceTaskDataVo implements Serializable{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSrvname() {
+        return srvname;
+    }
+
+    public void setSrvname(String srvname) {
+        this.srvname = srvname;
     }
 }

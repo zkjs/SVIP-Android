@@ -75,6 +75,9 @@ public class CallTaskActivity extends BaseActivity {
         titleTv.setText("呼叫中心");
 
         serviceTagDataSecondVo = (ServiceTagDataSecondVo) getIntent().getSerializableExtra("serviceTagDataSecondVo");
+        if(serviceTagDataSecondVo != null){
+            titleTv.setText(serviceTagDataSecondVo.getSecondSrvTagName());
+        }
     }
 
     private void initListener() {

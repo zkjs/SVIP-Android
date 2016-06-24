@@ -74,8 +74,8 @@ public class CallOrderAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
 
-        holder.serviceNameTv.setText(itemOrder.getSvrname());
-        holder.datetimeTv.setText(itemOrder.getCreate());
+        holder.serviceNameTv.setText(itemOrder.getSrvname());
+        holder.datetimeTv.setText(itemOrder.getCreatetime());
         holder.statusTv.setText(itemOrder.getStatus());
         return convertView;
     }

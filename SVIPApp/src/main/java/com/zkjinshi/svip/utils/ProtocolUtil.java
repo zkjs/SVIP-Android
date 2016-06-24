@@ -241,4 +241,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task?page="+page+"&page_size=10";
     }
 
+    /**
+     * 获取当前商家Beacon列表
+     * @return
+     */
+    public static String getZoneList(String shopid,int page){
+        return ConfigUtil.getInst().getForDomain()+"lbs/v1/loc/beacon?shopid="+shopid+"&page="+page+"&page_size=10";
+    }
+
 }

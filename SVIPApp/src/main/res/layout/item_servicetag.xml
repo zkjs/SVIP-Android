@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F2"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/area_llt"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#F0F0F2">
         <ImageView
             android:id="@+id/logo_iv"
             android:layout_width="32dp"
@@ -27,6 +29,11 @@
             android:layout_gravity="center_vertical"
             android:text="您在君子汇康体中心一楼"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e3e3e3"/>
 
     <com.zkjinshi.svip.view.MyExpandableListView
         android:id="@+id/expandableListView1"
