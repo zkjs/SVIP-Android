@@ -222,7 +222,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String servicetag(String locid){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/call/servicetag/"+locid;
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/servicetag?locid="+locid;
     }
 
     /**

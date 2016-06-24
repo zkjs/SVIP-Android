@@ -436,6 +436,21 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
+    private void showServiceReadyMsg(){
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(mContext);
+        customBuilder.setTitle("服务已就绪");
+        customBuilder.setMessage("您呼叫的服务已准备就绪，正在前往为你服务中。");
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        customBuilder.create().show();
+    }
+
+
     //呼吸灯闪
     public void showPayMsgTips(){
         fadeAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_fade);

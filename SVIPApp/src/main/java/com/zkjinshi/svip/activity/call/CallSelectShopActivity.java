@@ -154,8 +154,9 @@ public class CallSelectShopActivity extends BaseActivity {
                     }
                 }
                 if (mAdapter != null) {
-                    mAdapter.refresh(temp);
                     mFooterView.setText(datas.size() + "个商家");
+                    mAdapter.refresh(temp);
+
                 }
             }
 

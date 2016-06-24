@@ -114,12 +114,14 @@ public class CallTaskActivity extends BaseActivity {
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             if(serviceTagDataSecondVo != null){
-                jsonObject.put("svrid",serviceTagDataSecondVo.getSecondSrvTagId());
+                jsonObject.put("srvid",serviceTagDataSecondVo.getSecondSrvTagId());
                 jsonObject.put("desc", remark);
+                jsonObject.put("locid",0);
+
             }
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
             String url = ProtocolUtil.serviceTaskCreate();
-            client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
+            client.post(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
                 public void onStart(){
                     super.onStart();

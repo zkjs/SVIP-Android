@@ -154,10 +154,10 @@ public class CallSelectAreaActivity extends BaseActivity {
     }
 
     private void getZoneList(){
-        if(true){
-            test();
-            return;
-        }
+//        if(true){
+//            test();
+//            return;
+//        }
 
         try{
             AsyncHttpClient client = new AsyncHttpClient();

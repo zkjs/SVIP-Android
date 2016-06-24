@@ -141,10 +141,10 @@ public class CallOrderActivity extends BaseActivity {
     }
 
     private void loadRecord(int page){
-        if(true){
-            test();
-            return;
-        }
+//        if(true){
+//            test();
+//            return;
+//        }
         try {
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);

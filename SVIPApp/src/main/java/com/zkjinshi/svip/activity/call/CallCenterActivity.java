@@ -20,6 +20,7 @@ import com.zkjinshi.svip.adapter.ServiceTagAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.utils.AssetUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
+import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.ServiceTagDataFirstVo;
@@ -147,14 +148,15 @@ public class CallCenterActivity extends BaseActivity {
     }
 
     public void getServiceTag(){
-        if(true){
-            test();
-            return;
-        }
+//        if(true){
+//            test();
+//            return;
+//        }
         try{
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
             client.addHeader("Content-Type","application/json; charset=UTF-8");
+            client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString(),"UTF-8");
             String url = ProtocolUtil.servicetag(locid);
@@ -190,7 +192,6 @@ public class CallCenterActivity extends BaseActivity {
                 }
 
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-                    Toast.makeText(mContext,"API 错误："+statusCode, Toast.LENGTH_SHORT).show();
                     AsyncHttpClientUtil.onFailure(mContext,statusCode);
                 }
             });
