@@ -31,6 +31,7 @@ public class Constants {
     public static final String SHOW_CONTACT_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_CONTACT_RECEIVER_ACTION";
     public static final String SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION = "com.zkjinshi.svip.SHOW_IBEACON_PUSH_MSG_ACTION";
     public static final String UPDATE_LOGO_RECEIVER_ACTION = "com.zkjinshi.svip.UPDATE_LOGO_RECEIVER_ACTION";
-
+    public static final String CALL_READY_ACTION = "com.zkjinshi.svip.CALL_READY";
+    public static final String CALL_DONE_ACTION = "com.zkjinshi.svip.CALL_DONE";
     public static final int OVERTIMEOUT = 5000;
 }

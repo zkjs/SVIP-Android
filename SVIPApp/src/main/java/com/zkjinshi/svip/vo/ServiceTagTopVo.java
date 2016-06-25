@@ -9,7 +9,16 @@ import java.util.ArrayList;
 public class ServiceTagTopVo implements Serializable{
 
     private String locdesc;
+    private String locid;
     private ArrayList<ServiceTagDataFirstVo> services;
+
+    public String getLocid() {
+        return locid;
+    }
+
+    public void setLocid(String locid) {
+        this.locid = locid;
+    }
 
     public String getLocdesc() {
         return locdesc;

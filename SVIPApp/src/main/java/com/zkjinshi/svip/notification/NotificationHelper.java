@@ -19,6 +19,7 @@ import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.receiver.NotificationClickReceiver;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.CallReadyVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
@@ -112,6 +113,29 @@ public class NotificationHelper {
         Intent realIntent = new Intent();
         realIntent.setClass(context, SplashActivity.class);
         realIntent.putExtra("data",yunBaMsgVo);
+        realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        // 3.设置通知栏其他属性
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(++NOTIFY_ID, notificationBuilder.build());
+    }
+
+    public void showCallReadyNotification(final Context context, final CallReadyVo callReadyVo){
+        NotificationCompat.Builder notificationBuilder = null;
+        // 1.设置显示信息
+        notificationBuilder = new NotificationCompat.Builder(context);
+        String title = "超级身份";
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        String content = "您呼叫的"+callReadyVo.getSrvname()+"已准备就绪，请稍等片刻，服务人员"+callReadyVo.getWaitername()+"马上到来。";
+        notificationBuilder.setContentTitle(content);
+
+        Intent realIntent = new Intent();
+        realIntent.setClass(context, SplashActivity.class);
         realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);

@@ -249,4 +249,12 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"lbs/v1/loc/beacon?shopid="+shopid+"&page="+page+"&page_size=10";
     }
 
+    /**
+     * 呼叫任务状态变更
+     * @return
+     */
+    public static String callTaskUpdate(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task";
+    }
+
 }

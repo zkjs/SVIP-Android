@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.activity.call;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -51,6 +52,7 @@ public class CallTaskActivity extends BaseActivity {
     private Button confirmBtn;
 
     private ServiceTagDataSecondVo serviceTagDataSecondVo;
+    private String locid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class CallTaskActivity extends BaseActivity {
         titleTv.setText("呼叫中心");
 
         serviceTagDataSecondVo = (ServiceTagDataSecondVo) getIntent().getSerializableExtra("serviceTagDataSecondVo");
+        locid = getIntent().getStringExtra("locid");
         if(serviceTagDataSecondVo != null){
             titleTv.setText(serviceTagDataSecondVo.getSecondSrvTagName());
         }
@@ -116,7 +119,7 @@ public class CallTaskActivity extends BaseActivity {
             if(serviceTagDataSecondVo != null){
                 jsonObject.put("srvid",serviceTagDataSecondVo.getSecondSrvTagId());
                 jsonObject.put("desc", remark);
-                jsonObject.put("locid",0);
+                jsonObject.put("locid",locid);
 
             }
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
@@ -142,8 +145,11 @@ public class CallTaskActivity extends BaseActivity {
                         }
                         if(baseResponseVo.getRes() == 0){
                             Toast.makeText(mContext, "发送成功",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(mContext,CallOrderActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             finish();
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
                         }else{
                             Toast.makeText(mContext, baseResponseVo.getResDesc(),Toast.LENGTH_SHORT).show();
                         }

@@ -79,7 +79,7 @@ public class ServiceTagAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ServiceTagTopVo serviceTagTopVo = datelist.get(position);
+        final ServiceTagTopVo serviceTagTopVo = datelist.get(position);
 
 
 
@@ -123,6 +123,7 @@ public class ServiceTagAdapter extends BaseAdapter {
                 //Toast.makeText(context,"你点击了"+serviceTagDataSecondVo.getSecondSrvTagName(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, CallTaskActivity.class);
                 intent.putExtra("serviceTagDataSecondVo",serviceTagDataSecondVo);
+                intent.putExtra("locid",serviceTagTopVo.getLocid());
                 context.startActivity(intent);
                 ((Activity)context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 return false;

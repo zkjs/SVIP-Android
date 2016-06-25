@@ -84,6 +84,7 @@ import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
 import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 
 import com.zkjinshi.svip.view.MultiDirectionSlidingDrawer;
+import com.zkjinshi.svip.vo.CallReadyVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
@@ -160,13 +161,21 @@ public class MainActivity extends BaseFragmentActivity {
     private class ShowIBeaconPushMsgReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context ctx, Intent intent) {
-            try {
+
+            if(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION.equals(intent.getAction())){
                 myHandler.removeMessages(SHOW_BEACON_MSG_ORDER);
                 myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,500);
-
-            } catch (JsonSyntaxException e) {
-                e.printStackTrace();
+            }else if(Constants.CALL_READY_ACTION.equals(intent.getAction())){
+                CallReadyVo callReadyVo = (CallReadyVo)intent.getSerializableExtra("data");
+                showCallReadyMsg(callReadyVo);
+            }else if(Constants.CALL_DONE_ACTION.equals(intent.getAction())){
+                CallReadyVo callReadyVo = (CallReadyVo)intent.getSerializableExtra("data");
+                Intent evalIntent = new Intent(mContext,CallEvaluateActivity.class);
+                evalIntent.putExtra("callReadyVo",callReadyVo);
+                startActivity(evalIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
+
         }
     }
 
@@ -280,7 +289,9 @@ public class MainActivity extends BaseFragmentActivity {
 
         mShowIBeaconPushMsgReceiver = new ShowIBeaconPushMsgReceiver();
         IntentFilter filter2 = new IntentFilter();
-        filter2.addAction(com.zkjinshi.svip.utils.Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        filter2.addAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
+        filter2.addAction(Constants.CALL_READY_ACTION);
+        filter2.addAction(Constants.CALL_DONE_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
 
         if(CacheUtil.getInstance().isServiceSwitch()){
@@ -391,9 +402,7 @@ public class MainActivity extends BaseFragmentActivity {
         findViewById(R.id.xincheng_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,CallEvaluateActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+
             }
         });
 
@@ -436,10 +445,10 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-    private void showServiceReadyMsg(){
+    private void showCallReadyMsg(CallReadyVo callReadyVo){
         CustomDialog.Builder customBuilder = new CustomDialog.Builder(mContext);
         customBuilder.setTitle("服务已就绪");
-        customBuilder.setMessage("您呼叫的服务已准备就绪，正在前往为你服务中。");
+        customBuilder.setMessage("您呼叫的"+callReadyVo.getSrvname()+"服务已准备就绪，"+callReadyVo.getWaitername()+"正在前往为你服务中。");
         customBuilder.setGravity(Gravity.CENTER);
         customBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

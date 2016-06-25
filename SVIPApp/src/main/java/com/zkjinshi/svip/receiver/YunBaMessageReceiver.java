@@ -19,6 +19,7 @@ import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.vo.CallReadyVo;
 import com.zkjinshi.svip.vo.OtherShopVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -88,6 +89,26 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         iBeaconIntent.putExtra("data",yunBaMsgVo);
                         context.sendBroadcast(iBeaconIntent);
                     }
+                }else if("CALL_READY".equals(type)){
+                    CallReadyVo callReadyVo = new Gson().fromJson(data,CallReadyVo.class);
+                    if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
+                        if(null != callReadyVo){
+                           NotificationHelper.getInstance().showCallReadyNotification(context,callReadyVo);
+                        }
+                    }else {
+                        Intent readyIntent = new Intent();
+                        readyIntent.setAction(Constants.CALL_READY_ACTION);
+                        readyIntent.putExtra("data",callReadyVo);
+                        context.sendBroadcast(readyIntent);
+                    }
+
+                }else if("CALL_DONE".equals(type)){
+                    CallReadyVo callReadyVo = new Gson().fromJson(data,CallReadyVo.class);
+                    Intent doneIntent = new Intent();
+                    doneIntent.setAction(Constants.CALL_DONE_ACTION);
+                    doneIntent.putExtra("data",callReadyVo);
+                    context.sendBroadcast(doneIntent);
+
                 }else if("ANOTHER_SHOP".equals(type)){//获取商店信息
                     OtherShopVo otherShopVo = new Gson().fromJson(data,OtherShopVo.class);
                     if(null != otherShopVo){
