@@ -123,7 +123,8 @@ public class CallEvaluateActivity extends BaseActivity{
             jsonObject.put("taskid",callReadyVo.getTaskid());
             jsonObject.put("operationseq",callReadyVo.getOperationseq());
             jsonObject.put("taskaction",6);
-            jsonObject.put("score",ratingBar.getRating());
+            int scrore = (int)(ratingBar.getRating()*2);
+            jsonObject.put("score",scrore);
             jsonObject.put("desc","");
             StringEntity stringEntity = new StringEntity(jsonObject.toString(),"UTF-8");
             String url = ProtocolUtil.callTaskUpdate();
