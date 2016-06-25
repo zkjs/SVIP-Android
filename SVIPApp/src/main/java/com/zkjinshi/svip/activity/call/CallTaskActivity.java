@@ -22,6 +22,7 @@ import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
+import com.zkjinshi.svip.utils.MessageUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.view.RefreshListView;
 import com.zkjinshi.svip.vo.BaseResponseVo;
@@ -144,7 +145,8 @@ public class CallTaskActivity extends BaseActivity {
                             return;
                         }
                         if(baseResponseVo.getRes() == 0){
-                            Toast.makeText(mContext, "发送成功",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, "发送成功",Toast.LENGTH_SHORT).show();
+                            MessageUtil.showImgToast(mContext,"发送成功");
                             Intent intent = new Intent(mContext,CallOrderActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

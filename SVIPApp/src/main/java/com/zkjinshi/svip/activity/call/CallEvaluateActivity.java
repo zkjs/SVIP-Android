@@ -83,6 +83,7 @@ public class CallEvaluateActivity extends BaseActivity{
         String avatarurl = ProtocolUtil.getAvatarUrl(this,callReadyVo.getWaiterimage());
         avatarSdv.setImageURI(Uri.parse(avatarurl));
         ratingBar.setRating(0);
+        ratingBar.setStepSize(1);
         confirmBtn.setVisibility(View.GONE);
     }
 
