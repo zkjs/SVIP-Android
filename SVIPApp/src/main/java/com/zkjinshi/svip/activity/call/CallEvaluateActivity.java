@@ -100,7 +100,12 @@ public class CallEvaluateActivity extends BaseActivity{
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                confirmBtn.setVisibility(View.VISIBLE);
+                if(ratingBar.getRating() <1){
+                    confirmBtn.setVisibility(View.GONE);
+                }else{
+                    confirmBtn.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
