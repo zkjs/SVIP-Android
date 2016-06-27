@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:text="对不起，您还不是被邀请用户"
+            android:text="请联系商家开通使用"
             android:layout_gravity="center_horizontal"
             android:textColor="#101010"
             android:lineSpacingMultiplier="1.5"
