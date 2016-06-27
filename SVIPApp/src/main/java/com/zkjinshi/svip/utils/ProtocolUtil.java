@@ -237,8 +237,8 @@ public class ProtocolUtil {
      * 获取呼叫服务任务列表
      * @return
      */
-    public static String serviceTaskList(int page){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task?page="+page+"&page_size=10";
+    public static String serviceTaskList(int page,int pageSize){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task?page="+page+"&page_size="+pageSize;
     }
 
     /**

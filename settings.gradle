@@ -1,1 +1,1 @@
-include ':SVIPApp', ':ZKJinShiBaseClass', ':multi-image-selector', ':pyxis', ':library.AESJni'
+include ':SVIPApp', ':ZKJinShiBaseClass', ':multi-image-selector', ':pyxis', ':library.AESJni', ':CalendarListView'

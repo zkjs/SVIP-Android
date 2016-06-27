@@ -115,7 +115,7 @@ public class CallSelectShopActivity extends BaseActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-               MyShopVo myShopVo = datas.get(position);
+               MyShopVo myShopVo = mAdapter.getItem(position);
                 Intent intent = new Intent(mContext, CallSelectAreaActivity.class);
                 intent.putExtra("shopid",myShopVo.getShopid());
                 startActivity(intent);
@@ -154,7 +154,7 @@ public class CallSelectShopActivity extends BaseActivity {
                     }
                 }
                 if (mAdapter != null) {
-                    mFooterView.setText(datas.size() + "个商家");
+                    mFooterView.setText(temp.size() + "个商家");
                     mAdapter.refresh(temp);
 
                 }

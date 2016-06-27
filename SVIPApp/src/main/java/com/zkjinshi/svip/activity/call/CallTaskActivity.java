@@ -123,7 +123,7 @@ public class CallTaskActivity extends BaseActivity {
                 jsonObject.put("locid",locid);
 
             }
-            StringEntity stringEntity = new StringEntity(jsonObject.toString());
+            StringEntity stringEntity = new StringEntity(jsonObject.toString(),"utf-8");
             String url = ProtocolUtil.serviceTaskCreate();
             client.post(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 

@@ -49,6 +49,7 @@ public class CallOrderActivity extends BaseActivity {
     private RefreshListView mRefreshListView;
     private CallOrderAdapter callOrderAdapter = null;
     private int    mCurrentPage;//记录当前查询页
+    private int    mPageSize = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class CallOrderActivity extends BaseActivity {
         ArrayList<ServiceTaskDataVo> dataList = new ArrayList<ServiceTaskDataVo>();
         callOrderAdapter = new CallOrderAdapter(dataList, CallOrderActivity.this);
         mRefreshListView.setAdapter(callOrderAdapter);
+        mRefreshListView.setmPageSize(mPageSize);
     }
 
     private void initListener() {
@@ -110,41 +112,8 @@ public class CallOrderActivity extends BaseActivity {
         loadRecord(mCurrentPage);
     }
 
-    public void test(){
-        try {
-            String response = AssetUtil.getContent(this,"calltask.txt");
-            ServiceTaskVo serviceTaskVo = new Gson().fromJson(response,ServiceTaskVo.class);
-            if(serviceTaskVo == null){
-                return;
-            }
-            if(serviceTaskVo.getRes() == 0){
-                ArrayList<ServiceTaskDataVo> dataList = serviceTaskVo.getData();
-                if (mCurrentPage == 0) {
-                    callOrderAdapter.refresh(dataList);
-                    if(!dataList.isEmpty()){
-                        mCurrentPage++;
-                    }
-                } else {
-                    callOrderAdapter.loadMore(dataList);
-                    if(!dataList.isEmpty()){
-                        mCurrentPage++;
-                    }
-
-                }
-
-            }else{
-                Toast.makeText(mContext, serviceTaskVo.getResDesc(),Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void loadRecord(int page){
-//        if(true){
-//            test();
-//            return;
-//        }
+
         try {
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
@@ -152,7 +121,7 @@ public class CallOrderActivity extends BaseActivity {
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.serviceTaskList(page);
+            String url = ProtocolUtil.serviceTaskList(page,mPageSize);
             client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
                 public void onStart(){

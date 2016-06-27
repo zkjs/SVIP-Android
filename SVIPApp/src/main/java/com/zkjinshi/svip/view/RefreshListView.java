@@ -75,6 +75,7 @@ public class RefreshListView extends ListView implements OnScrollListener {
     private static final float SCROLL_RATIO = 0.5f;// 阻尼系数
     private Context mContext;
     private int mMaxYOverscrollDistance;
+    private int mPageSize = -1;
 
     public RefreshListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -85,6 +86,14 @@ public class RefreshListView extends ListView implements OnScrollListener {
         initFooterLayout(); // 加载尾布局
         //设置条目点击监听
         this.setOnItemClickListener(new InterceptOnItemClickListener());
+    }
+
+    public int getmPageSize() {
+        return mPageSize;
+    }
+
+    public void setmPageSize(int mPageSize) {
+        this.mPageSize = mPageSize;
     }
 
     public RefreshListView(Context context, AttributeSet attrs) {
@@ -213,28 +222,33 @@ public class RefreshListView extends ListView implements OnScrollListener {
 
                 //当前显示界面已到达最后
                 if ((getLastVisiblePosition() == getAdapter().getCount() - 1) && diffY < 0) {
-                    if (onceTouch) {
-                        hiddenTop = ev.getY() + 0.5f;
-                        onceTouch = false;
-                    }
-                    diffY = (int) (hiddenTop - ev.getY() + 0.5f);
-                    // 当前显示的位置是最后一个并且是向上滑动 为上拉 加载
-                    // Log.d(TAG, "mCurrentDragUpState"+mCurrentDragUpState);
-                    // 给底布局设置paddingBottom
-                    int hiddenHeight = (int) (mFooterLayoutHeight - diffY + 0.5f);
-                    mFooterLayout.setPadding(0, 0, 0, -hiddenHeight);
+                    if(getmPageSize() != -1 && getmPageSize() > getAdapter().getCount()){
 
-                    if (hiddenHeight > 0 && mCurrentDragUpState == STATE_DRAG_UP_RELEASE_REFRESH) {
-                        // 更新状态
-                        mCurrentDragUpState = STATE_DRAG_UP_REFRESH;
-                        refreshUIByState(mCurrentDragUpState);// UI 更新
-                        Log.d(TAG, "上拉加载更多...");
-                    } else if (hiddenHeight <= 0 && mCurrentDragUpState == STATE_DRAG_UP_REFRESH) {
-                        // 更新状态
-                        mCurrentDragUpState = STATE_DRAG_UP_RELEASE_REFRESH;
-                        refreshUIByState(mCurrentDragUpState);// UI 更新
-                        Log.d(TAG, "松开加载更多...");
+                    }else{
+                        if (onceTouch) {
+                            hiddenTop = ev.getY() + 0.5f;
+                            onceTouch = false;
+                        }
+                        diffY = (int) (hiddenTop - ev.getY() + 0.5f);
+                        // 当前显示的位置是最后一个并且是向上滑动 为上拉 加载
+                        // Log.d(TAG, "mCurrentDragUpState"+mCurrentDragUpState);
+                        // 给底布局设置paddingBottom
+                        int hiddenHeight = (int) (mFooterLayoutHeight - diffY + 0.5f);
+                        mFooterLayout.setPadding(0, 0, 0, -hiddenHeight);
+
+                        if (hiddenHeight > 0 && mCurrentDragUpState == STATE_DRAG_UP_RELEASE_REFRESH) {
+                            // 更新状态
+                            mCurrentDragUpState = STATE_DRAG_UP_REFRESH;
+                            refreshUIByState(mCurrentDragUpState);// UI 更新
+                            Log.d(TAG, "上拉加载更多...");
+                        } else if (hiddenHeight <= 0 && mCurrentDragUpState == STATE_DRAG_UP_REFRESH) {
+                            // 更新状态
+                            mCurrentDragUpState = STATE_DRAG_UP_RELEASE_REFRESH;
+                            refreshUIByState(mCurrentDragUpState);// UI 更新
+                            Log.d(TAG, "松开加载更多...");
+                        }
                     }
+
                     // 需要自己响应touch 不能返回true
                     // return true;
                 }
