@@ -146,6 +146,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             mUserSex.setValue("女");
         }else if(CacheUtil.getInstance().getSex().equals("1")){
             mUserSex.setValue("男");
+        }else{
+            mUserSex.setValue("设置");
         }
         mRealName.setValue(CacheUtil.getInstance().getUserName());
         mEmail.setValue(email);
@@ -210,7 +212,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
                                 mUserIcon.setImageURI(Uri.parse(imgurl));
                                 if(userInfoVo.getSex() == -1){
-                                    mUserSex.setValue("");
+                                    mUserSex.setValue("设置");
                                 }else if(userInfoVo.getSex() == 0){
                                     mUserSex.setValue("女");
                                 }else if(userInfoVo.getSex() == 1){
@@ -396,8 +398,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         if(sexValue.equals("0")){
             boyBtn.setTextColor(Color.parseColor("#454546"));
             girlBtn.setTextColor(Color.parseColor("#ffc56e"));
-        }else{
+        }else if(sexValue.equals("1")){
             boyBtn.setTextColor(Color.parseColor("#ffc56e"));
+            girlBtn.setTextColor(Color.parseColor("#454546"));
+        }else{
+            boyBtn.setTextColor(Color.parseColor("#454546"));
             girlBtn.setTextColor(Color.parseColor("#454546"));
         }
     }
