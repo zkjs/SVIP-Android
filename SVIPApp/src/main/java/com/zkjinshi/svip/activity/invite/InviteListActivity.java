@@ -128,10 +128,10 @@ public class InviteListActivity extends BaseActivity {
      * 获取活动列表
      */
     private void getActivityList(String actid){
-        if(true){
-            test();
-            return;
-        }
+//        if(true){
+//            test();
+//            return;
+//        }
         try {
             AsyncHttpClient client = new AsyncHttpClient();
             client.setTimeout(Constants.OVERTIMEOUT);
