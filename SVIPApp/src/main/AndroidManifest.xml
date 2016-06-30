@@ -231,6 +231,24 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
 
+        <!--邀请活动-->
+        <activity
+            android:name=".activity.invite.InviteCreateActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity android:name=".activity.invite.InvitationMsgActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+        </activity>
+
+        <activity
+            android:name=".activity.invite.InviteListActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <!-- Ping++ SDK 注册 -->
         <activity
             android:name="com.pingplusplus.android.PaymentActivity"

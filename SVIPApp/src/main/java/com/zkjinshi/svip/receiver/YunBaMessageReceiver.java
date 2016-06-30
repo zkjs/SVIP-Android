@@ -17,9 +17,11 @@ import com.zkjinshi.svip.activity.common.MainActivity;
 import com.zkjinshi.svip.activity.facepay.PayActivity;
 import com.zkjinshi.svip.notification.NotificationHelper;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
+import com.zkjinshi.svip.sqlite.InvitationMsgDBUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.CallReadyVo;
+import com.zkjinshi.svip.vo.InvitationVo;
 import com.zkjinshi.svip.vo.OtherShopVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -88,6 +90,31 @@ public class YunBaMessageReceiver extends BroadcastReceiver {
                         iBeaconIntent.setAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
                         iBeaconIntent.putExtra("data",yunBaMsgVo);
                         context.sendBroadcast(iBeaconIntent);
+                    }
+                }else if("ACT_INVITATION".equals(type) || "ACT_IVT_UPDATE".equals(type)){//活动新增或更新
+                    InvitationVo invitationVo = new Gson().fromJson(data,InvitationVo.class);
+                    InvitationMsgDBUtil.getInstance().insertInvitationMsg(invitationVo);
+                    if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
+                        if(null != invitationVo){
+                            NotificationHelper.getInstance().showInvitationNotification(context,invitationVo,false);
+                        }
+                    }else {
+                        Intent invitationIntent = new Intent();
+                        invitationIntent.setAction(Constants.ACTIVITY_INVITATION_ACTION);
+                        invitationIntent.putExtra("data",invitationVo);
+                        context.sendBroadcast(invitationIntent);
+                    }
+                }else if("ACT_IVT_CANCELLED".equals(type)){//活动取消
+                    InvitationVo invitationVo = new Gson().fromJson(data,InvitationVo.class);
+                    if(ActivityManagerHelper.isRunningBackground(context) || CacheUtil.getInstance().isScreenOff()){
+                        if(null != invitationVo){
+                            NotificationHelper.getInstance().showInvitationNotification(context,invitationVo,true);
+                        }
+                    }else {
+                        Intent invitationIntent = new Intent();
+                        invitationIntent.setAction(Constants.ACTIVITY_INVITATION_CANCELLED_ACTION);
+                        invitationIntent.putExtra("data",invitationVo);
+                        context.sendBroadcast(invitationIntent);
                     }
                 }else if("CALL_READY".equals(type)){
                     CallReadyVo callReadyVo = new Gson().fromJson(data,CallReadyVo.class);

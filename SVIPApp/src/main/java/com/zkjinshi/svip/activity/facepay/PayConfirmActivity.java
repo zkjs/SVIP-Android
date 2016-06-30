@@ -17,10 +17,12 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 import com.zkjinshi.svip.activity.common.BeaconMsgActivity;
+import com.zkjinshi.svip.activity.invite.InvitationMsgActivity;
 import com.zkjinshi.svip.adapter.PayConfirmAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 import com.zkjinshi.svip.listener.OnRefreshListener;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
+import com.zkjinshi.svip.sqlite.InvitationMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -29,6 +31,7 @@ import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.utils.qclCopy.BlurBehind;
 import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 import com.zkjinshi.svip.view.RefreshListView;
+import com.zkjinshi.svip.vo.InvitationVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.PayRecordVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
@@ -107,12 +110,17 @@ public class PayConfirmActivity extends BaseActivity {
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
                 int realPostion = position - 1;
                 final PayRecordDataVo payRecordDataVo = (PayRecordDataVo)mPayRecordAdapter.getItem(realPostion);
-                if(payRecordDataVo.getYunBaMsgVo() == null){
-                    Intent intent = new Intent(mContext, PayActivity.class);
-                    intent.putExtra("amountStatusVo",payRecordDataVo);
-                    startActivity(intent);
-                }else{
-
+                if(payRecordDataVo.getInvitationVo() != null){
+                    BlurBehind.getInstance().execute(PayConfirmActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,InvitationMsgActivity.class);
+                            bIntent.putExtra("data",payRecordDataVo.getInvitationVo());
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                        }
+                    });
+                }else if(payRecordDataVo.getYunBaMsgVo() != null){
                     BlurBehind.getInstance().execute(PayConfirmActivity.this, new OnBlurCompleteListener() {
                         @Override
                         public void onBlurComplete() {
@@ -120,9 +128,12 @@ public class PayConfirmActivity extends BaseActivity {
                             bIntent.putExtra("data",payRecordDataVo.getYunBaMsgVo());
                             bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(bIntent);
-                            //overridePendingTransition(R.anim.anim_small_big, R.anim.anim_big_small);
                         }
                     });
+                }else{
+                    Intent intent = new Intent(mContext, PayActivity.class);
+                    intent.putExtra("amountStatusVo",payRecordDataVo);
+                    startActivity(intent);
                 }
 
             }
@@ -217,6 +228,7 @@ public class PayConfirmActivity extends BaseActivity {
             if(mCurrentPage != 0 && mPayRecordAdapter.isAppendBeaconMsg()){
                 return payRecordDataList;
             }
+
             ArrayList<YunBaMsgVo> msgs = BeaconMsgDBUtil.getInstance().queryBeaconMsg();
            if(msgs != null && msgs.size() > 0){
                for (YunBaMsgVo msg : msgs){
@@ -225,6 +237,15 @@ public class PayConfirmActivity extends BaseActivity {
                    payRecordDataList.add(itemVo);
                }
            }
+
+            ArrayList<InvitationVo> invitationMsgs = InvitationMsgDBUtil.getInstance().queryInvitationMsg();
+            if(invitationMsgs != null && invitationMsgs.size() > 0){
+                for (InvitationVo imsg : invitationMsgs){
+                    PayRecordDataVo itemVo = new PayRecordDataVo();
+                    itemVo.setInvitationVo(imsg);
+                    payRecordDataList.add(itemVo);
+                }
+            }
         }
         return payRecordDataList;
     }

@@ -126,4 +126,6 @@
     <color name="light_transparent">#cc000000</color>
     <color name="simple_black">#202222</color>
 
+    <drawable name="draw_holo_blue">#FF33E5B5</drawable>
+
 </resources>

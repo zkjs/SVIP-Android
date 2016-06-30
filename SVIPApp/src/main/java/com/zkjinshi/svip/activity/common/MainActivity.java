@@ -54,6 +54,9 @@ import com.zkjinshi.svip.activity.call.CallSelectShopActivity;
 import com.zkjinshi.svip.activity.facepay.PayConfirmActivity;
 
 import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
+import com.zkjinshi.svip.activity.invite.InvitationMsgActivity;
+import com.zkjinshi.svip.activity.invite.InviteCreateActivity;
+import com.zkjinshi.svip.activity.invite.InviteListActivity;
 import com.zkjinshi.svip.base.BaseFragmentActivity;
 import com.zkjinshi.svip.blueTooth.BlueToothManager;
 
@@ -65,6 +68,7 @@ import com.zkjinshi.svip.map.LocationManager;
 
 import com.zkjinshi.svip.receiver.ScreenObserverReceiver;
 import com.zkjinshi.svip.sqlite.BeaconMsgDBUtil;
+import com.zkjinshi.svip.sqlite.InvitationMsgDBUtil;
 import com.zkjinshi.svip.utils.AsyncHttpClientUtil;
 import com.zkjinshi.svip.utils.CacheUtil;
 import com.zkjinshi.svip.utils.Constants;
@@ -85,6 +89,7 @@ import com.zkjinshi.svip.utils.qclCopy.OnBlurCompleteListener;
 
 import com.zkjinshi.svip.view.MultiDirectionSlidingDrawer;
 import com.zkjinshi.svip.vo.CallReadyVo;
+import com.zkjinshi.svip.vo.InvitationVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
 import java.util.ArrayList;
@@ -112,8 +117,10 @@ public class MainActivity extends BaseFragmentActivity {
 
     private ShopFragment shopFragment;
     public static int BEACON_MSG_DELAY_TIME = 500;
+    public static int INVITATION_MSG_DELAY_TIME = 500;
     public static final int CLEAR_CLICK_COUNT_ORDER = 1;
     public static final int SHOW_BEACON_MSG_ORDER = 2;
+    public static final int SHOW_INVITATION_MSG_ORDER = 3;
     public  Handler myHandler = new Handler(){
         public void handleMessage(Message msg) {
             if(msg.what == SHOW_BEACON_MSG_ORDER){
@@ -143,6 +150,31 @@ public class MainActivity extends BaseFragmentActivity {
                 }
             }else  if(msg.what == CLEAR_CLICK_COUNT_ORDER){
                 clickCount = 0;
+            }else if(msg.what == SHOW_INVITATION_MSG_ORDER){
+                final InvitationVo msgVo = InvitationMsgDBUtil.getInstance().popUnReadInvitationMsg();
+                if(msgVo != null){
+                    BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,InvitationMsgActivity.class);
+                            bIntent.putExtra("data",msgVo);
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                        }
+                    });
+                }else if(SplashActivity.invitationMsg != null){
+                    BlurBehind.getInstance().execute(MainActivity.this, new OnBlurCompleteListener() {
+                        @Override
+                        public void onBlurComplete() {
+                            Intent bIntent = new Intent(mContext,InvitationMsgActivity.class);
+                            bIntent.putExtra("data",SplashActivity.invitationMsg);
+                            bIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(bIntent);
+                            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                        }
+                    });
+                }
             }
         }
     };
@@ -174,9 +206,32 @@ public class MainActivity extends BaseFragmentActivity {
                 evalIntent.putExtra("callReadyVo",callReadyVo);
                 startActivity(evalIntent);
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }else if(Constants.ACTIVITY_INVITATION_ACTION.equals(intent.getAction())){
+                myHandler.removeMessages(SHOW_INVITATION_MSG_ORDER);
+                myHandler.sendEmptyMessageDelayed(SHOW_INVITATION_MSG_ORDER,500);
+            }else if(Constants.ACTIVITY_INVITATION_CANCELLED_ACTION.equals(intent.getAction())){
+                InvitationVo invitationVo = (InvitationVo)intent.getSerializableExtra("data");
+                showInvitationMsg(invitationVo);
             }
 
         }
+    }
+
+    /**
+     * 显示活动取消对话框
+     * @param invitationVo
+     */
+    private void showInvitationMsg(InvitationVo invitationVo) {
+        CustomDialog.Builder customBuilder = new CustomDialog.Builder(mContext);
+        customBuilder.setMessage(invitationVo.getAlert());
+        customBuilder.setGravity(Gravity.CENTER);
+        customBuilder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        customBuilder.create().show();
     }
 
     @Override
@@ -215,7 +270,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 
         myHandler.sendEmptyMessageDelayed(SHOW_BEACON_MSG_ORDER,BEACON_MSG_DELAY_TIME);
-
+        myHandler.sendEmptyMessageDelayed(SHOW_INVITATION_MSG_ORDER,INVITATION_MSG_DELAY_TIME);
     }
 
     public void onDestroy(){
@@ -233,6 +288,7 @@ public class MainActivity extends BaseFragmentActivity {
             unregisterReceiver(mShowIBeaconPushMsgReceiver);
         }
         BEACON_MSG_DELAY_TIME = 500;
+        INVITATION_MSG_DELAY_TIME = 500;
 
     }
 
@@ -292,6 +348,8 @@ public class MainActivity extends BaseFragmentActivity {
         filter2.addAction(Constants.SHOW_IBEACON_PUSH_MSG_RECEIVER_ACTION);
         filter2.addAction(Constants.CALL_READY_ACTION);
         filter2.addAction(Constants.CALL_DONE_ACTION);
+        filter2.addAction(Constants.ACTIVITY_INVITATION_ACTION);
+        filter2.addAction(Constants.ACTIVITY_INVITATION_CANCELLED_ACTION);
         registerReceiver(mShowIBeaconPushMsgReceiver, filter2);
 
         if(CacheUtil.getInstance().isServiceSwitch()){
@@ -402,7 +460,10 @@ public class MainActivity extends BaseFragmentActivity {
         findViewById(R.id.xincheng_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(mContext,InviteListActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                mDrawer.animateClose();
             }
         });
 

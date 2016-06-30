@@ -1,0 +1,22 @@
+{
+    "res": 0,
+    "resDesc": "success",
+    "data": [
+		{
+        "actname": "齐白石画展",
+		"shopname": "君子汇",
+        "actid": "1",
+		"actstatus": "已确认",
+        "startdate":"2006-07-06 09:00",
+        "enddate":"2006-07-06 12:00"
+        },
+		{
+        "actname": "小芳画展",
+		"shopname": "中科金石",
+        "actid": "2",
+		"actstatus": "已取消",
+        "startdate":"2006-07-06 09:00",
+        "enddate":"2006-07-07 12:00"
+        }
+    ]
+}

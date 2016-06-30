@@ -18,6 +18,7 @@ public class PayRecordDataVo implements Serializable {
     private String confirmtime;
     private boolean isShow = false;
     private YunBaMsgVo yunBaMsgVo = null;
+    private InvitationVo invitationVo = null;
 
     public YunBaMsgVo getYunBaMsgVo() {
         return yunBaMsgVo;
@@ -105,5 +106,13 @@ public class PayRecordDataVo implements Serializable {
 
     public void setConfirmtime(String confirmtime) {
         this.confirmtime = confirmtime;
+    }
+
+    public InvitationVo getInvitationVo() {
+        return invitationVo;
+    }
+
+    public void setInvitationVo(InvitationVo invitationVo) {
+        this.invitationVo = invitationVo;
     }
 }

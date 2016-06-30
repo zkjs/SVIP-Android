@@ -15,6 +15,7 @@ import com.zkjinshi.svip.R;
 
 import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
+import com.zkjinshi.svip.vo.InvitationVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
@@ -96,13 +97,18 @@ public class PayConfirmAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
 
-        if(itemOrder.getYunBaMsgVo() == null){
-            holder.hotelNameTv.setText(itemOrder.getShopname());
-            holder.datetimeTv.setText(itemOrder.getCreatetime());
-            holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
-            holder.sdvImg.setVisibility(View.GONE);
-            holder.priceTv.setVisibility(View.VISIBLE);
-        }else{
+        if(itemOrder.getInvitationVo() != null){
+            InvitationVo invitationVo = itemOrder.getInvitationVo();
+            holder.hotelNameTv.setText(invitationVo.getActname());
+            Date date = new Date(invitationVo.getInsert_time());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String dateStr = sdf.format(date);
+            holder.datetimeTv.setText(dateStr);
+            String imgUrl = ProtocolUtil.getHostImgUrl(invitationVo.getActimage());
+            holder.sdvImg.setImageURI(Uri.parse(imgUrl));
+            holder.sdvImg.setVisibility(View.VISIBLE);
+            holder.priceTv.setVisibility(View.GONE);
+        }else if(itemOrder.getYunBaMsgVo() != null){
             YunBaMsgVo yunBaMsgVo = itemOrder.getYunBaMsgVo();
             holder.hotelNameTv.setText(yunBaMsgVo.getTitle());
             Date date = new Date(yunBaMsgVo.getInsert_time());
@@ -113,6 +119,12 @@ public class PayConfirmAdapter extends BaseAdapter {
             holder.sdvImg.setImageURI(Uri.parse(imgUrl));
             holder.sdvImg.setVisibility(View.VISIBLE);
             holder.priceTv.setVisibility(View.GONE);
+        }else{
+            holder.hotelNameTv.setText(itemOrder.getShopname());
+            holder.datetimeTv.setText(itemOrder.getCreatetime());
+            holder.priceTv.setText("¥ "+ PayUtil.changeMoney(itemOrder.getAmount()));
+            holder.sdvImg.setVisibility(View.GONE);
+            holder.priceTv.setVisibility(View.VISIBLE);
         }
         return convertView;
     }

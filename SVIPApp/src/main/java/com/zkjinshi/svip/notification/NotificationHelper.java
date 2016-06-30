@@ -20,6 +20,7 @@ import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.receiver.NotificationClickReceiver;
 import com.zkjinshi.svip.utils.Constants;
 import com.zkjinshi.svip.vo.CallReadyVo;
+import com.zkjinshi.svip.vo.InvitationVo;
 import com.zkjinshi.svip.vo.PayRecordDataVo;
 import com.zkjinshi.svip.vo.YunBaMsgVo;
 
@@ -136,6 +137,31 @@ public class NotificationHelper {
 
         Intent realIntent = new Intent();
         realIntent.setClass(context, SplashActivity.class);
+        realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        // 3.设置通知栏其他属性
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(++NOTIFY_ID, notificationBuilder.build());
+    }
+
+    public void showInvitationNotification(final Context context, final InvitationVo invitationVo,boolean isCancel){
+        NotificationCompat.Builder notificationBuilder = null;
+        // 1.设置显示信息
+        notificationBuilder = new NotificationCompat.Builder(context);
+        String title = invitationVo.getAlert();
+        notificationBuilder.setContentText(title);
+        notificationBuilder.setContentTitle("超级身份");
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+
+        Intent realIntent = new Intent();
+        realIntent.setClass(context, SplashActivity.class);
+        if(!isCancel){
+            realIntent.putExtra("invitation_msg",invitationVo);
+        }
         realIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, realIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);

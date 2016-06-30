@@ -257,4 +257,20 @@ public class ProtocolUtil {
         return ConfigUtil.getInst().getForDomain()+"res/v1/call/service/task";
     }
 
+    /**
+     * 获取活动列表
+     * @return
+     */
+    public static String getActivityList(String actid){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/activity/detail?actid="+actid;
+    }
+
+    /**
+     * 修改活动状态
+     * @return
+     */
+    public static String updateActivityStatus(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/activity/confirm";
+    }
+
 }

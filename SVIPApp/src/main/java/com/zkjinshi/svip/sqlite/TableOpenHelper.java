@@ -187,6 +187,23 @@ public class TableOpenHelper {
                     + " button_url text, "
                     + " has_look integer "
                     + " )";
+    //活动邀请表
+    public static String INVITATION_MSG_TBL_SQL =
+            "create table if not exists "
+                    + DBOpenHelper.INVITATION_MSG_TBL
+                    + "("
+                    + " actid text primary key  , "
+                    + " alert text , "
+                    + " actname text , "
+                    + " actcontent text , "
+                    + " acturl text , "
+                    + " actimage text , "
+                    + " startdate text , "
+                    + " enddate text , "
+                    + " insert_time long , "//时间戳
+                    + " maxtake integer, "
+                    + " has_look integer "
+                    + " )";
 
 
 
@@ -204,7 +221,8 @@ public class TableOpenHelper {
             DBOpenHelper.CITY_TBL,//城市名列表
             DBOpenHelper.BLE_LOG_TBL,//蓝牙定位日志表
             DBOpenHelper.BLE_STAT_TBL,//蓝牙定位统计表
-            DBOpenHelper.BEACON_MSG_TBL//营销推送表
+            DBOpenHelper.BEACON_MSG_TBL,//营销推送表
+            DBOpenHelper.INVITATION_MSG_TBL//活动邀请推送表
         };
     }
 }

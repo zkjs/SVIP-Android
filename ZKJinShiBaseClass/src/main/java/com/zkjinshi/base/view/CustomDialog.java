@@ -35,7 +35,7 @@ public class CustomDialog extends Dialog {
 	public static class Builder {
 
 		private Context context;
-		private String title;
+		private String title="";
 		private String message;
 		private Uri imagePath;
 		private int gravity = -1;
@@ -123,7 +123,13 @@ public class CustomDialog extends Dialog {
 			View layout = inflater.inflate(R.layout.custom_dialog, null);
 			dialog.addContentView(layout, new LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			((TextView) layout.findViewById(R.id.dialogTitle)).setText(title);
+			TextView titleTv = (TextView) layout.findViewById(R.id.dialogTitle);
+			if("".equals(title)){
+				titleTv.setVisibility(View.GONE);
+			}else{
+				titleTv.setVisibility(View.VISIBLE);
+				titleTv.setText(title);
+			}
 			if (positiveButtonText != null) {
 				((TextView) layout.findViewById(R.id.dialogRightBtn))
 						.setText(positiveButtonText);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F0F2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/head_bar_layout"
+        layout="@layout/layout_header"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <com.zkjinshi.svip.view.slidelistview.SlideListView
+        xmlns:slide="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slv_invite_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:cacheColorHint="#000000"
+        android:divider="#e3e3e3"
+        android:dividerHeight="1.0dp"
+        android:fadingEdge="none"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:visibility="visible"
+        slide:slideAnimationTime="200"
+        slide:slideLeftAction="scroll"
+        slide:slideMode="right"
+        slide:slideRightAction="scroll"/>
+
+</LinearLayout>
