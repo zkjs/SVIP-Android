@@ -105,12 +105,14 @@ public class BlueToothManager {
         @Override
         public void intoRegion(IBeaconVo iBeaconVo) {
             LogUtil.getInstance().info(LogLevel.DEBUG,"进入："+iBeaconVo.getMajor());
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("iBeaconVo",iBeaconVo);
-            Message msg = new Message();
-            msg.what = BEACON_NOTICE;
-            msg.setData(bundle);
-            handler.sendMessage(msg);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("iBeaconVo",iBeaconVo);
+//            Message msg = new Message();
+//            msg.what = BEACON_NOTICE;
+//            msg.setData(bundle);
+//            handler.sendMessage(msg);
+            BeaconsPushManager.getInstance().setPushable(true);
+            BeaconsPushManager.getInstance().add(iBeaconVo);
         }
 
         @Override
@@ -123,11 +125,7 @@ public class BlueToothManager {
         }
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
-            //Log.d(TAG,"扫描到："+iBeaconVo.getName()+" 距离："+iBeaconVo.getDistance());
-            //LogUtil.getInstance().info(LogLevel.RECORD,"扫描到："+iBeaconVo.getName()+" 距离："+iBeaconVo.getDistance());
-//            if(iBeaconVo.getMajor() == 1000){
-//                LogUtil.getInstance().info(LogLevel.DEBUG,"距离："+iBeaconVo.getDistance());
-//            }
+            BeaconsPushManager.getInstance().add(iBeaconVo);
         }
 
         public void exitRegion(Region region){
@@ -305,6 +303,7 @@ public class BlueToothManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {// 大于等于android 4.4
             IBeaconController.getInstance().init(context,3000L,3);
             IBeaconService.mIBeaconObserver = mIBeaconObserver;
+            BeaconsPushManager.getInstance().init(context);
         }
     }
 

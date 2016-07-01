@@ -192,41 +192,52 @@ public class IBeaconService extends Service implements BeaconConsumer {
         //Log.i(TAG, "I scan "+ibeacon.toString());
         if(!IBeaconContext.getInstance().getiBeaconMap().containsKey(ibeacon.getBeaconKey())){
 
-            if(IBeaconContext.getInstance().getExtInfoMap().containsKey(ibeacon.getBeaconKey())){
-                BeaconExtInfo beaconExtInfo =  IBeaconContext.getInstance().getExtInfoMap().get(ibeacon.getBeaconKey());
-                long curentTime = System.currentTimeMillis();
-                long timeOffset = curentTime - beaconExtInfo.getSendTimestamp();
+            //添加发送时间等信息
+            BeaconExtInfo beaconExtInfo = new BeaconExtInfo();
+            beaconExtInfo.setKey(ibeacon.getBeaconKey());
+            beaconExtInfo.setSendTimestamp(System.currentTimeMillis());
+            // 更新beacon信息
+            IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+            // 更新beacon 额外信息
+            IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
+            IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+            monitoringBeacon(ibeacon);
 
-                if(beaconExtInfo.getSendTimestamp() == -1){//上次发送失败，重发
-                    beaconExtInfo.setSendTimestamp(curentTime);
-                    // 更新beacon信息
-                    IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-                    // 更新beacon 额外信息
-                    IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
-                    //通知观察者
-                    IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-                }else if(timeOffset >= SEND_MIN_PEROID_TIEM){ //至少要间隔的发送时间
-                    beaconExtInfo.setSendTimestamp(curentTime);
-                    // 更新beacon信息
-                    IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-                    // 更新beacon 额外信息
-                    IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
-                    IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-                    monitoringBeacon(ibeacon);
-                }
-
-            }else{
-                //添加发送时间等信息
-                BeaconExtInfo beaconExtInfo = new BeaconExtInfo();
-                beaconExtInfo.setKey(ibeacon.getBeaconKey());
-                beaconExtInfo.setSendTimestamp(System.currentTimeMillis());
-                // 更新beacon信息
-                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
-                // 更新beacon 额外信息
-                IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
-                IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
-                monitoringBeacon(ibeacon);
-            }
+//            if(IBeaconContext.getInstance().getExtInfoMap().containsKey(ibeacon.getBeaconKey())){
+//                BeaconExtInfo beaconExtInfo =  IBeaconContext.getInstance().getExtInfoMap().get(ibeacon.getBeaconKey());
+//                long curentTime = System.currentTimeMillis();
+//                long timeOffset = curentTime - beaconExtInfo.getSendTimestamp();
+//
+//                if(beaconExtInfo.getSendTimestamp() == -1){//上次发送失败，重发
+//                    beaconExtInfo.setSendTimestamp(curentTime);
+//                    // 更新beacon信息
+//                    IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+//                    // 更新beacon 额外信息
+//                    IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
+//                    //通知观察者
+//                    IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+//                }else if(timeOffset >= SEND_MIN_PEROID_TIEM){ //至少要间隔的发送时间
+//                    beaconExtInfo.setSendTimestamp(curentTime);
+//                    // 更新beacon信息
+//                    IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+//                    // 更新beacon 额外信息
+//                    IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
+//                    IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+//                    monitoringBeacon(ibeacon);
+//                }
+//
+//            }else{
+//                //添加发送时间等信息
+//                BeaconExtInfo beaconExtInfo = new BeaconExtInfo();
+//                beaconExtInfo.setKey(ibeacon.getBeaconKey());
+//                beaconExtInfo.setSendTimestamp(System.currentTimeMillis());
+//                // 更新beacon信息
+//                IBeaconContext.getInstance().getiBeaconMap().put(ibeacon.getBeaconKey(),ibeacon);
+//                // 更新beacon 额外信息
+//                IBeaconContext.getInstance().getExtInfoMap().put(ibeacon.getBeaconKey(),beaconExtInfo);
+//                IBeaconSubject.getInstance().notifyObserversInto(ibeacon);
+//                monitoringBeacon(ibeacon);
+//            }
 
 
         }else{
