@@ -2,6 +2,7 @@ package com.zkjinshi.svip.activity.common;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.zkjinshi.base.util.DialogUtil;
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.activity.facepay.PayRecordActivity;
 import com.zkjinshi.svip.adapter.MyShopAdapter;
 import com.zkjinshi.svip.base.BaseActivity;
 
@@ -72,14 +74,8 @@ public class MyShopActivity extends BaseActivity {
 
     private void initData() {
         ArrayList<MyShopVo> dataList = new ArrayList<MyShopVo>();
-//        for(int i=0;i<10;i++){
-//            MyShopVo myShopVo = new MyShopVo();
-//            myShopVo.setShopid(""+i);
-//            myShopVo.setShoplogo("test");
-//            myShopVo.setShopname("温德姆至尊豪廷大酒店");
-//            dataList.add(myShopVo);
-//        }
         mMyShopAdapter = new MyShopAdapter(dataList, MyShopActivity.this);
+        mRefreshListView.setmPageSize(mPageSize);
         mRefreshListView.setAdapter(mMyShopAdapter);
         mRefreshListView.setEmptyView(emptyTv);
         titleTv.setText("我的商家");
@@ -114,7 +110,12 @@ public class MyShopActivity extends BaseActivity {
 
             @Override
             public void implOnItemClickListener(AdapterView<?> parent, View view, int position, long id) {
-
+                int realindex = position -1;
+                MyShopVo itemData = (MyShopVo)mMyShopAdapter.getItem(realindex);
+                Intent intent = new Intent(mContext,PayRecordActivity.class);
+                intent.putExtra("status","2");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

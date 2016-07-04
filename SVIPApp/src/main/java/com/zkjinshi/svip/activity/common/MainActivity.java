@@ -425,8 +425,7 @@ public class MainActivity extends BaseFragmentActivity {
         findViewById(R.id.wallet_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,PayRecordActivity.class);
-                intent.putExtra("status","2");
+                Intent intent = new Intent(mContext,MyShopActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 mDrawer.animateClose();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zkjinshi.svip.R;
 
+import com.zkjinshi.svip.utils.PayUtil;
 import com.zkjinshi.svip.utils.ProtocolUtil;
 import com.zkjinshi.svip.vo.MyShopVo;
 
@@ -68,22 +69,24 @@ public class MyShopAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }else {
             holder = new ViewHolder();
-            convertView = View.inflate(activity, R.layout.item_my_shop, null);
-            holder.hotelNameTv = (TextView)convertView.findViewById(R.id.shopname_tv);
-            holder.sdvImg = (SimpleDraweeView)convertView.findViewById(R.id.civ_shop_logo);
+            convertView = View.inflate(activity, R.layout.item_card, null);
+            holder.hotelNameTv = (TextView)convertView.findViewById(R.id.shop_tv);
+            holder.telTv = (TextView)convertView.findViewById(R.id.tel_tv);
+            holder.account = (TextView)convertView.findViewById(R.id.account_tv);
             convertView.setTag(holder);
         }
 
         if(itemOrder != null){
             holder.hotelNameTv.setText(itemOrder.getShopname());
-            String logoUrl = ProtocolUtil.getHostImgUrl(itemOrder.getShoplogo());
-            holder.sdvImg.setImageURI(Uri.parse(logoUrl));
+            holder.telTv.setText("0755-110");
+            holder.account.setText("￥"+PayUtil.changeMoney(10));
         }
         return convertView;
     }
 
     static class ViewHolder{
         TextView hotelNameTv;
-        SimpleDraweeView sdvImg;
+        TextView telTv;
+        TextView account;
     }
 }

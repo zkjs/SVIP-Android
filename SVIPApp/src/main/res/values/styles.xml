@@ -115,13 +115,10 @@
     </style>
 
     <style name="draw_content_llt">
-        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_marginTop">10dp</item>
+       <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
     </style>
 

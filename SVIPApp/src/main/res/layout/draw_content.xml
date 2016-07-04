@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@id/avatar_sdv">
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 style="@style/draw_content_ibtn"/>
             <TextView
                 style="@style/draw_content_font"
-                android:text="支付记录"/>
+                android:text="会员卡"/>
         </LinearLayout>
         <LinearLayout
             style="@style/draw_content_llt"
@@ -47,16 +47,6 @@
                 style="@style/draw_content_font"
                 android:text="呼叫中心"/>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/line1"
-        android:visibility="visible">
 
         <LinearLayout
             style="@style/draw_content_llt"
@@ -69,16 +59,6 @@
                 style="@style/draw_content_font"
                 android:text="我的行程"/>
         </LinearLayout>
-        <LinearLayout
-            style="@style/draw_content_llt"
-            android:id="@+id/yuyue_llt">
-            <ImageButton
-                android:id="@+id/yuyue_btn"
-                android:src="@drawable/btn_book_selector"
-                style="@style/draw_content_ibtn"/>
-            <TextView
-                style="@style/draw_content_font"
-                android:text="预约"/>
-        </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>
