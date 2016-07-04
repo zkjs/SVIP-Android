@@ -106,8 +106,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         mUserSex.setOnClickListener(this);
         mEmail.setOnClickListener(this);
         mRealName.setOnClickListener(this);
-        findViewById(R.id.ius_my_shop).setOnClickListener(this);
-
+        //findViewById(R.id.ius_my_shop).setOnClickListener(this);
+        findViewById(R.id.ius_my_shop).setVisibility(View.GONE);
 
         sendCbx.valueCbx.setOnClickListener(new View.OnClickListener() {
             @Override
