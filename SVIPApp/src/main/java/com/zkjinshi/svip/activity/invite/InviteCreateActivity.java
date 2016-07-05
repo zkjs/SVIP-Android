@@ -28,6 +28,10 @@ import com.zkjinshi.svip.vo.ServiceTagDataSecondVo;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
@@ -83,10 +87,25 @@ public class InviteCreateActivity extends BaseActivity {
         invitationVo = (InvitationVo) getIntent().getSerializableExtra("invitationVo");
         maxPeopleNum = invitationVo.getMaxtake();
         titleTv.setText(invitationVo.getActname());
-        timeTv.setText(invitationVo.getStartdate() + " - "+invitationVo.getEnddate());
+
+        timeTv.setText(formatTime(invitationVo.getStartdate()) + " - "+formatTime(invitationVo.getEnddate()));
 
         peopleTv.setText(maxPeopleNum+"");
 
+    }
+
+    private String formatTime(String dateTimestr){
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date date = sdf1.parse(dateTimestr);
+            dateTimestr = sdf2.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateTimestr;
     }
 
     private void initListener() {
