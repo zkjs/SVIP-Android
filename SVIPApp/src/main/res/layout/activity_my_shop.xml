@@ -21,7 +21,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:text="暂无商家"
+        android:text="暂无数据"
         android:textColor="#666666"
         android:textSize="14sp"
         android:layout_gravity="center_horizontal"
