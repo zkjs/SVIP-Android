@@ -78,8 +78,8 @@ public class MyShopAdapter extends BaseAdapter {
 
         if(itemOrder != null){
             holder.hotelNameTv.setText(itemOrder.getShopname());
-            holder.telTv.setText("0755-110");
-            holder.account.setText("￥"+PayUtil.changeMoney(10));
+            holder.telTv.setText(itemOrder.getAccountno());
+            holder.account.setText("￥"+PayUtil.changeMoney(itemOrder.getBalance()));
         }
         return convertView;
     }

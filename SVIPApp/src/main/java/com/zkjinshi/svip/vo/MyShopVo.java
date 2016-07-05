@@ -11,6 +11,9 @@ public class MyShopVo implements Serializable,Comparable<MyShopVo> {
     private String shopname;
     private String shoplogo;
 
+    private String accountno;
+    private double balance;
+
     private String pinyin;
     private char firstChar;
 
@@ -76,5 +79,19 @@ public class MyShopVo implements Serializable,Comparable<MyShopVo> {
         }
     }
 
+    public String getAccountno() {
+        return accountno;
+    }
 
+    public void setAccountno(String accountno) {
+        this.accountno = accountno;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 }

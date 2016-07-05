@@ -180,6 +180,14 @@ public class ProtocolUtil {
      * 获取收付款列表,含明细
      * @return
      */
+    public static String getPayList(String status,int page,String shopid){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/payment/si?shopid="+shopid+"&status="+status+"&page="+page+"&page_size=10";
+    }
+
+    /**
+     * 获取收付款列表,含明细
+     * @return
+     */
     public static String getPayList(String status,int page){
         return ConfigUtil.getInst().getForDomain()+"res/v1/payment/si?status="+status+"&page="+page+"&page_size=10";
     }
@@ -211,7 +219,7 @@ public class ProtocolUtil {
      * @return
      */
     public static String shopBelong(int page,int pageSize){
-        return ConfigUtil.getInst().getForDomain()+"res/v1/shop/belong/si?page="+page+"&page_size="+pageSize;
+        return ConfigUtil.getInst().getForDomain()+"res/v1/payment/balance/list?page="+page+"&page_size="+pageSize;
     }
 
     /**

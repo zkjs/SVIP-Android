@@ -78,13 +78,14 @@ public class MyShopActivity extends BaseActivity {
         mRefreshListView.setmPageSize(mPageSize);
         mRefreshListView.setAdapter(mMyShopAdapter);
         mRefreshListView.setEmptyView(emptyTv);
-        titleTv.setText("我的商家");
+        titleTv.setText("我的会员卡");
         emptyTv.setVisibility(View.GONE);
+        loadRecord();
     }
 
     public void onResume(){
         super.onResume();
-        loadRecord();
+
     }
 
     private void initListener() {
@@ -105,6 +106,7 @@ public class MyShopActivity extends BaseActivity {
 
             @Override
             public void onLoadingMore() {
+                mCurrentPage = 0;
                 loadRecord();
             }
 
@@ -114,6 +116,7 @@ public class MyShopActivity extends BaseActivity {
                 MyShopVo itemData = (MyShopVo)mMyShopAdapter.getItem(realindex);
                 Intent intent = new Intent(mContext,PayRecordActivity.class);
                 intent.putExtra("status","2");
+                intent.putExtra("shopid",itemData.getShopid());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

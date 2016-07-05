@@ -57,6 +57,7 @@ public class PayRecordActivity extends BaseActivity {
     private String status = "2";
     private TextView emptyTv;
     private View maskView;
+    private String shopid;
 
 
     @Override
@@ -68,6 +69,8 @@ public class PayRecordActivity extends BaseActivity {
         if(!TextUtils.isEmpty(getIntent().getStringExtra("status"))){
             status = getIntent().getStringExtra("status");
         }
+
+        shopid = getIntent().getStringExtra("shopid");
 
         initView();
         initData();
@@ -91,7 +94,7 @@ public class PayRecordActivity extends BaseActivity {
         titleTv.setText("支付记录");
         mRefreshListView.setEmptyView(emptyTv);
         emptyTv.setVisibility(View.GONE);
-        accoutBtn.setVisibility(View.VISIBLE);
+        accoutBtn.setVisibility(View.GONE);
 
     }
 
@@ -236,7 +239,7 @@ public class PayRecordActivity extends BaseActivity {
             client.addHeader("Token", CacheUtil.getInstance().getExtToken());
             JSONObject jsonObject = new JSONObject();
             StringEntity stringEntity = new StringEntity(jsonObject.toString());
-            String url = ProtocolUtil.getPayList(status,page);
+            String url = ProtocolUtil.getPayList(status,page,shopid);
             client.get(mContext, url, stringEntity, "application/json", new AsyncHttpResponseHandler(){
 
                 public void onStart(){
