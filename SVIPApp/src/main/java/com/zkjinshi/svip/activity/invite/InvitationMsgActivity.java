@@ -113,8 +113,8 @@ public class InvitationMsgActivity extends BaseActivity{
                 }
             }
             final String buttonUrl = invitationVo.getActurl();
+            openLayout.setVisibility(View.VISIBLE);
             if(!TextUtils.isEmpty(buttonUrl)){
-                openLayout.setVisibility(View.VISIBLE);
                 openTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,8 +123,6 @@ public class InvitationMsgActivity extends BaseActivity{
                         startActivity(intent);
                     }
                 });
-            }else {
-                openLayout.setVisibility(View.GONE);
             }
         }
         BlurBehind.getInstance()
