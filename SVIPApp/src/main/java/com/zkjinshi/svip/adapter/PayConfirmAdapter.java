@@ -61,6 +61,9 @@ public class PayConfirmAdapter extends BaseAdapter {
             if(lastVo.getYunBaMsgVo() != null){
                 return true;
             }
+            if(lastVo.getInvitationVo() != null){
+                return  true;
+            }
         }
         return false;
     }
