@@ -183,7 +183,13 @@ public class CallCenterActivity extends BaseActivity {
                             }else{
                                 Toast.makeText(mContext,"暂无数据",Toast.LENGTH_SHORT).show();
                             }
-                        }else{
+                        }else if(serviceTagVo.getRes() == 30201){//无法确定位置
+                            Intent intent = new Intent(mContext,CallSelectShopActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            finish();
+                        }
+                        else{
                             Toast.makeText(mContext,serviceTagVo.getResDesc(),Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
