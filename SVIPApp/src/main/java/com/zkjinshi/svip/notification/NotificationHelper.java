@@ -81,11 +81,14 @@ public class NotificationHelper {
         // 1.设置显示信息
         notificationBuilder = new NotificationCompat.Builder(context);
         String contactName = amountStatusVo.getShopname();
+        String alert = amountStatusVo.getAlert();
 
         String tipsMsg = null;
 
         tipsMsg = "您有一笔支付信息";
-        if(!TextUtils.isEmpty(contactName)){
+        if(!TextUtils.isEmpty(alert)){
+            notificationBuilder.setContentTitle(alert);
+        } else if(!TextUtils.isEmpty(contactName)){
             notificationBuilder.setContentTitle(contactName);
         }
         notificationBuilder.setContentText(tipsMsg);

@@ -113,6 +113,9 @@ public class BlueToothManager {
 //            handler.sendMessage(msg);
             BeaconsPushManager.getInstance().setPushable(true);
             BeaconsPushManager.getInstance().add(iBeaconVo);
+
+            AutoPayBeaconsManager.getInstance().setPushable(true);
+            AutoPayBeaconsManager.getInstance().add(iBeaconVo);
         }
 
         @Override
@@ -126,6 +129,7 @@ public class BlueToothManager {
 
         public void sacnBeacon(IBeaconVo iBeaconVo){
             BeaconsPushManager.getInstance().add(iBeaconVo);
+            AutoPayBeaconsManager.getInstance().add(iBeaconVo);
         }
 
         public void exitRegion(Region region){
@@ -304,6 +308,7 @@ public class BlueToothManager {
             IBeaconController.getInstance().init(context,3000L,3);
             IBeaconService.mIBeaconObserver = mIBeaconObserver;
             BeaconsPushManager.getInstance().init(context);
+            AutoPayBeaconsManager.getInstance().init(context);
         }
     }
 

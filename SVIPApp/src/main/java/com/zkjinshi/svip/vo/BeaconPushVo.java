@@ -1,6 +1,7 @@
 package com.zkjinshi.svip.vo;
 
 import java.io.Serializable;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,13 @@ public class BeaconPushVo implements Serializable {
     private String major;
     private String minor;
     private String uuid;
-    private ArrayList<BeaconRssiVo> rssis;
+    private ArrayList<BeaconRssiVo> rssis = new ArrayList<>();
+    private BeaconRssiVo lastRssi;
+    private long timestamp;
+
+    public BeaconPushVo() {
+        timestamp = System.currentTimeMillis();
+    }
 
     public String getMajor() {
         return major;
@@ -47,5 +54,17 @@ public class BeaconPushVo implements Serializable {
 
     public void setRssis(ArrayList<BeaconRssiVo> rssis) {
         this.rssis = rssis;
+    }
+
+    public BeaconRssiVo getLastRssi() {return lastRssi;}
+
+    public void setLastRssi(BeaconRssiVo rssi) { this.lastRssi = rssi;}
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

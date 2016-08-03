@@ -82,6 +82,14 @@ public class ProtocolUtil {
     }
 
     /**
+     * 根据beacon位置自动付款
+     * @return
+     */
+    public static String autoPayBeacon(){
+        return ConfigUtil.getInst().getForDomain()+"res/v1/autopay/beacon";
+    }
+
+    /**
      * 推送/更新室外位置
      * @return
      */

@@ -9,6 +9,7 @@ public class PayRecordDataVo implements Serializable {
 
     private String shopid;
     private String shopname;
+    private String alert;
     private String createtime;
     private double amount;
     private String orderno;
@@ -42,6 +43,14 @@ public class PayRecordDataVo implements Serializable {
 
     public void setShopid(String shopid) {
         this.shopid = shopid;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public void setAlert(String alert) {
+        this.alert = alert;
     }
 
     public String getShopname() {
